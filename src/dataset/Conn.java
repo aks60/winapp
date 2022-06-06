@@ -57,7 +57,7 @@ public class Conn {
     public static boolean web() {
         return application == false;
     }
-    
+
     public static void close(Connection connection) throws SQLException {
         if (application == false) {
             connection.close();
@@ -117,7 +117,7 @@ public class Conn {
         }
     }
 
-    //Удаление пользователя
+    //Удаление пользователя   
     public static void deleteUser(String user) {
         try {
             connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RW FROM " + user);
@@ -127,8 +127,16 @@ public class Conn {
             connection.createStatement().executeUpdate("DROP USER " + user);
 
         } catch (SQLException e) {
-            System.err.println("Ошибка:Conn.deleteUser() " +  e);
+            System.err.println("Ошибка:Conn.deleteUser() " + e);
         }
+    }
+
+    public static void deleteUser2(String user) throws SQLException {
+        connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RW FROM " + user);
+        connection.createStatement().executeUpdate("REVOKE MANAGER_RW FROM " + user);
+        connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RO FROM " + user);
+        connection.createStatement().executeUpdate("REVOKE MANAGER_RO FROM " + user);
+        connection.createStatement().executeUpdate("DROP USER " + user);
     }
 
     //Изменение параметров пользователя
@@ -137,7 +145,7 @@ public class Conn {
             String sql = "ALTER USER " + user + " PASSWORD '" + String.valueOf(password) + "'";
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
-            System.err.println("Ошибка:Conn.modifyPassword() " +  e);
+            System.err.println("Ошибка:Conn.modifyPassword() " + e);
         }
     }
 

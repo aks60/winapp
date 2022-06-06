@@ -121,6 +121,15 @@ public class Partner extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan5 = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
+        lab54 = new javax.swing.JLabel();
+        lab55 = new javax.swing.JLabel();
+        txt19 = new javax.swing.JTextField();
+        txt20 = new javax.swing.JTextField();
+        lab56 = new javax.swing.JLabel();
+        txt21 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         tabb1 = new javax.swing.JTabbedPane();
         pan4 = new javax.swing.JPanel();
         lab47 = new javax.swing.JLabel();
@@ -160,13 +169,6 @@ public class Partner extends javax.swing.JFrame {
         txt16 = new javax.swing.JTextField();
         lab52 = new javax.swing.JLabel();
         txt17 = new javax.swing.JTextField();
-        pan2 = new javax.swing.JPanel();
-        lab54 = new javax.swing.JLabel();
-        lab55 = new javax.swing.JLabel();
-        txt19 = new javax.swing.JTextField();
-        txt20 = new javax.swing.JTextField();
-        lab56 = new javax.swing.JLabel();
-        txt21 = new javax.swing.JTextField();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -298,7 +300,7 @@ public class Partner extends javax.swing.JFrame {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 400, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -372,7 +374,91 @@ public class Partner extends javax.swing.JFrame {
 
         center.add(pan1);
 
-        tabb1.setPreferredSize(new java.awt.Dimension(380, 516));
+        pan5.setPreferredSize(new java.awt.Dimension(360, 416));
+        pan5.setLayout(new java.awt.BorderLayout());
+
+        pan2.setPreferredSize(new java.awt.Dimension(332, 120));
+
+        lab54.setFont(frames.UGui.getFont(0,0));
+        lab54.setText("ФИО");
+        lab54.setToolTipText("");
+        lab54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab54.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab54.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab54.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        lab55.setFont(frames.UGui.getFont(0,0));
+        lab55.setText("E-mail");
+        lab55.setToolTipText("");
+        lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab55.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab55.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab55.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt19.setPreferredSize(new java.awt.Dimension(300, 18));
+
+        txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt20.setPreferredSize(new java.awt.Dimension(300, 18));
+
+        lab56.setFont(frames.UGui.getFont(0,0));
+        lab56.setText("Телефон");
+        lab56.setToolTipText("");
+        lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab56.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab56.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab56.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt21.setPreferredSize(new java.awt.Dimension(300, 18));
+
+        jLabel1.setText("<html><font size=\"3\">Менеджер");
+
+        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
+        pan2.setLayout(pan2Layout);
+        pan2Layout.setHorizontalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(lab55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt20, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pan2Layout.setVerticalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        pan5.add(pan2, java.awt.BorderLayout.NORTH);
 
         pan4.setName(""); // NOI18N
 
@@ -441,23 +527,23 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan4Layout.setVerticalGroup(
@@ -483,7 +569,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;\nЧастное лицо\n&nbsp;&nbsp;", pan4);
@@ -643,55 +729,55 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt7, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt7, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt10, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt10, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt11, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt11, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt2, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt2, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt5, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt5, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt6, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt6, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt16, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(txt16, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt17, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)))
+                        .addComponent(txt17, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan3Layout.setVerticalGroup(
@@ -754,88 +840,15 @@ public class Partner extends javax.swing.JFrame {
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;\nОрганизация\n&nbsp;&nbsp;", pan3);
 
-        lab54.setFont(frames.UGui.getFont(0,0));
-        lab54.setText("ФИО");
-        lab54.setToolTipText("");
-        lab54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab54.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab54.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab54.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan5.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        lab55.setFont(frames.UGui.getFont(0,0));
-        lab55.setText("E-mail");
-        lab55.setToolTipText("");
-        lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab55.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab55.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab55.setPreferredSize(new java.awt.Dimension(98, 18));
-
-        txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt19.setPreferredSize(new java.awt.Dimension(300, 18));
-
-        txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt20.setPreferredSize(new java.awt.Dimension(300, 18));
-
-        lab56.setFont(frames.UGui.getFont(0,0));
-        lab56.setText("Телефон");
-        lab56.setToolTipText("");
-        lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab56.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab56.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab56.setPreferredSize(new java.awt.Dimension(98, 18));
-
-        txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt21.setPreferredSize(new java.awt.Dimension(300, 18));
-
-        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
-        pan2.setLayout(pan2Layout);
-        pan2Layout.setHorizontalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan2Layout.createSequentialGroup()
-                        .addComponent(lab55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt20, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                    .addGroup(pan2Layout.createSequentialGroup()
-                        .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                    .addGroup(pan2Layout.createSequentialGroup()
-                        .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        pan2Layout.setVerticalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(413, Short.MAX_VALUE))
-        );
-
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nМенеджер\n&nbsp;&nbsp;&nbsp;", pan2);
-
-        center.add(tabb1);
+        center.add(pan5);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
-        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -863,14 +876,18 @@ public class Partner extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, ePrjpart.up, (prjpartRec) -> {
-                try {
-                    ResultSet rs = Conn.connection().createStatement().executeQuery("SELECT current_user FROM rdb$database");
+                try {                                     
+                    ResultSet rs = Conn.connection().createStatement()
+                            .executeQuery("SELECT current_user FROM rdb$database"); //дёрнем текущего пользователя
                     rs.next();
-                    prjpartRec.setNo(ePrjpart.manager, rs.getString(1));
+                    String login = rs.getString(1).trim();
+                    prjpartRec.setNo(ePrjpart.manager, login);
                     prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
+                    Record record2 = new Query(eSysuser.values()).select(eSysuser.up, "where", eSysuser.login, "= '", login + "'").get(0);
+                    qPrjcontr.table(eSysuser.up).add(record2);
 
                 } catch (Exception e) {
-                    System.err.println("frames.Partner.btnInsert()");
+                    System.err.println("Ошибка:Partner.btnInsert() " + e);
                 }
             });
         }
@@ -914,6 +931,7 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel center;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lab36;
     private javax.swing.JLabel lab37;
     private javax.swing.JLabel lab38;
@@ -940,6 +958,7 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;

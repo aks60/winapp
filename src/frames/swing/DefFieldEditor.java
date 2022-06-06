@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
 import dataset.Query;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -154,17 +155,16 @@ public class DefFieldEditor {
         public void fieldUpdate() {
             try {
                 if (update == true) {
-
                     if (comp instanceof JTable) {
                         int index = UGui.getIndexRec((JTable) comp);
                         if (index != -1) {
                             Field field = mapTxt.get(jtxt);
                             String str = jtxt.getText();
-                            if (((JTable) comp).getRowCount() > 0) {
-                                if (field.meta().type().equals(Field.TYPE.FLT) || field.meta().type().equals(Field.TYPE.DBL)) {
+                            if (((JTable) comp).getRowCount() > 0) {   
+                                if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
                                     str = String.valueOf(str).replace(',', '.');
                                 }
-                                ((DefTableModel) ((JTable) comp).getModel()).getQuery(field).set(str, index, field);
+                                query.table(field).set(str, index, field);
                             }
                         }
 
