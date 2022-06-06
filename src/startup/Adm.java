@@ -1082,14 +1082,14 @@ public class Adm extends javax.swing.JFrame {
 
         box1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Технолог", "Менеджер" }));
         box1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        box1.setPreferredSize(new java.awt.Dimension(140, 18));
+        box1.setPreferredSize(new java.awt.Dimension(140, 20));
 
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(140, 18));
 
         box2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "чтение-запись", "только чтение", " " }));
         box2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        box2.setPreferredSize(new java.awt.Dimension(140, 18));
+        box2.setPreferredSize(new java.awt.Dimension(140, 20));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
         jButton1.setText("OK");
@@ -1164,7 +1164,7 @@ public class Adm extends javax.swing.JFrame {
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         pan13.add(pan12, java.awt.BorderLayout.CENTER);
@@ -1446,15 +1446,15 @@ public class Adm extends javax.swing.JFrame {
 
     private void btnSysdba(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSysdba
 
-        JTextField pass1 = new JPasswordField();
+        JPasswordField pass1 = new JPasswordField();
         JPasswordField pass2 = new JPasswordField();
-        Object[] ob = {"Изменение пароля SYSDBA", pass1, "Подтвердите новый пароль", pass2};
+        Object[] ob = {"Новый пароль SYSDBA", pass1, "Подтвердите новый пароль", pass2};
         int result = JOptionPane.showConfirmDialog(null, ob, "Изменение пароля", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            if (pass1.getText().equals(pass2.getText())) {
+            if (String.valueOf(pass1.getPassword()).equals(String.valueOf(pass2.getPassword()))) {
 
                 Conn.modifyPassword("sysdba", pass2.getPassword());
-                JOptionPane.showMessageDialog(this, "Операция выполнена успешно!", "Изменение паспорта SYSDBA", JOptionPane.NO_OPTION);
+                JOptionPane.showMessageDialog(this, "Операция выполнена успешно!", "Изменение пароля SYSDBA", JOptionPane.NO_OPTION);
             } else {
                 JOptionPane.showMessageDialog(this, "Имена не совпали", "Неудача", JOptionPane.NO_OPTION);
             }
