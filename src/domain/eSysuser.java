@@ -3,7 +3,11 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
+import dataset.Record;
 import static domain.eArtikl.id;
+import static domain.ePrjprod.id;
+import static domain.ePrjprod.up;
+import static domain.ePrjprod.values;
 
 public enum eSysuser implements Field {
 
@@ -39,6 +43,22 @@ public enum eSysuser implements Field {
         return query;
     }
 
+    public static Record find(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+
+    public static Record find2(String _login) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _login.equalsIgnoreCase(rec.getStr(login))).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", login, "= '", _login + "'");
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.descr();
     }
