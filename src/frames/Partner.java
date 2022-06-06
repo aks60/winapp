@@ -16,6 +16,7 @@ import common.listener.ListenerRecord;
 import dataset.Conn;
 import domain.eSysuser;
 import frames.swing.DefCellBoolRenderer;
+import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +51,8 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.manager, "=", eSysuser.login, "order by", ePrjpart.category, ",", ePrjpart.manager);
+        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.manager, "=", eSysuser.login, 
+                "order by", ePrjpart.category, ",", ePrjpart.manager);
     }
 
     public void loadingModel() {
@@ -174,6 +176,7 @@ public class Partner extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Контрагенты");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(800, 553));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Partner.this.windowClosed(evt);
@@ -300,7 +303,7 @@ public class Partner extends javax.swing.JFrame {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 630, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -323,10 +326,10 @@ public class Partner extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        center.setPreferredSize(new java.awt.Dimension(800, 404));
+        center.setPreferredSize(new java.awt.Dimension(800, 504));
         center.setLayout(new javax.swing.BoxLayout(center, javax.swing.BoxLayout.LINE_AXIS));
 
-        pan1.setPreferredSize(new java.awt.Dimension(420, 404));
+        pan1.setPreferredSize(new java.awt.Dimension(540, 504));
         pan1.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -363,8 +366,8 @@ public class Partner extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(16);
             tab1.getColumnModel().getColumn(4).setMaxWidth(40);
@@ -374,10 +377,10 @@ public class Partner extends javax.swing.JFrame {
 
         center.add(pan1);
 
-        pan5.setPreferredSize(new java.awt.Dimension(360, 416));
+        pan5.setPreferredSize(new java.awt.Dimension(260, 516));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(332, 120));
+        pan2.setPreferredSize(new java.awt.Dimension(242, 110));
 
         lab54.setFont(frames.UGui.getFont(0,0));
         lab54.setText("ФИО");
@@ -424,15 +427,15 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt20, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txt20, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -527,23 +530,23 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan4Layout.setVerticalGroup(
@@ -569,7 +572,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;\nЧастное лицо\n&nbsp;&nbsp;", pan4);
@@ -729,55 +732,55 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt7, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt7, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt10, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt10, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt11, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt11, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt2, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt5, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt5, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt6, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt6, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt16, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(txt16, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                     .addGroup(pan3Layout.createSequentialGroup()
                         .addComponent(lab52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt17, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                        .addComponent(txt17, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan3Layout.setVerticalGroup(
@@ -835,7 +838,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;\nОрганизация\n&nbsp;&nbsp;", pan3);
@@ -849,6 +852,7 @@ public class Partner extends javax.swing.JFrame {
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -875,8 +879,10 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, ePrjpart.up, (prjpartRec) -> {
-                try {                                     
+
+            UGui.insertRecordCur(tab1, ePrjpart.up, (prjpartRec) -> {
+                
+                try {
                     ResultSet rs = Conn.connection().createStatement()
                             .executeQuery("SELECT current_user FROM rdb$database"); //дёрнем текущего пользователя
                     rs.next();
@@ -893,11 +899,6 @@ public class Partner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInsert
 
-    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        UGui.updateBorderAndSql(tab1, List.of(tab1));
-        filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_mousePressed
-
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && listener != null) {
@@ -908,7 +909,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-
+       
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -921,6 +922,11 @@ public class Partner extends javax.swing.JFrame {
     private void btnRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoveMouseClicked
 
     }//GEN-LAST:event_btnRemoveMouseClicked
+
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
+        UGui.updateBorderAndSql(tab1, List.of(tab1));
+        filterTable.mousePressed((JTable) evt.getSource());
+    }//GEN-LAST:event_mousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
