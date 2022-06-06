@@ -52,7 +52,6 @@ public class Adm extends javax.swing.JFrame {
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private Query qSysuser = new Query(eSysuser.values()).select(eSysuser.up);
-    private DefFieldEditor rsv = null;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
 
@@ -68,9 +67,6 @@ public class Adm extends javax.swing.JFrame {
     public Adm() {
         initComponents();
         initElements();
-        rsv.add(eSysuser.fio, txt3);
-        rsv.add(eSysuser.phone, txt4);
-        rsv.add(eSysuser.email, txt5);
     }
 
     private void loadingPath() {
@@ -160,7 +156,7 @@ public class Adm extends javax.swing.JFrame {
                 Object role = (br) ? "чтение-запись" : "только чтение";
                 Object profile = ("RDB$ADMIN".equals(rl)) ? "Администратор" : ("TEXNOLOG_RW".equals(rl)) ? "Технолог" : "Менеджер";
                 Object login = rs.getString(2).trim();
-                Record sysuserRec = qSysuser.stream().filter(rec2 -> login.equals(rec2.get(eSysuser.login)) == true)
+                Record sysuserRec = qSysuser.stream().filter(rec -> login.equals(rec.get(eSysuser.login)) == true)
                         .findFirst().orElse(eSysuser.up.newRecord(Query.INS));
                 if (sysuserRec.get(eSysuser.id) == null) {
                     sysuserRec.setNo(eSysuser.login, login);
@@ -174,6 +170,7 @@ public class Adm extends javax.swing.JFrame {
             }
             userList.forEach(rec -> rec.setNo(eSysuser.id, Conn.genId(eSysuser.up)));
             userList.execsql();
+            qSysuser.addAll(userList);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab4);
 
@@ -182,10 +179,39 @@ public class Adm extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab4(ListSelectionEvent event) {
-        rsv.load();
-    }
+//    private void loadUserAttribute() {
+//        Object login = tab4.getValueAt(tab4.getSelectedRow(), 1);
+//        for(int i = 0; i < qSysuser.size(); ++i) {
+//            Record rec = qSysuser.get(i);
+//            if (rec.get(eSysuser.login).equals(login)) {
+//                txt3.setText(rec.getStr(eSysuser.fio));
+//                txt4.setText(rec.getStr(eSysuser.phone));
+//                txt5.setText(rec.getStr(eSysuser.email));
+//            }
+//        }
+//    }
     
+//    private void updateFio(ListSelectionEvent event) {
+//        Object login = tab4.getValueAt(tab4.getSelectedRow(), 1);
+//        for (Record rec : qSysuser) {
+//            if (rec.get(eSysuser.login).equals(login)) {
+//                
+//                if (!txt3.getText().isEmpty() && !rec.getStr(eSysuser.fio).equals(txt3.getText().trim())) {
+//                    rec.set(eSysuser.fio, txt3.getText().trim());
+//                    qSysuser.update(rec);
+//                }
+//                if (!txt4.getText().isEmpty() && !rec.getStr(eSysuser.phone).equals(txt4.getText().trim())) {
+//                    rec.set(eSysuser.phone, txt4.getText().trim());
+//                    qSysuser.update(rec);
+//                }
+//                if (!txt5.getText().isEmpty() && !rec.getStr(eSysuser.email).equals(txt5.getText().trim())) {
+//                    rec.set(eSysuser.email, txt5.getText().trim());
+//                    qSysuser.update(rec);
+//                }
+//            }
+//        }
+//    }
+
     private void clearListQue() {
 
         if (listQue.isEmpty() == false) {
@@ -246,7 +272,7 @@ public class Adm extends javax.swing.JFrame {
             }
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -996,7 +1022,7 @@ public class Adm extends javax.swing.JFrame {
         btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addUser(evt);
+                userAdded(evt);
             }
         });
 
@@ -1028,7 +1054,7 @@ public class Adm extends javax.swing.JFrame {
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userDel(evt);
+                userDelete(evt);
             }
         });
 
@@ -1272,7 +1298,7 @@ public class Adm extends javax.swing.JFrame {
         List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mnExit
 
-    private void userDel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDel
+    private void userDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущего пользователя?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             int row = tab4.getSelectedRow();
             if (row != -1) {
@@ -1281,7 +1307,7 @@ public class Adm extends javax.swing.JFrame {
                 loadingTab4();
             }
         }
-    }//GEN-LAST:event_userDel
+    }//GEN-LAST:event_userDelete
 
     private void userUpdate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdate
         int row = tab4.getSelectedRow();
@@ -1300,7 +1326,7 @@ public class Adm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userUpdate
 
-    private void addUser(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUser
+    private void userAdded(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userAdded
         box1.setEnabled(true);
         box1.setSelectedIndex(0);
         box2.setEnabled(true);
@@ -1308,7 +1334,7 @@ public class Adm extends javax.swing.JFrame {
         txt1.setEditable(true);
         txt1.setText("");
         ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
-    }//GEN-LAST:event_addUser
+    }//GEN-LAST:event_userAdded
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         try {
@@ -1498,7 +1524,6 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSysdba
 
     private void edServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edServerActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_edServerActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
@@ -1634,18 +1659,10 @@ public class Adm extends javax.swing.JFrame {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
-        rsv = new DefFieldEditor(tab4, qSysuser);
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     loadingTab3();
-                }
-            }
-        });
-        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab4(event);
                 }
             }
         });
