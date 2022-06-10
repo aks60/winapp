@@ -179,7 +179,6 @@ public class ReportDocx {
             float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
             Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.manager));
-            
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta4.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
