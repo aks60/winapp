@@ -182,10 +182,11 @@ public class ReportDocx {
             
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta4.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
-            List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
+            List<SmetaRep> pictureList = new ArrayList<SmetaRep>();
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.load("sket", SmetaRep.class, true);
+            metadata.load("pict", SmetaRep.class, true);
+            metadata.load("sket", TitleRep.class, true);
             
             IContext context = report.createContext();
             context.put("num", orderRec.getStr(eProject.num_ord));
@@ -203,6 +204,7 @@ public class ReportDocx {
             List<Wincalc> wincList = wincList(prjprodList, length);
             for (int i = 0; i < wincList.size(); ++i) {
                 
+                List<TitleRep> sketchList = new ArrayList<TitleRep>();
                 Wincalc winc = wincList.get(i);
                 Record prjprod = prjprodList.get(i);
                 
@@ -213,21 +215,28 @@ public class ReportDocx {
                 String num = prjprod.getStr(ePrjprod.num);
                 String cost2 = df1.format(winc.cost2());
                 sum1 += winc.cost2();
-                sketchList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
-            }      
+                //sketchList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
+//                sketchList.add(new TitleRep("Основной", "Белый"));
+//                sketchList.add(new TitleRep("Внутреннй", "Чёрный"));
+//                sketchList.add(new TitleRep("Врешний", "Серый"));
+//                context.put("sket", sketchList);
+                
+                pictureList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
+            }                             
+            context.put("pict", pictureList);
             
-            context.put("sket", sketchList);
-            context.put("total", "12563.83");
-            context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12563.83)));
+            
+            context.put("total", "12567.89");
+            context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12567.89)));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
             
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
         } catch (XDocReportException e) {
-            System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
+            System.err.println("Ошибка2:ReportDocx.smeta3()" + e);
         } catch (IOException e) {
-            System.err.println("Ошибка3:ReportDocx.smeta2()" + e);
+            System.err.println("Ошибка3:ReportDocx.smeta3()" + e);
         }
     }
     
