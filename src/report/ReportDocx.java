@@ -175,67 +175,53 @@ public class ReportDocx {
     
     public static void smeta3(Record orderRec, Query prjprodList) {
         try {
-//            int npp = 0, length = 400;
-//            float sum1 = 0f, sum2 = 0f, total = 0f;
-//            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta2.docx");
-//            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
-//            List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
-//            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-//            System.out.println("report.ReportDocx.smeta3()");            
+            
             int length = 400, npp = 0;
             float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
             Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.manager));
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta4.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
-            List<SmetaRep> pictureList = new ArrayList<SmetaRep>();
+            List<ImageRep> pictureList = new ArrayList<ImageRep>();
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-            System.out.println("report.ReportDocx.smeta3()");
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.load("pict", ImageRep.class, true);
             
-//            FieldsMetadata metadata = report.createFieldsMetadata();
-//            metadata.load("pict", SmetaRep.class, true);
-//            
-//            IContext context = report.createContext();
-//            context.put("num", orderRec.getStr(eProject.num_ord));
-//            context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
-//            context.put("name1", prjpartRec.getStr(ePrjpart.partner));
-//            context.put("phone1", prjpartRec.getStr(ePrjpart.addr_phone));
-//            context.put("email1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
-//                    ? prjpartRec.getStr(ePrjpart.org_email) : prjpartRec.getStr(ePrjpart.addr_email));
-//            context.put("cont1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
-//                    ? prjpartRec.getStr(ePrjpart.contact) : "");
-//            context.put("name2", sysuserRec.getStr(eSysuser.fio));
-//            context.put("phone2", sysuserRec.getStr(eSysuser.phone));
-//            context.put("email2", sysuserRec.getStr(eSysuser.email));
-//            
-//            List<Wincalc> wincList = wincList(prjprodList, length);
-//            for (int i = 0; i < wincList.size(); ++i) {
-//                
-//                Wincalc winc = wincList.get(i);
-//                Record prjprod = prjprodList.get(i);
-//                
-//                ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(winc.bufferImg));
-//                String name = prjprod.getStr(ePrjprod.name);
-//                String color = eColor.find(winc.colorID1).getStr(eColor.name);
-//                String dimensions = winc.width() + "x" + winc.height();
-//                String num = prjprod.getStr(ePrjprod.num);
-//                String cost2 = df1.format(winc.cost2());
-//                sum1 += winc.cost2();
-//                //sketchList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
-////                sketchList.add(new TitleRep("Основной", "Белый"));
-////                sketchList.add(new TitleRep("Внутреннй", "Чёрный"));
-////                sketchList.add(new TitleRep("Врешний", "Серый"));
-////                context.put("sket", sketchList);
-//                
-//                pictureList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
-//            }                             
-//            context.put("pict", pictureList);
-//            
-//            
-//            context.put("total", "12567.89");
-//            context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12567.89)));
-//            report.process(context, out);
-//            ExecuteCmd.startWord("report.docx");
+            IContext context = report.createContext();
+            context.put("num", orderRec.getStr(eProject.num_ord));
+            context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
+            context.put("name1", prjpartRec.getStr(ePrjpart.partner));
+            context.put("phone1", prjpartRec.getStr(ePrjpart.addr_phone));
+            context.put("email1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
+                    ? prjpartRec.getStr(ePrjpart.org_email) : prjpartRec.getStr(ePrjpart.addr_email));
+            context.put("cont1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
+                    ? prjpartRec.getStr(ePrjpart.contact) : "");
+            context.put("name2", sysuserRec.getStr(eSysuser.fio));
+            context.put("phone2", sysuserRec.getStr(eSysuser.phone));
+            context.put("email2", sysuserRec.getStr(eSysuser.email));
+            
+            List<Wincalc> wincList = wincList(prjprodList, length);
+            for (int i = 0; i < wincList.size(); ++i) {
+                
+                Wincalc winc = wincList.get(i);
+                Record prjprod = prjprodList.get(i);
+                
+                ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(winc.bufferImg));
+                String name = prjprod.getStr(ePrjprod.name);
+                String color = eColor.find(winc.colorID1).getStr(eColor.name);
+                String dimensions = winc.width() + "x" + winc.height();
+                String num = prjprod.getStr(ePrjprod.num);
+                String cost2 = df1.format(winc.cost2());
+                sum1 += winc.cost2();               
+                pictureList.add(new ImageRep(imageProvider));
+            }                             
+            context.put("pict", pictureList);
+            
+            
+            context.put("total", "12567.89");
+            context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12567.89)));
+            report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
             
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
