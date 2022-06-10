@@ -10,9 +10,13 @@ public class ImageRep {
     private List<MappingRep> mappingList;
     private final IImageProvider picture;
 
-    public ImageRep(IImageProvider picture, List<MappingRep> List) {
+    public ImageRep(IImageProvider picture, List<MappingRep> list) {
         this.picture = picture;
-        this.mappingList = List;
+        this.mappingList = list;
+    }
+
+    public ImageRep(IImageProvider picture) {
+        this.picture = picture;
     }
 
     @FieldMetadata(images = {@ImageMetadata(name = "picture")})
