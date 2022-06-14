@@ -90,7 +90,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import report.ExecuteCmd;
 import report.ReportDocx;
+import report.SmetaToHtml;
 import startup.App;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
@@ -3397,7 +3399,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 //Отчёт
-                ReportDocx.smeta3(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+                //ReportDocx.smeta3(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+                SmetaToHtml.exec();
             }
         });
     }//GEN-LAST:event_menuItem14
