@@ -3399,7 +3399,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 //Отчёт
-                //ReportDocx.smeta3(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
                 SmetaToHtml.exec();
             }
         });

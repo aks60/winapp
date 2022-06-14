@@ -23,27 +23,36 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import frames.Specifics;
 import frames.UGui;
 import frames.swing.draw.Canvas;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.Version;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import static java.lang.System.in;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class ReportDocx {
-    
+
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
-    
+
     public static void material2(List<Wincalc> wincList, String orderNum) {
         try {
             List<Specific> spcList = new ArrayList();
@@ -55,22 +64,22 @@ public class ReportDocx {
             List<SpecificRep> spcList3 = new ArrayList();
             spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
             double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
-            
+
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Material2.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-            
+
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.load("spc", SpecificRep.class, true);
-            
+
             IContext context = report.createContext();
             context.put("num", orderNum);
             context.put("spc", spcList3);
             context.put("resultTotal", String.valueOf(df1.format(total)));
-            
+
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-            
+
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
         } catch (XDocReportException e) {
@@ -79,7 +88,7 @@ public class ReportDocx {
             System.err.println("Ошибка3:ReportDocx.outGoMaterial()" + e);
         }
     }
-    
+
     public static void specific2(List<Wincalc> wincList, Record record) {
         try {
             List<Specific> m = new ArrayList();
@@ -89,25 +98,25 @@ public class ReportDocx {
             }
             List<SpecificRep> m2 = new ArrayList();
             m.forEach(el -> m2.add(new SpecificRep(el)));
-            
+
             String num = record.getStr(eProject.num_ord);
             String date = UGui.simpleFormat.format(record.get(eProject.date4));
             String total = df1.format(m2.stream().mapToDouble(spc -> spc.getCost1()).sum());
-            
+
             List<SpecificRep> s1 = m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 1).collect(toList());
             List<SpecificRep> s2 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 2).collect(toList()));
             List<SpecificRep> s3 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 3).collect(toList()));
             List<SpecificRep> s4 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList()));
-            
+
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Specific2.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-            
+
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.load("s1", SpecificRep.class, true);
             metadata.load("s2", SpecificRep.class, true);
             metadata.load("s3", SpecificRep.class, true);
             metadata.load("s4", SpecificRep.class, true);
-            
+
             IContext context = report.createContext();
             context.put("num", num);
             context.put("date", date);
@@ -116,11 +125,11 @@ public class ReportDocx {
             context.put("s2", s2);
             context.put("s3", s3);
             context.put("s4", s4);
-            
+
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-            
+
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
         } catch (XDocReportException e) {
@@ -129,7 +138,7 @@ public class ReportDocx {
             System.err.println("Ошибка3:ReportDocx.Specific2()" + e);
         }
     }
-    
+
     public static void smeta2(Record order, Query prjprodList) {
         try {
             int npp = 0, length = 400;
@@ -140,7 +149,7 @@ public class ReportDocx {
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.load("sket", SmetaRep.class, true);
-            
+
             List<Wincalc> wincList = wincList(prjprodList, length);
             for (int i = 0; i < wincList.size(); ++i) {
                 Wincalc winc = wincList.get(i);
@@ -162,7 +171,7 @@ public class ReportDocx {
             context.put("total", df1.format(sum1 + sum2));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-            
+
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
             System.err.println("Ошибка1:ReportDocx.smeta2()" + e);
@@ -172,10 +181,10 @@ public class ReportDocx {
             System.err.println("Ошибка3:ReportDocx.smeta2()" + e);
         }
     }
-    
+
     public static void smeta3(Record orderRec, Query prjprodList) {
         try {
-            
+
             int length = 400, npp = 0;
             float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
             Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
@@ -186,7 +195,7 @@ public class ReportDocx {
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.load("pict", ImageRep.class, true);
-            
+
             IContext context = report.createContext();
             context.put("num", orderRec.getStr(eProject.num_ord));
             context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
@@ -199,30 +208,29 @@ public class ReportDocx {
             context.put("name2", sysuserRec.getStr(eSysuser.fio));
             context.put("phone2", sysuserRec.getStr(eSysuser.phone));
             context.put("email2", sysuserRec.getStr(eSysuser.email));
-            
+
             List<Wincalc> wincList = wincList(prjprodList, length);
             for (int i = 0; i < wincList.size(); ++i) {
-                
+
                 Wincalc winc = wincList.get(i);
                 Record prjprod = prjprodList.get(i);
-                
+
                 ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(winc.bufferImg));
                 String name = prjprod.getStr(ePrjprod.name);
                 String color = eColor.find(winc.colorID1).getStr(eColor.name);
                 String dimensions = winc.width() + "x" + winc.height();
                 String num = prjprod.getStr(ePrjprod.num);
                 String cost2 = df1.format(winc.cost2());
-                sum1 += winc.cost2();               
+                sum1 += winc.cost2();
                 pictureList.add(new ImageRep(imageProvider));
-            }                             
+            }
             context.put("pict", pictureList);
-            
-            
+
             context.put("total", "12567.89");
             context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12567.89)));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-            
+
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
         } catch (XDocReportException e) {
@@ -231,7 +239,41 @@ public class ReportDocx {
             System.err.println("Ошибка3:ReportDocx.smeta3()" + e);
         }
     }
-    
+
+    //https://www.vogella.com/tutorials/FreeMarker/article.html
+    public static void smeta4(Record orderRec, Query prjprodList) {
+
+        try {
+            Configuration cfg = new Configuration();
+            cfg.setClassForTemplateLoading(ReportDocx.class, "/resource/report");
+            cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+            cfg.setDefaultEncoding("UTF-8");
+            cfg.setLocale(Locale.US);
+            cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+
+            Map<String, Object> input = new HashMap<String, Object>();
+            input.put("title", "Aksenov");
+            Template template = cfg.getTemplate("Smeta2.ftl");
+            Writer consoleWriter = new OutputStreamWriter(System.out);
+            template.process(input, consoleWriter);
+            Writer fileWriter = new FileWriter(new File(eProp.path_prop.read() + "/report.docx"));
+            try {
+                template.process(input, fileWriter);
+            } finally {
+                fileWriter.close();
+            }
+            ExecuteCmd.startWord("report.docx");
+
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
+            System.err.println("Ошибка2:ReportDocx.xxx()" + e);
+        } catch (IOException e) {
+            System.err.println("Ошибка3:ReportDocx.xxx()" + e);
+        } catch (Exception e) {
+            System.err.println("Ошибка4:ReportDocx.xxx()" + e);
+        }
+    }
+
     private static List<Wincalc> wincList(Query prjprodList, int length) {
         List<Wincalc> list = new ArrayList();
         for (Record prjprod : prjprodList) {
@@ -251,7 +293,7 @@ public class ReportDocx {
         }
         return list;
     }
-    
+
     private static byte[] toByteArray(BufferedImage bi) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
