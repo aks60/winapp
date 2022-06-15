@@ -502,7 +502,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab1, 4).addActionListener(event -> {
-            new Partner(this, (record) -> {
+            new Partner(Orders.this, (record) -> {
                 UGui.stopCellEditing(tab1);
                 Record record2 = qProject.get(UGui.getIndexRec(tab1));
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
@@ -1125,9 +1125,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1144,6 +1144,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFind, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1153,11 +1154,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                             .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(northLayout.createSequentialGroup()
@@ -3189,8 +3188,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_tab3MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        String json = gson.toJson(winc().rootGson);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {                
+                //Отчёт
+                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+                SmetaToHtml.exec(qProject.get(UGui.getIndexRec(tab1, 0)));
+            }
+        });
     }//GEN-LAST:event_btnTest
 
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
@@ -3388,21 +3392,21 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem13
 
     private void menuItem14(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem14
-        FrameProgress.create(Orders.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {                
-                List<Wincalc> listWinc = new ArrayList(); //спецификация
-                for (int index = 0; index < tab2.getRowCount(); ++index) {
-                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-                    Object w = sysprodRec.get(ePrjprod.values().length);
-                    if (w instanceof Wincalc) {
-                        listWinc.add((Wincalc) w);
-                    }
-                }
-                //Отчёт
-                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
-                SmetaToHtml.exec();
-            }
-        });
+//        FrameProgress.create(Orders.this, new ListenerFrame() {
+//            public void actionRequest(Object obj) {                
+//                List<Wincalc> listWinc = new ArrayList(); //спецификация
+//                for (int index = 0; index < tab2.getRowCount(); ++index) {
+//                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+//                    Object w = sysprodRec.get(ePrjprod.values().length);
+//                    if (w instanceof Wincalc) {
+//                        listWinc.add((Wincalc) w);
+//                    }
+//                }
+//                //Отчёт
+//                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+//                SmetaToHtml.exec();
+//            }
+//        });
     }//GEN-LAST:event_menuItem14
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

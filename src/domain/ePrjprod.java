@@ -4,6 +4,11 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.series_id;
+import static domain.eArtikl.up;
+import static domain.eArtikl.values;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum ePrjprod implements Field {
     up("0", "0", "0", "Изделия заказов", "EMPTY"),
@@ -46,6 +51,14 @@ public enum ePrjprod implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
+    
+    public static List<Record> find2(int _project_id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _project_id == rec.getInt(project_id)).collect(Collectors.toList());
+        }
+        return new Query(values()).select(up, "where", project_id, "=", _project_id, "");
+    }
+    
     public String toString() {
         return meta.descr();
     }

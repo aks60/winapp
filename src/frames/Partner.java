@@ -51,12 +51,12 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.manager, "=", eSysuser.login, 
-                "order by", ePrjpart.category, ",", ePrjpart.manager);
+        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login, 
+                "order by", ePrjpart.category, ",", ePrjpart.login);
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
+        new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.login, ePrjpart.flag2);
 
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
@@ -76,7 +76,7 @@ public class Partner extends javax.swing.JFrame {
         rsv.add(ePrjpart.addr_email, txt18);
         rsv.add(ePrjpart.note, txt15);
 
-        rsv.add(ePrjpart.contact, txt8);
+        rsv.add(ePrjpart.org_contact, txt8);
         rsv.add(ePrjpart.org_leve1, txt9);
         rsv.add(ePrjpart.org_leve2, txt17);
         rsv.add(ePrjpart.org_phone, txt10);
@@ -887,7 +887,7 @@ public class Partner extends javax.swing.JFrame {
                             .executeQuery("SELECT current_user FROM rdb$database"); //дёрнем текущего пользователя
                     rs.next();
                     String login = rs.getString(1).trim();
-                    prjpartRec.setNo(ePrjpart.manager, login);
+                    prjpartRec.setNo(ePrjpart.login, login);
                     prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
                     Record record2 = new Query(eSysuser.values()).select(eSysuser.up, "where", eSysuser.login, "= '", login + "'").get(0);
                     qPrjcontr.table(eSysuser.up).add(record2);

@@ -188,7 +188,7 @@ public class ReportDocx {
             int length = 400, npp = 0;
             float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
             Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
-            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.manager));
+            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta4.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             List<ImageRep> pictureList = new ArrayList<ImageRep>();
@@ -204,7 +204,7 @@ public class ReportDocx {
             context.put("email1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
                     ? prjpartRec.getStr(ePrjpart.org_email) : prjpartRec.getStr(ePrjpart.addr_email));
             context.put("cont1", (prjpartRec.getInt(ePrjpart.flag2) == 1)
-                    ? prjpartRec.getStr(ePrjpart.contact) : "");
+                    ? prjpartRec.getStr(ePrjpart.org_contact) : "");
             context.put("name2", sysuserRec.getStr(eSysuser.fio));
             context.put("phone2", sysuserRec.getStr(eSysuser.phone));
             context.put("email2", sysuserRec.getStr(eSysuser.email));

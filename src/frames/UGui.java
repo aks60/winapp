@@ -133,7 +133,7 @@ public class UGui {
 
     // Преобразование date в string
     public static String DateToStr(Object date) {
-        return (date instanceof java.util.Date) ? dateFormat.format(date) : "";
+        return (date instanceof java.util.Date) ? simpleFormat.format(date) : "";
     }
 
     //Преобразование date в string
