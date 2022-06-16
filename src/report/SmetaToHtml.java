@@ -46,7 +46,8 @@ public class SmetaToHtml {
 
             String str = doc.html();
             TableToHtml.write(str);
-            ExecuteCmd.startHtml("report.html");
+            //ExecuteCmd.startHtml("report.html");
+            ExecuteCmd.startWord("report.html");
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
