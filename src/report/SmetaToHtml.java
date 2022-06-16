@@ -95,6 +95,8 @@ public class SmetaToHtml {
         }
         Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
         Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
+        Element tab4Elem = doc.getElementById("tab4");
+        
         //Цыкл по изделиям
         for (int i = 0; i < prjprodList.size(); i++) {
 
@@ -152,7 +154,12 @@ public class SmetaToHtml {
                 }
             }
         }
-
+//        String template4 = tab4Elem.getElementsByTag("tr").get(1).html();
+//        for (int i = 1; i < prjprodList.size(); i++) {
+//            tab4Elem.getElementsByTag("tbody").append(template4);
+//        }
+        
+        
         Elements imgList = doc.getElementById("div2").getElementsByTag("img");
         for (int i = 0; i < imgList.size(); i++) {
             Element get = imgList.get(i);
