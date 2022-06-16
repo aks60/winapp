@@ -3192,7 +3192,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public void actionRequest(Object obj) {                
                 //Отчёт
                 //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
-                SmetaToHtml.exec(qProject.get(UGui.getIndexRec(tab1, 0)));
+                SmetaToHtml.create(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_btnTest
