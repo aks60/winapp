@@ -3,7 +3,9 @@ package report;
 import builder.Wincalc;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtikl;
 import domain.eColor;
+import domain.ePrjkit;
 import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
@@ -30,6 +32,7 @@ import org.jsoup.select.Elements;
 
 public class SmetaToHtml {
 
+    private static DecimalFormat df0 = new DecimalFormat("0");
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
@@ -40,7 +43,7 @@ public class SmetaToHtml {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            //load(projectRec, doc);
+            load(projectRec, doc);
 
             String str = doc.html();
             TableToHtml.write(str);
@@ -89,24 +92,26 @@ public class SmetaToHtml {
         List<Wincalc> wincList = wincList(prjprodList, length);
 
         for (int i = 1; i < prjprodList.size(); i++) {
-           div2.append(template2); 
+            div2.append(template2);
         }
-        Elements tabs2 = doc.getElementById("div2").getElementsByClass("tab2");
-        Elements tabs3 = doc.getElementById("div2").getElementsByClass("tab3");
+        Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
+        Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
         for (int i = 0; i < prjprodList.size(); i++) {
 
-            Elements tdList = tabs2.get(i).getElementsByTag("td");
+            Elements tdList = tab2List.get(i).getElementsByTag("td");
             Wincalc winc = wincList.get(i);
             Record prjprodRec = prjprodList.get(i);
-            Elements captions2 = tabs2.get(i).getElementsByTag("caption");
-            captions2.get(0).text("Изделие № " + (i + 1));            
+            List<Record> prjkitList = ePrjkit.find2(prjprodRec.getInt(ePrjprod.id));
+            
+            Elements captions2 = tab2List.get(i).getElementsByTag("caption");
+            captions2.get(0).text("Изделие № " + (i + 1));
             tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
             tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
             tdList.get(6).text(winc.width() + "x" + winc.height());
             tdList.get(8).text("ЗАП-ХХ");
             tdList.get(10).text("НЕТ");
-            tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / " 
-                    + eColor.find(winc.colorID2).getStr(eColor.name) + " / " 
+            tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
+                    + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
                     + eColor.find(winc.colorID3).getStr(eColor.name));
             tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
             tdList.get(16).text("0,77 кв.м.");
@@ -117,8 +122,36 @@ public class SmetaToHtml {
 
             sum1 += winc.cost2();
             
-            Elements captions3 = tabs3.get(i).getElementsByTag("caption");
-            captions3.get(0).text("Комплектация к изделию № " + (i + 1)); 
+            if (prjkitList.size() == 0) {
+                tab3List.get(i).html("");
+            } else {
+                Elements captions3 = tab3List.get(i).getElementsByTag("caption");
+                captions3.get(0).text("Комплектация к изделию № " + (i + 1));
+                String template3 = tab3List.get(i).getElementsByTag("tr").get(1).html();
+                for (int k = 1; k < prjkitList.size(); k++) {
+                    tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
+                }
+                for (int k = 0; k < prjkitList.size(); k++) {
+                    Record prjkitRec = prjkitList.get(i);
+                    Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
+                    Elements td3List8 = tab3List.get(i).getElementsByTag("tr");
+                    Elements td3List = tab3List.get(i).getElementsByTag("tr").get(k).getElementsByTag("td");
+                    td3List.get(0).text(prjkitRec.getStr(k+1));
+                    td3List.get(1).text(prjkitRec.getStr(artiklRec.getInt(eArtikl.code)));
+                    td3List.get(2).text(prjkitRec.getStr(artiklRec.getInt(eArtikl.name)));
+                    td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
+                    td3List.get(4).text(df0.format(winc.width() * winc.height()));
+                    td3List.get(5).text(prjprodRec.getStr(ePrjprod.num));
+                    td3List.get(6).text(df1.format(winc.cost1()));
+                    td3List.get(7).text(df1.format(winc.cost2()));
+                }
+            }
+        }
+        
+        Elements imgList = doc.getElementById("div2").getElementsByTag("img");
+        for (int i = 0; i < imgList.size(); i++) {
+            Element get = imgList.get(i);
+            get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif"); 
         }
     }
 

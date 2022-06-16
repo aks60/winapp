@@ -4,12 +4,16 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.ePrjprod.project_id;
+import static domain.ePrjprod.up;
+import static domain.ePrjprod.values;
 import java.util.List;
+import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 public enum ePrjkit implements Field {
     up("0", "0", "0", "Комплекты изделия", "EMPTY"),
-    id("4", "10", "0", "Идентификатор", "id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
     numb("8", "15", "1", "Количество", "numb"),
     width("8", "15", "1", "Длина", "width"),
     height("8", "15", "1", "Ширина", "height"),
@@ -21,11 +25,10 @@ public enum ePrjkit implements Field {
     flag("5", "5", "1", "Флаг", "flag"), //Основного элемента комплекта
     artikl_id("4", "10", "0", "Артикл", "artikl_id"),
     prjprod_id("4", "10", "0", "Изделие", "prjprod_id");
-    
+
     //name("12", "64", "1", "Название комплекта", "name"),
     //type("5", "5", "1", "Флаг", "type"),
     //categ("5", "5", "1", "Флаг", "categ"),
-   
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
@@ -40,7 +43,7 @@ public enum ePrjkit implements Field {
         }
         return query;
     }
-    
+
     public MetaField meta() {
         return meta;
     }
@@ -55,9 +58,16 @@ public enum ePrjkit implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
-    }   
-    
+    }
+
+    public static List<Record> find2(int _prjprod_id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _prjprod_id == rec.getInt(prjprod_id)).collect(Collectors.toList());
+        }
+        return new Query(values()).select(up, "where", prjprod_id, "=", _prjprod_id);
+    }
+
     public String toString() {
         return meta.descr();
-    }    
+    }
 }

@@ -5,20 +5,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <STYLE>
-            caption {
+            #tab1 {
+                font-size: 14px;
+                margin-left: 120px;
+            }            
+            .tab2 caption {
                 font-size: 16px;
                 text-align: left;
                 height: 22px;
+            }
+            .tab3 caption, #tab4 caption, #tab5 caption {
+                font-size: 12px;
+                text-align: left;
+                margin-top: 8px;
             }
             table {
                 font-size: 11px;
                 border-collapse: collapse;
                 text-align: left;
                 width: 680px;
-            }
-            #tab1 {
-                font-size: 14px;
-                margin-left: 160px;
             }
         </STYLE>    
     </HEAD>
@@ -55,7 +60,7 @@
                 <TBODY>
                     <TR>
                         <TD height=223 rowSpan=14><FONT size=2>&nbsp;
-                            <IMG src="files/img1.png" width=223 height=223></FONT>
+                            <IMG src="C:\Users\All Users\Avers\Okna\img1.gif" width=223 height=223></FONT>
                         </TD>
                     </TR>
                     <TR>
@@ -109,7 +114,6 @@
                     </TR>
                 </TBODY>
             </TABLE>
-            <P></P>
             <TABLE class="tab3" border=1>
                 <CAPTION>Комплектация к изделию № 1</CAPTION>
                 <TBODY>
@@ -137,10 +141,9 @@
             </TABLE>
         </div>
         <!--------------------------- СЕКЦИЯ 3 -------------------------------->            
-        <P></P>
         <P style="font-size: 16px; margin-bottom: -8px"><B>Сводная расчетная таблица</B></P>
-        <TABLE border=1>
-            <CAPTION>Изделия</CAPTION>
+        <TABLE id="tab4" border=1>
+            <CAPTION>ИзделияX</CAPTION>
             <TBODY>
                 <TR align=center>
                     <TH>№</TH>
@@ -168,7 +171,7 @@
                 </TR>
             </TBODY>
         </TABLE>             
-        <TABLE border=1>
+        <TABLE id="tab5" border=1>
             <CAPTION>Комплектация</CAPTION>
             <TBODY>  
                 <TR align=center>

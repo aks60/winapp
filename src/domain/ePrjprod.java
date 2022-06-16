@@ -56,7 +56,7 @@ public enum ePrjprod implements Field {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _project_id == rec.getInt(project_id)).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", project_id, "=", _project_id, "");
+        return new Query(values()).select(up, "where", project_id, "=", _project_id);
     }
     
     public String toString() {
