@@ -25,7 +25,7 @@ public class HtmlOfMaterial {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            //load(projectRec, doc);
+            load(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
@@ -53,6 +53,11 @@ public class HtmlOfMaterial {
             spcList.addAll(winc.listSpec);
         }
         List<Specific> spcList2 = Specifics.groups(spcList, 3);
+        String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+        for (int i = 1; i < spcList.size(); i++) {
+            doc.getElementsByTag("tbody").append(template);
+        }        
+        
         //double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();            
     }
 }
