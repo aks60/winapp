@@ -90,9 +90,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import report.ExecuteCmd;
+import report.HtmlOfMaterial;
 import report.ReportDocx;
-import report.SmetaToHtml;
+import report.HtmlOfSmeta;
 import startup.App;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
@@ -3192,7 +3192,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public void actionRequest(Object obj) {                
                 //Отчёт
                 //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
-                SmetaToHtml.create(qProject.get(UGui.getIndexRec(tab1, 0)));
+                //HtmlOfSmeta.smeta2(qProject.get(UGui.getIndexRec(tab1, 0)));
+                HtmlOfMaterial.material(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_btnTest

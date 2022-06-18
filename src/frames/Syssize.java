@@ -11,7 +11,7 @@ import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import java.util.List;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Syssize extends javax.swing.JFrame {
 
@@ -358,7 +358,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Правила расчёта", tab1);
+        HtmlOfTable.load("Правила расчёта", tab1);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 

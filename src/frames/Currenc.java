@@ -14,7 +14,7 @@ import common.listener.ListenerRecord;
 import dataset.Field;
 import java.util.List;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Currenc extends javax.swing.JFrame {
 
@@ -340,7 +340,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Отчёт по спецификации", tab1);
+        HtmlOfTable.load("Отчёт по спецификации", tab1);
         ExecuteCmd.repoType(this);  
     }//GEN-LAST:event_btnReport
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

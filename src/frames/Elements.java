@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Elements extends javax.swing.JFrame {
 
@@ -1007,7 +1007,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_ppmCategAction
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Вставки", tab2);
+        HtmlOfTable.load("Вставки", tab2);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 

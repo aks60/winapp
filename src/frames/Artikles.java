@@ -42,7 +42,7 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 /**
  * Материальные ценности
@@ -2311,7 +2311,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Список артикулов", tab1);
+        HtmlOfTable.load("Список артикулов", tab1);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 
@@ -2460,7 +2460,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTest
 
     private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
-        TableToHtml.load("Артикулы", qArtikl, eArtikl.values());
+        HtmlOfTable.load("Артикулы", qArtikl, eArtikl.values());
         ExecuteCmd.repoType(this); 
     }//GEN-LAST:event_itReport1ppmCategAction
 

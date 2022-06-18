@@ -41,7 +41,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Fillings extends javax.swing.JFrame {
 
@@ -902,7 +902,7 @@ public class Fillings extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTest
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Заполнения", tab1);
+        HtmlOfTable.load("Заполнения", tab1);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

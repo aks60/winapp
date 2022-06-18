@@ -54,7 +54,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Furniturs extends javax.swing.JFrame {
 
@@ -1364,7 +1364,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Фурнитура", tab1);
+        HtmlOfTable.load("Фурнитура", tab1);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 

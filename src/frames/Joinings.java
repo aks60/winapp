@@ -43,7 +43,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 //варианты соединений
 //TODO Сделать аналог соединений.
@@ -982,7 +982,7 @@ public class Joinings extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Соединения", tab1);
+        HtmlOfTable.load("Соединения", tab1);
         ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 

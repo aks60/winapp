@@ -20,7 +20,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Groups extends javax.swing.JFrame {
 
@@ -707,7 +707,7 @@ public class Groups extends javax.swing.JFrame {
             tab = tab7;
         }
         if (tab != null) {
-            TableToHtml.load("Справочник", tab);
+            HtmlOfTable.load("Справочник", tab);
             ExecuteCmd.repoType(this);
         }
     }//GEN-LAST:event_btnReport

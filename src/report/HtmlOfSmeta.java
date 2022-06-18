@@ -29,13 +29,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class SmetaToHtml {
+public class HtmlOfSmeta {
 
     private static DecimalFormat df0 = new DecimalFormat("0");
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
-    public static void create(Record projectRec) {
+    public static void smeta1(Record projectRec) {
+        
+    }
+    
+    public static void smeta2(Record projectRec) {
         try {
             URL path = ReportDocx.class.getResource("/resource/report/Smeta2.html");
             File input = new File(path.toURI());
@@ -45,7 +49,7 @@ public class SmetaToHtml {
             load(projectRec, doc);
 
             String str = doc.html();
-            TableToHtml.write(str);
+            HtmlOfTable.write(str);
             //ExecuteCmd.startHtml("report.html");
             ExecuteCmd.startWord("report.html");
 
@@ -155,7 +159,6 @@ public class SmetaToHtml {
                     td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
                     td3List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
                             + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
-                    //td3List.get(4).text((UseUnit.METR2.id == artiklRec.getInt(eArtikl.unit)) ? df0.format(winc.width() * winc.height()) : "-");
                     td3List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
                     td3List.get(6).text(df1.format(0));
                     td3List.get(7).text(df1.format(0));
@@ -216,8 +219,8 @@ public class SmetaToHtml {
 
     private static List<Wincalc> wincList(List<Record> prjprodList, int length) {
         List<Wincalc> list = new ArrayList();
-        for (Record prjprod : prjprodList) {
-            String script = prjprod.getStr(ePrjprod.script);
+        for (Record prjprodRec : prjprodList) {
+            String script = prjprodRec.getStr(ePrjprod.script);
             Wincalc winc = new Wincalc(script);
             winc.constructiv(true);
             winc.imageIcon = Canvas.createIcon(winc, length);

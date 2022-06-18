@@ -92,7 +92,7 @@ import javax.swing.SortOrder;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
 
@@ -3024,7 +3024,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             tab = tab7;
         }
         if (tab != null) {
-            TableToHtml.load("Справочник", tab);
+            HtmlOfTable.load("Справочник", tab);
             ExecuteCmd.repoType(this);
         }
     }//GEN-LAST:event_btnReport

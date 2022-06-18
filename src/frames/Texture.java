@@ -27,7 +27,7 @@ import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
 import java.util.List;
 import report.ExecuteCmd;
-import report.TableToHtml;
+import report.HtmlOfTable;
 
 public class Texture extends javax.swing.JFrame {
 
@@ -630,7 +630,7 @@ public class Texture extends javax.swing.JFrame {
             tab = tab4;
         } 
         if (tab != null) {
-            TableToHtml.load("Текстуры", tab);
+            HtmlOfTable.load("Текстуры", tab);
             ExecuteCmd.repoType(this);
         }
     }//GEN-LAST:event_btnRepActionPerformed

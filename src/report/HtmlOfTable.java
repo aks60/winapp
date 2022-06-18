@@ -11,7 +11,7 @@ import dataset.Record;
 import dataset.Table;
 
 //Преобразование документа в HTML </p>
-public class TableToHtml {
+public class HtmlOfTable {
 
     private static String charset = "UTF-8";
     private static int npp = 0;
