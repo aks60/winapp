@@ -59,8 +59,8 @@ public class HtmlOfMaterial {
             winc.constructiv(true);
             spcList2.addAll(winc.listSpec);
         }
-        List<SpecificRep> spcList3 = new ArrayList();
-        spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
+        List<RSpecific> spcList3 = new ArrayList();
+        spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
         double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
         
         String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
@@ -69,7 +69,7 @@ public class HtmlOfMaterial {
         }
         Elements trList = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
         for (int i = 0; i < spcList3.size(); i++) {
-            SpecificRep spc = spcList3.get(i);
+            RSpecific spc = spcList3.get(i);
             Elements tdList = trList.get(i).getElementsByTag("td");
             tdList.get(0).text(String.valueOf(i + 1));
             tdList.get(1).text(spc.getArtikl());

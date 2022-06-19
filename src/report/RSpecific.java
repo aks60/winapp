@@ -11,18 +11,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class SpecificRep {
+public class RSpecific {
 
     private static DecimalFormat df1 = new DecimalFormat("#0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
     private Specific spc;
     private boolean otx = true;
 
-    public SpecificRep(Specific spc) {
+    public RSpecific(Specific spc) {
         this.spc = spc;
     }
 
-    public SpecificRep(Specific spc, boolean otx) {
+    public RSpecific(Specific spc, boolean otx) {
         this.spc = spc;
         this.otx = otx;
     }
@@ -95,17 +95,17 @@ public class SpecificRep {
     }
 
     //--------------------------------------------------------------------------  
-    public static List<SpecificRep> groups(List<SpecificRep> listSpr) {
+    public static List<RSpecific> groups(List<RSpecific> listSpr) {
         HashSet<String> hs = new HashSet();
-        List<SpecificRep> list = new ArrayList();
-        Map<String, SpecificRep> map = new HashMap();
+        List<RSpecific> list = new ArrayList();
+        Map<String, RSpecific> map = new HashMap();
 
-        for (SpecificRep sr : listSpr) {
+        for (RSpecific sr : listSpr) {
             String key = sr.spc.artikl + sr.spc.colorID1 + sr.spc.colorID2 + sr.spc.colorID3;
             if (hs.add(key)) {
-                map.put(key, new SpecificRep(sr.spc));
+                map.put(key, new RSpecific(sr.spc));
             } else {
-                SpecificRep s = map.get(key);
+                RSpecific s = map.get(key);
                 s.spc.weight = s.spc.weight + sr.spc.weight;
                 s.spc.count = s.spc.count + sr.spc.count;
                 s.spc.quant1 = s.spc.quant1 + sr.spc.quant1;
