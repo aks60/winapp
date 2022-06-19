@@ -79,6 +79,10 @@ public class HtmlOfMaterial {
             tdList.get(5).text(spc.getUnit());
             tdList.get(6).text(spc.getPrice());
             tdList.get(7).text(spc.getCost());
-        }           
+        } 
+        Object obj = doc.getElementsByTag("tfoot")
+                .get(0).getElementsByTag("tr")
+                .get(0).getElementsByTag("td")
+                .get(1).text(df2.format(total));
     }
 }
