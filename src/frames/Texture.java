@@ -631,7 +631,7 @@ public class Texture extends javax.swing.JFrame {
         } 
         if (tab != null) {
             HtmlOfTable.load("Текстуры", tab);
-            ExecuteCmd.repoType(this);
+            ExecuteCmd.documentType(this);
         }
     }//GEN-LAST:event_btnRepActionPerformed
 

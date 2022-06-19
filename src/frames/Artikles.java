@@ -2312,7 +2312,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         HtmlOfTable.load("Список артикулов", tab1);
-        ExecuteCmd.repoType(this);
+        ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2461,7 +2461,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
         HtmlOfTable.load("Артикулы", qArtikl, eArtikl.values());
-        ExecuteCmd.repoType(this); 
+        ExecuteCmd.documentType(this); 
     }//GEN-LAST:event_itReport1ppmCategAction
 
     private void itReport2ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport2ppmCategAction

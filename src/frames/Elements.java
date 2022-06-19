@@ -1008,7 +1008,7 @@ public class Elements extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         HtmlOfTable.load("Вставки", tab2);
-        ExecuteCmd.repoType(this);
+        ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed

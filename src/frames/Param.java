@@ -417,7 +417,7 @@ public class Param extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         HtmlOfTable.load("Параметры", tab1);
-        ExecuteCmd.repoType(this);
+        ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

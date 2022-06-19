@@ -3025,7 +3025,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
         if (tab != null) {
             HtmlOfTable.load("Справочник", tab);
-            ExecuteCmd.repoType(this);
+            ExecuteCmd.documentType(this);
         }
     }//GEN-LAST:event_btnReport
 

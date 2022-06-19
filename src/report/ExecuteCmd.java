@@ -20,22 +20,23 @@ import javax.swing.JOptionPane;
 //Запуск отчетов в Office </p>
 public class ExecuteCmd {
 
-    public static void repoType(JFrame owner) {
+    public static void documentType(JFrame owner) {
 
-        Object[] options = {"HTML", "WORD", "EXCEL"};
-        int n = JOptionPane.showOptionDialog(owner, "Выберите формат файла для отчёта", "Формирование отчёта",
-                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-        if (n == 0) {
-            ExecuteCmd.startHtml("report.html");
-        } else if (n == 1) {
-            ExecuteCmd.startWord("report.html");
-        } else if (n == 2) {
-            ExecuteCmd.startExcel("report.html");
-        }
+        ExecuteCmd.startWord("report.html");
+        
+//        Object[] options = {"HTML", "WORD", "EXCEL"};
+//        int n = JOptionPane.showOptionDialog(owner, "Выберите формат файла для отчёта", "Формирование отчёта",
+//                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+//        if (n == 0) {
+//            ExecuteCmd.startHtml("report.html");
+//        } else if (n == 1) {
+//            ExecuteCmd.startWord("report.html");
+//        } else if (n == 2) {
+//            ExecuteCmd.startExcel("report.html");
+//        }
     }
 
-
-     //Запуск файла из каталога
+    //Запуск файла из каталога
     public static void startHelp(String file) {
 
         Desktop desktop = Desktop.getDesktop();

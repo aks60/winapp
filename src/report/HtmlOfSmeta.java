@@ -50,8 +50,7 @@ public class HtmlOfSmeta {
 
             String str = doc.html();
             HtmlOfTable.write(str);
-            //ExecuteCmd.startHtml("report.html");
-            ExecuteCmd.startWord("report.html");
+            ExecuteCmd.documentType(null);
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);

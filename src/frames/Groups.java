@@ -708,7 +708,7 @@ public class Groups extends javax.swing.JFrame {
         }
         if (tab != null) {
             HtmlOfTable.load("Справочник", tab);
-            ExecuteCmd.repoType(this);
+            ExecuteCmd.documentType(this);
         }
     }//GEN-LAST:event_btnReport
 
