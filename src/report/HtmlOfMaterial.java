@@ -3,20 +3,27 @@ package report;
 import builder.Wincalc;
 import builder.making.Specific;
 import dataset.Record;
+import domain.eColor;
 import domain.ePrjprod;
 import domain.eProject;
+import enums.UseUnit;
 import frames.Specifics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class HtmlOfMaterial {
+
+    private static DecimalFormat df1 = new DecimalFormat("#0.0");
+    private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
     public static void material(Record projectRec) {
         try {
@@ -44,20 +51,34 @@ public class HtmlOfMaterial {
 
     private static void load(Record projectRec, Document doc) {
 
-        List<Specific> spcList = new ArrayList();
+        List<Specific> spcList2 = new ArrayList();
         List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
         for (Record prjprodRec : prjprodList) {
             String script = prjprodRec.getStr(ePrjprod.script);
             Wincalc winc = new Wincalc(script);
             winc.constructiv(true);
-            spcList.addAll(winc.listSpec);
+            spcList2.addAll(winc.listSpec);
         }
-        List<Specific> spcList2 = Specifics.groups(spcList, 3);
-        String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
-        for (int i = 1; i < spcList.size(); i++) {
-            doc.getElementsByTag("tbody").append(template);
-        }        
+        List<SpecificRep> spcList3 = new ArrayList();
+        spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
+        double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
         
-        //double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();            
+        String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+        for (int i = 1; i < spcList3.size(); i++) {
+            doc.getElementsByTag("tbody").append(template);
+        }
+        Elements trList = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
+        for (int i = 0; i < spcList3.size(); i++) {
+            SpecificRep spc = spcList3.get(i);
+            Elements tdList = trList.get(i).getElementsByTag("td");
+            tdList.get(0).text(String.valueOf(i + 1));
+            tdList.get(1).text(spc.getArtikl());
+            tdList.get(2).text(spc.getName());
+            tdList.get(3).text(spc.getColorID1());
+            tdList.get(4).text(spc.getCount());
+            tdList.get(5).text(spc.getUnit());
+            tdList.get(6).text(spc.getPrice());
+            tdList.get(7).text(spc.getCost());
+        }           
     }
 }
