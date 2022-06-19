@@ -91,8 +91,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import report.HtmlOfMaterial;
-import report.ReportDocx;
 import report.HtmlOfSmeta;
+import report.HtmlOfSpecific;
 import startup.App;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
@@ -1125,9 +1125,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3189,11 +3189,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         FrameProgress.create(Orders.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {                
+            public void actionRequest(Object obj) {
                 //Отчёт
-                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
-                //HtmlOfSmeta.smeta2(qProject.get(UGui.getIndexRec(tab1, 0)));
-                HtmlOfMaterial.material(qProject.get(UGui.getIndexRec(tab1, 0)));
+                HtmlOfSpecific.specific(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_btnTest
@@ -3342,72 +3340,37 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void menuItem11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem11
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                List<Wincalc> listWinc = new ArrayList(); //спецификация
-                for (int index = 0; index < tab2.getRowCount(); ++index) {
-                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-                    Object w = sysprodRec.get(ePrjprod.values().length);
-                    if (w instanceof Wincalc) {
-                        listWinc.add((Wincalc) w);
-                    }
-                }
-                int index = UGui.getIndexRec(tab1);
-                String num_ord = qProject.getAs(index, eProject.num_ord);
                 //Отчёт
-                ReportDocx.material2(listWinc, num_ord);
+                HtmlOfMaterial.material(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_menuItem11
 
     private void menuItem12(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem12
         FrameProgress.create(Orders.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {                
-                List<Wincalc> listWinc = new ArrayList(); //спецификация
-                for (int index = 0; index < tab2.getRowCount(); ++index) {
-                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-                    Object w = sysprodRec.get(ePrjprod.values().length);
-                    if (w instanceof Wincalc) {
-                        listWinc.add((Wincalc) w);
-                    }
-                }
+            public void actionRequest(Object obj) {
                 //Отчёт
-                ReportDocx.specific2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+                HtmlOfSpecific.specific(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_menuItem12
 
     private void menuItem13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem13
         FrameProgress.create(Orders.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {                
-                List<Wincalc> listWinc = new ArrayList(); //спецификация
-                for (int index = 0; index < tab2.getRowCount(); ++index) {
-                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-                    Object w = sysprodRec.get(ePrjprod.values().length);
-                    if (w instanceof Wincalc) {
-                        listWinc.add((Wincalc) w);
-                    }
-                }
+            public void actionRequest(Object obj) {
                 //Отчёт
-                ReportDocx.smeta2(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+                HtmlOfSmeta.smeta2(qProject.get(UGui.getIndexRec(tab1, 0)));
             }
         });
     }//GEN-LAST:event_menuItem13
 
     private void menuItem14(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem14
-//        FrameProgress.create(Orders.this, new ListenerFrame() {
-//            public void actionRequest(Object obj) {                
-//                List<Wincalc> listWinc = new ArrayList(); //спецификация
-//                for (int index = 0; index < tab2.getRowCount(); ++index) {
-//                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-//                    Object w = sysprodRec.get(ePrjprod.values().length);
-//                    if (w instanceof Wincalc) {
-//                        listWinc.add((Wincalc) w);
-//                    }
-//                }
-//                //Отчёт
-//                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
-//                SmetaToHtml.exec();
-//            }
-//        });
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                //Отчёт
+                //ReportDocx.smeta4(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
+            }
+        });
     }//GEN-LAST:event_menuItem14
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

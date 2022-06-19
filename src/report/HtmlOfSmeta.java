@@ -55,11 +55,11 @@ public class HtmlOfSmeta {
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
-            System.err.println("Ошибка1:SmetaToHtml.xx()" + e);
+            System.err.println("Ошибка1:HtmlOfSmeta.xx()" + e);
         } catch (URISyntaxException e) {
-            System.err.println("Ошибка2:SmetaToHtml.xx()" + e);
+            System.err.println("Ошибка2:HtmlOfSmeta.xx()" + e);
         } catch (Exception e) {
-            System.err.println("Ошибка3:SmetaToHtml.xx()" + e);
+            System.err.println("Ошибка3:HtmlOfSmeta.xx()" + e);
         }
     }
 
