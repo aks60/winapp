@@ -27,7 +27,7 @@ public class HtmlOfMaterial {
 
     public static void material(Record projectRec) {
         try {
-            URL path = ReportDocx.class.getResource("/resource/report/Material.html");
+            URL path = HtmlOfMaterial.class.getResource("/resource/report/Material.html");
             File input = new File(path.toURI());
             Document doc = Jsoup.parse(input, "utf-8");
 

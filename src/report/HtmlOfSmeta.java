@@ -41,7 +41,7 @@ public class HtmlOfSmeta {
     
     public static void smeta2(Record projectRec) {
         try {
-            URL path = ReportDocx.class.getResource("/resource/report/Smeta2.html");
+            URL path = HtmlOfSmeta.class.getResource("/resource/report/Smeta2.html");
             File input = new File(path.toURI());
             Document doc = Jsoup.parse(input, "utf-8");
 

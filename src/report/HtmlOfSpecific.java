@@ -16,7 +16,7 @@ public class HtmlOfSpecific {
 
     public static void specific(Record projectRec) {
         try {
-            URL path = ReportDocx.class.getResource("/resource/report/Specific.html");
+            URL path = HtmlOfSpecific.class.getResource("/resource/report/Specific.html");
             File input = new File(path.toURI());
             Document doc = Jsoup.parse(input, "utf-8");
 

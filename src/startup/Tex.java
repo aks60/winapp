@@ -18,25 +18,12 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
-import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.document.SyntaxKind;
-import fr.opensagres.xdocreport.document.IXDocReport;
-import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
-import fr.opensagres.xdocreport.template.IContext;
-import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import report.ExecuteCmd;
 
 /**
  * <p>
@@ -1211,19 +1198,11 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_mnGroup1
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        try {
-            InputStream in = Main.class.getResourceAsStream("/resource/report/OutGoMaterial.docx");
-            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-            FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.addFieldAsTextStyling("title", SyntaxKind.Html);
-            IContext context = report.createContext();
-            context.put("title", "<i>Расход</i> <b>материалов</b>");
-            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
-            report.process(context, out);
-            ExecuteCmd.startWord("report.docx");
-        } catch (Exception e) {
-            System.err.println("Ошибка:Tex.btnTest()" + e);
-        }
+//        try {
+//            InputStream in = Main.class.getResourceAsStream("/resource/report/OutGoMaterial.docx");
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Tex.btnTest()" + e);
+//        }
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
