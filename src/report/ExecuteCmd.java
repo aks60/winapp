@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.awt.Desktop;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ExecuteCmd {
 
     public static void documentType(JFrame owner) {
 
+        //ExecuteCmd.startHtml("report.html");
         ExecuteCmd.startWord("report.html");
         
 //        Object[] options = {"HTML", "WORD", "EXCEL"};
@@ -82,6 +84,8 @@ public class ExecuteCmd {
                 String[] cmd = arraysPath(fileExe, path, fileName);
                 Runtime.getRuntime().exec(cmd);
             }
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
         } catch (Exception e) {
             System.err.println("Ошибка:ExecuteCmd.startWord" + e);
         }
@@ -99,6 +103,8 @@ public class ExecuteCmd {
                 String[] cmd = arraysPath(fileExe, path, fileName);
                 Runtime.getRuntime().exec(cmd);
             }
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);            
         } catch (Exception e) {
             System.err.println("Ошибка:ExecuteCmd.startExcel" + e);
         }
