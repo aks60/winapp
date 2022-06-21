@@ -5,6 +5,8 @@ import builder.making.Specific;
 import dataset.Record;
 import domain.ePrjprod;
 import domain.eProject;
+import static domain.eSystree.record;
+import frames.UGui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -54,6 +56,12 @@ public class HtmlOfSpecific {
         }
         List<RSpecific> spcList3 = new ArrayList();
         spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
+        String num = projectRec.getStr(eProject.num_ord);
+        String date = UGui.simpleFormat.format(projectRec.get(eProject.date4));
+        String total = df1.format(spcList2.stream().mapToDouble(spc -> spc.getCost1()).sum());
+        
+        
+        
         double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum(); 
         
         String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
