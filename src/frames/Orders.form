@@ -10,45 +10,38 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menu1">
+        <MenuItem class="javax.swing.JMenuItem" name="menuItem11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43a;&#x430;&#x437;"/>
+            <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x445;&#x43e;&#x434; &#x43c;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43b;&#x43e;&#x432;"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem11">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x445;&#x43e;&#x434; &#x43c;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43b;&#x43e;&#x432;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem11"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem12">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem12"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem13">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem13"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem14">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430; &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x44f;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem14"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem11"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuItem12">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem12"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuItem13">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem13"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuItem14">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430; &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x44f;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem14"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
   </NonVisualComponents>

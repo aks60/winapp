@@ -81,7 +81,6 @@ public class HtmlOfSpecific {
         template.get(0).getElementsByTag("td").get(0).getElementsByTag("b").get(0).text("ЗАПОЛНЕНИЯ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
         s4.forEach(spc -> templateAdd(template, spc, doc));
-        
 
         //double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum(); 
     }
@@ -89,13 +88,13 @@ public class HtmlOfSpecific {
     private static void templateAdd(Elements template, RSpecific spc, Document doc) {
         Elements tdList = template.get(1).getElementsByTag("td");
         tdList.get(0).text(String.valueOf(++npp));
-            tdList.get(1).text(spc.getArtikl());
-            tdList.get(2).text(spc.getName());
-            tdList.get(3).text(spc.getColorID1());
-//            tdList.get(4).text(spc.getCount());
-//            tdList.get(5).text(spc.getUnit());
-//            tdList.get(6).text(spc.getPrice());
-//            tdList.get(7).text(spc.getCost());   
+        tdList.get(1).text(spc.getArtikl());
+        tdList.get(2).text(spc.getName());
+        tdList.get(3).text(spc.getColorID1());
+        tdList.get(4).text(spc.getCount());
+        tdList.get(5).text(spc.getUnit());
+        tdList.get(6).text(spc.getPrice());
+        tdList.get(7).text(spc.getCost());
         doc.getElementsByTag("tbody").append(template.get(1).html());
     }
 }

@@ -694,7 +694,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         buttonGroup = new javax.swing.ButtonGroup();
         ppReport = new javax.swing.JPopupMenu();
-        menu1 = new javax.swing.JMenu();
         menuItem11 = new javax.swing.JMenuItem();
         menuItem12 = new javax.swing.JMenuItem();
         menuItem13 = new javax.swing.JMenuItem();
@@ -849,15 +848,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
-        menu1.setText("Заказ");
-
         menuItem11.setText("Расход материалов");
         menuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItem11(evt);
             }
         });
-        menu1.add(menuItem11);
+        ppReport.add(menuItem11);
 
         menuItem12.setText("Спецификация");
         menuItem12.addActionListener(new java.awt.event.ActionListener() {
@@ -865,7 +862,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 menuItem12(evt);
             }
         });
-        menu1.add(menuItem12);
+        ppReport.add(menuItem12);
 
         menuItem13.setText("Смета");
         menuItem13.addActionListener(new java.awt.event.ActionListener() {
@@ -873,7 +870,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 menuItem13(evt);
             }
         });
-        menu1.add(menuItem13);
+        ppReport.add(menuItem13);
 
         menuItem14.setText("Смета ценовая");
         menuItem14.addActionListener(new java.awt.event.ActionListener() {
@@ -881,9 +878,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 menuItem14(evt);
             }
         });
-        menu1.add(menuItem14);
-
-        ppReport.add(menu1);
+        ppReport.add(menuItem14);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -3451,7 +3446,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab63;
     private javax.swing.JLabel lab7;
     private javax.swing.JLabel lab8;
-    private javax.swing.JMenu menu1;
     private javax.swing.JMenuItem menuItem11;
     private javax.swing.JMenuItem menuItem12;
     private javax.swing.JMenuItem menuItem13;
