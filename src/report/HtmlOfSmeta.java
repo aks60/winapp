@@ -1,8 +1,8 @@
 package report;
 
 import builder.Wincalc;
-import builder.model.Com5t;
 import builder.model.ElemGlass;
+import common.MoneyInWords;
 import common.UCom;
 import common.eProp;
 import dataset.Record;
@@ -70,7 +70,7 @@ public class HtmlOfSmeta {
 
     private static void load(Record projectRec, Document doc) {
         int npp = 0, length = 400;
-        float sum1 = 0f, sum2 = 0f, total = 0f;
+        float total = 0f;
 
         Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
         Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -132,11 +132,11 @@ public class HtmlOfSmeta {
             tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
             tdList.get(16).text(df2.format(winc.getSquare())); 
             tdList.get(18).text(df2.format(winc.getWeight()));
-            tdList.get(20).text(df1.format(winc.cost1()));
+            tdList.get(20).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost1()));
             tdList.get(22).text(df1.format(winc.cost1() / winc.getSquare()));
-            tdList.get(24).text(df1.format(winc.cost2()));
+            tdList.get(24).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
 
-            sum1 += winc.cost2();
+            total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
 
             if (prjkitList.size() == 0) {
                 tab3List.get(i).html("");
@@ -214,7 +214,11 @@ public class HtmlOfSmeta {
             td5List.get(7).text(df1.format(0));
 
         }
-
+        //СЕКЦИЯ №4
+        Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
+        trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
+        trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+        
         Elements imgList = doc.getElementById("div2").getElementsByTag("img");
         for (int i = 0; i < imgList.size(); i++) {
             Element get = imgList.get(i);
