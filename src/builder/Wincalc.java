@@ -37,10 +37,12 @@ import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import common.ArrayList2;
 import common.LinkedList2;
+import common.UCom;
 import enums.Form;
 import enums.Type;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
@@ -55,16 +57,16 @@ public class Wincalc {
     public float genId = 0; //генерация ключа в спецификации
 
     private String script = null;
-    private float width1 = 0.f; //ширина окна верхняя    
-    private float width2 = 0.f; //ширина окна нижняя
-    private float height1 = 0.f; //высота окна левая
-    private float height2 = 0.f; //высота окна правая
+    private float width1 = 0; //ширина окна верхняя    
+    private float width2 = 0; //ширина окна нижняя
+    private float height1 = 0; //высота окна левая
+    private float height2 = 0; //высота окна правая
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
-    private float cost1 = 0f;
-    private float cost2 = 0f;
-    
+    private float cost1 = 0;
+    private float cost2 = 0;
+
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
     public Graphics2D gc2d = null; //графический котекст рисунка  
@@ -247,7 +249,7 @@ public class Wincalc {
     public float width2() {
         return width2;
     }
-    
+
     public float height1() {
         return height1;
     }
@@ -263,7 +265,6 @@ public class Wincalc {
     public void cost1(float cost1) {
         this.cost1 = cost1;
     }
-     
 
     public float cost2() {
         return cost2;
@@ -273,5 +274,17 @@ public class Wincalc {
         this.cost2 = cost2;
     }
 
-    
+    public float getSquare() {
+        return width() * height() / 1000000;
+    }
+
+    public float getWeight() {
+        LinkedList<ElemGlass> glassList = UCom.listSortObj(listElem, Type.GLASS);
+        float weight = 0;
+        for (ElemGlass el : glassList) {
+            weight += el.artiklRecAn.getFloat(eArtikl.density) * getSquare();
+        }
+        return weight;
+    }
+
 }

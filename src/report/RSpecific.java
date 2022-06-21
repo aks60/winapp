@@ -123,4 +123,8 @@ public class RSpecific {
     public float getCost1() {
         return spc.cost1;
     }
+    
+    public float getCost2() {
+        return spc.cost2;
+    }
 }

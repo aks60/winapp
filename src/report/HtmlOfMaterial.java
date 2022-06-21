@@ -57,6 +57,7 @@ public class HtmlOfMaterial {
         spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
         double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
         
+        doc.getElementById("h01").text("Заказ №" + projectRec.getStr(eProject.num_ord));        
         String template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
         for (int i = 1; i < spcList3.size(); i++) {
             doc.getElementsByTag("tbody").append(template);

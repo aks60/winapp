@@ -390,7 +390,7 @@ public class AreaSimple extends Com5t {
                 //Рисунок в память
                 if (winc.bufferImg != null) {
                     ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
+                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);                   
                     if (eProp.dev == true) {
                         File outputfile = new File("CanvasImage.png");
                         ImageIO.write(winc.bufferImg, "png", outputfile);

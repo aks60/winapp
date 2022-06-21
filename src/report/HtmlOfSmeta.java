@@ -1,6 +1,10 @@
 package report;
 
 import builder.Wincalc;
+import builder.model.Com5t;
+import builder.model.ElemGlass;
+import common.UCom;
+import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
@@ -9,7 +13,7 @@ import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
 import domain.eSysuser;
-import enums.UseUnit;
+import enums.Type;
 import frames.UGui;
 import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
@@ -21,6 +25,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -31,14 +36,15 @@ import org.jsoup.select.Elements;
 
 public class HtmlOfSmeta {
 
+    private static int num = 0;
     private static DecimalFormat df0 = new DecimalFormat("0");
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
     public static void smeta1(Record projectRec) {
-        
+
     }
-    
+
     public static void smeta2(Record projectRec) {
         try {
             URL path = HtmlOfSmeta.class.getResource("/resource/report/Smeta2.html");
@@ -71,8 +77,7 @@ public class HtmlOfSmeta {
         List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
         List<Record> prjkitAll = new ArrayList();
 
-        Elements titl = doc.getElementById("p1").getElementsByTag("b");
-        titl.get(0).text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+        doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
         //СЕКЦИЯ №1
         Elements attr = doc.getElementById("tab1").getElementsByTag("td");
@@ -113,21 +118,22 @@ public class HtmlOfSmeta {
             List<Record> prjkitList = ePrjkit.find2(prjprodRec.getInt(ePrjprod.id));
             prjkitAll.addAll(prjkitList);
 
+            LinkedList<ElemGlass> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
             Elements captions2 = tab2List.get(i).getElementsByTag("caption");
             captions2.get(0).text("Изделие № " + (i + 1));
             tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
             tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
             tdList.get(6).text(winc.width() + "x" + winc.height());
-            tdList.get(8).text("ЗАП-ХХ");
-            tdList.get(10).text("НЕТ");
+            tdList.get(8).text(glassList.get(0).artiklRecAn.getStr(eArtikl.code));
+            tdList.get(10).text("");
             tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
                     + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
                     + eColor.find(winc.colorID3).getStr(eColor.name));
             tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
-            tdList.get(16).text("0,77 кв.м.");
-            tdList.get(18).text("77 кг.");
+            tdList.get(16).text(df2.format(winc.getSquare())); 
+            tdList.get(18).text(df2.format(winc.getWeight()));
             tdList.get(20).text(df1.format(winc.cost1()));
-            tdList.get(22).text("772");
+            tdList.get(22).text(df1.format(winc.cost1() / winc.getSquare()));
             tdList.get(24).text(df1.format(winc.cost2()));
 
             sum1 += winc.cost2();
@@ -202,7 +208,7 @@ public class HtmlOfSmeta {
             td5List.get(2).text(artiklRec.getStr(eArtikl.name));
             td5List.get(3).text(eColor.find(prjkitRec.getInt(ePrjkit.color1_id)).getStr(eColor.name));
             td5List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-                            + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
+                    + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
             td5List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
             td5List.get(6).text(df1.format(0));
             td5List.get(7).text(df1.format(0));
@@ -218,20 +224,27 @@ public class HtmlOfSmeta {
 
     private static List<Wincalc> wincList(List<Record> prjprodList, int length) {
         List<Wincalc> list = new ArrayList();
-        for (Record prjprodRec : prjprodList) {
-            String script = prjprodRec.getStr(ePrjprod.script);
-            Wincalc winc = new Wincalc(script);
-            winc.constructiv(true);
-            winc.imageIcon = Canvas.createIcon(winc, length);
-            winc.bufferImg = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-            winc.gc2d = winc.bufferImg.createGraphics();
-            winc.gc2d.fillRect(0, 0, length, length);
-            float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-            float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-            winc.scale = (length / width > length / height) ? length / (height + 80) : length / (width + 80);
-            winc.gc2d.scale(winc.scale, winc.scale);
-            winc.rootArea.draw(); //рисую конструкцию
-            list.add(winc);
+        try {
+            for (int index = 0; index < prjprodList.size(); ++index) {
+                Record prjprodRec = prjprodList.get(index);
+                String script = prjprodRec.getStr(ePrjprod.script);
+                Wincalc winc = new Wincalc(script);
+                winc.constructiv(true);
+                winc.imageIcon = Canvas.createIcon(winc, length);
+                winc.bufferImg = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                winc.gc2d = winc.bufferImg.createGraphics();
+                winc.gc2d.fillRect(0, 0, length, length);
+                float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+                float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+                winc.scale = (length / width > length / height) ? length / (height + 80) : length / (width + 80);
+                winc.gc2d.scale(winc.scale, winc.scale);
+                winc.rootArea.draw(); //рисую конструкцию
+                File outputfile = new File(eProp.path_prop.read(), "img" + (index + 1) + ".gif");
+                ImageIO.write(winc.bufferImg, "gif", outputfile);
+                list.add(winc);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:HtmlOfSmeta.wincList()" + e);
         }
         return list;
     }

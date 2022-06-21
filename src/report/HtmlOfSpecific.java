@@ -59,30 +59,36 @@ public class HtmlOfSpecific {
         spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
         String num = projectRec.getStr(eProject.num_ord);
         String date = UGui.simpleFormat.format(projectRec.get(eProject.date4));
-        String total = df1.format(spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum());
 
         List<RSpecific> s1 = spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 1).collect(toList());
         List<RSpecific> s2 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 2).collect(toList()));
         List<RSpecific> s3 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 3).collect(toList()));
         List<RSpecific> s4 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList()));
 
+        doc.getElementById("h01").text("Смета №" + projectRec.getStr(eProject.num_ord));
+        
         Elements template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
         doc.getElementsByTag("tbody").get(0).html("");
 
-        template.get(0).getElementsByTag("td").get(0).getElementsByTag("b").get(0).text("ПРОФИЛИ");
+        template.get(0).getElementsByTag("td").get(0).selectFirst("b").text("ПРОФИЛИ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
         s1.forEach(spc -> templateAdd(template, spc, doc));
-        template.get(0).getElementsByTag("td").get(0).getElementsByTag("b").get(0).text("АКСЕССУАРЫ");
+        template.get(0).getElementsByTag("td").get(0).selectFirst("b").text("АКСЕССУАРЫ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
         s2.forEach(spc -> templateAdd(template, spc, doc));
-        template.get(0).getElementsByTag("td").get(0).getElementsByTag("b").get(0).text("УПЛОТНЕНИЯ");
+        template.get(0).getElementsByTag("td").get(0).selectFirst("b").text("УПЛОТНЕНИЯ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
         s3.forEach(spc -> templateAdd(template, spc, doc));
-        template.get(0).getElementsByTag("td").get(0).getElementsByTag("b").get(0).text("ЗАПОЛНЕНИЯ");
+        template.get(0).getElementsByTag("td").get(0).selectFirst("b").text("ЗАПОЛНЕНИЯ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
         s4.forEach(spc -> templateAdd(template, spc, doc));
 
-        //double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum(); 
+        double total = s1.stream().mapToDouble(spc -> spc.getCost1()).sum()
+                + s2.stream().mapToDouble(spc -> spc.getCost1()).sum()
+                + s3.stream().mapToDouble(spc -> spc.getCost1()).sum()
+                + s4.stream().mapToDouble(spc -> spc.getCost1()).sum();
+        doc.getElementsByTag("tfoot").get(0).selectFirst("tr:eq(0)")
+                .selectFirst("td:eq(1)").text(df1.format(total));
     }
 
     private static void templateAdd(Elements template, RSpecific spc, Document doc) {
