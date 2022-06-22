@@ -255,6 +255,8 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
         lab14.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt2.setText("0");
+        txt2.setToolTipText("");
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -547,9 +549,9 @@ public class DicKits extends javax.swing.JDialog {
             if (txt3.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Укажите количество комплектов.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                 return;
-            } else if (txt2.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
+//            } else if (txt2.getText().isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+//                return;
             } else if (txt9.getText().isEmpty() || txt13.getText().isEmpty() || txt14.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                 return;

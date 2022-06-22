@@ -61,11 +61,12 @@ public class Wincalc {
     private float width2 = 0; //ширина окна нижняя
     private float height1 = 0; //высота окна левая
     private float height2 = 0; //высота окна правая
-    public int colorID1 = -1;  //базовый цвет
-    public int colorID2 = -1;  //внутренний цвет
-    public int colorID3 = -1;  //внещний цвет
-    private float cost1 = 0;
-    private float cost2 = 0;
+    public int colorID1 = -1; //базовый цвет
+    public int colorID2 = -1; //внутренний цвет
+    public int colorID3 = -1; //внещний цвет
+    private float cost1 = 0; //Стоимость без скидки
+    private float cost2 = 0; //Стоимость с технологической скидкой
+    private float cost3 = 0; //Стоимость со скидкой менеджера/диллера
 
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
@@ -273,7 +274,11 @@ public class Wincalc {
     public void cost2(float cost2) {
         this.cost2 = cost2;
     }
-
+    
+    public float cost3() {
+        return cost3;
+    }
+    
     public float getSquare() {
         return width() * height() / 1000000;
     }
