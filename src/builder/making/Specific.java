@@ -50,7 +50,8 @@ public class Specific {
     public float price1 = 0;  //Себест. за ед. без отхода     
     public float price2 = 0;  //Себест. за ед. с отходом
     public float cost1 = 0;  //Стоимость без скидки
-    public float cost2 = 0;  //Стоимость со скидкой
+    public float cost2 = 0;  //Стоимость с технологической скидкой
+    public float cost3 = 0;  //Стоимость со скидкой менеджера/диллера
 
     public Specific() {        
     }
@@ -94,6 +95,7 @@ public class Specific {
         this.price2 = spec.price2;
         this.cost1 = spec.cost1;
         this.cost2 = spec.cost2;
+        this.cost3 = spec.cost3;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
@@ -153,54 +155,11 @@ public class Specific {
     }
 
     public static void write_csv(ArrayList<Specific> spcList) {
-        Writer writer = null;
-        try {
-            File file = new File("C:\\Java\\IWinCalc\\out\\Specification.csv.");
-            writer = new BufferedWriter(new FileWriter(file));
-
-            writer.write(new String(("TEST Изделие, Элемент, Артикул, Наименование, Текстура, Внутренняя, Внешняя, Длина. мм, "
-                    + "Ширина. мм, Угол1, Угол2, Количество, Погонаж, Ед.изм, Ед.изм, Скидка, Скидка").getBytes("windows-1251"), "UTF-8"));
-            for (Specific spc : spcList) {
-
-                String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.colorID1 + "," + spc.colorID2 + "," + spc.colorID3
-                        + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
-                        + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + "\n";
-
-                str = new String(str.getBytes(), "windows-1251");
-
-                writer.write(str);
-            }
-        } catch (Exception ex) {
-            System.err.println("Ошибка:Specification.write_csv() " + ex);
-        } finally {
-            try {
-                writer.flush();
-                writer.close();
-            } catch (Exception ex2) {
-                System.err.println("Ошибка:Specification.write_csv() " + ex2);
-            }
-        }
+        //См. историю
     }
 
     public static void write_txt(ArrayList<Specific> specList) {
-        try {
-            int npp = 0;
-            String format = "%-4s%-8s%-60s%-26s%-12s%-12s%-12s";
-            Object str[] = {"Npp", "Place", "Name", "Artikl", "areaId", "elemId", "owner"};
-            System.out.printf(format, str);
-            System.out.println();
-            float total = 0;
-            for (Specific s : specList) {
-                Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner.id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code)};
-                total = total + s.weight;
-                System.out.printf(format, str2);
-                System.out.println();
-            }
-            System.out.println("Масса окна " + total + " кг.");
-        } catch (Exception e) {
-            System.err.println("Ошибка:Specification.write_txt2() " + e);
-        }
+        //См. историю
     }
 
     public String toString() {
