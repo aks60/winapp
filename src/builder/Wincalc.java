@@ -65,12 +65,12 @@ public class Wincalc {
     public int colorID1 = -1; //базовый цвет
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет
-    private float price1 = 0; //себест. за ед. без отхода 
-    private float weight = 0; //масса конструкции 
-    private float price2 = 0; //себест. за ед. с отходом
-    private float cost1 = 0; //стоимость без скидки
+    private float costpric1 = 0; //себест. за ед. без отхода     
+    private float costpric2 = 0; //себест. за ед. с отходом
+    private float price = 0; //стоимость без скидки
     private float cost2 = 0; //стоимость с технологической скидкой
     private float cost3 = 0; //стоимость со скидкой менеджера/диллера
+    private float weight = 0; //масса конструкции 
 
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
@@ -272,11 +272,11 @@ public class Wincalc {
     }
     
     public float cost(int index) {
-        return (index == 1) ? cost1 : (index == 2) ? cost2 : cost3;
+        return (index == 1) ? price : (index == 2) ? cost2 : cost3;
     }
 
     public void cost1(float cost1) {
-        this.cost1 = cost1;
+        this.price = cost1;
     }
 
     public void cost2(float cost2) {
@@ -285,10 +285,10 @@ public class Wincalc {
 
     public void totalCalc() {
         for (Specific spc : listSpec) {
-            price1 += spc.price1;
-            price2 += spc.price2;
-            cost1 += spc.cost1;
-            cost2 += spc.cost2;
+            costpric1 += spc.costpric1;
+            costpric2 += spc.costpric2;
+            price += spc.price;
+            cost2 += spc.costs;
         }
     }
 

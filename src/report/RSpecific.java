@@ -82,16 +82,16 @@ public class RSpecific {
 
     public String getPrice() {
         if (otx) {
-            return df1.format(spc.price2);
+            return df1.format(spc.costpric2);
         }
-        return df1.format(spc.price1);
+        return df1.format(spc.costpric1);
     }
 
     public String getCost() {
         if (otx) {
-            return df1.format(spc.cost2);
+            return df1.format(spc.costs);
         }
-        return df1.format(spc.cost1);
+        return df1.format(spc.price);
     }
 
     //--------------------------------------------------------------------------  
@@ -110,9 +110,9 @@ public class RSpecific {
                 s.spc.count = s.spc.count + sr.spc.count;
                 s.spc.quant1 = s.spc.quant1 + sr.spc.quant1;
                 s.spc.quant2 = s.spc.quant2 + sr.spc.quant2;
-                s.spc.price2 = s.spc.price2 + sr.spc.price2;
-                s.spc.cost1 = s.spc.cost1 + sr.spc.cost1;
-                s.spc.cost2 = s.spc.cost2 + sr.spc.cost2;
+                s.spc.costpric2 = s.spc.costpric2 + sr.spc.costpric2;
+                s.spc.price = s.spc.price + sr.spc.price;
+                s.spc.costs = s.spc.costs + sr.spc.costs;
             }
         }
         map.entrySet().forEach(act -> list.add(act.getValue()));
@@ -121,10 +121,10 @@ public class RSpecific {
     } 
     
     public float getCost1() {
-        return spc.cost1;
+        return spc.price;
     }
     
     public float getCost2() {
-        return spc.cost2;
+        return spc.costs;
     }
 }

@@ -42,7 +42,7 @@ public class Tariffic extends Cal5e {
             //Расчёт себес-сти за ед.изм.
             for (ElemSimple elem5e : winc.listElem) {
 
-                elem5e.spcRec.price1 += artdetPrice(elem5e.spcRec); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
+                elem5e.spcRec.costpric1 += artdetPrice(elem5e.spcRec); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
                 elem5e.spcRec.quant2 = elem5e.spcRec.quant1;  //базовое количество с отходом
                 if (norm_otx == true) {
@@ -51,7 +51,7 @@ public class Tariffic extends Cal5e {
                 }
                 //Вложенная спецификация
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
-                    specificationRec2.price1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
+                    specificationRec2.costpric1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
                     specificationRec2.quant2 = specificationRec2.quant1; //базовое количество с отходом
                     if (norm_otx == true) {
@@ -94,16 +94,16 @@ public class Tariffic extends Cal5e {
                     }
                 }
 
-                elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себест. за ед. с отходом 
+                elem5e.spcRec.costpric2 = elem5e.spcRec.costpric1 * elem5e.spcRec.quant2; //себест. за ед. с отходом 
                 Record artgrp1Rec = eGroups.find(elem5e.spcRec.artiklRec.getInt(eArtikl.artgrp1_id));
                 float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //коэф. группы текстур
                 float k2 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
-                elem5e.spcRec.cost1 = elem5e.spcRec.price2 * k1 * k2;
-                elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
-                elem5e.spcRec.cost2 = elem5e.spcRec.cost1; //базовая стоимость со скидкой 
+                elem5e.spcRec.price = elem5e.spcRec.costpric2 * k1 * k2;
+                elem5e.spcRec.price = elem5e.spcRec.price + (elem5e.spcRec.price / 100) * percentMarkup; //стоимость без скидки                     
+                elem5e.spcRec.costs = elem5e.spcRec.price; //базовая стоимость со скидкой 
 
-                winc.cost1( winc.cost(1) + elem5e.spcRec.cost1); //общая стоимость без скидки 
-                winc.cost2(winc.cost(2) + elem5e.spcRec.cost2); //общая стоимость со скидкой
+                winc.cost1( winc.cost(1) + elem5e.spcRec.price); //общая стоимость без скидки 
+                winc.cost2(winc.cost(2) + elem5e.spcRec.costs); //общая стоимость со скидкой
 
                 //Правила расчёта вложенные
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
@@ -115,16 +115,16 @@ public class Tariffic extends Cal5e {
                             rulecalcPrise(rulecalcRec, specificationRec2);
                         }
                     }
-                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себест. за ед. с отходом  
+                    specificationRec2.costpric2 = specificationRec2.costpric1 * specificationRec2.quant2; //себест. за ед. с отходом  
                     Record artgrpRec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
                     float m1 = artgrpRec2.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                     float m2 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
-                    specificationRec2.cost1 = specificationRec2.price2 * m1 * m2;
-                    specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
-                    specificationRec2.cost2 = specificationRec2.cost1; //базовая стоимость со скидкой 
+                    specificationRec2.price = specificationRec2.costpric2 * m1 * m2;
+                    specificationRec2.price = specificationRec2.price + (specificationRec2.price / 100) * percentMarkup; //стоимость без скидки                        
+                    specificationRec2.costs = specificationRec2.price; //базовая стоимость со скидкой 
 
-                    winc.cost1(winc.cost(1) + specificationRec2.cost1); //общая стоимость без скидки
-                    winc.cost2(winc.cost(2) + specificationRec2.cost2); //общая стоимость со скидкой
+                    winc.cost1(winc.cost(1) + specificationRec2.price); //общая стоимость без скидки
+                    winc.cost2(winc.cost(2) + specificationRec2.costs); //общая стоимость со скидкой
                 }
 
             }
@@ -247,7 +247,7 @@ public class Tariffic extends Cal5e {
 
                     if (rulecalcRec.getInt(eRulecalc.common) == 0) {
                         if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
-                            specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
+                            specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
                         }
 
                     } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
@@ -278,7 +278,7 @@ public class Tariffic extends Cal5e {
                             }
                         }
                         if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
-                            specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
+                            specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                         }
                     }
                 }

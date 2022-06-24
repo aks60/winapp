@@ -150,8 +150,8 @@ public class Specifics extends javax.swing.JFrame {
 
         for (Specific spc : listSpec) {
             String key = (num == 1)
-                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
-                    : (num == 2) ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1 : spc.artikl;
+                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.costpric1
+                    : (num == 2) ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.costpric1 : spc.artikl;
             if (hs.add(key)) {
                 map.put(key, new Specific(spc));
             } else {
@@ -163,9 +163,9 @@ public class Specifics extends javax.swing.JFrame {
                 s.count = s.count + spc.count;
                 s.quant1 = s.quant1 + spc.quant1;
                 s.quant2 = s.quant2 + spc.quant2;
-                s.price2 = s.price2 + spc.price2;
-                s.cost1 = s.cost1 + spc.cost1;
-                s.cost2 = s.cost2 + spc.cost2;
+                s.costpric2 = s.costpric2 + spc.costpric2;
+                s.price = s.price + spc.price;
+                s.costs = s.costs + spc.costs;
             }
         }
         map.entrySet().forEach(act -> list.add(act.getValue()));

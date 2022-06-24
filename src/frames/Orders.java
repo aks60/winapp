@@ -3153,8 +3153,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
                                 for (Specific spc : win.listSpec) {
                                     win.weight(win.weight() + spc.weight); //масса
-                                    win.weight(win.cost(1) + spc.cost1); //тоимость без скидки
-                                    win.weight(win.cost(2) + spc.cost2); //стоимость со скидкой
+                                    win.weight(win.cost(1) + spc.price); //тоимость без скидки
+                                    win.weight(win.cost(2) + spc.costs); //стоимость со скидкой
                                 }
                                 projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
                                 //projectRec.set(eProject.cos, projectRec.getFloat(eProject.weight) + win.weight());

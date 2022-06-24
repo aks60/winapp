@@ -47,11 +47,10 @@ public class Specific {
     public float wastePrc = 0;  //Процент отхода    
     public float quant1 = 0;  //Количество без отхода
     public float quant2 = 0;  //Количество с отходом
-    public float price1 = 0;  //Себест. за ед. без отхода     
-    public float price2 = 0;  //Себест. за ед. с отходом
-    public float cost1 = 0;  //Стоимость без скидки
-    public float cost2 = 0;  //Стоимость с технологической скидкой
-    public float cost3 = 0;  //Стоимость со скидкой менеджера/диллера
+    public float costpric1 = 0;  //Себест. за ед. без отхода     
+    public float costpric2 = 0;  //Себест. за ед. с отходом
+    public float price = 0;  //Стоимость без скидки
+    public float costs = 0;  //Стоимость с технологической скидкой
 
     public Specific() {        
     }
@@ -91,11 +90,10 @@ public class Specific {
         this.quant1 = spec.quant1;
         this.wastePrc = spec.wastePrc;
         this.quant2 = spec.quant2;
-        this.price1 = spec.price1;
-        this.price2 = spec.price2;
-        this.cost1 = spec.cost1;
-        this.cost2 = spec.cost2;
-        this.cost3 = spec.cost3;
+        this.costpric1 = spec.costpric1;
+        this.costpric2 = spec.costpric2;
+        this.price = spec.price;
+        this.costs = spec.costs;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
@@ -104,7 +102,7 @@ public class Specific {
     public Vector getVector(int npp) {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
-                count, UseUnit.getName(unit), wastePrc, quant1, quant2, price1, price2, cost1, cost2));
+                count, UseUnit.getName(unit), wastePrc, quant1, quant2, costpric1, costpric2, price, costs));
     }
 
     public void setArtiklRec(Record artiklRec) {

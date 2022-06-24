@@ -424,7 +424,7 @@ public class DBCompare extends javax.swing.JFrame {
 
             String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
-            hmJar.put(key, val + spc.cost1);
+            hmJar.put(key, val + spc.price);
             hmArt.put(key, spc.artikl);
         }
         try {
@@ -551,7 +551,7 @@ public class DBCompare extends javax.swing.JFrame {
             for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
                 Float val = hmDbSa.getOrDefault(key, 0.f);
-                hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
+                hmDbSa.put(key, val + spc.price); //стоимость без скидки
             }
 
             if (detail == true) {
@@ -630,7 +630,7 @@ public class DBCompare extends javax.swing.JFrame {
             for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
                 Float val = hmDbSa.getOrDefault(key, 0.f);
-                hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
+                hmDbSa.put(key, val + spc.price); //стоимость без скидки
             }
 
             if (detail == true) {
