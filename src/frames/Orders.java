@@ -113,6 +113,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
     private DecimalFormat df1 = new DecimalFormat("#0.#");
+    private static DecimalFormat df2 = new DecimalFormat("#0.00");
     private ListenerObject<Query> listenerQuery = null;
 
     public Orders() {
@@ -226,9 +227,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 set.forEach(s -> s.setText(null));
             }
         };
-        rsvPrj.add(eProject.pric1, txt4);
-        rsvPrj.add(eProject.pric2, txt5);
-        rsvPrj.add(eProject.cost2, txt6);
+        //rsvPrj.add(eProject.pric1, txt4);
+        //rsvPrj.add(eProject.pric2, txt5);
+        //rsvPrj.add(eProject.cost2, txt6);
         rsvPrj.add(eProject.weight, txt7);
         rsvPrj.add(eProject.square, txt8);
         canvas.setVisible(true);
@@ -337,6 +338,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 scene.draw();
                 loadingWinTree(win);
                 winTree.setSelectionInterval(0, 0);
+
+                tab5.setValueAt(df2.format(win.cost(1)), 0, 2);
+                tab5.setValueAt(df2.format(win.cost(2)), 0, 3);
 
             }
         } else {
@@ -724,24 +728,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         pan9 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        pan19 = new javax.swing.JPanel();
         lab1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         lab3 = new javax.swing.JLabel();
         txt3 = new javax.swing.JTextField();
         btn1 = new javax.swing.JButton();
-        lab4 = new javax.swing.JLabel();
-        txt4 = new javax.swing.JTextField();
         lab7 = new javax.swing.JLabel();
         txt7 = new javax.swing.JTextField();
         txt8 = new javax.swing.JTextField();
         lab8 = new javax.swing.JLabel();
-        txt5 = new javax.swing.JTextField();
-        lab5 = new javax.swing.JLabel();
-        lab6 = new javax.swing.JLabel();
-        txt6 = new javax.swing.JTextField();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         pan5 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
@@ -986,7 +984,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         btnCalc.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnCalc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcresh(evt);
+                btnCalc(evt);
             }
         });
 
@@ -1275,49 +1273,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         pan11.add(pan7, java.awt.BorderLayout.CENTER);
 
+        pan9.setPreferredSize(new java.awt.Dimension(450, 150));
         pan9.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(450, 72));
-
-        jTable1.setBackground(new java.awt.Color(212, 208, 200));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"   Конструкции",  new Float(0.0), null, null},
-                {"   Комплектации",  new Float(0.0), null, null},
-                {"   Итого за заказ",  new Float(0.0), null, null}
-            },
-            new String [] {
-                "", "Скидка (%)", "Без скидок", "Со скидкой"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(140);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        pan9.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(450, 120));
+        pan19.setPreferredSize(new java.awt.Dimension(450, 64));
 
         lab1.setFont(frames.UGui.getFont(0,0));
         lab1.setText("Тип расчтета");
@@ -1354,17 +1313,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        lab4.setFont(frames.UGui.getFont(0,0));
-        lab4.setText("Cебестоимость");
-        lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab4.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab4.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab4.setPreferredSize(new java.awt.Dimension(140, 18));
-
-        txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt4.setFocusable(false);
-        txt4.setPreferredSize(new java.awt.Dimension(60, 20));
-
         lab7.setFont(frames.UGui.getFont(0,0));
         lab7.setText("Общий вес");
         lab7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1387,106 +1335,93 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab8.setMinimumSize(new java.awt.Dimension(34, 14));
         lab8.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt5.setFocusable(false);
-        txt5.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        lab5.setFont(frames.UGui.getFont(0,0));
-        lab5.setText("Cтоимость без скидки");
-        lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab5.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab5.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab5.setPreferredSize(new java.awt.Dimension(140, 18));
-
-        lab6.setFont(frames.UGui.getFont(0,0));
-        lab6.setText("Cтоимость со скидкой");
-        lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab6.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab6.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab6.setPreferredSize(new java.awt.Dimension(140, 18));
-
-        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt6.setFocusable(false);
-        txt6.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pan19Layout = new javax.swing.GroupLayout(pan19);
+        pan19.setLayout(pan19Layout);
+        pan19Layout.setHorizontalGroup(
+            pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pan19Layout.createSequentialGroup()
+                        .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan19Layout.createSequentialGroup()
+                        .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(lab3, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(txt7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pan19Layout.setVerticalGroup(
+            pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan19Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71))
         );
 
-        pan9.add(jPanel1, java.awt.BorderLayout.SOUTH);
+        pan9.add(pan19, java.awt.BorderLayout.NORTH);
+
+        scr5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        scr5.setPreferredSize(new java.awt.Dimension(450, 90));
+
+        tab5.setBackground(new java.awt.Color(212, 208, 200));
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"   Конструкции",  new Float(0.0), null, null},
+                {"   Комплектации",  new Float(0.0), null, null},
+                {"   Итого за заказ",  new Float(0.0), null, null}
+            },
+            new String [] {
+                "", "Скидка (%)", "Без скидок", "Со скидкой"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setResizable(false);
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab5.getColumnModel().getColumn(1).setResizable(false);
+            tab5.getColumnModel().getColumn(2).setResizable(false);
+            tab5.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        pan9.add(scr5, java.awt.BorderLayout.CENTER);
 
         pan11.add(pan9, java.awt.BorderLayout.NORTH);
 
@@ -3182,7 +3117,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_btnToArtiklGlass
 
-    private void btnCalcresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcresh
+    private void btnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalc
         try {
             if (UGui.getIndexRec(tab1) != -1) {
                 int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
@@ -3204,15 +3139,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         }
                     }
                 }
-                txt4.setText(UGui.df.format(total[1]));
-                txt5.setText(UGui.df.format(total[2]));
-                txt6.setText(UGui.df.format(total[3]));
+                //txt4.setText(UGui.df.format(total[1]));
+                tab5.setValueAt(UGui.df.format(total[2]), 0, 2);
+                tab5.setValueAt(UGui.df.format(total[3]), 0, 3);
                 txt7.setText(UGui.df.format(total[0]));
             }
 
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_btnCalcresh
+    }//GEN-LAST:event_btnCalc
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
         loadingTab1();
@@ -3454,9 +3389,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel centr;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab26;
@@ -3474,7 +3406,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab37;
     private javax.swing.JLabel lab38;
     private javax.swing.JLabel lab39;
-    private javax.swing.JLabel lab4;
     private javax.swing.JLabel lab40;
     private javax.swing.JLabel lab41;
     private javax.swing.JLabel lab42;
@@ -3484,7 +3415,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab46;
     private javax.swing.JLabel lab48;
     private javax.swing.JLabel lab49;
-    private javax.swing.JLabel lab5;
     private javax.swing.JLabel lab50;
     private javax.swing.JLabel lab54;
     private javax.swing.JLabel lab55;
@@ -3492,7 +3422,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab57;
     private javax.swing.JLabel lab58;
     private javax.swing.JLabel lab59;
-    private javax.swing.JLabel lab6;
     private javax.swing.JLabel lab60;
     private javax.swing.JLabel lab61;
     private javax.swing.JLabel lab63;
@@ -3512,6 +3441,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan17;
     private javax.swing.JPanel pan18;
+    private javax.swing.JPanel pan19;
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;
     private javax.swing.JPanel pan3;
@@ -3527,6 +3457,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JSpinner spinner;
@@ -3534,6 +3465,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
@@ -3561,7 +3493,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTextField txt37;
     private javax.swing.JTextField txt38;
     private javax.swing.JTextField txt39;
-    private javax.swing.JTextField txt4;
     private javax.swing.JTextField txt40;
     private javax.swing.JTextField txt41;
     private javax.swing.JTextField txt42;
@@ -3571,8 +3502,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTextField txt46;
     private javax.swing.JTextField txt47;
     private javax.swing.JTextField txt48;
-    private javax.swing.JTextField txt5;
-    private javax.swing.JTextField txt6;
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
@@ -3585,7 +3514,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         new UColor();
         south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
+        UGui.documentFilter(3, txt7, txt8);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
