@@ -205,7 +205,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
-/*
+        /*
         rsvPrj = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
@@ -231,7 +231,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         };
         //rsvPrj.add(eProject.weight, txt7);
         //rsvPrj.add(eProject.square, txt8);
-*/
+         */
         canvas.setVisible(true);
     }
 
@@ -313,26 +313,22 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         List.of(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getSelectedRow() != -1) {
 
-            lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
+            Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+            lab2.setText("Заказ № " + projectRec.getStr(eProject.num_ord));
             int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
             eProp.orderID.write(String.valueOf(orderID));
 
-            //rsvPrj.load();
             loadingTab2();
 
-            float total[] = {0, 0, 0};
             for (Record prjprodRec : qPrjprod) {
                 Object w = prjprodRec.get(ePrjprod.values().length);
                 if (w instanceof Wincalc) {
                     Wincalc win = (Wincalc) w;
-                    total[0] += win.weight();
-                    total[1] += win.cost(1);
-                    total[2] += win.cost(2);
                 }
             }
-            txt7.setText(df0.format(total[0]));
-            tab5.setValueAt(df2.format(total[1]), 0, 2);
-            tab5.setValueAt(df1.format(total[2]), 0, 3);
+            txt7.setText(df0.format(projectRec.getFloat(eProject.weight)));
+            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
+            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
         }
     }
 
@@ -353,8 +349,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 loadingWinTree(win);
                 winTree.setSelectionInterval(0, 0);
 
-                tab5.setValueAt(df2.format(win.cost(1)), 0, 2);
-                tab5.setValueAt(df2.format(win.cost(2)), 0, 3);
+                tab5.setValueAt(df2.format(win.price()), 0, 2);
+                tab5.setValueAt(df2.format(win.cost2()), 0, 3);
 
             }
         } else {
@@ -3137,8 +3133,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 try {
                     //Пересчёт заказа
                     if (UGui.getIndexRec(tab1) != -1) {
-                        float total[] = {0, 0, 0};
                         Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                        projectRec.set(eProject.weight, 0);
+                        projectRec.set(eProject.cost2, 0);
+                        projectRec.set(eProject.price2, 0);
+
                         //Цыкл по конструкциям
                         for (Record prjprodRec : qPrjprod) {
                             Object w = prjprodRec.get(ePrjprod.values().length);
@@ -3153,22 +3152,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
                                 for (Specific spc : win.listSpec) {
                                     win.weight(win.weight() + spc.weight); //масса
-                                    win.weight(win.cost(1) + spc.price); //тоимость без скидки
-                                    win.weight(win.cost(2) + spc.costs); //стоимость со скидкой
+                                    win.weight(win.price() + spc.price); //тоимость без скидки
+                                    win.weight(win.cost2() + spc.cost2); //стоимость со скидкой
                                 }
                                 projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
-                                //projectRec.set(eProject.cos, projectRec.getFloat(eProject.weight) + win.weight());
-                                //projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
-                                
-                                total[0] += win.weight();
-                                total[1] += win.cost(1);
-                                total[2] += win.cost(2);
+                                projectRec.set(eProject.price2, projectRec.getFloat(eProject.price2) + win.price());
+                                projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
                             }
                         }
 
-                        txt7.setText(df0.format(total[0]));
-                        tab5.setValueAt(df1.format(total[1]), 0, 2);
-                        tab5.setValueAt(df1.format(total[2]), 0, 3);
+                        txt7.setText(df0.format(projectRec.getFloat(eProject.weight)));
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
                     }
 
                 } catch (Exception e) {

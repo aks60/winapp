@@ -270,17 +270,29 @@ public class Wincalc {
     public void weight(float weight) {
         this.weight = weight;
     }
+
+    public float price() {
+        return this.price;
+    }
     
-    public float cost(int index) {
-        return (index == 1) ? price : (index == 2) ? cost2 : cost3;
+    public void price(float price) {
+        this.price = price;
     }
-
-    public void cost1(float cost1) {
-        this.price = cost1;
+    
+    public float cost2() {
+        return this.cost2;
     }
-
+    
     public void cost2(float cost2) {
         this.cost2 = cost2;
+    }
+    
+    public float cost3() {
+        return this.cost3;
+    }
+    
+    public void cost3(float cost3) {
+        this.cost3 = cost3;
     }
 
     public void totalCalc() {
@@ -288,12 +300,8 @@ public class Wincalc {
             costpric1 += spc.costpric1;
             costpric2 += spc.costpric2;
             price += spc.price;
-            cost2 += spc.costs;
+            cost2 += spc.cost2;
         }
-    }
-
-    public float cost3() {
-        return cost3;
     }
 
     public float getSquare() {

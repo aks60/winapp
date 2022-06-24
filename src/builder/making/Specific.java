@@ -50,7 +50,7 @@ public class Specific {
     public float costpric1 = 0;  //Себест. за ед. без отхода     
     public float costpric2 = 0;  //Себест. за ед. с отходом
     public float price = 0;  //Стоимость без скидки
-    public float costs = 0;  //Стоимость с технологической скидкой
+    public float cost2 = 0;  //Стоимость с технологической скидкой
 
     public Specific() {        
     }
@@ -93,7 +93,7 @@ public class Specific {
         this.costpric1 = spec.costpric1;
         this.costpric2 = spec.costpric2;
         this.price = spec.price;
-        this.costs = spec.costs;
+        this.cost2 = spec.cost2;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
@@ -102,7 +102,7 @@ public class Specific {
     public Vector getVector(int npp) {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
-                count, UseUnit.getName(unit), wastePrc, quant1, quant2, costpric1, costpric2, price, costs));
+                count, UseUnit.getName(unit), wastePrc, quant1, quant2, costpric1, costpric2, price, cost2));
     }
 
     public void setArtiklRec(Record artiklRec) {

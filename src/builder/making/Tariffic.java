@@ -100,10 +100,10 @@ public class Tariffic extends Cal5e {
                 float k2 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
                 elem5e.spcRec.price = elem5e.spcRec.costpric2 * k1 * k2;
                 elem5e.spcRec.price = elem5e.spcRec.price + (elem5e.spcRec.price / 100) * percentMarkup; //стоимость без скидки                     
-                elem5e.spcRec.costs = elem5e.spcRec.price; //базовая стоимость со скидкой 
+                elem5e.spcRec.cost2 = elem5e.spcRec.price; //базовая стоимость со скидкой 
 
-                winc.cost1( winc.cost(1) + elem5e.spcRec.price); //общая стоимость без скидки 
-                winc.cost2(winc.cost(2) + elem5e.spcRec.costs); //общая стоимость со скидкой
+                winc.price( winc.price() + elem5e.spcRec.price); //общая стоимость без скидки 
+                winc.cost2(winc.cost2() + elem5e.spcRec.cost2); //общая стоимость со скидкой
 
                 //Правила расчёта вложенные
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
@@ -121,10 +121,10 @@ public class Tariffic extends Cal5e {
                     float m2 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
                     specificationRec2.price = specificationRec2.costpric2 * m1 * m2;
                     specificationRec2.price = specificationRec2.price + (specificationRec2.price / 100) * percentMarkup; //стоимость без скидки                        
-                    specificationRec2.costs = specificationRec2.price; //базовая стоимость со скидкой 
+                    specificationRec2.cost2 = specificationRec2.price; //базовая стоимость со скидкой 
 
-                    winc.cost1(winc.cost(1) + specificationRec2.price); //общая стоимость без скидки
-                    winc.cost2(winc.cost(2) + specificationRec2.costs); //общая стоимость со скидкой
+                    winc.price(winc.price() + specificationRec2.price); //общая стоимость без скидки
+                    winc.cost2(winc.cost2() + specificationRec2.cost2); //общая стоимость со скидкой
                 }
 
             }

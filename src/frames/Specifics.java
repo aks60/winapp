@@ -165,7 +165,7 @@ public class Specifics extends javax.swing.JFrame {
                 s.quant2 = s.quant2 + spc.quant2;
                 s.costpric2 = s.costpric2 + spc.costpric2;
                 s.price = s.price + spc.price;
-                s.costs = s.costs + spc.costs;
+                s.cost2 = s.cost2 + spc.cost2;
             }
         }
         map.entrySet().forEach(act -> list.add(act.getValue()));
