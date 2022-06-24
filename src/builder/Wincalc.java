@@ -45,6 +45,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
 
@@ -64,6 +65,8 @@ public class Wincalc {
     public int colorID1 = -1; //базовый цвет
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет
+    private float price1 = 0; //Себест. за ед. без отхода 
+    private float price2 = 0; //Себест. за ед. с отходом
     private float cost1 = 0; //Стоимость без скидки
     private float cost2 = 0; //Стоимость с технологической скидкой
     private float cost3 = 0; //Стоимость со скидкой менеджера/диллера
@@ -259,26 +262,31 @@ public class Wincalc {
         return height2;
     }
 
-    public float cost1() {
-        return cost1;
+    public float cost(int index) {
+        return (index == 1) ? cost1 : (index == 2) ? cost2 : cost3;
     }
 
     public void cost1(float cost1) {
         this.cost1 = cost1;
     }
 
-    public float cost2() {
-        return cost2;
-    }
-
     public void cost2(float cost2) {
         this.cost2 = cost2;
     }
-    
+
+    public void totalCalc() {
+        for (Specific spc : listSpec) {
+            price1 += spc.price1;
+            price2 += spc.price2;
+            cost1 += spc.cost1;
+            cost2 += spc.cost2;
+        }
+    }
+
     public float cost3() {
         return cost3;
     }
-    
+
     public float getSquare() {
         return width() * height() / 1000000;
     }
@@ -291,5 +299,4 @@ public class Wincalc {
         }
         return weight;
     }
-
 }

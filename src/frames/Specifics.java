@@ -127,15 +127,15 @@ public class Specifics extends javax.swing.JFrame {
                 sum1 = sum1 + (Float) v.get(indexLast - 1);
                 sum2 = sum2 + (Float) v.get(indexLast - 2);
                 sum9 = sum9 + (Float) v.get(indexLast - 9);
-                sum13 = sum13 + (Float) v.get(indexLast - 13);
+                sum13 = sum13 + (Float) v.get(indexLast - 13); 
             }
             Vector vectorLast = new Vector();
             vectorLast.add(listSpec.size());
             for (int i = 1; i < indexLast; i++) {
                 vectorLast.add(null);
             }
-            vectorLast.set(indexLast - 1, sum1);
-            vectorLast.set(indexLast - 2, sum2);
+            vectorLast.set(indexLast - 1, sum1); //стоимость без скидки
+            vectorLast.set(indexLast - 2, sum2); //стоимость со скидклй
             vectorLast.set(indexLast - 9, sum9);
             vectorLast.set(indexLast - 13, sum13);
             dtm.addRow(vectorLast);

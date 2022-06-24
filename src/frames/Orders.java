@@ -1288,7 +1288,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 {"   Итого за заказ",  new Float(0.0), null, null}
             },
             new String [] {
-                "", "Скидка (%)", "Без скидок", "К оплате"
+                "", "Скидка (%)", "Без скидок", "Со скидкой"
             }
         ) {
             Class[] types = new Class [] {
@@ -1485,8 +1485,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
-
-        lab3.getAccessibleContext().setAccessibleName("Валюта");
 
         pan9.add(jPanel1, java.awt.BorderLayout.SOUTH);
 

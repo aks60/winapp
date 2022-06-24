@@ -868,7 +868,7 @@
                                       <Data value="0.0"/>
                                     </Column>
                                     <Column editable="false" title="&#x411;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43e;&#x43a;" type="java.lang.Float"/>
-                                    <Column editable="false" title="&#x41a; &#x43e;&#x43f;&#x43b;&#x430;&#x442;&#x435;" type="java.lang.Float"/>
+                                    <Column editable="false" title="&#x421;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Float"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1080,9 +1080,6 @@
                                   <Dimension value="[56, 18]"/>
                                 </Property>
                               </Properties>
-                              <AccessibilityProperties>
-                                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#x412;&#x430;&#x43b;&#x44e;&#x442;&#x430;"/>
-                              </AccessibilityProperties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt3">
                               <Properties>
