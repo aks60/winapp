@@ -638,9 +638,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);;
 
-                setText(txt24, UGui.df.frm(stv.frames.get(Layout.BOTT).width()));
+                setText(txt24, df1.frm(stv.frames.get(Layout.BOTT).width()));
                 float h = (stv.frames.get(Layout.RIGHT).height() > stv.frames.get(Layout.LEFT).height()) ? stv.frames.get(Layout.RIGHT).height() : stv.frames.get(Layout.LEFT).height();
-                setText(txt26, UGui.df.frm(h));
+                setText(txt26, df1.frm(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
                 setText(txt30, stv.typeOpen.name2);

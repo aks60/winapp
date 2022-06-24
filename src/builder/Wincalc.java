@@ -65,11 +65,12 @@ public class Wincalc {
     public int colorID1 = -1; //базовый цвет
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет
-    private float price1 = 0; //Себест. за ед. без отхода 
-    private float price2 = 0; //Себест. за ед. с отходом
-    private float cost1 = 0; //Стоимость без скидки
-    private float cost2 = 0; //Стоимость с технологической скидкой
-    private float cost3 = 0; //Стоимость со скидкой менеджера/диллера
+    private float price1 = 0; //себест. за ед. без отхода 
+    private float weight = 0; //масса конструкции 
+    private float price2 = 0; //себест. за ед. с отходом
+    private float cost1 = 0; //стоимость без скидки
+    private float cost2 = 0; //стоимость с технологической скидкой
+    private float cost3 = 0; //стоимость со скидкой менеджера/диллера
 
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
@@ -261,7 +262,15 @@ public class Wincalc {
     public float height2() {
         return height2;
     }
+    
+    public float weight() {
+        return weight;
+    }
 
+    public void weight(float weight) {
+        this.weight = weight;
+    }
+    
     public float cost(int index) {
         return (index == 1) ? cost1 : (index == 2) ? cost2 : cost3;
     }

@@ -201,7 +201,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + winc.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
-                    + winc.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
+                    + winc.rootGson.ord + "   Стоим.без.ск = " + df2.format(sum1) + "   Стоим.со.ск = " + df2.format(sum2));
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();

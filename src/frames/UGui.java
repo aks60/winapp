@@ -77,7 +77,6 @@ import java.util.Locale;
  */
 public class UGui {
 
-    public static DecimalFormat2 df = new DecimalFormat2("0.0#", new DecimalFormatSymbols(Locale.ENGLISH));
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
     public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат для баз где даты utf8

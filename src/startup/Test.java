@@ -70,10 +70,10 @@ public class Test {
         eProp.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
-            frame();
+            //frame();
             //json();
             //parse();
             //uid();
@@ -88,7 +88,7 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
             winc.build(builder.script.Winscript.test(604007, false)); //508916 508945

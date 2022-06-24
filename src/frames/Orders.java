@@ -94,6 +94,7 @@ import report.HtmlOfMaterial;
 import report.HtmlOfSmeta;
 import report.HtmlOfSpecific;
 import startup.App;
+import startup.Tex;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
 
@@ -109,9 +110,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
     private Scene scene = null;
-    private DefFieldEditor rsvPrj;
+    //private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
+    private DecimalFormat df0 = new DecimalFormat("#0");
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
     private ListenerObject<Query> listenerQuery = null;
@@ -203,7 +205,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
-
+/*
         rsvPrj = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
@@ -227,11 +229,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 set.forEach(s -> s.setText(null));
             }
         };
-        //rsvPrj.add(eProject.pric1, txt4);
-        //rsvPrj.add(eProject.pric2, txt5);
-        //rsvPrj.add(eProject.cost2, txt6);
-        rsvPrj.add(eProject.weight, txt7);
-        rsvPrj.add(eProject.square, txt8);
+        //rsvPrj.add(eProject.weight, txt7);
+        //rsvPrj.add(eProject.square, txt8);
+*/
         canvas.setVisible(true);
     }
 
@@ -317,8 +317,22 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
             eProp.orderID.write(String.valueOf(orderID));
 
-            rsvPrj.load();
+            //rsvPrj.load();
             loadingTab2();
+
+            float total[] = {0, 0, 0};
+            for (Record prjprodRec : qPrjprod) {
+                Object w = prjprodRec.get(ePrjprod.values().length);
+                if (w instanceof Wincalc) {
+                    Wincalc win = (Wincalc) w;
+                    total[0] += win.weight();
+                    total[1] += win.cost(1);
+                    total[2] += win.cost(2);
+                }
+            }
+            txt7.setText(df0.format(total[0]));
+            tab5.setValueAt(df2.format(total[1]), 0, 2);
+            tab5.setValueAt(df1.format(total[2]), 0, 3);
         }
     }
 
@@ -408,9 +422,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
-                setText(txt24, UGui.df.format(stv.frames.get(Layout.BOTT).width()));
+                setText(txt24, df1.format(stv.frames.get(Layout.BOTT).width()));
                 float h = (stv.frames.get(Layout.RIGHT).height() > stv.frames.get(Layout.LEFT).height()) ? stv.frames.get(Layout.RIGHT).height() : stv.frames.get(Layout.LEFT).height();
-                setText(txt26, UGui.df.format(h));
+                setText(txt26, df1.format(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
                 setText(txt30, stv.typeOpen.name2);
@@ -2716,7 +2730,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             if (index != -1) {
                 Record record2 = qProject.get(index);
                 record2.set(eProject.currenc_id, record.get(eCurrenc.id));
-                rsvPrj.load();
+                //rsvPrj.load();
             }
             UGui.stopCellEditing(tab1, tab2, tab4, tab3);
         });
@@ -3118,35 +3132,50 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnToArtiklGlass
 
     private void btnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalc
-        try {
-            if (UGui.getIndexRec(tab1) != -1) {
-                int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
-                float total[] = {0, 0, 0, 0, 0, 0};
-                for (Record prjprodRec : qPrjprod) {
-                    if (prjprodRec.getInt(ePrjprod.project_id) == projectID) {
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                try {
+                    //Пересчёт заказа
+                    if (UGui.getIndexRec(tab1) != -1) {
+                        float total[] = {0, 0, 0};
+                        Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                        //Цыкл по конструкциям
+                        for (Record prjprodRec : qPrjprod) {
+                            Object w = prjprodRec.get(ePrjprod.values().length);
+                            if (w instanceof Wincalc) {
+                                Wincalc win = (Wincalc) w;
+                                String script = prjprodRec.getStr(ePrjprod.script);
+                                JsonElement je = new Gson().fromJson(script, JsonElement.class);
 
-                        String script = prjprodRec.getStr(ePrjprod.script);
-                        JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                        winc().build(je.toString());
-                        Query.listOpenTable.forEach(q -> q.clear());
-                        winc().constructiv(true);
-                        for (Specific spc : winc().listSpec) {
-                            int i = -1;
-                            total[++i] = total[i] + spc.weight; //масса
-                            total[++i] = total[i] + spc.price2; //Себес-сть за злемент
-                            total[++i] = total[i] + spc.cost1; //Стоимость без скидки
-                            total[++i] = total[i] + spc.cost2; //Стоимость со скидкой
+                                win.build(je.toString()); //калкуляция
+                                Query.listOpenTable.forEach(q -> q.clear()); //очистим кэш
+                                win.constructiv(true); //конструктив
+
+                                for (Specific spc : win.listSpec) {
+                                    win.weight(win.weight() + spc.weight); //масса
+                                    win.weight(win.cost(1) + spc.cost1); //тоимость без скидки
+                                    win.weight(win.cost(2) + spc.cost2); //стоимость со скидкой
+                                }
+                                projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
+                                //projectRec.set(eProject.cos, projectRec.getFloat(eProject.weight) + win.weight());
+                                //projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
+                                
+                                total[0] += win.weight();
+                                total[1] += win.cost(1);
+                                total[2] += win.cost(2);
+                            }
                         }
-                    }
-                }
-                //txt4.setText(UGui.df.format(total[1]));
-                tab5.setValueAt(UGui.df.format(total[2]), 0, 2);
-                tab5.setValueAt(UGui.df.format(total[3]), 0, 3);
-                txt7.setText(UGui.df.format(total[0]));
-            }
 
-        } catch (Exception e) {
-        }
+                        txt7.setText(df0.format(total[0]));
+                        tab5.setValueAt(df1.format(total[1]), 0, 2);
+                        tab5.setValueAt(df1.format(total[2]), 0, 3);
+                    }
+
+                } catch (Exception e) {
+                    System.err.println("Ошиька:Orders.btnCalc() " + e);
+                }
+            }
+        });
     }//GEN-LAST:event_btnCalc
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
@@ -3514,7 +3543,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         new UColor();
         south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        UGui.documentFilter(3, txt7, txt8);
+        //UGui.documentFilter(3, txt7);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
