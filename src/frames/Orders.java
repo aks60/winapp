@@ -3187,7 +3187,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
 
                 } catch (Exception e) {
-                    System.err.println("Ошиька:Orders.btnCalc() " + e);
+                    System.err.println("Ошибка:Orders.btnCalc() " + e);
                 }
             }
         });
