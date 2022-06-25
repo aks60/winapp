@@ -326,8 +326,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     Wincalc win = (Wincalc) w;
                 }
             }
-            txt7.setText(df0.format(projectRec.getFloat(eProject.weight)));
-            txt8.setText(df0.format(projectRec.getFloat(eProject.square)));
+            txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
+            txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
         }
