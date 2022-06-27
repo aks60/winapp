@@ -1431,41 +1431,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab5.setBackground(new java.awt.Color(212, 208, 200));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"   Конструкции",  new Float(0.0), null, null},
-                {"   Комплектации",  new Float(0.0), null, null},
-                {"   Итого за заказ",  new Float(0.0), null, null}
+
             },
             new String [] {
-                "", "Скидка (%)", "Без скидок", "Со скидкой"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-
-            public void setValueAt(Object aValue, int row, int column) {
-                super.setValueAt(aValue, row, column);
-                //        Record projectRec = qProject.get(UGui.getIndexRec(tab1));
-                //        if (row == 0 && column == 1) {
-                    //            projectRec.set(eProject.disc2, aValue);
-                    //        } else if (row == 1 && column == 1) {
-                    //            projectRec.set(eProject.disc3, aValue);
-                    //        } else if (row == 2 && column == 1) {
-                    //            projectRec.set(eProject.disc4, aValue);
-                    //        }
-            }
-        });
+        ));
         scr5.setViewportView(tab5);
 
         pan9.add(scr5, java.awt.BorderLayout.CENTER);
