@@ -73,7 +73,6 @@ import frames.swing.FilterTable;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
@@ -85,6 +84,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -179,7 +179,42 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{{"   Конструкции", 0, 0, 0}, {"   Комплектации", 0, 0, 0}, {"   Итого за заказ", 0, 0, 0}},
+                new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"}
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, true, false, false
+            };
 
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+
+            public void setValueAt(Object aValue, int row, int column) {
+                super.setValueAt(aValue, row, column);
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                if (row == 0 && column == 1 && projectRec.get(eProject.disc2).equals(aValue) == false) {
+                    projectRec.set(eProject.disc2, aValue);
+                } else if (row == 1 && column == 1 && projectRec.get(eProject.disc3).equals(aValue) == false) {
+                    projectRec.set(eProject.disc3, aValue);
+                } else if (row == 2 && column == 1 && projectRec.get(eProject.disc4).equals(aValue) == false) {
+                    projectRec.set(eProject.disc4, aValue);
+                }
+            }
+        });
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int x = 0; x < 4; x++) {
+            tab5.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+        }
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
@@ -202,7 +237,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return label;
             }
         };
-        tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);      
+        tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
         rsvPrj = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
@@ -316,6 +351,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             eProp.orderID.write(String.valueOf(orderID));
 
             loadingTab2();
+            rsvPrj.load();
 
             for (Record prjprodRec : qPrjprod) {
                 Object w = prjprodRec.get(ePrjprod.values().length);
@@ -323,21 +359,21 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     Wincalc win = (Wincalc) w;
                 }
             }
-            txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
-            txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
-
-            //Стоимость конструкции
-            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.disc2)), 0, 1);
-            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
-            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
-            
-            //Стоимость комплектации
-//            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.disc3)), 1, 1);
+            //txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
+            //txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
+//
+//            //Стоимость конструкции
+//            tab5.setValueAt(projectRec.getFloat(eProject.disc2), 0, 1);
+//            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
+//            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
+//
+//            //Стоимость комплектации
+//            tab5.setValueAt(projectRec.getFloat(eProject.disc3), 1, 1);
 //            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price3)), 1, 2);
 //            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost3)), 1, 3);
 //
 //            //Стоимость проекта
-//            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.disc4)), 2, 1);
+//            tab5.setValueAt(projectRec.getFloat(eProject.disc4), 2, 1);
 //            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 2, 2);
 //            tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4)), 2, 3);
         }
@@ -1310,18 +1346,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "По спецификации" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jComboBox1.setMinimumSize(new java.awt.Dimension(12, 12));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(160, 20));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 20));
 
         lab3.setFont(frames.UGui.getFont(0,0));
         lab3.setText("Валюта");
         lab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab3.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab3.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab3.setPreferredSize(new java.awt.Dimension(56, 18));
+        lab3.setPreferredSize(new java.awt.Dimension(40, 18));
 
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setFocusable(false);
-        txt3.setPreferredSize(new java.awt.Dimension(40, 20));
+        txt3.setPreferredSize(new java.awt.Dimension(62, 20));
 
         btn1.setText("...");
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1340,7 +1376,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab7.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab7.setMinimumSize(new java.awt.Dimension(4, 14));
-        lab7.setPreferredSize(new java.awt.Dimension(30, 18));
+        lab7.setPreferredSize(new java.awt.Dimension(36, 18));
 
         txt7.setText("123,4");
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1366,7 +1402,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab9.setMinimumSize(new java.awt.Dimension(34, 14));
         lab9.setPreferredSize(new java.awt.Dimension(86, 18));
 
-        txt10.setText("321,4");
+        txt10.setText("80000,8");
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setFocusable(false);
         txt10.setPreferredSize(new java.awt.Dimension(70, 20));
@@ -1381,26 +1417,26 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(lab9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan19Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan19Layout.createSequentialGroup()
+                .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan19Layout.createSequentialGroup()
                         .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lab7, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52)
-                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan19Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lab3, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         pan19Layout.setVerticalGroup(
             pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1431,12 +1467,29 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab5.setBackground(new java.awt.Color(212, 208, 200));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"   Конструкции",  new Float(0.0), null, null},
+                {"   Комплектации",  new Float(0.0), null, null},
+                {"   Итого за заказ",  new Float(0.0), null, null}
             },
             new String [] {
-
+                "", "Скидка (%)", "Без скидок", "Со скидкой"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scr5.setViewportView(tab5);
 
         pan9.add(scr5, java.awt.BorderLayout.CENTER);
@@ -2725,15 +2778,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_stateChanged
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        Currenc frame = new Currenc(this, (record) -> {
-            int index = UGui.getIndexRec(tab1);
-            if (index != -1) {
-                Record record2 = qProject.get(index);
-                record2.set(eProject.currenc_id, record.get(eCurrenc.id));
-                rsvPrj.load();
-            }
-            UGui.stopCellEditing(tab1, tab2, tab4, tab3);
-        });
+//        Currenc frame = new Currenc(this, (record) -> {
+//            int index = UGui.getIndexRec(tab1);
+//            if (index != -1) {
+//                Record record2 = qProject.get(index);
+//                record2.set(eProject.currenc_id, record.get(eCurrenc.id));
+//                rsvPrj.load();
+//            }
+//            UGui.stopCellEditing(tab1, tab2, tab4, tab3);
+//        });
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
@@ -3138,9 +3191,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     Record projectRec = qProject.get(UGui.getIndexRec(tab1));
                     projectRec.set(eProject.weight, 0);
                     projectRec.set(eProject.square, 0);
-                    projectRec.set(eProject.cost4, 0);
+                    projectRec.set(eProject.price2, 0);
+                    projectRec.set(eProject.cost2, 0);
+                    projectRec.set(eProject.price3, 0);
+                    projectRec.set(eProject.cost3, 0);
                     projectRec.set(eProject.price4, 0);
-                    //System.err.println(projectRec.getFloat(eProject.price2));
+                    projectRec.set(eProject.cost4, 0);
+
                     //Пересчёт заказа
                     if (UGui.getIndexRec(tab1) != -1) {
 
@@ -3161,19 +3218,21 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
                                 //Суммирум коонструкции заказа
                                 projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
-                                projectRec.set(eProject.price4, projectRec.getFloat(eProject.price4) + win.price());
-                                projectRec.set(eProject.cost4, projectRec.getFloat(eProject.cost4) + win.cost2());
+                                projectRec.set(eProject.price2, projectRec.getFloat(eProject.price2) + win.price());
+                                projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
 
                             }
                         }
+                        projectRec.set(eProject.price4, projectRec.getFloat(eProject.price2) + projectRec.getFloat(eProject.price3));
+                        projectRec.set(eProject.cost4, projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3));
 
                         //Вес, площадь
                         txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000)); //вес
                         txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000)); //площадь
 
                         //Стоимость
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 0, 2); //стоимость без скидки
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4) //стоимость со скидкой
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2); //стоимость без скидки
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2) //стоимость со скидкой
                                 - projectRec.getFloat(eProject.cost4) * projectRec.getFloat(eProject.disc2) / 100), 0, 3);
 
                         System.err.println(projectRec.getFloat(eProject.disc2));
@@ -3181,7 +3240,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         //Итого
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 2, 2); //итого стоимость без скидки
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4) //итого стоимость со скидкой
-                                - projectRec.getFloat(eProject.cost4) * projectRec.getFloat(eProject.disc2) / 100), 2, 3);
+                                - projectRec.getFloat(eProject.cost4) * projectRec.getFloat(eProject.disc4) / 100), 2, 3);
                     }
 
                 } catch (Exception e) {

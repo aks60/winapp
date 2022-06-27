@@ -855,29 +855,29 @@
                                           <Component id="lab1" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lab3" min="-2" pref="65" max="-2" attributes="1"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txt3" min="-2" pref="61" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Component id="txt10" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="lab8" min="-2" max="-2" attributes="1"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="txt8" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="lab7" min="-2" max="-2" attributes="1"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="lab7" pref="34" max="32767" attributes="1"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="txt7" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="lab3" pref="61" max="32767" attributes="1"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txt3" min="-2" pref="61" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btn1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Component id="btn1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="12" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -945,7 +945,7 @@
                                   <Dimension value="[12, 12]"/>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[160, 20]"/>
+                                  <Dimension value="[120, 20]"/>
                                 </Property>
                               </Properties>
                               <AuxValues>
@@ -970,7 +970,7 @@
                                   <Dimension value="[34, 14]"/>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[56, 18]"/>
+                                  <Dimension value="[40, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -983,7 +983,7 @@
                                 </Property>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[40, 20]"/>
+                                  <Dimension value="[62, 20]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -1028,7 +1028,7 @@
                                   <Dimension value="[4, 14]"/>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[30, 18]"/>
+                                  <Dimension value="[36, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -1106,7 +1106,7 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt10">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="321,4"/>
+                                <Property name="text" type="java.lang.String" value="80000,8"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -1148,10 +1148,44 @@
                                   <Color blue="c8" green="d0" red="d4" type="rgb"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="0" rowCount="0"/>
+                                  <Table columnCount="4" rowCount="3">
+                                    <Column editable="false" title="" type="java.lang.Object">
+                                      <Data value="   &#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;"/>
+                                      <Data value="   &#x41a;&#x43e;&#x43c;&#x43f;&#x43b;&#x435;&#x43a;&#x442;&#x430;&#x446;&#x438;&#x438;"/>
+                                      <Data value="   &#x418;&#x442;&#x43e;&#x433;&#x43e; &#x437;&#x430; &#x437;&#x430;&#x43a;&#x430;&#x437;"/>
+                                    </Column>
+                                    <Column editable="true" title="&#x421;&#x43a;&#x438;&#x434;&#x43a;&#x430; (%)" type="java.lang.Float">
+                                      <Data value="0.0"/>
+                                      <Data value="0.0"/>
+                                      <Data value="0.0"/>
+                                    </Column>
+                                    <Column editable="false" title="&#x411;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43e;&#x43a;" type="java.lang.String"/>
+                                    <Column editable="false" title="&#x421;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.String"/>
+                                  </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                                  <TableColumnModel selectionModel="0"/>
+                                  <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                  </TableColumnModel>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
