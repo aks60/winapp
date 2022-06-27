@@ -69,7 +69,7 @@ public class Wincalc {
     private float costpric2 = 0; //себест. за ед. с отходом
     private float price = 0; //стоимость без скидки
     private float cost2 = 0; //стоимость с технологической скидкой
-    private float cost3 = 0; //стоимость со скидкой менеджера/диллера
+    //private float cost3 = 0; //стоимость со скидкой менеджера/диллера
     private float weight = 0; //масса конструкции 
 
     public BufferedImage bufferImg = null;  //образ рисунка
@@ -212,7 +212,7 @@ public class Wincalc {
         weight = 0;
         price = 0;
         cost2 = 0;
-        cost3 = 0;
+        //cost3 = 0;
         try {
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
@@ -304,13 +304,13 @@ public class Wincalc {
         this.cost2 = cost2;
     }
 
-    public float cost3() {
-        return this.cost3;
-    }
-
-    public void cost3(float cost3) {
-        this.cost3 = cost3;
-    }
+//    public float cost3() {
+//        return this.cost3;
+//    }
+//
+//    public void cost3(float cost3) {
+//        this.cost3 = cost3;
+//    }
 
     public float getSquare() {
         return width() * height() / 1000000;
