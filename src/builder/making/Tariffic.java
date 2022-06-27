@@ -102,29 +102,23 @@ public class Tariffic extends Cal5e {
                 elem5e.spcRec.price = elem5e.spcRec.price + (elem5e.spcRec.price / 100) * percentMarkup; //стоимость без скидки                     
                 elem5e.spcRec.cost2 = elem5e.spcRec.price; //базовая стоимость со скидкой 
 
-                winc.price( winc.price() + elem5e.spcRec.price); //общая стоимость без скидки 
-                winc.cost2(winc.cost2() + elem5e.spcRec.cost2); //общая стоимость со скидкой
-
                 //Правила расчёта вложенные
-                for (Specific specificationRec2 : elem5e.spcRec.spcList) {
+                for (Specific spc : elem5e.spcRec.spcList) {
 
                     //Цикл по правилам расчёта.
                     for (Record rulecalcRec : eRulecalc.list()) {
                         int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                         if (form == TypeForm.P00.id) { //не проверять форму 
-                            rulecalcPrise(rulecalcRec, specificationRec2);
+                            rulecalcPrise(rulecalcRec, spc);
                         }
                     }
-                    specificationRec2.costpric2 = specificationRec2.costpric1 * specificationRec2.quant2; //себест. за ед. с отходом  
-                    Record artgrpRec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
+                    spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом  
+                    Record artgrpRec2 = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
                     float m1 = artgrpRec2.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                     float m2 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
-                    specificationRec2.price = specificationRec2.costpric2 * m1 * m2;
-                    specificationRec2.price = specificationRec2.price + (specificationRec2.price / 100) * percentMarkup; //стоимость без скидки                        
-                    specificationRec2.cost2 = specificationRec2.price; //базовая стоимость со скидкой 
-
-                    winc.price(winc.price() + specificationRec2.price); //общая стоимость без скидки
-                    winc.cost2(winc.cost2() + specificationRec2.cost2); //общая стоимость со скидкой
+                    spc.price = spc.costpric2 * m1 * m2;
+                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                        
+                    spc.cost2 = spc.price; //базовая стоимость со скидкой 
                 }
 
             }

@@ -4,7 +4,6 @@ import builder.Wincalc;
 import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
-import builder.making.Specific;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.making.Joining;
@@ -74,8 +73,8 @@ import frames.swing.FilterTable;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Point;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -94,7 +93,6 @@ import report.HtmlOfMaterial;
 import report.HtmlOfSmeta;
 import report.HtmlOfSpecific;
 import startup.App;
-import startup.Tex;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
 
@@ -205,7 +203,23 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
-
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                super.setValueAt(aValue, row, column);
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                if (row == 0 && column == 1) {
+                    projectRec.set(eProject.disc2, aValue);
+                    System.out.println("XXXXXXXXXXXXXXXX" + aValue);
+                } 
+                else if (row == 1 && column == 1) {
+                    projectRec.set(eProject.disc3, aValue);
+                } else if (row == 2 && column == 1) {
+                    projectRec.set(eProject.disc1, aValue);
+                }                
+            } 
+        }; 
+        //tab5.setModel(dtm);        
         rsvPrj = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
@@ -328,8 +342,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
             txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
             txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
+
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2);
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3);
+
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 2, 2);
             tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 2, 3);
         }
@@ -352,9 +368,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 loadingWinTree(win);
                 winTree.setSelectionInterval(0, 0);
 
-                tab5.setValueAt(df2.format(win.price()), 0, 2);
-                tab5.setValueAt(df2.format(win.cost2()), 0, 3);
-
+                //tab5.setValueAt(df2.format(win.price()), 0, 2);
+                //tab5.setValueAt(df2.format(win.cost2()), 0, 3);
             }
         } else {
             scene.init(null);
@@ -1291,7 +1306,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         pan9.setPreferredSize(new java.awt.Dimension(450, 150));
         pan9.setLayout(new java.awt.BorderLayout());
 
-        pan19.setPreferredSize(new java.awt.Dimension(450, 64));
+        pan19.setPreferredSize(new java.awt.Dimension(450, 68));
 
         lab1.setFont(frames.UGui.getFont(0,0));
         lab1.setText("Тип расчтета");
@@ -1446,6 +1461,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
+
+            public void setValueAt(Object aValue, int row, int column) {
+                super.setValueAt(aValue, row, column);
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                if (row == 0 && column == 1) {
+                    projectRec.set(eProject.disc2, aValue);
+                } else if (row == 1 && column == 1) {
+                    projectRec.set(eProject.disc3, aValue);
+                } else if (row == 2 && column == 1) {
+                    projectRec.set(eProject.disc1, aValue);
+                }
+            }
         });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
@@ -1498,11 +1525,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab3MousePressed(evt);
-            }
-        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(400);
@@ -3157,13 +3179,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 try {
+                    Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                    projectRec.set(eProject.weight, 0);
+                    projectRec.set(eProject.square, 0);
+                    projectRec.set(eProject.cost2, 0);
+                    projectRec.set(eProject.price2, 0);
+                    //System.err.println(projectRec.getFloat(eProject.price2));
                     //Пересчёт заказа
                     if (UGui.getIndexRec(tab1) != -1) {
-                        Record projectRec = qProject.get(UGui.getIndexRec(tab1));
-                        projectRec.set(eProject.weight, 0);
-                        projectRec.set(eProject.square, 0);
-                        projectRec.set(eProject.cost2, 0);
-                        projectRec.set(eProject.price2, 0);
 
                         //Цыкл по конструкциям
                         for (Record prjprodRec : qPrjprod) {
@@ -3176,31 +3199,37 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 win.build(jsonElem.toString()); //калкуляция
                                 Query.listOpenTable.forEach(q -> q.clear()); //очистим кэш
                                 win.constructiv(true); //конструктив
+
                                 float square = prjprodRec.getFloat(ePrjprod.num, 1) * win.width() * win.height();
                                 projectRec.set(eProject.square, projectRec.getFloat(eProject.square) + square);
 
                                 //Цыкл по спецификации
-                                for (Specific spc : win.listSpec) {
-                                    win.weight(win.weight() + spc.weight); //масса
-                                    win.weight(win.price() + spc.price); //тоимость без скидки
-                                    win.weight(win.cost2() + spc.cost2); //стоимость со скидкой
-                                }
+//                                for (Specific spc : win.listSpec) {
+//                                    win.weight(win.weight() + spc.weight); //масса
+//                                    win.weight(win.price() + spc.price); //тоимость без скидки
+//                                    win.weight(win.cost2() + spc.cost2); //стоимость со скидкой
+//                                    //System.out.println(spc.price);
+//                                }
+                                //Суммирум коонструкции заказа
                                 projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
                                 projectRec.set(eProject.price2, projectRec.getFloat(eProject.price2) + win.price());
-//                                float cost2 = projectRec.getFloat(eProject.cost2) + win.cost2()
-//                                        - (projectRec.getFloat(eProject.price2) + win.cost2()) * projectRec.getFloat(eProject.disc2);
-//                                projectRec.set(eProject.cost2, cost2);
+                                projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
+
                             }
                         }
 
-                        txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
-                        txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2); //тоимость без скидки
+                        txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000)); //вес
+                        txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000)); //площадь
+
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2); //стоимость без скидки
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2) //стоимость со скидкой
                                 - projectRec.getFloat(eProject.cost2) * projectRec.getFloat(eProject.disc2) / 100), 0, 3);
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 2, 2);
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2) //стоимость со скидкой
-                                - projectRec.getFloat(eProject.cost2) * projectRec.getFloat(eProject.disc2) / 100), 2, 3);
+
+                        System.err.println(projectRec.getFloat(eProject.disc2));
+
+//                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 2, 2); //итого стоимость без скидки
+//                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2) //итого стоимость со скидкой
+//                                - projectRec.getFloat(eProject.cost2) * projectRec.getFloat(eProject.disc2) / 100), 2, 3);
                     }
 
                 } catch (Exception e) {
@@ -3213,19 +3242,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
         loadingTab1();
     }//GEN-LAST:event_btnFilter
-
-    private void tab3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MousePressed
-//        JTable table = (JTable) evt.getSource();
-//        Uti4.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5));
-//        if (systemTree.isEditing()) {
-//            systemTree.getCellEditor().stopCellEditing();
-//        }
-//        systemTree.setBorder(null);
-//        if (txtFilter.getText().length() == 0) {
-//            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-//            txtFilter.setName(table.getName());
-//        }
-    }//GEN-LAST:event_tab3MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         FrameProgress.create(Orders.this, new ListenerFrame() {

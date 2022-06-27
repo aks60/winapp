@@ -131,7 +131,7 @@ public class HtmlOfSmeta {
                     + eColor.find(winc.colorID3).getStr(eColor.name));
             tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
             tdList.get(16).text(df2.format(winc.getSquare())); 
-            tdList.get(18).text(df2.format(winc.getWeight()));
+            tdList.get(18).text(df2.format(winc.weight()));
             tdList.get(20).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
             tdList.get(22).text(df1.format(winc.price() / winc.getSquare()));
             tdList.get(24).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));

@@ -99,9 +99,12 @@ public class Wincalc {
 
     public AreaSimple build(String script) {
         try {
+            //Обнуление
             genId = 0;
-            height2 = 0.f;
-            //List.of().forEach(el -> el=0);
+            width1 = 0;
+            width2 = 0;
+            height1 = 0;
+            height2 = 0;
             List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
@@ -206,6 +209,10 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv(boolean norm_otx) {
+        weight = 0;
+        price = 0;
+        cost2 = 0;
+        cost3 = 0;
         try {
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
@@ -218,16 +225,26 @@ public class Wincalc {
             calcTariffication = new Tariffic(this, norm_otx); //тарификация
             calcTariffication.calc();
 
-            for (ElemSimple elemRec : listElem) {
-                if (elemRec.spcRec.artikl.trim().charAt(0) != '@') {
-                    listSpec.add(elemRec.spcRec);
-                }
-                for (Specific specific : elemRec.spcRec.spcList) {
-                    if (specific.artikl.trim().charAt(0) != '@') {
-                        listSpec.add(specific);
-                    }
+            //Построим список спецификаций
+            for (ElemSimple elem5e : listElem) {
+                if (elem5e.spcRec.artikl.trim().charAt(0) != '@') {
+                    listSpec.add(elem5e.spcRec);
+                    elem5e.spcRec.spcList.forEach(spc -> listSpec.add(spc));
                 }
             }
+
+            //Итоговая стоимость
+            for (Specific spc : listSpec) {
+                this.price(this.price() + spc.price); //общая стоимость без скидки
+                this.cost2(this.cost2() + spc.cost2); //общая стоимость со скидкой             
+            }
+
+            //Вес изделия
+            LinkedList<ElemGlass> glassList = UCom.listSortObj(listElem, Type.GLASS);
+            for (ElemGlass el : glassList) {
+                weight += el.artiklRecAn.getFloat(eArtikl.density) * getSquare(); //вес
+            }
+
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
 
         } catch (Exception e) {
@@ -262,7 +279,7 @@ public class Wincalc {
     public float height2() {
         return height2;
     }
-    
+
     public float weight() {
         return weight;
     }
@@ -274,46 +291,28 @@ public class Wincalc {
     public float price() {
         return this.price;
     }
-    
+
     public void price(float price) {
         this.price = price;
     }
-    
+
     public float cost2() {
         return this.cost2;
     }
-    
+
     public void cost2(float cost2) {
         this.cost2 = cost2;
     }
-    
+
     public float cost3() {
         return this.cost3;
     }
-    
+
     public void cost3(float cost3) {
         this.cost3 = cost3;
     }
 
-    public void totalCalc() {
-        for (Specific spc : listSpec) {
-            costpric1 += spc.costpric1;
-            costpric2 += spc.costpric2;
-            price += spc.price;
-            cost2 += spc.cost2;
-        }
-    }
-
     public float getSquare() {
         return width() * height() / 1000000;
-    }
-
-    public float getWeight() {
-        LinkedList<ElemGlass> glassList = UCom.listSortObj(listElem, Type.GLASS);
-        float weight = 0;
-        for (ElemGlass el : glassList) {
-            weight += el.artiklRecAn.getFloat(eArtikl.density) * getSquare();
-        }
-        return weight;
     }
 }
