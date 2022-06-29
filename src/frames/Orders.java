@@ -40,6 +40,7 @@ import common.listener.ListenerReload;
 import dataset.Conn;
 import domain.eArtdet;
 import domain.eArtikl;
+import static domain.eArtikl.up;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eFurniture;
@@ -161,12 +162,19 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        new DefTableModel(tab4, qPrjkit, eArtikl.code, eArtikl.name, ePrjkit.color1_id, ePrjkit.color2_id,
+        new DefTableModel(tab4, qPrjkit, ePrjkit.prjprod_id, eArtikl.code, eArtikl.name, ePrjkit.color1_id, ePrjkit.color2_id,
                 ePrjkit.color3_id, ePrjkit.width, ePrjkit.height, ePrjkit.numb, ePrjkit.angl1, ePrjkit.angl2) {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (val != null && columns[col] == ePrjkit.color1_id) {
+                if (columns[col] == ePrjkit.project_id) {
+                    if (val != null) {
+                        return qPrjprod.stream().filter(rec -> val.equals(rec.get(ePrjprod.id)))
+                                .findFirst().orElse(ePrjprod.up.newRecord()).getStr(ePrjprod.name);
+                    } else {
+                        return "Комплект проекта";
+                    }
+                } else if (val != null && columns[col] == ePrjkit.color1_id) {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 } else if (val != null && columns[col] == ePrjkit.color2_id) {
@@ -276,9 +284,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void loadingTab4() {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
-        int id = prjprodRec.getInt(ePrjprod.id);
-        qPrjkit.select(ePrjkit.up, "left join", eArtikl.up, "on", ePrjkit.artikl_id, "=", eArtikl.id, "where", ePrjkit.prjprod_id, "=", id);
+        Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+        int id = projectRec.getInt(eProject.id);
+        qPrjkit.select(ePrjkit.up, "left join", eArtikl.up, "on", ePrjkit.artikl_id, "=", eArtikl.id, "where", ePrjkit.project_id, "=", id);
         ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab4);
     }
@@ -2572,15 +2580,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Угол 1", "Угол 2", "ID"
+                "Изделие", "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Угол 1", "Угол 2", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2592,18 +2600,19 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(240);
-            tab4.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(240);
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(5).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(6).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(7).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(8).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(9).setPreferredWidth(50);
-            tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(10).setMaxWidth(50);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(11).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(11).setMaxWidth(50);
         }
 
         pan6.add(scr4, java.awt.BorderLayout.CENTER);
@@ -3179,8 +3188,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         projectRec.set(eProject.price3, 0);
                         projectRec.set(eProject.cost3, 0);
 
-                        float cost2 = projectRec.getFloat(eProject.cost2) 
-                                - projectRec.getFloat(eProject.cost2) 
+                        float cost2 = projectRec.getFloat(eProject.cost2)
+                                - projectRec.getFloat(eProject.cost2)
                                 * projectRec.getFloat(eProject.disc2) / 100;
                         projectRec.set(eProject.cost2, cost2);
                         projectRec.set(eProject.price4, projectRec.getFloat(eProject.price2) + projectRec.getFloat(eProject.price3));
@@ -3188,7 +3197,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 - (projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3))
                                 * projectRec.getFloat(eProject.disc4) / 100;
                         projectRec.set(eProject.cost4, cost4);
-                        
+
                         //Вес, площадь
                         txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000)); //вес
                         txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000)); //площадь
