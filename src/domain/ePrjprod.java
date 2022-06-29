@@ -17,7 +17,7 @@ public enum ePrjprod implements Field {
     name("12", "128", "1", "Название изделия", "name"),
     script("12", "4096", "0", "Скрипт построения окна", "script"),
     project_id("4", "10", "1", "Заказ", "project_id"),
-    systree_id("4", "10", "1", "Ссылка", "systree_id");
+    systree_id("4", "10", "1", "Система", "systree_id");
     //form("4", "10", "0", "Тип", "form");
 
     private MetaField meta = new MetaField(this);

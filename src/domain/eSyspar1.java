@@ -12,7 +12,7 @@ public enum eSyspar1 implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     text("12", "64", "1", "Значения параметра", "PTEXT"),
     params_id("4", "10", "0", "Название параметра", "PNUMB"),
-    systree_id("4", "10", "0", "Ссылка", "systree_id"),
+    systree_id("4", "10", "0", "Система", "systree_id"),
     fixed("16", "5", "1", "Закреплено", "PFIXX"); 
     
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),

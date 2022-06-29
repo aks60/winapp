@@ -15,7 +15,7 @@ public enum eSysfurn implements Field {
     replac("5", "5", "1", "Замена", "FWHAT"),
     side_open("5", "10", "1", "Сторона открывания по умолчанию", "side_open"),
     hand_pos("5", "10", "1", "Расположение ручки по умолчанию", "hand_pos"),
-    furniture_id("4", "10", "1", "Ссылка", "furniture_id"),
+    furniture_id("4", "10", "1", "Фурнитура", "furniture_id"),
     artikl_id1("4", "10", "1", "Артикул ручки по умолчанию", "artikl_id1"),
     artikl_id2("4", "10", "1", "Артиккул подвеса (петли) по умолчанию", "artikl_id2"),
     systree_id("4", "10", "0", "Система профилей", "systree_id");
