@@ -167,7 +167,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (columns[col] == ePrjkit.project_id) {
+                if (columns[col] == ePrjkit.prjprod_id) {
                     if (val != null) {
                         return qPrjprod.stream().filter(rec -> val.equals(rec.get(ePrjprod.id)))
                                 .findFirst().orElse(ePrjprod.up.newRecord()).getStr(ePrjprod.name);
@@ -245,7 +245,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     public void loadingTab2() {
         int index = -1;
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(qProject, qPrjprod).forEach(q -> q.execsql());
+        List.of(qProject, qPrjprod, qPrjkit).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
@@ -293,7 +293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionTab1() {
         UGui.clearTable(tab2, tab4);
-        List.of(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getSelectedRow() != -1) {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
@@ -330,7 +330,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionTab2() {
         UGui.clearTable(tab4);
-        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
@@ -538,7 +538,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }, grup);
         });
 
-        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
@@ -548,7 +548,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }, 1, 2, 3, 4, 5);
         });
 
-        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
@@ -558,7 +558,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }, 1, 2, 3, 4, 5);
         });
 
-        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
@@ -566,12 +566,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             DicColor frame = new DicColor(this, (record2) -> {
                 record.set(ePrjkit.color1_id, record2.getInt(eColor.id));
+                if (record.get(ePrjkit.color2_id) == null) {
+                    record.set(ePrjkit.color2_id, record2.getInt(eColor.id));
+                }
+                if (record.get(ePrjkit.color3_id) == null) {
+                    record.set(ePrjkit.color3_id, record2.getInt(eColor.id));
+                }
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet);
         });
 
-        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
@@ -584,7 +590,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }, colorSet);
         });
 
-        UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 5).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
@@ -2600,7 +2606,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(240);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(100);
             tab4.getColumnModel().getColumn(2).setPreferredWidth(240);
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
@@ -2696,6 +2702,28 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         } else if (tab4.getBorder() != null) {
+            int index = UGui.getIndexRec(tab1);
+            int index2 = UGui.getIndexRec(tab2);
+            if (index != -1) {
+                if (((JButton) evt.getSource()) == btnIns) {
+                    UGui.insertRecordEnd(tab4, ePrjkit.up, (prjkitRec) -> {
+                        if (index2 != -1) {
+                            prjkitRec.set(ePrjkit.prjprod_id, qPrjprod.get(index2, ePrjprod.id));
+                        }
+                        prjkitRec.set(ePrjkit.project_id, qProject.get(index, eProject.id));
+                        Record record3 = eArtikl.up.newRecord();
+                        qPrjkit.table(eArtikl.up).add(record3);
+                    });
+                }  else if (((JButton) evt.getSource()) == btnSet) {
+                    DicKits frame = new DicKits(Orders.this, (q) -> {
+                        loadingTab4();
+                        return true;
+                    }, qPrjprod.getAs(index, ePrjprod.id));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Заказ не выбран.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            }
+            /*
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 if (((JButton) evt.getSource()) == btnIns) {
@@ -2713,13 +2741,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             } else {
                 JOptionPane.showMessageDialog(this, "Изделие не выбрано.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
+             */
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab1, tab2, tab4, tab3);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         eProp.save(); //запишем текущий ordersId в файл
-        List.of(qProject, qPrjprod).forEach(q -> q.execsql());
+        List.of(qProject, qPrjprod, qPrjkit).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed

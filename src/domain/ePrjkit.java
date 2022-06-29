@@ -24,7 +24,7 @@ public enum ePrjkit implements Field {
     angl2("8", "15", "1", "Угол", "angl2"),
     flag("5", "5", "1", "Флаг осн-го элем. комплекта", "flag"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id"),
-    prjprod_id("4", "10", "0", "Изделие", "prjprod_id"),
+    prjprod_id("4", "10", "1", "Изделие", "prjprod_id"),
     project_id("4", "10", "0", "Проект", "project_id");
 
     //name("12", "64", "1", "Название комплекта", "name"),

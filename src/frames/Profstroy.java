@@ -614,6 +614,7 @@ public class Profstroy {
             alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
             alterTable("prjprod", "fk_prjprod_1", "project_id", "project");
             alterTable("prjkit", "fk_prjkit_1", "prjprod_id", "prjprod");
+            alterTable("prjkit", "fk_prjkit_2", "project_id", "project");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
