@@ -2718,7 +2718,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     DicKits frame = new DicKits(Orders.this, (q) -> {
                         loadingTab4();
                         return true;
-                    }, qPrjprod.getAs(index, ePrjprod.id));
+                    }, qProject.getAs(index, ePrjprod.id), qPrjprod.getAs(index2, ePrjprod.id));
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Заказ не выбран.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);

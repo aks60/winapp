@@ -39,57 +39,44 @@ public class KitDet extends Par5s {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-                case 7030: //Количество 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 7031: //Количество 
+                case 7030:
+                case 7031:
+                case 8060:
+                case 8061:
+                case 9060:
+                case 9061: //Количество                     
                 {
                     Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
                 }
                 break;
                 case 7040:  //Порог расчета, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 7050:  //Шаг, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 7060:  //Количество на шаг 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 7081:  //Если ширина комплекта, мм 
+                case 7081:
+                case 9081:  //Если ширина комплекта, мм 
                     message(rec.getInt(GRUP));
-                    break;
-                case 7098:  //Бригада (участок) 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 7099:  //Трудозатраты, ч/ч. 
-                    message(rec.getInt(GRUP));
-                    break;
+                    break;                    
                 case 8050:  //Поправка, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 8060:  //Количество" 
-                    message(rec.getInt(GRUP));
-                case 8061: //Количество" 
+                case 8065:
+                case 8066:  //Длина, мм 
                 {
                     Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
                 }
                 break;
-                case 8065:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8066: //Длина, мм 
-                {
-                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
-                    mapParam.put(grup, String.valueOf(v));
-                }
-                break;
-                case 8070:  //"Ширина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8071: //"Ширина, мм
+                case 8070:
+                case 8071:
+                case 9070:
+                case 9071: //Ширина, мм                     
                 {
                     Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
@@ -101,63 +88,39 @@ public class KitDet extends Par5s {
                 case 8081:  //Ширина комплекта, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 8083:  //Набрать_длину_с_нахлестом, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8097:  //Трудозатраты по длине 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8098:  //Бригада (участок) 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8099:  //Трудозатраты, ч/ч. 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 9050:  //Поправка длины, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 9055:  //Поправка ширины, мм
                     message(rec.getInt(GRUP));
                     break;
-                case 9060:  //Количество 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 9061: //Количество 
-                {
-                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
-                    mapParam.put(grup, String.valueOf(v));
-                }
-                break;
-                case 9065:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 9065:
                 case 9066: //Длина, мм 
                 {
                     Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
                 }
                 break;
-                case 9070:  //Ширина, мм 
+                    //-----------------------ПЕРСПЕКТИВА------------------------
+                case 8083:  //Набрать длину с нахлестом, мм 
                     message(rec.getInt(GRUP));
-                    break;
-                case 9071: //Ширина, мм 
-                {
-                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
-                    mapParam.put(grup, String.valueOf(v));
-                }
-                break;
-                case 9081:  //Если ширина комплекта, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                    break;                
                 case 9083:  //Набрать длину с нахлестом/Длина , мм 
+                    message(rec.getInt(GRUP));
+                    break;                
+                case 8097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
                 case 9097:  //Трудозатраты по площади 
                     message(rec.getInt(GRUP));
                     break;
+                case 7098:  //Бригада (участок)                   
+                case 8098:  //Бригада (участок)                    
                 case 9098:  //Бригада (участок) 
                     message(rec.getInt(GRUP));
                     break;
+                case 7099:  //Трудозатраты, ч/ч.                    
+                case 8099:  //Трудозатраты, ч/ч.                   
                 case 9099:  //Трудозатраты, ч/ч. 
                     message(rec.getInt(GRUP));
                     break;

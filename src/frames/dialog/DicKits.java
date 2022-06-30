@@ -43,13 +43,15 @@ public class DicKits extends javax.swing.JDialog {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qPrjkit = new Query(ePrjkit.values());
     private int colorID[] = {-1, -1, -1};
+    private int projectID = -1;
     private int prjprodID = -1;
 
-    public DicKits(Frame parent, ListenerObject<Query> listener, int prjprodID) {
+    public DicKits(Frame parent, ListenerObject<Query> listener, int projectID, int prjprodID) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
+        this.projectID = projectID;
         this.prjprodID = prjprodID;
         loadingData("0");
         loadingModel();
@@ -227,7 +229,7 @@ public class DicKits extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(513, 550));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(513, 102));
+        pan2.setPreferredSize(new java.awt.Dimension(513, 90));
 
         lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Кол. комп.");
@@ -559,6 +561,7 @@ public class DicKits extends javax.swing.JDialog {
         }
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
+        //Цикл по списку детализации
         for (Record record : qKitdet) {
             mapParam.clear();
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
@@ -567,22 +570,27 @@ public class DicKits extends javax.swing.JDialog {
                 Record artiklRec = eArtikl.get(record.getInt(eKitdet.artikl_id));
                 Record recordKit = ePrjkit.up.newRecord(Query.INS);
                 recordKit.set(ePrjkit.id, Conn.genId(ePrjkit.up));
+                recordKit.set(ePrjkit.project_id, projectID);
                 recordKit.set(ePrjkit.prjprod_id, prjprodID);
                 recordKit.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
                 recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество                                
                 Float width = get_8066_9066(mapParam);
                 width = (width == null) ? 0 : width;
-                recordKit.set(ePrjkit.width, width); //длина                
+                recordKit.set(ePrjkit.width, width); //длина   
+                
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
-                recordKit.set(ePrjkit.height, height); //ширина               
+                recordKit.set(ePrjkit.height, height); //ширина  
+                
                 Float angl1 = get_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
-                recordKit.set(ePrjkit.angl1, angl1); //угол 1                
+                recordKit.set(ePrjkit.angl1, angl1); //угол 1  
+                
                 Float angl2 = get_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
                 recordKit.set(ePrjkit.angl2, angl2); //угол 2
+                
                 recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
                 recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
                 recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
