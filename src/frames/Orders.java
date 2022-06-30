@@ -7,6 +7,7 @@ import builder.script.GsonElem;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.making.Joining;
+import builder.making.Tariffic;
 import builder.making.UColor;
 import builder.model.ElemGlass;
 import com.google.gson.Gson;
@@ -3201,9 +3202,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
 
                                 win.build(jsonElem.toString()); //калкуляция
-                                Query.listOpenTable.forEach(q -> q.clear()); //очистим кэш
-                                win.constructiv(true); //конструктив
-
+                                Query.listOpenTable.forEach(q -> q.clear()); //очистим кэ                                
+                                win.constructiv(true); //конструктив                               
+                                new Tariffic(win, true).calc(projectRec, prjprodRec); //комплектация
+                                                               
                                 float square = prjprodRec.getFloat(ePrjprod.num, 1) * win.width() * win.height();
                                 projectRec.set(eProject.square, projectRec.getFloat(eProject.square) + square);
 

@@ -14,12 +14,16 @@ import enums.UseUnit;
 import java.util.LinkedList;
 import builder.Wincalc;
 import builder.model.ElemSimple;
+import common.ArrayList2;
 import common.UCom;
 import dataset.Query;
+import domain.ePrjkit;
+import domain.ePrjprod;
+import domain.eProject;
 import enums.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Расчёт стоимости элементов окна алгоритм см. в UML
@@ -136,6 +140,22 @@ public class Tariffic extends Cal5e {
         }
     }
 
+    //Комплекты конструкции
+    public ArrayList2<Specific> calc(Record projectRec, Record prjprodRec) {
+        ArrayList2<Specific> listKit = new ArrayList2();
+        if (prjprodRec != null) {
+            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+
+            //Цикл по комплектам
+            for (Record prjkitRec : prjkitList) {
+                Record artiklRec = eArtikl.get(prjkitRec.getInt(ePrjkit.artikl_id));
+                Specific spc = new Specific(prjkitRec, artiklRec, null, null);
+                listKit.add(spc);
+            }
+        }
+        return listKit;
+    }
+    
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet
     public float artdetPrice(Specific specificRec) {
 

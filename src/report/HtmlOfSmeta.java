@@ -115,7 +115,7 @@ public class HtmlOfSmeta {
             Elements tdList = tab2List.get(i).getElementsByTag("td");
             Wincalc winc = wincList.get(i);
             Record prjprodRec = prjprodList.get(i);
-            List<Record> prjkitList = ePrjkit.find2(prjprodRec.getInt(ePrjprod.id));
+            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
             prjkitAll.addAll(prjkitList);
 
             LinkedList<ElemGlass> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);

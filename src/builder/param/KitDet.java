@@ -67,7 +67,9 @@ public class KitDet extends Par5s {
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 8065:
-                case 8066:  //Длина, мм 
+                case 8066:
+                case 9065:
+                case 9066: //Длина, мм                   
                 {
                     Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
@@ -94,13 +96,6 @@ public class KitDet extends Par5s {
                 case 9055:  //Поправка ширины, мм
                     message(rec.getInt(GRUP));
                     break;
-                case 9065:
-                case 9066: //Длина, мм 
-                {
-                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
-                    mapParam.put(grup, String.valueOf(v));
-                }
-                break;
                     //-----------------------ПЕРСПЕКТИВА------------------------
                 case 8083:  //Набрать длину с нахлестом, мм 
                     message(rec.getInt(GRUP));
@@ -114,13 +109,13 @@ public class KitDet extends Par5s {
                 case 9097:  //Трудозатраты по площади 
                     message(rec.getInt(GRUP));
                     break;
-                case 7098:  //Бригада (участок)                   
-                case 8098:  //Бригада (участок)                    
+                case 7098:                 
+                case 8098:                   
                 case 9098:  //Бригада (участок) 
                     message(rec.getInt(GRUP));
                     break;
-                case 7099:  //Трудозатраты, ч/ч.                    
-                case 8099:  //Трудозатраты, ч/ч.                   
+                case 7099:                   
+                case 8099:                  
                 case 9099:  //Трудозатраты, ч/ч. 
                     message(rec.getInt(GRUP));
                     break;

@@ -561,9 +561,11 @@ public class DicKits extends javax.swing.JDialog {
         }
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
-        //Цикл по списку детализации
+        
+       //Цикл по списку детализации
         for (Record record : qKitdet) {
             mapParam.clear();
+            
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
             if (kitDet.filter(mapParam, record) == true) {
 
@@ -574,23 +576,24 @@ public class DicKits extends javax.swing.JDialog {
                 recordKit.set(ePrjkit.prjprod_id, prjprodID);
                 recordKit.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
-                recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество                                
+                recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество    
+                
                 Float width = get_8066_9066(mapParam);
                 width = (width == null) ? 0 : width;
-                recordKit.set(ePrjkit.width, width); //длина   
-                
+                recordKit.set(ePrjkit.width, width); //длина мм   
+
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
                 recordKit.set(ePrjkit.height, height); //ширина  
-                
+
                 Float angl1 = get_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
                 recordKit.set(ePrjkit.angl1, angl1); //угол 1  
-                
+
                 Float angl2 = get_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
                 recordKit.set(ePrjkit.angl2, angl2); //угол 2
-                
+
                 recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
                 recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
                 recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
@@ -780,7 +783,7 @@ public class DicKits extends javax.swing.JDialog {
 
     //Количество ед.
     private float get_7031_8061_9061(HashMap<Integer, String> mapParam) {
-        String numb = getParam(mapParam, 7031, 8061, 9061);
+        String numb = getParam(mapParam, 7030, 7031, 8060, 8061, 9060, 9061);
         if (numb != null) {
             return Float.valueOf(numb);
         }
@@ -789,7 +792,7 @@ public class DicKits extends javax.swing.JDialog {
 
     //Длина, мм
     private Float get_8066_9066(HashMap<Integer, String> mapParam) {
-        String numb = getParam(mapParam, 8066, 9066);
+        String numb = getParam(mapParam, 8065, 8066, 9065, 9066);
         if (numb != null) {
             return Float.valueOf(numb);
         }
@@ -798,7 +801,7 @@ public class DicKits extends javax.swing.JDialog {
 
     //Ширина, мм
     private Float get_8071_9071(HashMap<Integer, String> mapParam) {
-        String numb = getParam(mapParam, 8071, 9071);
+        String numb = getParam(mapParam, 8070, 8071, 9070, 9071);
         if (numb != null) {
             return Float.valueOf(numb);
         }
@@ -820,7 +823,7 @@ public class DicKits extends javax.swing.JDialog {
         if (mapParam != null) {
             for (int index = 0; index < p.length; ++index) {
                 int key = p[index];
-                String str = mapParam.get(Integer.valueOf(key));
+                String str = mapParam.get(key);
                 if (str != null) {
                     return str;
                 }
@@ -841,7 +844,7 @@ public class DicKits extends javax.swing.JDialog {
         } else if (index == 1) {
             txt13.setText(rec.getStr(eColor.name));
             colorID[1] = rec.getInt(eColor.id);
-            
+
         } else if (index == 2) {
             txt14.setText(rec.getStr(eColor.name));
             colorID[2] = rec.getInt(eColor.id);
