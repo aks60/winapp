@@ -143,6 +143,8 @@ public class Tariffic extends Cal5e {
     //Комплекты конструкции
     public void calc(Record projectRec, Record prjprodRec) {
         try {
+            Record systreeRec = eSystree.find(winc.nuni);
+            float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
             if (prjprodRec != null) {
                 List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
 
@@ -154,6 +156,10 @@ public class Tariffic extends Cal5e {
                         spc.place = "КОМП";
                         spc.width = prjkitRec.getFloat(ePrjkit.width);
                         spc.height = prjkitRec.getFloat(ePrjkit.height);
+                        spc.count = prjkitRec.getFloat(ePrjkit.numb);
+                        spc.colorID1 = prjkitRec.getInt(ePrjkit.color1_id);
+                        spc.colorID2 = prjkitRec.getInt(ePrjkit.color2_id);
+                        spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                         spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                         spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
                         winc.kitsSpec.add(spc);
@@ -161,14 +167,22 @@ public class Tariffic extends Cal5e {
                 }
                 //Цикл по детализации
                 for (Specific spc : winc.kitsSpec) {
-                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода
+                    //Тарификация
                     spc.quant1 = formatAmount(spc); //количество без отхода
                     spc.quant2 = spc.quant1; //базовое количество с отходом
                     if (norm_otx == true) {
                         float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
                         spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
                     }
-                 }
+                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
+                    spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
+                    Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
+                    float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //коэф. группы текстур
+                    float k2 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
+                    spc.price = spc.costpric2 * k1 * k2;
+                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
+                    spc.cost2 = spc.price; //базовая стоимость со скидкой   
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
