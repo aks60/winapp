@@ -155,15 +155,15 @@ public class Tariffic extends Cal5e {
                         winc.kitsSpec.add(spc);
                     }
                 }
-//                for (Specific spc : winc.kitsSpec) {
-//                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода
-//                    spc.quant1 = formatAmount(spc); //количество без отхода
-//                    spc.quant2 = spc.quant1; //базовое количество с отходом
-//                    if (norm_otx == true) {
-//                        float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
-//                        spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
-//                    }
-//                 }
+                for (Specific spc : winc.kitsSpec) {
+                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода
+                    spc.quant1 = formatAmount(spc); //количество без отхода
+                    spc.quant2 = spc.quant1; //базовое количество с отходом
+                    if (norm_otx == true) {
+                        float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
+                        spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
+                    }
+                 }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
