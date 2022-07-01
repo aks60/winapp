@@ -1138,7 +1138,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1147,7 +1147,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(northLayout.createSequentialGroup()
                     .addGap(340, 340, 340)
                     .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(456, Short.MAX_VALUE)))
+                    .addContainerGap(311, Short.MAX_VALUE)))
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1423,7 +1423,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         scr5.setPreferredSize(new java.awt.Dimension(450, 90));
 
-        tab5.setBackground(new java.awt.Color(212, 208, 200));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"   Конструкции",  new Float(0.0), null, null},

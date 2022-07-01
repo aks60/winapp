@@ -264,7 +264,9 @@ public class Kits extends javax.swing.JFrame {
         if (index != -1) {
             Record record = qKitdet.get(index);
             Integer id = record.getInt(eKitdet.id);
-            qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
+            //qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
+            qKitpar2.clear();
+            qKitpar2.addAll(eKitpar2.find(id));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab3);
         }

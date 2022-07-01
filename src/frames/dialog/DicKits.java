@@ -21,6 +21,7 @@ import javax.swing.RowFilter;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eKitdet;
+import domain.eKitpar2;
 import domain.eKits;
 import domain.ePrjkit;
 import enums.UseUnit;
@@ -98,6 +99,27 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     public void selectionTab1() {
+        List.of(txt1, txt2, txt3).forEach(act -> {
+            act.setEditable(false);
+            act.setBackground(new java.awt.Color(212, 208, 200));
+        });
+        for (Record kitdetRec : qKitdet) {
+            Integer id = kitdetRec.getInt(eKitdet.id);
+            List<Record> kitparList = eKitpar2.find(id);
+            for (Record kitparRec : kitparList) {
+                String text = kitparRec.getStr(eKitpar2.text);
+                if (text.contains("Q")) {
+                    txt3.setEditable(true);
+                    txt3.setBackground(new java.awt.Color(255, 255, 255));
+                } else if (text.contains("L")) {
+                    txt2.setEditable(true);
+                    txt2.setBackground(new java.awt.Color(255, 255, 255));
+                } else if (text.contains("H")) {
+                    txt1.setEditable(true);
+                    txt1.setBackground(new java.awt.Color(255, 255, 255));
+                }
+            }
+        }
         UGui.clearTable(tab2);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -232,30 +254,30 @@ public class DicKits extends javax.swing.JDialog {
         pan2.setPreferredSize(new java.awt.Dimension(513, 90));
 
         lab30.setFont(frames.UGui.getFont(0,0));
-        lab30.setText("Кол. комп.");
+        lab30.setText("Кол. комп.  ( Q )");
         lab30.setToolTipText("");
         lab30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab30.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab30.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab30.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab30.setPreferredSize(new java.awt.Dimension(92, 18));
 
         lab13.setFont(frames.UGui.getFont(0,0));
-        lab13.setText("Длина");
+        lab13.setText("Длина  ( L )");
         lab13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab13.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab13.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab13.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab13.setPreferredSize(new java.awt.Dimension(92, 18));
 
         txt1.setText("0");
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(60, 18));
 
         lab14.setFont(frames.UGui.getFont(0,0));
-        lab14.setText("Ширина");
+        lab14.setText("Ширина  ( H )");
         lab14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab14.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab14.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab14.setPreferredSize(new java.awt.Dimension(92, 18));
 
         txt2.setText("0");
         txt2.setToolTipText("");
@@ -362,7 +384,7 @@ public class DicKits extends javax.swing.JDialog {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -547,25 +569,28 @@ public class DicKits extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        if (qKitdet.stream().anyMatch(rec -> "1".equals(eArtikl.get(rec.getInt(eKitdet.artikl_id)).getStr(eArtikl.unit))) == true) {
-            if (txt3.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Укажите количество комплектов.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
-//            } else if (txt2.getText().isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-//                return;
-            } else if (txt9.getText().isEmpty() || txt13.getText().isEmpty() || txt14.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
+        //if (qKitdet.stream().anyMatch(rec -> "1".equals(eArtikl.get(rec.getInt(eKitdet.artikl_id)).getStr(eArtikl.unit))) == true) {
+        if (txt3.getText().isEmpty() && txt3.isEditable()) {
+            JOptionPane.showMessageDialog(this, "Укажите количество комплектов.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else if (txt2.getText().isEmpty() && txt2.isEditable()) {
+            JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else if (txt1.getText().isEmpty() && txt1.isEditable()) {
+            JOptionPane.showMessageDialog(this, "Укажите ширину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else if (txt9.getText().isEmpty() || txt13.getText().isEmpty() || txt14.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+        //}
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
-        
-       //Цикл по списку детализации
+
+        //Цикл по списку детализации
         for (Record record : qKitdet) {
             mapParam.clear();
-            
+
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
             if (kitDet.filter(mapParam, record) == true) {
 
@@ -577,7 +602,7 @@ public class DicKits extends javax.swing.JDialog {
                 recordKit.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
                 recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество    
-                
+
                 Float width = get_8066_9066(mapParam);
                 width = (width == null) ? 0 : width;
                 recordKit.set(ePrjkit.width, width); //длина мм   
@@ -648,6 +673,9 @@ public class DicKits extends javax.swing.JDialog {
             JTextField txt = (evt.getSource() == btn9) ? txt9 : (evt.getSource() == btn13) ? txt13 : txt14;
             int index = (evt.getSource() == btn9) ? 0 : (evt.getSource() == btn13) ? 1 : 2;
             Record record = qKitdet.stream().filter(rec -> 1 == rec.getInt(eKitdet.flag)).findFirst().orElse(null);
+            if (qKitdet.size() == 1) {
+                record = qKitdet.get(0);
+            }
             if (record != null) {
                 int id = record.getInt(eKitdet.artikl_id);
                 HashSet<Record> colorSet = new HashSet();
