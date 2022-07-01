@@ -59,6 +59,9 @@ public class HtmlOfSpecific {
             new Tariffic(winc, true).calc(projectRec, prjprodRec); 
             spcList2.addAll(winc.kitsSpec); //добавим комплекты
         }
+        ArrayList2<Specific> kitsSpec = Tariffic.calc(projectRec); 
+        spcList2.addAll(kitsSpec); //добавим комплекты проекта  
+        
         List<RSpecific> spcList3 = new ArrayList();
         spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
         String num = projectRec.getStr(eProject.num_ord);

@@ -30,18 +30,19 @@ import java.util.List;
  */
 public class Tariffic extends Cal5e {
 
-    private boolean norm_otx = true;
-    private int precision = Math.round(new Query(eGroups.values()).select(eGroups.up).get(0).getFloat(eGroups.val)); //округление длины профилей
+    private static boolean norm_otx = true;
+    private static int precision = Math.round(new Query(eGroups.values()).select(eGroups.up).get(0).getFloat(eGroups.val)); //округление длины профилей
 
     public Tariffic(Wincalc winc, boolean norm_otx) {
         super(winc);
         this.norm_otx = norm_otx;
     }
 
+    //Тарификация конструкции
     public void calc() {
         try {
             super.calc();
-            float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
+            float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
 
             //Расчёт себес-сти за ед.изм.
             for (ElemSimple elem5e : winc.listElem) {
@@ -79,21 +80,21 @@ public class Tariffic extends Cal5e {
                     if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
                         if (form == TypeForm.P00.id) {//не проверять форму
-                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec);
 
                         } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner.type()) { //не прямоугольное, не арочное заполнение
-                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec);
 
                         } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner.type()) {//не прямоугольное заполнение с арками
-                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec);
                         }
                     } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
                             && elem5e.owner.type() == Type.ARCH && elem5e.layout() == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
-                        rulecalcPrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
+                        rulecalcPrise(winc, rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {
                         if (form == TypeForm.P00.id) {  //не проверять форму
-                            rulecalcPrise(rulecalcRec, elem5e.spcRec); //всё остальное не проверять форму
+                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec); //всё остальное не проверять форму
                         }
                     }
                 }
@@ -113,7 +114,7 @@ public class Tariffic extends Cal5e {
                     for (Record rulecalcRec : eRulecalc.list()) {
                         int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                         if (form == TypeForm.P00.id) { //не проверять форму 
-                            rulecalcPrise(rulecalcRec, spc);
+                            rulecalcPrise(winc, rulecalcRec, spc);
                         }
                     }
                     spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом  
@@ -140,11 +141,58 @@ public class Tariffic extends Cal5e {
         }
     }
 
+    //Комплекты проекта (нет привязки к winc)
+    public static ArrayList2<Specific> calc(Record projectRec) {
+        float id = 0;
+        ArrayList2<Specific> kitsSpec = new ArrayList2();
+        try {
+            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), null);
+
+            //Цикл по комплектам
+            for (Record prjkitRec : prjkitList) {
+                Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
+                if (artiklRec != null) {
+                    Specific spc = new Specific(++id, prjkitRec, artiklRec, null);
+                    spc.place = "КОМП";
+                    spc.width = prjkitRec.getFloat(ePrjkit.width);
+                    spc.height = prjkitRec.getFloat(ePrjkit.height);
+                    spc.count = prjkitRec.getFloat(ePrjkit.numb);
+                    spc.colorID1 = prjkitRec.getInt(ePrjkit.color1_id);
+                    spc.colorID2 = prjkitRec.getInt(ePrjkit.color2_id);
+                    spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
+                    spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
+                    spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
+                    
+                    kitsSpec.add(spc);
+                }
+            }
+            //Цикл по детализации
+            for (Specific spc : kitsSpec) {
+                //Тарификация
+                spc.quant1 = formatAmount(spc); //количество без отхода
+                spc.quant2 = spc.quant1; //базовое количество с отходом
+                if (norm_otx == true) {
+                    float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
+                    spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
+                }
+                spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
+                spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
+                Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
+                float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //коэф. группы текстур
+                spc.price = spc.costpric2 * k1; //стоимость без скидки                     
+                spc.cost2 = spc.price; //базовая стоимость со скидкой   
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
+        }
+        return kitsSpec;
+    }
+
     //Комплекты конструкции
     public void calc(Record projectRec, Record prjprodRec) {
         try {
             Record systreeRec = eSystree.find(winc.nuni);
-            float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
+            float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
             if (prjprodRec != null) {
                 List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
 
@@ -152,7 +200,7 @@ public class Tariffic extends Cal5e {
                 for (Record prjkitRec : prjkitList) {
                     Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
                     if (artiklRec != null) {
-                        Specific spc = new Specific(prjkitRec, artiklRec, winc, null);
+                        Specific spc = new Specific(++winc.genId, prjkitRec, artiklRec, null);
                         spc.place = "КОМП";
                         spc.width = prjkitRec.getFloat(ePrjkit.width);
                         spc.height = prjkitRec.getFloat(ePrjkit.height);
@@ -192,7 +240,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet
-    public float artdetPrice(Specific specificRec) {
+    public static float artdetPrice(Specific specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //основная
@@ -285,7 +333,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
-    private void rulecalcPrise(Record rulecalcRec, Specific specifRec) {
+    private static void rulecalcPrise(Wincalc winc, Record rulecalcRec, Specific specifRec) {
 
         //Если артикул ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null) {
@@ -336,7 +384,7 @@ public class Tariffic extends Cal5e {
     }
 
     //В зав. от единицы изм. форматируется количество
-    private float formatAmount(Specific spcRec) {
+    private static float formatAmount(Specific spcRec) {
         //Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
 
         if (UseUnit.METR.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //метры
@@ -358,7 +406,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Процентная надбавка на изделия сложной формы
-    private float percentMarkup() {
+    private static float percentMarkup(Wincalc winc) {
         if (Type.ARCH == winc.rootArea.type()) {
             return eGroups.find(2101).getFloat(eGroups.val);
         }

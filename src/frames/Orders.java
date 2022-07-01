@@ -112,7 +112,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
     private Scene scene = null;
-    Object title[] = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
+    Object[] column = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
     private DecimalFormat df0 = new DecimalFormat("#0");
@@ -313,6 +313,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
             Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
+            String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
             txt3.setText(currencRec.getStr(eCurrenc.name));
             txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
             txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
@@ -325,9 +326,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 df1.format(projectRec.getFloat(eProject.price3)),
                 df1.format(projectRec.getFloat(eProject.cost3))},
             {" Итого за заказ", projectRec.getFloat(eProject.disc4),
-                df1.format(projectRec.getFloat(eProject.price4)),
-                df1.format(projectRec.getFloat(eProject.cost4))}};
-            ((DefaultTableModel) tab5.getModel()).setDataVector(data, title);
+                df1.format(projectRec.getFloat(eProject.price4)) + cname,
+                df1.format(projectRec.getFloat(eProject.cost4)) + cname}};
+            ((DefaultTableModel) tab5.getModel()).setDataVector(data, column);
         }
     }
 
@@ -2717,7 +2718,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         Record record3 = eArtikl.up.newRecord();
                         qPrjkit.table(eArtikl.up).add(record3);
                     });
-                }  else if (((JButton) evt.getSource()) == btnSet) {
+                } else if (((JButton) evt.getSource()) == btnSet) {
                     DicKits frame = new DicKits(Orders.this, (q) -> {
                         loadingTab4();
                         return true;
@@ -3183,6 +3184,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public void actionRequest(Object obj) {
                 try {
                     Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                    Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
+                    String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
                     projectRec.set(eProject.weight, 0);
                     projectRec.set(eProject.square, 0);
                     projectRec.set(eProject.price2, 0);
@@ -3207,7 +3210,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 Query.listOpenTable.forEach(q -> q.clear()); //очистим кэ                                
                                 win.constructiv(true); //конструктив                               
                                 new Tariffic(win, true).calc(projectRec, prjprodRec); //комплекты
-                                
+
                                 float square = prjprodRec.getFloat(ePrjprod.num, 1) * win.width() * win.height();
                                 projectRec.set(eProject.square, projectRec.getFloat(eProject.square) + square);
 
@@ -3242,8 +3245,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost3)), 1, 3); //стоимость со скидкой
 
                         //Итого
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 2, 2); //итого стоимость без скидки
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4)), 2, 3); //итого стоимость со скидкой
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)) + cname, 2, 2); //итого стоимость без скидки
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4)) + cname, 2, 3); //итого стоимость со скидкой
                     }
 
                 } catch (Exception e) {

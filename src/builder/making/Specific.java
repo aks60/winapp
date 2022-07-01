@@ -58,8 +58,8 @@ public class Specific {
         this.mapParam = new HashMap();
     }
 
-    public Specific(Record detailRec, Record artiklRec, Wincalc winc, HashMap<Integer, String> mapParam) {
-        this.id = ++winc.genId;
+    public Specific(float id, Record detailRec, Record artiklRec, HashMap<Integer, String> mapParam) {
+        this.id = id;
         this.mapParam = mapParam;
         this.detailRec = detailRec;
         setArtiklRec(artiklRec);
