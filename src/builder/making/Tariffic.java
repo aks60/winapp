@@ -141,21 +141,37 @@ public class Tariffic extends Cal5e {
     }
 
     //Комплекты конструкции
-    public ArrayList2<Specific> calc(Record projectRec, Record prjprodRec) {
-        ArrayList2<Specific> listKit = new ArrayList2();
-        if (prjprodRec != null) {
-            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+    public void calc(Record projectRec, Record prjprodRec) {
+        try {
+            if (prjprodRec != null) {
+                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
 
-            //Цикл по комплектам
-            for (Record prjkitRec : prjkitList) {
-                Record artiklRec = eArtikl.get(prjkitRec.getInt(ePrjkit.artikl_id));
-                Specific spc = new Specific(prjkitRec, artiklRec, null, null);
-                listKit.add(spc);
+                //Цикл по комплектам
+                for (Record prjkitRec : prjkitList) {
+                    Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
+                    if (artiklRec != null) {
+                        Specific spc = new Specific(prjkitRec, artiklRec, null, null);
+                        spc.place = "КОМП";
+                        winc.kitsSpec.add(spc);
+                    }
+                }
+//                for (Specific spc : winc.kitsSpec) {
+//                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода
+//                    spc.quant1 = formatAmount(spc); //количество без отхода
+//                    spc.quant2 = spc.quant1; //базовое количество с отходом
+//                    if (norm_otx == true) {
+//                        float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
+//                        spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
+//                    }
+//                 }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
+        } finally {
+            Query.conf = conf;
         }
-        return listKit;
     }
-    
+
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet
     public float artdetPrice(Specific specificRec) {
 
