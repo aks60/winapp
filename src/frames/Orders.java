@@ -1290,7 +1290,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         pan11.add(pan7, java.awt.BorderLayout.CENTER);
 
-        pan9.setPreferredSize(new java.awt.Dimension(450, 150));
+        pan9.setPreferredSize(new java.awt.Dimension(450, 142));
         pan9.setLayout(new java.awt.BorderLayout());
 
         pan19.setPreferredSize(new java.awt.Dimension(450, 68));
@@ -1415,7 +1415,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pan9.add(pan19, java.awt.BorderLayout.NORTH);
