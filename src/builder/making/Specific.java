@@ -1,16 +1,12 @@
 package builder.making;
 
+import builder.Wincalc;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import enums.UseUnit;
 import enums.TypeArtikl;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 import builder.model.ElemSimple;
@@ -60,6 +56,13 @@ public class Specific {
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
+    }
+
+    public Specific(Record detailRec, Record artiklRec, Wincalc winc, HashMap<Integer, String> mapParam) {
+        this.id = ++winc.genId;
+        this.mapParam = mapParam;
+        this.detailRec = detailRec;
+        setArtiklRec(artiklRec);
     }
 
     public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {

@@ -150,11 +150,16 @@ public class Tariffic extends Cal5e {
                 for (Record prjkitRec : prjkitList) {
                     Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
                     if (artiklRec != null) {
-                        Specific spc = new Specific(prjkitRec, artiklRec, null, null);
+                        Specific spc = new Specific(prjkitRec, artiklRec, winc, null);
                         spc.place = "КОМП";
+                        spc.width = prjkitRec.getFloat(ePrjkit.width);
+                        spc.height = prjkitRec.getFloat(ePrjkit.height);
+                        spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
+                        spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
                         winc.kitsSpec.add(spc);
                     }
                 }
+                //Цикл по детализации
                 for (Specific spc : winc.kitsSpec) {
                     spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода
                     spc.quant1 = formatAmount(spc); //количество без отхода
