@@ -99,6 +99,15 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     public void selectionTab1() {
+        UGui.clearTable(tab2);
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qKits.get(index);
+            Integer id = record.getInt(eKits.id);
+            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
         List.of(txt1, txt2, txt3).forEach(act -> {
             act.setEditable(false);
             act.setBackground(new java.awt.Color(212, 208, 200));
@@ -111,23 +120,16 @@ public class DicKits extends javax.swing.JDialog {
                 if (text.contains("Q")) {
                     txt3.setEditable(true);
                     txt3.setBackground(new java.awt.Color(255, 255, 255));
-                } else if (text.contains("L")) {
+                } 
+                if (text.contains("L")) {
                     txt2.setEditable(true);
                     txt2.setBackground(new java.awt.Color(255, 255, 255));
-                } else if (text.contains("H")) {
+                } 
+                if (text.contains("H")) {
                     txt1.setEditable(true);
                     txt1.setBackground(new java.awt.Color(255, 255, 255));
                 }
             }
-        }
-        UGui.clearTable(tab2);
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qKits.get(index);
-            Integer id = record.getInt(eKits.id);
-            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
         }
     }
 
