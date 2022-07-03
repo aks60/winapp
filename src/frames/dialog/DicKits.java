@@ -35,6 +35,7 @@ import enums.UseUnit;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -172,7 +173,7 @@ public class DicKits extends javax.swing.JDialog {
         int indexArr[] = tab2.getSelectedRows();
         List indexList = Arrays.asList(indexArr);
         if (indexList.size() != 0) {
-            //List<Record> record = qKitdet.stream().filter(rec -> indexList.contains(rec.get(eKitdet.id))).;
+            List<Record> record = qKitdet.stream().filter(rec -> indexList.contains(rec.get(eKitdet.id))).collect(toList());
             
         }
         int index = UGui.getIndexRec(tab2);
