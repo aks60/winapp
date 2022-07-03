@@ -236,9 +236,9 @@ public class HtmlOfTable {
             }
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);          
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println(e);
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
     }
 }

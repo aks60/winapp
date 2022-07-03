@@ -1,9 +1,12 @@
 package frames.dialog;
 
 import builder.param.KitDet;
+import builder.param.ParamList;
 import common.UCom;
+import common.eProp;
 import common.listener.ListenerObject;
 import dataset.Conn;
+import dataset.Field;
 import frames.FrameToFile;
 import frames.UGui;
 import dataset.Query;
@@ -13,18 +16,23 @@ import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import domain.eArtdet;
+import static domain.eArtdet.artikl_id;
 import domain.eArtikl;
+import domain.eElemdet;
+import domain.eElempar2;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
+import domain.eParams;
 import domain.ePrjkit;
+import enums.Enam;
 import enums.UseUnit;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JTextField;
@@ -40,9 +48,11 @@ public class DicKits extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 1343775792;
     private ListenerObject<Query> listener = null;
+    private Query qPrjkit = new Query(ePrjkit.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
-    private Query qPrjkit = new Query(ePrjkit.values());
+    private Query qKitpar2 = new Query(eKitpar2.values());
+    private Query qParams = new Query(eParams.values());
     private int colorID[] = {-1, -1, -1};
     private int projectID = -1;
     private int prjprodID = -1;
@@ -65,6 +75,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
+        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id,
                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
@@ -95,10 +106,28 @@ public class DicKits extends javax.swing.JDialog {
                 return val;
             }
         };
+        new DefTableModel(tab3, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
+
+            public Object getValueAt(int col, int row, Object val) {
+                if (val != null) {
+                    Field field = columns[col];
+                    if (field == eKitpar2.params_id) {
+                        if (Integer.valueOf(String.valueOf(val)) < 0) {
+                            Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        } else {
+                            Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        }
+                    }
+                }
+                return val;
+            }
+        };
         UGui.setSelectedRow(tab1);
     }
 
-    public void selectionTab1() {
+    private void selectionTab1() {
         UGui.clearTable(tab2);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -120,16 +149,39 @@ public class DicKits extends javax.swing.JDialog {
                 if (text.contains("Q")) {
                     txt3.setEditable(true);
                     txt3.setBackground(new java.awt.Color(255, 255, 255));
-                } 
+                }
                 if (text.contains("L")) {
                     txt2.setEditable(true);
                     txt2.setBackground(new java.awt.Color(255, 255, 255));
-                } 
+                }
                 if (text.contains("H")) {
                     txt1.setEditable(true);
                     txt1.setBackground(new java.awt.Color(255, 255, 255));
                 }
             }
+        }
+        tab2.setRowSelectionInterval(0, tab2.getRowCount() - 1);
+//        if (index != -1) {
+//            UGui.setSelectedIndex(tab1, index);
+//        } else {
+//            UGui.setSelectedRow(tab2);
+//        }        
+    }
+
+    private void selectionTab2() {
+        int indexArr[] = tab2.getSelectedRows();
+        List indexList = Arrays.asList(indexArr);
+        if (indexList.size() != 0) {
+            //List<Record> record = qKitdet.stream().filter(rec -> indexList.contains(rec.get(eKitdet.id))).;
+            
+        }
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qKitdet.table(eKitdet.up).get(index);
+            Integer p1 = record.getInt(eKitdet.id);
+            qKitpar2.select(eKitpar2.up, "left join", eParams.up, "on", eParams.id, "=", eKitpar2.params_id, "where", eKitpar2.kitdet_id, "=", p1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab3);
         }
     }
 
@@ -163,6 +215,8 @@ public class DicKits extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -251,7 +305,7 @@ public class DicKits extends javax.swing.JDialog {
         centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(513, 550));
-        pan1.setLayout(new java.awt.BorderLayout());
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
         pan2.setPreferredSize(new java.awt.Dimension(513, 90));
 
@@ -382,7 +436,7 @@ public class DicKits extends javax.swing.JDialog {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -390,7 +444,7 @@ public class DicKits extends javax.swing.JDialog {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,17 +484,17 @@ public class DicKits extends javax.swing.JDialog {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lab14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        pan1.add(pan2, java.awt.BorderLayout.NORTH);
+        pan1.add(pan2);
 
         scr1.setPreferredSize(new java.awt.Dimension(412, 300));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "name1", null},
-                {"222", "name2", null}
+                {"111", "name1",  new Integer(1)},
+                {"222", "name2",  new Integer(2)}
             },
             new String [] {
                 "Категория", "Название комплекта", "ID"
@@ -479,16 +533,15 @@ public class DicKits extends javax.swing.JDialog {
             tab1.getColumnModel().getColumn(2).setPreferredWidth(20);
         }
 
-        pan1.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1);
 
-        scr2.setPreferredSize(new java.awt.Dimension(454, 150));
+        scr2.setMaximumSize(new java.awt.Dimension(32767, 120));
+        scr2.setPreferredSize(new java.awt.Dimension(454, 120));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {"111", "Name1", "111", "111", "111", "x", null,  new Integer(1)},
+                {"222", "Name2", "222", "222", "222", "v", null,  new Integer(2)}
             },
             new String [] {
                 "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Ед.измерения", "Основной элемент", "ID"
@@ -498,7 +551,7 @@ public class DicKits extends javax.swing.JDialog {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -511,7 +564,7 @@ public class DicKits extends javax.swing.JDialog {
         });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -528,7 +581,36 @@ public class DicKits extends javax.swing.JDialog {
             tab2.getColumnModel().getColumn(7).setPreferredWidth(60);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.SOUTH);
+        pan1.add(scr2);
+
+        scr3.setMaximumSize(new java.awt.Dimension(32767, 80));
+        scr3.setPreferredSize(new java.awt.Dimension(454, 80));
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"name1", "111"},
+                {"name2", "222"}
+            },
+            new String [] {
+                "Параметр", "Значение"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(20);
+        }
+
+        pan1.add(scr3);
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
@@ -729,9 +811,11 @@ public class DicKits extends javax.swing.JDialog {
     private javax.swing.JPanel pan2;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
@@ -749,6 +833,13 @@ public class DicKits extends javax.swing.JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1();
+                }
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab2();
                 }
             }
         });
