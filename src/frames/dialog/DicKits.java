@@ -21,10 +21,7 @@ import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import domain.eArtdet;
-import static domain.eArtdet.artikl_id;
 import domain.eArtikl;
-import domain.eElemdet;
-import domain.eElempar2;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
@@ -32,10 +29,10 @@ import domain.eParams;
 import domain.ePrjkit;
 import enums.Enam;
 import enums.UseUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -171,19 +168,30 @@ public class DicKits extends javax.swing.JDialog {
 
     private void selectionTab2() {
         int indexArr[] = tab2.getSelectedRows();
-        List indexList = Arrays.asList(indexArr);
-        if (indexList.size() != 0) {
-            List<Record> record = qKitdet.stream().filter(rec -> indexList.contains(rec.get(eKitdet.id))).collect(toList());
+        List keyList = new ArrayList();
+        for (int i = 0; i < indexArr.length; i++) {
             
         }
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record record = qKitdet.table(eKitdet.up).get(index);
-            Integer p1 = record.getInt(eKitdet.id);
-            qKitpar2.select(eKitpar2.up, "left join", eParams.up, "on", eParams.id, "=", eKitpar2.params_id, "where", eKitpar2.kitdet_id, "=", p1);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
-        }
+        List indexList = Arrays.asList(indexArr);
+        qKitpar2.clear();
+        //String subsql = "-1";
+        //Set<Object> keys = new HashSet();
+        if (indexList.size() != 0) {
+            for (Record kitpar2Rec : qKitpar2) {
+                if (indexList.contains(kitpar2Rec.getInt(eKitpar2.kitdet_id))) {
+                    qKitpar2.add(kitpar2Rec);
+                    //keys.add(kitpar2Rec.get(eKitdet.id));
+                }
+            }
+//            if (keys.size() != 0) {
+//                subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+//                qKitpar2.select(eKitpar2.up, "left join", eParams.up, "on", eParams.id, "=", eKitpar2.params_id, "where", eKitpar2.kitdet_id, "in", subsql);
+//            }
+        } 
+//        else {
+//            qKitpar2.clear();
+//        }
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
     }
 
     @SuppressWarnings("unchecked")
