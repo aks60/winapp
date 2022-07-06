@@ -69,7 +69,6 @@ public class Wincalc {
     private float costpric2 = 0; //себест. за ед. с отходом
     private float price = 0; //стоимость без скидки
     private float cost2 = 0; //стоимость с технологической скидкой
-    //private float cost3 = 0; //стоимость со скидкой менеджера/диллера
     private float weight = 0; //масса конструкции 
 
     public BufferedImage bufferImg = null;  //образ рисунка
@@ -106,7 +105,7 @@ public class Wincalc {
             width2 = 0;
             height1 = 0;
             height2 = 0;
-            List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
+            List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
             //Парсинг входного скрипта

@@ -598,7 +598,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt17, df1.frm(winc.rootGson.width()));
                 setText(txt22, df1.frm(winc.rootGson.height()));
                 setText(txt23, df1.frm(winc.rootGson.height2()));
-                txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
+                txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
 
                 //Параметры
             } else if (winNode.com5t().type() == enums.Type.PARAM) {

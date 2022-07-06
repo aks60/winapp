@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.ArrayList2;
+import common.DecimalFormat2;
 import common.UCom;
 import dataset.Field;
 import dataset.Query;
@@ -30,10 +30,8 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.Set;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.DefFieldEditor;
 import common.listener.ListenerRecord;
 import common.eProfile;
 import common.eProp;
@@ -43,7 +41,6 @@ import common.listener.ListenerReload;
 import dataset.Conn;
 import domain.eArtdet;
 import domain.eArtikl;
-import static domain.eArtikl.up;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eFurniture;
@@ -77,7 +74,6 @@ import frames.swing.FilterTable;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -88,7 +84,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -115,9 +110,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     Object[] column = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
-    private DecimalFormat df0 = new DecimalFormat("#0");
-    private DecimalFormat df1 = new DecimalFormat("#0.#");
-    private static DecimalFormat df2 = new DecimalFormat("#0.00");
+    private DecimalFormat2 df0 = new DecimalFormat2("#0");
+    private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
+    private static DecimalFormat2 df2 = new DecimalFormat2("#0.00");
     private ListenerObject<Query> listenerQuery = null;
 
     public Orders() {
@@ -190,11 +185,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-//        DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
-//        rnd.setHorizontalAlignment(JLabel.RIGHT);
-//        for (int col = 2; col < 4; col++) {
-//            tab5.getColumnModel().getColumn(col).setCellRenderer(rnd);
-//        }
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
@@ -372,13 +362,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
-                txt9.setText(eColor.find(winc.colorID1).getStr(eColor.name));
-                txt13.setText(eColor.find(winc.colorID2).getStr(eColor.name));
-                txt14.setText(eColor.find(winc.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(winc.rootGson.width()));
-                txt22.setText(String.valueOf(winc.rootGson.height()));
-                txt23.setText(String.valueOf(winc.rootGson.height2()));
-                txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
+                setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
+                setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
+                setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
+                setText(txt17, String.valueOf(winc.rootGson.width()));
+                setText(txt22, String.valueOf(winc.rootGson.height()));
+                setText(txt23, df1.frm(winc.rootGson.height2()));
+                txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
 
                 //Параметры
             } else if (winNode.com5t().type() == enums.Type.PARAM) {
@@ -1460,6 +1450,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         });
+        tab5.getTableHeader().setReorderingAllowed(false);
         scr5.setViewportView(tab5);
 
         pan9.add(scr5, java.awt.BorderLayout.CENTER);
@@ -3206,22 +3197,27 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
 
                                 win.build(jsonElem.toString()); //калкуляция
-                                Query.listOpenTable.forEach(q -> q.clear()); //очистим кэ                                
-                                win.constructiv(true); //конструктив                               
-                                new Tariffic(win, true).calc(projectRec, prjprodRec); //комплекты
+                                Query.listOpenTable.forEach(q -> q.clear()); //очистим кэш                                
+                                win.constructiv(true); //конструктив                                                               
 
                                 float square = prjprodRec.getFloat(ePrjprod.num, 1) * win.width() * win.height();
                                 projectRec.set(eProject.square, projectRec.getFloat(eProject.square) + square);
 
-                                //Суммирум коонструкции заказа
+                                //Суммируем коонструкции заказа
                                 projectRec.set(eProject.weight, projectRec.getFloat(eProject.weight) + win.weight());
                                 projectRec.set(eProject.price2, projectRec.getFloat(eProject.price2) + win.price());
                                 projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
 
+                                //Комплектация
+                                new Tariffic(win, true).calc(projectRec, prjprodRec); //комплекты
+                                for (Specific spc : win.kitsSpec) {
+                                    projectRec.set(eProject.price3, projectRec.getFloat(eProject.price3) + spc.price);
+                                    projectRec.set(eProject.cost3, projectRec.getFloat(eProject.cost3) + spc.cost2);
+                                }
                             }
                         }
-                        projectRec.set(eProject.price3, 0);
-                        projectRec.set(eProject.cost3, 0);
+                        //projectRec.set(eProject.price3, 50);
+                        //projectRec.set(eProject.cost3, 60);
 
                         float cost2 = projectRec.getFloat(eProject.cost2)
                                 - projectRec.getFloat(eProject.cost2)
@@ -3646,5 +3642,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         });
+
+//        for (int col = 2; col < 4; col++) {
+//            DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
+//            rnd.setHorizontalAlignment(JLabel.RIGHT);
+//            tab5.getColumnModel().getColumn(col).setCellRenderer(new DefaultTableCellRenderer());
+//        }
     }
 }

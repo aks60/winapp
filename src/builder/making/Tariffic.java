@@ -230,6 +230,7 @@ public class Tariffic extends Cal5e {
                     spc.price = spc.costpric2 * k1 * k2;
                     spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
                     spc.cost2 = spc.price; //базовая стоимость со скидкой   
+                    System.out.println(spc.cost2);
                 }
             }
         } catch (Exception e) {
