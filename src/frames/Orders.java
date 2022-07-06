@@ -84,6 +84,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -303,7 +304,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
             Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
-            String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
+            //String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
             txt3.setText(currencRec.getStr(eCurrenc.name));
             txt7.setText(df1.format(projectRec.getFloat(eProject.weight) / 1000));
             txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000));
@@ -316,8 +317,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 df1.format(projectRec.getFloat(eProject.price3)),
                 df1.format(projectRec.getFloat(eProject.cost3))},
             {" Итого за заказ", projectRec.getFloat(eProject.disc4),
-                df1.format(projectRec.getFloat(eProject.price4)) + cname,
-                df1.format(projectRec.getFloat(eProject.cost4)) + cname}};
+                df1.format(projectRec.getFloat(eProject.price4)),
+                df1.format(projectRec.getFloat(eProject.cost4))}};
             ((DefaultTableModel) tab5.getModel()).setDataVector(data, column);
         }
     }
@@ -338,9 +339,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 scene.draw();
                 loadingWinTree(win);
                 winTree.setSelectionInterval(0, 0);
-
-                //tab5.setValueAt(df2.format(win.price()), 0, 2);
-                //tab5.setValueAt(df2.format(win.cost2()), 0, 3);
             }
         } else {
             scene.init(null);
@@ -1269,6 +1267,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(1).setCellRenderer(null);
             tab2.getColumnModel().getColumn(2).setMinWidth(68);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab2.getColumnModel().getColumn(2).setMaxWidth(68);
@@ -1424,7 +1423,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, false, false
@@ -3175,7 +3174,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 try {
                     Record projectRec = qProject.get(UGui.getIndexRec(tab1));
                     Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
-                    String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
+                    //String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
                     projectRec.set(eProject.weight, 0);
                     projectRec.set(eProject.square, 0);
                     projectRec.set(eProject.price2, 0);
@@ -3216,13 +3215,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 }
                             }
                         }
-                        //projectRec.set(eProject.price3, 50);
-                        //projectRec.set(eProject.cost3, 60);
-
                         float cost2 = projectRec.getFloat(eProject.cost2)
                                 - projectRec.getFloat(eProject.cost2)
                                 * projectRec.getFloat(eProject.disc2) / 100;
                         projectRec.set(eProject.cost2, cost2);
+                        float cost3 = projectRec.getFloat(eProject.cost3)
+                                - projectRec.getFloat(eProject.cost3)
+                                * projectRec.getFloat(eProject.disc3) / 100;
+                        projectRec.set(eProject.cost3, cost3);
+                        
                         projectRec.set(eProject.price4, projectRec.getFloat(eProject.price2) + projectRec.getFloat(eProject.price3));
                         float cost4 = (projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3))
                                 - (projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3))
@@ -3240,8 +3241,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost3)), 1, 3); //стоимость со скидкой
 
                         //Итого
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)) + cname, 2, 2); //итого стоимость без скидки
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4)) + cname, 2, 3); //итого стоимость со скидкой
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 2, 2); //итого стоимость без скидки
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost4)), 2, 3); //итого стоимость со скидкой
                     }
 
                 } catch (Exception e) {
@@ -3643,6 +3644,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
+//        DefaultTableCellRenderer tr = (DefaultTableCellRenderer) tab5.getColumnModel().getColumn(1).getCellRenderer();
+//        tr.setHorizontalAlignment(JLabel.CENTER);
+//        tab5.getColumnModel().getColumn(1).setCellRenderer(tr);
 //        for (int col = 2; col < 4; col++) {
 //            DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
 //            rnd.setHorizontalAlignment(JLabel.RIGHT);
