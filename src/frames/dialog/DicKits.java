@@ -132,8 +132,6 @@ public class DicKits extends javax.swing.JDialog {
             Record record = qKits.get(index);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
         }
         List.of(txt1, txt2, txt3).forEach(act -> {
             act.setEditable(false);
@@ -158,39 +156,18 @@ public class DicKits extends javax.swing.JDialog {
                 }
             }
         }
-        tab2.setRowSelectionInterval(0, tab2.getRowCount() - 1);
-//        if (index != -1) {
-//            UGui.setSelectedIndex(tab1, index);
-//        } else {
-//            UGui.setSelectedRow(tab2);
-//        }        
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        tab2.setRowSelectionInterval(0, tab2.getRowCount() - 1);       
     }
 
     private void selectionTab2() {
-        int indexArr[] = tab2.getSelectedRows();
-        List keyList = new ArrayList();
-        for (int i = 0; i < indexArr.length; i++) {
-            
-        }
-        List indexList = Arrays.asList(indexArr);
         qKitpar2.clear();
-        //String subsql = "-1";
-        //Set<Object> keys = new HashSet();
-        if (indexList.size() != 0) {
-            for (Record kitpar2Rec : qKitpar2) {
-                if (indexList.contains(kitpar2Rec.getInt(eKitpar2.kitdet_id))) {
-                    qKitpar2.add(kitpar2Rec);
-                    //keys.add(kitpar2Rec.get(eKitdet.id));
-                }
-            }
-//            if (keys.size() != 0) {
-//                subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-//                qKitpar2.select(eKitpar2.up, "left join", eParams.up, "on", eParams.id, "=", eKitpar2.params_id, "where", eKitpar2.kitdet_id, "in", subsql);
-//            }
-        } 
-//        else {
-//            qKitpar2.clear();
-//        }
+        int indexArr[] = tab2.getSelectedRows();
+        for (int i = 0; i < indexArr.length; i++) {
+            Record kitdetRec = qKitdet.get(tab2.convertRowIndexToModel(indexArr[i]));
+            List<Record> kitpar2List = eKitpar2.find(kitdetRec.getInt(eKitdet.id));
+            qKitpar2.addAll(kitpar2List);
+        }
         ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
     }
 
@@ -333,7 +310,6 @@ public class DicKits extends javax.swing.JDialog {
         lab13.setMinimumSize(new java.awt.Dimension(34, 14));
         lab13.setPreferredSize(new java.awt.Dimension(92, 18));
 
-        txt1.setText("0");
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -344,7 +320,6 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
         lab14.setPreferredSize(new java.awt.Dimension(92, 18));
 
-        txt2.setText("0");
         txt2.setToolTipText("");
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(60, 18));
