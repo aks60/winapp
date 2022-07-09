@@ -44,6 +44,9 @@ public interface ICom5t {
     default Layout layout() {
         return null;
     }
+    
+    default void layout(Layout x) {
+    }
 
     //Длина компонента
     default float length() {

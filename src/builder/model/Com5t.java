@@ -20,7 +20,7 @@ public abstract class Com5t implements ICom5t {
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
 
-    public AreaSimple owner = null; //владелец
+    public IArea5e owner = null; //владелец
     public Wincalc winc = null; //главный класс калькуляции
     public AreaSimple root = null; //главный класс конструкции
     public GsonElem gson = null; //Gson object конструкции
@@ -32,7 +32,7 @@ public abstract class Com5t implements ICom5t {
         this.type = type;
     }
 
-    public Com5t(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
+    public Com5t(float id, Wincalc winc, IArea5e owner, GsonElem gson) {
         this.id = id;
         this.owner = owner;
         this.type = gson.type();
