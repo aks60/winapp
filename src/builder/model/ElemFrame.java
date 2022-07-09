@@ -153,7 +153,7 @@ public class ElemFrame extends ElemSimple {
 
     //Главная спецификация
     @Override
-    public void setSpecific() {  //добавление основной спесификации
+    public void setSpecific() {  //добавление основной спецификации
 
         spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
         spcRec.setArtiklRec(artiklRec);
