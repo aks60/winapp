@@ -7,7 +7,7 @@ import dataset.Record;
 import enums.Layout;
 import enums.Type;
 
-public interface ICom5t extends IModel{
+public interface ICom5t {
 
     int TRANSLATE_XY = 2; //сдвиг графика
 
