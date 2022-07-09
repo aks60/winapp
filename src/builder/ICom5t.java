@@ -60,14 +60,23 @@ public interface ICom5t {
         return null;
     }
 
+    default void sysprofRec(Record record) {
+    }
+    
     default Record artiklRec() {
         return null;
     }
-
+    
+    default void artiklRec(Record record) {
+    }
+    
     default Record artiklRecAn() {
         return null;
     }
-
+    
+    default void artiklRecAn(Record record) {
+    }
+    
     default void layout(Layout x) {
     }
 

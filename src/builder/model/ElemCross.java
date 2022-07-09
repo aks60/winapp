@@ -49,7 +49,7 @@ public class ElemCross extends ElemSimple {
             }
         }
         spcRec.place = (Layout.HORIZ == owner.layout()) ? Layout.VERT.name : Layout.HORIZ.name;
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
@@ -59,19 +59,19 @@ public class ElemCross extends ElemSimple {
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if (Type.ARCH == owner.type()) {
             IArea5e prevArea = (IArea5e) owner.childs().get(0); //опустим ареа на половину шир. иппоста
-            prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.height) / 2);
+            prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.height) / 2);
 
         } else if (Type.TRAPEZE == owner.type()) {
             float dy = 0;
             IArea5e prevArea = (IArea5e) owner.childs().get(0);
             if (winc.form == Form.RIGHT) {
                 float angl = root.frames().get(Layout.RIGHT).anglCut[1];
-                dy = (float) (root.frames().get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.size_centr) + dy);
+                dy = (float) (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             } else if (winc.form == Form.LEFT) {
                 float angl = root.frames().get(Layout.LEFT).anglCut[0];
-                dy = (float) (root.frames().get(Layout.LEFT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.size_centr) + dy);                                
+                dy = (float) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);                                
             }
             
         }
@@ -115,40 +115,40 @@ public class ElemCross extends ElemSimple {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
                     IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
                     spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
-                    spcRec.height = artiklRec.getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //снизу вверх
                     IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
                     spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
-                    spcRec.height = artiklRec.getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             } else {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
                     spcRec.width = y2 - y1;
-                    spcRec.height = artiklRec.getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //снизу вверх
                     spcRec.width = x2 - x1;
-                    spcRec.height = artiklRec.getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             }
         } else if (type() == Type.SHTULP) {
             if (Layout.HORIZ == owner.layout()) { //слева направо  
                 spcRec.width = y2 - y1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
 
             } else if (Layout.VERT == owner.layout()) { //сверху вниз
                 spcRec.width = x2 - x1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         } else if (type() == Type.STOIKA) {
             if (Layout.HORIZ == owner.layout()) { //слева направо  
                 spcRec.width = y2 - y1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
 
             } else if (Layout.VERT == owner.layout()) { //сверху вниз
                 spcRec.width = x2 - x1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         }
     }

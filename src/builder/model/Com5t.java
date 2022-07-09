@@ -20,7 +20,7 @@ public class Com5t implements ICom5t {
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
 
     protected Record sysprofRec = null; //профиль в системе
-    public Record artiklRec = null;  //мат. средства
+    protected Record artiklRec = null;  //мат. средства
     protected Record artiklRecAn = null;  //аналог мат. средства    
 
     protected IArea5e owner = null; //владелец
@@ -120,12 +120,21 @@ public class Com5t implements ICom5t {
     public Record artiklRec() {
         return artiklRec;
     }
+    @Override
+    public void artiklRec(Record record) {
+        this.artiklRec = record;
+    }
     
     @Override
     public Record artiklRecAn() {
         return artiklRecAn;
     }
 
+    @Override
+    public void artiklRecAn(Record record) {
+        this.artiklRec = record;
+    }
+    
     //Длина компонента
     @Override
     public float length() {

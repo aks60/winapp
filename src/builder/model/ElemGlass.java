@@ -41,18 +41,18 @@ public class ElemGlass extends ElemSimple {
     public void initСonstructiv(JsonObject param) {
 
         if (isJson(param, PKjson.artglasID)) {
-            artiklRec = eArtikl.find(param.get(PKjson.artglasID).getAsInt(), false);
+            artiklRec(eArtikl.find(param.get(PKjson.artglasID).getAsInt(), false));
         } else {
             Record sysreeRec = eSystree.find(winc.nuni); //по умолчанию стеклопакет
-            artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
+            artiklRec(eArtikl.find2(sysreeRec.getStr(eSystree.glas)));
         }
-        artiklRecAn = artiklRec;
+        artiklRecAn(artiklRec);
 
         //Цвет стекла
         if (isJson(param, PKjson.colorGlass)) {
             colorID1 = param.get(PKjson.colorGlass).getAsInt();
         } else {
-            Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+            Record artdetRec = eArtdet.find2(artiklRec().getInt(eArtikl.id));
             Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
             colorID1 = colorRec.getInt(eColor.id);
             colorID2 = colorRec.getInt(eColor.id);
@@ -81,9 +81,9 @@ public class ElemGlass extends ElemSimple {
         if (owner.type() == Type.ARCH) { //если арка
             ElemFrame elemArch = root().frames().get(Layout.TOP);
             IElem5e elemImpost = joinFlat(Layout.BOTT);
-            y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            y1 = y1 + elemArch.artiklRec().getFloat(eArtikl.height) - elemArch.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec().getFloat(eArtikl.height) + elemArch.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner.width() / 2) - (float) l;
             x2 = owner.width() - x1;
@@ -219,7 +219,7 @@ public class ElemGlass extends ElemSimple {
 
         if (owner.type() == Type.ARCH) {
             ElemFrame ef = root().frames().get(Layout.TOP);
-            float dz = ef.artiklRec.getFloat(eArtikl.height);
+            float dz = ef.artiklRec().getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));

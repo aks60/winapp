@@ -63,7 +63,7 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
@@ -73,16 +73,16 @@ public class ElemFrame extends ElemSimple {
         //Арка
         if (owner.type() == Type.ARCH) {
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
+                setDimension(owner.x1(), owner.y2() - artiklRec().getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
+                setDimension(owner.x2() - artiklRec().getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
                 setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1()); // + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
             } else if (Layout.LEFT == layout) {
-                setDimension(owner.x1(), owner.y2() - winc.height2(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
+                setDimension(owner.x1(), owner.y2() - winc.height2(), owner.x1() + artiklRec().getFloat(eArtikl.height), owner.y2());
                 anglHoriz = 270;
             }
 
@@ -93,16 +93,16 @@ public class ElemFrame extends ElemSimple {
 
             
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
+                setDimension(owner.x1(), owner.y2() - artiklRec().getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
 
                 
             } else if (Layout.RIGHT == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
+                    setDimension(owner.x2() - artiklRec().getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                    
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
+                    setDimension(owner.x2() - artiklRec().getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 }
                 anglHoriz = 90;
@@ -124,10 +124,10 @@ public class ElemFrame extends ElemSimple {
                 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
+                    setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec().getFloat(eArtikl.height), owner.y2());
                     anglCut[0] = (float) (Math.toDegrees(Math.atan(W / H))) / 2;
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x1(), owner.y2() - winc.height1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
+                    setDimension(owner.x1(), owner.y2() - winc.height1(), owner.x1() + artiklRec().getFloat(eArtikl.height), owner.y2());
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                    
                 }
                 anglHoriz = 270;
@@ -136,16 +136,16 @@ public class ElemFrame extends ElemSimple {
             //Остальное
         } else {
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
+                setDimension(owner.x1(), owner.y2() - artiklRec().getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
+                setDimension(owner.x2() - artiklRec().getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1() + artiklRec.getFloat(eArtikl.height));
+                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1() + artiklRec().getFloat(eArtikl.height));
                 anglHoriz = 180;
             } else if (Layout.LEFT == layout) {
-                setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
+                setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec().getFloat(eArtikl.height), owner.y2());
                 anglHoriz = 270;
             }
         }
@@ -171,45 +171,45 @@ public class ElemFrame extends ElemSimple {
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                 spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = owner.frames().get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
+                spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         } else if (owner.type() == Type.TRAPEZE) {
             if (Layout.TOP == layout) {
                 double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
                 spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         } else {
             if (Layout.TOP == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         }
     }
@@ -248,19 +248,19 @@ public class ElemFrame extends ElemSimple {
             }
             if ("ps3".equals(eSetting.find(2))) {
                 if ("Да".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
+                    Double dw1 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
                     spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                 }
             } else {
                 if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
+                    Double dw1 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
                     spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
                 } else if ("от внутреннего фальца".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[1]));
+                    Double dw1 = (artiklRec().getDbl(eArtikl.height) - artiklRec().getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = (artiklRec().getDbl(eArtikl.height) - artiklRec().getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[1]));
                     spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                 }
             }
@@ -363,7 +363,7 @@ public class ElemFrame extends ElemSimple {
         try {
             ElemJoining ej1 = winc.mapJoin.get(joinPoint(0));
             ElemJoining ej2 = winc.mapJoin.get(joinPoint(1));
-            float dh = artiklRec.getFloat(eArtikl.height);                  
+            float dh = artiklRec().getFloat(eArtikl.height);                  
             float dh0 = (winc.mapJoin.get(joinPoint(0)).type == TypeJoin.VAR30 || winc.mapJoin.get(joinPoint(0)).type == TypeJoin.VAR31) ? 0 : dh;
             float dh1 = (winc.mapJoin.get(joinPoint(1)).type == TypeJoin.VAR30 || winc.mapJoin.get(joinPoint(1)).type == TypeJoin.VAR31) ? 0 : dh;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
