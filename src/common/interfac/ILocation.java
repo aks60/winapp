@@ -1,7 +1,7 @@
 
 package common.interfac;
 
-public interface Location {
+public interface ILocation {
     
     public void setLocation(float width, float height);
 }

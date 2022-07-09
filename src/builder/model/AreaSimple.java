@@ -19,12 +19,12 @@ import builder.script.GsonElem;
 import builder.script.GsonRoot;
 import common.UCom;
 import common.eProp;
-import common.interfac.Drawing;
-import common.interfac.Location;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
+import common.interfac.IDrawing;
+import common.interfac.ILocation;
 
 public class AreaSimple extends Com5t implements IArea5e {
 
@@ -419,7 +419,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
 // <editor-fold defaultstate="collapsed" desc="Version"> 
-    private Drawing drawing = () -> {
+    private IDrawing drawing = () -> {
         try {
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
@@ -461,7 +461,7 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     };
 
-    private Location localion = (float width, float heigh) -> {
+    private ILocation localion = (float width, float heigh) -> {
     };
 // </editor-fold>  
 }

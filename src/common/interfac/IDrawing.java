@@ -1,6 +1,6 @@
 package common.interfac;
 
-public interface Drawing {
+public interface IDrawing {
 
     public void draw();
 }
