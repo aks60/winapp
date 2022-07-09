@@ -27,7 +27,7 @@ import enums.Type;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class AreaSimple extends Com5t {
+public class AreaSimple extends Com5t implements IArea5e {
 
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
@@ -70,6 +70,7 @@ public class AreaSimple extends Com5t {
         initParametr(gson.param());
     }
 
+    @Override
     public void initСonstructiv(JsonObject param) {
         //if(eProperty.dev)
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
@@ -139,6 +140,7 @@ public class AreaSimple extends Com5t {
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
     }
 
+    @Override
     public void resizeX2(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
@@ -187,6 +189,7 @@ public class AreaSimple extends Com5t {
         }
     }
     
+    @Override
     public void resizeX(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
@@ -247,6 +250,7 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка: Com5t.lengthX() " + e);
         }
     }
+    @Override
     public void resizeY(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
@@ -323,6 +327,7 @@ public class AreaSimple extends Com5t {
      * угловые соединени отвечает конечнй наследник например
      * AreaRectangl.joining(). Прилегающие см. ElemSimple.joinFlat()
      */
+    @Override
     public void joining() {
 
         LinkedList<ElemSimple> crosList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);
@@ -356,6 +361,7 @@ public class AreaSimple extends Com5t {
     }
 
     //Рисуем конструкцию
+    @Override
     public void draw() {
         if (eProp.old.read().equals("1")) {
             drawing.draw();

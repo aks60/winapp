@@ -10,9 +10,8 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Com5t {
+public abstract class Com5t implements ICom5t {
 
-    public static final int TRANSLATE_XY = 2; //сдвиг графика                 
     private float id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или конструкции  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
@@ -45,14 +44,17 @@ public abstract class Com5t {
         }
     }
 
+    @Override
     public float id() {
         return id;
     }
 
+    @Override
     public AreaSimple root() {
         return winc.rootArea;
     }
 
+    @Override
     public void setDimension(float x1, float y1, float x2, float y2) {
         this.x1 = x1;
         this.y1 = y1;
@@ -60,6 +62,7 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
+    @Override
     public boolean isJson(JsonObject jso, String key) {
         if (jso == null) {
             return false;
@@ -73,6 +76,7 @@ public abstract class Com5t {
         return true;
     }
 
+    @Override
     public boolean isJson(JsonObject jso) {
         if (jso == null || "".equals(jso)) {
             return false;
@@ -80,15 +84,18 @@ public abstract class Com5t {
         return !jso.isJsonNull();
     }
 
+    @Override
     public Type type() {
         return type;
     }
 
+    @Override
     public Layout layout() {
         return layout;
     }
 
     //Длина компонента
+    @Override
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;
         if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
@@ -101,52 +108,64 @@ public abstract class Com5t {
     }
 
     //Ширина в gson
+    @Override
     public float lengthX() {
         return (this.id == 0) ? this.gson.width() : this.gson.length();
     }
 
     //Высота в gson
+    @Override
     public float lengthY() {
         return (this.id == 0) ? this.gson.height() : this.gson.length();
     }
 
+    @Override
     public float x1() {
         return x1;
     }
 
+    @Override
     public float y1() {
         return y1;
     }
 
+    @Override
     public float x2() {
         return x2;
     }
 
+    @Override
     public float y2() {
         return y2;
     }
 
+    @Override
     public Float width() {
         return (x2 > x1) ? x2 - x1 : x1 - x2;
     }
 
+    @Override
     public Float height() {
         return (y2 > y1) ? y2 - y1 : y1 - y2;
     }
 
+    @Override
     public int colorID1() {
         return colorID1;
     }
 
+    @Override
     public int colorID2() {
         return colorID2;
     }
 
+    @Override
     public int colorID3() {
         return colorID3;
     }
 
     //Точка попадает в контур четырёхугольника
+    @Override
     public boolean inside(float x, float y) {
         int X = (int) x, Y = (int) y;
         int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
@@ -192,6 +211,7 @@ public abstract class Com5t {
 //    } 
     // </editor-fold> 
     
+    @Override
     public void paint() {
     }
 
@@ -199,6 +219,7 @@ public abstract class Com5t {
         System.out.println("ELEM: id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);
     }
 
+    @Override
     public String toString() {
         String art = (artiklRecAn == null) ? "null" : artiklRecAn.getStr(eArtikl.code);
         float ownerID = (owner == null) ? -1 : owner.id();
@@ -206,6 +227,7 @@ public abstract class Com5t {
                 + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
 
+    @Override
     public boolean equals(Object obj) {
         return id == ((Com5t) obj).id;
     }

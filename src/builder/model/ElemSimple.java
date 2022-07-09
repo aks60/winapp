@@ -8,7 +8,7 @@ import enums.Form;
 import enums.Layout;
 import enums.Type;
 
-public abstract class ElemSimple extends Com5t {
+public abstract class ElemSimple extends Com5t implements IElem5e {
 
     public float anglCut[] = {45, 45}; //угол реза
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
@@ -24,13 +24,9 @@ public abstract class ElemSimple extends Com5t {
         spcRec = new Specific(id, this);
     }
 
-    //Главная спецификация
-    public abstract void setSpecific();
-
-    //Вложенная спецификация
-    public abstract void addSpecific(Specific specification);
 
     //Клик мышки попадает в контур элемента
+    @Override
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
         int y = (int) (Y / winc.scale) - Com5t.TRANSLATE_XY;
@@ -42,6 +38,7 @@ public abstract class ElemSimple extends Com5t {
      * прилегающего вектора) В этих точках лежат мапы соединений см.
      * Wincalc.mapJoin
      */
+    @Override
     public String joinPoint(int side) {
 
         if (owner.type() == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
@@ -80,6 +77,7 @@ public abstract class ElemSimple extends Com5t {
      * соединения. Прил. соед. используется для определения координат
      * примыкаемого соединения. (см. )
      */
+    @Override
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
@@ -123,6 +121,7 @@ public abstract class ElemSimple extends Com5t {
     /**
      * Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
      */
+    @Override
     public ElemSimple joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
