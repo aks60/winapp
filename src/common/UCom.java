@@ -1,11 +1,8 @@
 package common;
 
-import builder.model.AreaSimple;
-import builder.model.Com5t;
-import builder.model.ElemFrame;
+import builder.model.ICom5t;
 import enums.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -275,7 +272,7 @@ public class UCom {
         return false;
     }
 
-    public static <T extends Com5t, E extends Com5t> LinkedList<T> listSortObj(LinkedList<E> list, Type... type) {
+    public static <T extends ICom5t, E extends ICom5t> LinkedList<T> listSortObj(LinkedList<E> list, Type... type) {
         List tp = List.of(type);
         LinkedList<T> list2 = new LinkedList();
         for (E el : list) {

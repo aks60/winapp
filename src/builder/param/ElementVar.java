@@ -11,9 +11,8 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
-import enums.Form;
 import enums.Type;
 import enums.TypeJoin;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class ElementVar extends Par5s {
         listenerList = new ArrayList();
     }
 
-    public boolean filter(ElemSimple elem5e, Record elementRec) {
+    public boolean filter(IElem5e elem5e, Record elementRec) {
 
         listenerList.clear();
         List<Record> paramList = eElempar1.find3(elementRec.getInt(eElement.id)); //список параметров вариантов использования
@@ -43,7 +42,7 @@ public class ElementVar extends Par5s {
         return true;
     }
 
-    public boolean check(ElemSimple elem5e, Record rec) {
+    public boolean check(IElem5e elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -68,18 +67,18 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner.type() == Type.ARCH && Layout.TOP == elem5e.layout()) == false) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type() == Type.ARCH && Layout.TOP == elem5e.layout()) == false) {
                         return false;
-                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner.type() == Type.ARCH && Layout.TOP == elem5e.layout()) == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type() == Type.ARCH && Layout.TOP == elem5e.layout()) == true) {
                         return false;
                     }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == true) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn().getStr(eArtikl.code)) == true) {
                         if (winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR41) {
                             return false;
                         }
-                    } else if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code))) {
+                    } else if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn().getStr(eArtikl.code))) {
                         if (winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR41) {
                             return false;
                         }
@@ -92,8 +91,8 @@ public class ElementVar extends Par5s {
                     boolean ret = false;
                     for (Map.Entry<String, ElemJoining> entry : winc.mapJoin.entrySet()) {
                         ElemJoining elemJoining = entry.getValue();
-                        if (elemJoining.elem2.artiklRecAn.getInt(1) == elem5e.artiklRecAn.getInt(1)
-                                && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn.getStr(eArtikl.code))) {
+                        if (elemJoining.elem2.artiklRecAn().getInt(1) == elem5e.artiklRecAn().getInt(1)
+                                && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn().getStr(eArtikl.code))) {
                             ret = true;
                         }
                     }
@@ -195,47 +194,47 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31019:  //Правило подбора текстур
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31020:  //Ограничение угла к горизонту, °
                     if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный, °
-                        if (elem5e.anglHoriz < rec.getFloat(TEXT)) {
+                        if (elem5e.anglHoriz() < rec.getFloat(TEXT)) {
                             return false;
                         }
                     } else {
-                        if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                        if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz()) == false) {
                             return false;
                         }
                     }
                     break;
                 case 31030:  //Угол к горизонту максимальный, °
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) < elem5e.anglHoriz) {
+                        if (rec.getFloat(TEXT) < elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31031:  //Точный угол к горизонту
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
+                        if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31032:  //Исключить угол к горизонту, °
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
+                        if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
                 case 31034:  //Если следующий артикул 
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
@@ -264,17 +263,17 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31051:  //Если створка фурнитуры 
-                    if (elem5e.owner.type() == Type.STVORKA) {
-                        if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner).handleRec.getInt(eArtikl.id) == -3) {
+                    if (elem5e.owner().type() == Type.STVORKA) {
+                        if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
                             return false;
-                        } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner).handleRec.getInt(eArtikl.id) != -3) {
+                        } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
                             return false;
                         }
                     }
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
                     listenerList.add(() -> {
-                        elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
+                        elem5e.spcRec().width = elem5e.spcRec().width + rec.getFloat(TEXT);
                     });
                     break;
                 case 31054:  //Коды основной текстуры изделия
@@ -322,14 +321,14 @@ public class ElementVar extends Par5s {
                     break;
                 case 31085:  //Надпись на элементе 
                 case 37085:  //Надпись на элементе   
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31090:  //Изменение сторон покраски 
                     listenerList.add(() -> {
                         if ("Да".equals(rec.getStr(TEXT))) {
-                            int color = elem5e.spcRec.colorID2;
-                            elem5e.spcRec.colorID2 = elem5e.spcRec.colorID3;
-                            elem5e.spcRec.colorID2 = color;
+                            int color = elem5e.spcRec().colorID2;
+                            elem5e.spcRec().colorID2 = elem5e.spcRec().colorID3;
+                            elem5e.spcRec().colorID2 = color;
                         }
                     });
                     break;
@@ -344,7 +343,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31099:  //Трудозатраты, ч/ч. 
                 case 37099:  //Трудозатраты, ч/ч.  
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31097:  //Трудозатраты по длине 
                     message(grup);
@@ -359,7 +358,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 37002:  //Если артикул профиля контура 
-                    if (elem5e.artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRecAn().getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -370,7 +369,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37009: //Тип заполнения 
                 {
-                    ElemGlass glass = (ElemGlass) elem5e.owner.childs.stream().filter(it -> it.type() == Type.GLASS).findFirst().orElse(null);
+                    ElemGlass glass = (ElemGlass) elem5e.owner().childs().stream().filter(it -> it.type() == Type.GLASS).findFirst().orElse(null);
                     if ("Прямоугольное".equals(rec.getStr(TEXT)) && winc.form != null) {
                         return false;
 
@@ -430,34 +429,34 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 37080: //Сообщение-предупреждение
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37098:  //Бригада участок
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37097:  //Трудозатраты по 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37108:  //Коэффициенты АКЦИИ 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37310:  //Сопротивление теплопередаче, м2*°С/Вт 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37320:  //Воздухопроницаемость, м3/ ч*м2
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37330:  //Звукоизоляция, дБА 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37340:  //Коэффициент пропускания света 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37350:  //Сопротивление ветровым нагрузкам, Па 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37351:  //Номер поверхности 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";

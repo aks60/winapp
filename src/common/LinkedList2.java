@@ -1,10 +1,10 @@
 package common;
 
-import builder.model.Com5t;
+import builder.model.ICom5t;
 import builder.script.GsonElem;
 import java.util.LinkedList;
 
-public class LinkedList2<E extends Com5t> extends LinkedList<E> {
+public class LinkedList2<E extends ICom5t> extends LinkedList<E> {
 
     public LinkedList2() {
         super();
@@ -15,9 +15,9 @@ public class LinkedList2<E extends Com5t> extends LinkedList<E> {
     }
     
     public GsonElem gson(float id) {
-        Com5t com5t = this.stream().filter(it -> it.id() == id).findFirst().orElse(null);
+        ICom5t com5t = this.stream().filter(it -> it.id() == id).findFirst().orElse(null);
         if(com5t != null) {
-            return com5t.gson;
+            return com5t.gson();
         }
         return null;
     }

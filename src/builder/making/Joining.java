@@ -14,13 +14,12 @@ import builder.param.ElementDet;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import dataset.Query;
 import domain.eSetting;
 import enums.TypeJoin;
 import enums.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -53,11 +52,11 @@ public class Joining extends Cal5e {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : winc.mapJoin.entrySet()) {
                 ElemJoining elemJoin = hmElemJoin.getValue();
-                ElemSimple joinElem1 = elemJoin.elem1;
-                ElemSimple joinElem2 = elemJoin.elem2;
+                IElem5e joinElem1 = elemJoin.elem1;
+                IElem5e joinElem2 = elemJoin.elem2;
 
-                int id1 = joinElem1.artiklRecAn.getInt(eArtikl.id);
-                int id2 = joinElem2.artiklRecAn.getInt(eArtikl.id);
+                int id1 = joinElem1.artiklRecAn().getInt(eArtikl.id);
+                int id2 = joinElem2.artiklRecAn().getInt(eArtikl.id);
                 Record joiningRec1 = eJoining.find(id1, id2);
                 Record joiningRec2 = null;
 
@@ -162,7 +161,7 @@ public class Joining extends Cal5e {
     public List<Record> varList(ElemJoining elemJoin) {
         List<Record> list = new ArrayList();
 
-        Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
+        Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn(), elemJoin.elem2.artiklRecAn());
         //Список вариантов соединения для артикула1 и артикула2
         List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
         //Если неудача, ищем в аналоге соединения

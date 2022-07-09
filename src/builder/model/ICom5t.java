@@ -1,10 +1,13 @@
 package builder.model;
 
+import builder.Wincalc;
+import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import dataset.Record;
 import enums.Layout;
 import enums.Type;
 
-public interface ICom5t {
+public interface ICom5t extends IModel{
 
     int TRANSLATE_XY = 2; //сдвиг графика
 
@@ -28,6 +31,14 @@ public interface ICom5t {
         return 0f;
     }
 
+    default IArea5e owner() {
+        return null;
+    }
+    
+    default Wincalc winc() {
+        return null;
+    }
+    
     //Точка попадает в контур четырёхугольника
     default boolean inside(float x, float y) {
         return false;
@@ -44,7 +55,19 @@ public interface ICom5t {
     default Layout layout() {
         return null;
     }
-    
+
+    default Record sysprofRec() {
+        return null;
+    }
+
+    default Record artiklRec() {
+        return null;
+    }
+
+    default Record artiklRecAn() {
+        return null;
+    }
+
     default void layout(Layout x) {
     }
 
@@ -86,7 +109,11 @@ public interface ICom5t {
     default void paint() {
     }
 
-    default AreaSimple root() {
+    default IArea5e root() {
+        return null;
+    }
+
+    default GsonElem gson() {
         return null;
     }
 

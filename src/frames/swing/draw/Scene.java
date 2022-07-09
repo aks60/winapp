@@ -1,9 +1,9 @@
 package frames.swing.draw;
 
 import builder.Wincalc;
-import builder.model.AreaSimple;
-import builder.model.Com5t;
-import builder.model.ElemSimple;
+import builder.model.IArea5e;
+import builder.model.ICom5t;
+import builder.model.IElem5e;
 import enums.Layout;
 import enums.Type;
 import common.listener.ListenerReload;
@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.Timer;
 import java.awt.Color;
@@ -64,16 +63,16 @@ public class Scene extends javax.swing.JPanel {
                     lineVert = List.of(new Scale(winc.rootArea));
 
                 } else { //На конструкции
-                    for (ElemSimple crs : winc.listElem) {
+                    for (IElem5e crs : winc.listElem) {
                         if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
-                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs; //дети импоста на котором был клик
+                            List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
                             for (int i = 0; i < areaChilds.size(); ++i) {
                                 if (areaChilds.get(i).id() == crs.id()) {
                                     if (crs.layout() == Layout.HORIZ) { //area слева и справа от импоста
-                                        lineVert = List.of(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                        lineVert = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
                                     } else {
-                                        lineHoriz = List.of(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                        lineHoriz = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
                                     }
                                 }
                             }
@@ -110,7 +109,7 @@ public class Scene extends javax.swing.JPanel {
         if (winc != null) {
             double k = winc.scale;
             Graphics2D g = (Graphics2D) gc;
-            g.translate(Com5t.TRANSLATE_XY + 14, 0);
+            g.translate(ICom5t.TRANSLATE_XY + 14, 0);
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
 
             //1 - шкала
@@ -146,7 +145,7 @@ public class Scene extends javax.swing.JPanel {
         if (winc != null) {
             double k = winc.scale;
             Graphics2D g = (Graphics2D) gc;
-            g.translate(0, Com5t.TRANSLATE_XY);
+            g.translate(0, ICom5t.TRANSLATE_XY);
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
 
             //1 - шкала
@@ -251,11 +250,11 @@ public class Scene extends javax.swing.JPanel {
                     sc2.X1 = sc1.gson().length();
                     sc2.X2 = sc1.gson().length() + sc2.gson().length();
 
-                } else if (sc1.area().root.type() == Type.DOOR) {
+                } else if (sc1.area().root().type() == Type.DOOR) {
                     sc1.X1 = 0;
                     sc1.X2 = sc1.area().x2();
                     sc2.X1 = sc1.area().x2();
-                    sc2.X2 = sc2.area().root.width();
+                    sc2.X2 = sc2.area().root().width();
 
                 } else if (sc1.area().type() == Type.AREA && sc2.area().type() == Type.AREA) {
                     sc2.X1 = sc2.area().x1();
@@ -289,11 +288,11 @@ public class Scene extends javax.swing.JPanel {
                     sc2.Y1 = sc1.gson().length();
                     sc2.Y2 = sc1.gson().length() + sc2.gson().length();
 
-                } else if (sc1.area().root.type() == Type.DOOR) {
+                } else if (sc1.area().root().type() == Type.DOOR) {
                     sc1.Y1 = 0;
                     sc1.Y2 = sc1.area().y2();
                     sc2.Y1 = sc1.area().y2();
-                    sc2.Y2 = sc2.area().root.height();
+                    sc2.Y2 = sc2.area().root().height();
 
                 } else if (sc1.area().type() == Type.AREA && sc2.area().type() == Type.AREA) {
                     sc2.Y1 = sc2.area().y1();

@@ -791,9 +791,7 @@
                                     <Column maxWidth="80" minWidth="-1" prefWidth="40" resizable="true">
                                       <Title/>
                                       <Editor/>
-                                      <Renderer editor="org.netbeans.modules.form.ComponentChooserEditor">
-                                        <ComponentRef name="null"/>
-                                      </Renderer>
+                                      <Renderer/>
                                     </Column>
                                     <Column maxWidth="68" minWidth="68" prefWidth="68" resizable="true">
                                       <Title/>

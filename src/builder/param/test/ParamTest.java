@@ -1,10 +1,10 @@
 package builder.param.test;
 
-import builder.model.AreaSimple;
-import builder.model.Com5t;
 import builder.model.ElemFrame;
 import builder.model.ElemGlass;
-import builder.model.ElemSimple;
+import builder.model.IArea5e;
+import builder.model.ICom5t;
+import builder.model.IElem5e;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.param.FillingDet;
@@ -22,26 +22,26 @@ public class ParamTest {
     protected int grup = -1;
     protected Record record = null;
 
-    protected ElemSimple frame_left_2 = null;
-    protected ElemSimple frame_right_2 = null;
-    protected ElemSimple stv_right_2 = null;
-    protected ElemSimple imp_horiz_2 = null;
-    protected ElemSimple imp_vert_2 = null;
+    protected IElem5e frame_left_2 = null;
+    protected IElem5e frame_right_2 = null;
+    protected IElem5e stv_right_2 = null;
+    protected IElem5e imp_horiz_2 = null;
+    protected IElem5e imp_vert_2 = null;
     protected ElemGlass glass_top_2 = null;
     protected ElemGlass glass_left_2 = null;
     protected ElemGlass glass_right_2 = null;
 
-    protected ElemSimple frame_left_3 = null;
-    protected ElemSimple frame_right_3 = null;
-    protected ElemSimple stv_right_3 = null;
-    protected ElemSimple imp_vert_3 = null;
+    protected IElem5e frame_left_3 = null;
+    protected IElem5e frame_right_3 = null;
+    protected IElem5e stv_right_3 = null;
+    protected IElem5e imp_vert_3 = null;
     protected ElemGlass glass_top_3 = null;
     protected ElemGlass glass_left_3 = null;
 
-    protected ElemSimple frame_left_4 = null;
-    protected ElemSimple frame_right_4 = null;
-    protected ElemSimple stv_left_4 = null;
-    protected ElemSimple stv_right_4 = null;
+    protected IElem5e frame_left_4 = null;
+    protected IElem5e frame_right_4 = null;
+    protected IElem5e stv_left_4 = null;
+    protected IElem5e stv_right_4 = null;
     protected ElemGlass glass_right_4 = null;
     protected ElemGlass glass_left_4 = null;
 
@@ -157,54 +157,54 @@ public class ParamTest {
     }
 
     //Получить элемент по ключу
-    public ElemSimple getElem(AreaSimple rootArea, float id) {
-        for (ElemFrame frm : rootArea.frames.values()) {
+    public IElem5e getElem(IArea5e rootArea, float id) {
+        for (ElemFrame frm : rootArea.frames().values()) {
             if (frm.id() == id) {
-                return (ElemSimple) frm;
+                return (IElem5e) frm;
             }
         }
-        for (Com5t it1 : rootArea.childs) {
+        for (ICom5t it1 : rootArea.childs()) {
             if (it1.id() == id) {
-                return (ElemSimple) it1;
+                return (IElem5e) it1;
             }
-            if (it1 instanceof AreaSimple) {
-                for (ElemFrame frm : ((AreaSimple) it1).frames.values()) {
+            if (it1 instanceof IArea5e) {
+                for (ElemFrame frm : ((IArea5e) it1).frames().values()) {
                     if (frm.id() == id) {
-                        return (ElemSimple) frm;
+                        return (IElem5e) frm;
                     }
                 }
             }
-            if (it1 instanceof AreaSimple) {
-                for (Com5t it2 : ((AreaSimple) it1).childs) {
+            if (it1 instanceof IArea5e) {
+                for (ICom5t it2 : ((IArea5e) it1).childs()) {
                     if (it2.id() == id) {
-                        return (ElemSimple) it2;
+                        return (IElem5e) it2;
                     }
-                    if (it2 instanceof AreaSimple) {
-                        for (ElemFrame frm : ((AreaSimple) it2).frames.values()) {
+                    if (it2 instanceof IArea5e) {
+                        for (ElemFrame frm : ((IArea5e) it2).frames().values()) {
                             if (frm.id() == id) {
                                 return frm;
                             }
                         }
                     }
-                    if (it2 instanceof AreaSimple) {
-                        for (Com5t it3 : ((AreaSimple) it2).childs) {
+                    if (it2 instanceof IArea5e) {
+                        for (ICom5t it3 : ((IArea5e) it2).childs()) {
                             if (it3.id() == id) {
-                                return (ElemSimple) it3;
+                                return (IElem5e) it3;
                             }
-                            if (it3 instanceof AreaSimple) {
-                                for (ElemFrame frm : ((AreaSimple) it3).frames.values()) {
+                            if (it3 instanceof IArea5e) {
+                                for (ElemFrame frm : ((IArea5e) it3).frames().values()) {
                                     if (frm.id() == id) {
                                         return frm;
                                     }
                                 }
                             }
-                            if (it3 instanceof AreaSimple) {
-                                for (Com5t it4 : ((AreaSimple) it3).childs) {
+                            if (it3 instanceof IArea5e) {
+                                for (ICom5t it4 : ((IArea5e) it3).childs()) {
                                     if (it4.id() == id) {
-                                        return (ElemSimple) it4;
+                                        return (IElem5e) it4;
                                     }
-                                    if (it4 instanceof AreaSimple) {
-                                        for (ElemFrame frm : ((AreaSimple) it4).frames.values()) {
+                                    if (it4 instanceof IArea5e) {
+                                        for (ElemFrame frm : ((IArea5e) it4).frames().values()) {
                                             if (frm.id() == id) {
                                                 return frm;
                                             }

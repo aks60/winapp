@@ -3,14 +3,14 @@ package frames;
 import builder.Wincalc;
 import builder.making.Furniture;
 import builder.model.AreaStvorka;
-import builder.script.GsonElem;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
 import builder.making.Joining;
 import builder.making.Specific;
 import builder.making.Tariffic;
 import builder.making.UColor;
 import builder.model.ElemGlass;
+import builder.model.IElem5e;
+import builder.script.GsonElem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -23,20 +23,18 @@ import dataset.Record;
 import domain.eProject;
 import domain.ePrjpart;
 import frames.dialog.DicDate;
-import frames.dialog.DicName;
 import frames.swing.DefCellRenderer;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import common.listener.ListenerRecord;
 import common.eProfile;
 import common.eProp;
 import common.listener.ListenerFrame;
 import common.listener.ListenerObject;
+import common.listener.ListenerRecord;
 import common.listener.ListenerReload;
 import dataset.Conn;
 import domain.eArtdet;
@@ -65,6 +63,7 @@ import frames.dialog.DicColor;
 import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
 import frames.dialog.DicKits;
+import frames.dialog.DicName;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
@@ -82,9 +81,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -384,8 +383,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     || winNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                txt32.setText(winNode.com5t().artiklRecAn.getStr(eArtikl.code));
-                txt33.setText(winNode.com5t().artiklRecAn.getStr(eArtikl.name));
+                txt32.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.code));
+                txt33.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.name));
                 txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
                 txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
                 txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
@@ -393,7 +392,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 //Стеклопакет
             } else if (winNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card15");
-                Record artiklRec = winNode.com5t().artiklRec;
+                Record artiklRec = winNode.com5t().artiklRec();
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
@@ -436,7 +435,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                IElem5e elem5e = (IElem5e) nodeParent.com5t();
                 ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
@@ -2891,7 +2890,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = winNode.com5t().owner.id();
+                        float stvId = winNode.com5t().owner().id();
                         GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
                         JsonObject paramObj = stvArea.param();
                         String stvKey = null;
@@ -2934,7 +2933,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
-            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec().getInt(eArtikl.id));
             artdetList.forEach(rec -> {
 
                 if (rec.getInt(eArtdet.color_fk) < 0) {
@@ -2950,7 +2949,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = winNode.com5t().owner.id();
+                float parentId = winNode.com5t().owner().id();
                 GsonElem parentArea = (GsonElem) winc().listAll.gson(parentId);
 
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {

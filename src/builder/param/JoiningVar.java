@@ -11,13 +11,12 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
 import enums.Layout;
 import enums.LayoutJoin;
 import enums.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //Соединения
 public class JoiningVar extends Par5s {
@@ -107,7 +106,7 @@ public class JoiningVar extends Par5s {
                 case 4011: //Для Артикула 1 указан состав     
                 {
                     boolean substr = false;
-                    List<Record> elementList = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.code));
+                    List<Record> elementList = eElement.find2(elemJoin.elem1.artiklRec().getInt(eArtikl.code));
                     for (Record elementRec : elementList) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
                             substr = true;
@@ -123,7 +122,7 @@ public class JoiningVar extends Par5s {
                 case 4012: //Для Артикула 2 указан состав     
                 {
                     boolean substr = false;
-                    List<Record> elementList = eElement.find2(elemJoin.elem2.artiklRec.getInt(eArtikl.code));
+                    List<Record> elementList = eElement.find2(elemJoin.elem2.artiklRec().getInt(eArtikl.code));
                     for (Record elementRec : elementList) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
                             substr = true;
@@ -140,7 +139,7 @@ public class JoiningVar extends Par5s {
                 case 3013:  //Для Артикулов не указан состав
                 case 4013: //Для Артикулов не указан состав  
                 {
-                    List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.code));
+                    List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec().getInt(eArtikl.code));
                     boolean substr1 = false;
                     for (Record elementRec : elementList1) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
@@ -149,7 +148,7 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     boolean substr2 = false;
-                    List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec.getInt(eArtikl.code));
+                    List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec().getInt(eArtikl.code));
                     for (Record elementRec : elementList2) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
                             substr2 = true;
@@ -181,30 +180,30 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1020:  //Ограничение угла к горизонту, °
                     if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный
-                        if (elemJoin.elem1.anglHoriz < rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() < rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.anglHoriz) == true) {
+                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.anglHoriz()) == true) {
                         return false;
                     }
                     break;
                 case 1030:  //Угол к горизонту максимальный
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (elemJoin.elem1.anglHoriz > rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() > rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1031:  //Точный угол к горизонту
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (elemJoin.elem1.anglHoriz == rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1032:  //Исключить угол к горизонту, °
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (elemJoin.elem1.anglHoriz == rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
@@ -222,7 +221,7 @@ public class JoiningVar extends Par5s {
                     //Применяется если сист. константы отсутствуют
                     if (elemJoin.elem1.type() == Type.STVORKA_SIDE) {
                         listenerList.add(() -> {
-                            AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                            AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
                             if (elemJoin.elem1.layout() == Layout.BOTT) {
                                 stv.offset[0] = rec.getFloat(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.RIGHT) {
@@ -328,7 +327,7 @@ public class JoiningVar extends Par5s {
                 case 2012: //Для Артикулов указан состав
                 case 3012: //Для Артикулов указан состав 
                 {
-                    List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.id));
+                    List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec().getInt(eArtikl.id));
                     boolean substr1 = false;
                     for (Record elementRec : elementList1) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
@@ -337,7 +336,7 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     boolean substr2 = false;
-                    List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec.getInt(eArtikl.id));
+                    List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec().getInt(eArtikl.id));
                     for (Record elementRec : elementList2) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
                             substr1 = true;
@@ -354,13 +353,13 @@ public class JoiningVar extends Par5s {
                 case 4015:  //Ориентация Артикула1/Артикула2, °
                     if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 1
                         List<String> list = ParamList.find(grup).dict();
-                        if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem1.anglHoriz == 0 || elemJoin.elem1.anglHoriz == 180) == false) { //горизонтально
+                        if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem1.anglHoriz() == 0 || elemJoin.elem1.anglHoriz() == 180) == false) { //горизонтально
                             return false;
-                        } else if ("вертикально".equals(rec.getStr(TEXT)) && (elemJoin.elem1.anglHoriz == 90 || elemJoin.elem1.anglHoriz == 270) == false) { //горизонтально
+                        } else if ("вертикально".equals(rec.getStr(TEXT)) && (elemJoin.elem1.anglHoriz() == 90 || elemJoin.elem1.anglHoriz() == 270) == false) { //горизонтально
                             return false;
                         }
                     } else {
-                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.anglHoriz, elemJoin.elem2.anglHoriz) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.anglHoriz(), elemJoin.elem2.anglHoriz()) == false) {
                             return false;
                         }
                     }
@@ -370,9 +369,9 @@ public class JoiningVar extends Par5s {
                 case 4016:
                     if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 2 
                         List<String> list = ParamList.find(grup).dict();
-                        if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz == 0 || elemJoin.elem2.anglHoriz == 180) == false) { //горизонтально
+                        if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz() == 0 || elemJoin.elem2.anglHoriz() == 180) == false) { //горизонтально
                             return false;
-                        } else if ("вертикально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz == 90 || elemJoin.elem2.anglHoriz == 270) == false) { //горизонтально
+                        } else if ("вертикально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz() == 90 || elemJoin.elem2.anglHoriz() == 270) == false) { //горизонтально
                             return false;
                         }
                     }
@@ -406,7 +405,7 @@ public class JoiningVar extends Par5s {
                 case 4050:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
-                            elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
+                            elemJoin.elem1.spcRec().width += rec.getFloat(TEXT);
                         } else {
                             String strTxt = rec.getStr(TEXT);
                             char normal = strTxt.charAt(strTxt.length() - 1);
@@ -414,8 +413,8 @@ public class JoiningVar extends Par5s {
                                 strTxt = strTxt.substring(0, strTxt.length() - 1);
                             }
                             String arr[] = strTxt.split("/");
-                            elemJoin.elem1.spcRec.width += UCom.getFloat(arr[0]);
-                            elemJoin.elem2.spcRec.width += UCom.getFloat(arr[1]);
+                            elemJoin.elem1.spcRec().width += UCom.getFloat(arr[0]);
+                            elemJoin.elem2.spcRec().width += UCom.getFloat(arr[1]);
                         }
                     });
                     break;
@@ -423,7 +422,7 @@ public class JoiningVar extends Par5s {
                 case 3060:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
-                            elemJoin.elem2.spcRec.width += rec.getFloat(TEXT);
+                            elemJoin.elem2.spcRec().width += rec.getFloat(TEXT);
                         }
                     });
                     break;
@@ -437,8 +436,8 @@ public class JoiningVar extends Par5s {
                 case 3064: //Поправка для состава Арт.1/Арт.2 , мм 
                     listenerList.add(() -> {
                         String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                        elemJoin.elem1.spcRec.width += UCom.getFloat(arr[0]);
-                        elemJoin.elem2.spcRec.width += UCom.getFloat(arr[1]);
+                        elemJoin.elem1.spcRec().width += UCom.getFloat(arr[0]);
+                        elemJoin.elem2.spcRec().width += UCom.getFloat(arr[1]);
                     });
                     break;
                 case 2066:  //Расчет углов реза профилей 
@@ -467,20 +466,20 @@ public class JoiningVar extends Par5s {
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
-                            ElemSimple el9 = winc.listElem.find(5.4f);
-                            elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                            IElem5e el9 = winc.listElem.find(5.4f);
+                            elemJoin.elem1.spcRec().width -= rec.getFloat(TEXT);
 
                         } else {
                             String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                            elemJoin.elem1.spcRec.width -= UCom.getFloat(arr[0]);
-                            elemJoin.elem2.spcRec.width -= UCom.getFloat(arr[1]);
+                            elemJoin.elem1.spcRec().width -= UCom.getFloat(arr[0]);
+                            elemJoin.elem2.spcRec().width -= UCom.getFloat(arr[1]);
                         }
                     });
                     break;
                 case 3040:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
-                            elemJoin.elem2.spcRec.width -= rec.getFloat(TEXT);
+                            elemJoin.elem2.spcRec().width -= rec.getFloat(TEXT);
                         }
                     });
                     break;
@@ -501,8 +500,8 @@ public class JoiningVar extends Par5s {
                     break;
                 case 4018: //От ручки не менее, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
-                    ElemSimple imp = elemJoin.elem1;
+                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
+                    IElem5e imp = elemJoin.elem1;
                     if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
                         return false;
                     }
@@ -518,12 +517,12 @@ public class JoiningVar extends Par5s {
                 case 4040:  //Размер от оси профиля, мм.
                 case 4044:  //Размер от края пакета, мм 
                     listenerList.add(() -> {
-                        elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                        elemJoin.elem1.spcRec().width -= rec.getFloat(TEXT);
                     });
                     break;
                 case 4046:  //Длина Артикула 1, мм 
                     listenerList.add(() -> {
-                        elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
+                        elemJoin.elem1.spcRec().width += rec.getFloat(TEXT);
                     });
                     break;
                 case 4061:  //Максимальный размер шва, мм 

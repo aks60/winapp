@@ -44,7 +44,6 @@ import builder.Wincalc;
 import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -68,7 +67,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
-import startup.Main;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
@@ -77,6 +75,7 @@ import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
 import builder.model.ElemGlass;
+import builder.model.IElem5e;
 import common.DecimalFormat2;
 import domain.eJoinvar;
 import enums.TypeJoin;
@@ -87,10 +86,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -616,8 +611,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     || winNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                setText(txt32, winNode.com5t().artiklRecAn.getStr(eArtikl.code));
-                setText(txt33, winNode.com5t().artiklRecAn.getStr(eArtikl.name));
+                setText(txt32, winNode.com5t().artiklRecAn().getStr(eArtikl.code));
+                setText(txt33, winNode.com5t().artiklRecAn().getStr(eArtikl.name));
                 setText(txt27, eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
                 setText(txt28, eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
                 setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
@@ -625,7 +620,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 //Стеклопакет
             } else if (winNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
-                Record artiklRec = winNode.com5t().artiklRec;
+                Record artiklRec = winNode.com5t().artiklRec();
                 setText(txt19, artiklRec.getStr(eArtikl.code));
                 setText(txt18, artiklRec.getStr(eArtikl.name));
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
@@ -671,7 +666,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 //new Joining(winc(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                IElem5e elem5e = (IElem5e) nodeParent.com5t();
                 ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
@@ -3069,7 +3064,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = winNode.com5t().owner.id();
+                        float stvId = winNode.com5t().owner().id();
                         GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
                         JsonObject paramObj = stvArea.param();
                         String stvKey = null;
@@ -3112,7 +3107,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             float selectID = winNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
             //Все текстуры артикула элемента конструкции
-            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec().getInt(eArtikl.id));
             artdetList.forEach(rec -> {
 
                 if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk
@@ -3128,7 +3123,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = winNode.com5t().owner.id();
+                float parentId = winNode.com5t().owner().id();
                 GsonElem parentArea = (GsonElem) winc().listAll.gson(parentId);
 
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
@@ -3435,7 +3430,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Wincalc winc = winc();
             if (winNode != null) {
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                IElem5e elem5e = (IElem5e) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int point = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
                 ElemJoining elemJoin = winc.mapJoin.get(elem5e.joinPoint(point));

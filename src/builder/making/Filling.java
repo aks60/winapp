@@ -5,8 +5,6 @@ import domain.eArtikl;
 import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlasprof;
-import domain.eSysprof;
-import domain.eSystree;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,14 +13,11 @@ import builder.param.ElementDet;
 import builder.param.FillingDet;
 import builder.param.FillingVar;
 import builder.model.ElemGlass;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
 import dataset.Query;
-import static domain.eArtikl.depth;
 import enums.Layout;
 import enums.Type;
-import enums.UseArtiklTo;
-import java.util.Arrays;
 
 /**
  * Заполнения
@@ -61,16 +56,16 @@ public class Filling extends Cal5e {
         try {
             Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 
-            List<ElemSimple> elemFrameList = null;
+            List<IElem5e> elemFrameList = null;
             if (elemGlass.owner.type() == Type.ARCH) {
-                elemFrameList = List.of(rootArea().frames.get(Layout.BOTT), rootArea().frames.get(Layout.RIGHT), rootArea().frames.get(Layout.TOP), rootArea().frames.get(Layout.LEFT));
+                elemFrameList = List.of(rootArea().frames().get(Layout.BOTT), rootArea().frames().get(Layout.RIGHT), rootArea().frames().get(Layout.TOP), rootArea().frames().get(Layout.LEFT));
             } else {
                 elemFrameList = List.of(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
             }
 
             //Цикл по сторонам стеклопакета
             for (int side = 0; side < 4; ++side) {
-                ElemSimple elemFrame = elemFrameList.get(side);
+                IElem5e elemFrame = elemFrameList.get(side);
                 elemGlass.anglHoriz = elemGlass.sideHoriz[side]; //проверяемая сторона стеклопакета в цикле
 
                 //Цикл по группам заполнений
@@ -82,7 +77,7 @@ public class Filling extends Cal5e {
 
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
-                            if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
+                            if (elemFrame.artiklRecAn().getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                 if (List.of(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
 
                                     //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента

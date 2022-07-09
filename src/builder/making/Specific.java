@@ -1,6 +1,5 @@
 package builder.making;
 
-import builder.Wincalc;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
@@ -9,7 +8,7 @@ import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class Specific {
 
     public ArrayList<Specific> spcList = new ArrayList();  //список составов, фурнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
-    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (контейнер)
+    public IElem5e elem5e = null;  //элемент пораждающий спецификацию (контейнер)
     public Record variantRec = null;  //вариант в конструктиве
     public Record detailRec = null;  //детализация в конструктиве
     public Record artiklRec = null;  //артикул в детализации конструктива
@@ -51,8 +50,8 @@ public class Specific {
     public Specific() {        
     }
     
-    public Specific(float id, ElemSimple elem5e) {
-        ++elem5e.winc.genId;
+    public Specific(float id, IElem5e elem5e) {
+        ++elem5e.winc().genId;
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
@@ -65,8 +64,8 @@ public class Specific {
         setArtiklRec(artiklRec);
     }
 
-    public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
-        this.id = ++elem5e.winc.genId;
+    public Specific(Record detailRec, Record artiklRec, IElem5e elem5e, HashMap<Integer, String> mapParam) {
+        this.id = ++elem5e.winc().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
         this.detailRec = detailRec;

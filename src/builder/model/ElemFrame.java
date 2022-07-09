@@ -27,13 +27,13 @@ public class ElemFrame extends ElemSimple {
     protected float lengthArch = 0; //длина арки 
 
     //Сторона коробки
-    public ElemFrame(AreaSimple owner, GsonElem gson) {
+    public ElemFrame(IArea5e owner, GsonElem gson) {
         this(owner, gson.id(), gson.layout(), gson.param(), gson);
     }
 
     //Сторона створки
-    public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param, GsonElem gson) {
-        super(id, owner.winc, owner, gson);
+    public ElemFrame(IArea5e owner, float id, Layout layout, JsonObject param, GsonElem gson) {
+        super(id, owner.winc(), owner, gson);
         this.layout = layout;
 
         initСonstructiv(param);
@@ -49,8 +49,8 @@ public class ElemFrame extends ElemSimple {
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
 
-        } else if (owner.sysprofRec != null) { //профили через параметр рамы, створки
-            sysprofRec = owner.sysprofRec;
+        } else if (owner.sysprofRec() != null) { //профили через параметр рамы, створки
+            sysprofRec = owner.sysprofRec();
         } else {
             if (Layout.BOTT.equals(layout)) {
                 sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
@@ -72,16 +72,16 @@ public class ElemFrame extends ElemSimple {
         //Арка
         if (owner.type() == Type.ARCH) {
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y2 - winc.height2(), owner.x2, owner.y2);
+                setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + artiklRec.getFloat(eArtikl.height));
+                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1()); // + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
             } else if (Layout.LEFT == layout) {
-                setDimension(owner.x1, owner.y2 - winc.height2(), owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+                setDimension(owner.x1(), owner.y2() - winc.height2(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
                 anglHoriz = 270;
             }
 
@@ -92,16 +92,16 @@ public class ElemFrame extends ElemSimple {
 
             
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
 
                 
             } else if (Layout.RIGHT == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y2 - winc.height2(), owner.x2, owner.y2);
+                    setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                    
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+                    setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 }
                 anglHoriz = 90;
@@ -109,12 +109,12 @@ public class ElemFrame extends ElemSimple {
                 
             } else if (Layout.TOP == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1, owner.y1, owner.x2, winc.height1() - winc.height2());
+                    setDimension(owner.x1(), owner.y1(), owner.x2(), winc.height1() - winc.height2());
                     anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[1] = (float) Math.toDegrees(Math.atan(W / H)) / 2;                   
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x1, winc.height2() - winc.height1(), owner.x2, owner.y1);
+                    setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x2(), owner.y1());
                     anglHoriz = (float) (180 + Math.toDegrees(Math.atan(H / W)));
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
@@ -123,10 +123,10 @@ public class ElemFrame extends ElemSimple {
                 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+                    setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
                     anglCut[0] = (float) (Math.toDegrees(Math.atan(W / H))) / 2;
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x1, owner.y2 - winc.height1(), owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+                    setDimension(owner.x1(), owner.y2() - winc.height1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                    
                 }
                 anglHoriz = 270;
@@ -135,16 +135,16 @@ public class ElemFrame extends ElemSimple {
             //Остальное
         } else {
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+                setDimension(owner.x1(), owner.y2() - artiklRec.getFloat(eArtikl.height), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+                setDimension(owner.x2() - artiklRec.getFloat(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
+                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1() + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
             } else if (Layout.LEFT == layout) {
-                setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+                setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec.getFloat(eArtikl.height), owner.y2());
                 anglHoriz = 270;
             }
         }
@@ -170,7 +170,7 @@ public class ElemFrame extends ElemSimple {
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                 spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = owner.frames.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
+                spcRec.height = owner.frames().get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);

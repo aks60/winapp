@@ -50,8 +50,8 @@ public class AreaStvorka extends AreaSimple {
     public boolean paramCheck[] = {true, true, true, true, true, true, true, true};
     public float offset[] = {0, 0, 0, 0};
 
-    public AreaStvorka(Wincalc winc, AreaSimple owner, GsonElem gson) {
-        super(winc, owner, gson, (owner.x2 - owner.x1), (owner.y2 - owner.y1));
+    public AreaStvorka(Wincalc winc, IArea5e owner, GsonElem gson) {
+        super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
         
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
@@ -81,14 +81,14 @@ public class AreaStvorka extends AreaSimple {
 
     //Коррекция координат area створки с учётом нахлёста
     private void setNaxlest(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
-        ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
+        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
         if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
-            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
+            x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = joinRig.x1() + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = joinBot.y1() + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
             try {
@@ -100,10 +100,10 @@ public class AreaStvorka extends AreaSimple {
                 Joining joining = new Joining(winc, true);
                 joining.calc();
 
-                y2 = (joinBot.y2 - joinBot.artiklRec.getFloat(eArtikl.size_centr)) - offset[0];
-                x2 = (joinRig.x2 - joinRig.artiklRec.getFloat(eArtikl.size_centr)) - offset[1];
-                y1 = (joinTop.y1 + joinTop.artiklRec.getFloat(eArtikl.size_centr)) + offset[2];
-                x1 = (joinLef.x1 + joinLef.artiklRec.getFloat(eArtikl.size_centr)) + offset[3];
+                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
+                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
@@ -197,12 +197,12 @@ public class AreaStvorka extends AreaSimple {
     @Override
     //Угловые и прилегающие соединения соединения
     public void joining() {
-        ElemSimple stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
+        IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
-        stvBott.anglHoriz = 0;
-        stvRight.anglHoriz = 90;
-        stvTop.anglHoriz = 180;
-        stvLeft.anglHoriz = 270;
+        stvBott.anglHoriz(0);
+        stvRight.anglHoriz(90);
+        stvTop.anglHoriz(180);
+        stvLeft.anglHoriz(270);
         frames.entrySet().forEach(elem -> {
             elem.getValue().anglCut[0] = 45;
             elem.getValue().anglCut[1] = 45;
@@ -218,16 +218,16 @@ public class AreaStvorka extends AreaSimple {
         ElemJoining.create(stvLeft.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
 
         //Прилегающее нижнее
-        ElemSimple frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames.get(Layout.BOTT);
+        IElem5e frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames().get(Layout.BOTT);
         ElemJoining.create(stvBott.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0);
         //Прилегающее верхнее 
-        ElemSimple frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames.get(Layout.TOP);
+        IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
         ElemJoining.create(stvTop.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);
         //Прилегающее левое
-        ElemSimple frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames.get(Layout.LEFT);
+        IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
         ElemJoining.create(stvLeft.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0);
         //Прилегающее правое
-        ElemSimple frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames.get(Layout.RIGHT);
+        IElem5e frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames().get(Layout.RIGHT);
         ElemJoining.create(stvRight.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
     }
 
@@ -241,26 +241,26 @@ public class AreaStvorka extends AreaSimple {
 
         if (typeOpen != TypeOpen1.INVALID) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
-            ElemSimple elemL = frames.get(Layout.LEFT);
-            ElemSimple elemR = frames.get(Layout.RIGHT);
-            ElemSimple elemT = frames.get(Layout.TOP);
-            ElemSimple elemB = frames.get(Layout.BOTT);
+            IElem5e elemL = frames.get(Layout.LEFT);
+            IElem5e elemR = frames.get(Layout.RIGHT);
+            IElem5e elemT = frames.get(Layout.TOP);
+            IElem5e elemB = frames.get(Layout.BOTT);
 
             if (typeOpen.id == 1 || typeOpen.id == 3) {
-                X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
-                Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
-                Draw.drawLine(winc, elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
-                Draw.drawLine(winc, elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                X1 = elemR.x1() + (elemR.x2() - elemR.x1()) / 2;
+                Y1 = elemR.y1() + (elemR.y2() - elemR.y1()) / 2;
+                Draw.drawLine(winc, elemL.x1(), elemL.y1(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
+                Draw.drawLine(winc, elemL.x1(), elemL.y2(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
                 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
-                X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
-                Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
-                Draw.drawLine(winc, elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
-                Draw.drawLine(winc, elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                X1 = elemL.x1() + (elemL.x2() - elemL.x1()) / 2;
+                Y1 = elemL.y1() + (elemL.y2() - elemL.y1()) / 2;
+                Draw.drawLine(winc, elemR.x2(), elemR.y1(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
+                Draw.drawLine(winc, elemR.x2(), elemR.y2(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                Draw.drawLine(winc, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x1, elemB.y2);
-                Draw.drawLine(winc, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x2, elemB.y2);
+                Draw.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x1(), elemB.y2());
+                Draw.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x2(), elemB.y2());
             }
 
             if (root.type() == Type.DOOR) {

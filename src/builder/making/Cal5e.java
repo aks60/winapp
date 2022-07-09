@@ -2,7 +2,7 @@ package builder.making;
 
 import java.util.*;
 import builder.Wincalc;
-import builder.model.AreaSimple;
+import builder.model.IArea5e;
 import dataset.Query;
 
 public abstract class Cal5e {
@@ -22,7 +22,7 @@ public abstract class Cal5e {
         setVariant.clear();
     }
 
-    public AreaSimple rootArea() {
+    public IArea5e rootArea() {
         return winc.rootArea;
     }
 }

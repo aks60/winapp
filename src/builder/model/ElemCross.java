@@ -21,9 +21,9 @@ public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemCross(AreaSimple owner, GsonElem gson) {
-        super(gson.id(), owner.winc, owner, gson);
-        this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
+    public ElemCross(IArea5e owner, GsonElem gson) {
+        super(gson.id(), owner.winc(), owner, gson);
+        this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
 
         initСonstructiv(gson.param());
         setLocation();
@@ -38,14 +38,14 @@ public class ElemCross extends ElemSimple {
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
-            if (Layout.VERT.equals(owner.layout)) { //сверху вниз
+            if (Layout.VERT.equals(owner.layout())) { //сверху вниз
                 sysprofRec = eSysprof.find4x(winc.nuni, type().id2, UseSide.HORIZ);
 
-            } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
+            } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
                 sysprofRec = eSysprof.find4x(winc.nuni, type().id2, UseSide.VERT);
             }
         }
-        spcRec.place = (Layout.HORIZ == owner.layout) ? Layout.VERT.name : Layout.HORIZ.name;
+        spcRec.place = (Layout.HORIZ == owner.layout()) ? Layout.VERT.name : Layout.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
@@ -55,35 +55,35 @@ public class ElemCross extends ElemSimple {
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if (Type.ARCH == owner.type()) {
-            AreaSimple prevArea = (AreaSimple) owner.childs.get(0); //опустим ареа на половину шир. иппоста
-            prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.height) / 2);
+            IArea5e prevArea = (IArea5e) owner.childs().get(0); //опустим ареа на половину шир. иппоста
+            prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.height) / 2);
 
         } else if (Type.TRAPEZE == owner.type()) {
             float dy = 0;
-            AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
+            IArea5e prevArea = (IArea5e) owner.childs().get(0);
             if (winc.form == Form.RIGHT) {
-                float angl = root.frames.get(Layout.RIGHT).anglCut[1];
-                dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
+                float angl = root.frames().get(Layout.RIGHT).anglCut[1];
+                dy = (float) (root.frames().get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.size_centr) + dy);
             } else if (winc.form == Form.LEFT) {
-                float angl = root.frames.get(Layout.LEFT).anglCut[0];
-                dy = (float) (root.frames.get(Layout.LEFT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);                                
+                float angl = root.frames().get(Layout.LEFT).anglCut[0];
+                dy = (float) (root.frames().get(Layout.LEFT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec.getFloat(eArtikl.size_centr) + dy);                                
             }
             
         }
         //Установка координат
-        for (int index = owner.childs.size() - 1; index >= 0; --index) {
-            if (owner.childs.get(index) instanceof AreaSimple) {
-                Com5t prevArea = owner.childs.get(index); //index указывает на предыдущий элемент
+        for (int index = owner.childs().size() - 1; index >= 0; --index) {
+            if (owner.childs().get(index) instanceof IArea5e) {
+                ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
-                if (Layout.VERT.equals(owner.layout)) { //сверху вниз
-                    setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
+                if (Layout.VERT.equals(owner.layout())) { //сверху вниз
+                    setDimension(prevArea.x1(), prevArea.y2() - db, prevArea.x2(), prevArea.y2() + db);
                     anglHoriz = 0;
 
-                } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                    setDimension(prevArea.x2 - db, prevArea.y1, prevArea.x2 + db, prevArea.y2);
+                } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
+                    setDimension(prevArea.x2() - db, prevArea.y1(), prevArea.x2() + db, prevArea.y2());
                     anglHoriz = 90;
                 }
                 break;
@@ -95,7 +95,7 @@ public class ElemCross extends ElemSimple {
     //Главная спецификация   
     public void setSpecific() {
 
-        spcRec.place = (Layout.HORIZ == owner.layout) ? "ВСТ.в" : "ВСТ.г";
+        spcRec.place = (Layout.HORIZ == owner.layout()) ? "ВСТ.в" : "ВСТ.г";
         spcRec.setArtiklRec(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
@@ -109,41 +109,41 @@ public class ElemCross extends ElemSimple {
             if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
                 float zax = winc.syssizeRec.getFloat(eSyssize.zax);
 
-                if (Layout.HORIZ == owner.layout) { //слева направо  
-                    ElemSimple insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
-                    spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
+                if (Layout.HORIZ == owner.layout()) { //слева направо  
+                    IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
+                    spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner.layout) { //снизу вверх
-                    ElemSimple insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
-                    spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
+                } else if (Layout.VERT == owner.layout()) { //снизу вверх
+                    IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
+                    spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
                 }
             } else {
-                if (Layout.HORIZ == owner.layout) { //слева направо  
+                if (Layout.HORIZ == owner.layout()) { //слева направо  
                     spcRec.width = y2 - y1;
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner.layout) { //снизу вверх
+                } else if (Layout.VERT == owner.layout()) { //снизу вверх
                     spcRec.width = x2 - x1;
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
                 }
             }
         } else if (type() == Type.SHTULP) {
-            if (Layout.HORIZ == owner.layout) { //слева направо  
+            if (Layout.HORIZ == owner.layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (Layout.VERT == owner.layout) { //сверху вниз
+            } else if (Layout.VERT == owner.layout()) { //сверху вниз
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else if (type() == Type.STOIKA) {
-            if (Layout.HORIZ == owner.layout) { //слева направо  
+            if (Layout.HORIZ == owner.layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (Layout.VERT == owner.layout) { //сверху вниз
+            } else if (Layout.VERT == owner.layout()) { //сверху вниз
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
@@ -185,10 +185,10 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        if (Layout.VERT == owner.layout) {
+        if (Layout.VERT == owner.layout()) {
             Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (Layout.HORIZ == owner.layout) {
+        } else if (Layout.HORIZ == owner.layout()) {
             Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }

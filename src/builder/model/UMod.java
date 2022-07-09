@@ -5,7 +5,6 @@ import domain.eArtikl;
 import builder.param.ParamList;
 import enums.UseUnit;
 import builder.model.AreaStvorka;
-import builder.model.ElemSimple;
 import common.UCom;
 import domain.eSetting;
 import enums.Layout;
@@ -14,7 +13,7 @@ import java.util.List;
 
 class UMod {
 
-    UMod(ElemSimple elem5e) {
+    UMod(IElem5e elem5e) {
     }
 
     //Укорочение мм от высоты ручки 
@@ -28,11 +27,11 @@ class UMod {
             return spcRec.width - dx;
 
         } else if (list.get(1).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner;
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
             return stv.handleHeight - dx;
 
         } else if (list.get(2).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner;
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
             return spcRec.width - stv.handleHeight - dx;
 
         } else if (list.get(3).equals(ps)) {
@@ -62,13 +61,13 @@ class UMod {
                     && "null".equals(spcAdd.getParam("null", 38010, 39002))) {
                 float length = 0;
                 if ("1".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().frames.get(Layout.BOTT).length();
+                    length = spcRec.elem5e.root().frames().get(Layout.BOTT).length();
                 } else if ("2".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().frames.get(Layout.RIGHT).length();
+                    length = spcRec.elem5e.root().frames().get(Layout.RIGHT).length();
                 } else if ("3".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().frames.get(Layout.TOP).length();
+                    length = spcRec.elem5e.root().frames().get(Layout.TOP).length();
                 } else if ("4".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().frames.get(Layout.LEFT).length();
+                    length = spcRec.elem5e.root().frames().get(Layout.LEFT).length();
                 }
                 width_next = length - width_begin;
             }
@@ -94,7 +93,7 @@ class UMod {
         if (step != -1) {
             float width_begin = UCom.getFloat(spcAdd.getParam(0, 11040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060)); //"Количество на шаг"
-            ElemSimple elem5e = null;
+            IElem5e elem5e = null;
             float width_next = 0;
 
             if ("Да".equals(spcAdd.getParam("Нет", 11010, 12010))) {
@@ -208,12 +207,12 @@ class UMod {
     }
 
     //Углы реза
-    public static void get_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
+    public static void get_12075_34075_39075(IElem5e elem5e, Specific spcAdd) {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
 
         if ("по контейнерам".equals(txt)) {
-            spcAdd.anglCut1 = elem5e.anglCut[0];
-            spcAdd.anglCut2 = elem5e.anglCut[1];
+            spcAdd.anglCut1 = elem5e.anglCut()[0];
+            spcAdd.anglCut2 = elem5e.anglCut()[1];
 
         } else if ("установить (90° x 90°)".equals(txt)) {
             spcAdd.anglCut1 = 90;

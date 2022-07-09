@@ -7,9 +7,9 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.Com5t;
 import builder.model.ElemGlass;
-import builder.model.ElemSimple;
+import builder.model.ICom5t;
+import builder.model.IElem5e;
 import common.UCom;
 import domain.eArtikl;
 import enums.Type;
@@ -21,7 +21,7 @@ public class ElementDet extends Par5s {
         super(winc);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elemdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, IElem5e elem5e, Record elemdetRec) {
 
         List<Record> paramList = eElempar2.find3(elemdetRec.getInt(eElemdet.id)); //список параметров детализации 
         if (filterParamDef(paramList) == false) {
@@ -36,7 +36,7 @@ public class ElementDet extends Par5s {
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, IElem5e elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -67,19 +67,19 @@ public class ElementDet extends Par5s {
                     break;
                 case 33005:  //Коды основной текстуры контейнера 
                 case 34005:  //Коды основной текстуры контейнера
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 33006:  //Коды внутр. текстуры контейнера
                 case 34006:  //Коды внутр. текстуры контейнера 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 33007:  //Коды внешн. текстуры контейнера 
                 case 34007:  //Коды внешн. текстуры контейнера     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                     break;
@@ -155,9 +155,9 @@ public class ElementDet extends Par5s {
                 case 33063: //Диапазон веса створки, кг 
                 case 34063: //Диапазон веса створки, кг 
                 {
-                    Com5t glass = elem5e.owner.childs.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
+                    ICom5t glass = elem5e.owner().childs().stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
-                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
+                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getFloat(eArtikl.density);
                         if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
@@ -175,7 +175,7 @@ public class ElementDet extends Par5s {
                 case 38067:  //Коды основной текстуры изделия    
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
@@ -184,7 +184,7 @@ public class ElementDet extends Par5s {
                 case 38068:  //Коды внутр. текстуры изделия 
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
@@ -194,7 +194,7 @@ public class ElementDet extends Par5s {
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069: //Коды внешн. текстуры изделия  
                 {
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                 }
@@ -276,7 +276,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34052:  //Поправка не прямого угла импоста, мм 
                     message(grup);
-                    if (elem5e.spcRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
+                    if (elem5e.spcRec().getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
                         mapParam.put(grup, rec.getStr(TEXT));
                     }
                     break;
@@ -334,7 +334,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 38081:  //Если артикул профиля контура 
                 case 39081:  //Если артикул профиля контура 
-                    if (elem5e.artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRecAn().getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;

@@ -6,12 +6,11 @@ import domain.eGlasdet;
 import domain.eGlaspar2;
 import domain.eSetting;
 import domain.eSystree;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemGlass;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
 import enums.Layout;
 import enums.Type;
@@ -46,7 +45,7 @@ public class FillingDet extends Par5s {
                 case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
                 {
-                    ElemSimple elem = winc.rootArea.frames.get(Layout.BOTT);
+                    IElem5e elem = winc.rootArea.frames().get(Layout.BOTT);
                     if (!UPar.is_STRING_XX000(rec.getStr(TEXT), elem)) {
                         return false;
                     }
@@ -55,7 +54,7 @@ public class FillingDet extends Par5s {
                 case 14001: //Если признак состава 
                 case 15001: //Если признак состава    
                 {
-                    ElemSimple elem = winc.rootArea.frames.get(Layout.BOTT);
+                    IElem5e elem = winc.rootArea.frames().get(Layout.BOTT);
                     if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
                         return false;
                     }
@@ -138,8 +137,8 @@ public class FillingDet extends Par5s {
                 case 14081: //Если артикул профиля контура 
                 case 15081: //Если артикул профиля контура 
                 {
-                    ElemSimple elem = (elem5e.owner.frames.isEmpty() == false) ? elem5e.owner.frames.get(Layout.BOTT) : elem5e.root().frames.get(Layout.BOTT);
-                    if (rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
+                    IElem5e elem = (elem5e.owner.frames().isEmpty() == false) ? elem5e.owner.frames().get(Layout.BOTT) : elem5e.root().frames().get(Layout.BOTT);
+                    if (rec.getStr(TEXT).equals(elem.artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                 }

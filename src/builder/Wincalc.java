@@ -30,9 +30,10 @@ import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
 import builder.model.AreaDoor;
-import builder.model.Com5t;
 import builder.model.ElemFrame;
-import builder.model.ElemSimple;
+import builder.model.IArea5e;
+import builder.model.ICom5t;
+import builder.model.IElem5e;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import common.ArrayList2;
@@ -40,12 +41,10 @@ import common.LinkedList2;
 import common.UCom;
 import enums.Form;
 import enums.Type;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
 
@@ -76,14 +75,14 @@ public class Wincalc {
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
 
-    public AreaSimple rootArea = null; //главное окно кострукции
+    public IArea5e rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
     public Form form = null; //форма контура (параметр в развитии) 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<AreaSimple> listArea = new LinkedList2(); //список AreaSimple
-    public LinkedList2<ElemSimple> listElem = new LinkedList2(); //список ElemSimple
-    public LinkedList2<Com5t> listAll = new LinkedList2(); //список всех компонентов
+    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список IArea5e
+    public LinkedList2<IElem5e> listElem = new LinkedList2(); //список IElem5e
+    public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public ArrayList2<Specific> kitsSpec = new ArrayList2(); //спецификация
@@ -97,7 +96,7 @@ public class Wincalc {
         build(script);
     }
 
-    public AreaSimple build(String script) {
+    public IArea5e build(String script) {
         try {
             //Обнуление
             genId = 0;
@@ -169,36 +168,36 @@ public class Wincalc {
         }
     }
 
-    private void elements(AreaSimple owner, GsonElem gson) {
+    private void elements(IArea5e owner, GsonElem gson) {
         try {
-            LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
+            LinkedHashMap<IArea5e, GsonElem> hm = new LinkedHashMap();
             for (GsonElem el : gson.childs()) {
 
                 if (Type.STVORKA == el.type()) {
-                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el);
-                    owner.childs.add(area5e);
+                    IArea5e area5e = new AreaStvorka(Wincalc.this, owner, el);
+                    owner.childs().add(area5e);
                     hm.put(area5e, el);
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
-                    AreaSimple area5e = (el.form() == null)
+                    IArea5e area5e = (el.form() == null)
                             ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
                             : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
-                    owner.childs.add(area5e);
+                    owner.childs().add(area5e);
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    rootArea.frames.put(el.layout(), new ElemFrame(rootArea, el));
+                    rootArea.frames().put(el.layout(), new ElemFrame(rootArea, el));
 
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    owner.childs.add(new ElemCross(owner, el));
+                    owner.childs().add(new ElemCross(owner, el));
 
                 } else if (Type.GLASS == el.type()) {
-                    owner.childs.add(new ElemGlass(owner, el));
+                    owner.childs().add(new ElemGlass(owner, el));
                 }
             }
 
             //Теперь вложенные элементы
-            for (Map.Entry<AreaSimple, GsonElem> entry : hm.entrySet()) {
+            for (Map.Entry<IArea5e, GsonElem> entry : hm.entrySet()) {
                 elements(entry.getKey(), entry.getValue());
             }
 
@@ -226,10 +225,10 @@ public class Wincalc {
             calcTariffication.calc();
 
             //Построим список спецификаций
-            for (ElemSimple elem5e : listElem) {
-                if (elem5e.spcRec.artikl.trim().charAt(0) != '@') {
-                    listSpec.add(elem5e.spcRec);
-                    elem5e.spcRec.spcList.forEach(spc -> listSpec.add(spc));
+            for (IElem5e elem5e : listElem) {
+                if (elem5e.spcRec().artikl.trim().charAt(0) != '@') {
+                    listSpec.add(elem5e.spcRec());
+                    elem5e.spcRec().spcList.forEach(spc -> listSpec.add(spc));
                 }
             }
 

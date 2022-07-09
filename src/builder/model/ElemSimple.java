@@ -17,19 +17,44 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     public Specific spcRec = null; //спецификация элемента
     public Color borderColor = Color.BLACK;
 
-    public ElemSimple(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
+    public ElemSimple(float id, Wincalc winc, IArea5e owner, GsonElem gson) {
         super(id, winc, owner, gson);
         winc.listElem.add(this);
         winc.listAll.add(this);
         spcRec = new Specific(id, this);
     }
 
+    @Override
+    public float anglHoriz() {
+        return anglHoriz;
+    }
+    
+    @Override
+    public void anglHoriz(float angl) {
+        this.anglHoriz = angl;
+    }
+
+    @Override
+    public Specific spcRec() {
+        return spcRec;
+    }
+
+    @Override
+    public float[] anglFlat() {
+        return anglFlat;
+    }
+
+    
+    @Override
+    public float[] anglCut() {
+        return anglCut;
+    }
 
     //Клик мышки попадает в контур элемента
     @Override
     public boolean mouseClick(int X, int Y) {
-        int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
-        int y = (int) (Y / winc.scale) - Com5t.TRANSLATE_XY;
+        int x = (int) (X / winc.scale) - ICom5t.TRANSLATE_XY;
+        int y = (int) (Y / winc.scale) - ICom5t.TRANSLATE_XY;
         return inside(x, y);
     }
 
@@ -78,30 +103,30 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
      * примыкаемого соединения. (см. )
      */
     @Override
-    public ElemSimple joinFlat(Layout layoutSide) {
+    public IElem5e joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
             for (int index = winc.listElem.size() - 1; index >= 0; --index) {
-                ElemSimple el = (ElemSimple) winc.listElem.get(index);
+                IElem5e el = (IElem5e) winc.listElem.get(index);
 
                 if (begin == true && el.type() != Type.GLASS) {
-                    if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
+                    if (Layout.BOTT == layoutSide && el.layout() != Layout.VERT) {
                         float Y2 = (y2 > y1) ? y2 : y1;
                         if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
-                            return (ElemSimple) el;
+                            return (IElem5e) el;
                         }
-                    } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
+                    } else if (Layout.LEFT == layoutSide && el.layout() != Layout.HORIZ) {
                         if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-                            return (ElemSimple) el;
+                            return (IElem5e) el;
                         }
-                    } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
+                    } else if (Layout.TOP == layoutSide && el.layout() != Layout.VERT) {
                         float Y1 = (y2 > y1) ? y1 : y2;
-                        if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
-                            return (ElemSimple) el;
+                        if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP) == false) {
+                            return (IElem5e) el;
                         }
-                    } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
+                    } else if (Layout.RIGHT == layoutSide && el.layout() != Layout.HORIZ) {
                         if (el.inside(x2, y1 + (y2 - y1) / 2)) {
-                            return (ElemSimple) el;
+                            return (IElem5e) el;
                         }
                     }
                 }
@@ -113,7 +138,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
             return null;
 
         } catch (Exception e) {
-            System.err.println("Ошибка:ElemSimple.joinFlat() " + e);
+            System.err.println("Ошибка:IElem5e.joinFlat() " + e);
             return null;
         }
     }
@@ -122,7 +147,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
      * Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
      */
     @Override
-    public ElemSimple joinElem(int side) {
+    public IElem5e joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
             return (this.type() == Type.IMPOST || this.type() == Type.SHTULP || this.type() == Type.STOIKA) ? ej.elem2 : ej.elem1;

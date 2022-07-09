@@ -22,7 +22,7 @@ public class AreaDoor extends AreaSimple {
         
         super.joining(); //T - соединения
         
-        ElemSimple elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
+        IElem5e elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
                 elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
         //Угловое соединение правое нижнее
         ElemJoining.create(elemBott.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);

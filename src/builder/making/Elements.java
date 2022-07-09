@@ -11,7 +11,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
 import dataset.Query;
 import enums.Type;
@@ -35,21 +35,21 @@ public class Elements extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = UCom.listSortObj(winc.listElem, Type.FRAME_SIDE,
+        LinkedList<IElem5e> listElem = UCom.listSortObj(winc.listElem, Type.FRAME_SIDE,
                 Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS); //список элементов конструкции
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : listElem) {
+            for (IElem5e elem5e : listElem) {
 
                 //Варианты состава для артикула профиля
-                int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
+                int artikl_id = elem5e.artiklRecAn().getInt(eArtikl.id);
 
                 //Варианты состава по артикулу элемента конструкции
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
 
                 //Варианты состава по серии профилей
-                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
+                int series_id = elem5e.artiklRecAn().getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
             }
@@ -60,7 +60,7 @@ public class Elements extends Cal5e {
         }
     }
 
-    protected void detail(List<Record> elementList, ElemSimple elem5e) {
+    protected void detail(List<Record> elementList, IElem5e elem5e) {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
@@ -97,8 +97,8 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103)) {
-                                    elem5e.spcRec.setArtiklRec(spcAdd.artiklRec); //переназначаем артикул, как правило это c префиксом артикула @
-                                    elem5e.spcRec.mapParam = spcAdd.mapParam; //переназначаем mapParam
+                                    elem5e.spcRec().setArtiklRec(spcAdd.artiklRec); //переназначаем артикул, как правило это c префиксом артикула @
+                                    elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {
                                     elem5e.addSpecific(spcAdd); //в спецификацию

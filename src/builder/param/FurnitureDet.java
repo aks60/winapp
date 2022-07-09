@@ -11,8 +11,8 @@ import builder.Wincalc;
 import builder.making.Specific;
 import builder.model.AreaArch;
 import builder.model.AreaStvorka;
-import builder.model.Com5t;
 import builder.model.ElemFrame;
+import builder.model.ICom5t;
 import common.UCom;
 import domain.eColor;
 import domain.eGroups;
@@ -76,7 +76,7 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24004: //Если створка прилегает к артикулу 
-                    if (areaStv.frames.entrySet().stream().filter(el -> el.getValue().joinElem(2).artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
+                    if (areaStv.frames.entrySet().stream().filter(el -> el.getValue().joinElem(2).artiklRec().getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;
@@ -224,9 +224,9 @@ public class FurnitureDet extends Par5s {
                 case 24063: //Диапазон веса, кг 
                 case 25063: //Диапазон веса, кг 
                 {
-                    Com5t glass = areaStv.childs.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
+                    ICom5t glass = areaStv.childs.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
-                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
+                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getFloat(eArtikl.density);
                         if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }

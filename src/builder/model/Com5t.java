@@ -22,7 +22,7 @@ public abstract class Com5t implements ICom5t {
 
     public IArea5e owner = null; //владелец
     public Wincalc winc = null; //главный класс калькуляции
-    public AreaSimple root = null; //главный класс конструкции
+    public IArea5e root = null; //главный класс конструкции
     public GsonElem gson = null; //Gson object конструкции
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
@@ -50,8 +50,23 @@ public abstract class Com5t implements ICom5t {
     }
 
     @Override
-    public AreaSimple root() {
+    public IArea5e owner() {
+        return owner;
+    }
+
+    
+    @Override
+    public IArea5e root() {
         return winc.rootArea;
+    }
+
+    public Wincalc winc() {
+        return winc;
+    }
+    
+    @Override
+    public GsonElem gson() {
+        return gson;
     }
 
     @Override
@@ -94,13 +109,28 @@ public abstract class Com5t implements ICom5t {
         return layout;
     }
 
+    @Override
+    public Record sysprofRec() {
+        return sysprofRec;
+    }
+
+    @Override
+    public Record artiklRec() {
+        return artiklRec;
+    }
+    
+    @Override
+    public Record artiklRecAn() {
+        return artiklRecAn;
+    }
+
     //Длина компонента
     @Override
     public float length() {
-        ElemSimple elem5e = (ElemSimple) this;
-        if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
+        IElem5e elem5e = (IElem5e) this;
+        if (elem5e.anglHoriz() == 0 || elem5e.anglHoriz() == 180) {
             return (x2 > x1) ? x2 - x1 : x1 - x2;
-        } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
+        } else if (elem5e.anglHoriz() == 90 || elem5e.anglHoriz() == 270) {
             return (y2 > y1) ? y2 - y1 : y1 - y2;
         } else {
             return (float) Math.sqrt(x2 * x2 + y2 * y2);

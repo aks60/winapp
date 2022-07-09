@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemJoining;
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import common.UCom;
 import enums.Type;
 import java.util.LinkedList;
@@ -93,10 +93,10 @@ public class JoiningDet extends Par5s {
                 case 12028: //Диапазон веса заполнения, кг 
                 {
                     float weight = 0;
-                    LinkedList<ElemSimple> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-                    for (ElemSimple glass : glassList) {
-                        if (glass.artiklRecAn.getFloat(eArtikl.density) > 0) {
-                            weight += glass.width() * glass.height() * glass.artiklRecAn.getFloat(eArtikl.density) / 1000000;
+                    LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                    for (IElem5e glass : glassList) {
+                        if (glass.artiklRecAn().getFloat(eArtikl.density) > 0) {
+                            weight += glass.width() * glass.height() * glass.artiklRecAn().getFloat(eArtikl.density) / 1000000;
                         }
                     }
                     if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
@@ -161,7 +161,7 @@ public class JoiningDet extends Par5s {
                     }
                     break;
                 case 12027:  //Рассчитывать для профиля 
-                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec().getInt(eArtikl.with_seal) == 0) {
                         return false;
                     }
                     break;

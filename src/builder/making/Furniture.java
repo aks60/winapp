@@ -11,11 +11,11 @@ import enums.Layout;
 import java.util.LinkedList;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaSimple;
 import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
+import builder.model.IArea5e;
 import common.UCom;
 import dataset.Query;
 import static domain.eArtikl.up;
@@ -290,17 +290,17 @@ public class Furniture extends Cal5e {
         return true;
     }
 
-    public ElemFrame determOfSide(HashMap<Integer, String> mapParam, AreaSimple area5e) {
+    public ElemFrame determOfSide(HashMap<Integer, String> mapParam, IArea5e area5e) {
 
         //Через параметр
         if ("1".equals(mapParam.get(25010))) {
-            return area5e.frames.get(Layout.BOTT);
+            return area5e.frames().get(Layout.BOTT);
         } else if ("2".equals(mapParam.get(25010))) {
-            return area5e.frames.get(Layout.RIGHT);
+            return area5e.frames().get(Layout.RIGHT);
         } else if ("3".equals(mapParam.get(25010))) {
-            return area5e.frames.get(Layout.TOP);
+            return area5e.frames().get(Layout.TOP);
         } else if ("4".equals(mapParam.get(25010))) {
-            return area5e.frames.get(Layout.LEFT);
+            return area5e.frames().get(Layout.LEFT);
         } else {
             //Там где крепится ручка
             return determOfSide(area5e);
@@ -308,17 +308,17 @@ public class Furniture extends Cal5e {
     }
 
     //Там где крепится ручка
-    public static ElemFrame determOfSide(AreaSimple area5e) {
+    public static ElemFrame determOfSide(IArea5e area5e) {
         if (area5e instanceof AreaStvorka) {
             int id = ((AreaStvorka) area5e).typeOpen.id;
             if (List.of(1, 3, 11).contains(id)) {
-                return area5e.frames.get(Layout.LEFT);
+                return area5e.frames().get(Layout.LEFT);
             } else if (List.of(2, 4, 12).contains(id)) {
-                return area5e.frames.get(Layout.RIGHT);
+                return area5e.frames().get(Layout.RIGHT);
             } else {
-                return area5e.frames.get(Layout.BOTT);
+                return area5e.frames().get(Layout.BOTT);
             }
         }
-        return area5e.frames.values().stream().findFirst().get();  //первая попавшаяся        
+        return area5e.frames().values().stream().findFirst().get();  //первая попавшаяся        
     }
 }

@@ -1,12 +1,11 @@
 package frames.swing;
 
-import builder.model.AreaSimple;
-import builder.model.Com5t;
-import builder.model.ElemSimple;
+import builder.model.IArea5e;
+import builder.model.ICom5t;
+import builder.model.IElem5e;
 import dataset.Record;
 import domain.eSystree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
 public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
 
@@ -17,8 +16,8 @@ public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
         this.obj = obj;
     }
 
-    public Com5t com5t() {
-        return (Com5t) obj;
+    public ICom5t com5t() {
+        return (ICom5t) obj;
     }
 
     public Record rec() {
@@ -34,14 +33,14 @@ public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
         if (obj instanceof Record) {
             return ((Record) obj).getStr(eSystree.name);
 
-        } else if (obj instanceof AreaSimple) {
-            return ((AreaSimple) obj).type().name;
+        } else if (obj instanceof IArea5e) {
+            return ((IArea5e) obj).type().name;
 
-        } else if (obj instanceof ElemSimple) {
-            return ((ElemSimple) obj).type().name + ", " + ((ElemSimple) obj).layout().name.toLowerCase();
+        } else if (obj instanceof IElem5e) {
+            return ((IElem5e) obj).type().name + ", " + ((IElem5e) obj).layout().name.toLowerCase();
 
-        } else if (obj instanceof Com5t) {
-            return ((Com5t) obj).type().name;
+        } else if (obj instanceof ICom5t) {
+            return ((ICom5t) obj).type().name;
         } else {
             return String.valueOf(obj);
         }

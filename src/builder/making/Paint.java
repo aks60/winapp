@@ -1,6 +1,6 @@
 package builder.making;
 
-import builder.model.ElemSimple;
+import builder.model.IElem5e;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
@@ -17,21 +17,21 @@ public class Paint {
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
 
-    public static void colorFromParam(ElemSimple slem5e) {  //см. http://help.profsegment.ru/?id=1107        
+    public static void colorFromParam(IElem5e slem5e) {  //см. http://help.profsegment.ru/?id=1107        
 
-        String ruleOfColor = slem5e.spcRec.getParam(-1, 31019);
+        String ruleOfColor = slem5e.spcRec().getParam(-1, 31019);
         if ("-1".equals(ruleOfColor) == false) {
             if ("внутренняя по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID1;
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
             } else if ("внешняя по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID1;
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
             } else if ("внутрення по внешней".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID3;
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID3;
             } else if ("внешняя по внутренней".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID2;
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID2;
             } else if ("2 стороны по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID1;
-                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID1;
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
             }
         }
     }
@@ -334,17 +334,17 @@ public class Paint {
                 case 15:
                     return spc.elem5e.colorID1(); //по основе текстуры заполнения                 
                 case 1:
-                    return spc.elem5e.winc.colorID1; //по основе изделия
+                    return spc.elem5e.winc().colorID1; //по основе изделия
                 case 2:
-                    return spc.elem5e.winc.colorID2; //по внутр.изделия
+                    return spc.elem5e.winc().colorID2; //по внутр.изделия
                 case 3:
-                    return spc.elem5e.winc.colorID3; //по внешн.изделия
+                    return spc.elem5e.winc().colorID3; //по внешн.изделия
                 case 6:
-                    return spc.elem5e.winc.colorID1; //по основе в серии
+                    return spc.elem5e.winc().colorID1; //по основе в серии
                 case 7:
-                    return spc.elem5e.winc.colorID2; //по внутр. в серии
+                    return spc.elem5e.winc().colorID2; //по внутр. в серии
                 case 8:
-                    return spc.elem5e.winc.colorID3; //по внешн. в серии
+                    return spc.elem5e.winc().colorID3; //по внешн. в серии
                 default:
                     return -1;
             }
