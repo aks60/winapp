@@ -14,7 +14,7 @@ import builder.param.ElementDet;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
 import builder.model.ElemJoining;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import dataset.Query;
 import domain.eSetting;
 import enums.TypeJoin;

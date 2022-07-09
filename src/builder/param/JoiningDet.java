@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemJoining;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import common.UCom;
 import enums.Type;
 import java.util.LinkedList;

@@ -1,5 +1,7 @@
 package builder.model;
 
+import builder.IElem5e;
+import builder.ICom5t;
 import dataset.Record;
 import enums.LayoutJoin;
 import enums.TypeJoin;

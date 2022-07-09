@@ -1,6 +1,6 @@
 package builder.making;
 
-import builder.model.IElem5e;
+import builder.IElem5e;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;

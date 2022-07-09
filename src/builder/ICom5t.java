@@ -1,4 +1,4 @@
-package builder.model;
+package builder;
 
 import builder.Wincalc;
 import builder.script.GsonElem;

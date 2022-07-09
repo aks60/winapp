@@ -8,7 +8,7 @@ import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import java.util.List;
 
 /**

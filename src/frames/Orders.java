@@ -9,7 +9,7 @@ import builder.making.Specific;
 import builder.making.Tariffic;
 import builder.making.UColor;
 import builder.model.ElemGlass;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import builder.script.GsonElem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

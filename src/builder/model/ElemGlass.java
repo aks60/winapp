@@ -1,5 +1,7 @@
 package builder.model;
 
+import builder.IArea5e;
+import builder.IElem5e;
 import builder.making.Filling;
 import dataset.Record;
 import domain.eArtdet;

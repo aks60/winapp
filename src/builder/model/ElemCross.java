@@ -1,5 +1,8 @@
 package builder.model;
 
+import builder.IArea5e;
+import builder.IElem5e;
+import builder.ICom5t;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;

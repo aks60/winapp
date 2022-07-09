@@ -11,7 +11,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemJoining;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import common.UCom;
 import enums.Type;
 import enums.TypeJoin;

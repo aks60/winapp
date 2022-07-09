@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.IElem5e;
 import builder.making.Specific;
 import domain.eArtikl;
 import builder.param.ParamList;

@@ -3,7 +3,7 @@ package builder.param;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import common.UCom;
 import dataset.Record;
 import domain.eArtikl;

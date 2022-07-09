@@ -12,7 +12,7 @@ import builder.making.Specific;
 import builder.model.AreaArch;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
-import builder.model.ICom5t;
+import builder.ICom5t;
 import common.UCom;
 import domain.eColor;
 import domain.eGroups;

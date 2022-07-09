@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.IArea5e;
 import builder.making.Paint;
 import domain.eArtikl;
 import domain.eColor;

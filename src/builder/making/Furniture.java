@@ -15,7 +15,7 @@ import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
-import builder.model.IArea5e;
+import builder.IArea5e;
 import common.UCom;
 import dataset.Query;
 import static domain.eArtikl.up;

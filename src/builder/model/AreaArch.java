@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.IElem5e;
 import domain.eArtikl;
 import enums.LayoutJoin;
 import enums.TypeJoin;

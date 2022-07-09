@@ -75,7 +75,7 @@ import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
 import builder.model.ElemGlass;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import common.DecimalFormat2;
 import domain.eJoinvar;
 import enums.TypeJoin;

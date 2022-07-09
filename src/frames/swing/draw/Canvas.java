@@ -1,7 +1,7 @@
 package frames.swing.draw;
 
 import builder.Wincalc;
-import builder.model.ICom5t;
+import builder.ICom5t;
 import common.listener.ListenerFrame;
 import java.awt.BasicStroke;
 import java.awt.Graphics;

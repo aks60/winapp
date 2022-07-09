@@ -13,7 +13,7 @@ import builder.param.ElementDet;
 import builder.param.FillingDet;
 import builder.param.FillingVar;
 import builder.model.ElemGlass;
-import builder.model.IElem5e;
+import builder.IElem5e;
 import common.UCom;
 import dataset.Query;
 import enums.Layout;

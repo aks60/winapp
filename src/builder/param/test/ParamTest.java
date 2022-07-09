@@ -2,9 +2,9 @@ package builder.param.test;
 
 import builder.model.ElemFrame;
 import builder.model.ElemGlass;
-import builder.model.IArea5e;
-import builder.model.ICom5t;
-import builder.model.IElem5e;
+import builder.IArea5e;
+import builder.ICom5t;
+import builder.IElem5e;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.param.FillingDet;

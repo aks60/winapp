@@ -2,7 +2,7 @@ package builder.making;
 
 import java.util.*;
 import builder.Wincalc;
-import builder.model.IArea5e;
+import builder.IArea5e;
 import dataset.Query;
 
 public abstract class Cal5e {

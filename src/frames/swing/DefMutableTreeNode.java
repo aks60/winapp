@@ -1,8 +1,8 @@
 package frames.swing;
 
-import builder.model.IArea5e;
-import builder.model.ICom5t;
-import builder.model.IElem5e;
+import builder.IArea5e;
+import builder.ICom5t;
+import builder.IElem5e;
 import dataset.Record;
 import domain.eSystree;
 import javax.swing.tree.DefaultMutableTreeNode;

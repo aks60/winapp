@@ -1,5 +1,7 @@
 package builder.model;
 
+import builder.IArea5e;
+import builder.IElem5e;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eJoining;

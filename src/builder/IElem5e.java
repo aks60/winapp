@@ -1,5 +1,6 @@
-package builder.model;
+package builder;
 
+import builder.ICom5t;
 import builder.making.Specific;
 import enums.Layout;
 

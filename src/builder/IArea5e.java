@@ -1,6 +1,9 @@
-package builder.model;
+package builder;
 
+import builder.ICom5t;
 import builder.making.Specific;
+import builder.model.ElemFrame;
+import builder.model.ElemGlass;
 import com.google.gson.JsonObject;
 import enums.Layout;
 import enums.Type;

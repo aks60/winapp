@@ -1,6 +1,6 @@
 package common;
 
-import builder.model.ICom5t;
+import builder.ICom5t;
 import enums.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
