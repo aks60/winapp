@@ -31,9 +31,9 @@ import common.interfac.ILocation;
 
 public class AreaSimple extends Com5t implements IArea5e {
 
-    public Form form = null; //форма контура (параметр в развитии)
-    public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
-    public LinkedList<ICom5t> childs = new LinkedList(); //дети
+    protected Form form = null; //форма контура (параметр в развитии)
+    protected EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
+    protected LinkedList<ICom5t> childs = new LinkedList(); //дети
 
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);

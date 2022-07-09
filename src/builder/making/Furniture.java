@@ -96,7 +96,7 @@ public class Furniture extends Cal5e {
             
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnsidetList) {
-                ElemFrame elemFrame = areaStv.frames.get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+                ElemFrame elemFrame = areaStv.frames().get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны
                 if (furnitureVar.filter(elemFrame, furnside1Rec) == false) {
@@ -172,21 +172,21 @@ public class Furniture extends Cal5e {
                     }
                 }
                 if (side == 1) {
-                    el = areaStv.frames.get(Layout.BOTT);
-                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.spcRec.width - 2 * size_falz;
+                    el = areaStv.frames().get(Layout.BOTT);
+                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 2) {
-                    el = areaStv.frames.get(Layout.RIGHT);
-                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.spcRec.width - 2 * size_falz;
+                    el = areaStv.frames().get(Layout.RIGHT);
+                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 3) {
-                    el = areaStv.frames.get(Layout.TOP);
-                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.spcRec.width - 2 * size_falz;
+                    el = areaStv.frames().get(Layout.TOP);
+                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 4) {
-                    el = areaStv.frames.get(Layout.LEFT);
-                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.spcRec.width - 2 * size_falz;
+                    el = areaStv.frames().get(Layout.LEFT);
+                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    width = el.spcRec().width - 2 * size_falz;
                 }
                 if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
                     return false;

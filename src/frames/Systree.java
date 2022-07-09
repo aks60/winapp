@@ -632,9 +632,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);;
-
-                setText(txt24, df1.frm(stv.frames.get(Layout.BOTT).width()));
-                float h = (stv.frames.get(Layout.RIGHT).height() > stv.frames.get(Layout.LEFT).height()) ? stv.frames.get(Layout.RIGHT).height() : stv.frames.get(Layout.LEFT).height();
+/////////////////////////////////////
+                setText(txt24, df1.frm(stv.frames().get(Layout.BOTT).width()));
+                float h = (stv.frames().get(Layout.RIGHT).height() > stv.frames().get(Layout.LEFT).height()) ? stv.frames().get(Layout.RIGHT).height() : stv.frames().get(Layout.LEFT).height();
+/////////////////////////////////////                
                 setText(txt26, df1.frm(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
@@ -3546,7 +3547,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             ElemGlass glas = (ElemGlass) winNode.com5t();
-            HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec.getInt(eArtikl.id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);

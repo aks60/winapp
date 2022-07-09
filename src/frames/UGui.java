@@ -237,16 +237,16 @@ public class UGui {
     public static void loadWinTree(Wincalc winc, DefMutableTreeNode root, ICom5t com) {
         DefMutableTreeNode nodeStv = root.add(new DefMutableTreeNode(com));
         AreaStvorka stv = (AreaStvorka) com;
-        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.BOTT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames().get(Layout.BOTT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.RIGHT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames().get(Layout.RIGHT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.TOP)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames().get(Layout.TOP)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.LEFT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames().get(Layout.LEFT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
         for (ICom5t com2 : ((IArea5e) com).childs()) {

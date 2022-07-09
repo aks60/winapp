@@ -13,20 +13,20 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Com5t implements ICom5t {
+public class Com5t implements ICom5t {
 
     private float id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или конструкции  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
 
-    public Record sysprofRec = null; //профиль в системе
+    protected Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
-    public Record artiklRecAn = null;  //аналог мат. средства    
+    protected Record artiklRecAn = null;  //аналог мат. средства    
 
-    public IArea5e owner = null; //владелец
-    public Wincalc winc = null; //главный класс калькуляции
-    public IArea5e root = null; //главный класс конструкции
-    public GsonElem gson = null; //Gson object конструкции
+    protected IArea5e owner = null; //владелец
+    protected Wincalc winc = null; //главный класс калькуляции
+    protected IArea5e root = null; //главный класс конструкции
+    protected GsonElem gson = null; //Gson object конструкции
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
     protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
@@ -57,7 +57,6 @@ public abstract class Com5t implements ICom5t {
         return owner;
     }
 
-    
     @Override
     public IArea5e root() {
         return winc.rootArea;

@@ -238,7 +238,7 @@ public class Wincalc {
             //Вес изделия
             LinkedList<ElemGlass> glassList = UCom.listSortObj(listElem, Type.GLASS);
             for (ElemGlass el : glassList) {
-                weight += el.artiklRecAn.getFloat(eArtikl.density) * getSquare(); //вес
+                weight += el.artiklRecAn().getFloat(eArtikl.density) * getSquare(); //вес
             }
 
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));

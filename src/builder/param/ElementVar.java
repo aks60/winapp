@@ -57,8 +57,8 @@ public class ElementVar extends Par5s {
                     List<ElemGlass> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
                     float depth = 0;
                     for (ElemGlass glass : glassList) {
-                        if (glass.artiklRecAn.getFloat(eArtikl.depth) > depth) {
-                            depth = (glass.artiklRecAn.getFloat(eArtikl.depth));
+                        if (glass.artiklRecAn().getFloat(eArtikl.depth) > depth) {
+                            depth = (glass.artiklRecAn().getFloat(eArtikl.depth));
                         }
                     }
                     if (UCom.containsNumbJust(rec.getStr(TEXT), depth) == false) {
@@ -130,13 +130,13 @@ public class ElementVar extends Par5s {
                     if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
-                                    glassList.get(0).artiklRec.getFloat(eArtikl.depth),
-                                    glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                    glassList.get(0).artiklRec().getFloat(eArtikl.depth),
+                                    glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                                 return false;
                             }
                         } else if (UCom.containsNumb(rec.getStr(TEXT),
-                                glassList.get(0).artiklRec.getFloat(eArtikl.depth),
-                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                glassList.get(0).artiklRec().getFloat(eArtikl.depth),
+                                glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -147,7 +147,7 @@ public class ElementVar extends Par5s {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(1) instanceof ElemGlass) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
-                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -158,7 +158,7 @@ public class ElementVar extends Par5s {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0) instanceof ElemGlass) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
-                                glassList.get(0).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                glassList.get(0).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -168,11 +168,11 @@ public class ElementVar extends Par5s {
                 {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if ("Да".equals(rec.getStr(TEXT)) == true) {
-                        if (glassList.get(0).artiklRecAn.getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn.getFloat(eArtikl.depth)) {
+                        if (glassList.get(0).artiklRecAn().getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn().getFloat(eArtikl.depth)) {
                             return false;
                         }
                     } else {
-                        if (glassList.get(0).artiklRecAn.getFloat(eArtikl.depth) == glassList.get(1).artiklRecAn.getFloat(eArtikl.depth)) {
+                        if (glassList.get(0).artiklRecAn().getFloat(eArtikl.depth) == glassList.get(1).artiklRecAn().getFloat(eArtikl.depth)) {
                             return false;
                         }
                     }

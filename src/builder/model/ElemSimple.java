@@ -13,12 +13,12 @@ import enums.Type;
 
 public abstract class ElemSimple extends Com5t implements IElem5e {
 
-    public float anglCut[] = {45, 45}; //угол реза
-    public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
-    public float anglHoriz = -1; //угол к горизонту    
+    protected float anglCut[] = {45, 45}; //угол реза
+    protected float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
+    protected float anglHoriz = -1; //угол к горизонту    
 
-    public Specific spcRec = null; //спецификация элемента
-    public Color borderColor = Color.BLACK;
+    protected Specific spcRec = null; //спецификация элемента
+    protected Color borderColor = Color.BLACK;
 
     public ElemSimple(float id, Wincalc winc, IArea5e owner, GsonElem gson) {
         super(id, winc, owner, gson);

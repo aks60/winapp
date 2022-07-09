@@ -96,13 +96,13 @@ public class ElementDet extends Par5s {
                     if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
-                                    glassList.get(0).artiklRec.getFloat(eArtikl.depth),
-                                    glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                    glassList.get(0).artiklRec().getFloat(eArtikl.depth),
+                                    glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                                 return false;
                             }
                         } else if (UCom.containsNumb(rec.getStr(TEXT),
-                                glassList.get(0).artiklRec.getFloat(eArtikl.depth),
-                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                glassList.get(0).artiklRec().getFloat(eArtikl.depth),
+                                glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
                     }

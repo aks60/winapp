@@ -74,9 +74,9 @@ public class FillingDet extends Par5s {
                     break;
                 case 14009: //Арочное заполнение 
                 case 15009: //Арочное заполнение  
-                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner.type() != Type.ARCH) {
+                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner().type() != Type.ARCH) {
                         return false;
-                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner.type() == Type.ARCH) {
+                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner().type() == Type.ARCH) {
                         return false;
                     }
                     break;
@@ -101,43 +101,43 @@ public class FillingDet extends Par5s {
                 case 14065:  //Ограничение угла, ° или Точный угол 
                 case 15055:  //Ограничение угла, ° или Точный угол  
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
+                        if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
-                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz()) == false) {
                         return false;
                     }
                     break;
                 case 14066: //Исключить угол, °
                 case 15056:
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
+                        if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                     break;
                 case 14081: //Если артикул профиля контура 
                 case 15081: //Если артикул профиля контура 
                 {
-                    IElem5e elem = (elem5e.owner.frames().isEmpty() == false) ? elem5e.owner.frames().get(Layout.BOTT) : elem5e.root().frames().get(Layout.BOTT);
+                    IElem5e elem = (elem5e.owner().frames().isEmpty() == false) ? elem5e.owner().frames().get(Layout.BOTT) : elem5e.root().frames().get(Layout.BOTT);
                     if (rec.getStr(TEXT).equals(elem.artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
@@ -168,7 +168,7 @@ public class FillingDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 15027:  //Рассчитывать для профиля 
-                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elem5e.artiklRec().getInt(eArtikl.with_seal) == 0) {
                         return false;
                     }
                     break;
@@ -185,7 +185,7 @@ public class FillingDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 15051:  //Удлинение на один пог.м., мм 
-                    if (elem5e.spcRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
+                    if (elem5e.spcRec().getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     }
                     break;
