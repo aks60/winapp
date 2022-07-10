@@ -42,7 +42,7 @@ public class Tex extends javax.swing.JFrame {
         initElements();
     }
 
-    private void constructive() {
+    private void winc_build() {
         int sysprodID = Integer.valueOf(eProp.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
         String script = sysprodRec.getStr(eSysprod.script);
@@ -1053,7 +1053,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 if (btn1.isSelected() == false) {
                     App.Element.createFrame(Tex.this);
                 } else {
-                    constructive();
+                    winc_build();
                     winc.calcElements = new builder.making.Elements(winc);
                     winc.calcElements.calc();
                     App.Element.createFrame(Tex.this, winc.calcElements.setVariant);
@@ -1069,7 +1069,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 if (btn1.isSelected() == false) {
                     App.Furniture.createFrame(Tex.this);
                 } else {
-                    constructive();
+                    winc_build();
                     winc.calcFurniture = new builder.making.Furniture(winc); //фурнитура 
                     winc.calcFurniture.calc();
                     App.Furniture.createFrame(Tex.this, winc.calcFurniture.setVariant);
@@ -1094,7 +1094,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 if (btn1.isSelected() == false) {
                     App.Joining.createFrame(Tex.this);
                 } else {
-                    constructive();
+                    winc_build();
                     winc.calcJoining = new builder.making.Joining(winc);
                     winc.calcJoining.calc();
                     App.Joining.createFrame(Tex.this, winc.calcJoining.setVariant);
@@ -1111,7 +1111,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 if (btn1.isSelected() == false) {
                     App.Filling.createFrame(Tex.this);
                 } else {
-                    constructive();
+                    winc_build();
                     winc.calcFilling = new builder.making.Filling(winc);
                     winc.calcFilling.calc();
                     App.Filling.createFrame(Tex.this, winc.calcFilling.setVariant);
