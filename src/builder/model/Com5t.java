@@ -43,7 +43,7 @@ public class Com5t implements ICom5t {
         this.root = winc.rootArea;
         this.gson = gson;
         if (this.type() == Type.STVORKA && owner.type() == Type.STVORKA) {
-            this.type = Type.STVORKA_SIDE; //фича створки
+            this.type = Type.STVORKA_SIDE; //фича створки, см.конструктор ElemFrame
         }
     }
 
