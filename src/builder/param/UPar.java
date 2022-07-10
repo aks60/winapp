@@ -2,7 +2,6 @@ package builder.param;
 
 import builder.Wincalc;
 import builder.model.AreaStvorka;
-import builder.model.ElemGlass;
 import builder.IElem5e;
 import common.UCom;
 import dataset.Record;
@@ -21,7 +20,7 @@ import java.util.List;
 class UPar {
 
     //Толщина внешнего/внутреннего заполнения, мм
-    static List<ElemGlass> getGlassDepth(IElem5e elem5e) {
+    static List<IElem5e> getGlassDepth(IElem5e elem5e) {
         IElem5e glass1 = null, glass2 = null;
         for (IElem5e el : elem5e.winc().listElem) {
             if (el.type() == Type.GLASS) {
@@ -43,7 +42,7 @@ class UPar {
                 }
             }
         }
-        return List.of((ElemGlass) glass1, (ElemGlass) glass2);
+        return List.of((IElem5e) glass1, (IElem5e) glass2);
     }
 
     //Тип проема 
@@ -77,7 +76,7 @@ class UPar {
     //Для технологического кода контейнера 
     static boolean is_STRING_XX000(String txt, IElem5e elem5e) {
         Record sysprofRec = elem5e.sysprofRec();
-        if (elem5e instanceof ElemGlass) {
+        if (elem5e instanceof IElem5e) {
             sysprofRec = elem5e.owner().frames().get(Layout.BOTT).sysprofRec();
         }
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);

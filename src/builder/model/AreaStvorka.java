@@ -56,14 +56,14 @@ public class AreaStvorka extends AreaSimple {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
         
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
-        frames.put(stvBot.layout, stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
-        frames.put(stvRigh.layout, stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
-        frames.put(stvTop.layout, stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
-        frames.put(stvLeft.layout, stvLeft);
+        IElem5e stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
+        frames.put(stvBot.layout(), stvBot);
+        IElem5e stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
+        frames.put(stvRigh.layout(), stvRigh);
+        IElem5e stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
+        frames.put(stvTop.layout(), stvTop);
+        IElem5e stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
+        frames.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
@@ -75,14 +75,14 @@ public class AreaStvorka extends AreaSimple {
 
         initFurniture(gson.param());
 
-        stvBot.spcRec.width = width();
-        stvTop.spcRec.width = width();
-        stvRigh.spcRec.height = height();
-        stvLeft.spcRec.height = height();
+        stvBot.spcRec().width = width();
+        stvTop.spcRec().width = width();
+        stvRigh.spcRec().height = height();
+        stvLeft.spcRec().height = height();
     }
 
     //Коррекция координат area створки с учётом нахлёста
-    private void setNaxlest(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
+    private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
         IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
@@ -118,7 +118,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initFurniture(JsonObject param) {
 
-        ElemFrame stvLeft = frames.get(Layout.LEFT);
+        IElem5e stvLeft = frames.get(Layout.LEFT);
 
         //Фурнитура створки, ручка, подвес
         if (isJson(param, PKjson.sysfurnID)) {
@@ -206,8 +206,8 @@ public class AreaStvorka extends AreaSimple {
         stvTop.anglHoriz(180);
         stvLeft.anglHoriz(270);
         frames.entrySet().forEach(elem -> {
-            elem.getValue().anglCut[0] = 45;
-            elem.getValue().anglCut[1] = 45;
+            elem.getValue().anglCut()[0] = 45;
+            elem.getValue().anglCut()[1] = 45;
         });
 
         //Угловое соединение правое нижнее

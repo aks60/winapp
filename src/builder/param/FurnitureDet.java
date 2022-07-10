@@ -11,8 +11,8 @@ import builder.Wincalc;
 import builder.making.Specific;
 import builder.model.AreaArch;
 import builder.model.AreaStvorka;
-import builder.model.ElemFrame;
 import builder.ICom5t;
+import builder.IElem5e;
 import common.UCom;
 import domain.eColor;
 import domain.eGroups;
@@ -122,7 +122,7 @@ public class FurnitureDet extends Par5s {
                 break;
                 case 24009:  //Коды текстуры подвеса 
                 case 25009:  //Коды текстуры подвеса                   
-                    for (Map.Entry<Layout, ElemFrame> elem : areaStv.frames().entrySet()) {
+                    for (Map.Entry<Layout, IElem5e> elem : areaStv.frames().entrySet()) {
                         for (Specific spc : elem.getValue().spcRec().spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                 String name = eColor.find(spc.colorID1).getStr(eColor.name);
@@ -173,7 +173,7 @@ public class FurnitureDet extends Par5s {
                 {
                     if (rec.getStr(TEXT).equals("Да")) {
                         boolean ret = false;
-                        for (Map.Entry<Layout, ElemFrame> entry : areaStv.frames().entrySet()) {
+                        for (Map.Entry<Layout, IElem5e> entry : areaStv.frames().entrySet()) {
                             Object obj = entry.getValue().joinElem(2);
                             if (entry.getValue().joinElem(2).type() == Type.SHTULP) {
                                 ret = true;
@@ -184,7 +184,7 @@ public class FurnitureDet extends Par5s {
                         }
                     } else if (rec.getStr(TEXT).equals("Нет")) {
                         boolean ret = false;
-                        for (Map.Entry<Layout, ElemFrame> entry : areaStv.frames().entrySet()) {
+                        for (Map.Entry<Layout, IElem5e> entry : areaStv.frames().entrySet()) {
                             if (entry.getValue().joinElem(2).type() == Type.SHTULP) {
                                 ret = true;
                             }

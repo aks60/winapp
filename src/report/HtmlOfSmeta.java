@@ -1,7 +1,7 @@
 package report;
 
+import builder.IElem5e;
 import builder.Wincalc;
-import builder.model.ElemGlass;
 import common.MoneyInWords;
 import common.UCom;
 import common.eProp;
@@ -118,7 +118,7 @@ public class HtmlOfSmeta {
             List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
             prjkitAll.addAll(prjkitList);
 
-            LinkedList<ElemGlass> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+            LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
             Elements captions2 = tab2List.get(i).getElementsByTag("caption");
             captions2.get(0).text("Изделие № " + (i + 1));
             tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));

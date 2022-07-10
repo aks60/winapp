@@ -5,7 +5,6 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.ElemGlass;
 import builder.IElem5e;
 import common.UCom;
 import domain.eArtikl;
@@ -21,7 +20,7 @@ public class FillingVar extends Par5s {
         super(winc);
     }
 
-    public boolean filter(ElemGlass elem5e, Record glasgrpRec) {
+    public boolean filter(IElem5e elem5e, Record glasgrpRec) {
 
         List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         if (filterParamDef(paramList) == false) {
@@ -71,7 +70,7 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13014:  //Углы ориентации стороны, ° 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), ((ElemGlass) elem5e).anglHoriz()) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), ((IElem5e) elem5e).anglHoriz()) == false) {
                         return false;
                     }
                     break;

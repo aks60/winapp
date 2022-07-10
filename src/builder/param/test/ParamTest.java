@@ -1,7 +1,5 @@
 package builder.param.test;
 
-import builder.model.ElemFrame;
-import builder.model.ElemGlass;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.IElem5e;
@@ -27,23 +25,23 @@ public class ParamTest {
     protected IElem5e stv_right_2 = null;
     protected IElem5e imp_horiz_2 = null;
     protected IElem5e imp_vert_2 = null;
-    protected ElemGlass glass_top_2 = null;
-    protected ElemGlass glass_left_2 = null;
-    protected ElemGlass glass_right_2 = null;
+    protected IElem5e glass_top_2 = null;
+    protected IElem5e glass_left_2 = null;
+    protected IElem5e glass_right_2 = null;
 
     protected IElem5e frame_left_3 = null;
     protected IElem5e frame_right_3 = null;
     protected IElem5e stv_right_3 = null;
     protected IElem5e imp_vert_3 = null;
-    protected ElemGlass glass_top_3 = null;
-    protected ElemGlass glass_left_3 = null;
+    protected IElem5e glass_top_3 = null;
+    protected IElem5e glass_left_3 = null;
 
     protected IElem5e frame_left_4 = null;
     protected IElem5e frame_right_4 = null;
     protected IElem5e stv_left_4 = null;
     protected IElem5e stv_right_4 = null;
-    protected ElemGlass glass_right_4 = null;
-    protected ElemGlass glass_left_4 = null;
+    protected IElem5e glass_right_4 = null;
+    protected IElem5e glass_left_4 = null;
 
     builder.Wincalc iwin_2 = null; //601004
     protected ElementVar elementVar2 = null;
@@ -104,9 +102,9 @@ public class ParamTest {
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
-        glass_top_2 = (ElemGlass) getElem(iwin_2.rootArea, 6.0f);
-        glass_left_2 = (ElemGlass) getElem(iwin_2.rootArea, 11.0f);
-        glass_right_2 = (ElemGlass) getElem(iwin_2.rootArea, 15.0f);
+        glass_top_2 = (IElem5e) getElem(iwin_2.rootArea, 6.0f);
+        glass_left_2 = (IElem5e) getElem(iwin_2.rootArea, 11.0f);
+        glass_right_2 = (IElem5e) getElem(iwin_2.rootArea, 15.0f);
     }
 
     //604005  "Wintech\\Termotech 742\\1 ОКНА"
@@ -128,8 +126,8 @@ public class ParamTest {
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 10.2f);
         imp_vert_3 = getElem(iwin_3.rootArea, 12.0f);
-        glass_top_3 = (ElemGlass) getElem(iwin_3.rootArea, 6.0f);
-        glass_left_3 = (ElemGlass) getElem(iwin_3.rootArea, 11.0f);
+        glass_top_3 = (IElem5e) getElem(iwin_3.rootArea, 6.0f);
+        glass_left_3 = (IElem5e) getElem(iwin_3.rootArea, 11.0f);
         glass_left_3.anglHoriz(0);
     }
 
@@ -152,13 +150,13 @@ public class ParamTest {
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
         stv_right_4 = getElem(iwin_4.rootArea, 6.2f);
-        glass_right_4 = (ElemGlass) getElem(iwin_4.rootArea, 11.0f);
-        glass_left_4 = (ElemGlass) getElem(iwin_4.rootArea, 7.0f);
+        glass_right_4 = (IElem5e) getElem(iwin_4.rootArea, 11.0f);
+        glass_left_4 = (IElem5e) getElem(iwin_4.rootArea, 7.0f);
     }
 
     //Получить элемент по ключу
     public IElem5e getElem(IArea5e rootArea, float id) {
-        for (ElemFrame frm : rootArea.frames().values()) {
+        for (IElem5e frm : rootArea.frames().values()) {
             if (frm.id() == id) {
                 return (IElem5e) frm;
             }
@@ -168,7 +166,7 @@ public class ParamTest {
                 return (IElem5e) it1;
             }
             if (it1 instanceof IArea5e) {
-                for (ElemFrame frm : ((IArea5e) it1).frames().values()) {
+                for (IElem5e frm : ((IArea5e) it1).frames().values()) {
                     if (frm.id() == id) {
                         return (IElem5e) frm;
                     }
@@ -180,7 +178,7 @@ public class ParamTest {
                         return (IElem5e) it2;
                     }
                     if (it2 instanceof IArea5e) {
-                        for (ElemFrame frm : ((IArea5e) it2).frames().values()) {
+                        for (IElem5e frm : ((IArea5e) it2).frames().values()) {
                             if (frm.id() == id) {
                                 return frm;
                             }
@@ -192,7 +190,7 @@ public class ParamTest {
                                 return (IElem5e) it3;
                             }
                             if (it3 instanceof IArea5e) {
-                                for (ElemFrame frm : ((IArea5e) it3).frames().values()) {
+                                for (IElem5e frm : ((IArea5e) it3).frames().values()) {
                                     if (frm.id() == id) {
                                         return frm;
                                     }
@@ -204,7 +202,7 @@ public class ParamTest {
                                         return (IElem5e) it4;
                                     }
                                     if (it4 instanceof IArea5e) {
-                                        for (ElemFrame frm : ((IArea5e) it4).frames().values()) {
+                                        for (IElem5e frm : ((IArea5e) it4).frames().values()) {
                                             if (frm.id() == id) {
                                                 return frm;
                                             }

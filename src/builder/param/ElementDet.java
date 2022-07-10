@@ -7,7 +7,6 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.ElemGlass;
 import builder.ICom5t;
 import builder.IElem5e;
 import common.UCom;
@@ -92,8 +91,8 @@ public class ElementDet extends Par5s {
                     break;
                 case 33011: //Толщина внешнего/внутреннего заполнения, мм
                 case 34011: //Толщина внешнего/внутреннего заполнения, мм
-                    List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
-                    if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
+                    List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
+                    if (glassList.get(0) instanceof IElem5e && glassList.get(1) instanceof IElem5e) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec().getFloat(eArtikl.depth),

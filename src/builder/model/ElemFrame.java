@@ -1,6 +1,7 @@
 package builder.model;
 
 import builder.IArea5e;
+import builder.IElem5e;
 import builder.making.Paint;
 import domain.eArtikl;
 import domain.eColor;
@@ -68,6 +69,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     //Установка координат
+    @Override
     public void setLocation() {
 
         //Арка
@@ -283,8 +285,8 @@ public class ElemFrame extends ElemSimple {
                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.frames.entrySet()) {
-                        for (Specific spc : elem.getValue().spcRec.spcList) {
+                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                        for (Specific spc : elem.getValue().spcRec().spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
                             }
@@ -292,8 +294,8 @@ public class ElemFrame extends ElemSimple {
                     }
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.frames.entrySet()) {
-                        for (Specific spc : elem.getValue().spcRec.spcList) {
+                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                        for (Specific spc : elem.getValue().spcRec().spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
                             }
@@ -426,7 +428,7 @@ public class ElemFrame extends ElemSimple {
                 }
             }
         } catch (Exception s) {
-            System.err.println("ОШИБКА:model.ElemFrame.paint()");
+            System.err.println("ОШИБКА:model.IElem5e.paint()");
         }
     }
 

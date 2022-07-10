@@ -1,8 +1,6 @@
 package builder;
 
-import builder.ICom5t;
 import builder.making.Specific;
-import builder.model.ElemFrame;
 import builder.model.ElemGlass;
 import com.google.gson.JsonObject;
 import enums.Layout;
@@ -17,7 +15,7 @@ public interface IArea5e extends ICom5t {
 
     void initСonstructiv(JsonObject param);
     
-    void addFilling(ElemGlass glass, Specific spcAdd);
+    void addFilling(IElem5e glass, Specific spcAdd);
 
     /**
      * T - соединения area. Все поперечены(cross) в area имеют Т-соединения.
@@ -27,7 +25,7 @@ public interface IArea5e extends ICom5t {
      */
     void joining();
 
-    EnumMap<Layout, ElemFrame> frames();
+    EnumMap<Layout, IElem5e> frames();
             
     LinkedList<ICom5t> childs();
 

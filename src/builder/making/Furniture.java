@@ -14,15 +14,12 @@ import builder.Wincalc;
 import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
-import builder.model.ElemFrame;
 import builder.IArea5e;
+import builder.IElem5e;
 import common.UCom;
 import dataset.Query;
-import static domain.eArtikl.up;
 import enums.Type;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JOptionPane;
 
@@ -96,7 +93,7 @@ public class Furniture extends Cal5e {
             
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnsidetList) {
-                ElemFrame elemFrame = areaStv.frames().get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+                IElem5e elemFrame = areaStv.frames().get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны
                 if (furnitureVar.filter(elemFrame, furnside1Rec) == false) {
@@ -158,7 +155,7 @@ public class Furniture extends Cal5e {
             
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
-                ElemFrame el;
+                IElem5e el;
                 float width = 0;
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
 
@@ -197,7 +194,7 @@ public class Furniture extends Cal5e {
             //Если это элемент из мат. ценности (не НАБОР)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1) {
-                    ElemFrame sideStv = determOfSide(mapParam, areaStv);
+                    IElem5e sideStv = determOfSide(mapParam, areaStv);
                     Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
 
                     //Ловим ручку, подвес, замок
@@ -290,7 +287,7 @@ public class Furniture extends Cal5e {
         return true;
     }
 
-    public ElemFrame determOfSide(HashMap<Integer, String> mapParam, IArea5e area5e) {
+    public IElem5e determOfSide(HashMap<Integer, String> mapParam, IArea5e area5e) {
 
         //Через параметр
         if ("1".equals(mapParam.get(25010))) {
@@ -308,7 +305,7 @@ public class Furniture extends Cal5e {
     }
 
     //Там где крепится ручка
-    public static ElemFrame determOfSide(IArea5e area5e) {
+    public static IElem5e determOfSide(IArea5e area5e) {
         if (area5e instanceof AreaStvorka) {
             int id = ((AreaStvorka) area5e).typeOpen.id;
             if (List.of(1, 3, 11).contains(id)) {

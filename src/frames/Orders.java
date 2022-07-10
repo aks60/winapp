@@ -8,7 +8,6 @@ import builder.making.Joining;
 import builder.making.Specific;
 import builder.making.Tariffic;
 import builder.making.UColor;
-import builder.model.ElemGlass;
 import builder.IElem5e;
 import builder.script.GsonElem;
 import com.google.gson.Gson;
@@ -3381,7 +3380,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass
         try {
             float selectID = winNode.com5t().id();
-            ElemGlass glas = (ElemGlass) winNode.com5t();
+            IElem5e glas = (IElem5e) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 

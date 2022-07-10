@@ -12,7 +12,6 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.FillingDet;
 import builder.param.FillingVar;
-import builder.model.ElemGlass;
 import builder.IElem5e;
 import common.UCom;
 import dataset.Query;
@@ -45,13 +44,13 @@ public class Filling extends Cal5e {
 
     @Override
     public void calc() {
-        LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-        for (ElemGlass elemGlass : elemGlassList) {
+        LinkedList<IElem5e> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+        for (IElem5e elemGlass : elemGlassList) {
             calc2(elemGlass); //цикл по стеклопакетам 
         }
     }
 
-    public void calc2(ElemGlass elemGlass) {
+    public void calc2(IElem5e elemGlass) {
         super.calc();
         try {
             Float depth = elemGlass.artiklRec().getFloat(eArtikl.depth); //толщина стекда
@@ -66,7 +65,7 @@ public class Filling extends Cal5e {
             //Цикл по сторонам стеклопакета
             for (int side = 0; side < 4; ++side) {
                 IElem5e elemFrame = elemFrameList.get(side);
-                elemGlass.anglHoriz(elemGlass.sideHoriz[side]); //проверяемая сторона стеклопакета в цикле
+                elemGlass.anglHoriz(elemGlass.sideHoriz()[side]); //проверяемая сторона стеклопакета в цикле
 
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
@@ -83,8 +82,8 @@ public class Filling extends Cal5e {
                                     //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                                     if (fillingVar.filter(elemGlass, glasgrpRec) == true) {
                                         
-                                        elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
-                                        elemGlass.gsize[side] = glasprofRec.getFloat(eGlasprof.gsize);
+                                        elemGlass.gzazo(glasgrpRec.getFloat(eGlasgrp.gap));
+                                        elemGlass.gsize()[side] = glasprofRec.getFloat(eGlasprof.gsize);
 
                                         if (shortPass == false) {
                                             detail(elemGlass, glasgrpRec, glasdetList);
@@ -103,7 +102,7 @@ public class Filling extends Cal5e {
         }
     }
 
-    protected void detail(ElemGlass elemGlass, Record glasgrpRec, List<Record> glasdetList) {
+    protected void detail(IElem5e elemGlass, Record glasgrpRec, List<Record> glasdetList) {
         try {
             //Цикл по списку детализации
             for (Record glasdetRec : glasdetList) {

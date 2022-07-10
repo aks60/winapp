@@ -61,6 +61,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     //Установка координат
+    @Override
     public void setLocation() {
         if (Type.ARCH == owner.type()) {
             setDimension(0, 0, owner.x2(), Math.abs(winc.height1() - winc.height2()));
@@ -79,7 +80,7 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
         if (owner.type() == Type.ARCH) { //если арка
-            ElemFrame elemArch = root().frames().get(Layout.TOP);
+            IElem5e elemArch = root().frames().get(Layout.TOP);
             IElem5e elemImpost = joinFlat(Layout.BOTT);
             y1 = y1 + elemArch.artiklRec().getFloat(eArtikl.height) - elemArch.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
@@ -132,7 +133,7 @@ public class ElemGlass extends ElemSimple {
     @Override
     //Вложенная спецификация
     public void addSpecific(Specific spcAdd) {
-        if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
+        if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3])) {
             return;  //нет таких сторон у арки
         }
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
@@ -150,11 +151,11 @@ public class ElemGlass extends ElemSimple {
 
                 //AREA, STVORKA
             } else {
-                if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
+                if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
                     spcAdd.width += width() + 2 * gzazo;
                     spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
-                } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
+                } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
                     spcAdd.width += height() + 2 * gzazo;
                     spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
@@ -166,7 +167,7 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(spcAdd);
             }
 
-            if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
+            if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
                 if (spcAdd.mapParam.get(15010) != null) {
                     if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                         spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -178,7 +179,7 @@ public class ElemGlass extends ElemSimple {
                     }
                 }
 
-            } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
+            } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
                 if (spcAdd.mapParam.get(15010) != null) {
                     if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                         spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -212,13 +213,37 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override
+    public float[] sideHoriz() {
+        return sideHoriz;
+    }
+
+    @Override
+    public float gzazo() {
+        return gzazo;
+    }
+    @Override
+    public void gzazo(float zazo) {
+        this.gzazo = zazo;
+    }
+
+    @Override
+    public float[] gsize() {
+        return gsize;
+    }
+
+    @Override
+    public float radiusGlass() {
+        return radiusGlass;
+    }
+            
+    @Override
     public void paint() { //рисуём стёкла
 
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
         if (owner.type() == Type.ARCH) {
-            ElemFrame ef = root().frames().get(Layout.TOP);
+            IElem5e ef = root().frames().get(Layout.TOP);
             float dz = ef.artiklRec().getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));

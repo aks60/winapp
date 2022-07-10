@@ -1,11 +1,6 @@
 package builder.param.test;
 
-import builder.making.Specific;
-import builder.model.ElemFrame;
-import common.UCom;
-import enums.Layout;
 import java.util.HashMap;
-import java.util.Map;
 
 public class FillingTest extends ParamTest {
 

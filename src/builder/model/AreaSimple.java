@@ -32,7 +32,7 @@ import common.interfac.ILocation;
 public class AreaSimple extends Com5t implements IArea5e {
 
     protected Form form = null; //форма контура (параметр в развитии)
-    protected EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
+    protected EnumMap<Layout, IElem5e> frames = new EnumMap<>(Layout.class); //список рам в окне     
     protected LinkedList<ICom5t> childs = new LinkedList(); //дети
 
     public AreaSimple(Wincalc winc) {
@@ -140,11 +140,11 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     @Override
-    public void addFilling(ElemGlass glass, Specific spcAdd) {
+    public void addFilling(IElem5e glass, Specific spcAdd) {
     }
 
     @Override
-    public EnumMap<Layout, ElemFrame> frames() {
+    public EnumMap<Layout, IElem5e> frames() {
         return frames;
     }
 
@@ -381,19 +381,19 @@ public class AreaSimple extends Com5t implements IArea5e {
         } else {
             try {
                 //Прорисовка стеклопакетов
-                LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                LinkedList<IElem5e> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
                 elemGlassList.stream().forEach(el -> el.paint());
 
                 //Прорисовка импостов
-                LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
+                LinkedList<IElem5e> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
                 elemImpostList.stream().forEach(el -> el.paint());
 
                 //Прорисовка штульпов
-                LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
+                LinkedList<IElem5e> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
                 elemShtulpList.stream().forEach(el -> el.paint());
 
                 //Прорисовка стоек
-                LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
+                LinkedList<IElem5e> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
                 elemStoikaList.stream().forEach(el -> el.paint());
 
                 //Прорисовка рам
@@ -425,19 +425,19 @@ public class AreaSimple extends Com5t implements IArea5e {
     private IDrawing drawing = () -> {
         try {
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+            LinkedList<IElem5e> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
+            LinkedList<IElem5e> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
+            LinkedList<IElem5e> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
+            LinkedList<IElem5e> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам

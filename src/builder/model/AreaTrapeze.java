@@ -23,18 +23,18 @@ public class AreaTrapeze extends AreaSimple {
     }
 
     @Override
-    public void addFilling(ElemGlass glass, Specific spcAdd) {
+    public void addFilling(IElem5e glass, Specific spcAdd) {
         if (winc.form == Form.RIGHT) {
 
-            if (glass.anglHoriz == glass.sideHoriz[0]) {
+            if (glass.anglHoriz() == glass.sideHoriz()[0]) {
                 ElemJoining ej = winc.mapJoin.get(root().frames().get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += glass.width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo();
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
 
-            } else if (glass.anglHoriz == glass.sideHoriz[1]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[1]) {
                 IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
                 ElemJoining ej = winc.mapJoin.get(insideRight.joinPoint(1));
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
@@ -47,18 +47,18 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut2 = insideRight.anglCut()[1];
                 spcAdd.anglHoriz = insideRight.anglHoriz();
 
-            } else if (glass.anglHoriz == glass.sideHoriz[2]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[2]) {
                 IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
                 ElemJoining ej = winc.mapJoin.get(insideTop.joinPoint(1));
                 float dx1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz);
                 float dx2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz);
                 spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut[0];
-                spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut[1];
-                spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz;
+                spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
+                spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
+                spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
-            } else if (glass.anglHoriz == glass.sideHoriz[3]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[3]) {
                 IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT);
                 ElemJoining ej = winc.mapJoin.get(insideLeft.joinPoint(0));
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
@@ -73,15 +73,15 @@ public class AreaTrapeze extends AreaSimple {
             }
         } else if (winc.form == Form.LEFT) {
 
-            if (glass.anglHoriz == glass.sideHoriz[0]) {
+            if (glass.anglHoriz() == glass.sideHoriz()[0]) {
                 ElemJoining ej = winc.mapJoin.get(root().frames().get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += glass.width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo();
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
 
-            } else if (glass.anglHoriz == glass.sideHoriz[1]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[1]) {
                 IElem5e insideRirht = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT);
                 ElemJoining ej = winc.mapJoin.get(insideRirht.joinPoint(1));
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
@@ -94,18 +94,18 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglHoriz = insideRirht.anglHoriz();
 
-            } else if (glass.anglHoriz == glass.sideHoriz[2]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[2]) {
                 IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
                 ElemJoining ej = winc.mapJoin.get(insideTop.joinPoint(1));
                 float dx1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz);
                 float dx2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz);
                 spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut[0];
-                spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut[1];
-                spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz;
+                spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
+                spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
+                spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
-            } else if (glass.anglHoriz == glass.sideHoriz[3]) {
+            } else if (glass.anglHoriz() == glass.sideHoriz()[3]) {
                 IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT), insideLeft = root().frames().get(Layout.RIGHT);
                 ElemJoining ej = winc.mapJoin.get(insideLeft.joinPoint(0));
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
@@ -119,7 +119,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglHoriz = insideLeft.anglHoriz();
             }
         }
-        glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
+        glass.spcRec().spcList.add(spcAdd); //добавим спецификацию
     }
 
     @Override

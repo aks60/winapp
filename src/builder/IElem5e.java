@@ -4,7 +4,13 @@ import builder.ICom5t;
 import builder.making.Specific;
 import enums.Layout;
 
-public interface IElem5e extends ICom5t{
+public interface IElem5e extends ICom5t {
+
+    //Установка координат
+    void setLocation();
+
+    //Главная спецификация
+    void setSpecific();
 
     //Вложенная спецификация
     void addSpecific(Specific specification);
@@ -29,20 +35,36 @@ public interface IElem5e extends ICom5t{
     String joinPoint(int side);
 
     float[] anglFlat();
-    
+
     float anglHoriz();
-    
+
     Specific spcRec();
-    
+
     void anglHoriz(float angl);
-    
+
     float[] anglCut();
-        
+
+    default float[] sideHoriz() {
+        return null;
+    }
+
+    default float[] gsize() {
+        return null;
+    }
+
+    default float gzazo() {
+        return 0;
+    }
+
+    default void gzazo(float zazo) {
+    }
+
+    default float radiusGlass() {
+        return 0;
+    }
+
     //Клик мышки попадает в контур элемента
     boolean mouseClick(int X, int Y);
 
-    //Главная спецификация
-    void setSpecific();
-
-    String toString();  
+    String toString();
 }

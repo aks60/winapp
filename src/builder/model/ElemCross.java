@@ -54,6 +54,7 @@ public class ElemCross extends ElemSimple {
     }
 
     //Установка координат
+    @Override
     public void setLocation() {
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
@@ -65,11 +66,11 @@ public class ElemCross extends ElemSimple {
             float dy = 0;
             IArea5e prevArea = (IArea5e) owner.childs().get(0);
             if (winc.form == Form.RIGHT) {
-                float angl = root.frames().get(Layout.RIGHT).anglCut[1];
+                float angl = root.frames().get(Layout.RIGHT).anglCut()[1];
                 dy = (float) (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             } else if (winc.form == Form.LEFT) {
-                float angl = root.frames().get(Layout.LEFT).anglCut[0];
+                float angl = root.frames().get(Layout.LEFT).anglCut()[0];
                 dy = (float) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);                                
             }

@@ -9,7 +9,6 @@ import domain.eSystree;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.ElemGlass;
 import builder.IElem5e;
 import common.UCom;
 import enums.Layout;
@@ -22,7 +21,7 @@ public class FillingDet extends Par5s {
         super(winc);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record glasdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, IElem5e elem5e, Record glasdetRec) {
 
         List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {
@@ -37,7 +36,7 @@ public class FillingDet extends Par5s {
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, IElem5e elem5e, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
