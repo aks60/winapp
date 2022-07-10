@@ -36,6 +36,7 @@ import builder.script.GsonElem;
 import common.ArrayList2;
 import common.LinkedList2;
 import common.UCom;
+import common.eProp;
 import enums.Form;
 import enums.Type;
 import java.util.LinkedHashMap;
@@ -300,15 +301,45 @@ public class Wincalc {
         this.cost2 = cost2;
     }
 
-//    public float cost3() {
-//        return this.cost3;
-//    }
-//
-//    public void cost3(float cost3) {
-//        this.cost3 = cost3;
-//    }
-
     public float getSquare() {
         return width() * height() / 1000000;
+    }
+
+    public static IArea5e rootFactory(Type type, Wincalc winc) {
+        if (type == Type.RECTANGL) {
+            return (eProp.old.read().equals("0")) ? new AreaRectangl(winc) : new AreaRectangl(winc); //простое
+        } else if (type == Type.DOOR) {
+            return (eProp.old.read().equals("0")) ? new AreaDoor(winc) : new AreaDoor(winc); //дверь 
+        } else if (type == Type.TRAPEZE) {
+            return (eProp.old.read().equals("0")) ? new AreaTrapeze(winc) : new AreaTrapeze(winc); //трапеция
+        } else if (type == Type.TRIANGL) {
+            return (eProp.old.read().equals("0")) ? new AreaTriangl(winc) : new AreaTriangl(winc); //треугольник
+        } else if (type == Type.ARCH) {
+            return (eProp.old.read().equals("0")) ? new AreaArch(winc) : new AreaArch(winc); //треугольник
+        } else {
+            return null;
+        }
+    }
+
+    public static IArea5e rootFactory(Wincalc winc, IArea5e owner, GsonElem el) {
+        return (eProp.old.read().equals("0")) ? new AreaStvorka(winc, owner, el) : new AreaStvorka(winc, owner, el);
+    }
+
+    public static IArea5e areaFactory(Type type, Wincalc winc, IArea5e owner, GsonElem gson, float width, float height) {
+        return (eProp.old.read().equals("0")) ? new AreaSimple(winc, owner, gson, width, height)
+                : new AreaSimple(winc, owner, gson, width, height);
+    }
+
+    public static IElem5e elemFactory(Type type, IArea5e rootArea, IArea5e owner, GsonElem el) {
+
+        if (Type.FRAME_SIDE == type) {
+            return (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el) : new ElemFrame(rootArea, el);
+        } else if (Type.IMPOST == type || Type.SHTULP == type || Type.STOIKA == type) {
+            return (eProp.old.read().equals("0")) ? new ElemCross(owner, el) : new ElemCross(owner, el);
+        } else if (Type.GLASS == el.type()) {
+            return (eProp.old.read().equals("0")) ? new ElemGlass(owner, el) : new ElemGlass(owner, el);
+        } else {
+            return null;
+        }
     }
 }
