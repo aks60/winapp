@@ -42,7 +42,7 @@ public class Com5t implements ICom5t {
         this.winc = winc;
         this.root = winc.rootArea;
         this.gson = gson;
-        if (this.type() == Type.FRAME_SIDE && owner.type() == Type.STVORKA) {
+        if (this.type() == Type.STVORKA && owner.type() == Type.STVORKA) {
             this.type = Type.STVORKA_SIDE; //фича створки
         }
     }
