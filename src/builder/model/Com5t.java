@@ -132,7 +132,7 @@ public class Com5t implements ICom5t {
 
     @Override
     public void artiklRecAn(Record record) {
-        this.artiklRec = record;
+        this.artiklRecAn = record;
     }
     
     //Длина компонента

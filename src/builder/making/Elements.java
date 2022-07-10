@@ -109,7 +109,7 @@ public class Elements extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:Сomposition.detail() " + e);
+            System.err.println("Ошибка:Elements.detail() " + e);
         }
     }
 }

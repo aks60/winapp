@@ -17,7 +17,7 @@ public class Kits extends Cal5e {
         try {
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Elements.calc() " + e);
+            System.err.println("Ошибка:kits.calc() " + e);
         } finally {
             Query.conf = conf;
         }
