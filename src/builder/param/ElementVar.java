@@ -126,7 +126,7 @@ public class ElementVar extends Par5s {
                 case 31011: //Толщина внешнего/внутреннего заполнения, мм
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
-                    if (glassList.get(0) instanceof IElem5e && glassList.get(1) instanceof IElem5e) {
+                    if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS ) {    
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec().getFloat(eArtikl.depth),
@@ -144,7 +144,7 @@ public class ElementVar extends Par5s {
                 case 31012: //Для внешнего заполнения, мм", только для PS3
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
-                    if (glassList.get(1) instanceof IElem5e) {
+                    if (glassList.get(1).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
                                 glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;
@@ -155,7 +155,7 @@ public class ElementVar extends Par5s {
                 case 31013: //Для внутреннего заполнения, мм", только для PS3
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
-                    if (glassList.get(0) instanceof IElem5e) {
+                    if (glassList.get(0).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
                                 glassList.get(0).artiklRec().getFloat(eArtikl.depth)) == false) {
                             return false;

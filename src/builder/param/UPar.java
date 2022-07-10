@@ -76,7 +76,7 @@ class UPar {
     //Для технологического кода контейнера 
     static boolean is_STRING_XX000(String txt, IElem5e elem5e) {
         Record sysprofRec = elem5e.sysprofRec();
-        if (elem5e instanceof IElem5e) {
+        if (elem5e.type() == Type.GLASS) {
             sysprofRec = elem5e.owner().frames().get(Layout.BOTT).sysprofRec();
         }
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
