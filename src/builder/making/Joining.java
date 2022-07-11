@@ -109,9 +109,6 @@ public class Joining extends Cal5e {
                             elemJoin.joiningRec = joiningRec1;
                             elemJoin.joinvarRec = joinvarRec;
 
-                            if (shortPass == true) {
-                                //eJoinpar1.params_id) == 1040
-                            }
                             break; //если текущий вариант совпал
                         }
                     }

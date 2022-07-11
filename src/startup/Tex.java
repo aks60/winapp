@@ -1092,12 +1092,12 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
-                    App.Joining.createFrame(Tex.this);
+                    App.Joining.createFrame(Tex.this); //все соединения
                 } else {
                     winc_build();
                     winc.calcJoining = new builder.making.Joining(winc);
                     winc.calcJoining.calc();
-                    App.Joining.createFrame(Tex.this, winc.calcJoining.setVariant);
+                    App.Joining.createFrame(Tex.this, winc.calcJoining.setVariant); //соединения конструкции
 
                 }
             }

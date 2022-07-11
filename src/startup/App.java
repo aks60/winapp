@@ -121,7 +121,11 @@ public enum App {
                     if (param.length == 0) {
                         frame = new Joinings();
                     } else if (param.length == 1) {
-                        frame = new Joinings((ElemJoining) param[0]);
+                        if (param[0] instanceof ElemJoining) {
+                            frame = new Joinings((ElemJoining) param[0]);
+                        } else {
+                            frame = new Joinings((Set) param[0]);
+                        }
                     } else {
                         frame = new Joinings((Set) param[0], (int) param[1]);
                     }
