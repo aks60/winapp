@@ -147,15 +147,15 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = new AreaRectangl(this); //простое
+                rootArea = Wincalc.rootFactory(Type.RECTANGL, this); //простое                
             } else if (Type.DOOR == rootGson.type()) {
-                rootArea = new AreaDoor(this); //дверь                
+                rootArea = Wincalc.rootFactory(Type.DOOR, this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this); //трапеция
+                rootArea = Wincalc.rootFactory(Type.TRAPEZE, this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTriangl(this); //треугольник
+                rootArea = Wincalc.rootFactory(Type.TRIANGL, this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = new AreaArch(this); //арка
+                rootArea = Wincalc.rootFactory(Type.ARCH, this); //арка
             }
 
             //Создадим элементы конструкции
@@ -172,7 +172,7 @@ public class Wincalc {
             for (GsonElem el : gson.childs()) {
 
                 if (Type.STVORKA == el.type()) {
-                    IArea5e area5e = new AreaStvorka(Wincalc.this, owner, el);
+                    IArea5e area5e = Wincalc.stvFactory(Wincalc.this, owner, el);
                     owner.childs().add(area5e);
                     hm.put(area5e, el);
 
@@ -321,7 +321,7 @@ public class Wincalc {
         }
     }
 
-    public static IArea5e rootFactory(Wincalc winc, IArea5e owner, GsonElem el) {
+    public static IArea5e stvFactory(Wincalc winc, IArea5e owner, GsonElem el) {
         return (eProp.old.read().equals("0")) ? new AreaStvorka(winc, owner, el) : new AreaStvorka(winc, owner, el);
     }
 
