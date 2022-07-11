@@ -82,8 +82,8 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         if (frameSize.width > screenSize.width) {
             frameSize.width = screenSize.width;
         }
-        if (frame.getName().equals("Property")) {
-            frame.setLocation(20, 140);
+        if (frame.getName().equals("Setting")) {
+            frame.setLocation(20, 100);
         } else {
             //frame.setLocationRelativeTo(null);
             frame.setLocation((screenSize.width - frameSize.width) / 2,
