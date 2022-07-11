@@ -178,19 +178,19 @@ public class Wincalc {
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     IArea5e area5e = (el.form() == null)
-                            ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
-                            : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
+                            ? areaFactory(Wincalc.this, owner, el, el.width(), el.height())
+                            : areaFactory(Wincalc.this, owner, el, el.width(), el.height(), el.form());
                     owner.childs().add(area5e);
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    rootArea.frames().put(el.layout(), new ElemFrame(rootArea, el));
+                    rootArea.frames().put(el.layout(), elemFactory(el.type(), rootArea, owner, el));
 
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    owner.childs().add(new ElemCross(owner, el));
+                    owner.childs().add(elemFactory(el.type(), rootArea, owner, el));
 
                 } else if (Type.GLASS == el.type()) {
-                    owner.childs().add(new ElemGlass(owner, el));
+                    owner.childs().add(elemFactory(el.type(), rootArea, owner, el));
                 }
             }
 
@@ -325,9 +325,14 @@ public class Wincalc {
         return (eProp.old.read().equals("0")) ? new AreaStvorka(winc, owner, el) : new AreaStvorka(winc, owner, el);
     }
 
-    public static IArea5e areaFactory(Type type, Wincalc winc, IArea5e owner, GsonElem gson, float width, float height) {
+    public static IArea5e areaFactory(Wincalc winc, IArea5e owner, GsonElem gson, float width, float height) {
         return (eProp.old.read().equals("0")) ? new AreaSimple(winc, owner, gson, width, height)
                 : new AreaSimple(winc, owner, gson, width, height);
+    }
+
+    public static IArea5e areaFactory(Wincalc winc, IArea5e owner, GsonElem gson, float width, float height, Form form) {
+        return (eProp.old.read().equals("0")) ? new AreaSimple(winc, owner, gson, width, height, form)
+                : new AreaSimple(winc, owner, gson, width, height, form);
     }
 
     public static IElem5e elemFactory(Type type, IArea5e rootArea, IArea5e owner, GsonElem el) {
