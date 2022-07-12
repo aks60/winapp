@@ -60,169 +60,172 @@ public class HtmlOfSmeta {
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
-            System.err.println("Ошибка1:HtmlOfSmeta.xx()" + e);
+            System.err.println("Ошибка1:HtmlOfSmeta.smeta2()" + e);
         } catch (URISyntaxException e) {
-            System.err.println("Ошибка2:HtmlOfSmeta.xx()" + e);
+            System.err.println("Ошибка2:HtmlOfSmeta.smeta2()" + e);
         } catch (Exception e) {
-            System.err.println("Ошибка3:HtmlOfSmeta.xx()" + e);
+            System.err.println("Ошибка3:HtmlOfSmeta.smeta2()" + e);
         }
     }
 
     private static void load(Record projectRec, Document doc) {
         int npp = 0, length = 400;
         float total = 0f;
+        try {
+            Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
+            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
+            List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
+            List<Record> prjkitAll = new ArrayList();
 
-        Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
-        Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
-        List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
-        List<Record> prjkitAll = new ArrayList();
+            doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
-        doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            //СЕКЦИЯ №1
+            Elements attr = doc.getElementById("tab1").getElementsByTag("td");
+            if (prjpartRec.getInt(ePrjpart.flag2) == 0) {
+                //Част.лицо
+                attr.get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                attr.get(5).text(prjpartRec.getStr(ePrjpart.addr_phone));
+                attr.get(9).text(prjpartRec.getStr(ePrjpart.addr_email));
 
-        //СЕКЦИЯ №1
-        Elements attr = doc.getElementById("tab1").getElementsByTag("td");
-        if (prjpartRec.getInt(ePrjpart.flag2) == 0) {
-            //Част.лицо
-            attr.get(1).text(prjpartRec.getStr(ePrjpart.partner));
-            attr.get(5).text(prjpartRec.getStr(ePrjpart.addr_phone));
-            attr.get(9).text(prjpartRec.getStr(ePrjpart.addr_email));
+            } else {//Организация
+                attr.get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                attr.get(5).text(prjpartRec.getStr(ePrjpart.org_phone));
+                attr.get(9).text(prjpartRec.getStr(ePrjpart.org_email));
+                attr.get(13).text(prjpartRec.getStr(ePrjpart.org_contact));
+            }
 
-        } else {//Организация
-            attr.get(1).text(prjpartRec.getStr(ePrjpart.partner));
-            attr.get(5).text(prjpartRec.getStr(ePrjpart.org_phone));
-            attr.get(9).text(prjpartRec.getStr(ePrjpart.org_email));
-            attr.get(13).text(prjpartRec.getStr(ePrjpart.org_contact));
-        }
+            attr.get(3).text(sysuserRec.getStr(eSysuser.fio));
+            attr.get(7).text(sysuserRec.getStr(eSysuser.phone));
+            attr.get(11).text(sysuserRec.getStr(eSysuser.email));
 
-        attr.get(3).text(sysuserRec.getStr(eSysuser.fio));
-        attr.get(7).text(sysuserRec.getStr(eSysuser.phone));
-        attr.get(11).text(sysuserRec.getStr(eSysuser.email));
+            //СЕКЦИЯ №2
+            Element div2 = doc.getElementById("div2");
+            String template2 = div2.html();
+            List<Wincalc> wincList = wincList(prjprodList, length);
 
-        //СЕКЦИЯ №2
-        Element div2 = doc.getElementById("div2");
-        String template2 = div2.html();
-        List<Wincalc> wincList = wincList(prjprodList, length);
+            for (int i = 1; i < prjprodList.size(); i++) {
+                div2.append(template2);
+            }
+            Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
+            Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
 
-        for (int i = 1; i < prjprodList.size(); i++) {
-            div2.append(template2);
-        }
-        Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
-        Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
+            //Цыкл по изделиям
+            for (int i = 0; i < prjprodList.size(); i++) {
 
-        //Цыкл по изделиям
-        for (int i = 0; i < prjprodList.size(); i++) {
+                Elements tdList = tab2List.get(i).getElementsByTag("td");
+                Wincalc winc = wincList.get(i);
+                Record prjprodRec = prjprodList.get(i);
+                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                prjkitAll.addAll(prjkitList);
 
-            Elements tdList = tab2List.get(i).getElementsByTag("td");
-            Wincalc winc = wincList.get(i);
-            Record prjprodRec = prjprodList.get(i);
-            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
-            prjkitAll.addAll(prjkitList);
+                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
+                captions2.get(0).text("Изделие № " + (i + 1));
+                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
+                tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
+                tdList.get(6).text(winc.width() + "x" + winc.height());
+                tdList.get(8).text(glassList.get(0).artiklRecAn().getStr(eArtikl.code));
+                tdList.get(10).text("");
+                tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
+                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
+                        + eColor.find(winc.colorID3).getStr(eColor.name));
+                tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
+                tdList.get(16).text(df2.format(winc.getSquare()));
+                tdList.get(18).text(df2.format(winc.weight()));
+                tdList.get(20).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
+                tdList.get(22).text(df1.format(winc.price() / winc.getSquare()));
+                tdList.get(24).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
 
-            LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-            Elements captions2 = tab2List.get(i).getElementsByTag("caption");
-            captions2.get(0).text("Изделие № " + (i + 1));
-            tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
-            tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
-            tdList.get(6).text(winc.width() + "x" + winc.height());
-            tdList.get(8).text(glassList.get(0).artiklRecAn().getStr(eArtikl.code));
-            tdList.get(10).text("");
-            tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
-                    + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
-                    + eColor.find(winc.colorID3).getStr(eColor.name));
-            tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
-            tdList.get(16).text(df2.format(winc.getSquare())); 
-            tdList.get(18).text(df2.format(winc.weight()));
-            tdList.get(20).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-            tdList.get(22).text(df1.format(winc.price() / winc.getSquare()));
-            tdList.get(24).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
 
-            total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                if (prjkitList.size() == 0) {
+                    tab3List.get(i).html("");
+                } else {
+                    Elements captions3 = tab3List.get(i).getElementsByTag("caption");
+                    captions3.get(0).text("Комплектация к изделию № " + (i + 1));
+                    String template3 = tab3List.get(i)
+                            .getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+                    for (int k = 1; k < prjkitList.size(); k++) {
+                        tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
+                    }
 
-            if (prjkitList.size() == 0) {
-                tab3List.get(i).html("");
-            } else {
-                Elements captions3 = tab3List.get(i).getElementsByTag("caption");
-                captions3.get(0).text("Комплектация к изделию № " + (i + 1));
-                String template3 = tab3List.get(i)
-                        .getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
-                for (int k = 1; k < prjkitList.size(); k++) {
-                    tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
-                }
+                    //Цыкл по строкам комплектации
+                    for (int k = 0; k < prjkitList.size(); k++) {
 
-                //Цыкл по строкам комплектации
-                for (int k = 0; k < prjkitList.size(); k++) {
+                        Record prjkitRec = prjkitList.get(k);
+                        Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
 
-                    Record prjkitRec = prjkitList.get(k);
-                    Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
+                        Elements tr3List = tab3List.get(i).getElementsByTag("tr");
+                        Elements td3List = tr3List.get(k + 1).getElementsByTag("td");
 
-                    Elements tr3List = tab3List.get(i).getElementsByTag("tr");
-                    Elements td3List = tr3List.get(k + 1).getElementsByTag("td");
-
-                    td3List.get(0).text(String.valueOf(k + 1));
-                    td3List.get(1).text(artiklRec.getStr(eArtikl.code));
-                    td3List.get(2).text(artiklRec.getStr(eArtikl.name));
-                    td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
-                    td3List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-                            + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
-                    td3List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
-                    td3List.get(6).text(df1.format(0));
-                    td3List.get(7).text(df1.format(0));
+                        td3List.get(0).text(String.valueOf(k + 1));
+                        td3List.get(1).text(artiklRec.getStr(eArtikl.code));
+                        td3List.get(2).text(artiklRec.getStr(eArtikl.name));
+                        td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
+                        td3List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
+                                + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
+                        td3List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
+                        td3List.get(6).text(df1.format(0));
+                        td3List.get(7).text(df1.format(0));
+                    }
                 }
             }
-        }
 
-        //СЕКЦИЯ №3
-        Element tab4Elem = doc.getElementById("tab4");
-        Element tab5Elem = doc.getElementById("tab5");
-        Element tab6Elem = doc.getElementById("tab6");
-        String template4 = tab4Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
-        for (int i = 1; i < prjprodList.size(); i++) {
-            tab4Elem.getElementsByTag("tbody").append(template4);
-        }
-        Elements tr4List = tab4Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
-        for (int i = 0; i < prjprodList.size(); i++) {
-            Record prjprodRec = prjprodList.get(i);
-            Wincalc winc = wincList.get(i);
-            Elements td4List = tr4List.get(i).getElementsByTag("td");
-            td4List.get(0).text(String.valueOf(i + 1));
-            td4List.get(1).text(prjprodRec.getStr(ePrjprod.name));
-            td4List.get(2).text(eColor.find(winc.colorID1).getStr(eColor.name));
-            td4List.get(3).text(df1.format(winc.width()));
-            td4List.get(4).text(df1.format(winc.height()));
-            td4List.get(5).text(prjprodRec.getStr(ePrjprod.num));
-            td4List.get(6).text(df1.format(0));
-            td4List.get(7).text(df1.format(0));
-        }
+            //СЕКЦИЯ №3
+            Element tab4Elem = doc.getElementById("tab4");
+            Element tab5Elem = doc.getElementById("tab5");
+            Element tab6Elem = doc.getElementById("tab6");
+            String template4 = tab4Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+            for (int i = 1; i < prjprodList.size(); i++) {
+                tab4Elem.getElementsByTag("tbody").append(template4);
+            }
+            Elements tr4List = tab4Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
+            for (int i = 0; i < prjprodList.size(); i++) {
+                Record prjprodRec = prjprodList.get(i);
+                Wincalc winc = wincList.get(i);
+                Elements td4List = tr4List.get(i).getElementsByTag("td");
+                td4List.get(0).text(String.valueOf(i + 1));
+                td4List.get(1).text(prjprodRec.getStr(ePrjprod.name));
+                td4List.get(2).text(eColor.find(winc.colorID1).getStr(eColor.name));
+                td4List.get(3).text(df1.format(winc.width()));
+                td4List.get(4).text(df1.format(winc.height()));
+                td4List.get(5).text(prjprodRec.getStr(ePrjprod.num));
+                td4List.get(6).text(df1.format(0));
+                td4List.get(7).text(df1.format(0));
+            }
 
-        String template5 = tab5Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
-        for (int i = 1; i < prjkitAll.size(); i++) {
-            tab5Elem.getElementsByTag("tbody").append(template5);
-        }
-        Elements tr5List = tab5Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
-        for (int i = 1; i < prjkitAll.size(); i++) {
-            Record prjkitRec = prjkitAll.get(i);
-            Elements td5List = tr5List.get(i).getElementsByTag("td");
-            Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
-            td5List.get(0).text(String.valueOf(i + 1));
-            td5List.get(1).text(artiklRec.getStr(eArtikl.code));
-            td5List.get(2).text(artiklRec.getStr(eArtikl.name));
-            td5List.get(3).text(eColor.find(prjkitRec.getInt(ePrjkit.color1_id)).getStr(eColor.name));
-            td5List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-                    + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
-            td5List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
-            td5List.get(6).text(df1.format(0));
-            td5List.get(7).text(df1.format(0));
+            String template5 = tab5Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+            for (int i = 1; i < prjkitAll.size(); i++) {
+                tab5Elem.getElementsByTag("tbody").append(template5);
+            }
+            Elements tr5List = tab5Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
+            for (int i = 1; i < prjkitAll.size(); i++) {
+                Record prjkitRec = prjkitAll.get(i);
+                Elements td5List = tr5List.get(i).getElementsByTag("td");
+                Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
+                td5List.get(0).text(String.valueOf(i + 1));
+                td5List.get(1).text(artiklRec.getStr(eArtikl.code));
+                td5List.get(2).text(artiklRec.getStr(eArtikl.name));
+                td5List.get(3).text(eColor.find(prjkitRec.getInt(ePrjkit.color1_id)).getStr(eColor.name));
+                td5List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
+                        + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
+                td5List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
+                td5List.get(6).text(df1.format(0));
+                td5List.get(7).text(df1.format(0));
 
-        }
-        //СЕКЦИЯ №4
-        Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-        trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
-        trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
-        
-        Elements imgList = doc.getElementById("div2").getElementsByTag("img");
-        for (int i = 0; i < imgList.size(); i++) {
-            Element get = imgList.get(i);
-            get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
+            }
+            //СЕКЦИЯ №4
+            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
+            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
+            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+
+            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
+            for (int i = 0; i < imgList.size(); i++) {
+                Element get = imgList.get(i);
+                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:HtmlOfSmeta.load()" + e);
         }
     }
 
