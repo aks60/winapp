@@ -46,11 +46,11 @@ public class Filling extends Cal5e {
     public void calc() {
         LinkedList<IElem5e> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
         for (IElem5e elemGlass : elemGlassList) {
-            calc2(elemGlass); //цикл по стеклопакетам 
+            calc(elemGlass); //цикл по стеклопакетам 
         }
     }
 
-    public void calc2(IElem5e elemGlass) {
+    public void calc(IElem5e elemGlass) {
         super.calc();
         try {
             Float depth = elemGlass.artiklRec().getFloat(eArtikl.depth); //толщина стекда

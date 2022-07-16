@@ -75,6 +75,7 @@ import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
 import builder.IElem5e;
+import builder.making.Cal5e;
 import common.DecimalFormat2;
 import domain.eJoinvar;
 import enums.TypeJoin;
@@ -355,7 +356,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
-                Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
                 joining.calc();
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
@@ -754,7 +755,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             //Экземпляр нового скрипта
             Wincalc iwin2 = new Wincalc(script);
-            Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+            Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
             sysprodRec.set(eSysprod.values().length, iwin2);

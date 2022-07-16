@@ -14,6 +14,7 @@ import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
 import builder.Wincalc;
+import builder.making.Cal5e;
 import builder.making.Joining;
 import builder.making.Specific;
 import builder.script.GsonElem;
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import common.UCom;
+import common.eProp;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eSysfurn;
@@ -54,15 +56,19 @@ public class AreaStvorka extends AreaSimple {
 
     public AreaStvorka(Wincalc winc, IArea5e owner, GsonElem gson) {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
-        
+
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        IElem5e stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
+        IElem5e stvBot = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
+                : new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        IElem5e stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
+        IElem5e stvRigh = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
+                : new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        IElem5e stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
+        IElem5e stvTop = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
+                : new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        IElem5e stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
+        IElem5e stvLeft = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
+                : new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
@@ -99,7 +105,7 @@ public class AreaStvorka extends AreaSimple {
                 winc.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
                 winc.mapJoin.put(stvTop.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
                 winc.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
-                Joining joining = new Joining(winc, true);
+                Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
                 y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
@@ -253,7 +259,7 @@ public class AreaStvorka extends AreaSimple {
                 Y1 = elemR.y1() + (elemR.y2() - elemR.y1()) / 2;
                 Draw.drawLine(winc, elemL.x1(), elemL.y1(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
                 Draw.drawLine(winc, elemL.x1(), elemL.y2(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
-                
+
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1() + (elemL.x2() - elemL.x1()) / 2;
                 Y1 = elemL.y1() + (elemL.y2() - elemL.y1()) / 2;

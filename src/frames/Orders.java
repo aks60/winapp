@@ -9,6 +9,7 @@ import builder.making.Specific;
 import builder.making.Tariffic;
 import builder.making.UColor;
 import builder.IElem5e;
+import builder.making.Cal5e;
 import builder.script.GsonElem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -248,7 +249,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 try {
                     String script = record.getStr(ePrjprod.script);
                     Wincalc iwin2 = new Wincalc(script);
-                    Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                    Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
                     joining.calc();
                     iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                     record.add(iwin2);
@@ -638,7 +639,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             //Экземпляр нового скрипта
             Wincalc iwin2 = new Wincalc(script);
-            Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+            Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
             prjprodRec.set(ePrjprod.values().length, iwin2);

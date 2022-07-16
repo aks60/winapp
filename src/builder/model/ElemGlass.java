@@ -2,6 +2,7 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
+import builder.making.Cal5e;
 import builder.making.Filling;
 import dataset.Record;
 import domain.eArtdet;
@@ -35,7 +36,7 @@ public class ElemGlass extends ElemSimple {
         setLocation();
 
         Filling filling = new Filling(winc, true);
-        filling.calc2(this);
+        filling.calc(this);
     }
 
     public void initСonstructiv(JsonObject param) {
