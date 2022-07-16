@@ -421,6 +421,11 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     }
 
+    public EnumMap<Layout, IElem5e> frame() {
+        return frames;
+    }
+
+    
 // <editor-fold defaultstate="collapsed" desc="Version"> 
     private IDrawing drawing = () -> {
         try {

@@ -12,7 +12,7 @@ import enums.Layout;
 import java.util.HashMap;
 import java.util.List;
 
-class UMod {
+public class UMod {
 
     UMod(IElem5e elem5e) {
     }

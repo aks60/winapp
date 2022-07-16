@@ -1,28 +1,33 @@
-package builder.model;
+package builder.model.old;
 
+import builder.model.UMod;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.making.Paint;
-import domain.eArtikl;
-import domain.eColor;
-import domain.eSyssize;
-import domain.eSysprof;
-import enums.Layout;
-import enums.TypeArtikl;
 import builder.making.Specific;
-import enums.PKjson;
-import common.UCom;
-import domain.eSetting;
-import enums.Type;
-import java.util.Map;
-import builder.making.Furniture;
+import builder.model.AreaArch;
+import builder.model.AreaStvorka;
+import builder.model.ElemJoining;
+import builder.model.ElemSimple;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import common.UCom;
+import domain.eArtikl;
+import domain.eColor;
+import domain.eSetting;
+import domain.eSysprof;
+import domain.eSyssize;
 import enums.Form;
+import enums.Layout;
+import enums.PKjson;
+import enums.Type;
+import enums.TypeArtikl;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.Draw;
 import java.util.List;
+import java.util.Map;
+import static startup.App.Furniture;
 
 public class ElemFrame extends ElemSimple {
 
@@ -43,7 +48,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     public void initСonstructiv(JsonObject param) {
-        System.out.println("ElemFrame new");
+        System.out.println("ElemFrame old");
 
         colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : winc.colorID1;
         colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : winc.colorID2;
@@ -221,6 +226,7 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
+        
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
@@ -286,7 +292,7 @@ public class ElemFrame extends ElemSimple {
                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frame().entrySet()) {
                         for (Specific spc : elem.getValue().spcRec().spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
@@ -295,7 +301,7 @@ public class ElemFrame extends ElemSimple {
                     }
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                    for (Map.Entry<Layout, IElem5e> elem : elemStv.frame().entrySet()) {
                         for (Specific spc : elem.getValue().spcRec().spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);

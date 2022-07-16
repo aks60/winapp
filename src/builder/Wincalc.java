@@ -187,7 +187,8 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el) : new ElemFrame(rootArea, el);
+                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el) 
+                            : new builder.model.old.ElemFrame(rootArea, el);
                     rootArea.frames().put(el.layout(), elem5e);
 
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {

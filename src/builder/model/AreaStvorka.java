@@ -59,16 +59,16 @@ public class AreaStvorka extends AreaSimple {
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
         IElem5e stvBot = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
-                : new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
+                : new builder.model.old.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
         IElem5e stvRigh = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
-                : new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
+                : new builder.model.old.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
         IElem5e stvTop = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
-                : new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
+                : new builder.model.old.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
         IElem5e stvLeft = (eProp.old.read().equals("0")) ? new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
-                : new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
+                : new builder.model.old.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
