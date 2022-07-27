@@ -225,6 +225,10 @@ public enum App {
 
             } else if (profile.equals(eProfile.P02)) {
                 Top.frame = new Tex();
+                if (System.getProperty("os.name").equals("Windows 10") == true) {
+                    Top.frame.setPreferredSize(new java.awt.Dimension(800, 94));
+                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 94));
+                }
 
             } else {
                 Top.frame = new Man();
