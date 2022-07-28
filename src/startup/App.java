@@ -228,6 +228,9 @@ public enum App {
                 if (System.getProperty("os.name").equals("Windows 10") == true) {
                     Top.frame.setPreferredSize(new java.awt.Dimension(800, 94));
                     Top.frame.setMinimumSize(new java.awt.Dimension(800, 94));
+                } else if (System.getProperty("os.name").equals("Windows 7") == true) {
+                    Top.frame.setPreferredSize(new java.awt.Dimension(800, 80));
+                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 80));                    
                 }
 
             } else {
