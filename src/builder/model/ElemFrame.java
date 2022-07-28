@@ -43,7 +43,6 @@ public class ElemFrame extends ElemSimple {
     }
 
     public void initСonstructiv(JsonObject param) {
-        System.out.println("ElemFrame new");
 
         colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : winc.colorID1;
         colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : winc.colorID2;

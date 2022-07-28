@@ -138,11 +138,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerSet();
     }
 
-    public void loadingData() {
+    public final void loadingData() {
         //Получим сохр. ID системы при выходе из программы
-        if (systreeID == null) {
+        if (this.systreeID == null && "-1".equals(eProp.sysprodID.read()) != true) {
             Record sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
-            systreeID = sysprodRec.getInt(eSysprod.systree_id);
+            this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
+        } else {
+            Record sysprodRec = eSysprod.query().get(0);
+            this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
@@ -173,7 +176,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr1.setViewportView(sysTree);
     }
 
-    public void loadingModel() {
+    public final void loadingModel() {
         ((DefaultTreeCellEditor) sysTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
@@ -3737,7 +3740,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    public void initElements() {
+    public final void initElements() {
 
         new FrameToFile(this, btnClose);
         new UColor();

@@ -196,19 +196,21 @@ public enum App {
                     }
                     break;
             }
+            //eProfile.appframe = frame;
+            frame.setName(this.name());
+            FrameToFile.setFrameSize(frame); //размеры окна
+            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                    Top.frame.setExtendedState(JFrame.NORMAL);
+                }
+            });
+            frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
+            frame.setVisible(true);
         } catch (Exception e) {
+            //frame.dispose();
+            //frame = null;
             System.err.println("ОШИБКА:startup.App.createFrame() " + e);
         }
-        //eProfile.appframe = frame;
-        frame.setName(this.name());
-        FrameToFile.setFrameSize(frame); //размеры окна
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowDeiconified(java.awt.event.WindowEvent evt) {
-                Top.frame.setExtendedState(JFrame.NORMAL);
-            }
-        });
-        frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
-        frame.setVisible(true);
     }
 
     public static void createApp(eProfile profile) {
@@ -230,7 +232,7 @@ public enum App {
                     Top.frame.setMinimumSize(new java.awt.Dimension(800, 94));
                 } else if (System.getProperty("os.name").equals("Windows 7") == true) {
                     Top.frame.setPreferredSize(new java.awt.Dimension(800, 80));
-                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 80));                    
+                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 80));
                 }
 
             } else {
