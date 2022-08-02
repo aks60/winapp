@@ -201,9 +201,6 @@ public class Tex extends javax.swing.JFrame {
         btn4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn4.setFocusable(false);
         btn4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn4.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn4.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn4.setPreferredSize(new java.awt.Dimension(26, 26));
         btn4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn4.addActionListener(new java.awt.event.ActionListener() {
@@ -217,9 +214,6 @@ public class Tex extends javax.swing.JFrame {
         btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn15.setFocusable(false);
         btn15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn15.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn15.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn15.setPreferredSize(new java.awt.Dimension(26, 26));
         btn15.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn15.addActionListener(new java.awt.event.ActionListener() {
@@ -233,9 +227,6 @@ public class Tex extends javax.swing.JFrame {
         btn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn2.setFocusable(false);
         btn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn2.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn2.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn2.setPreferredSize(new java.awt.Dimension(26, 26));
         btn2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -256,9 +247,6 @@ public class Tex extends javax.swing.JFrame {
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn14.setFocusable(false);
         btn14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn14.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn14.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn14.setPreferredSize(new java.awt.Dimension(26, 26));
         btn14.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn14.addActionListener(new java.awt.event.ActionListener() {
@@ -271,9 +259,6 @@ public class Tex extends javax.swing.JFrame {
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c010.gif"))); // NOI18N
         btn12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn12.setFocusable(false);
-        btn12.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn12.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn12.setPreferredSize(new java.awt.Dimension(26, 26));
         btn12.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,9 +271,6 @@ public class Tex extends javax.swing.JFrame {
         btn13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn13.setFocusable(false);
         btn13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn13.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn13.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn13.setPreferredSize(new java.awt.Dimension(26, 26));
         btn13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,9 +283,6 @@ public class Tex extends javax.swing.JFrame {
         btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn11.setFocusable(false);
         btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn11.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn11.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn11.setPreferredSize(new java.awt.Dimension(26, 26));
         btn11.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn11.addActionListener(new java.awt.event.ActionListener() {
@@ -317,9 +296,6 @@ public class Tex extends javax.swing.JFrame {
         btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn16.setFocusable(false);
         btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn16.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn16.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn16.setPreferredSize(new java.awt.Dimension(26, 26));
         btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn16.addActionListener(new java.awt.event.ActionListener() {
@@ -340,9 +316,6 @@ public class Tex extends javax.swing.JFrame {
         btn52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn52.setFocusable(false);
         btn52.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn52.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn52.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn52.setPreferredSize(new java.awt.Dimension(26, 26));
         btn52.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn52.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn52.addActionListener(new java.awt.event.ActionListener() {
@@ -356,9 +329,6 @@ public class Tex extends javax.swing.JFrame {
         btn51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn51.setFocusable(false);
         btn51.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn51.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn51.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn51.setPreferredSize(new java.awt.Dimension(26, 26));
         btn51.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn51.addActionListener(new java.awt.event.ActionListener() {
@@ -372,9 +342,6 @@ public class Tex extends javax.swing.JFrame {
         btn53.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn53.setFocusable(false);
         btn53.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn53.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn53.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn53.setPreferredSize(new java.awt.Dimension(26, 26));
         btn53.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn53.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn53.addActionListener(new java.awt.event.ActionListener() {
@@ -404,9 +371,6 @@ public class Tex extends javax.swing.JFrame {
         btn23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn23.setFocusable(false);
         btn23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn23.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn23.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn23.setPreferredSize(new java.awt.Dimension(26, 26));
         btn23.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,9 +383,6 @@ public class Tex extends javax.swing.JFrame {
         btn24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn24.setFocusable(false);
         btn24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn24.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn24.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn24.setPreferredSize(new java.awt.Dimension(26, 26));
         btn24.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,9 +395,6 @@ public class Tex extends javax.swing.JFrame {
         btn25.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn25.setFocusable(false);
         btn25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn25.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn25.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn25.setPreferredSize(new java.awt.Dimension(26, 26));
         btn25.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn25.addActionListener(new java.awt.event.ActionListener() {
@@ -450,9 +408,6 @@ public class Tex extends javax.swing.JFrame {
         btn26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn26.setFocusable(false);
         btn26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn26.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn26.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn26.setPreferredSize(new java.awt.Dimension(26, 26));
         btn26.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn26.addActionListener(new java.awt.event.ActionListener() {
@@ -466,9 +421,6 @@ public class Tex extends javax.swing.JFrame {
         btn27.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn27.setFocusable(false);
         btn27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn27.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn27.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn27.setPreferredSize(new java.awt.Dimension(26, 26));
         btn27.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn27.addActionListener(new java.awt.event.ActionListener() {
@@ -482,9 +434,6 @@ public class Tex extends javax.swing.JFrame {
         btn21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn21.setFocusable(false);
         btn21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn21.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn21.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn21.setPreferredSize(new java.awt.Dimension(26, 26));
         btn21.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn21.addActionListener(new java.awt.event.ActionListener() {
@@ -503,9 +452,6 @@ public class Tex extends javax.swing.JFrame {
         btn17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         btn17.setFocusable(false);
         btn17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn17.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn17.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn17.setPreferredSize(new java.awt.Dimension(26, 26));
         btn17.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn17.addActionListener(new java.awt.event.ActionListener() {
@@ -519,9 +465,6 @@ public class Tex extends javax.swing.JFrame {
         btn3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         btn3.setFocusable(false);
         btn3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn3.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn3.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn3.setPreferredSize(new java.awt.Dimension(26, 26));
         btn3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn3.addActionListener(new java.awt.event.ActionListener() {
@@ -535,9 +478,6 @@ public class Tex extends javax.swing.JFrame {
         btn5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         btn5.setFocusable(false);
         btn5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn5.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn5.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn5.setPreferredSize(new java.awt.Dimension(26, 26));
         btn5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn5.addActionListener(new java.awt.event.ActionListener() {
@@ -559,9 +499,6 @@ public class Tex extends javax.swing.JFrame {
         btnT7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT7.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnT7.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnT7.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT7.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c061.gif"))); // NOI18N
         btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT7.addActionListener(new java.awt.event.ActionListener() {
@@ -576,9 +513,6 @@ public class Tex extends javax.swing.JFrame {
         btnT8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT8.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnT8.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnT8.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c062.gif"))); // NOI18N
         btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT8.addActionListener(new java.awt.event.ActionListener() {
@@ -593,9 +527,6 @@ public class Tex extends javax.swing.JFrame {
         btnT9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT9.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnT9.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnT9.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT9.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c063.gif"))); // NOI18N
         btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT9.addActionListener(new java.awt.event.ActionListener() {
@@ -612,6 +543,7 @@ public class Tex extends javax.swing.JFrame {
         tb4.setMinimumSize(new java.awt.Dimension(70, 28));
         tb4.setPreferredSize(new java.awt.Dimension(68, 28));
 
+        btnTest.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btnTest.setText("Test");
         btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -628,9 +560,6 @@ public class Tex extends javax.swing.JFrame {
         btn42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btn42.setFocusable(false);
         btn42.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn42.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn42.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn42.setPreferredSize(new java.awt.Dimension(26, 26));
         btn42.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn42.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn42.addActionListener(new java.awt.event.ActionListener() {
@@ -1198,11 +1127,11 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_mnGroup1
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-//        try {
-//            InputStream in = Main.class.getResourceAsStream("/resource/report/OutGoMaterial.docx");
-//        } catch (Exception e) {
-//            System.err.println("Ошибка:Tex.btnTest()" + e);
-//        }
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.DBCompare.createFrame(Tex.this);
+            }
+        });
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

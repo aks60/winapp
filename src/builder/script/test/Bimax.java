@@ -353,7 +353,17 @@ public final class Bimax {
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:316}"))
                     .addElem(new GsonElem(Type.GLASS));
-
+            
+        } else if (prj == 486451) { //PUNIC = 426696 onumb=3  Трапеции без импоста
+            rootGson = new GsonRoot("1.0", prj, 3, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200, Form.RIGHT))
+                    .addElem(new GsonElem(Type.GLASS));
+            
         } else if (prj == 605001) { //PUNIC = 427850  Трапеции
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009);
