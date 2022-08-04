@@ -366,7 +366,7 @@ public class DBCompare extends javax.swing.JFrame {
             Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
                     //+ "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate");
-                    + "where a.punic = b.punic and b.pdate > '01.01.2006' and b.pdate < '01.01.2023' order by b.pnumb");
+                    + "where a.punic = b.punic and b.pdate > '01.07.2015' and b.pdate < '01.01.2023' order by b.pnumb");
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -1016,7 +1016,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
 
         txt19.setFont(frames.UGui.getFont(0,0));
-        txt19.setText("486451");
+        txt19.setText("506642");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
