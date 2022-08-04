@@ -1026,7 +1026,7 @@ public class DBCompare extends javax.swing.JFrame {
         });
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("3");
+        txt20.setText("1");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 

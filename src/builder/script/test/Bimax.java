@@ -364,6 +364,16 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200, Form.RIGHT))
                     .addElem(new GsonElem(Type.GLASS));
             
+        } else if (prj == 506642) { //PUNIC = 426696 onumb=1  Трапеции без импоста
+            rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE / KBE Эксперт / 1 ОКНА / Открывание внутрь (ств. Z 77)",
+                    Layout.VERT, Type.TRAPEZE, 1000, 1300, 1000, 1009, 10009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200, Form.RIGHT))
+                    .addElem(new GsonElem(Type.GLASS));
+            
         } else if (prj == 605001) { //PUNIC = 427850  Трапеции
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009);

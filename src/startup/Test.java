@@ -70,7 +70,7 @@ public class Test {
         eProp.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -88,15 +88,15 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(601001, false)); //508916 508945
+            winc.build(builder.script.Winscript.test(506642, false)); //508916 508945
             //new Joining(winc, true);
-            winc.constructiv(true);
+            //winc.constructiv(true);
             //Specific.write_txt(winc.listSpec);
             //DBCompare.iwinXls(winc, true);
-            DBCompare.iwinPs4(winc, true);
+            //DBCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
