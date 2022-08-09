@@ -371,7 +371,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200, Form.RIGHT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1300, Form.RIGHT))
                     .addElem(new GsonElem(Type.GLASS));
             
         } else if (prj == 605001) { //PUNIC = 427850  Трапеции

@@ -196,7 +196,8 @@ public class Wincalc {
                     owner.childs().add(elem5e);
 
                 } else if (Type.GLASS == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemGlass(owner, el) : new ElemGlass(owner, el);
+                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemGlass(owner, el) 
+                            : new builder.model.old.ElemGlass(owner, el);
                     owner.childs().add(elem5e);
                 }
             }

@@ -109,6 +109,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     public IElem5e joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
+            //Цикл по элементам кострукции
             for (int index = winc.listElem.size() - 1; index >= 0; --index) {
                 IElem5e el = (IElem5e) winc.listElem.get(index);
 
