@@ -55,13 +55,13 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = owner.sysprofRec();
         } else {
             if (Layout.BOTT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
             } else if (Layout.TOP.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
             } else if (Layout.LEFT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
         artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
@@ -215,7 +215,6 @@ public class ElemFrame extends ElemSimple {
     //Вложеная спецификация
     @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
-        System.out.println("builder.model.ElemFrame.addSpecific()");
         try {
             spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
             spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом

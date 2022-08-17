@@ -535,9 +535,9 @@ public class DBCompare extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.ord + "  and clke != -1order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + winc.rootGson.ord + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
-                float leng = rs.getFloat("ALENG"); //длина
+                //float leng = rs.getFloat("ALENG"); //длина
                 //float count = rs.getFloat("AQTYP"); //колич
                 float pogonag = rs.getFloat("AQTYA"); //погонаж
                 float perc = rs.getFloat("APERC"); //отход

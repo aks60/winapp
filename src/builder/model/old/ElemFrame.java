@@ -59,13 +59,13 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = owner.sysprofRec();
         } else {
             if (Layout.BOTT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
             } else if (Layout.TOP.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
             } else if (Layout.LEFT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
         artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
