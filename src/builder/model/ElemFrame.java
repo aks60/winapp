@@ -215,6 +215,7 @@ public class ElemFrame extends ElemSimple {
     //Вложеная спецификация
     @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
+        System.out.println("builder.model.ElemFrame.addSpecific()");
         try {
             spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
             spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
