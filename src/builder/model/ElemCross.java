@@ -72,9 +72,9 @@ public class ElemCross extends ElemSimple {
             } else if (winc.form == Form.LEFT) {
                 float angl = root.frames().get(Layout.LEFT).anglCut()[0];
                 dy = (float) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);                                
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             }
-            
+
         }
         //Установка координат
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
@@ -153,36 +153,40 @@ public class ElemCross extends ElemSimple {
             }
         }
     }
- 
+
     @Override
     //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
+        try {
+            spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
+            spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм 
 
-        spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
-        spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм 
+            //Армирование
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
+                spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
+                spcAdd.anglCut1 = 90;
+                spcAdd.anglCut2 = 90;
+            }
+            if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+                spcAdd.width += spcRec.width;
+            }
+            UMod.get_12075_34075_39075(this, spcAdd); //углы реза
+            UMod.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
+            spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм
+            spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
+            spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            UMod.get_40007(spcAdd); //высоту сделать длиной
+            spcAdd.count = UMod.get_11070_12070_33078_34078(spcAdd); //ставить однократно
+            spcAdd.count = UMod.get_39063(spcAdd); //округлять количество до ближайшего
 
-        //Армирование
-        if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
-            spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
-            spcAdd.anglCut1 = 90;
-            spcAdd.anglCut2 = 90;
+            spcRec.spcList.add(spcAdd);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemCross.addSpecific() " + e);
         }
-        if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
-            spcAdd.width += spcRec.width;
-        }
-        UMod.get_12075_34075_39075(this, spcAdd); //углы реза
-        UMod.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-        spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм
-        spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-        spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
-        spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
-        UMod.get_40007(spcAdd); //высоту сделать длиной
-        spcAdd.count = UMod.get_11070_12070_33078_34078(spcAdd); //ставить однократно
-        spcAdd.count = UMod.get_39063(spcAdd); //округлять количество до ближайшего
-
-        spcRec.spcList.add(spcAdd);
     }
 
     @Override

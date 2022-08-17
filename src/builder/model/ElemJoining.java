@@ -54,35 +54,40 @@ public class ElemJoining {
     }
 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
-        Specific spcRec = elem1.spcRec();
+        try {
+            Specific spcRec = elem1.spcRec();
 
-        String sideCalc = spcAdd.getParam("null", 11072, 12072);
-        if (sideCalc != null && "большей".equals(sideCalc)) {
-            spcAdd.width = (elem1.length() > elem2.length()) ? elem1.length() : elem2.length();
-        } else if (sideCalc != null && "меньшей".equals(sideCalc)) {
-            spcAdd.width = (elem1.length() > elem2.length()) ? elem2.length() : elem1.length();
-        } else if (sideCalc != null && "общей".equals(sideCalc)) {
-            if (elem1.layout() == Layout.HORIZ || elem1.layout() == Layout.BOTT || elem1.layout() == Layout.TOP) {
-                spcAdd.width = (elem1.x1() > elem2.x1()) ? elem1.x1() - elem2.x2() : elem2.x1() - elem1.x2();
-            } else if (elem1.layout() == Layout.VERT || elem1.layout() == Layout.RIGHT || elem1.layout() == Layout.LEFT) {
-                spcAdd.width = (elem1.y1() > elem2.y1()) ? elem1.y1() - elem2.y2() : elem2.y1() - elem1.y2();
+            String sideCalc = spcAdd.getParam("null", 11072, 12072);
+            if (sideCalc != null && "большей".equals(sideCalc)) {
+                spcAdd.width = (elem1.length() > elem2.length()) ? elem1.length() : elem2.length();
+            } else if (sideCalc != null && "меньшей".equals(sideCalc)) {
+                spcAdd.width = (elem1.length() > elem2.length()) ? elem2.length() : elem1.length();
+            } else if (sideCalc != null && "общей".equals(sideCalc)) {
+                if (elem1.layout() == Layout.HORIZ || elem1.layout() == Layout.BOTT || elem1.layout() == Layout.TOP) {
+                    spcAdd.width = (elem1.x1() > elem2.x1()) ? elem1.x1() - elem2.x2() : elem2.x1() - elem1.x2();
+                } else if (elem1.layout() == Layout.VERT || elem1.layout() == Layout.RIGHT || elem1.layout() == Layout.LEFT) {
+                    spcAdd.width = (elem1.y1() > elem2.y1()) ? elem1.y1() - elem2.y2() : elem2.y1() - elem1.y2();
+                }
             }
-        }
-        spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += UMod.get_11050(spcAdd, this); //кол. ед. с шагом
-        spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
+            spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count += UMod.get_11050(spcAdd, this); //кол. ед. с шагом
+            spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
-        if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
-            //spcAdd.width += elem1.length();
-            spcAdd.width += spcRec.width;
-        }
-        UMod.get_12075_34075_39075(elem1, spcAdd); //углы реза
-        spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм       
-        spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
-        spcAdd.count = UMod.get_11070_12070_33078_34078(spcAdd); //ставить однократно
+            if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+                //spcAdd.width += elem1.length();
+                spcAdd.width += spcRec.width;
+            }
+            UMod.get_12075_34075_39075(elem1, spcAdd); //углы реза
+            spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм       
+            spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            spcAdd.count = UMod.get_11070_12070_33078_34078(spcAdd); //ставить однократно
 
-        elem1.spcRec().spcList.add(spcAdd);
+            elem1.spcRec().spcList.add(spcAdd);
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemJoinning.addSpecific() " + e);
+        }
     }
 
     public String name() {

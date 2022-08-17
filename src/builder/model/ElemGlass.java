@@ -134,82 +134,86 @@ public class ElemGlass extends ElemSimple {
     @Override
     //Вложенная спецификация
     public void addSpecific(Specific spcAdd) {
-        if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3])) {
-            return;  //нет таких сторон у арки
-        }
-        spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
-        spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
-        if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
-            return;  //если стеклопакет сразу выход
-        }
+        try {
+            if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3])) {
+                return;  //нет таких сторон у арки
+            }
+            spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
+            spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
+            if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
+                return;  //если стеклопакет сразу выход
+            }
 
-        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
+            if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
 
-            //ARCH, TRAPEZE...
-            if (Type.ARCH == owner.type() || Type.TRAPEZE == owner.type()) {
-                root().addFilling(this, spcAdd);
+                //ARCH, TRAPEZE...
+                if (Type.ARCH == owner.type() || Type.TRAPEZE == owner.type()) {
+                    root().addFilling(this, spcAdd);
 
-                //AREA, STVORKA
-            } else {
+                    //AREA, STVORKA
+                } else {
+                    if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
+                        spcAdd.width += width() + 2 * gzazo;
+                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+
+                    } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
+                        spcAdd.width += height() + 2 * gzazo;
+                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+
+                    } else {
+                        System.out.println("Промах:builder.model.IArea5e.addFilling()");
+                    }
+                    spcAdd.anglCut1 = 45;
+                    spcAdd.anglCut2 = 45;
+                    spcRec.spcList.add(spcAdd);
+                }
+
                 if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
-                    spcAdd.width += width() + 2 * gzazo;
-                    spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                    if (spcAdd.mapParam.get(15010) != null) {
+                        if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                    if (spcAdd.mapParam.get(15011) != null) {
+                        if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
 
                 } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
-                    spcAdd.width += height() + 2 * gzazo;
-                    spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                    if (spcAdd.mapParam.get(15010) != null) {
+                        if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                    if (spcAdd.mapParam.get(15011) != null) {
+                        if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                }
+                if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                    //
+                }
+                spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+                spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
+                spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
 
+            } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
+
+                if (spcAdd.mapParam.get(13014) != null) {
+                    if (UCom.containsNumbJust(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
+                        spcRec.spcList.add(spcAdd);
+                    }
                 } else {
-                    System.out.println("Промах:builder.model.IArea5e.addFilling()");
-                }
-                spcAdd.anglCut1 = 45;
-                spcAdd.anglCut2 = 45;
-                spcRec.spcList.add(spcAdd);
-            }
-
-            if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
-                if (spcAdd.mapParam.get(15010) != null) {
-                    if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
-                        spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                    }
-                }
-                if (spcAdd.mapParam.get(15011) != null) {
-                    if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                        spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                    }
-                }
-
-            } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
-                if (spcAdd.mapParam.get(15010) != null) {
-                    if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
-                        spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                    }
-                }
-                if (spcAdd.mapParam.get(15011) != null) {
-                    if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                        spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                    }
-                }
-            }
-            if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                //
-            }
-            spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * UMod.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / UMod.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
-
-        } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-
-            if (spcAdd.mapParam.get(13014) != null) {
-                if (UCom.containsNumbJust(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);
                 }
             } else {
-                spcRec.spcList.add(spcAdd);
+                System.out.println("Элемент не обработан");
             }
-        } else {
-            System.out.println("Элемент не обработан");
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemGlass.addSpecific() " + e);
         }
     }
 
@@ -222,6 +226,7 @@ public class ElemGlass extends ElemSimple {
     public float gzazo() {
         return gzazo;
     }
+
     @Override
     public void gzazo(float zazo) {
         this.gzazo = zazo;
@@ -236,7 +241,7 @@ public class ElemGlass extends ElemSimple {
     public float radiusGlass() {
         return radiusGlass;
     }
-            
+
     @Override
     public void paint() { //рисуём стёкла
 
@@ -250,7 +255,7 @@ public class ElemGlass extends ElemSimple {
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
             winc.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2),
-                     (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+                    (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (owner.type() == Type.TRAPEZE) {
             if (winc.form == Form.RIGHT) {
@@ -259,7 +264,7 @@ public class ElemGlass extends ElemSimple {
             } else if (winc.form == Form.LEFT) {
                 winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
-            }            
+            }
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);

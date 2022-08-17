@@ -1,5 +1,6 @@
 package startup;
 
+import builder.making.Joining;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
@@ -12,7 +13,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -91,12 +91,12 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(506642, false)); 
-            //new Joining(winc, true);
-            //winc.constructiv(true);
+            winc.build(builder.script.Winscript.test(508916, true)); //506642,508916
+            new Joining(winc, true);
+            winc.constructiv(true);
             //Specific.write_txt(winc.listSpec);
             //DBCompare.iwinXls(winc, true);
-            //DBCompare.iwinPs4(winc, true);
+            DBCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {

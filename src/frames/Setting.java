@@ -156,7 +156,7 @@ public class Setting extends javax.swing.JFrame {
 
         textPane3.setEditable(false);
         textPane3.setBorder(null);
-        textPane3.setText("Измените путь к программам запуска отчётов, если на\nвашем компьютере установка Office  была изменена  ");
+        textPane3.setText("Измените путь к программам запуска отчётов, если на\nвашем компьютере директория установки Office  была изменена  ");
         textPane3.setPreferredSize(new java.awt.Dimension(160, 40));
         pan4.add(textPane3, java.awt.BorderLayout.WEST);
 
