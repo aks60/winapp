@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Alutech3 {
 
-    public static String script(Integer prj, boolean model) {
+    public static String script(Integer prj, boolean real) {
 
         if (prj == 3) { //PUNIC = 427856  Двери
             rootGson = new GsonRoot("1.0", prj, 3, 66, "ALUTECH\\ALT.43\\Двери\\Наружу(2)",
@@ -27,7 +27,7 @@ public final class Alutech3 {
         } else {
             return null;
         }
-        if (model == true) {
+        if (real == false) {
             rootGson.propery(prj.toString(), -3, null);
         }
 

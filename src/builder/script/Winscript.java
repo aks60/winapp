@@ -15,30 +15,30 @@ public class Winscript {
 
     public static GsonRoot rootGson;
 
-    public static String test(Integer prj, boolean model) {
+    public static String test(Integer prj, boolean real) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
-            return Sial3.script(prj, model);
+            return Sial3.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
-            return Alutex3.script(prj, model);
+            return Alutex3.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
-            return Alutech3.script(prj, model);
+            return Alutech3.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
-            return Bimax.script(prj, model);
+            return Bimax.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
-            return Vidnal.script(prj, model);
+            return Vidnal.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("krauss.fdb")) {
-            return Krauss.script(prj, model);
+            return Krauss.script(prj, real);
 
         } else if (base_name.toLowerCase().contains("sokol.fdb")) {
-            return Sokol.script(prj, model);
+            return Sokol.script(prj, real);
         }
         return null;
     }

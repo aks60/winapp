@@ -851,7 +851,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         try {
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
-            String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), true);
+            String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), false);
             GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
 
 //            JFileChooser chooser = new JFileChooser();

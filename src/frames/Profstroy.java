@@ -637,7 +637,7 @@ public class Profstroy {
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
-                String script = Winscript.test(prj, true);
+                String script = Winscript.test(prj, false);
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;
@@ -651,7 +651,7 @@ public class Profstroy {
                     q.insert(record);
                 }
 
-                String script2 = Winscript.test(prj, false);
+                String script2 = Winscript.test(prj, true);
                 if (script2 != null) {
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "<html> Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;
