@@ -33,6 +33,7 @@ import builder.model.AreaDoor;
 import builder.model.ElemFrame;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
+import com.google.gson.JsonSyntaxException;
 import common.ArrayList2;
 import common.LinkedList2;
 import common.UCom;
@@ -151,7 +152,7 @@ public class Wincalc {
             } else if (Type.DOOR == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0")) ? new AreaDoor(this) : new AreaDoor(this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaTrapeze(this) : new AreaTrapeze(this); //трапеция
+                rootArea = (eProp.old.read().equals("0")) ? new AreaTrapeze(this) : new builder.model.old.AreaTrapeze(this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0")) ? new AreaTriangl(this) : new AreaTriangl(this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
@@ -161,7 +162,7 @@ public class Wincalc {
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
 
-        } catch (Exception e) {
+        } catch (JsonSyntaxException e) {
             System.err.println("Ошибка:Wincalc.parsing() " + e);
         }
     }
