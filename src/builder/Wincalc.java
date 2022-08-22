@@ -177,6 +177,7 @@ public class Wincalc {
                     owner.childs().add(area5e);
                     hm.put(area5e, el);
 
+                    //AreaSimple может принемать форму арки, трапеции. см. AreaSimple.type()
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     IArea5e area5e = null;
                     if (el.form() == null) {
@@ -188,7 +189,7 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el) 
+                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el)
                             : new builder.model.old.ElemFrame(rootArea, el);
                     rootArea.frames().put(el.layout(), elem5e);
 
@@ -197,7 +198,7 @@ public class Wincalc {
                     owner.childs().add(elem5e);
 
                 } else if (Type.GLASS == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemGlass(owner, el) 
+                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemGlass(owner, el)
                             : new builder.model.old.ElemGlass(owner, el);
                     owner.childs().add(elem5e);
                 }
@@ -248,7 +249,7 @@ public class Wincalc {
             //Вес изделия
             LinkedList<IElem5e> glassList = UCom.listSortObj(listElem, Type.GLASS);
             for (IElem5e el : glassList) {
-                weight += el.artiklRecAn().getFloat(eArtikl.density) * getSquare(); //вес
+                weight += el.artiklRecAn().getFloat(eArtikl.density) * square(); //вес
             }
 
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
@@ -310,7 +311,7 @@ public class Wincalc {
         this.cost2 = cost2;
     }
 
-    public float getSquare() {
+    public float square() {
         return width() * height() / 1000000;
     }
 }
