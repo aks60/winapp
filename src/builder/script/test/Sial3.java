@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Sial3 {
 
-    public static String script(Integer prj, boolean real) {
+    public static String script(Integer prj, boolean nuni) {
 
         if (prj == 601001) {
             rootGson = new GsonRoot("1.0", prj, 1, 12, "СИАЛ\\КП45\\Окна",
@@ -141,7 +141,7 @@ public final class Sial3 {
         } else {
             return null;
         }
-        if (real == false) {
+        if (nuni == false) {
             rootGson.propery(prj.toString(), -3, null);
         }
 

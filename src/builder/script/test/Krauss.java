@@ -9,7 +9,7 @@ import enums.Type;
 
 public class Krauss {
 
-    public static String script(Integer prj, boolean real) {
+    public static String script(Integer prj, boolean nuni) {
 
         if (prj == 4) {
 
@@ -29,7 +29,7 @@ public class Krauss {
         } else {
             return null;
         }
-        if (real == false) {
+        if (nuni == false) {
             rootGson.propery(prj.toString(), -3, null);
         }
         return new GsonBuilder().create().toJson(rootGson);
