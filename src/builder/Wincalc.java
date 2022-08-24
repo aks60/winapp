@@ -173,7 +173,9 @@ public class Wincalc {
             for (GsonElem el : gson.childs()) {
 
                 if (Type.STVORKA == el.type()) {
-                    IArea5e area5e = (eProp.old.read().equals("0")) ? new AreaStvorka(Wincalc.this, owner, el) : new AreaStvorka(Wincalc.this, owner, el);
+                    IArea5e area5e = (eProp.old.read().equals("0")) 
+                            ? new AreaStvorka(Wincalc.this, owner, el) 
+                            : new AreaStvorka(Wincalc.this, owner, el);
                     owner.childs().add(area5e);
                     hm.put(area5e, el);
 
@@ -181,24 +183,32 @@ public class Wincalc {
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     IArea5e area5e = null;
                     if (el.form() == null) {
-                        area5e = (eProp.old.read().equals("0")) ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height()) : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height());
+                        area5e = (eProp.old.read().equals("0")) 
+                                ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height()) 
+                                : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height());
                     } else {
-                        area5e = (eProp.old.read().equals("0")) ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form()) : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
+                        area5e = (eProp.old.read().equals("0")) 
+                                ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form()) 
+                                : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
                     }
                     owner.childs().add(area5e);
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemFrame(rootArea, el)
+                    IElem5e elem5e = (eProp.old.read().equals("0")) 
+                            ? new ElemFrame(rootArea, el)
                             : new builder.model.old.ElemFrame(rootArea, el);
                     rootArea.frames().put(el.layout(), elem5e);
 
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemCross(owner, el) : new ElemCross(owner, el);
+                    IElem5e elem5e = (eProp.old.read().equals("0")) 
+                            ? new ElemCross(owner, el) 
+                            : new ElemCross(owner, el);
                     owner.childs().add(elem5e);
 
                 } else if (Type.GLASS == el.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) ? new ElemGlass(owner, el)
+                    IElem5e elem5e = (eProp.old.read().equals("0")) 
+                            ? new ElemGlass(owner, el)
                             : new builder.model.old.ElemGlass(owner, el);
                     owner.childs().add(elem5e);
                 }
