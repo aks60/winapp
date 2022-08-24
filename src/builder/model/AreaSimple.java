@@ -152,55 +152,6 @@ public class AreaSimple extends Com5t implements IArea5e {
     public LinkedList<ICom5t> childs() {
         return childs;
     }
-
-    @Override
-    public void resizeX2(float v) {
-        GsonRoot rootGson = winc.rootGson;
-        try {
-            if (id() == 0) {
-                float k = v / gson.width(); //коэффициент
-                if (k != 1) {
-                    rootGson.width2(v);
-                    if (rootGson.width1() != null) {
-                        rootGson.width1(k * rootGson.width1());
-                    }
-                    for (IArea5e e : winc.listArea) { //перебор всех вертикальных area
-                        if (e.layout() == Layout.HORIZ) {
-                            for (ICom5t e2 : e.childs()) { //изменение детей по высоте
-                                if (e2.type() == Type.AREA) {
-                                    e2.gson().length(k * e2.gson().length());
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                float k = v / lengthY(); //коэффициент 
-                if (k != 1) {
-                    gson.length(v);
-                    if (type() == Type.ARCH || type() == Type.TRAPEZE) {
-                        rootGson.width1(rootGson.width() - v);
-                    }
-                    for (ICom5t e : childs) { //изменение детей по ширине
-                        if (e.owner().layout() == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
-                            ((IArea5e) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
-
-                        } else {
-                            if (e instanceof IArea5e) {
-                                for (ICom5t e2 : ((IArea5e) e).childs()) {
-                                    if (e2.owner().layout() == Layout.HORIZ && (e2.type() == Type.AREA || e2.type() == Type.STVORKA)) {
-                                        ((IArea5e) e2).resizeY(k * e2.lengthY()); //рекурсия изменения детей
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка: ICom5t.lengthY() " + e);
-        }
-    }
     
     @Override
     public void resizeX(float v) {

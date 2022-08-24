@@ -31,8 +31,6 @@ public interface IArea5e extends ICom5t {
 
     void resizeX(float v);
 
-    void resizeX2(float v);
-
     void resizeY(float v);
 
     Type type();
