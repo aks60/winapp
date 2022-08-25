@@ -65,7 +65,7 @@ public class Com5t implements ICom5t {
     public Wincalc winc() {
         return winc;
     }
-    
+
     @Override
     public GsonElem gson() {
         return gson;
@@ -120,11 +120,12 @@ public class Com5t implements ICom5t {
     public Record artiklRec() {
         return artiklRec;
     }
+
     @Override
     public void artiklRec(Record record) {
         this.artiklRec = record;
     }
-    
+
     @Override
     public Record artiklRecAn() {
         return artiklRecAn;
@@ -134,7 +135,7 @@ public class Com5t implements ICom5t {
     public void artiklRecAn(Record record) {
         this.artiklRecAn = record;
     }
-    
+
     //Длина компонента
     @Override
     public float length() {
@@ -231,7 +232,7 @@ public class Com5t implements ICom5t {
         return ((X2 >= X) && (Y2 >= Y));
     }
 
-    // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
+// <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
 //    public boolean inside2(float x, float y) {
 //        int X = (int) x, Y = (int) y;
 //        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
@@ -250,8 +251,7 @@ public class Com5t implements ICom5t {
 //        }
 //        return result;
 //    } 
-    // </editor-fold> 
-    
+    // </editor-fold>     
     @Override
     public void paint() {
     }
