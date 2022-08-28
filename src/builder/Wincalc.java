@@ -111,7 +111,7 @@ public class Wincalc {
 
             rootArea.joining(); //соединения ареа
             listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
-            listElem.forEach(it -> it.setSpecific()); //спецификация ведущих элементов конструкции
+            listElem.forEach(el -> el.setSpecific()); //спецификация ведущих элементов конструкции
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);
