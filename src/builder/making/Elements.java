@@ -77,8 +77,8 @@ public class Elements extends Cal5e {
                     setVariant.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
-
                     List<Record> elemdetList = eElemdet.find(element_id); //список элем. детализации
+                    
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
