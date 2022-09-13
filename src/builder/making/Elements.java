@@ -82,7 +82,6 @@ public class Elements extends Cal5e {
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
-                        int elemdet_id = elemdetRec.getInt(eElemdet.id);
 
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
                         if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
