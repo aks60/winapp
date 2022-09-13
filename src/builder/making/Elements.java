@@ -78,8 +78,8 @@ public class Elements extends Cal5e {
 
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
 
+                    List<Record> elemdetList = eElemdet.find(element_id); //список элем. детализации
                     //Цикл по детализации
-                    List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
