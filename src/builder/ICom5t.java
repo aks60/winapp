@@ -11,6 +11,26 @@ public interface ICom5t {
 
     int TRANSLATE_XY = 2; //сдвиг графика
 
+    default float id() {
+        return 0f;
+    }
+
+    default IArea5e owner() {
+        return null;
+    }
+
+    default IArea5e root() {
+        return null;
+    }
+
+    default GsonElem gson() {
+        return null;
+    }
+
+    default Wincalc winc() {
+        return null;
+    }
+
     default int colorID1() {
         return -1;
     }
@@ -23,37 +43,11 @@ public interface ICom5t {
         return -1;
     }
 
-    default Float height() {
-        return 0f;
-    }
-
-    default float id() {
-        return 0f;
-    }
-
-    default IArea5e owner() {
-        return null;
-    }
-    
-    default Wincalc winc() {
-        return null;
-    }
-    
-    //Точка попадает в контур четырёхугольника
-    default boolean inside(float x, float y) {
-        return false;
-    }
-
-    default boolean isJson(JsonObject jso, String key) {
-        return false;
-    }
-
-    default boolean isJson(JsonObject jso) {
-        return false;
-    }
-
     default Layout layout() {
         return null;
+    }
+
+    default void layout(Layout x) {
     }
 
     default Record sysprofRec() {
@@ -62,37 +56,19 @@ public interface ICom5t {
 
     default void sysprofRec(Record record) {
     }
-    
+
     default Record artiklRec() {
         return null;
     }
-    
+
     default void artiklRec(Record record) {
     }
-    
+
     default Record artiklRecAn() {
         return null;
     }
-    
+
     default void artiklRecAn(Record record) {
-    }
-    
-    default void layout(Layout x) {
-    }
-
-    //Длина компонента
-    default float length() {
-        return 0f;
-    }
-
-    //Ширина в gson
-    default float lengthX() {
-        return 0f;
-    }
-
-    //Высота в gson
-    default float lengthY() {
-        return 0f;
     }
 
     // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику">
@@ -118,14 +94,6 @@ public interface ICom5t {
     default void paint() {
     }
 
-    default IArea5e root() {
-        return null;
-    }
-
-    default GsonElem gson() {
-        return null;
-    }
-
     default void setDimension(float x1, float y1, float x2, float y2) {
     }
 
@@ -133,7 +101,18 @@ public interface ICom5t {
         return null;
     }
 
+    //Высота компонента
+    default Float height() {
+        return 0f;
+    }
+
+    //Ширина компонента
     default Float width() {
+        return 0f;
+    }
+
+    //Длина компонента
+    default float length() {
         return 0f;
     }
 
@@ -152,4 +131,28 @@ public interface ICom5t {
     default float y2() {
         return 0f;
     }
+
+    //Ширина в gson
+    default float lengthX() {
+        return 0f;
+    }
+
+    //Высота в gson
+    default float lengthY() {
+        return 0f;
+    }
+    
+    //Точка попадает в контур четырёхугольника
+    default boolean inside(float x, float y) {
+        return false;
+    }
+
+    default boolean isJson(JsonObject jso, String key) {
+        return false;
+    }
+
+    default boolean isJson(JsonObject jso) {
+        return false;
+    }
+    
 }
