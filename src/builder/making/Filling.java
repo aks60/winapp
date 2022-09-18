@@ -65,16 +65,14 @@ public class Filling extends Cal5e {
             //Цикл по сторонам стеклопакета
             for (int side = 0; side < 4; ++side) {
                 IElem5e elemFrame = elemFrameList.get(side);
-                elemGlass.anglHoriz(elemGlass.sideHoriz()[side]); //проверяемая сторона стеклопакета в цикле
+                elemGlass.anglHoriz(elemGlass.sideHoriz()[side]); //устан. угол. проверяемой стороны
 
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
                     if (UCom.containsNumbJust(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
 
-                        List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec().getFloat(eArtikl.depth));
-                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-
                         //Цикл по профилям в группах заполнений
+                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
                         for (Record glasprofRec : glasprofList) {
                             if (elemFrame.artiklRecAn().getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                 if (List.of(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
@@ -86,6 +84,7 @@ public class Filling extends Cal5e {
                                         elemGlass.gsize()[side] = glasprofRec.getFloat(eGlasprof.gsize);
 
                                         if (shortPass == false) {
+                                            List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec().getFloat(eArtikl.depth));
                                             detail(elemGlass, glasgrpRec, glasdetList);
                                         }
                                     }
@@ -124,7 +123,6 @@ public class Filling extends Cal5e {
                     }
                 }
             }
-            //}
         } catch (Exception e) {
             System.err.println("Ошибка:Filling.detail() " + e);
         }
