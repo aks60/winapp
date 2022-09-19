@@ -203,7 +203,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     @Override
-    //Угловые и прилегающие соединения соединения
+    //Угловые и прилегающие соединения
     public void joining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
@@ -228,12 +228,12 @@ public class AreaStvorka extends AreaSimple {
         //Прилегающее нижнее
         IElem5e frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames().get(Layout.BOTT);
         ElemJoining.create(stvBott.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0);
-        //Прилегающее верхнее 
-        IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
-        ElemJoining.create(stvTop.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
         ElemJoining.create(stvLeft.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0);
+        //Прилегающее верхнее 
+        IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
+        ElemJoining.create(stvTop.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);        
         //Прилегающее правое
         IElem5e frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames().get(Layout.RIGHT);
         ElemJoining.create(stvRight.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
