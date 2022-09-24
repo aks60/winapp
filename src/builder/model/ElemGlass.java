@@ -258,15 +258,28 @@ public class ElemGlass extends ElemSimple {
                     (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (owner.type() == Type.TRAPEZE) {
-            if (winc.form == Form.RIGHT) {
-                winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) y2, (int) y2, (int) y2}, 4);
-//                winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                        new int[]{(int) y1, (int) y2, (int) y2, (int) y2}, 4);
-            } else if (winc.form == Form.LEFT) {
-                winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
+            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
+
+            if (insideBott.type() == Type.FRAME_SIDE && insideRight.type() == Type.FRAME_SIDE
+                    && insideTop.type() == Type.FRAME_SIDE && insideLeft.type() == Type.FRAME_SIDE) {
+
+                if (winc.form == Form.RIGHT) {
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) (winc.height1() - winc.height2()), (int) y2, (int) y2}, 4);
+                } else if (winc.form == Form.LEFT) {
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) (winc.height2() - winc.height1()), (int) y2, (int) y1, (int) y1}, 4);
+                }
+            } else {
+                if (winc.form == Form.RIGHT) {
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) y2, (int) y2, (int) y2}, 4);
+                } else if (winc.form == Form.LEFT) {
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
+                }
             }
+
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);

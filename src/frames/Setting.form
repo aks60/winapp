@@ -188,9 +188,6 @@
                         <EtchetBorder bevelType="0"/>
                       </Border>
                     </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[44, 20]"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="spinner2">
@@ -240,7 +237,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="&#x41e;&#x444;&#x438;&#x441;">
+                <TitledBorder title="&#x41e;&#x444;&#x438;&#x441; ">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
                   </Border>
@@ -448,7 +445,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="&#x421;&#x435;&#x440;&#x432;&#x435;&#x440; &#x43e;&#x431;&#x43d;&#x43e;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x439;">
+                <TitledBorder title="&#x421;&#x435;&#x440;&#x432;&#x435;&#x440; &#x43e;&#x431;&#x43d;&#x43e;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x439; ">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
                   </Border>
@@ -593,7 +590,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="&#x412;&#x435;&#x440;&#x441;&#x438;&#x44f; &#x43f;&#x440;&#x43e;&#x433;&#x440;&#x430;&#x43c;&#x43c;&#x44b;">
+                <TitledBorder title="&#x412;&#x435;&#x440;&#x441;&#x438;&#x44f; &#x43f;&#x440;&#x43e;&#x433;&#x440;&#x430;&#x43c;&#x43c;&#x44b; ">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
                   </Border>
