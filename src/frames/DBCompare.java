@@ -570,13 +570,13 @@ public class DBCompare extends javax.swing.JFrame {
                     iwinTotal = iwinTotal + val1;
                 }
                 if (hmDbSa.isEmpty() == false) {
-                    System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
+                    System.out.printf("%-32s%-20s", new Object[]{"Artikl", "Value"});
                 }
                 System.out.println();
                 for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
-                    System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
+                    System.out.printf("%-32s%-16.2f", "Лишние: " + key, value3);
                     System.out.println();
                     jarTotal = jarTotal + value3;
                 }
@@ -649,13 +649,13 @@ public class DBCompare extends javax.swing.JFrame {
                     iwinTotal = iwinTotal + val1;
                 }
                 if (hmDbSa.isEmpty() == false) {
-                    System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
+                    System.out.printf("%-32s%-20s", new Object[]{"Artikl", "Value"});
                 }
                 System.out.println();
                 for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
-                    System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
+                    System.out.printf("%-32s%-16.2f", "Лишние: " + key, value3);
                     System.out.println();
                     jarTotal = jarTotal + value3;
                 }
