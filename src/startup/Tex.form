@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonLookAndFiilGroup">
+    <Component class="javax.swing.ButtonGroup" name="buttonLookAndFeelGroup">
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonBaseGroup1">
     </Component>

@@ -227,7 +227,8 @@ public enum App {
 
             } else if (profile.equals(eProfile.P02)) {
                 Top.frame = new Tex();
-                if (System.getProperty("os.name").equals("Windows 10") == true) {
+                if (System.getProperty("os.name").equals("Windows 10") == true
+                        || System.getProperty("os.name").equals("Windows 11") == true) {
                     Top.frame.setPreferredSize(new java.awt.Dimension(800, 94));
                     Top.frame.setMinimumSize(new java.awt.Dimension(800, 94));
                 } else if (System.getProperty("os.name").equals("Windows 7") == true) {
@@ -237,6 +238,14 @@ public enum App {
 
             } else {
                 Top.frame = new Man();
+                if (System.getProperty("os.name").equals("Windows 10") == true
+                        || System.getProperty("os.name").equals("Windows 11") == true) {
+                    Top.frame.setPreferredSize(new java.awt.Dimension(800, 98));
+                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 98));
+                } else if (System.getProperty("os.name").equals("Windows 7") == true) {
+                    Top.frame.setPreferredSize(new java.awt.Dimension(800, 84));
+                    Top.frame.setMinimumSize(new java.awt.Dimension(800, 84));
+                }
             }
             Top.frame.setName(profile.name());
             if (profile.equals(eProfile.P01)) {

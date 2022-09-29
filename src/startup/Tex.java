@@ -87,7 +87,7 @@ public class Tex extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
+        buttonLookAndFeelGroup = new javax.swing.ButtonGroup();
         buttonBaseGroup1 = new javax.swing.ButtonGroup();
         buttonBaseGroup2 = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
@@ -1216,7 +1216,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonBaseGroup1;
     private javax.swing.ButtonGroup buttonBaseGroup2;
-    private javax.swing.ButtonGroup buttonLookAndFiilGroup;
+    private javax.swing.ButtonGroup buttonLookAndFeelGroup;
     private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
@@ -1276,7 +1276,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
-            buttonLookAndFiilGroup.add(mnIt);
+            buttonLookAndFeelGroup.add(mnIt);
             hmLookAndFill.put(laf.getName(), mnIt);
             mn62.add(mnIt);
             mnIt.setFont(frames.UGui.getFont(1, 1));

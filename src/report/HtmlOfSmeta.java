@@ -129,9 +129,9 @@ public class HtmlOfSmeta {
                 tdList.get(10).text(df2.format(winc.square()));
                 tdList.get(12).text(df2.format(winc.weight()));
                 tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-                tdList.get(16).text(df1.format(winc.price() / winc.square()));
+                //tdList.get(16).text(df1.format(winc.price() / winc.square()));
+                tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
                 total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
-                System.out.println(total);
             }
 
             //СЕКЦИЯ №2
