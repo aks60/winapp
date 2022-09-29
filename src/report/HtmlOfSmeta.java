@@ -42,7 +42,26 @@ public class HtmlOfSmeta {
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
     public static void smeta1(Record projectRec) {
+        try {
+            URL path = HtmlOfSmeta.class.getResource("/resource/report/Smeta1.html");
+            File input = new File(path.toURI());
+            Document doc = Jsoup.parse(input, "utf-8");
 
+            //Заполним отчёт
+            load1(projectRec, doc);
+
+            String str = doc.html();
+            HtmlOfTable.write(str);
+            ExecuteCmd.documentType(null);
+
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
+            System.err.println("Ошибка1:HtmlOfSmeta.smeta1()" + e);
+        } catch (URISyntaxException e) {
+            System.err.println("Ошибка2:HtmlOfSmeta.smeta1()" + e);
+        } catch (Exception e) {
+            System.err.println("Ошибка3:HtmlOfSmeta.smeta1()" + e);
+        }
     }
 
     public static void smeta2(Record projectRec) {
@@ -52,7 +71,7 @@ public class HtmlOfSmeta {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            load(projectRec, doc);
+            load2(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
@@ -68,7 +87,71 @@ public class HtmlOfSmeta {
         }
     }
 
-    private static void load(Record projectRec, Document doc) {
+    private static void load1(Record projectRec, Document doc) {
+        int length = 400;
+        float total = 0f;
+        try {
+            Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
+            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
+            List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
+            List<Record> prjkitAll = new ArrayList();
+
+            doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+
+            //СЕКЦИЯ №2
+            Element div2 = doc.getElementById("div2");
+            String template2 = div2.html();
+            List<Wincalc> wincList = wincList(prjprodList, length);
+
+            for (int i = 1; i < prjprodList.size(); i++) {
+                div2.append(template2);
+            }
+            Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
+
+//            //Цыкл по изделиям
+//            for (int i = 0; i < prjprodList.size(); i++) {
+//
+//                Elements tdList = tab2List.get(i).getElementsByTag("td");
+//                Wincalc winc = wincList.get(i);
+//                Record prjprodRec = prjprodList.get(i);
+//                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+//                prjkitAll.addAll(prjkitList);
+//
+//                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+//                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
+//                captions2.get(0).text("Изделие № " + (i + 1));
+//                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
+//                tdList.get(4).text(winc.width() + "x" + winc.height());
+//                tdList.get(6).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
+//                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
+//                        + eColor.find(winc.colorID3).getStr(eColor.name));
+//                tdList.get(8).text(prjprodRec.getStr(ePrjprod.num));
+//                tdList.get(10).text(df2.format(winc.square()));
+//                tdList.get(12).text(df2.format(winc.weight()));
+//                tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
+//                tdList.get(16).text(df1.format(winc.price() / winc.square()));
+//                tdList.get(18).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+//
+//                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+//            }
+
+            //СЕКЦИЯ №2
+//            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
+//            trList.get(0).getElementsByTag("td").get(1).text("999");
+//            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
+//            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+
+            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
+            for (int i = 0; i < imgList.size(); i++) {
+                Element get = imgList.get(i);
+                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:HtmlOfSmeta.load1()" + e);
+        }
+    }
+    
+    private static void load2(Record projectRec, Document doc) {
         int npp = 0, length = 400;
         float total = 0f;
         try {
@@ -225,7 +308,7 @@ public class HtmlOfSmeta {
                 get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:HtmlOfSmeta.load()" + e);
+            System.err.println("Ошибка:HtmlOfSmeta.load2()" + e);
         }
     }
 
