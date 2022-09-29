@@ -108,38 +108,37 @@ public class HtmlOfSmeta {
             }
             Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
 
-//            //Цыкл по изделиям
-//            for (int i = 0; i < prjprodList.size(); i++) {
-//
-//                Elements tdList = tab2List.get(i).getElementsByTag("td");
-//                Wincalc winc = wincList.get(i);
-//                Record prjprodRec = prjprodList.get(i);
-//                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
-//                prjkitAll.addAll(prjkitList);
-//
-//                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-//                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
-//                captions2.get(0).text("Изделие № " + (i + 1));
-//                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
-//                tdList.get(4).text(winc.width() + "x" + winc.height());
-//                tdList.get(6).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
-//                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
-//                        + eColor.find(winc.colorID3).getStr(eColor.name));
-//                tdList.get(8).text(prjprodRec.getStr(ePrjprod.num));
-//                tdList.get(10).text(df2.format(winc.square()));
-//                tdList.get(12).text(df2.format(winc.weight()));
-//                tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-//                tdList.get(16).text(df1.format(winc.price() / winc.square()));
-//                tdList.get(18).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
-//
-//                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
-//            }
+            //Цыкл по изделиям
+            for (int i = 0; i < prjprodList.size(); i++) {
+
+                Elements tdList = tab2List.get(i).getElementsByTag("td");
+                Wincalc winc = wincList.get(i);
+                Record prjprodRec = prjprodList.get(i);
+                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                prjkitAll.addAll(prjkitList);
+
+                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
+                captions2.get(0).text("Изделие № " + (i + 1));
+                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
+                tdList.get(4).text(winc.width() + "x" + winc.height());
+                tdList.get(6).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
+                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
+                        + eColor.find(winc.colorID3).getStr(eColor.name));
+                tdList.get(8).text(prjprodRec.getStr(ePrjprod.num));
+                tdList.get(10).text(df2.format(winc.square()));
+                tdList.get(12).text(df2.format(winc.weight()));
+                tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
+                tdList.get(16).text(df1.format(winc.price() / winc.square()));
+                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                System.out.println(total);
+            }
 
             //СЕКЦИЯ №2
-//            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-//            trList.get(0).getElementsByTag("td").get(1).text("999");
-//            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
-//            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
+            //trList.get(0).getElementsByTag("td").get(1).text("999");
+            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
+            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
             for (int i = 0; i < imgList.size(); i++) {

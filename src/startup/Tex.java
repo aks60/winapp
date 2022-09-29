@@ -793,6 +793,7 @@ public class Tex extends javax.swing.JFrame {
         mn07.setLabel(" Заказы");
         mn07.setPreferredSize(new java.awt.Dimension(67, 19));
 
+        mn71.setFont(frames.UGui.getFont(1,1));
         mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn71.setText("Контрагенты");
         mn71.addActionListener(new java.awt.event.ActionListener() {
@@ -802,6 +803,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn07.add(mn71);
 
+        mn72.setFont(frames.UGui.getFont(1,1));
         mn72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn72.setText("Заказы");
         mn72.addActionListener(new java.awt.event.ActionListener() {
@@ -812,6 +814,7 @@ public class Tex extends javax.swing.JFrame {
         mn07.add(mn72);
         mn07.add(mn74);
 
+        mn73.setFont(frames.UGui.getFont(1,1));
         mn73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn73.setText("Дилер");
         mn73.addActionListener(new java.awt.event.ActionListener() {

@@ -88,10 +88,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(506642, true)); //508945,508916
+            winc.build(builder.script.Winscript.test(601004, true)); //508945,508916
             new Joining(winc, true);
             winc.constructiv(true);
             winc.rootArea.draw(); //рисую конструкцию
@@ -107,8 +107,8 @@ public class Test {
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
-                    DBCompare.iwinXls(winc, false);
-                    //DBCompare.iwinPs4(winc, false);
+                    //DBCompare.iwinXls(winc, false);
+                    DBCompare.iwinPs4(winc, false);
                 }
             }
 
