@@ -170,7 +170,7 @@ public class Tex extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
-        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d064.png")).getImage()));
+        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(800, 80));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
