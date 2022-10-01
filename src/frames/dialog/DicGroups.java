@@ -254,7 +254,10 @@ public class DicGroups extends javax.swing.JDialog {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
+                tabMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -290,10 +293,10 @@ public class DicGroups extends javax.swing.JDialog {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2mouse2Clicked(evt);
+                tabMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2MousePressed(evt);
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -322,6 +325,14 @@ public class DicGroups extends javax.swing.JDialog {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -348,6 +359,14 @@ public class DicGroups extends javax.swing.JDialog {
         ));
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr4.setViewportView(tab4);
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
@@ -389,15 +408,15 @@ public class DicGroups extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemove
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_tab1MouseClicked
+    }//GEN-LAST:event_tabMouseClicked
 
     private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
 
-        JTable table = Stream.of(tab1, tab2, tab2, tab3).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        JTable table = Stream.of(tab1, tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) table.getRowSorter();
         if (txtFilter.getText().length() == 0) {
             sorter.setRowFilter(null);
@@ -407,20 +426,14 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtFilterCaretUpdate
 
-    private void tab2mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2mouse2Clicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab2mouse2Clicked
-
-    private void tab2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MousePressed
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
         }
-    }//GEN-LAST:event_tab2MousePressed
+    }//GEN-LAST:event_tabMousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
