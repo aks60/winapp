@@ -39,7 +39,7 @@ public class Specific {
     public float count = 1;  //Кол. единиц
 
     public int unit = 0;  //Ед.изм   
-    public float wastePrc = 0;  //Процент отхода    
+    public float wastePrc = 0;  //Процент отхода см. eArtikl.otx_norm    
     public float quant1 = 0;  //Количество без отхода
     public float quant2 = 0;  //Количество с отходом
     public float costpric1 = 0;  //Себест. за ед. без отхода     

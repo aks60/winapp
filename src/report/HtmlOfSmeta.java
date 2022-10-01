@@ -108,7 +108,7 @@ public class HtmlOfSmeta {
             }
             Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
 
-            //Цыкл по изделиям
+            //Цикл по изделиям
             for (int i = 0; i < prjprodList.size(); i++) {
 
                 Elements tdList = tab2List.get(i).getElementsByTag("td");
@@ -191,7 +191,7 @@ public class HtmlOfSmeta {
             Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
             Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
 
-            //Цыкл по изделиям
+            //Цикл по изделиям
             for (int i = 0; i < prjprodList.size(); i++) {
 
                 Elements tdList = tab2List.get(i).getElementsByTag("td");
@@ -231,7 +231,7 @@ public class HtmlOfSmeta {
                         tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
                     }
 
-                    //Цыкл по строкам комплектации
+                    //Цикл по строкам комплектации
                     for (int k = 0; k < prjkitList.size(); k++) {
 
                         Record prjkitRec = prjkitList.get(k);

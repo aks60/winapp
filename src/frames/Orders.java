@@ -3128,7 +3128,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     //Пересчёт заказа
                     if (UGui.getIndexRec(tab1) != -1) {
 
-                        //Цыкл по конструкциям
+                        //Цикл по конструкциям
                         for (Record prjprodRec : qPrjprod) {
                             Object w = prjprodRec.get(ePrjprod.values().length);
                             if (w instanceof Wincalc) {

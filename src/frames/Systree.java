@@ -140,11 +140,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     public final void loadingData() {
         //Получим сохр. ID системы при выходе из программы
+        Record sysprodRec = null;
         if (this.systreeID == null && "-1".equals(eProp.sysprodID.read()) != true) {
-            Record sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
+            sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
+        }
+        if(sysprodRec != null) {
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
         } else {
-            Record sysprodRec = eSysprod.query().get(0);
+            sysprodRec = eSysprod.query().get(0);
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
         qSystree.select(eSystree.up, "order by id");
