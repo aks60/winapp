@@ -3176,10 +3176,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         txt8.setText(df1.format(projectRec.getFloat(eProject.square) / 1000000)); //площадь
 
                         //Стоимость
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2); //стоимость без скидки
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3); //стоимость со скидкой
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price3)), 1, 2); //стоимость без скидки
-                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost3)), 1, 3); //стоимость со скидкой
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price2)), 0, 2); //стоимость конструкций без скидки
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost2)), 0, 3); //стоимость конструкций со скидкой
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price3)), 1, 2); //стоимость комплектации без скидки
+                        tab5.setValueAt(df1.format(projectRec.getFloat(eProject.cost3)), 1, 3); //стоимость комплектации со скидкой
 
                         //Итого
                         tab5.setValueAt(df1.format(projectRec.getFloat(eProject.price4)), 2, 2); //итого стоимость без скидки
