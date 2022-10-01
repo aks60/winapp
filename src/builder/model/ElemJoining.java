@@ -30,9 +30,11 @@ public class ElemJoining {
     public float angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
-    public static void create(String point, Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, float angl) {
+    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, float angl) {
         if (elem1 != null && elem2 != null) {
-            winc.mapJoin.put(point, new ElemJoining(winc, type, layout, elem1, elem2, angl));
+            return new ElemJoining(winc, type, layout, elem1, elem2, angl);
+        } else {
+           return null;
         }
     }
 
@@ -84,7 +86,7 @@ public class ElemJoining {
             spcAdd.count = UMod.get_11070_12070_33078_34078(spcAdd); //ставить однократно
 
             elem1.spcRec().spcList.add(spcAdd);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:ElemJoinning.addSpecific() " + e);
         }
