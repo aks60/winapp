@@ -105,11 +105,12 @@ public class Tariffic extends Cal5e {
                 Record artgrp1Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.artgrp1_id));
                 Record artgrp2Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.artgrp2_id));
                 float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                float k2 = artgrp2Rec.getFloat(eGroups.val, 1);  //скидки группы мат.ценностей
+                float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                 float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
                 elem5e.spcRec().price = elem5e.spcRec().costpric2 * k1 * k3;
                 elem5e.spcRec().price = elem5e.spcRec().price + (elem5e.spcRec().price / 100) * percentMarkup; //стоимость без скидки                     
-                elem5e.spcRec().cost2 = elem5e.spcRec().price; //базовая стоимость со скидкой 
+                //elem5e.spcRec().cost2 = elem5e.spcRec().price; //стоимость со скидкой 
+                elem5e.spcRec().cost2 = elem5e.spcRec().price - (elem5e.spcRec().price / 100) * k2; //стоимость со скидкой 
 
                 //Правила расчёта вложенные
                 for (Specific spc : elem5e.spcRec().spcList) {
@@ -125,11 +126,12 @@ public class Tariffic extends Cal5e {
                     Record artgrp1bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
                     Record artgrp2bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
                     float m1 = artgrp1bRec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                    float m2 = artgrp2bRec.getFloat(eGroups.val, 1);  //скидки группы мат.ценностей
+                    float m2 = artgrp2bRec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                     float m3 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
                     spc.price = spc.costpric2 * m1 * m3;
                     spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                        
-                    spc.cost2 = spc.price; //базовая стоимость со скидкой 
+                    //spc.cost2 = spc.price; //стоимость со скидкой 
+                    spc.cost2 = spc.price - (spc.price / 100) * m2; //стоимость со скидкой 
                 }
 
             }
@@ -186,9 +188,10 @@ public class Tariffic extends Cal5e {
                 Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
                 Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
                 float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                float k2 = artgrp2Rec.getFloat(eGroups.val, 1);  //скидки группы мат.ценностей
+                float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                 spc.price = spc.costpric2 * k1; //стоимость без скидки                     
-                spc.cost2 = spc.price; //базовая стоимость со скидкой   
+                //spc.cost2 = spc.price; //стоимость со скидкой   
+                spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой   
             }
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
@@ -233,11 +236,13 @@ public class Tariffic extends Cal5e {
                     spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
                     spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
                     Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
-                    float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //коэф. группы текстур
-                    float k2 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
-                    spc.price = spc.costpric2 * k1 * k2;
+                    Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
+                    float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
+                    float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
+                    float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
+                    spc.price = spc.costpric2 * k1 * k3;
                     spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
-                    spc.cost2 = spc.price; //базовая стоимость со скидкой   
+                    spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой   
                     System.out.println(spc.cost2);
                 }
             }

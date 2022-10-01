@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JToggleButton;
 import common.listener.ListenerRecord;
+import java.util.List;
 
 public class DicGroups extends javax.swing.JDialog {
 
@@ -291,6 +292,9 @@ public class DicGroups extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab2mouse2Clicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab2MousePressed(evt);
+            }
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
@@ -408,6 +412,15 @@ public class DicGroups extends javax.swing.JDialog {
             btnChoice(null);
         }
     }//GEN-LAST:event_tab2mouse2Clicked
+
+    private void tab2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MousePressed
+        JTable table = (JTable) evt.getSource();
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tab2MousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
