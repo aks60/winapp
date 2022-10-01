@@ -2177,15 +2177,15 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "Мин.себест.", "ID"
+                "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2218,8 +2218,7 @@ public class Artikles extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(11).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(12).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(11).setMaxWidth(40);
         }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);

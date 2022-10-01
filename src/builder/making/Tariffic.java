@@ -109,7 +109,6 @@ public class Tariffic extends Cal5e {
                 float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
                 elem5e.spcRec().price = elem5e.spcRec().costpric2 * k1 * k3;
                 elem5e.spcRec().price = elem5e.spcRec().price + (elem5e.spcRec().price / 100) * percentMarkup; //стоимость без скидки                     
-                //elem5e.spcRec().cost2 = elem5e.spcRec().price; //стоимость со скидкой 
                 elem5e.spcRec().cost2 = elem5e.spcRec().price - (elem5e.spcRec().price / 100) * k2; //стоимость со скидкой 
 
                 //Правила расчёта вложенные
@@ -129,8 +128,7 @@ public class Tariffic extends Cal5e {
                     float m2 = artgrp2bRec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                     float m3 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
                     spc.price = spc.costpric2 * m1 * m3;
-                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                        
-                    //spc.cost2 = spc.price; //стоимость со скидкой 
+                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                         
                     spc.cost2 = spc.price - (spc.price / 100) * m2; //стоимость со скидкой 
                 }
 
@@ -424,6 +422,9 @@ public class Tariffic extends Cal5e {
     private static float percentMarkup(Wincalc winc) {
         if (Type.ARCH == winc.rootArea.type()) {
             return eGroups.find(2101).getFloat(eGroups.val);
+            
+        } else if(Type.RECTANGL != winc.rootArea.type()) {
+            return eGroups.find(2104).getFloat(eGroups.val);
         }
         return 0;
     }
