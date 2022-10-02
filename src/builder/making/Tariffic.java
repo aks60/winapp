@@ -188,8 +188,7 @@ public class Tariffic extends Cal5e {
                 Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
                 float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                 float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
-                spc.price = spc.costpric2 * k1; //стоимость без скидки                     
-                //spc.cost2 = spc.price; //стоимость со скидкой   
+                spc.price = spc.costpric2 * k1; //стоимость без скидки                       
                 spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой   
             }
         } catch (Exception e) {
@@ -241,8 +240,7 @@ public class Tariffic extends Cal5e {
                     float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
                     spc.price = spc.costpric2 * k1 * k3;
                     spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
-                    spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой   
-                    System.out.println(spc.cost2);
+                    spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой 
                 }
             }
         } catch (Exception e) {

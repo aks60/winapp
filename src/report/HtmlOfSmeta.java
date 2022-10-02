@@ -90,6 +90,7 @@ public class HtmlOfSmeta {
     private static void load1(Record projectRec, Document doc) {
         int length = 400;
         float total = 0f;
+        float square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -113,6 +114,7 @@ public class HtmlOfSmeta {
 
                 Elements tdList = tab2List.get(i).getElementsByTag("td");
                 Wincalc winc = wincList.get(i);
+                square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
                 List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
@@ -129,16 +131,15 @@ public class HtmlOfSmeta {
                 tdList.get(10).text(df2.format(winc.square()));
                 tdList.get(12).text(df2.format(winc.weight()));
                 tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-                //tdList.get(16).text(df1.format(winc.price() / winc.square()));
                 tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
                 total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
             }
 
             //СЕКЦИЯ №2
             Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-            //trList.get(0).getElementsByTag("td").get(1).text("999");
             trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
             trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
             for (int i = 0; i < imgList.size(); i++) {
@@ -151,8 +152,9 @@ public class HtmlOfSmeta {
     }
     
     private static void load2(Record projectRec, Document doc) {
-        int npp = 0, length = 400;
+        int length = 400;
         float total = 0f;
+        float square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -196,6 +198,7 @@ public class HtmlOfSmeta {
 
                 Elements tdList = tab2List.get(i).getElementsByTag("td");
                 Wincalc winc = wincList.get(i);
+                square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
                 List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
@@ -300,6 +303,7 @@ public class HtmlOfSmeta {
             Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
             trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
             trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
             for (int i = 0; i < imgList.size(); i++) {

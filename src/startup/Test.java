@@ -88,10 +88,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(601004, true)); //508945,508916
+            winc.build(builder.script.Winscript.test(601001, true)); //508945,508916
             new Joining(winc, true);
             winc.constructiv(true);
             winc.rootArea.draw(); //рисую конструкцию
