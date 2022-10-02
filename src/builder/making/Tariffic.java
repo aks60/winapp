@@ -330,13 +330,13 @@ public class Tariffic extends Cal5e {
                     artdetUsed = true;
                 }
             }
-            //Проверка минимального тарифа
-            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0
+            //Проверка минимального тарифа (Непонятная проверка)
+            /*if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0
                     && specificRec.quant1 != 0 && artdetPrice
                     * specificRec.quant1 < artdetRec.getFloat(eArtdet.cost_min)) {
 
                 artdetPrice = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;
-            }
+            }*/
             if (artdetUsed) { //если было попадание
                 inPrice = inPrice + (artdetPrice
                         * artdetRec.getFloat(eArtdet.coef)); //kоэф. текстуры уникальн. арт.
