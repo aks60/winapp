@@ -44,7 +44,7 @@ public class Tariffic extends Cal5e {
             super.calc();
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
 
-            //Расчёт себес-сти за ед.изм.
+            //Расчёт себес-сти за ед.изм. и колич. материала
             //Цикл по эдементам конструкции
             for (IElem5e elem5e : winc.listElem) {
 
@@ -68,6 +68,7 @@ public class Tariffic extends Cal5e {
                 }
             }
 
+            //Расчёт стоимости
             //Цикл по эдементам конструкции
             for (IElem5e elem5e : winc.listElem) {
 
@@ -197,7 +198,7 @@ public class Tariffic extends Cal5e {
         return kitsSpec;
     }
 
-    //Комплекты конструкции
+    //Тарификация комплектов
     public void calc(Record projectRec, Record prjprodRec) {
         try {
             Record systreeRec = eSystree.find(winc.nuni);
