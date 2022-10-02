@@ -123,6 +123,23 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         loadingModel();
         listenerAdd();
         loadingTab1();
+        
+        tab5.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                lab.setBackground(new java.awt.Color(212, 208, 200));
+                return lab;
+            }
+        });        
+        tab5.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                lab.setBackground(new java.awt.Color(212, 208, 200));
+                return lab;
+            }
+        });        
     }
 
     private void loadingData() {
@@ -3586,7 +3603,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         });
-
 //        DefaultTableCellRenderer tr = (DefaultTableCellRenderer) tab5.getColumnModel().getColumn(1).getCellRenderer();
 //        tr.setHorizontalAlignment(JLabel.CENTER);
 //        tab5.getColumnModel().getColumn(1).setCellRenderer(tr);
