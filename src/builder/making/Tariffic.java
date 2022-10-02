@@ -267,7 +267,7 @@ public class Tariffic extends Cal5e {
 
             float artdetPrice = 0;
             boolean artdetUsed = false;
-            float k0 = specificRec.artiklRec.getFloat(eArtikl.coeff); //Коэффициент цены артикула
+            float k0 = specificRec.artiklRec.getFloat(eArtikl.coeff); //Ценовой коэффициент артикула
 
             //Если тариф двухсторонней текстуры не равен 0, и если
             //текстура1 равна текстура2 и заданный тариф применим
