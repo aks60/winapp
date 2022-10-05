@@ -743,8 +743,6 @@ public class Adm extends javax.swing.JFrame {
 
         btn10.setText("...");
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn10.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn10.setMinimumSize(new java.awt.Dimension(18, 18));
         btn10.setName("btnField17"); // NOI18N
         btn10.setPreferredSize(new java.awt.Dimension(18, 19));
         btn10.addActionListener(new java.awt.event.ActionListener() {

@@ -48,7 +48,7 @@ public class HtmlOfInvoice {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            //load1(projectRec, doc);
+            load1(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
@@ -97,55 +97,55 @@ public class HtmlOfInvoice {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
 
-            doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
-            //СЕКЦИЯ №2
-            Element div2 = doc.getElementById("div2");
-            String template2 = div2.html();
-            List<Wincalc> wincList = wincList(prjprodList, length);
-
-            for (int i = 1; i < prjprodList.size(); i++) {
-                div2.append(template2);
-            }
-            Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
-
-            //Цикл по изделиям
-            for (int i = 0; i < prjprodList.size(); i++) {
-
-                Elements tdList = tab2List.get(i).getElementsByTag("td");
-                Wincalc winc = wincList.get(i);
-                square = square + winc.width() * winc.height();
-                Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
-                prjkitAll.addAll(prjkitList);
-
-                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
-                captions2.get(0).text("Изделие № " + (i + 1));
-                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
-                tdList.get(4).text(winc.width() + "x" + winc.height());
-                tdList.get(6).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
-                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
-                        + eColor.find(winc.colorID3).getStr(eColor.name));
-                tdList.get(8).text(prjprodRec.getStr(ePrjprod.num));
-                tdList.get(10).text(df2.format(winc.square()));
-                tdList.get(12).text(df2.format(winc.weight()));
-                tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-                tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
-                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
-            }
-
-            //СЕКЦИЯ №2
-            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
-            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
-            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
-
-            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
-            for (int i = 0; i < imgList.size(); i++) {
-                Element get = imgList.get(i);
-                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
-            }
+//            //СЕКЦИЯ №2
+//            Element div2 = doc.getElementById("div2");
+//            String template2 = div2.html();
+//            List<Wincalc> wincList = wincList(prjprodList, length);
+//
+//            for (int i = 1; i < prjprodList.size(); i++) {
+//                div2.append(template2);
+//            }
+//            Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
+//
+//            //Цикл по изделиям
+//            for (int i = 0; i < prjprodList.size(); i++) {
+//
+//                Elements tdList = tab2List.get(i).getElementsByTag("td");
+//                Wincalc winc = wincList.get(i);
+//                square = square + winc.width() * winc.height();
+//                Record prjprodRec = prjprodList.get(i);
+//                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+//                prjkitAll.addAll(prjkitList);
+//
+//                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+//                Elements captions2 = tab2List.get(i).getElementsByTag("caption");
+//                captions2.get(0).text("Изделие № " + (i + 1));
+//                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
+//                tdList.get(4).text(winc.width() + "x" + winc.height());
+//                tdList.get(6).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
+//                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
+//                        + eColor.find(winc.colorID3).getStr(eColor.name));
+//                tdList.get(8).text(prjprodRec.getStr(ePrjprod.num));
+//                tdList.get(10).text(df2.format(winc.square()));
+//                tdList.get(12).text(df2.format(winc.weight()));
+//                tdList.get(14).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
+//                tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+//                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+//            }
+//
+//            //СЕКЦИЯ №2
+//            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
+//            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
+//            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+//            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
+//
+//            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
+//            for (int i = 0; i < imgList.size(); i++) {
+//                Element get = imgList.get(i);
+//                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
+//            }
         } catch (Exception e) {
             System.err.println("Ошибка:HtmlOfSmeta.load1()" + e);
         }
