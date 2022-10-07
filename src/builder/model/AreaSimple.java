@@ -307,6 +307,7 @@ public class AreaSimple extends Com5t implements IArea5e {
         LinkedList<IElem5e> elemList = UCom.listSortObj(winc.listElem, Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //T - соединения
+        //Цикл по кросс элементам
         for (IElem5e crosEl : crosList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (IElem5e elem5e : elemList) {

@@ -92,7 +92,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(508916, true)); //508945,508916
+            winc.build(builder.script.Winscript.test(506642, true)); //508945,508916
             new Joining(winc, true);
             winc.constructiv(true);
             winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);

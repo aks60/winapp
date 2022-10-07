@@ -31,7 +31,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     public float anglHoriz() {
         return anglHoriz;
     }
-    
+
     @Override
     public void anglHoriz(float angl) {
         this.anglHoriz = angl;
@@ -47,7 +47,6 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
         return anglFlat;
     }
 
-    
     @Override
     public float[] anglCut() {
         return anglCut;
@@ -101,9 +100,12 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     /**
-     * Прилегающие соединения элемента. Все элементы могут иметь прилегающие
-     * соединения. Прил. соед. используется для определения координат
+     * Получить элемент прилегающие соединения.
+     * Прил. соед. используется для определения координат
      * примыкаемого соединения. (см. )
+     *
+     * @param layoutSide - сторона прилегания
+     * @return - элемент прилегания
      */
     @Override
     public IElem5e joinFlat(Layout layoutSide) {
@@ -148,7 +150,8 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     /**
-     * Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
+     * Получить элемент углового соединения.
+     * @param side - Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег.артикл
      */
     @Override
     public IElem5e joinElem(int side) {
