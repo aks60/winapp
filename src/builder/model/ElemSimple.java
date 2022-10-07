@@ -52,7 +52,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
         return anglCut;
     }
 
-    //Клик мышки попадает в контур элемента
+    //Попадание клика мышки в контур элемента
     @Override
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - ICom5t.TRANSLATE_XY;
@@ -61,9 +61,13 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     /**
-     * Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка
-     * прилегающего вектора) В этих точках лежат мапы соединений см.
-     * Wincalc.mapJoin
+     * Точки соединения профилей (side 0-нач.вектора, 1-конец вектора, 2-точка
+     * прилегающего вектора) В этих точках лежат мапы соединений
+     * см.Wincalc.mapJoin
+     *
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * 2-прилег.артикл
+     * @return - координата соединения
      */
     @Override
     public String joinPoint(int side) {
@@ -100,9 +104,8 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     /**
-     * Получить элемент прилегающие соединения.
-     * Прил. соед. используется для определения координат
-     * примыкаемого соединения. (см. )
+     * Получить элемент прилегающие соединения. Прил. соед. используется для
+     * определения координат примыкаемого соединения. (см. )
      *
      * @param layoutSide - сторона прилегания
      * @return - элемент прилегания
@@ -150,8 +153,11 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     /**
-     * Получить элемент углового соединения.
-     * @param side - Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег.артикл
+     * Получить элемент соединения.
+     *
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * 2-прилег.артикл
+     * @return - элемент соединения
      */
     @Override
     public IElem5e joinElem(int side) {
