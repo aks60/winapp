@@ -12,8 +12,8 @@ public class AreaTriangl extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
-    @Override
     //Угловые соединения
+    @Override
     public void joining() {
 
         super.joining();

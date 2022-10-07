@@ -71,8 +71,8 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
+    //Главная спецификация    
     @Override
-    //Главная спецификация
     public void setSpecific() {
 
         spcRec.place = "ЗАП";
@@ -131,8 +131,8 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    @Override
     //Вложенная спецификация
+    @Override
     public void addSpecific(Specific spcAdd) {
         try {
             if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3])) {
@@ -262,10 +262,6 @@ public class ElemGlass extends ElemSimple {
                     insideTop = root().frames().get(Layout.TOP),
                     insideBott = joinFlat(Layout.BOTT),
                     insideRight = root().frames().get(Layout.RIGHT);
-
-            if (root() == owner) {
-                System.out.println("builder.model.ElemGlass.paint()");
-            }
 
             if (insideBott.type() == Type.FRAME_SIDE && insideRight.type() == Type.FRAME_SIDE
                     && insideTop.type() == Type.FRAME_SIDE && insideLeft.type() == Type.FRAME_SIDE) {

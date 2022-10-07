@@ -143,7 +143,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
                     begin = true;
                 }
             }
-            System.err.println("Неудача: id=" + this.id() + ", " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача:ElemSimple.joinFlat() id=" + this.id() + ", " + layoutSide + " соединение не найдено");
             return null;
 
         } catch (Exception e) {
@@ -169,6 +169,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
         } else if (ej != null && side == 2) {
             return ej.elem2;
         }
+        System.err.println("Неудача:ElemSimple.joinElem() id=" + this.id() + " соединение не найдено");
         return null;
     }
 

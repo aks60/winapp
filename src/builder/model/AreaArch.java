@@ -17,7 +17,8 @@ public class AreaArch extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
-    //@Override
+    // см. IArea5e
+    @Override
     public void addFilling(IElem5e glass, Specific spcAdd) {
         Float dw = spcAdd.width;
         IElem5e imp = glass.joinFlat(Layout.BOTT);
@@ -56,8 +57,8 @@ public class AreaArch extends AreaSimple {
         }
     }
     
-    @Override
     //Угловые соединения
+    @Override
     public void joining() {
         
         super.joining(); //T - соединения

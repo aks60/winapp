@@ -22,6 +22,7 @@ public class AreaTrapeze extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), height);
     }
 
+    // см. IArea5e
     @Override
     public void addFilling(IElem5e glass, Specific spcAdd) {
         if (winc.form == Form.RIGHT) {
@@ -122,8 +123,8 @@ public class AreaTrapeze extends AreaSimple {
         glass.spcRec().spcList.add(spcAdd); //добавим спецификацию
     }
 
+    //Угловые соединения    
     @Override
-    //Угловые соединения
     public void joining() {
 
         super.joining();

@@ -14,7 +14,11 @@ public interface IArea5e extends ICom5t {
     void draw();
 
     void initСonstructiv(JsonObject param);
-    
+    /**
+     * Добавление детализации в заполнение
+     * @param glass - элемент заполнения
+     * @param spcAdd - строка детализации
+     */
     void addFilling(IElem5e glass, Specific spcAdd);
 
     /**

@@ -282,11 +282,11 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     /**
+     * Форма контура
      * Если ареа элемента окна(напр.стекло) имеет form!=null, то эта ареа
      * принимает форму root.type()
      */
     @Override
-    //Форма контура
     public Type type() {
         if (this != root && form != null) {
             return root.type();

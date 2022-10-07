@@ -17,12 +17,12 @@ public class AreaDoor extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
-    @Override
     //Угловые соединения
+    @Override
     public void joining() {
-        
+
         super.joining(); //T - соединения
-        
+
         IElem5e elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
                 elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
         //Угловое соединение правое нижнее

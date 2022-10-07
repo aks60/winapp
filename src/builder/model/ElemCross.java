@@ -154,8 +154,8 @@ public class ElemCross extends ElemSimple {
         }
     }
 
-    @Override
     //Вложеная спецификация 
+    @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
         try {
             spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
