@@ -258,7 +258,14 @@ public class ElemGlass extends ElemSimple {
                     (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (owner.type() == Type.TRAPEZE) {
-            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
+            IElem5e insideLeft = root().frames().get(Layout.LEFT),
+                    insideTop = root().frames().get(Layout.TOP),
+                    insideBott = joinFlat(Layout.BOTT),
+                    insideRight = root().frames().get(Layout.RIGHT);
+
+            if (root() == owner) {
+                System.out.println("builder.model.ElemGlass.paint()");
+            }
 
             if (insideBott.type() == Type.FRAME_SIDE && insideRight.type() == Type.FRAME_SIDE
                     && insideTop.type() == Type.FRAME_SIDE && insideLeft.type() == Type.FRAME_SIDE) {
