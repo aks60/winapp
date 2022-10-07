@@ -61,7 +61,7 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-    //Установка координат
+    //Установка координат элементов окна
     @Override
     public void setLocation() {
         if (Type.ARCH == owner.type()) {

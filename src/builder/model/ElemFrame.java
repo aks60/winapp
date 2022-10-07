@@ -68,7 +68,7 @@ public class ElemFrame extends ElemSimple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
-    //Установка координат
+    //Установка координат элементов окна
     @Override
     public void setLocation() {
 

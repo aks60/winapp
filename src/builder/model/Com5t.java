@@ -16,7 +16,7 @@ import java.util.List;
 public class Com5t implements ICom5t {
 
     private float id = -1; //идентификатор 
-    private Type type = Type.NONE; //Тип элемента или конструкции  
+    private Type type = Type.NONE; //Тип элемента или окна  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
 
     protected Record sysprofRec = null; //профиль в системе

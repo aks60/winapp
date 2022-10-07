@@ -82,6 +82,10 @@ public class AreaSimple extends Com5t implements IArea5e {
         winc.listAll.add(this);
     }
 
+    /**
+     * Вычисление координат ареа в котором будут находится 
+     * элементы окна ограниченные этим ареа и формой контура.
+     */
     protected void setLocation(float width, float height) {
         //Происходит при подкдадке дополнительной ареа в арке
         //или сужении area створки при нахлёсте профилей
@@ -152,14 +156,14 @@ public class AreaSimple extends Com5t implements IArea5e {
     public LinkedList<ICom5t> childs() {
         return childs;
     }
-    
+
     @Override
     public void resizeX(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
             if (id() == 0) {
                 float k = v / gson.width(); //коэффициент
-                if (k != 1) {                 
+                if (k != 1) {
                     if (UCom.getFloat(rootGson.width1(), 0f) > UCom.getFloat(rootGson.width2(), 0f)) {
                         rootGson.width1(v);
                         if (rootGson.width2() != null) {
@@ -184,7 +188,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             } else {
                 float k = v / lengthX(); //коэффициент 
-                if (k != 1) {                   
+                if (k != 1) {
                     gson.length(v);
                     if (type() == Type.ARCH) {
                         rootGson.width2(rootGson.width() - v);
@@ -192,7 +196,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                         rootGson.width2(rootGson.width() - v);
                     } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
                         rootGson.width1(rootGson.width() - v);
-                    } 
+                    }
 
                     for (ICom5t e : childs) { //изменение детей по высоте
                         if (e.owner().layout() == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
@@ -214,13 +218,14 @@ public class AreaSimple extends Com5t implements IArea5e {
             System.err.println("Ошибка: ICom5t.lengthX() " + e);
         }
     }
+
     @Override
     public void resizeY(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
             if (id() == 0) {
                 float k = v / gson.height(); //коэффициент
-                if (k != 1) {                 
+                if (k != 1) {
                     if (UCom.getFloat(rootGson.height1(), 0f) > UCom.getFloat(rootGson.height2(), 0f)) {
                         rootGson.height1(v);
                         if (rootGson.height2() != null) {
@@ -245,7 +250,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             } else {
                 float k = v / lengthY(); //коэффициент 
-                if (k != 1) {                   
+                if (k != 1) {
                     gson.length(v);
                     if (type() == Type.ARCH) {
                         rootGson.height2(rootGson.height() - v);
@@ -253,7 +258,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                         rootGson.height2(rootGson.height() - v);
                     } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
                         rootGson.height1(rootGson.height() - v);
-                    } 
+                    }
 
                     for (ICom5t e : childs) { //изменение детей по высоте
                         if (e.owner().layout() == Layout.VERT && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
@@ -276,6 +281,10 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     }
 
+    /**
+     * Если ареа элемента окна(напр.стекло) имеет form!=null, то эта ареа
+     * принимает форму root.type()
+     */
     @Override
     //Форма контура
     public Type type() {
@@ -360,7 +369,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 //Рисунок в память
                 if (winc.bufferImg != null) {
                     ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);                   
+                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
                     if (eProp.dev == true) {
                         File outputfile = new File("CanvasImage.png");
                         ImageIO.write(winc.bufferImg, "png", outputfile);
@@ -376,7 +385,6 @@ public class AreaSimple extends Com5t implements IArea5e {
         return frames;
     }
 
-    
 // <editor-fold defaultstate="collapsed" desc="Version"> 
     private IDrawing drawing = () -> {
         try {

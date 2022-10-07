@@ -135,8 +135,8 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width1 = (rootGson.width1() == null)
                     ? rootGson.width() : rootGson.width1();
-            this.width2 = rootGson.width2();
-            this.height1 = rootGson.height1();
+            this.width2 = rootGson.width2(); //ширина в основании всегда задана
+            this.height1 = rootGson.height1(); //высота слева всегда задана
             this.height2 = (rootGson.height2() == null)
                     ? rootGson.height() : rootGson.height2();
             this.colorID1 = rootGson.color1();
@@ -170,46 +170,47 @@ public class Wincalc {
     private void elements(IArea5e owner, GsonElem gson) {
         try {
             LinkedHashMap<IArea5e, GsonElem> hm = new LinkedHashMap();
-            for (GsonElem el : gson.childs()) {
+            for (GsonElem js : gson.childs()) {
 
-                if (Type.STVORKA == el.type()) {
+                if (Type.STVORKA == js.type()) {
                     IArea5e area5e = (eProp.old.read().equals("0")) 
-                            ? new AreaStvorka(Wincalc.this, owner, el) 
-                            : new AreaStvorka(Wincalc.this, owner, el);
+                            ? new AreaStvorka(Wincalc.this, owner, js) 
+                            : new AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
-                    hm.put(area5e, el);
+                    hm.put(area5e, js);
 
-                    //AreaSimple может принемать форму арки, трапеции. см. AreaSimple.type()
-                } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
+                   //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
+                   //Элементы окна ограничены этим ареа и формой контура.
+                } else if (Type.AREA == js.type() || Type.ARCH == js.type() || Type.TRAPEZE == js.type()) {
                     IArea5e area5e = null;
-                    if (el.form() == null) {
+                    if (js.form() == null) {
                         area5e = (eProp.old.read().equals("0")) 
-                                ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height()) 
-                                : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height());
+                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height()) 
+                                : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
                     } else {
                         area5e = (eProp.old.read().equals("0")) 
-                                ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form()) 
-                                : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
+                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form()) 
+                                : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
                     }
                     owner.childs().add(area5e);
-                    hm.put(area5e, el);
+                    hm.put(area5e, js);
 
-                } else if (Type.FRAME_SIDE == el.type()) {
+                } else if (Type.FRAME_SIDE == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0")) 
-                            ? new ElemFrame(rootArea, el)
-                            : new builder.model.old.ElemFrame(rootArea, el);
-                    rootArea.frames().put(el.layout(), elem5e);
+                            ? new ElemFrame(rootArea, js)
+                            : new builder.model.old.ElemFrame(rootArea, js);
+                    rootArea.frames().put(js.layout(), elem5e);
 
-                } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
+                } else if (Type.IMPOST == js.type() || Type.SHTULP == js.type() || Type.STOIKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0")) 
-                            ? new ElemCross(owner, el) 
-                            : new ElemCross(owner, el);
+                            ? new ElemCross(owner, js) 
+                            : new ElemCross(owner, js);
                     owner.childs().add(elem5e);
 
-                } else if (Type.GLASS == el.type()) {
+                } else if (Type.GLASS == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0")) 
-                            ? new ElemGlass(owner, el)
-                            : new builder.model.old.ElemGlass(owner, el);
+                            ? new ElemGlass(owner, js)
+                            : new builder.model.old.ElemGlass(owner, js);
                     owner.childs().add(elem5e);
                 }
             }

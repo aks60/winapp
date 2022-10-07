@@ -53,11 +53,11 @@ public class ElemCross extends ElemSimple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
-    //Установка координат
+    //Установка координат элементов окна
     @Override
     public void setLocation() {
 
-        //Коррекция положения импоста арки (подкдадка ареа над импостом)
+        //Коррекция положения импоста (подкдадка ареа над импостом)
         if (Type.ARCH == owner.type()) {
             IArea5e prevArea = (IArea5e) owner.childs().get(0); //опустим ареа на половину шир. иппоста
             prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.height) / 2);
