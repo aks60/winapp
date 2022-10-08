@@ -55,8 +55,8 @@ public class Filling extends Cal5e {
         super.calc();
         try {
             Float depth = elemGlass.artiklRec().getFloat(eArtikl.depth); //толщина стекда
-
-            List<IElem5e> elemFrameList = null;
+            
+            List<IElem5e> elemFrameList = null;  //список рам конструкции
             if (elemGlass.owner().type() == Type.ARCH) {
                 elemFrameList = List.of(rootArea().frames().get(Layout.BOTT), rootArea().frames().get(Layout.RIGHT), rootArea().frames().get(Layout.TOP), rootArea().frames().get(Layout.LEFT));
             } else {
@@ -71,18 +71,18 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
                     if (UCom.containsNumbJust(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
-
+                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id)); //список профилей в группе заполнений
+                        
                         //Цикл по профилям в группах заполнений
-                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
                         for (Record glasprofRec : glasprofList) {
                             if (elemFrame.artiklRecAn().getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
-                                if (List.of(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
+                                if (List.of(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение допустимо
 
                                     //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                                     if (fillingVar.filter(elemGlass, glasgrpRec) == true) {
                                         
-                                        elemGlass.gzazo(glasgrpRec.getFloat(eGlasgrp.gap));
-                                        elemGlass.gsize()[side] = glasprofRec.getFloat(eGlasprof.gsize);
+                                        elemGlass.gzazo(glasgrpRec.getFloat(eGlasgrp.gap)); //зазор между фальцем и стеклопакетом
+                                        elemGlass.gsize()[side] = glasprofRec.getFloat(eGlasprof.gsize); //размер от оси до стеклопакета
 
                                         if (shortPass == false) {
                                             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec().getFloat(eArtikl.depth));
