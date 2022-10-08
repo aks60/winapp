@@ -144,7 +144,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (this.systreeID == null && "-1".equals(eProp.sysprodID.read()) != true) {
             sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
         }
-        if(sysprodRec != null) {
+        if (sysprodRec != null) {
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
         } else {
             sysprodRec = eSysprod.query().get(0);
@@ -579,6 +579,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 } else {
                     UGui.setSelectedRow(tab5);
                 }
+            } else {
+                canvas.init(null);
+                canvas.repaint();
             }
         }
     }
@@ -725,9 +728,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             }
         } else {
-            scene.init(null);
-            scene.draw();
-            canvas.draw();
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
     }

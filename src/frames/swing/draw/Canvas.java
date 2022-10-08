@@ -58,6 +58,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         } else {
             g.setColor(getBackground());
             g.fillRect(0, 0, getWidth(), getHeight());
+            //g.clearRect(0, 0, getWidth(), getHeight());
         }
     }
 
@@ -70,7 +71,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
             float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
             winc.scale = (length / width > length / height)
-                    ? length / (height + 200) : length / (width + 200);            
+                    ? length / (height + 200) : length / (width + 200);
             winc.gc2d.scale(winc.scale, winc.scale);
             winc.rootArea.draw(); //рисую конструкцию
             return new ImageIcon(bi);
@@ -83,11 +84,11 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     public double scale(Wincalc winc, float dx, float dy) {
         float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
         float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-        
+
         return ((getWidth() + dx) / width > (getHeight() + dx) / height)
                 ? (getHeight() + dx) / (height + dy) : (getWidth() + dx) / (width + dy);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
