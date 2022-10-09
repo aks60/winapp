@@ -105,8 +105,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
 
     /**
      * Получить элемент прилегающие соединения. Прил. соед. используется для
-     * определения координат примыкаемого соединения. (см. )
-     *
+     * определения координат примыкаемого элемента. (см. ElemXxx.setSpecific())
      * @param layoutSide - сторона прилегания
      * @return - элемент прилегания
      */
@@ -119,6 +118,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
                 IElem5e el = (IElem5e) winc.listElem.get(index);
 
                 if (begin == true && el.type() != Type.GLASS) {
+                    //Проверка начинает выполняться после появления в обратном цикле самого элемента(this) 
                     if (Layout.BOTT == layoutSide && el.layout() != Layout.VERT) {
                         float Y2 = (y2 > y1) ? y2 : y1;
                         if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {

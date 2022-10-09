@@ -154,6 +154,9 @@ public class GsonElem {
 
     //Назначить родителей всем детям и поднять elem.form до rootGson
     public void parent(Wincalc winc) {
+        if (this == winc.rootGson && this.form != null) {
+            winc.form = this.form;
+        }
         this.childs.forEach(el -> {
             el.owner = this;
             if (el.form != null) {
