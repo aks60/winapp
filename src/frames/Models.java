@@ -39,7 +39,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     public Models() {
         initComponents();
         initElements();
-        loadingData();
         loadingModel();
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
@@ -49,16 +48,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
         initElements();
-        loadingData();
         loadingModel();
         this.owner = owner;
         this.listenet = listener;
         owner.setEnabled(false);
         loadingTab(tab1, 1001);
-    }
-
-    public void loadingData() {
-        //
     }
 
     public void loadingModel() {
@@ -139,7 +133,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
 
     public void loadingTab(JTable tab, int form) {
-        qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
+        qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form, "order by npp");
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
         for (Record record : qModels.table(eSysmodel.up)) {
@@ -158,47 +152,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         UGui.setSelectedRow(tab);
     }
 
-    public void selectionTab1(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qModels.get(index);
-            Object v = record.get(eSysmodel.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                winc = (Wincalc) v;
-                canvas.init(winc);
-                canvas.draw();
-            }
-        }
-    }
-
-    public void selectionTab2(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record record = qModels.get(index);
-            Object v = record.get(eSysmodel.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                winc = (Wincalc) v;
-                canvas.init(winc);
-                canvas.draw();
-            }
-        }
-    }
-
-    public void selectionTab3(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab3);
-        if (index != -1) {
-            Record record = qModels.get(index);
-            Object v = record.get(eSysmodel.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                winc = (Wincalc) v;
-                canvas.init(winc);
-                canvas.draw();
-            }
-        }
-    }
-
-    public void selectionTab4(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab4);
+    public void selectionTab(ListSelectionEvent event, JTable tab) {
+        int index = UGui.getIndexRec(tab);
         if (index != -1) {
             Record record = qModels.get(index);
             Object v = record.get(eSysmodel.values().length);
@@ -228,15 +183,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnT4 = new javax.swing.JToggleButton();
         west = new javax.swing.JPanel();
         pan13 = new javax.swing.JPanel();
-        pan16 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan14 = new javax.swing.JPanel();
-        pan25 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         pan15 = new javax.swing.JPanel();
-        pan26 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         pan18 = new javax.swing.JPanel();
@@ -442,7 +394,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -469,18 +421,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        west.setPreferredSize(new java.awt.Dimension(300, 560));
+        west.setPreferredSize(new java.awt.Dimension(360, 560));
         west.setLayout(new java.awt.CardLayout());
 
         pan13.setName(""); // NOI18N
-        pan13.setPreferredSize(new java.awt.Dimension(200, 560));
         pan13.setLayout(new java.awt.BorderLayout());
 
-        pan16.setPreferredSize(new java.awt.Dimension(200, 560));
-        pan16.setLayout(new java.awt.BorderLayout());
-
         scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr1.setPreferredSize(new java.awt.Dimension(200, 560));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -512,27 +459,20 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
-        pan16.add(scr1, java.awt.BorderLayout.CENTER);
-
-        pan13.add(pan16, java.awt.BorderLayout.CENTER);
+        pan13.add(scr1, java.awt.BorderLayout.CENTER);
 
         west.add(pan13, "pan13");
 
         pan14.setName(""); // NOI18N
-        pan14.setPreferredSize(new java.awt.Dimension(200, 560));
         pan14.setLayout(new java.awt.BorderLayout());
 
-        pan25.setPreferredSize(new java.awt.Dimension(200, 560));
-        pan25.setLayout(new java.awt.BorderLayout());
-
         scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr2.setPreferredSize(new java.awt.Dimension(200, 560));
         scr2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -569,27 +509,20 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab2.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
-        pan25.add(scr2, java.awt.BorderLayout.CENTER);
-
-        pan14.add(pan25, java.awt.BorderLayout.CENTER);
+        pan14.add(scr2, java.awt.BorderLayout.CENTER);
 
         west.add(pan14, "pan14");
 
         pan15.setName(""); // NOI18N
-        pan15.setPreferredSize(new java.awt.Dimension(200, 560));
         pan15.setLayout(new java.awt.BorderLayout());
 
-        pan26.setPreferredSize(new java.awt.Dimension(200, 560));
-        pan26.setLayout(new java.awt.BorderLayout());
-
         scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr3.setPreferredSize(new java.awt.Dimension(200, 560));
         scr3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
@@ -626,23 +559,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab3.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab3.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
-        pan26.add(scr3, java.awt.BorderLayout.CENTER);
-
-        pan15.add(pan26, java.awt.BorderLayout.CENTER);
+        pan15.add(scr3, java.awt.BorderLayout.CENTER);
 
         west.add(pan15, "pan15");
 
-        pan18.setPreferredSize(new java.awt.Dimension(200, 560));
         pan18.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr4.setPreferredSize(new java.awt.Dimension(200, 560));
         scr4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 scr4tabMouseClicked(evt);
@@ -679,8 +608,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab4.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab4.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab4.getColumnModel().getColumn(2).setMaxWidth(68);
         }
@@ -733,12 +662,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -755,7 +684,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 422, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,7 +703,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -789,7 +718,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -808,7 +737,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1009,11 +938,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private javax.swing.JPanel pan13;
     private javax.swing.JPanel pan14;
     private javax.swing.JPanel pan15;
-    private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan17;
     private javax.swing.JPanel pan18;
-    private javax.swing.JPanel pan25;
-    private javax.swing.JPanel pan26;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
@@ -1039,28 +965,28 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
+                    selectionTab(event, tab1);
                 }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
+                    selectionTab(event, tab2);
                 }
             }
         });
         tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab3(event);
+                    selectionTab(event, tab3);
                 }
             }
         });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab4(event);
+                    selectionTab(event, tab4);
                 }
             }
         });
