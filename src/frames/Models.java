@@ -14,19 +14,16 @@ import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
-import frames.swing.DefMutableTreeNode;
 import frames.swing.draw.Canvas;
 import java.awt.CardLayout;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
@@ -181,6 +178,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnT2 = new javax.swing.JToggleButton();
         btnT3 = new javax.swing.JToggleButton();
         btnT4 = new javax.swing.JToggleButton();
+        btnMoveU = new javax.swing.JButton();
+        btnMoveD = new javax.swing.JButton();
         west = new javax.swing.JPanel();
         pan13 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -318,7 +317,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnRemov.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemovresh(evt);
+                btnRemov(evt);
             }
         });
 
@@ -371,6 +370,38 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         });
 
+        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveU.setFocusable(false);
+        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
+        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveD.setFocusable(false);
+        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -382,7 +413,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(18, 18, 18)
+                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
                 .addComponent(btnT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -394,19 +429,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChoice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRemov, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, northLayout.createSequentialGroup()
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRemov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -415,7 +450,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                             .addComponent(btnT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMoveD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -473,11 +510,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan14.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -523,14 +555,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan15.setLayout(new java.awt.BorderLayout());
 
         scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -553,6 +577,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         tab3.setRowHeight(68);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
@@ -572,14 +599,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan18.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        scr4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scr4tabMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                scr4tabMousePressed(evt);
-            }
-        });
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -602,8 +621,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         tab4.setRowHeight(68);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab4tabMousePressed(evt);
+                tabMousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -813,6 +835,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 record.set(eSysmodel.form, 1007);
             }
             qModels.insert(record);
+
             if (tab1.getBorder() != null) {
                 loadingTab(tab1, 1001);
                 UGui.setSelectedIndex(tab1, qModels.size() - 1);
@@ -866,9 +889,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed
 
-    private void btnRemovresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovresh
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
 
-    }//GEN-LAST:event_btnRemovresh
+    }//GEN-LAST:event_btnRemov
 
     private void btnToggl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToggl
         if (btnT1.isSelected()) {
@@ -905,17 +928,37 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         }
     }//GEN-LAST:event_tabMouseClicked
 
-    private void tab4tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4tabMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab4tabMousePressed
-
-    private void scr4tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scr4tabMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scr4tabMouseClicked
-
-    private void scr4tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scr4tabMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scr4tabMousePressed
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
+        JTable table = null;
+        if (btnT1.isSelected()) {
+            table = tab1;
+        } else if (btnT2.isSelected()) {
+            table = tab2;
+        } else if (btnT3.isSelected()) {
+            table = tab3;
+        } else if (btnT4.isSelected()) {
+            table = tab4;
+        }
+        int index = UGui.getIndexRec(table);
+        int index2 = index;
+        if (index != -1   && table != null ) {
+            JButton btn = (JButton) evt.getSource();
+            
+            if (btn == btnMoveD  && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(qModels, index, ++index2);
+                
+            } else if (btn == btnMoveU&& table.getSelectedRow() > 0) {
+                Collections.swap(qModels, index, --index2);
+            }
+            for (int i = 0; i < qModels.size(); i++) {
+                qModels.set(i + 1, i, eSysmodel.npp);
+            }
+            qModels.execsql();
+            
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
+        }
+    }//GEN-LAST:event_btnMove
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -923,6 +966,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnMoveD;
+    private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemov;
     private javax.swing.JToggleButton btnT1;
