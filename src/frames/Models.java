@@ -25,7 +25,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
+public final class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
     public Wincalc winc = new Wincalc();
     private Window owner = null;
