@@ -18,16 +18,16 @@ public class MetaField {
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
     private boolean isnull = false; //запретить null в таблице
     private Field field = null; //enum
-    public String fname = null; //служебное для переопределение имени поля
+    public String fname = null; //служебное для переопределения имя поля
     public String descr = ""; //описание поля
     private TYPE type = TYPE.OBJ; //тип поля
     private Integer size = 0; //размер поля
-    private Field.EDIT edit = Field.EDIT.TRUE; //запретить редактирование в визуальном комроненте
+    private Field.EDIT edit = Field.EDIT.TRUE; //запретить редактирование в визуальном компоненте
 
     public MetaField(Field e) {
         field = e;
         if (e instanceof Enum) {
-            this.fname = ((Enum) e).name(); //имя поля но умолчанию
+            this.fname = ((Enum) e).name(); //имя поля по умолчанию
         }
     }
 

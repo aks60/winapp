@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Aksenov Sergey
  *
  * <p>
- * Генерация enum </p>
+ * Генерация enum кода </p>
  */
 public enum Entity {
 
