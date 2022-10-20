@@ -802,8 +802,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         try {
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
-            String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), false);
-            GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
+            if (prj != null) {
+                String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), false);
+                GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
 
 //            JFileChooser chooser = new JFileChooser();
 //            chooser.setCurrentDirectory(new File("."));
@@ -819,39 +820,40 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 //            GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
 //            String json = new Gson().toJson(win);
 //            reader.close();            
-            Record record = eSysmodel.up.newRecord(Query.INS);
-            record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
-            record.set(eSysmodel.npp, qModels.size());
-            record.set(eSysmodel.name, "<html>" + win.prj + " " + win.name);
-            record.set(eSysmodel.script, json);
+                Record record = eSysmodel.up.newRecord(Query.INS);
+                record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
+                record.set(eSysmodel.npp, qModels.size());
+                record.set(eSysmodel.name, "<html>" + win.prj + " " + win.name);
+                record.set(eSysmodel.script, json);
 
-            if (tab1.getBorder() != null) {
-                record.set(eSysmodel.form, 1001);
-            } else if (tab2.getBorder() != null) {
-                record.set(eSysmodel.form, 1004);
-            } else if (tab3.getBorder() != null) {
-                record.set(eSysmodel.form, 1002);
-            } else if (tab4.getBorder() != null) {
-                record.set(eSysmodel.form, 1007);
-            }
-            qModels.insert(record);
+                if (tab1.getBorder() != null) {
+                    record.set(eSysmodel.form, 1001);
+                } else if (tab2.getBorder() != null) {
+                    record.set(eSysmodel.form, 1004);
+                } else if (tab3.getBorder() != null) {
+                    record.set(eSysmodel.form, 1002);
+                } else if (tab4.getBorder() != null) {
+                    record.set(eSysmodel.form, 1007);
+                }
+                qModels.insert(record);
 
-            if (tab1.getBorder() != null) {
-                loadingTab(tab1, 1001);
-                UGui.setSelectedIndex(tab1, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab1);
-            } else if (tab2.getBorder() != null) {
-                loadingTab(tab2, 1004);
-                UGui.setSelectedIndex(tab2, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab2);
-            } else if (tab3.getBorder() != null) {
-                loadingTab(tab3, 1002);
-                UGui.setSelectedIndex(tab3, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab3);
-            } else if (tab4.getBorder() != null) {
-                loadingTab(tab4, 1007);
-                UGui.setSelectedIndex(tab4, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab4);
+                if (tab1.getBorder() != null) {
+                    loadingTab(tab1, 1001);
+                    UGui.setSelectedIndex(tab1, qModels.size() - 1);
+                    UGui.scrollRectToIndex(qModels.size() - 1, tab1);
+                } else if (tab2.getBorder() != null) {
+                    loadingTab(tab2, 1004);
+                    UGui.setSelectedIndex(tab2, qModels.size() - 1);
+                    UGui.scrollRectToIndex(qModels.size() - 1, tab2);
+                } else if (tab3.getBorder() != null) {
+                    loadingTab(tab3, 1002);
+                    UGui.setSelectedIndex(tab3, qModels.size() - 1);
+                    UGui.scrollRectToIndex(qModels.size() - 1, tab3);
+                } else if (tab4.getBorder() != null) {
+                    loadingTab(tab4, 1007);
+                    UGui.setSelectedIndex(tab4, qModels.size() - 1);
+                    UGui.scrollRectToIndex(qModels.size() - 1, tab4);
+                }
             }
         } catch (Exception e) {
             System.out.println("Ошибка:Models.btnInsert()");
@@ -941,20 +943,20 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         }
         int index = UGui.getIndexRec(table);
         int index2 = index;
-        if (index != -1   && table != null ) {
+        if (index != -1 && table != null) {
             JButton btn = (JButton) evt.getSource();
-            
-            if (btn == btnMoveD  && table.getSelectedRow() < table.getRowCount() - 1) {
+
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
                 Collections.swap(qModels, index, ++index2);
-                
-            } else if (btn == btnMoveU&& table.getSelectedRow() > 0) {
+
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
                 Collections.swap(qModels, index, --index2);
             }
             for (int i = 0; i < qModels.size(); i++) {
                 qModels.set(i + 1, i, eSysmodel.npp);
             }
             qModels.execsql();
-            
+
             ((DefaultTableModel) table.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(table, index2);
         }

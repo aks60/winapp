@@ -146,7 +146,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
         if (sysprodRec != null) {
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
-        } else {
+
+        } else if (eSysprod.query().isEmpty() == false) {
             sysprodRec = eSysprod.query().get(0);
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
@@ -355,7 +356,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public void loadingTab5() {
-        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
+        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID, "order by", eSysprod.npp, ",", eSysprod.id);
         DefaultTableModel dm = (DefaultTableModel) tab5.getModel();
         dm.getDataVector().removeAllElements();
         for (Record record : qSysprod.table(eSysprod.up)) {
@@ -460,6 +461,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             //Сохраним скрипт в базе
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
             sysprodRec.setNo(eSysprod.id, Conn.genId(eSysprod.id));
+            sysprodRec.setNo(eSysprod.npp, qSysprod.size());
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, script2);
@@ -733,22 +735,27 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
-
-        for (DefMutableTreeNode node : nodeList1) {
-            String node2 = (String) node.getUserObject();
-            for (Record record : qSystree) {
-                if (record.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
-                        && record.getInt(eSystree.parent_id) != record.getInt(eSystree.id)) {
-                    DefMutableTreeNode node3 = new DefMutableTreeNode(record);
-                    node.add(node3);
-                    nodeList2.add(node3);
-                    if (record.getInt(eSystree.id) == systreeID) {
-                        selectedPath = node3.getPath(); //запомним path для nuni
+        try {
+            for (DefMutableTreeNode node : nodeList1) {
+                String node2 = (String) node.getUserObject();
+                for (Record record : qSystree) {
+                    if (record.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
+                            && record.getInt(eSystree.parent_id) != record.getInt(eSystree.id)) {
+                        DefMutableTreeNode node3 = new DefMutableTreeNode(record);
+                        node.add(node3);
+                        nodeList2.add(node3);
+                        if (record.getInt(eSystree.id) == systreeID) {
+                            selectedPath = node3.getPath(); //запомним path для nuni
+                        }
                     }
                 }
             }
+            return nodeList2;
+            
+        } catch (Exception e) {
+            System.err.println("ОШИБКА:Systree.addChild() " + e);
+            return null;
         }
-        return nodeList2;
     }
 
     public void updateScript(float selectID) {
@@ -3546,13 +3553,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
         int index = UGui.getIndexRec(tab5);
         int index2 = index;
-        if (index != -1   && tab5 != null ) {
+        if (index != -1 && tab5 != null) {
             JButton btn = (JButton) evt.getSource();
 
-            if (btn == btnMoveD  && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
+            if (btn == btnMoveD && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
                 Collections.swap(qSysprod, index, ++index2);
 
-            } else if (btn == btnMoveU&& tab5.getSelectedRow() > 0) {
+            } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
                 Collections.swap(qSysprod, index, --index2);
             }
             for (int i = 0; i < qSysprod.size(); i++) {
@@ -3568,13 +3575,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
         int index = UGui.getIndexRec(tab5);
         int index2 = index;
-        if (index != -1   && tab5 != null ) {
+        if (index != -1 && tab5 != null) {
             JButton btn = (JButton) evt.getSource();
 
-            if (btn == btnMoveD  && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
+            if (btn == btnMoveD && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
                 Collections.swap(qSysprod, index, ++index2);
 
-            } else if (btn == btnMoveU&& tab5.getSelectedRow() > 0) {
+            } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
                 Collections.swap(qSysprod, index, --index2);
             }
             for (int i = 0; i < qSysprod.size(); i++) {
