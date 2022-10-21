@@ -48,6 +48,7 @@ import javax.swing.text.StyleContext;
 public class Adm extends javax.swing.JFrame {
 
     private Thread thread = null;
+    private char card = 'I';
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private Query qSysuser = new Query(eSysuser.values()).select(eSysuser.up);
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
@@ -323,6 +324,10 @@ public class Adm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txt2 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txt5 = new javax.swing.JTextField();
+        txt6 = new javax.swing.JTextField();
         pan15 = new javax.swing.JPanel();
         south = new javax.swing.JPanel();
 
@@ -1062,19 +1067,19 @@ public class Adm extends javax.swing.JFrame {
 
         jLabel1.setText("Профиль");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel1.setPreferredSize(new java.awt.Dimension(140, 18));
+        jLabel1.setPreferredSize(new java.awt.Dimension(160, 18));
 
         jLabel2.setText("Пользователь  (english)");
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel2.setPreferredSize(new java.awt.Dimension(140, 18));
+        jLabel2.setPreferredSize(new java.awt.Dimension(160, 18));
 
         jLabel3.setText("Права");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel3.setPreferredSize(new java.awt.Dimension(140, 18));
+        jLabel3.setPreferredSize(new java.awt.Dimension(160, 18));
 
         jLabel4.setText("Пароль  (english)");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel4.setPreferredSize(new java.awt.Dimension(140, 18));
+        jLabel4.setPreferredSize(new java.awt.Dimension(160, 18));
 
         box1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Технолог", "Менеджер" }));
         box1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1089,7 +1094,7 @@ public class Adm extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
         jButton1.setText("OK");
-        jButton1.setPreferredSize(new java.awt.Dimension(140, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adminOk(evt);
@@ -1101,12 +1106,26 @@ public class Adm extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
         jButton2.setText("Отмена");
-        jButton2.setPreferredSize(new java.awt.Dimension(140, 23));
+        jButton2.setPreferredSize(new java.awt.Dimension(120, 23));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 admCancel(evt);
             }
         });
+
+        jLabel5.setText("Телефон");
+        jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel5.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        jLabel6.setText("ФИО");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel6.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt5.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt6.setPreferredSize(new java.awt.Dimension(120, 18));
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
@@ -1135,7 +1154,17 @@ public class Adm extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(570, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(346, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1143,24 +1172,28 @@ public class Adm extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(40, 40, 40)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         pan13.add(pan12, java.awt.BorderLayout.CENTER);
@@ -1213,17 +1246,17 @@ public class Adm extends javax.swing.JFrame {
             int row = tab4.getSelectedRow();
             if (row != -1) {
                 try {
-                    String login = String.valueOf(tab4.getValueAt(row, 1));                   
+                    String login = String.valueOf(tab4.getValueAt(row, 1));
                     Conn.deleteUser2(login);
-                    
+
                     Record rec = qSysuser.stream().filter(rec2 -> login.equals(rec2.get(eSysuser.login)) == true)
                             .findFirst().orElse(eSysuser.up.newRecord(Query.INS));
                     if (rec.get(eSysuser.id) != null) {
                         qSysuser.delete(rec);
                         qSysuser.remove(rec);
                     }
-                     loadingTab4();
-                     
+                    loadingTab4();
+
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(this, "Ошибка удаления пользователя", "ВНИМАНИЕ!", 1);
                     System.out.println("Adm.userDelete() " + e);
@@ -1234,27 +1267,31 @@ public class Adm extends javax.swing.JFrame {
 
     private void userUpdate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdate
         int row = tab4.getSelectedRow();
+        card = 'U';
         if (row != -1) {
             box1.setEnabled(false);
             box2.setEnabled(false);
-            txt1.setEditable(false);
+            txt1.setEnabled(false);
 
             int index1 = ("Технолог".equals(tab4.getValueAt(row, 3))) ? 1 : 2;
             box1.setSelectedIndex(index1);
             int index2 = ("чтение-запись".equals(tab4.getValueAt(row, 2))) ? 0 : 1;
             box2.setSelectedIndex(index2);
-            String user = String.valueOf(tab4.getValueAt(row, 1));
-            txt1.setText(user);
+            txt1.setText(String.valueOf(tab4.getValueAt(row, 1)));
+            txt2.setText(String.valueOf(eProp.password));
+            txt5.setText(String.valueOf(tab4.getValueAt(row, 5)));
+            txt6.setText(String.valueOf(tab4.getValueAt(row, 4)));
             ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
         }
     }//GEN-LAST:event_userUpdate
 
     private void userAdded(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userAdded
+        card = 'I';
         box1.setEnabled(true);
         box1.setSelectedIndex(0);
         box2.setEnabled(true);
         box2.setSelectedIndex(0);
-        txt1.setEditable(true);
+        txt1.setEnabled(true);
         txt1.setText("");
         ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
     }//GEN-LAST:event_userAdded
@@ -1382,28 +1419,36 @@ public class Adm extends javax.swing.JFrame {
     private void adminOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminOk
 
         String login = txt1.getText().trim().toUpperCase();
-        if (txt1.isEditable() == true) {
-            if (validation() == true) {                
+        String fio = txt6.getText().trim();
+        String phone = txt5.getText().trim();
+        Record sysuserRec = qSysuser.stream().filter(rec2
+                -> login.equalsIgnoreCase(rec2.getStr(eSysuser.login)) == true)
+                .findFirst().orElse(eSysuser.up.newRecord(Query.INS));
+        if (card == 'I') {
+            if (validation() == true) {
                 String role = (box1.getSelectedIndex() == 1) ? "TEXNOLOG" : "MANAGER";
                 String role2 = (box2.getSelectedIndex() == 0) ? role + "_RW" : role + "_RO";
                 Conn.addUser(login, txt2.getPassword(), role2);
-                
-                Record rec = qSysuser.stream().filter(rec2 -> login.equalsIgnoreCase(rec2.getStr(eSysuser.login)) == true)
-                        .findFirst().orElse(eSysuser.up.newRecord(Query.INS));
-                if (rec.get(eSysuser.id) == null) {
-                    rec.set(eSysuser.id, Conn.genId(eSysuser.up));
-                    rec.set(eSysuser.login, login);
-                    rec.set(eSysuser.role, role);
-                    qSysuser.insert(rec);
-                    qSysuser.add(rec);
+                if (sysuserRec.get(eSysuser.id) == null) {
+                    sysuserRec.set(eSysuser.id, Conn.genId(eSysuser.up));
+                    sysuserRec.set(eSysuser.login, login);
+                    sysuserRec.set(eSysuser.role, role);
+                    sysuserRec.set(eSysuser.fio, fio);
+                    sysuserRec.set(eSysuser.phone, phone);
+                    qSysuser.insert(sysuserRec);
+                    qSysuser.add(sysuserRec);
                 }
 
                 loadingTab4();
                 ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
             }
-        } else {
+        } else if (card == 'U') {
             if (validation() == true) {
+                sysuserRec.set(eSysuser.fio, fio);
+                sysuserRec.set(eSysuser.phone, phone);
+                qSysuser.execsql();
                 Conn.modifyPassword(login, txt2.getPassword());
+                loadingTab4();
                 ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
             }
         }
@@ -1437,6 +1482,9 @@ public class Adm extends javax.swing.JFrame {
     }
 
     private void admCancel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admCancel
+        txt1.setText("");
+        txt5.setText("");
+        txt6.setText("");
         ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
     }//GEN-LAST:event_admCancel
 
@@ -1498,6 +1546,8 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
@@ -1545,6 +1595,8 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JToolBar toolBar2;
     private javax.swing.JTextField txt1;
     private javax.swing.JPasswordField txt2;
+    private javax.swing.JTextField txt5;
+    private javax.swing.JTextField txt6;
     private javax.swing.JTextPane txtPane;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
