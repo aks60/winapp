@@ -112,7 +112,7 @@ public class Wincalc {
             //Все соединения вычисляются в классах AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()
             rootArea.joining(); //соединения ареа
             listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining()); //соединения створок
-            //Каждый элемент конструкции попадает в спецификацию черец функцию setSpecific()            
+            //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
             
         } catch (Exception e) {
