@@ -135,7 +135,7 @@ public class HtmlOfSmeta {
                 total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
             }
 
-            //СЕКЦИЯ №2
+            //СЕКЦИЯ №3
             Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
             trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
             trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));

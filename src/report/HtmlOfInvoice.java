@@ -52,7 +52,7 @@ public class HtmlOfInvoice {
 
             String str = doc.html();
             HtmlOfTable.write(str);
-            ExecuteCmd.documentType(null);
+        ExecuteCmd.documentType(null);
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
@@ -88,27 +88,27 @@ public class HtmlOfInvoice {
     }
 
     private static void load1(Record projectRec, Document doc) {
-        int length = 400;
         float total = 0f;
-        float square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
-
+            
+            //СЕКЦИЯ №1
+            Element tab1Elem = doc.getElementById("tab1");
+            Elements tr5List = tab1Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
+            
+            Object omm = tab1.get(0).getElementsByTag("td").get(1);
+            //trList.get(0).getElementsByTag("td").get(1).text(sysuserRec.getStr(eSysuser.fio));
+           // trList.get(0).getElementsByTag("td").get(1).text("L+++++");
+            //trList.get(1).getElementsByTag("td").get(1).text("H++++++++");
+            //trList.get(3).getElementsByTag("td").get(1).text("8888888888");
+            
+            
             doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
-//            //СЕКЦИЯ №2
-//            Element div2 = doc.getElementById("div2");
-//            String template2 = div2.html();
-//            List<Wincalc> wincList = wincList(prjprodList, length);
-//
-//            for (int i = 1; i < prjprodList.size(); i++) {
-//                div2.append(template2);
-//            }
-//            Elements tab2List = doc.getElementById("div2").getElementsByClass("tab2");
-//
+            
 //            //Цикл по изделиям
 //            for (int i = 0; i < prjprodList.size(); i++) {
 //
@@ -134,18 +134,7 @@ public class HtmlOfInvoice {
 //                tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
 //                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
 //            }
-//
-//            //СЕКЦИЯ №2
-//            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-//            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
-//            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
-//            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
-//
-//            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
-//            for (int i = 0; i < imgList.size(); i++) {
-//                Element get = imgList.get(i);
-//                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
-//            }
+
         } catch (Exception e) {
             System.err.println("Ошибка:HtmlOfSmeta.load1()" + e);
         }
