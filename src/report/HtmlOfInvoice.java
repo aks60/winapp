@@ -52,7 +52,7 @@ public class HtmlOfInvoice {
 
             String str = doc.html();
             HtmlOfTable.write(str);
-        ExecuteCmd.documentType(null);
+            ExecuteCmd.documentType(null);
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Процесс не может получить доступ к файлу, так как этот файл занят другим процессом.", "ВНИМАНИЕ!", 1);
@@ -94,21 +94,22 @@ public class HtmlOfInvoice {
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
-            
+
             //СЕКЦИЯ №1
-            Element tab1Elem = doc.getElementById("tab1");
-            Elements tr5List = tab1Elem.getElementsByTag("tbody").get(0).getElementsByTag("tr");
-            
-            Object omm = tab1.get(0).getElementsByTag("td").get(1);
-            //trList.get(0).getElementsByTag("td").get(1).text(sysuserRec.getStr(eSysuser.fio));
-           // trList.get(0).getElementsByTag("td").get(1).text("L+++++");
-            //trList.get(1).getElementsByTag("td").get(1).text("H++++++++");
-            //trList.get(3).getElementsByTag("td").get(1).text("8888888888");
-            
-            
+            {
+                Elements trList = doc.getElementById("tab1").getElementsByTag("tr");
+                trList.get(0).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                if (prjpartRec.getInt(ePrjpart.flag2) == 1) {
+                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_leve1));
+                    trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_phone));
+                } else {
+                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_leve1));
+                    trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_phone));
+                }
+            }
+
             doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
-            
 //            //Цикл по изделиям
 //            for (int i = 0; i < prjprodList.size(); i++) {
 //
@@ -134,12 +135,11 @@ public class HtmlOfInvoice {
 //                tdList.get(16).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
 //                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
 //            }
-
         } catch (Exception e) {
             System.err.println("Ошибка:HtmlOfSmeta.load1()" + e);
         }
     }
-    
+
     private static void load2(Record projectRec, Document doc) {
         int length = 400;
         float total = 0f;
@@ -341,4 +341,3 @@ public class HtmlOfInvoice {
         return outputStream.toByteArray();
     }
 }
-
