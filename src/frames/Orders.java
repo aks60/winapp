@@ -723,6 +723,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         menuItem14 = new javax.swing.JMenuItem();
         menuItem13 = new javax.swing.JMenuItem();
         menuItem15 = new javax.swing.JMenuItem();
+        menuItem16 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
@@ -911,6 +912,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
         ppReport.add(menuItem15);
+
+        menuItem16.setText("Счёт-фактура");
+        menuItem16.setToolTipText("");
+        menuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem16(evt);
+            }
+        });
+        ppReport.add(menuItem16);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -3422,6 +3432,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
     }//GEN-LAST:event_menuItem15
 
+    private void menuItem16(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem16
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            @Override
+            public void actionRequest(Object obj) {
+                //Отчёт
+                HtmlOfInvoice.invoice2(qProject.get(UGui.getIndexRec(tab1, 0)));
+            }
+        });
+    }//GEN-LAST:event_menuItem16
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -3503,6 +3523,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JMenuItem menuItem13;
     private javax.swing.JMenuItem menuItem14;
     private javax.swing.JMenuItem menuItem15;
+    private javax.swing.JMenuItem menuItem16;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan11;
