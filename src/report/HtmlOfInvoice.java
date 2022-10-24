@@ -71,7 +71,7 @@ public class HtmlOfInvoice {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            //load2(projectRec, doc);
+            load2(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
@@ -91,10 +91,8 @@ public class HtmlOfInvoice {
         float total = 0f;
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
-            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Wincalc> wincList = wincList(prjprodList);
-            List<Record> prjkitAll = new ArrayList();
 
             doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
@@ -103,11 +101,13 @@ public class HtmlOfInvoice {
                 Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner));
                 if (prjpartRec.getInt(ePrjpart.flag2) == 1) {
-                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_leve1));
+                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.org_leve2));
                     trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_phone));
 
                 } else {
-                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_leve1));
+                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.addr_leve2));
                     trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_phone));
                 }
                 trList.get(3).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.bank_inn));
@@ -144,26 +144,32 @@ public class HtmlOfInvoice {
         float total = 0f;
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
-            Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Wincalc> wincList = wincList(prjprodList);
-            List<Record> prjkitAll = new ArrayList();
 
             doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
             //СЕКЦИЯ №2
             {
-                Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
-                trList.get(0).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                Elements trList = doc.getElementById("tab1").getElementsByTag("tbody").get(0).getElementsByTag("tr");
                 if (prjpartRec.getInt(ePrjpart.flag2) == 1) {
-                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_leve1));
-                    trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_phone));
+                    trList.get(4).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner)
+                            + " " + prjpartRec.getStr(ePrjpart.org_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.org_leve2));
+                    trList.get(5).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                    trList.get(6).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.org_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.org_leve2));
 
                 } else {
-                    trList.get(1).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_leve1));
-                    trList.get(2).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_phone));
+                    trList.get(4).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner)
+                            + " " + prjpartRec.getStr(ePrjpart.addr_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.addr_leve2));
+                    trList.get(5).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.partner));
+                    trList.get(6).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.addr_leve1)
+                            + " " + prjpartRec.getStr(ePrjpart.addr_leve2));
                 }
-                trList.get(3).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.bank_inn));
+                trList.get(7).getElementsByTag("td").get(1).text(prjpartRec.getStr(ePrjpart.bank_inn)
+                        + " / " + prjpartRec.getStr(ePrjpart.bank_kpp));
             }
             //СЕКЦИЯ №3
             String templateRow = doc.getElementById("tab3").getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
@@ -181,7 +187,10 @@ public class HtmlOfInvoice {
                 tdList.get(3).text(prjprodRec.getStr(ePrjprod.num));
                 tdList.get(4).text(df1.format(winc.cost2()));
                 tdList.get(5).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
-                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                double cost2 = prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                tdList.get(7).text(df1.format(cost2 / 100 * 18)); 
+                tdList.get(8).text(df1.format(cost2 + cost2 / 100 * 18));
+                total += cost2 + cost2 / 100 * 18;
             }
             {
                 Elements trList = doc.getElementById("tab4").getElementsByTag("tbody").get(0).getElementsByTag("tr");
