@@ -37,7 +37,7 @@ public class HtmlOfSpecific {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            //load1(projectRec, doc);
+            load1(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
