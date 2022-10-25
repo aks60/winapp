@@ -174,7 +174,11 @@ public enum App {
                     }
                     break;
                 case Partner:
-                    frame = new Partner();
+                    if (param.length == 0) {
+                        frame = new Partner();
+                    } else {
+                        frame = new Partner((int) param[0]);
+                    }
                     break;
                 case Order:
                     frame = new Orders();

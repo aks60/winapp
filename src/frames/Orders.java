@@ -124,7 +124,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         loadingModel();
         listenerAdd();
         loadingTab1();
-        
+
         tab5.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -132,7 +132,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 lab.setBackground(new java.awt.Color(212, 208, 200));
                 return lab;
             }
-        });        
+        });
         tab5.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -140,7 +140,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 lab.setBackground(new java.awt.Color(212, 208, 200));
                 return lab;
             }
-        });        
+        });
     }
 
     private void loadingData() {
@@ -3201,7 +3201,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 - projectRec.getFloat(eProject.cost3)
                                 * projectRec.getFloat(eProject.disc3) / 100;
                         projectRec.set(eProject.cost3, cost3);
-                        
+
                         projectRec.set(eProject.price4, projectRec.getFloat(eProject.price2) + projectRec.getFloat(eProject.price3));
                         float cost4 = (projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3))
                                 - (projectRec.getFloat(eProject.cost2) + projectRec.getFloat(eProject.cost3))
@@ -3344,7 +3344,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_txtKeyEnter
 
     private void btnFind(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind
-        if (tab4.getBorder() != null) {
+        if (tab1.getBorder() != null) {
+            Record record = ((DefTableModel) tab1.getModel()).getQuery().get(UGui.getIndexRec(tab1));
+            if (record != null) {
+                FrameProgress.create(this, new ListenerFrame() {
+                    public void actionRequest(Object obj) {
+                        App.Partner.createFrame(Orders.this, record.getInt(eProject.prjpart_id));
+                    }
+                });
+            }
+        } else if (tab4.getBorder() != null) {
             Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(ePrjkit.artikl_id), false);

@@ -149,7 +149,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Комплекты проекта (нет привязки к winc)
-    public static ArrayList2<Specific> calc(Record projectRec) {
+    public static ArrayList2<Specific> kits(Record projectRec) {
         float id = 0;
         ArrayList2<Specific> kitsSpec = new ArrayList2();
         try {

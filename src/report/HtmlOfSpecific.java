@@ -37,7 +37,7 @@ public class HtmlOfSpecific {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            load(projectRec, doc);
+            //load1(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
@@ -48,7 +48,7 @@ public class HtmlOfSpecific {
         }
     }
 
-    private static void load(Record projectRec, Document doc) {
+    private static void load1(Record projectRec, Document doc) {
         List<Specific> spcList2 = new ArrayList();
         List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
         for (Record prjprodRec : prjprodList) {
@@ -59,7 +59,7 @@ public class HtmlOfSpecific {
             new Tariffic(winc, true).calc(projectRec, prjprodRec); 
             spcList2.addAll(winc.kitsSpec); //добавим комплекты
         }
-        ArrayList2<Specific> kitsSpec = Tariffic.calc(projectRec); 
+        ArrayList2<Specific> kitsSpec = Tariffic.kits(projectRec); 
         spcList2.addAll(kitsSpec); //добавим комплекты проекта  
         
         List<RSpecific> spcList3 = new ArrayList();
