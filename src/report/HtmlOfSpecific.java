@@ -31,6 +31,7 @@ public class HtmlOfSpecific {
 
     public static void specific(Record projectRec) {
         try {
+            npp = 0;
             URL path = HtmlOfSpecific.class.getResource("/resource/report/Specific.html");
             File input = new File(path.toURI());
             Document doc = Jsoup.parse(input, "utf-8");
@@ -110,8 +111,8 @@ public class HtmlOfSpecific {
         tdList.get(6).text(spc.getUnit());        
         tdList.get(7).text(spc.getCount());
         tdList.get(8).text(spc.getWeight());        
-        tdList.get(6).text(spc.getPrice());
-        tdList.get(7).text(spc.getCost());
+        tdList.get(9).text(spc.getPrice());
+        tdList.get(10).text(spc.getCost());
         doc.getElementsByTag("tbody").append(template.get(1).html());
     }
 }

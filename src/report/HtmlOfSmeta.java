@@ -36,7 +36,6 @@ import org.jsoup.select.Elements;
 
 public class HtmlOfSmeta {
 
-    private static int num = 0;
     private static DecimalFormat df0 = new DecimalFormat("0");
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
