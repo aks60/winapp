@@ -149,7 +149,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Комплекты проекта (нет привязки к winc)
-    public static ArrayList2<Specific> kits(Record projectRec) {
+    public static ArrayList2<Specific> kitsList(Record projectRec) {
         float id = 0;
         ArrayList2<Specific> kitsSpec = new ArrayList2();
         try {
@@ -198,7 +198,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Тарификация комплектов
-    public void calc(Record projectRec, Record prjprodRec) {
+    public void kits(Record projectRec, Record prjprodRec) {
         try {
             Record systreeRec = eSystree.find(winc.nuni);
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы

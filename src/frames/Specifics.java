@@ -94,8 +94,7 @@ public class Specifics extends javax.swing.JFrame {
                 this.dispose();
             } else {
                 String script = prjprodRec.getStr(ePrjprod.script);
-                JsonElement je = new Gson().fromJson(script, JsonElement.class
-                );
+                JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(ePrjprod.systree_id));
                 winc = new Wincalc();
                 winc.build(je.toString());

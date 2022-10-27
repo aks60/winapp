@@ -3186,7 +3186,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
 
                                 //Комплектация
-                                new Tariffic(win, true).calc(projectRec, prjprodRec); //комплекты
+                                new Tariffic(win, true).kits(projectRec, prjprodRec); //комплекты
                                 for (Specific spc : win.kitsSpec) {
                                     projectRec.set(eProject.price3, projectRec.getFloat(eProject.price3) + spc.price);
                                     projectRec.set(eProject.cost3, projectRec.getFloat(eProject.cost3) + spc.cost2);

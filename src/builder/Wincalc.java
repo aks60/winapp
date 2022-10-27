@@ -97,6 +97,7 @@ public class Wincalc {
 
     public IArea5e build(String script) {
         try {
+            this.script = script;
             //Обнуление
             genId = 0;
             width1 = 0;

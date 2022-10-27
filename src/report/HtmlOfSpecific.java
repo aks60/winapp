@@ -30,7 +30,6 @@ public class HtmlOfSpecific {
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
     public static void specific(Record projectRec) {
-        npp = 0;
         try {
             URL path = HtmlOfSpecific.class.getResource("/resource/report/Specific.html");
             File input = new File(path.toURI());
@@ -51,15 +50,18 @@ public class HtmlOfSpecific {
     private static void load1(Record projectRec, Document doc) {
         List<Specific> spcList2 = new ArrayList();
         List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
+        Wincalc winc = new builder.Wincalc();
+
+        //Цыкл по конструкциям заказа
         for (Record prjprodRec : prjprodList) {
             String script = prjprodRec.getStr(ePrjprod.script);
-            Wincalc winc = new Wincalc(script);
+            winc.build(script);
             winc.constructiv(true);
             spcList2.addAll(winc.listSpec); //добавим спецификацию
-            new Tariffic(winc, true).calc(projectRec, prjprodRec); 
+            new Tariffic(winc, true).kits(projectRec, prjprodRec); 
             spcList2.addAll(winc.kitsSpec); //добавим комплекты
         }
-        ArrayList2<Specific> kitsSpec = Tariffic.kits(projectRec); 
+        ArrayList2<Specific> kitsSpec = Tariffic.kitsList(projectRec); 
         spcList2.addAll(kitsSpec); //добавим комплекты проекта  
         
         List<RSpecific> spcList3 = new ArrayList();
@@ -70,10 +72,9 @@ public class HtmlOfSpecific {
         List<RSpecific> s1 = spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 1).collect(toList());
         List<RSpecific> s2 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 2).collect(toList()));
         List<RSpecific> s3 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 3).collect(toList()));
-        List<RSpecific> s4 = RSpecific.groups(spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList()));
+        List<RSpecific> s5 = spcList3.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList());
 
-        doc.getElementById("h01").text("Смета №" + projectRec.getStr(eProject.num_ord));
-        
+        doc.getElementById("h01").text("Смета №" + projectRec.getStr(eProject.num_ord));       
         Elements template = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
         doc.getElementsByTag("tbody").get(0).html("");
 
@@ -88,12 +89,12 @@ public class HtmlOfSpecific {
         s3.forEach(spc -> templateAdd(template, spc, doc));
         template.get(0).getElementsByTag("td").get(0).selectFirst("b").text("ЗАПОЛНЕНИЯ");
         doc.getElementsByTag("tbody").append(template.get(0).html());
-        s4.forEach(spc -> templateAdd(template, spc, doc));
+        s5.forEach(spc -> templateAdd(template, spc, doc));
 
         double total = s1.stream().mapToDouble(spc -> spc.getCost1()).sum()
                 + s2.stream().mapToDouble(spc -> spc.getCost1()).sum()
                 + s3.stream().mapToDouble(spc -> spc.getCost1()).sum()
-                + s4.stream().mapToDouble(spc -> spc.getCost1()).sum();
+                + s5.stream().mapToDouble(spc -> spc.getCost1()).sum();
         doc.getElementsByTag("tfoot").get(0).selectFirst("tr:eq(0)")
                 .selectFirst("td:eq(1)").text(df1.format(total));
     }
@@ -104,8 +105,11 @@ public class HtmlOfSpecific {
         tdList.get(1).text(spc.getArtikl());
         tdList.get(2).text(spc.getName());
         tdList.get(3).text(spc.getColorID1());
-        tdList.get(4).text(spc.getCount());
-        tdList.get(5).text(spc.getUnit());
+        tdList.get(4).text(spc.getWidth());
+        tdList.get(5).text(spc.getAngl());
+        tdList.get(6).text(spc.getUnit());        
+        tdList.get(7).text(spc.getCount());
+        tdList.get(8).text(spc.getWeight());        
         tdList.get(6).text(spc.getPrice());
         tdList.get(7).text(spc.getCost());
         doc.getElementsByTag("tbody").append(template.get(1).html());
