@@ -90,6 +90,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import report.HtmlOfInvoice;
 import report.HtmlOfMaterial;
+import report.HtmlOfOffer;
 import report.HtmlOfSmeta;
 import report.HtmlOfSpecific;
 import startup.App;
@@ -724,6 +725,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         menuItem13 = new javax.swing.JMenuItem();
         menuItem15 = new javax.swing.JMenuItem();
         menuItem16 = new javax.swing.JMenuItem();
+        menuItem17 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
@@ -921,6 +923,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
         ppReport.add(menuItem16);
+
+        menuItem17.setText("Коммерческое предл...");
+        menuItem17.setToolTipText("");
+        menuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem17(evt);
+            }
+        });
+        ppReport.add(menuItem17);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -3451,6 +3462,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
     }//GEN-LAST:event_menuItem16
 
+    private void menuItem17(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem17
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            @Override
+            public void actionRequest(Object obj) {
+                //Отчёт
+                HtmlOfOffer.offer(qProject.get(UGui.getIndexRec(tab1, 0)));
+            }
+        });
+    }//GEN-LAST:event_menuItem17
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -3533,6 +3554,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JMenuItem menuItem14;
     private javax.swing.JMenuItem menuItem15;
     private javax.swing.JMenuItem menuItem16;
+    private javax.swing.JMenuItem menuItem17;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan11;
