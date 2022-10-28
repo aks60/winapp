@@ -47,7 +47,7 @@ public class HtmlOfOffer {
             Document doc = Jsoup.parse(input, "utf-8");
 
             //Заполним отчёт
-            load(projectRec, doc);
+            //load(projectRec, doc);
 
             String str = doc.html();
             HtmlOfTable.write(str);
