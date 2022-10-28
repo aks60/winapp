@@ -1,19 +1,19 @@
 package report;
 
-import builder.IElem5e;
 import builder.Wincalc;
-import common.MoneyInWords;
-import common.UCom;
 import common.eProp;
+import dataset.Conn;
+import dataset.Field;
+import dataset.Query;
+import static dataset.Query.SEL;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eColor;
 import domain.ePrjkit;
 import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
+import domain.eSyssize;
+import domain.eSystree;
 import domain.eSysuser;
-import enums.Type;
 import frames.UGui;
 import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
@@ -23,10 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import org.jsoup.Jsoup;
@@ -62,7 +65,7 @@ public class HtmlOfOffer {
             System.err.println("Ошибка3:HtmlOfSmeta.smeta2()" + e);
         }
     }
-    
+
     private static void load(Record projectRec, Document doc) {
         int length = 400;
         float total = 0f;
@@ -76,7 +79,6 @@ public class HtmlOfOffer {
             doc.getElementById("h01").text("Коммерческое предложение от " + UGui.DateToStr(projectRec.get(eProject.date4)));
 
             //СЕКЦИЯ №1
-
             //СЕКЦИЯ №2
             Element div2 = doc.getElementById("div2");
             String template2 = div2.html();
@@ -98,10 +100,8 @@ public class HtmlOfOffer {
                 List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
-//                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-                Elements captions = tab4List.get(i).getElementsByTag("caption");                
-                captions.get(0).text("Изделие № " + (i + 1));
-//                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
+                tdList.get(0).text("Изделие № " + (i + 1));
+                tdList.get(3).text(systemProfile(6));
 //                tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
 //                tdList.get(6).text(winc.width() + "x" + winc.height());
 //                tdList.get(8).text(glassList.get(0).artiklRecAn().getStr(eArtikl.code));
@@ -201,5 +201,22 @@ public class HtmlOfOffer {
             throw new RuntimeException(e);
         }
         return outputStream.toByteArray();
+    }
+
+    private static String systemProfile(int id) {
+        String ret = "";
+        try {
+            Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet recordset = statement.executeQuery("with recursive tree as (select * from systree where id = " 
+                    + id + " union all select * from systree a join tree b on a.id = b.parent_id and b.id != b.parent_id) select * from tree");
+            while (recordset.next()) {
+                ret = recordset.getString("name") + " / " + ret;
+            }
+            statement.close();
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return ret;
     }
 }
