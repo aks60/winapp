@@ -96,7 +96,7 @@ public class HtmlOfSmeta {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
 
-            doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            doc.getElementById("h01").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
             //СЕКЦИЯ №2
             Element div2 = doc.getElementById("div2");
@@ -160,7 +160,7 @@ public class HtmlOfSmeta {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
 
-            doc.getElementById("p1").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            doc.getElementById("h01").text("Смета №" + projectRec.getStr(eProject.num_ord) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
             //СЕКЦИЯ №1
             Elements attr = doc.getElementById("tab1").getElementsByTag("td");

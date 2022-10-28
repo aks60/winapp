@@ -93,7 +93,7 @@ public class HtmlOfInvoice {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Wincalc> wincList = wincList(prjprodList);
 
-            doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            doc.getElementById("h01").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
             //СЕКЦИЯ №2
             {
@@ -146,7 +146,7 @@ public class HtmlOfInvoice {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Wincalc> wincList = wincList(prjprodList);
 
-            doc.getElementById("p1").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
+            doc.getElementById("h01").text("Счёт №" + projectRec.getStr(eProject.num_acc) + " от '" + UGui.DateToStr(projectRec.get(eProject.date4)) + "'");
 
             //СЕКЦИЯ №2
             {

@@ -73,7 +73,7 @@ public class HtmlOfOffer {
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
             List<Record> prjkitAll = new ArrayList();
 
-            doc.getElementById("h1").text("Коммерческое предложение от " + UGui.DateToStr(projectRec.get(eProject.date4)));
+            doc.getElementById("h01").text("Коммерческое предложение от " + UGui.DateToStr(projectRec.get(eProject.date4)));
 
             //СЕКЦИЯ №1
 
@@ -99,8 +99,8 @@ public class HtmlOfOffer {
                 prjkitAll.addAll(prjkitList);
 
 //                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-//                Elements captions = tab4List.get(i).getElementsByTag("caption");
-//                captions.get(0).text("Изделие № " + (i + 1));
+                Elements captions = tab4List.get(i).getElementsByTag("caption");                
+                captions.get(0).text("Изделие № " + (i + 1));
 //                tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
 //                tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
 //                tdList.get(6).text(winc.width() + "x" + winc.height());
