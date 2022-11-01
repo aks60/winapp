@@ -112,46 +112,13 @@ public class HtmlOfOffer {
                 tdList.get(21).text(df2.format(winc.weight()));
                 tdList.get(23).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
                 tdList.get(25).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
-//
-//                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
-//
-//                if (prjkitList.size() == 0) {
-//                    tab3List.get(i).html("");
-//                } else {
-//                    Elements captions3 = tab3List.get(i).getElementsByTag("caption");
-//                    captions3.get(0).text("Комплектация к изделию № " + (i + 1));
-//                    String template3 = tab3List.get(i)
-//                            .getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
-//                    for (int k = 1; k < prjkitList.size(); k++) {
-//                        tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
-//                    }
-//
-//                    //Цикл по строкам комплектации
-//                    for (int k = 0; k < prjkitList.size(); k++) {
-//
-//                        Record prjkitRec = prjkitList.get(k);
-//                        Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
-//
-//                        Elements tr3List = tab3List.get(i).getElementsByTag("tr");
-//                        Elements td3List = tr3List.get(k + 1).getElementsByTag("td");
-//
-//                        td3List.get(0).text(String.valueOf(k + 1));
-//                        td3List.get(1).text(artiklRec.getStr(eArtikl.code));
-//                        td3List.get(2).text(artiklRec.getStr(eArtikl.name));
-//                        td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
-//                        td3List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-//                                + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
-//                        td3List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
-//                        td3List.get(6).text(df1.format(0));
-//                        td3List.get(7).text(df1.format(0));
-//                    }
-//                }
             }
-//            //СЕКЦИЯ №3
-//            Elements trList = doc.getElementById("tab6").getElementsByTag("tr");
-//            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
-//            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
-//            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
+            //СЕКЦИЯ №
+            Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
+            trList.get(0).getElementsByTag("td").get(2).text(df1.format(square / 1000000) + " кв.м.");
+            //trList.get(3).getElementsByTag("td").get(1).text(df2.format(total));
+            //trList.get(5).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+            
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
             for (int i = 0; i < imgList.size(); i++) {
