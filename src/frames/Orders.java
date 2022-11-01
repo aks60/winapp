@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import common.ArrayList2;
 import common.DecimalFormat2;
 import common.UCom;
 import dataset.Field;
@@ -3199,8 +3200,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 projectRec.set(eProject.cost2, projectRec.getFloat(eProject.cost2) + win.cost2());
 
                                 //Комплектация
-                                new Tariffic(win, true).kits(projectRec, prjprodRec); //комплекты
-                                for (Specific spc : win.kitsSpec) {
+                                ArrayList2<Specific> kitList = Tariffic.kits(projectRec, prjprodRec, win); //комплекты
+                                for (Specific spc : kitList) {
                                     projectRec.set(eProject.price3, projectRec.getFloat(eProject.price3) + spc.price);
                                     projectRec.set(eProject.cost3, projectRec.getFloat(eProject.cost3) + spc.cost2);
                                 }

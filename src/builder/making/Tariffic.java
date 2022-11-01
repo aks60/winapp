@@ -148,8 +148,8 @@ public class Tariffic extends Cal5e {
         }
     }
 
-    //Комплекты проекта (нет привязки к winc)
-    public static ArrayList2<Specific> kitsList(Record projectRec) {
+    //Комплекты проекта 
+    public static ArrayList2<Specific> kits(Record projectRec) {
         float id = 0;
         ArrayList2<Specific> kitsSpec = new ArrayList2();
         try {
@@ -169,7 +169,7 @@ public class Tariffic extends Cal5e {
                     spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                     spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                     spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
-                    
+
                     kitsSpec.add(spc);
                 }
             }
@@ -197,8 +197,9 @@ public class Tariffic extends Cal5e {
         return kitsSpec;
     }
 
-    //Тарификация комплектов
-    public void kits(Record projectRec, Record prjprodRec) {
+    //Комплекты конструкции    
+    public static ArrayList2<Specific> kits(Record projectRec, Record prjprodRec, Wincalc winc) {
+        ArrayList2<Specific> kitsSpec = new ArrayList2();
         try {
             Record systreeRec = eSystree.find(winc.nuni);
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
@@ -219,7 +220,7 @@ public class Tariffic extends Cal5e {
                         spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                         spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                         spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
-                        winc.kitsSpec.add(spc);
+                        kitsSpec.add(spc);
                     }
                 }
                 //Цикл по детализации
@@ -245,13 +246,12 @@ public class Tariffic extends Cal5e {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
-        } finally {
-            Query.conf = conf;
         }
+        return kitsSpec;
     }
 
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet
-    public static float artdetPrice(Specific specificRec) {
+    private static float artdetPrice(Specific specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //основная
@@ -273,7 +273,7 @@ public class Tariffic extends Cal5e {
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0
                     && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
                     && isTariff(artdetRec, color2Rec)) {
-                
+
                 float k1 = artdetRec.getFloat(eArtdet.cost_c4); //тариф двухсторонней текстуры
                 float k2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
                 float k3 = color3Rec.getFloat(eColor.coef3); //ценовой коэф.внешний текстуры
@@ -421,8 +421,8 @@ public class Tariffic extends Cal5e {
     private static float percentMarkup(Wincalc winc) {
         if (Type.ARCH == winc.rootArea.type()) {
             return eGroups.find(2101).getFloat(eGroups.val);
-            
-        } else if(Type.RECTANGL != winc.rootArea.type()) {
+
+        } else if (Type.RECTANGL != winc.rootArea.type()) {
             return eGroups.find(2104).getFloat(eGroups.val);
         }
         return 0;
