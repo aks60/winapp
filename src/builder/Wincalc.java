@@ -51,7 +51,9 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    public Record artiklRec = null; //главный артикул системы профилей   
+    public Record sysprofRec = null; //профиль 
+    public Record glassRec = null; //заполнение
+    public Record sysfurnRec = null; //фурнитура
     public Record syssizeRec = null; //константы    
     public float genId = 0; //генерация ключа в спецификации
 
@@ -79,8 +81,8 @@ public class Wincalc {
     public Form form = null; //форма контура (параметр в развитии) 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список IArea5e
-    public LinkedList2<IElem5e> listElem = new LinkedList2(); //список IElem5e
+    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа
+    public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
@@ -145,8 +147,8 @@ public class Wincalc {
             this.colorID1 = rootGson.color1();
             this.colorID2 = rootGson.color2();
             this.colorID3 = rootGson.color3();
-            this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
-            this.syssizeRec = eSyssize.find(artiklRec);
+            this.sysprofRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
+            this.syssizeRec = eSyssize.find(sysprofRec);
             eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
@@ -180,6 +182,7 @@ public class Wincalc {
                             ? new AreaStvorka(Wincalc.this, owner, js) 
                             : new AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
+                    //this.sysfurnRec = area5e.sys
                     hm.put(area5e, js);
 
                    //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
@@ -214,6 +217,7 @@ public class Wincalc {
                     IElem5e elem5e = (eProp.old.read().equals("0")) 
                             ? new ElemGlass(owner, js)
                             : new builder.model.old.ElemGlass(owner, js);
+                    this.glassRec = elem5e.artiklRecAn();
                     owner.childs().add(elem5e);
                 }
             }

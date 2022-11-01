@@ -155,7 +155,7 @@ class UPar {
     static boolean is_31037_38037_39037_40037(IElem5e elem5e, String txt) {
         if (Type.STVORKA == elem5e.owner().type()) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
-            String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
+            String name = eFurniture.find(stv.sysfurnRec().getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
             if ((name.equals(txt)) == false) {
                 return false;
             }

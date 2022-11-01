@@ -88,15 +88,15 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24006:  //Установить текстуру
                     if ("по текстуре ручки".equals(rec.getStr(TEXT))) {
-                        if (areaStv.handleColor != detailRec.getInt(eFurndet.color_fk)) {
+                        if (areaStv.handleColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     } else if ("по текстуре подвеса".equals(rec.getStr(TEXT))) {
-                        if (areaStv.loopColor != detailRec.getInt(eFurndet.color_fk)) {
+                        if (areaStv.loopColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     } else if ("по текстуре замка".equals(rec.getStr(TEXT))) {
-                        if (areaStv.lockColor != detailRec.getInt(eFurndet.color_fk)) {
+                        if (areaStv.lockColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     }

@@ -39,16 +39,16 @@ import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
 
-    public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
-    public Record handleRec = eArtikl.virtualRec(); //ручка
-    public Record loopRec = eArtikl.virtualRec(); //подвес(петли)
-    public Record lockRec = eArtikl.virtualRec(); //замок
+    private Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
+    private Record handleRec = eArtikl.virtualRec(); //ручка
+    private Record loopRec = eArtikl.virtualRec(); //подвес(петли)
+    private Record lockRec = eArtikl.virtualRec(); //замок
 
-    public int handleColor = -3; //цвет ручки
-    public int loopColor = -3; //цвет подвеса
-    public int lockColor = -3; //цвет замка
+    private int handleColor = -3; //цвет ручки
+    private int loopColor = -3; //цвет подвеса
+    private int lockColor = -3; //цвет замка
 
-    public float handleHeight = 0; //высота ручки
+    private float handleHeight = 0; //высота ручки
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
     public boolean paramCheck[] = {true, true, true, true, true, true, true, true};
@@ -288,4 +288,57 @@ public class AreaStvorka extends AreaSimple {
             }
         }
     }
+    
+    public Record sysfurnRec() {
+        return sysfurnRec;
+    }
+
+    public Record handleRec() {
+        return this.handleRec;
+    }
+
+    public void handleRec(Record handleRec) {
+        this.handleRec = handleRec;
+    }
+
+    public Record loopRec() {
+        return loopRec;
+    }
+
+    public void loopRec(Record loopRec) {
+        this.loopRec = loopRec;
+    }
+
+    public Record lockRec() {
+        return lockRec;
+    }
+
+    public void lockRec(Record lockRec) {
+        this.lockRec = lockRec;
+    }
+
+    public int handleColor() {
+        return handleColor;
+    }
+
+    public void handleColor(int handleColor) {
+        this.handleColor = handleColor;
+    }
+
+    public int loopColor() {
+        return loopColor;
+    }
+
+    public void loopColor(int loopColor) {
+        this.loopColor = loopColor;
+    }
+
+    public int lockColor() {
+        return lockColor;
+    }
+
+    public void lockColor(int lockColor) {
+        this.lockColor = lockColor;
+    }    
+    
 }

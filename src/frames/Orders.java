@@ -422,7 +422,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 new Furniture(winc(), true); //найдём ручку створки
                 ((CardLayout) pan8.getLayout()).show(pan8, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
-                int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
+                int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
                 setText(txt24, df1.format(stv.frames().get(Layout.BOTT).width()));
                 float h = (stv.frames().get(Layout.RIGHT).height() > stv.frames().get(Layout.LEFT).height()) ? stv.frames().get(Layout.RIGHT).height() : stv.frames().get(Layout.LEFT).height();
                 setText(txt26, df1.format(h));
@@ -437,17 +437,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     txt31.setEditable(false);
                     setText(txt31, "");
                 }
-                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ÷ " + stv.handleRec.getStr(eArtikl.name));
+                setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
                 setIcon(btn12, stv.paramCheck[1]);
-                setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
+                setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck[2]);
-                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ÷ " + stv.loopRec.getStr(eArtikl.name));
+                setText(txt45, stv.loopRec().getStr(eArtikl.code) + " ÷ " + stv.loopRec().getStr(eArtikl.name));
                 setIcon(btn15, stv.paramCheck[3]);
-                setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
+                setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
                 setIcon(btn17, stv.paramCheck[4]);
-                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ÷ " + stv.lockRec.getStr(eArtikl.name));
+                setText(txt46, stv.lockRec().getStr(eArtikl.code) + " ÷ " + stv.lockRec().getStr(eArtikl.name));
                 setIcon(btn23, stv.paramCheck[5]);
-                setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
+                setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck[6]);
 
                 //Соединения
@@ -3044,7 +3044,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
-            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec.getInt(eArtikl.id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
@@ -3066,7 +3066,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void handkToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handkToStvorka
         try {
             float stvorkaID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
+            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3257,7 +3257,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
         try {
             float selectID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
+            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 12");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3283,7 +3283,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
-            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec.getInt(eArtikl.id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
@@ -3305,7 +3305,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void lockToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockToStvorka
         try {
             float selectID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
+            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 9");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3331,7 +3331,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
-            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec.getInt(eArtikl.id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);

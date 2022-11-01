@@ -278,7 +278,7 @@ public class ElemFrame extends ElemSimple {
                     int colorID = -1;
                     AreaStvorka elemStv = ((AreaStvorka) owner);
                     if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
-                        colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
+                        colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor());
 
                     } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
                         for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {

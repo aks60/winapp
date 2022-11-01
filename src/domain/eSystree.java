@@ -1,9 +1,13 @@
 package domain;
 
+import dataset.Conn;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),
@@ -82,6 +86,24 @@ public enum eSystree implements Field {
         return record;
     }
 
+    //Система профилей
+    public static String systemProfile(int id) {
+        String ret = "";
+        try {
+            Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet recordset = statement.executeQuery("with recursive tree as (select * from systree where id = " 
+                    + id + " union all select * from systree a join tree b on a.id = b.parent_id and b.id != b.parent_id) select * from tree");
+            while (recordset.next()) {
+                ret = recordset.getString("name") + " / " + ret;
+            }
+            statement.close();
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return ret;
+    }
+    
     public String toString() {
         return meta.descr();
     }

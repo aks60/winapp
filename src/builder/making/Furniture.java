@@ -61,7 +61,7 @@ public class Furniture extends Cal5e {
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
                 
                 //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);                
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec().getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);                
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
                 //Проверка на max высоту, ширину
@@ -239,14 +239,14 @@ public class Furniture extends Cal5e {
             if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
-                        areaStv.handleRec = spcAdd.artiklRec;
+                    if (areaStv.handleRec().getInt(eArtikl.id) == -3) {
+                        areaStv.handleRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.handleRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.handleColor == -3) {
-                        areaStv.handleColor = spcAdd.colorID1;
+                    if (add_specific == true && areaStv.handleColor() == -3) {
+                        areaStv.handleColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;
@@ -255,14 +255,14 @@ public class Furniture extends Cal5e {
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.loopRec.getInt(eArtikl.id) == -3) {
-                        areaStv.loopRec = spcAdd.artiklRec;
+                    if (areaStv.loopRec().getInt(eArtikl.id) == -3) {
+                        areaStv.loopRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.loopRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.loopColor == -3) {
-                        areaStv.loopColor = spcAdd.colorID1;
+                    if (add_specific == true && areaStv.loopColor() == -3) {
+                        areaStv.loopColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;
@@ -271,14 +271,14 @@ public class Furniture extends Cal5e {
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.lockRec.getInt(eArtikl.id) == -3) {
-                        areaStv.lockRec = spcAdd.artiklRec;
+                    if (areaStv.lockRec().getInt(eArtikl.id) == -3) {
+                        areaStv.lockRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.lockRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.lockColor == -3) {
-                        areaStv.lockColor = spcAdd.colorID1;
+                    if (add_specific == true && areaStv.lockColor() == -3) {
+                        areaStv.lockColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;

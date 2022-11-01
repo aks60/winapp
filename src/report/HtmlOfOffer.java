@@ -1,19 +1,22 @@
 package report;
 
+import builder.IArea5e;
+import builder.IElem5e;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import common.eProp;
-import dataset.Conn;
-import dataset.Field;
-import dataset.Query;
-import static dataset.Query.SEL;
 import dataset.Record;
+import domain.eArtikl;
+import domain.eColor;
+import domain.eFurniture;
 import domain.ePrjkit;
 import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
-import domain.eSyssize;
+import domain.eSysfurn;
 import domain.eSystree;
 import domain.eSysuser;
+import enums.Type;
 import frames.UGui;
 import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
@@ -23,13 +26,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import org.jsoup.Jsoup;
@@ -101,7 +100,25 @@ public class HtmlOfOffer {
                 prjkitAll.addAll(prjkitList);
 
                 tdList.get(0).text("Изделие № " + (i + 1));
-                tdList.get(3).text(systemProfile(6));
+                tdList.get(3).text(eSystree.systemProfile(6));
+                IArea5e stv = winc.listArea.stream().filter(area -> area.type() == Type.STVORKA).findFirst().orElse(null);
+                if (stv != null) {
+                    int id = ((AreaStvorka) stv).sysfurnRec().getInt(eSysfurn.furniture_id);
+                    tdList.get(5).text(eFurniture.find(id).getStr(eFurniture.name));
+                } else {
+                    tdList.get(5).text("");
+                }
+//                IElem5e glass = winc.listElem.stream().filter(elem -> elem.type() == Type.GLASS).findFirst().orElse(null);
+//                if (glass != null) {
+//                    tdList.get(7).text(glass.artiklRecAn().getStr(eArtikl.code) + " - " + glass.artiklRecAn().getStr(eArtikl.name));
+//                } else {
+//                    tdList.get(7).text("");
+//                }
+                tdList.get(9).text(eColor.find(winc.colorID1).getStr(eColor.name));
+                tdList.get(11).text(eColor.find(winc.colorID2).getStr(eColor.name));
+                tdList.get(13).text(eColor.find(winc.colorID3).getStr(eColor.name));
+                tdList.get(15).text(winc.width() + "x" + winc.height());
+                
 //                tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
 //                tdList.get(6).text(winc.width() + "x" + winc.height());
 //                tdList.get(8).text(glassList.get(0).artiklRecAn().getStr(eArtikl.code));
@@ -201,22 +218,5 @@ public class HtmlOfOffer {
             throw new RuntimeException(e);
         }
         return outputStream.toByteArray();
-    }
-
-    private static String systemProfile(int id) {
-        String ret = "";
-        try {
-            Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet recordset = statement.executeQuery("with recursive tree as (select * from systree where id = " 
-                    + id + " union all select * from systree a join tree b on a.id = b.parent_id and b.id != b.parent_id) select * from tree");
-            while (recordset.next()) {
-                ret = recordset.getString("name") + " / " + ret;
-            }
-            statement.close();
-
-        } catch (SQLException e) {
-            System.err.println(e);
-        }
-        return ret;
     }
 }
