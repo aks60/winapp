@@ -110,21 +110,21 @@ public class HtmlOfOffer {
                 total_cost2 = total_cost2 + prjprodRec.getInt(ePrjprod.num) * winc.cost2();
             }
             {
-                Elements trList = doc.getElementById("tab2").getElementsByTag("tr");
+                Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2));
                 List<Record> prjkitAll = new ArrayList(ePrjkit.find2(projectRec.getInt(eProject.id)));
                 for (int i = 1; i < prjkitAll.size(); i++) {
                     Record prjkitRec = prjkitAll.get(i);
                     Record artiklRec = eArtikl.get(prjkitRec.getInt(ePrjkit.artikl_id));
                     //total_kit = total_kit + 
-                    
-                    //Elements td5List = trList.get(i).getElementsByTag("td");
-                    //td5List.get(6).text(df1.format(330));
-                    //td5List.get(7).text(df1.format(440));
-
+//                    
+//                    //Elements td5List = trList.get(i).getElementsByTag("td");
+//                    //td5List.get(6).text(df1.format(330));
+//                    //td5List.get(7).text(df1.format(440));
+//
                 }
-                trList.get(1).getElementsByTag("td").get(1).text(df2.format(888));
-                trList.get(2).getElementsByTag("td").get(1).text(df2.format(999));
+//                //trList.get(1).getElementsByTag("td").get(1).text(df2.format(888));
+//                //trList.get(2).getElementsByTag("td").get(1).text(df2.format(999));
             }
             {
                 Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
