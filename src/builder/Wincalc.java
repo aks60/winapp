@@ -182,7 +182,7 @@ public class Wincalc {
                             ? new AreaStvorka(Wincalc.this, owner, js) 
                             : new builder.model.old.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
-                    //this.sysfurnRec = area5e.sys
+                    this.sysfurnRec = ((IStvorka) area5e).sysfurnRec(); //фурнитура конструкции
                     hm.put(area5e, js);
 
                    //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
@@ -217,7 +217,7 @@ public class Wincalc {
                     IElem5e elem5e = (eProp.old.read().equals("0")) 
                             ? new ElemGlass(owner, js)
                             : new builder.model.old.ElemGlass(owner, js);
-                    this.glassRec = elem5e.artiklRecAn();
+                    this.glassRec = elem5e.artiklRecAn(); //заполнения конструкции
                     owner.childs().add(elem5e);
                 }
             }

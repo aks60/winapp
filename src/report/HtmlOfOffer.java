@@ -1,10 +1,10 @@
 package report;
 
-import builder.IArea5e;
-import builder.IStvorka;
 import builder.Wincalc;
+import common.MoneyInWords;
 import common.eProp;
 import dataset.Record;
+import domain.eArtikl;
 import domain.eColor;
 import domain.eFurniture;
 import domain.ePrjkit;
@@ -14,7 +14,6 @@ import domain.eProject;
 import domain.eSysfurn;
 import domain.eSystree;
 import domain.eSysuser;
-import enums.Type;
 import frames.UGui;
 import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
@@ -99,37 +98,20 @@ public class HtmlOfOffer {
 
                 tdList.get(0).text("Изделие № " + (i + 1));
                 tdList.get(3).text(eSystree.systemProfile(6));
-                IArea5e stv = winc.listArea.stream().filter(area -> area.type() == Type.STVORKA).findFirst().orElse(null);
-                if (stv != null) {
-                    int id = ((IStvorka) stv).sysfurnRec().getInt(eSysfurn.furniture_id);
-                    tdList.get(5).text(eFurniture.find(id).getStr(eFurniture.name));
-                } else {
-                    tdList.get(5).text("");
-                }
-//                IElem5e glass = winc.listElem.stream().filter(elem -> elem.type() == Type.GLASS).findFirst().orElse(null);
-//                if (glass != null) {
-//                    tdList.get(7).text(glass.artiklRecAn().getStr(eArtikl.code) + " - " + glass.artiklRecAn().getStr(eArtikl.name));
-//                } else {
-//                    tdList.get(7).text("");
-//                }
+                int furniture_id = winc.sysfurnRec.getInt(eSysfurn.furniture_id);
+                String fname = (furniture_id != -1) ? eFurniture.find(furniture_id).getStr(eFurniture.name) : "";               
+                tdList.get(5).text(fname);
+                String gname = (winc.glassRec != null) ? winc.glassRec.getStr(eArtikl.code) + " - " + winc.glassRec.getStr(eArtikl.name) : "";
+                tdList.get(7).text(gname);
                 tdList.get(9).text(eColor.find(winc.colorID1).getStr(eColor.name));
                 tdList.get(11).text(eColor.find(winc.colorID2).getStr(eColor.name));
                 tdList.get(13).text(eColor.find(winc.colorID3).getStr(eColor.name));
                 tdList.get(15).text(winc.width() + "x" + winc.height());
-
-//                tdList.get(4).text(prjprodRec.getStr(ePrjprod.name));
-//                tdList.get(6).text(winc.width() + "x" + winc.height());
-//                tdList.get(8).text(glassList.get(0).artiklRecAn().getStr(eArtikl.code));
-//                tdList.get(10).text("");
-//                tdList.get(12).text(eColor.find(winc.colorID1).getStr(eColor.name) + " / "
-//                        + eColor.find(winc.colorID2).getStr(eColor.name) + " / "
-//                        + eColor.find(winc.colorID3).getStr(eColor.name));
-//                tdList.get(14).text(prjprodRec.getStr(ePrjprod.num));
-//                tdList.get(16).text(df2.format(winc.square()));
-//                tdList.get(18).text(df2.format(winc.weight()));
-//                tdList.get(20).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-//                tdList.get(22).text(df1.format(winc.price() / winc.square()));
-//                tdList.get(24).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+                tdList.get(17).text(prjprodRec.getStr(ePrjprod.num));
+                tdList.get(19).text(df2.format(winc.square()));
+                tdList.get(21).text(df2.format(winc.weight()));
+                tdList.get(23).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
+                tdList.get(25).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
 //
 //                total += prjprodRec.getInt(ePrjprod.num) * winc.cost2();
 //
@@ -170,12 +152,12 @@ public class HtmlOfOffer {
 //            trList.get(0).getElementsByTag("td").get(1).text(df2.format(total));
 //            trList.get(1).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
 //            trList.get(3).getElementsByTag("td").get(0).text("Площадь изделий в заказе : " + df1.format(square / 1000000) + " кв.м.");
-//
-//            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
-//            for (int i = 0; i < imgList.size(); i++) {
-//                Element get = imgList.get(i);
-//                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
-//            }
+
+            Elements imgList = doc.getElementById("div2").getElementsByTag("img");
+            for (int i = 0; i < imgList.size(); i++) {
+                Element get = imgList.get(i);
+                get.attr("src", "C:\\Users\\All Users\\Avers\\Okna\\img" + (i + 1) + ".gif");
+            }
         } catch (Exception e) {
             System.err.println("Ошибка:HtmlOfOffer.load()" + e);
         }
