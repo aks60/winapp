@@ -29,11 +29,11 @@ public class UMod {
 
         } else if (list.get(1).equals(ps)) {
             AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
-            return stv.handleHeight - dx;
+            return stv.handleHeight() - dx;
 
         } else if (list.get(2).equals(ps)) {
             AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
-            return spcRec.width - stv.handleHeight - dx;
+            return spcRec.width - stv.handleHeight() - dx;
 
         } else if (list.get(3).equals(ps)) {
             return spcRec.width / 2 - dx;

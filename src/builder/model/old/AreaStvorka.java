@@ -1,5 +1,6 @@
-package builder.model;
+package builder.model.old;
 
+import builder.model.*;
 import builder.IStvorka;
 import builder.IArea5e;
 import builder.IElem5e;

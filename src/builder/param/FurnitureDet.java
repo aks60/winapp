@@ -142,7 +142,7 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24012:  //Направление открывания
-                    if (areaStv.typeOpen.name.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                    if (areaStv.typeOpen().name.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -240,13 +240,13 @@ public class FurnitureDet extends Par5s {
                     if (handl.length > 1) {
                         float handl_min = UCom.getFloat(handl[0]);
                         float handl_max = UCom.getFloat(handl[1]);
-                        if (handl_min > areaStv.handleHeight || areaStv.handleHeight > handl_max) {
+                        if (handl_min > areaStv.handleHeight() || areaStv.handleHeight() > handl_max) {
                             return false;
                         }
                     }
                     if ("ps3".equals(versionDb)) { //Минимальная высота ручки, мм
                         float handl_min = UCom.getFloat(rec.getStr(TEXT));
-                        if (handl_min > areaStv.handleHeight) {
+                        if (handl_min > areaStv.handleHeight()) {
                             return false;
                         }
                     }
@@ -255,7 +255,7 @@ public class FurnitureDet extends Par5s {
                 case 24065: //Максимальная высота ручки, мм 
                 {
                     float handl_max = UCom.getFloat(rec.getStr(TEXT));
-                    if (handl_max < areaStv.handleHeight) {
+                    if (handl_max < areaStv.handleHeight()) {
                         return false;
                     }
                 }
@@ -280,13 +280,13 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24070: //Если высота ручки "по середине", "константная", "не константная", "установлена"
                 case 25070: //Если высота ручки
-                    if (LayoutHandle.CONST != areaStv.handleLayout && rec.getStr(TEXT).equals("константная")) {
+                    if (LayoutHandle.CONST != areaStv.handleLayout() && rec.getStr(TEXT).equals("константная")) {
                         return false;
-                    } else if (LayoutHandle.CONST == areaStv.handleLayout && rec.getStr(TEXT).equals("не константная")) {
+                    } else if (LayoutHandle.CONST == areaStv.handleLayout() && rec.getStr(TEXT).equals("не константная")) {
                         return false;
-                    } else if (LayoutHandle.MIDL != areaStv.handleLayout && rec.getStr(TEXT).equals("по середине")) {
+                    } else if (LayoutHandle.MIDL != areaStv.handleLayout() && rec.getStr(TEXT).equals("по середине")) {
                         return false;
-                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout && rec.getStr(TEXT).equals("установлена")) {
+                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout() && rec.getStr(TEXT).equals("установлена")) {
                         return false;
                     }
                     break;

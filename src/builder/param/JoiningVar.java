@@ -223,13 +223,13 @@ public class JoiningVar extends Par5s {
                         listenerList.add(() -> {
                             AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
                             if (elemJoin.elem1.layout() == Layout.BOTT) {
-                                stv.offset[0] = rec.getFloat(TEXT);
+                                stv.offset()[0] = rec.getFloat(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.RIGHT) {
-                                stv.offset[1] = rec.getFloat(TEXT);
+                                stv.offset()[1] = rec.getFloat(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.TOP) {
-                                stv.offset[2] = rec.getFloat(TEXT);
+                                stv.offset()[2] = rec.getFloat(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.LEFT) {
-                                stv.offset[3] = rec.getFloat(TEXT);
+                                stv.offset()[3] = rec.getFloat(TEXT);
                             }
                         });
                     }
@@ -502,7 +502,7 @@ public class JoiningVar extends Par5s {
                 {
                     AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
                     IElem5e imp = elemJoin.elem1;
-                    if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
+                    if (Math.abs(imp.y2() - stv.handleHeight()) < rec.getFloat(TEXT)) {
                         return false;
                     }
                 }

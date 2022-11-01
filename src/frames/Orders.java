@@ -427,28 +427,28 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 float h = (stv.frames().get(Layout.RIGHT).height() > stv.frames().get(Layout.LEFT).height()) ? stv.frames().get(Layout.RIGHT).height() : stv.frames().get(Layout.LEFT).height();
                 setText(txt26, df1.format(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
-                setIcon(btn10, stv.paramCheck[0]);
-                setText(txt30, stv.typeOpen.name2);
-                setText(txt16, stv.handleLayout.name);
-                if (stv.handleLayout == LayoutHandle.VARIAT) {
+                setIcon(btn10, stv.paramCheck()[0]);
+                setText(txt30, stv.typeOpen().name2);
+                setText(txt16, stv.handleLayout().name);
+                if (stv.handleLayout() == LayoutHandle.VARIAT) {
                     txt31.setEditable(true);
-                    setText(txt31, df1.format(stv.handleHeight));
+                    setText(txt31, df1.format(stv.handleHeight()));
                 } else {
                     txt31.setEditable(false);
                     setText(txt31, "");
                 }
                 setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
-                setIcon(btn12, stv.paramCheck[1]);
+                setIcon(btn12, stv.paramCheck()[1]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
-                setIcon(btn14, stv.paramCheck[2]);
+                setIcon(btn14, stv.paramCheck()[2]);
                 setText(txt45, stv.loopRec().getStr(eArtikl.code) + " ÷ " + stv.loopRec().getStr(eArtikl.name));
-                setIcon(btn15, stv.paramCheck[3]);
+                setIcon(btn15, stv.paramCheck()[3]);
                 setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
-                setIcon(btn17, stv.paramCheck[4]);
+                setIcon(btn17, stv.paramCheck()[4]);
                 setText(txt46, stv.lockRec().getStr(eArtikl.code) + " ÷ " + stv.lockRec().getStr(eArtikl.name));
-                setIcon(btn23, stv.paramCheck[5]);
-                setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck[6]);
+                setIcon(btn23, stv.paramCheck()[5]);
+                setText(txt48, eColor.find(stv.lockColor() ).getStr(eColor.name));
+                setIcon(btn24, stv.paramCheck()[6]);
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {

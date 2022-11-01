@@ -180,7 +180,7 @@ public class Wincalc {
                 if (Type.STVORKA == js.type()) {
                     IArea5e area5e = (eProp.old.read().equals("0")) 
                             ? new AreaStvorka(Wincalc.this, owner, js) 
-                            : new AreaStvorka(Wincalc.this, owner, js);
+                            : new builder.model.old.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
                     //this.sysfurnRec = area5e.sys
                     hm.put(area5e, js);

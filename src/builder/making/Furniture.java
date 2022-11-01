@@ -307,7 +307,7 @@ public class Furniture extends Cal5e {
     //Там где крепится ручка
     public static IElem5e determOfSide(IArea5e area5e) {
         if (area5e instanceof AreaStvorka) {
-            int id = ((AreaStvorka) area5e).typeOpen.id;
+            int id = ((AreaStvorka) area5e).typeOpen().id;
             if (List.of(1, 3, 11).contains(id)) {
                 return area5e.frames().get(Layout.LEFT);
             } else if (List.of(2, 4, 12).contains(id)) {
