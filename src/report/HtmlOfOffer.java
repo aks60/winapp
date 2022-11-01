@@ -1,6 +1,9 @@
 package report;
 
 import builder.Wincalc;
+import builder.making.Specific;
+import builder.making.Tariffic;
+import common.ArrayList2;
 import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
@@ -63,10 +66,7 @@ public class HtmlOfOffer {
 
     private static void load(Record projectRec, Document doc) {
         int length = 400;
-        float total_price = 0f;
-        float total_cost2 = 0f;
-        float total_kit = 0f;
-        float square = 0f; //площадь
+        float total_price = 0f, total_cost2 = 0f, total_kit_cost2 = 0f, square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -108,23 +108,15 @@ public class HtmlOfOffer {
 
                 total_price = total_price + prjprodRec.getInt(ePrjprod.num) * winc.price();
                 total_cost2 = total_cost2 + prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                for (Specific spc : Tariffic.kits(prjprodRec, winc)) {
+                    total_kit_cost2 = total_kit_cost2 + spc.cost2;
+                }
             }
             {
                 Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2));
-                List<Record> prjkitAll = new ArrayList(ePrjkit.find2(projectRec.getInt(eProject.id)));
-                for (int i = 1; i < prjkitAll.size(); i++) {
-                    Record prjkitRec = prjkitAll.get(i);
-                    Record artiklRec = eArtikl.get(prjkitRec.getInt(ePrjkit.artikl_id));
-                    //total_kit = total_kit + 
-//                    
-//                    //Elements td5List = trList.get(i).getElementsByTag("td");
-//                    //td5List.get(6).text(df1.format(330));
-//                    //td5List.get(7).text(df1.format(440));
-//
-                }
-//                //trList.get(1).getElementsByTag("td").get(1).text(df2.format(888));
-//                //trList.get(2).getElementsByTag("td").get(1).text(df2.format(999));
+                trList.get(1).getElementsByTag("td").get(1).text(df2.format(total_kit_cost2));
+                trList.get(2).getElementsByTag("td").get(1).text(df2.format(total_cost2 + total_kit_cost2));
             }
             {
                 Elements trList = doc.getElementById("tab5").getElementsByTag("tr");

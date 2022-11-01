@@ -151,9 +151,9 @@ public class Tariffic extends Cal5e {
     //Комплекты проекта 
     public static ArrayList2<Specific> kits(Record projectRec) {
         float id = 0;
-        ArrayList2<Specific> kitsSpec = new ArrayList2();
+        ArrayList2<Specific> kitList = new ArrayList2();
         try {
-            List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), null);
+            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id));
 
             //Цикл по комплектам
             for (Record prjkitRec : prjkitList) {
@@ -169,12 +169,11 @@ public class Tariffic extends Cal5e {
                     spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                     spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                     spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
-
-                    kitsSpec.add(spc);
+                    kitList.add(spc);
                 }
             }
             //Цикл по детализации
-            for (Specific spc : kitsSpec) {
+            for (Specific spc : kitList) {
                 //Тарификация
                 spc.quant1 = formatAmount(spc); //количество без отхода
                 spc.quant2 = spc.quant1; //базовое количество с отходом
@@ -194,17 +193,17 @@ public class Tariffic extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
         }
-        return kitsSpec;
+        return kitList;
     }
 
     //Комплекты конструкции    
-    public static ArrayList2<Specific> kits(Record projectRec, Record prjprodRec, Wincalc winc) {
-        ArrayList2<Specific> kitsSpec = new ArrayList2();
+    public static ArrayList2<Specific> kits(Record prjprodRec, Wincalc winc) {
+        ArrayList2<Specific> kitList = new ArrayList2();
         try {
-            Record systreeRec = eSystree.find(winc.nuni);
+            Record systreeRec = eSystree.find(winc.nuni); //для нахожд. коэф. рентабельности
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
             if (prjprodRec != null) {
-                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
 
                 //Цикл по комплектам
                 for (Record prjkitRec : prjkitList) {
@@ -220,11 +219,11 @@ public class Tariffic extends Cal5e {
                         spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                         spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                         spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
-                        kitsSpec.add(spc);
+                        kitList.add(spc);
                     }
                 }
                 //Цикл по детализации
-                for (Specific spc : winc.kitsSpec) {
+                for (Specific spc : kitList) {
                     //Тарификация
                     spc.quant1 = formatAmount(spc); //количество без отхода
                     spc.quant2 = spc.quant1; //базовое количество с отходом
@@ -247,7 +246,7 @@ public class Tariffic extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
         }
-        return kitsSpec;
+        return kitList;
     }
 
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet

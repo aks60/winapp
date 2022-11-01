@@ -86,7 +86,7 @@ public class Wincalc {
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
-    public ArrayList2<Specific> kitsSpec = new ArrayList2(); //спецификация
+    public ArrayList2<Specific> kitsSpec = new ArrayList2(); //не использую
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
     public Wincalc() {

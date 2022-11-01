@@ -59,7 +59,7 @@ public class HtmlOfSpecific {
             winc.build(script);
             winc.constructiv(true);
             spcList2.addAll(winc.listSpec); //добавим спецификацию
-            ArrayList2<Specific> kitList = Tariffic.kits(projectRec, prjprodRec, winc); 
+            ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, winc); 
             spcList2.addAll(kitList); //добавим комплекты
         }
         ArrayList2<Specific> kitsSpec = Tariffic.kits(projectRec); 

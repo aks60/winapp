@@ -68,11 +68,11 @@ public enum ePrjkit implements Field {
         return new Query(values()).select(up, "where", project_id, "=", _project_id);
     }
 
-    public static List<Record> find3(int _project_id, Object _prjprod_id) {
+    public static List<Record> find3(Object _prjprod_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _project_id == rec.getInt(project_id) && rec.get(prjprod_id).equals(_prjprod_id)).collect(Collectors.toList());
+            return query().stream().filter(rec -> rec.get(prjprod_id).equals(_prjprod_id)).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", project_id, "=", _project_id, "and", prjprod_id, "=", _prjprod_id);
+        return new Query(values()).select(up, "where", prjprod_id, "=", _prjprod_id);
     }
 
     public String toString() {

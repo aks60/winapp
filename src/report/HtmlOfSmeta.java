@@ -115,7 +115,7 @@ public class HtmlOfSmeta {
                 Wincalc winc = wincList.get(i);
                 square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
                 LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
@@ -199,7 +199,7 @@ public class HtmlOfSmeta {
                 Wincalc winc = wincList.get(i);
                 square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
                 LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
