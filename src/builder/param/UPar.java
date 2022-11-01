@@ -1,8 +1,8 @@
 package builder.param;
 
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
@@ -154,7 +154,7 @@ class UPar {
     //Название фурнитуры содержит 
     static boolean is_31037_38037_39037_40037(IElem5e elem5e, String txt) {
         if (Type.STVORKA == elem5e.owner().type()) {
-            AreaStvorka stv = (AreaStvorka) elem5e.owner();
+            IStvorka stv = (IStvorka) elem5e.owner();
             String name = eFurniture.find(stv.sysfurnRec().getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
             if ((name.equals(txt)) == false) {
                 return false;
@@ -168,7 +168,7 @@ class UPar {
     //Для типа открывания
     static boolean is_1039_38039_39039(IElem5e elem5e, String txt) {
         if (elem5e.owner().type() == Type.STVORKA) {
-            AreaStvorka stv = (AreaStvorka) elem5e.owner();
+            IStvorka stv = (IStvorka) elem5e.owner();
             if (!"фрамуга".equals(txt) && stv.typeOpen() == TypeOpen1.UPPER) { //фрамуга
                 return false;
             } else if (!"поворотное".equals(txt) && (stv.typeOpen() == TypeOpen1.LEFT || stv.typeOpen() == TypeOpen1.RIGHT)) { //поворотное

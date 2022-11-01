@@ -9,9 +9,9 @@ import domain.eSetting;
 import domain.eSystree;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import enums.Layout;
 import enums.LayoutJoin;
@@ -221,7 +221,7 @@ public class JoiningVar extends Par5s {
                     //Применяется если сист. константы отсутствуют
                     if (elemJoin.elem1.type() == Type.STVORKA_SIDE) {
                         listenerList.add(() -> {
-                            AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
+                            IStvorka stv = (IStvorka) elemJoin.elem1.owner();
                             if (elemJoin.elem1.layout() == Layout.BOTT) {
                                 stv.offset()[0] = rec.getFloat(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.RIGHT) {
@@ -500,7 +500,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 4018: //От ручки не менее, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner();
+                    IStvorka stv = (IStvorka) elemJoin.elem1.owner();
                     IElem5e imp = elemJoin.elem1;
                     if (Math.abs(imp.y2() - stv.handleHeight()) < rec.getFloat(TEXT)) {
                         return false;

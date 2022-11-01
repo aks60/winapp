@@ -7,8 +7,8 @@ import domain.eFurnside1;
 import domain.eSetting;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import domain.eSystree;
 import enums.LayoutHandle;
@@ -74,7 +74,7 @@ public class FurnitureVar extends Par5s {
                     break;
                 case 21011: //Ограничение длины ручка константа, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.CONST) {
                         if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
@@ -84,7 +84,7 @@ public class FurnitureVar extends Par5s {
                 break;
                 case 21012: //Ограничение длины ручка вариацион, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.VARIAT) {
                         if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
@@ -94,7 +94,7 @@ public class FurnitureVar extends Par5s {
                 break;
                 case 21013: //Ограничение длины ручка по середине, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.MIDL) {
                         if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
@@ -119,7 +119,7 @@ public class FurnitureVar extends Par5s {
                     break;
                 case 21037: //Диапазон высоты вариационной ручки, мм 
                 {
-                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.VARIAT) {
                         String[] arr = rec.getStr(TEXT).split("-");
                         if (UCom.getInt(arr[0]) > stv.handleHeight() || UCom.getInt(arr[1]) < stv.handleHeight()) {

@@ -1,11 +1,11 @@
 package frames;
 
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.model.Com5t;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.IElem5e;
+import builder.IStvorka;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -236,7 +236,7 @@ public class UGui {
 
     public static void loadWinTree(Wincalc winc, DefMutableTreeNode root, ICom5t com) {
         DefMutableTreeNode nodeStv = root.add(new DefMutableTreeNode(com));
-        AreaStvorka stv = (AreaStvorka) com;
+        IArea5e stv = (IArea5e) com;
         nodeStv.add(new DefMutableTreeNode(stv.frames().get(Layout.BOTT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));

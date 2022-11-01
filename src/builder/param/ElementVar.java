@@ -8,9 +8,9 @@ import domain.eSetting;
 import enums.Layout;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import enums.Type;
 import enums.TypeJoin;
@@ -126,7 +126,7 @@ public class ElementVar extends Par5s {
                 case 31011: //Толщина внешнего/внутреннего заполнения, мм
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
-                    if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS ) {    
+                    if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec().getFloat(eArtikl.depth),
@@ -263,9 +263,9 @@ public class ElementVar extends Par5s {
                     break;
                 case 31051:  //Если створка фурнитуры 
                     if (elem5e.owner().type() == Type.STVORKA) {
-                        if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec().getInt(eArtikl.id) == -3) {
+                        if ("ведущая".equals(rec.getStr(TEXT)) == true && ((IStvorka) elem5e.owner()).handleRec().getInt(eArtikl.id) == -3) {
                             return false;
-                        } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec().getInt(eArtikl.id) != -3) {
+                        } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((IStvorka) elem5e.owner()).handleRec().getInt(eArtikl.id) != -3) {
                             return false;
                         }
                     }

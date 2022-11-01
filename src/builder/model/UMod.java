@@ -1,15 +1,14 @@
 package builder.model;
 
 import builder.IElem5e;
+import builder.IStvorka;
 import builder.making.Specific;
 import domain.eArtikl;
 import builder.param.ParamList;
 import enums.UseUnit;
-import builder.model.AreaStvorka;
 import common.UCom;
 import domain.eSetting;
 import enums.Layout;
-import java.util.HashMap;
 import java.util.List;
 
 public class UMod {
@@ -28,11 +27,11 @@ public class UMod {
             return spcRec.width - dx;
 
         } else if (list.get(1).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
             return stv.handleHeight() - dx;
 
         } else if (list.get(2).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
             return spcRec.width - stv.handleHeight() - dx;
 
         } else if (list.get(3).equals(ps)) {

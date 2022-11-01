@@ -13,9 +13,9 @@ import java.util.List;
 import builder.Wincalc;
 import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
-import builder.model.AreaStvorka;
 import builder.IArea5e;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import dataset.Query;
 import enums.Type;
@@ -50,18 +50,19 @@ public class Furniture extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+        LinkedList<IArea5e> stvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
         try {
-            
+
             //Цикл по створкам      
-            for (AreaStvorka areaStv : stvorkaList) {
-                
+            for (IArea5e areaStv : stvorkaList) {
+
+                IStvorka stv = (IStvorka) areaStv;
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(winc.nuni); //список фурнитур в системе профилей
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
-                
+
                 //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec().getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);                
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == stv.sysfurnRec().getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
                 //Проверка на max высоту, ширину
@@ -84,13 +85,12 @@ public class Furniture extends Cal5e {
         }
     }
 
-    protected void middle(AreaStvorka areaStv, Record furnitureRec, int count) {
+    protected void middle(IArea5e areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList1 = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_id)).collect(toList());
             List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
 
-            
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnsidetList) {
                 IElem5e elemFrame = areaStv.frames().get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
@@ -102,7 +102,6 @@ public class Furniture extends Cal5e {
                 setVariant.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
             }
 
-            
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList1) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
@@ -130,11 +129,11 @@ public class Furniture extends Cal5e {
         }
     }
 
-    protected boolean detail(AreaStvorka areaStv, Record furndetRec, int countKit) {
+    protected boolean detail(IArea5e areaStv, Record furndetRec, int countKit) {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-            
+
             //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
             if (shortPass == true) {
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -144,7 +143,7 @@ public class Furniture extends Cal5e {
                     }
                 }
             }
-            
+
             //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования
             if (furnitureDet.filter(mapParam, areaStv, furndetRec) == false) {
@@ -152,7 +151,6 @@ public class Furniture extends Cal5e {
             }
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
 
-            
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
                 IElem5e el;
@@ -189,8 +187,7 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-            
-            
+
             //Если это элемент из мат. ценности (не НАБОР)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1) {
@@ -232,21 +229,22 @@ public class Furniture extends Cal5e {
         }
     }
 
-    private boolean propertyStv(AreaStvorka areaStv, Specific spcAdd) {
+    private boolean propertyStv(IArea5e areaStv, Specific spcAdd) {
+        IStvorka stv = (IStvorka) areaStv;
         if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2) {
             boolean add_specific = true;
             //Ручка
             if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.handleRec().getInt(eArtikl.id) == -3) {
-                        areaStv.handleRec(spcAdd.artiklRec);
+                    if (stv.handleRec().getInt(eArtikl.id) == -3) {
+                        stv.handleRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.handleRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (stv.handleRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.handleColor() == -3) {
-                        areaStv.handleColor(spcAdd.colorID1);
+                    if (add_specific == true && stv.handleColor() == -3) {
+                        stv.handleColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;
@@ -255,14 +253,14 @@ public class Furniture extends Cal5e {
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.loopRec().getInt(eArtikl.id) == -3) {
-                        areaStv.loopRec(spcAdd.artiklRec);
+                    if (stv.loopRec().getInt(eArtikl.id) == -3) {
+                        stv.loopRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.loopRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (stv.loopRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.loopColor() == -3) {
-                        areaStv.loopColor(spcAdd.colorID1);
+                    if (add_specific == true && stv.loopColor() == -3) {
+                        stv.loopColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;
@@ -271,14 +269,14 @@ public class Furniture extends Cal5e {
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
-                    if (areaStv.lockRec().getInt(eArtikl.id) == -3) {
-                        areaStv.lockRec(spcAdd.artiklRec);
+                    if (stv.lockRec().getInt(eArtikl.id) == -3) {
+                        stv.lockRec(spcAdd.artiklRec);
                         add_specific = true;
                     } else {
-                        add_specific = (areaStv.lockRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (stv.lockRec().getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (add_specific == true && areaStv.lockColor() == -3) {
-                        areaStv.lockColor(spcAdd.colorID1);
+                    if (add_specific == true && stv.lockColor() == -3) {
+                        stv.lockColor(spcAdd.colorID1);
                     }
                 }
                 return add_specific;
@@ -306,8 +304,8 @@ public class Furniture extends Cal5e {
 
     //Там где крепится ручка
     public static IElem5e determOfSide(IArea5e area5e) {
-        if (area5e instanceof AreaStvorka) {
-            int id = ((AreaStvorka) area5e).typeOpen().id;
+        if (area5e instanceof IStvorka) {
+            int id = ((IStvorka) area5e).typeOpen().id;
             if (List.of(1, 3, 11).contains(id)) {
                 return area5e.frames().get(Layout.LEFT);
             } else if (List.of(2, 4, 12).contains(id)) {

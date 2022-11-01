@@ -1,8 +1,7 @@
 package builder.param.test;
 
-import builder.model.AreaStvorka;
-import domain.eArtikl;
-import enums.Layout;
+import builder.IArea5e;
+import builder.IStvorka;
 import java.util.HashMap;
 
 public class FurnitureTest extends ParamTest {
@@ -53,9 +52,9 @@ public class FurnitureTest extends ParamTest {
      */
     public void furnitureDet() {
         HashMap<Integer, String> mapParam = new HashMap();
-        AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner();
-        AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner();
-        AreaStvorka area_stv_4 = (AreaStvorka) stv_right_4.owner();
+        IArea5e area_stv_3 = (IArea5e) stv_right_3.owner();
+        IArea5e area_stv_2 = (IArea5e) stv_right_2.owner();
+        IArea5e area_stv_4 = (IArea5e) stv_right_4.owner();
 
         grup = 24001; //25001 //Форма контура
         //assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;
@@ -73,50 +72,49 @@ public class FurnitureTest extends ParamTest {
         grup = 24005; //25005  //Коды текстуры створки 
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("1009;10000-10999;17000-29999;", grup)) : grup;
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("0-1008;1009", grup)) : grup;
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("0-1008;1010", grup)) : grup;        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("0-1008;1010", grup)) : grup;
 
         grup = 24007; //25007  //Коды текстуры ручки 
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("Белый", grup)) : grup;
         assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup;
-       
+
         grup = 24008; //25008  //Если серия створки
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("Общий створка", grup)) : grup;
-        assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup; 
-        
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup;
+
         //grup = 24009; //25009  //Коды текстуры подвеса  
         //assert true == furnitureDet2.check(mapParam, area_stv_2, param("Без цвета", grup)) : grup;
         //assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup; 
-        
         grup = 24012;  //Направление открывания
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("левое", grup)) : grup;
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("правое", grup)) : grup; 
-        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("правое", grup)) : grup;
+
         grup = 24017; //25017 //Код системы содержит строку
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("et-1", grup)) : grup;
-        assert false == furnitureDet2.check(mapParam, area_stv_2, param("КП-40", grup)) : grup;        
-        
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("КП-40", grup)) : grup;
+
         grup = 24032; //25032 //Правильная полуарка
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;        
-        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;
+
         grup = 24033; //24033 //Фурнитура штульповая 
-        assert true == furnitureDet4.check(mapParam, area_stv_4, param("Да", grup)) : grup;        
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;      
-        
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("Да", grup)) : grup;
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;
+
         grup = 24063; //25063 //Диапазон веса, кг
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("3-40", grup)) : grup;
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("40", grup)) : grup;
-        assert false == furnitureDet2.check(mapParam, area_stv_2, param("1-12", grup)) : grup;  
-        
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("1-12", grup)) : grup;
+
         grup = 24064; //25064 //Ограничение высоты ручки, мм
-        assert true == furnitureDet4.check(mapParam, area_stv_4, param("644-770", grup)) : grup;        
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("644-770", grup)) : grup;
         assert false == furnitureDet3.check(mapParam, area_stv_3, param("1-4", grup)) : grup;
 
         grup = 24067; //25067 //Коды основной текстуры изделия
         assert true == furnitureDet4.check(mapParam, area_stv_4, param("1000-1010;", grup)) : grup;
-        assert false == furnitureDet4.check(mapParam, area_stv_4, param("900-990;", grup)) : grup;        
+        assert false == furnitureDet4.check(mapParam, area_stv_4, param("900-990;", grup)) : grup;
 
         grup = 24070; //25070 //Если высота ручки
         assert true == furnitureDet4.check(mapParam, area_stv_4, param("по середине", grup)) : grup;
-        assert false == furnitureDet4.check(mapParam, area_stv_4, param("константная", grup)) : grup;        
+        assert false == furnitureDet4.check(mapParam, area_stv_4, param("константная", grup)) : grup;
     }
 }

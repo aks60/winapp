@@ -1,5 +1,6 @@
 package frames;
 
+import builder.IArea5e;
 import com.google.gson.Gson;
 import common.eProp;
 import dataset.Conn;
@@ -42,7 +43,6 @@ import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.making.Furniture;
-import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
@@ -75,6 +75,7 @@ import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
 import builder.IElem5e;
+import builder.IStvorka;
 import builder.making.Cal5e;
 import common.DecimalFormat2;
 import domain.eJoinvar;
@@ -641,11 +642,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {
                 new Furniture(winc(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-                AreaStvorka stv = (AreaStvorka) winNode.com5t();
+                IStvorka stv = (IStvorka) winNode.com5t();
+                IArea5e sta = (IArea5e) winNode.com5t();
                 int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
 /////////////////////////////////////
-                setText(txt24, df1.frm(stv.frames().get(Layout.BOTT).width()));
-                float h = (stv.frames().get(Layout.RIGHT).height() > stv.frames().get(Layout.LEFT).height()) ? stv.frames().get(Layout.RIGHT).height() : stv.frames().get(Layout.LEFT).height();
+                setText(txt24, df1.frm(sta.frames().get(Layout.BOTT).width()));
+                float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();
 /////////////////////////////////////                
                 setText(txt26, df1.frm(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
@@ -751,7 +753,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             }
             return nodeList2;
-            
+
         } catch (Exception e) {
             System.err.println("ОШИБКА:Systree.addChild() " + e);
             return null;
@@ -3325,7 +3327,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
             float stvorkaID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
+            int furnitureID = ((IStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3349,7 +3351,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
 
-        AreaStvorka areaStv = (AreaStvorka) winNode.com5t();
+        IArea5e areaStv = (IArea5e) winNode.com5t();
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
             indexLayoutHandl = 1;
@@ -3387,7 +3389,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void colorToHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToHandl
         try {
             float selectID = winNode.com5t().id();
-            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            IStvorka stv = (IStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
@@ -3426,7 +3428,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
         try {
             float selectID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
+            int furnitureID = ((IStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 12");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3451,7 +3453,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void lockToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockToStvorka
         try {
             float selectID = winNode.com5t().id();
-            int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
+            int furnitureID = ((IStvorka) winNode.com5t()).sysfurnRec().getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 9");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
@@ -3476,7 +3478,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void colorFromLoop(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromLoop
         try {
             float selectID = winNode.com5t().id();
-            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            IStvorka stv = (IStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
@@ -3499,7 +3501,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void colorFromLock(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromLock
         try {
             float selectID = winNode.com5t().id();
-            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            IStvorka stv = (IStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec().getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 

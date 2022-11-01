@@ -2,6 +2,7 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
+import builder.IStvorka;
 import builder.making.Paint;
 import domain.eArtikl;
 import domain.eColor;
@@ -15,7 +16,6 @@ import common.UCom;
 import domain.eSetting;
 import enums.Type;
 import java.util.Map;
-import builder.making.Furniture;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import enums.Form;
@@ -276,12 +276,13 @@ public class ElemFrame extends ElemSimple {
                 //Установить текстуру
                 if (spcAdd.getParam("null", 24006).equals("null") == false) {
                     int colorID = -1;
-                    AreaStvorka elemStv = ((AreaStvorka) owner);
+                    IStvorka elemStv = ((IStvorka) owner);
+                    IArea5e areaStv = ((IArea5e) owner);
                     if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
                         colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor());
 
                     } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
-                        for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                        for (Map.Entry<Layout, IElem5e> elem : areaStv.frames().entrySet()) {
                             for (Specific spc : elem.getValue().spcRec().spcList) {
                                 if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
@@ -290,7 +291,7 @@ public class ElemFrame extends ElemSimple {
                         }
 
                     } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                        for (Map.Entry<Layout, IElem5e> elem : elemStv.frames.entrySet()) {
+                        for (Map.Entry<Layout, IElem5e> elem : areaStv.frames().entrySet()) {
                             for (Specific spc : elem.getValue().spcRec().spcList) {
                                 if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
                                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
@@ -307,7 +308,7 @@ public class ElemFrame extends ElemSimple {
                 //Ручка от низа створки, мм 
                 if (spcAdd.getParam("null", 24072, 25072).equals("null") == false) {
                     if (builder.making.Furniture.determOfSide(owner) == this) {
-                        AreaStvorka stv = (AreaStvorka) owner;
+                        IStvorka stv = (IStvorka) owner;
                         stv.handleHeight(UCom.getFloat(spcAdd.getParam(stv.handleHeight(), 24072, 25072)));
                     }
                 }
@@ -317,11 +318,11 @@ public class ElemFrame extends ElemSimple {
                         spcAdd.width = length() - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
 
                     } else if ("высоты ручки".equals(spcAdd.getParam("null", 25013))) {
-                        AreaStvorka stv = (AreaStvorka) owner;
+                        IStvorka stv = (IStvorka) owner;
                         spcAdd.width = stv.handleHeight() - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
 
                     } else if ("сторона - выс. ручки".equals(spcAdd.getParam("null", 25013))) {
-                        AreaStvorka stv = (AreaStvorka) owner;
+                        IStvorka stv = (IStvorka) owner;
                         spcAdd.width = lengthArch - stv.handleHeight() - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
 
                     } else if ("половины стороны".equals(spcAdd.getParam("null", 25013))) {
@@ -354,7 +355,7 @@ public class ElemFrame extends ElemSimple {
             spcAdd.count = UMod.get_39063(spcAdd); //округлять количество до ближайшего
 
             spcRec.spcList.add(spcAdd);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:ElemFrame.addSpecific() " + e);
         }

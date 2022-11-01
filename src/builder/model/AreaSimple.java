@@ -3,6 +3,7 @@ package builder.model;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.ICom5t;
+import builder.IStvorka;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dataset.Record;
@@ -83,8 +84,8 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     /**
-     * Вычисление координат ареа в котором будут находится 
-     * элементы окна ограниченные этим ареа и формой контура.
+     * Вычисление координат ареа в котором будут находится элементы окна
+     * ограниченные этим ареа и формой контура.
      */
     protected void setLocation(float width, float height) {
         //Происходит при подкдадке дополнительной ареа в арке
@@ -282,9 +283,8 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     /**
-     * Форма контура
-     * Если ареа элемента окна(напр.стекло) имеет form!=null, то эта ареа
-     * принимает форму root.type()
+     * Форма контура Если ареа элемента окна(напр.стекло) имеет form!=null, то
+     * эта ареа принимает форму root.type()
      */
     @Override
     public Type type() {
@@ -364,7 +364,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 frames.get(Layout.RIGHT).paint();
 
                 //Прорисовка створок
-                LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+                LinkedList<IArea5e> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
                 elemStvorkaList.stream().forEach(el -> el.paint());
 
                 //Рисунок в память
@@ -412,7 +412,7 @@ public class AreaSimple extends Com5t implements IArea5e {
             frames.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+            LinkedList<IArea5e> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память

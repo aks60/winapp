@@ -1,5 +1,6 @@
 package builder.param;
 
+import builder.IArea5e;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eFurndet;
@@ -10,9 +11,9 @@ import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
 import builder.model.AreaArch;
-import builder.model.AreaStvorka;
 import builder.ICom5t;
 import builder.IElem5e;
+import builder.IStvorka;
 import common.UCom;
 import domain.eColor;
 import domain.eGroups;
@@ -27,7 +28,7 @@ public class FurnitureDet extends Par5s {
         super(winc);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record furndetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, IArea5e areaStv, Record furndetRec) {
 
         this.detailRec = furndetRec;
         List<Record> tableList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
@@ -43,8 +44,9 @@ public class FurnitureDet extends Par5s {
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, IArea5e areaStv, Record rec) {
 
+        IStvorka elemStv = (IStvorka) areaStv;
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -88,15 +90,15 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24006:  //Установить текстуру
                     if ("по текстуре ручки".equals(rec.getStr(TEXT))) {
-                        if (areaStv.handleColor() != detailRec.getInt(eFurndet.color_fk)) {
+                        if (elemStv.handleColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     } else if ("по текстуре подвеса".equals(rec.getStr(TEXT))) {
-                        if (areaStv.loopColor() != detailRec.getInt(eFurndet.color_fk)) {
+                        if (elemStv.loopColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     } else if ("по текстуре замка".equals(rec.getStr(TEXT))) {
-                        if (areaStv.lockColor() != detailRec.getInt(eFurndet.color_fk)) {
+                        if (elemStv.lockColor() != detailRec.getInt(eFurndet.color_fk)) {
                             return false;
                         }
                     }
@@ -142,7 +144,7 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24012:  //Направление открывания
-                    if (areaStv.typeOpen().name.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                    if (elemStv.typeOpen().name.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -240,13 +242,13 @@ public class FurnitureDet extends Par5s {
                     if (handl.length > 1) {
                         float handl_min = UCom.getFloat(handl[0]);
                         float handl_max = UCom.getFloat(handl[1]);
-                        if (handl_min > areaStv.handleHeight() || areaStv.handleHeight() > handl_max) {
+                        if (handl_min > elemStv.handleHeight() || elemStv.handleHeight() > handl_max) {
                             return false;
                         }
                     }
                     if ("ps3".equals(versionDb)) { //Минимальная высота ручки, мм
                         float handl_min = UCom.getFloat(rec.getStr(TEXT));
-                        if (handl_min > areaStv.handleHeight()) {
+                        if (handl_min > elemStv.handleHeight()) {
                             return false;
                         }
                     }
@@ -255,7 +257,7 @@ public class FurnitureDet extends Par5s {
                 case 24065: //Максимальная высота ручки, мм 
                 {
                     float handl_max = UCom.getFloat(rec.getStr(TEXT));
-                    if (handl_max < areaStv.handleHeight()) {
+                    if (handl_max < elemStv.handleHeight()) {
                         return false;
                     }
                 }
@@ -280,13 +282,13 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24070: //Если высота ручки "по середине", "константная", "не константная", "установлена"
                 case 25070: //Если высота ручки
-                    if (LayoutHandle.CONST != areaStv.handleLayout() && rec.getStr(TEXT).equals("константная")) {
+                    if (LayoutHandle.CONST != elemStv.handleLayout() && rec.getStr(TEXT).equals("константная")) {
                         return false;
-                    } else if (LayoutHandle.CONST == areaStv.handleLayout() && rec.getStr(TEXT).equals("не константная")) {
+                    } else if (LayoutHandle.CONST == elemStv.handleLayout() && rec.getStr(TEXT).equals("не константная")) {
                         return false;
-                    } else if (LayoutHandle.MIDL != areaStv.handleLayout() && rec.getStr(TEXT).equals("по середине")) {
+                    } else if (LayoutHandle.MIDL != elemStv.handleLayout() && rec.getStr(TEXT).equals("по середине")) {
                         return false;
-                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout() && rec.getStr(TEXT).equals("установлена")) {
+                    } else if (LayoutHandle.VARIAT != elemStv.handleLayout() && rec.getStr(TEXT).equals("установлена")) {
                         return false;
                     }
                     break;
