@@ -1,7 +1,6 @@
 package report;
 
 import builder.Wincalc;
-import common.MoneyInWords;
 import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
@@ -64,28 +63,24 @@ public class HtmlOfOffer {
 
     private static void load(Record projectRec, Document doc) {
         int length = 400;
-        float total = 0f;
+        float total_price = 0f;
+        float total_cost2 = 0f;
+        float total_kit = 0f;
         float square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
-            List<Record> prjkitAll = new ArrayList();
 
             doc.getElementById("h01").text("Коммерческое предложение от " + UGui.DateToStr(projectRec.get(eProject.date4)));
 
-            //СЕКЦИЯ №1
-            //СЕКЦИЯ №2
             Element div2 = doc.getElementById("div2");
             String template2 = div2.html();
             List<Wincalc> wincList = wincList(prjprodList, length);
-
             for (int i = 1; i < prjprodList.size(); i++) {
                 div2.append(template2);
             }
             Elements tab4List = doc.getElementById("div2").getElementsByClass("tab4");
-            //Elements tab3List = doc.getElementById("div2").getElementsByClass("tab3");
-
             //Цикл по изделиям
             for (int i = 0; i < prjprodList.size(); i++) {
 
@@ -93,13 +88,11 @@ public class HtmlOfOffer {
                 Wincalc winc = wincList.get(i);
                 square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
-                prjkitAll.addAll(prjkitList);
 
                 tdList.get(0).text("Изделие № " + (i + 1));
                 tdList.get(3).text(eSystree.systemProfile(6));
                 int furniture_id = winc.sysfurnRec.getInt(eSysfurn.furniture_id);
-                String fname = (furniture_id != -1) ? eFurniture.find(furniture_id).getStr(eFurniture.name) : "";               
+                String fname = (furniture_id != -1) ? eFurniture.find(furniture_id).getStr(eFurniture.name) : "";
                 tdList.get(5).text(fname);
                 String gname = (winc.glassRec != null) ? winc.glassRec.getStr(eArtikl.code) + " - " + winc.glassRec.getStr(eArtikl.name) : "";
                 tdList.get(7).text(gname);
@@ -112,13 +105,33 @@ public class HtmlOfOffer {
                 tdList.get(21).text(df2.format(winc.weight()));
                 tdList.get(23).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
                 tdList.get(25).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+
+                total_price = total_price + prjprodRec.getInt(ePrjprod.num) * winc.price();
+                total_cost2 = total_cost2 + prjprodRec.getInt(ePrjprod.num) * winc.cost2();
             }
-            //СЕКЦИЯ №
-            Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
-            trList.get(0).getElementsByTag("td").get(2).text(df1.format(square / 1000000) + " кв.м.");
-            //trList.get(3).getElementsByTag("td").get(1).text(df2.format(total));
-            //trList.get(5).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
-            
+            {
+                Elements trList = doc.getElementById("tab2").getElementsByTag("tr");
+                trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2));
+                List<Record> prjkitAll = new ArrayList(ePrjkit.find2(projectRec.getInt(eProject.id)));
+                for (int i = 1; i < prjkitAll.size(); i++) {
+                    Record prjkitRec = prjkitAll.get(i);
+                    Record artiklRec = eArtikl.get(prjkitRec.getInt(ePrjkit.artikl_id));
+                    //total_kit = total_kit + 
+                    
+                    //Elements td5List = trList.get(i).getElementsByTag("td");
+                    //td5List.get(6).text(df1.format(330));
+                    //td5List.get(7).text(df1.format(440));
+
+                }
+                trList.get(1).getElementsByTag("td").get(1).text(df2.format(888));
+                trList.get(2).getElementsByTag("td").get(1).text(df2.format(999));
+            }
+            {
+                Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
+                trList.get(0).getElementsByTag("td").get(2).text(df1.format(square / 1000000) + " кв.м.");
+                //trList.get(3).getElementsByTag("td").get(1).text(df2.format(total));
+                //trList.get(5).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+            }
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
             for (int i = 0; i < imgList.size(); i++) {

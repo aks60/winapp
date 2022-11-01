@@ -153,7 +153,7 @@ public class Tariffic extends Cal5e {
         float id = 0;
         ArrayList2<Specific> kitsSpec = new ArrayList2();
         try {
-            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), null);
+            List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), null);
 
             //Цикл по комплектам
             for (Record prjkitRec : prjkitList) {
@@ -203,7 +203,7 @@ public class Tariffic extends Cal5e {
             Record systreeRec = eSystree.find(winc.nuni);
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
             if (prjprodRec != null) {
-                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
 
                 //Цикл по комплектам
                 for (Record prjkitRec : prjkitList) {

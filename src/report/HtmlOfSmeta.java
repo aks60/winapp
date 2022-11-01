@@ -115,7 +115,7 @@ public class HtmlOfSmeta {
                 Wincalc winc = wincList.get(i);
                 square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
                 LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
@@ -149,7 +149,7 @@ public class HtmlOfSmeta {
             System.err.println("Ошибка:HtmlOfSmeta.load1()" + e);
         }
     }
-    
+
     private static void load2(Record projectRec, Document doc) {
         int length = 400;
         float total = 0f;
@@ -199,7 +199,7 @@ public class HtmlOfSmeta {
                 Wincalc winc = wincList.get(i);
                 square = square + winc.width() * winc.height();
                 Record prjprodRec = prjprodList.get(i);
-                List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
+                List<Record> prjkitList = ePrjkit.find3(projectRec.getInt(eProject.id), prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
                 LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
@@ -227,8 +227,7 @@ public class HtmlOfSmeta {
                 } else {
                     Elements captions3 = tab3List.get(i).getElementsByTag("caption");
                     captions3.get(0).text("Комплектация к изделию № " + (i + 1));
-                    String template3 = tab3List.get(i)
-                            .getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
+                    String template3 = tab3List.get(i).getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0).html();
                     for (int k = 1; k < prjkitList.size(); k++) {
                         tab3List.get(i).getElementsByTag("tbody").get(0).append(template3);
                     }
@@ -294,8 +293,8 @@ public class HtmlOfSmeta {
                 td5List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
                         + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
                 td5List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
-                td5List.get(6).text(df1.format(0));
-                td5List.get(7).text(df1.format(0));
+                td5List.get(6).text(df1.format(330));
+                td5List.get(7).text(df1.format(440));
 
             }
             //СЕКЦИЯ №4
