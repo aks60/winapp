@@ -102,21 +102,25 @@ public class HtmlOfOffer {
                 tdList.get(17).text(prjprodRec.getStr(ePrjprod.num));
                 tdList.get(19).text(df2.format(winc.square()));
                 tdList.get(21).text(df2.format(winc.weight()));
-                tdList.get(23).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.price()));
-                tdList.get(25).text(df1.format(prjprodRec.getInt(ePrjprod.num) * winc.cost2()));
+                tdList.get(23).text(df1.format(winc.price()));
+                tdList.get(25).text(df1.format(winc.cost2()));
 
-                total_price = total_price + prjprodRec.getInt(ePrjprod.num) * winc.price();
-                total_cost2 = total_cost2 + prjprodRec.getInt(ePrjprod.num) * winc.cost2();
+                total_price = total_price + winc.price();
+                total_cost2 = total_cost2 + winc.cost2();
                 for (Specific spc : Tariffic.kits(prjprodRec, winc)) {
                     total_kit_cost2 = total_kit_cost2 + spc.cost2;
                 }
             }
             {
                 Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
-                trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2));
-                trList.get(1).getElementsByTag("td").get(1).text(df2.format(total_kit_cost2
-                        - (total_kit_cost2 * projectRec.getFloat(eProject.disc3) / 100)));
-                trList.get(2).getElementsByTag("td").get(1).text(df2.format(total_cost2 + total_kit_cost2));
+                float total_cost2_disc2 = projectRec.getInt(ePrjprod.num) * (total_cost2 - (total_cost2 * projectRec.getFloat(eProject.disc2) / 100));
+                trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2_disc2));
+                
+                float total_kit_cost2_disc3 = projectRec.getInt(ePrjprod.num) * (total_kit_cost2 - (total_kit_cost2 * projectRec.getFloat(eProject.disc3) / 100));
+                trList.get(1).getElementsByTag("td").get(1).text(df2.format(total_kit_cost2_disc3));
+                
+                //float total_cost2_disc4 = 
+                trList.get(2).getElementsByTag("td").get(1).text(df2.format(total_cost2_disc2 + total_kit_cost2));
             }
             {
                 Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
