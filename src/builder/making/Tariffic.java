@@ -137,7 +137,7 @@ public class Tariffic extends Cal5e {
             //Расчёт веса элемента конструкции
             for (IElem5e elem5e : winc.listElem) {
                 elem5e.spcRec().weight = elem5e.spcRec().quant1 * elem5e.spcRec().artiklRec.getFloat(eArtikl.density);
-                
+
                 for (Specific spec : elem5e.spcRec().spcList) {
                     spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
                 }
@@ -149,56 +149,8 @@ public class Tariffic extends Cal5e {
         }
     }
 
-    //Комплекты проекта 
-    public static ArrayList2<Specific> kits(Record projectRec) {
-        float id = 0;
-        ArrayList2<Specific> kitList = new ArrayList2();
-        try {
-            List<Record> prjkitList = ePrjkit.find2(projectRec.getInt(eProject.id));
-
-            //Цикл по комплектам
-            for (Record prjkitRec : prjkitList) {
-                Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
-                if (artiklRec != null) {
-                    Specific spc = new Specific(++id, prjkitRec, artiklRec, null);
-                    spc.place = "КОМП";
-                    spc.width = prjkitRec.getFloat(ePrjkit.width);
-                    spc.height = prjkitRec.getFloat(ePrjkit.height);
-                    spc.count = prjkitRec.getFloat(ePrjkit.numb);
-                    spc.colorID1 = prjkitRec.getInt(ePrjkit.color1_id);
-                    spc.colorID2 = prjkitRec.getInt(ePrjkit.color2_id);
-                    spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
-                    spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
-                    spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
-                    kitList.add(spc);
-                }
-            }
-            //Цикл по детализации
-            for (Specific spc : kitList) {
-                //Тарификация
-                spc.quant1 = formatAmount(spc); //количество без отхода
-                spc.quant2 = spc.quant1; //базовое количество с отходом
-                if (norm_otx == true) {
-                    float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
-                    spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
-                }
-                spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
-                spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
-                Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
-                Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
-                float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
-                spc.price = spc.costpric2 * k1; //стоимость без скидки                       
-                spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой   
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
-        }
-        return kitList;
-    }
-
     //Комплекты конструкции    
-    public static ArrayList2<Specific> kits(Record prjprodRec, Wincalc winc) {
+    public static ArrayList2<Specific> kits(Record prjprodRec, Wincalc winc, boolean norm_otx) {
         ArrayList2<Specific> kitList = new ArrayList2();
         try {
             Record systreeRec = eSystree.find(winc.nuni); //для нахожд. коэф. рентабельности
@@ -220,28 +172,24 @@ public class Tariffic extends Cal5e {
                         spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
                         spc.anglCut1 = prjkitRec.getFloat(ePrjkit.angl1);
                         spc.anglCut2 = prjkitRec.getFloat(ePrjkit.angl2);
+                        spc.quant1 = formatAmount(spc); //количество без отхода
+                        spc.quant2 = spc.quant1; //базовое количество с отходом
+                        if (norm_otx == true) {
+                            float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
+                            spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
+                        }
+                        spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
+                        spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
+                        Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
+                        Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
+                        float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
+                        float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
+                        float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
+                        spc.price = spc.costpric2 * k1 * k3;
+                        spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
+                        spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой 
                         kitList.add(spc);
                     }
-                }
-                //Цикл по детализации
-                for (Specific spc : kitList) {
-                    //Тарификация
-                    spc.quant1 = formatAmount(spc); //количество без отхода
-                    spc.quant2 = spc.quant1; //базовое количество с отходом
-                    if (norm_otx == true) {
-                        float otx = spc.artiklRec.getFloat(eArtikl.otx_norm);
-                        spc.quant2 = spc.quant2 + (spc.quant1 * otx / 100); //количество с отходом
-                    }
-                    spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
-                    spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
-                    Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
-                    Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
-                    float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                    float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
-                    float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
-                    spc.price = spc.costpric2 * k1 * k3;
-                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                     
-                    spc.cost2 = spc.price - (spc.price / 100) * k2; //стоимость со скидкой 
                 }
             }
         } catch (Exception e) {

@@ -59,11 +59,9 @@ public class HtmlOfSpecific {
             winc.build(script);
             winc.constructiv(true);
             spcList2.addAll(winc.listSpec); //добавим спецификацию
-            ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, winc); 
+            ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, winc, true); 
             spcList2.addAll(kitList); //добавим комплекты
         }
-        ArrayList2<Specific> kitsSpec = Tariffic.kits(projectRec); 
-        spcList2.addAll(kitsSpec); //добавим комплекты проекта  
         
         List<RSpecific> spcList3 = new ArrayList();
         spcList2.forEach(el -> spcList3.add(new RSpecific(el)));
