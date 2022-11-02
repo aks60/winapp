@@ -3,13 +3,12 @@ package report;
 import builder.Wincalc;
 import builder.making.Specific;
 import builder.making.Tariffic;
-import common.ArrayList2;
+import common.MoneyInWords;
 import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eFurniture;
-import domain.ePrjkit;
 import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
@@ -115,14 +114,16 @@ public class HtmlOfOffer {
             {
                 Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(1).text(df2.format(total_cost2));
-                trList.get(1).getElementsByTag("td").get(1).text(df2.format(total_kit_cost2));
+                trList.get(1).getElementsByTag("td").get(1).text(df2.format(total_kit_cost2
+                        - (total_kit_cost2 * projectRec.getFloat(eProject.disc3) / 100)));
                 trList.get(2).getElementsByTag("td").get(1).text(df2.format(total_cost2 + total_kit_cost2));
             }
             {
                 Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(2).text(df1.format(square / 1000000) + " кв.м.");
-                //trList.get(3).getElementsByTag("td").get(1).text(df2.format(total));
-                //trList.get(5).getElementsByTag("td").get(0).text(MoneyInWords.inwords(total));
+                trList.get(1).getElementsByTag("td").get(2).text(df2.format(total_price));
+                trList.get(2).getElementsByTag("td").get(2).text(df2.format(total_cost2));
+                trList.get(3).getElementsByTag("td").get(2).text(df2.format(total_cost2 + total_kit_cost2));
             }
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");

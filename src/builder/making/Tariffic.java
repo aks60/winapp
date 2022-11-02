@@ -132,11 +132,12 @@ public class Tariffic extends Cal5e {
                     spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                         
                     spc.cost2 = spc.price - (spc.price / 100) * m2; //стоимость со скидкой 
                 }
-
             }
 
             //Расчёт веса элемента конструкции
             for (IElem5e elem5e : winc.listElem) {
+                elem5e.spcRec().weight = elem5e.spcRec().quant1 * elem5e.spcRec().artiklRec.getFloat(eArtikl.density);
+                
                 for (Specific spec : elem5e.spcRec().spcList) {
                     spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
                 }

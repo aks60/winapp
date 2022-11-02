@@ -117,7 +117,7 @@ public class Wincalc {
             listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining()); //соединения створок
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);
         }
@@ -178,43 +178,43 @@ public class Wincalc {
             for (GsonElem js : gson.childs()) {
 
                 if (Type.STVORKA == js.type()) {
-                    IArea5e area5e = (eProp.old.read().equals("0")) 
-                            ? new AreaStvorka(Wincalc.this, owner, js) 
+                    IArea5e area5e = (eProp.old.read().equals("0"))
+                            ? new AreaStvorka(Wincalc.this, owner, js)
                             : new builder.model.old.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
                     this.sysfurnRec = ((IStvorka) area5e).sysfurnRec(); //фурнитура конструкции
                     hm.put(area5e, js);
 
-                   //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
-                   //Элементы окна ограничены этим ареа и формой контура.
+                    //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
+                    //Элементы окна ограничены этим ареа и формой контура.
                 } else if (Type.AREA == js.type() || Type.ARCH == js.type() || Type.TRAPEZE == js.type()) {
                     IArea5e area5e = null;
                     if (js.form() == null) {
-                        area5e = (eProp.old.read().equals("0")) 
-                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height()) 
+                        area5e = (eProp.old.read().equals("0"))
+                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
                                 : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
                     } else {
-                        area5e = (eProp.old.read().equals("0")) 
-                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form()) 
+                        area5e = (eProp.old.read().equals("0"))
+                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
                                 : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
                     }
                     owner.childs().add(area5e);
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME_SIDE == js.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) 
+                    IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new ElemFrame(rootArea, js)
                             : new builder.model.old.ElemFrame(rootArea, js);
                     rootArea.frames().put(js.layout(), elem5e);
 
                 } else if (Type.IMPOST == js.type() || Type.SHTULP == js.type() || Type.STOIKA == js.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) 
-                            ? new ElemCross(owner, js) 
+                    IElem5e elem5e = (eProp.old.read().equals("0"))
+                            ? new ElemCross(owner, js)
                             : new ElemCross(owner, js);
                     owner.childs().add(elem5e);
 
                 } else if (Type.GLASS == js.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0")) 
+                    IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new ElemGlass(owner, js)
                             : new builder.model.old.ElemGlass(owner, js);
                     this.glassRec = elem5e.artiklRecAn(); //заполнения конструкции
@@ -268,7 +268,7 @@ public class Wincalc {
             //Вес изделия
             LinkedList<IElem5e> glassList = UCom.listSortObj(listElem, Type.GLASS);
             for (IElem5e el : glassList) {
-                weight += el.artiklRecAn().getFloat(eArtikl.density) * square(); //вес
+                this.weight += el.artiklRecAn().getFloat(eArtikl.density) * el.width() * el.height() / 1000000; //уд.вес * площадь = вес
             }
 
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
@@ -278,6 +278,7 @@ public class Wincalc {
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="GET AND SET">    
     public String script() {
         return this.script;
     }
@@ -333,4 +334,5 @@ public class Wincalc {
     public float square() {
         return width() * height() / 1000000;
     }
+    // </editor-fold>     
 }
