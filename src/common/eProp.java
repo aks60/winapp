@@ -38,6 +38,7 @@ public enum eProp {
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Avers/Okna", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Avers/Okna", "C:\\Documents and Settings\\All Users\\Application Data\\Avers\\Okna"), //Аркаим или Arkaim
+    cmd_def("I", "I"), 
     cmd_word("/usr/bin/oowriter ", "cmd /c start winword.exe "),
     cmd_excel("/usr/bin/oocalc ", "cmd /c start excel.exe "),
     cmd_html("/usr/bin/firefox ", "cmd /c start iexplore.exe "),       

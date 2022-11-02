@@ -65,7 +65,7 @@ public class HtmlOfOffer {
 
     private static void load(Record projectRec, Document doc) {
         int length = 400;
-        float total_price = 0f, total_cost2 = 0f, total_kit_cost2 = 0f, square = 0f; //площадь
+        float square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -103,29 +103,19 @@ public class HtmlOfOffer {
                 tdList.get(19).text(df2.format(winc.square()));
                 tdList.get(21).text(df2.format(winc.weight()));
                 tdList.get(23).text(df1.format(winc.price()));
-                tdList.get(25).text(df1.format(winc.cost2()));
-
-                total_price = total_price + winc.price() * prjprodRec.getInt(ePrjprod.num);
-                total_cost2 = total_cost2 + winc.cost2() * prjprodRec.getInt(ePrjprod.num);
-                for (Specific spc : Tariffic.kits(prjprodRec, winc, true)) {
-                    total_kit_cost2 = total_kit_cost2 + spc.cost2 * spc.count;
-                }
             }
             {
-                Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");               
-                float _total_cost2 = total_cost2 - total_cost2 * projectRec.getFloat(eProject.disc2) / 100;            
-                trList.get(0).getElementsByTag("td").get(1).text(df2.format(_total_cost2));                  
-                float _total_kit_cost2 = total_kit_cost2 - total_kit_cost2 * projectRec.getFloat(eProject.disc3) / 100;               
-                trList.get(1).getElementsByTag("td").get(1).text(df2.format(_total_kit_cost2));
-                float _total_sum_cost2 = (_total_cost2 + _total_kit_cost2) - (_total_cost2 + _total_kit_cost2) * projectRec.getFloat(eProject.disc4) / 100;  
-                trList.get(2).getElementsByTag("td").get(1).text(df2.format(_total_sum_cost2));
+                Elements trList = doc.getElementById("tab2").getElementsByTag("tbody").get(0).getElementsByTag("tr");
+                trList.get(0).getElementsByTag("td").get(1).text(df2.format(projectRec.getFloat(eProject.cost2)));
+                trList.get(1).getElementsByTag("td").get(1).text(df2.format(projectRec.getFloat(eProject.cost3)));
+                trList.get(2).getElementsByTag("td").get(1).text(df2.format(projectRec.getFloat(eProject.cost4)));
             }
             {
                 Elements trList = doc.getElementById("tab5").getElementsByTag("tr");
                 trList.get(0).getElementsByTag("td").get(2).text(df1.format(square / 1000000) + " кв.м.");
-                trList.get(1).getElementsByTag("td").get(2).text(df2.format(total_price));
-                trList.get(2).getElementsByTag("td").get(2).text(df2.format(total_cost2));
-                trList.get(3).getElementsByTag("td").get(2).text(df2.format(total_cost2 + total_kit_cost2));
+                trList.get(1).getElementsByTag("td").get(2).text(df2.format(projectRec.getFloat(eProject.price2)));
+                trList.get(2).getElementsByTag("td").get(2).text(df2.format(projectRec.getFloat(eProject.cost2)));
+                trList.get(3).getElementsByTag("td").get(2).text(df2.format(projectRec.getFloat(eProject.cost4)));
             }
 
             Elements imgList = doc.getElementById("div2").getElementsByTag("img");
