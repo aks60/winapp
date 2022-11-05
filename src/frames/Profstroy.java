@@ -630,8 +630,20 @@ public class Profstroy {
         }
     }
 
-    public static void deleteTrigger() {
-        //CREATE OR ALTER TRIGGER ELEMDET_BI FOR ELEMDET ACTIVE BEFORE INSERT POSITION 0 as begin if (new.id is null) then new.id = gen_id(gen_ELEMDET, 1);    
+    //Секция удаления записей в зависимых таблицах
+    public static void deletePart() {
+        println(Color.GREEN, "Секция удаления записей в зависимых таблицах");
+        deleteTrigger("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id");
+    }
+    
+    public static void deleteTrigger(String str) {
+        println(Color.BLACK, str);
+        try {
+            st2.execute(str);
+            cn2.commit();
+        } catch (SQLException e) {
+            println(Color.BLUE, "НЕУДАЧА-SQL: executeSql(). " + str);
+        }
     }
 
     public static void loadModels() {
@@ -834,7 +846,7 @@ public class Profstroy {
             println(Color.RED, "Ошибка: updateSql().  " + e);
         }
     }
-    
+
     public static void alterTable(String tname1, String cn, String fk, String tname2) {
         String str = "alter table " + tname1 + " add constraint " + cn + " foreign key (" + fk + ") references " + tname2 + " (id)";
         println(Color.BLACK, str);
