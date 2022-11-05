@@ -608,6 +608,8 @@ public class Profstroy {
             alterTable("sysprof", "fk_sysprof2", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
+            alterTable("sysfurn", "fk_sysfurn3", "artikl_id1", "artikl");
+            alterTable("sysfurn", "fk_sysfurn4", "artikl_id2", "artikl");
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
@@ -626,6 +628,10 @@ public class Profstroy {
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
         }
+    }
+
+    public static void deleteTrigger() {
+        //CREATE OR ALTER TRIGGER ELEMDET_BI FOR ELEMDET ACTIVE BEFORE INSERT POSITION 0 as begin if (new.id is null) then new.id = gen_id(gen_ELEMDET, 1);    
     }
 
     public static void loadModels() {
@@ -828,7 +834,7 @@ public class Profstroy {
             println(Color.RED, "Ошибка: updateSql().  " + e);
         }
     }
-
+    
     public static void alterTable(String tname1, String cn, String fk, String tname2) {
         String str = "alter table " + tname1 + " add constraint " + cn + " foreign key (" + fk + ") references " + tname2 + " (id)";
         println(Color.BLACK, str);

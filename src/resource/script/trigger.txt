@@ -1,0 +1,4 @@
+
+CREATE OR ALTER TRIGGER ELEMDET_BI FOR ELEMDET
+ACTIVE BEFORE INSERT POSITION 0
+as begin if (new.id is null) then new.id = gen_id(gen_ELEMDET, 1);
