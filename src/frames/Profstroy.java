@@ -115,6 +115,8 @@ public class Profstroy {
             List<String> listExistTable1 = new ArrayList<String>(); //таблицы источника
             List<String> listExistTable2 = new ArrayList<String>(); //таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();  //генераторы приёмника 
+            List<String> listTrigger2 = new ArrayList<String>();  //триггеры приёмника 
+            
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
@@ -125,12 +127,22 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
-            //Отключаем все генераторы
-            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 1  where rdb$trigger_name like 'IBE$%';");
-            //Генераторы приёмника
-            resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
-            while (resultSet2.next()) {
-                listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
+            
+            //Удаляем триггеры, таблицы, генераторы
+            {
+                resultSet2 = st2.executeQuery("select rdb$trigger_name from rdb$triggers where rdb$trigger_source is not null and ((rdb$system_flag = 0) or (rdb$system_flag is null))");
+                while (resultSet2.next()) {
+                    listTrigger2.add(resultSet2.getString("rdb$trigger_name").trim());
+                }
+                listTrigger2.forEach(s -> executeSql("DROP TRIGGER " + s + ";"));
+
+                List.of(App.db).forEach(s -> executeSql("DROP TABLE " + s.tname() + ";"));
+
+                resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators where rdb$system_flag = 0");
+                while (resultSet2.next()) {
+                    listGenerator2.add(resultSet2.getString("rdb$generator_name").trim());
+                }
+                listGenerator2.forEach(s -> executeSql("DROP GENERATOR " + s + ";"));
             }
             println(Color.BLACK, "Методанные готовы");
             println(Color.GREEN, "Перенос данных");
@@ -141,14 +153,6 @@ public class Profstroy {
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
-                //Удаление таблиц приёмника
-                if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    executeSql("DROP TABLE " + fieldUp.tname() + ";");
-                }
-                //Удаление генератора приёмника
-                if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    executeSql("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
-                }
                 //Создание таблицы приёмника
                 for (String ddl : createTable(fieldUp.fields())) {
                     executeSql(ddl);
@@ -225,9 +229,6 @@ public class Profstroy {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
-            //Включаем все генераторы
-            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
-
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -428,9 +429,9 @@ public class Profstroy {
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
-            
+
             executeSql("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id; end");
-            
+        
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
@@ -632,16 +633,6 @@ public class Profstroy {
             println(Color.RED, "Ошибка: metaPart().  " + e);
         }
     }
-    
-    public static void createTrigger(String str) {
-        println(Color.BLACK, str);
-        try {
-            st2.execute(str);
-            cn2.commit();
-        } catch (SQLException e) {
-            println(Color.BLUE, "НЕУДАЧА-SQL: executeSql(). " + str);
-        }
-    }
 
     public static void loadModels() {
         try {
@@ -658,8 +649,8 @@ public class Profstroy {
                     String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
-                    record.setNo(eSysmodel.npp, ++index);
                     record.setNo(eSysmodel.id, Conn.genId(eSysmodel.up));
+                    record.setNo(eSysmodel.npp, ++index);
                     record.setNo(eSysmodel.name, name);
                     record.setNo(eSysmodel.script, script);
                     record.setNo(eSysmodel.form, gson.type().id);
@@ -673,6 +664,7 @@ public class Profstroy {
                     Query q2 = new Query(eSysprod.values());
                     Record record2 = eSysprod.up.newRecord(Query.INS);
                     record2.setNo(eSysprod.id, Conn.genId(eSysprod.up));
+                    record2.setNo(eSysprod.npp, ++index);
                     record2.setNo(eSysprod.name, name2);
                     record2.setNo(eSysprod.script, script2);
                     record2.setNo(eSysprod.systree_id, gson2.nuni());
