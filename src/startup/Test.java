@@ -1,6 +1,5 @@
 package startup;
 
-import builder.making.Specific;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
@@ -13,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -69,8 +69,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();

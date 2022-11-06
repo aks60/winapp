@@ -382,10 +382,10 @@ public class Profstroy {
         }
     }
 
-    //Секция удаления потеренных ссылок (фантомов)
+    //Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах
     public static void deletePart(Connection cn2, Statement st2) {
         try {
-            println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
+            println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
             executeSql("delete from params where pnumb > 0");  //group > 0  
             deleteSql(eColmap.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
@@ -428,6 +428,9 @@ public class Profstroy {
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
+            
+            executeSql("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id; end");
+            
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
@@ -629,14 +632,8 @@ public class Profstroy {
             println(Color.RED, "Ошибка: metaPart().  " + e);
         }
     }
-
-    //Секция удаления записей в зависимых таблицах
-    public static void deletePart() {
-        println(Color.GREEN, "Секция удаления записей в зависимых таблицах");
-        deleteTrigger("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id");
-    }
     
-    public static void deleteTrigger(String str) {
+    public static void createTrigger(String str) {
         println(Color.BLACK, str);
         try {
             st2.execute(str);
