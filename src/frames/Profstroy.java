@@ -112,7 +112,7 @@ public class Profstroy {
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
             List<String> listExistTable1 = new ArrayList<String>(); //таблицы источника
             List<String> listExistTable2 = new ArrayList<String>(); //таблицы приёмника
-            
+
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
@@ -415,8 +415,6 @@ public class Profstroy {
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
 
-            executeSql("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id; end");
-
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
@@ -567,6 +565,7 @@ public class Profstroy {
             alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");
             alterTable("artikl", "fk_artikl4", "series_id", "groups");
             alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
+            alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
             alterTable("element", "fk_element1", "elemgrp_id", "groups");
@@ -579,6 +578,7 @@ public class Profstroy {
             alterTable("joining", "fk_joining2", "artikl_id2", "artikl");
             alterTable("joinvar", "fk_joinvar1", "joining_id", "joining");
             alterTable("joindet", "fk_joindet1", "joinvar_id", "joinvar");
+            alterTable("joindet", "fk_joindet2", "artikl_id", "artikl");
             alterTable("joinpar1", "fk_joinpar1", "joinvar_id", "joinvar");
             alterTable("joinpar2", "fk_joinpar2", "joindet_id", "joindet");
             alterTable("glasprof", "fk_glasprof1", "glasgrp_id", "glasgrp");
@@ -599,13 +599,14 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("sysfurn", "fk_sysfurn3", "artikl_id1", "artikl");
             alterTable("sysfurn", "fk_sysfurn4", "artikl_id2", "artikl");
-            alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
-            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
-            alterTable("prjprod", "fk_prjprod_1", "project_id", "project");
-            alterTable("prjkit", "fk_prjkit_1", "prjprod_id", "prjprod");
-            alterTable("prjkit", "fk_prjkit_2", "project_id", "project");
+            alterTable("sysprod", "fk_sysprod1", "systree_id", "systree");
+            alterTable("project", "fk_project1", "prjpart_id", "prjpart");
+            alterTable("prjprod", "fk_prjprod1", "project_id", "project");
+            alterTable("prjprod", "fk_prjprod2", "systree_id", "systree");
+            alterTable("prjkit", "fk_prjkit1", "prjprod_id", "prjprod");
+            alterTable("prjkit", "fk_prjkit2", "project_id", "project");
+            alterTable("prjkit", "fk_prjkit3", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
@@ -613,6 +614,44 @@ public class Profstroy {
             alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
             alterTable("kitpar2", "fk_kitpar1", "kitdet_id", "kitdet");
             alterTable("alter table sysuser add constraint unq1_sysuser unique (user2)");
+
+            executeSql("create or alter trigger systree_bd for systree active before delete position 0 as begin "
+                    + "delete from sysprof a where a.systree_id = old.id; "
+                    + "delete from syspar1 a where a.systree_id = old.id; "
+                    + "delete from sysfurn a where a.systree_id = old.id; "
+                    + "delete from sysprod a where a.systree_id = old.id; end");
+            executeSql("create or alter trigger kits_bd for kits active before delete position 0 as begin "
+                    + "delete from kitdet a where a.kits_id = old.id; end");
+            executeSql("create or alter trigger kitdet_bd for kitdet active before delete position 0 as begin "
+                    + "delete from kitpar2 a where a.kitdet_id = old.id; end");
+            executeSql("create or alter trigger elemdet_bd for elemdet active before delete position 0 as begin "
+                    + "delete from elempar2 a where a.elemdet_id = old.id; end");
+            executeSql("create or alter trigger joining_bd for joining active before delete position 0 as begin "
+                    + "delete from joinvar a where a.joining_id = old.id; end");
+            executeSql("create or alter trigger joinvar_bd for joinvar active before delete position 0 as begin "
+                    + "delete from joinpar1 a where a.joinvar_id = old.id; end");
+            executeSql("create or alter trigger joindet_bd for joindet active before delete position 0 as begin "
+                    + "delete from joinpar2 a where a.joindet_id = old.id; end");
+            executeSql("create or alter trigger element_bd for element active before delete position 0 as begin "
+                    + "delete from elempar1 a where a.element_id = old.id; "
+                    + "delete from elemdet a where a.element_id = old.id; end");
+            executeSql("create or alter trigger elemdet_bd for elemdet active before delete position 0 as begin "
+                    + "delete from elempar2 a where a.elemdet_id = old.id; end");              
+            executeSql("create or alter trigger glasgrp_bd for glasgrp active before delete position 0 as begin "
+                    + "delete from glasprof a where a.glasgrp_id = old.id; "
+                    + "delete from glaspar1 a where a.glasgrp_id = old.id; "            
+                    + "delete from glasdet a where a.glasgrp_id = old.id; end");            
+            executeSql("create or alter trigger glasdet_bd for glasdet active before delete position 0 as begin "
+                    + "delete from glaspar2 a where a.glasdet_id = old.id; end");            
+            executeSql("create or alter trigger furniture_bd for furniture active before delete position 0 as begin "
+                    + "delete from furnside1 a where a.furniture_id = old.id; "
+                    + "delete from sysfurn a where a.furniture_id = old.id; "            
+                    + "delete from furndet a where a.furniture_id1 = old.id; end");   
+            executeSql("create or alter trigger furnside1_bd for furnside1 active before delete position 0 as begin "
+                    + "delete from furnpar1 a where a.furnside_id = old.id; end");             
+            executeSql("create or alter trigger furndet_bd for furndet active before delete position 0 as begin "
+                    + "delete from furnpar2 a where a.furndet_id = old.id; "          
+                    + "delete from furnside2 a where a.furndet_id = old.id; end");             
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
