@@ -102,7 +102,6 @@ public class Profstroy {
 
     public static void script() {
         try {
-            println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Conn.connection(cn2);
             st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
@@ -111,11 +110,8 @@ public class Profstroy {
             DatabaseMetaData mdb2 = cn2.getMetaData();
             ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
-
             List<String> listExistTable1 = new ArrayList<String>(); //таблицы источника
             List<String> listExistTable2 = new ArrayList<String>(); //таблицы приёмника
-            List<String> listGenerator2 = new ArrayList<String>();  //генераторы приёмника 
-            List<String> listTrigger2 = new ArrayList<String>();  //триггеры приёмника 
             
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
@@ -127,24 +123,13 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
-            
+
             //Удаляем триггеры, таблицы, генераторы
-            {
-                resultSet2 = st2.executeQuery("select rdb$trigger_name from rdb$triggers where rdb$trigger_source is not null and ((rdb$system_flag = 0) or (rdb$system_flag is null))");
-                while (resultSet2.next()) {
-                    listTrigger2.add(resultSet2.getString("rdb$trigger_name").trim());
-                }
-                listTrigger2.forEach(s -> executeSql("DROP TRIGGER " + s + ";"));
+            println(Color.GREEN, "Удаление триггеров, таблиц, генераторов");
+            executeSql("delete from rdb$triggers where rdb$trigger_source is not null and ((rdb$system_flag = 0) or (rdb$system_flag is null))");
+            List.of(App.db).forEach(s -> executeSql("DROP TABLE " + s.tname() + ";"));
+            executeSql("delete from rdb$generators where rdb$system_flag = 0");
 
-                List.of(App.db).forEach(s -> executeSql("DROP TABLE " + s.tname() + ";"));
-
-                resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators where rdb$system_flag = 0");
-                while (resultSet2.next()) {
-                    listGenerator2.add(resultSet2.getString("rdb$generator_name").trim());
-                }
-                listGenerator2.forEach(s -> executeSql("DROP GENERATOR " + s + ";"));
-            }
-            println(Color.BLACK, "Методанные готовы");
             println(Color.GREEN, "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : App.db) {
@@ -431,7 +416,7 @@ public class Profstroy {
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
 
             executeSql("CREATE OR ALTER TRIGGER ELEMDET_BD FOR ELEMDET ACTIVE BEFORE DELETE POSITION 0 as begin delete from elempar2 a where a.elemdet_id = old.id; end");
-        
+
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
