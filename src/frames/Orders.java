@@ -878,6 +878,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
+        menuItem11.setFont(frames.UGui.getFont(0,1));
         menuItem11.setText("Расход материалов");
         menuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -886,6 +887,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem11);
 
+        menuItem12.setFont(frames.UGui.getFont(0,1));
         menuItem12.setText("Спецификация");
         menuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -894,6 +896,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem12);
 
+        menuItem14.setFont(frames.UGui.getFont(0,1));
         menuItem14.setText("Смета");
         menuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -902,6 +905,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem14);
 
+        menuItem13.setFont(frames.UGui.getFont(0,1));
         menuItem13.setText("Смета подробная");
         menuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -910,6 +914,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem13);
 
+        menuItem15.setFont(frames.UGui.getFont(0,1));
         menuItem15.setText("Счёт");
         menuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -918,6 +923,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem15);
 
+        menuItem16.setFont(frames.UGui.getFont(0,1));
         menuItem16.setText("Счёт-фактура");
         menuItem16.setToolTipText("");
         menuItem16.addActionListener(new java.awt.event.ActionListener() {
@@ -927,6 +933,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         ppReport.add(menuItem16);
 
+        menuItem17.setFont(frames.UGui.getFont(0,1));
         menuItem17.setText("Коммерческое предл...");
         menuItem17.setToolTipText("");
         menuItem17.addActionListener(new java.awt.event.ActionListener() {
@@ -1178,7 +1185,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1187,7 +1194,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(northLayout.createSequentialGroup()
                     .addGap(340, 340, 340)
                     .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(311, Short.MAX_VALUE)))
+                    .addContainerGap(361, Short.MAX_VALUE)))
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1215,7 +1222,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(northLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
                     .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 12, Short.MAX_VALUE)))
+                    .addGap(0, 7, Short.MAX_VALUE)))
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
@@ -1223,14 +1230,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         centr.setPreferredSize(new java.awt.Dimension(800, 550));
         centr.setLayout(new java.awt.BorderLayout());
 
-        tabb1.setPreferredSize(new java.awt.Dimension(600, 550));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 Orders.this.stateChanged(evt);
             }
         });
 
-        pan1.setPreferredSize(new java.awt.Dimension(600, 416));
         pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -1434,17 +1439,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan19Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lab3, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                        .addComponent(lab3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn1)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         pan19Layout.setVerticalGroup(
             pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan19Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1459,7 +1464,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pan9.add(pan19, java.awt.BorderLayout.NORTH);
@@ -1516,13 +1521,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         tabb1.addTab("<html><font size=\"3\"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Заказы &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan1);
 
-        pan3.setPreferredSize(new java.awt.Dimension(600, 550));
         pan3.setLayout(new java.awt.BorderLayout());
 
-        pan5.setPreferredSize(new java.awt.Dimension(400, 250));
+        pan5.setPreferredSize(new java.awt.Dimension(400, 450));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        pan8.setPreferredSize(new java.awt.Dimension(10, 272));
+        pan8.setPreferredSize(new java.awt.Dimension(10, 292));
         pan8.setLayout(new java.awt.CardLayout());
 
         pan14.setLayout(new java.awt.BorderLayout());
@@ -1585,6 +1589,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab32.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btn9.setText("...");
+        btn9.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn9.setName("btn9"); // NOI18N
         btn9.addActionListener(new java.awt.event.ActionListener() {
@@ -1594,6 +1599,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn13.setText("...");
+        btn13.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn13.setName("btn13"); // NOI18N
         btn13.addActionListener(new java.awt.event.ActionListener() {
@@ -1603,6 +1609,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn2.setText("...");
+        btn2.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn2.setName("btn2"); // NOI18N
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -1612,14 +1619,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt9.setEditable(false);
+        txt9.setFont(frames.UGui.getFont(0,0));
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt9.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt13.setEditable(false);
+        txt13.setFont(frames.UGui.getFont(0,0));
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt13.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt14.setEditable(false);
+        txt14.setFont(frames.UGui.getFont(0,0));
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt14.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1633,7 +1643,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1675,6 +1685,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab35.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt17.setFont(frames.UGui.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -1689,6 +1700,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab38.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt22.setFont(frames.UGui.getFont(0,0));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -1703,6 +1715,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt23.setFont(frames.UGui.getFont(0,0));
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -1731,7 +1744,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
             .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         pan12Layout.setVerticalGroup(
@@ -1777,6 +1790,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab44.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btn18.setText("...");
+        btn18.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn18.setName("btnField17"); // NOI18N
         btn18.addActionListener(new java.awt.event.ActionListener() {
@@ -1786,6 +1800,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn19.setText("...");
+        btn19.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn19.setName("btnField17"); // NOI18N
         btn19.addActionListener(new java.awt.event.ActionListener() {
@@ -1795,6 +1810,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn20.setText("...");
+        btn20.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn20.setName("btnField17"); // NOI18N
         btn20.addActionListener(new java.awt.event.ActionListener() {
@@ -1804,14 +1820,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt27.setEditable(false);
+        txt27.setFont(frames.UGui.getFont(0,0));
         txt27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt27.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt28.setEditable(false);
+        txt28.setFont(frames.UGui.getFont(0,0));
         txt28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt28.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt29.setEditable(false);
+        txt29.setFont(frames.UGui.getFont(0,0));
         txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt29.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1873,14 +1892,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab34.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt32.setEditable(false);
+        txt32.setFont(frames.UGui.getFont(0,0));
         txt32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt32.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt33.setEditable(false);
+        txt33.setFont(frames.UGui.getFont(0,0));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt33.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn22.setText("...");
+        btn22.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn22.setName("btnField17"); // NOI18N
         btn22.addActionListener(new java.awt.event.ActionListener() {
@@ -1900,13 +1922,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1923,7 +1945,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1942,6 +1964,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab36.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btn3.setText("...");
+        btn3.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn3.setName("btnField17"); // NOI18N
         btn3.addActionListener(new java.awt.event.ActionListener() {
@@ -1951,10 +1974,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt19.setEditable(false);
+        txt19.setFont(frames.UGui.getFont(0,0));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt18.setEditable(false);
+        txt18.setFont(frames.UGui.getFont(0,0));
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt18.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1964,10 +1989,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab61.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt34.setEditable(false);
+        txt34.setFont(frames.UGui.getFont(0,0));
         txt34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt34.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn25.setText("...");
+        btn25.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn25.setName("btnField17"); // NOI18N
         btn25.addActionListener(new java.awt.event.ActionListener() {
@@ -1986,13 +2013,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2018,13 +2045,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(lab61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn25))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
 
         pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 1)));
-        pan16.setPreferredSize(new java.awt.Dimension(3100, 200));
+        pan16.setPreferredSize(new java.awt.Dimension(3100, 220));
 
         lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Фурнитура");
@@ -2047,6 +2074,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab45.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btn10.setText("...");
+        btn10.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn10.setName("btnField17"); // NOI18N
         btn10.addActionListener(new java.awt.event.ActionListener() {
@@ -2056,6 +2084,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn12.setText("...");
+        btn12.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn12.setName("btnField17"); // NOI18N
         btn12.addActionListener(new java.awt.event.ActionListener() {
@@ -2065,6 +2094,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn14.setText("...");
+        btn14.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn14.setName("btnField17"); // NOI18N
         btn14.addActionListener(new java.awt.event.ActionListener() {
@@ -2074,6 +2104,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn21.setText("...");
+        btn21.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn21.setName("btnField17"); // NOI18N
         btn21.addActionListener(new java.awt.event.ActionListener() {
@@ -2083,18 +2114,22 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt20.setEditable(false);
+        txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt30.setEditable(false);
+        txt30.setFont(frames.UGui.getFont(0,0));
         txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt30.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt25.setEditable(false);
+        txt25.setFont(frames.UGui.getFont(0,0));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt25.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt21.setEditable(false);
+        txt21.setFont(frames.UGui.getFont(0,0));
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2103,6 +2138,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt24.setFont(frames.UGui.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt24.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -2112,6 +2148,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab42.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt26.setFont(frames.UGui.getFont(0,0));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -2129,10 +2166,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab26.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt45.setEditable(false);
+        txt45.setFont(frames.UGui.getFont(0,0));
         txt45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt45.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn15.setText("...");
+        btn15.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn15.setName("btnField17"); // NOI18N
         btn15.addActionListener(new java.awt.event.ActionListener() {
@@ -2149,10 +2188,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab48.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt47.setEditable(false);
+        txt47.setFont(frames.UGui.getFont(0,0));
         txt47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt47.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn17.setText("...");
+        btn17.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn17.setName("btnField17"); // NOI18N
         btn17.addActionListener(new java.awt.event.ActionListener() {
@@ -2169,10 +2210,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         jLabel1.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt46.setEditable(false);
+        txt46.setFont(frames.UGui.getFont(0,0));
         txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt46.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn23.setText("...");
+        btn23.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn23.setName("btnField17"); // NOI18N
         btn23.addActionListener(new java.awt.event.ActionListener() {
@@ -2189,10 +2232,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab63.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt48.setEditable(false);
+        txt48.setFont(frames.UGui.getFont(0,0));
         txt48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt48.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn24.setText("...");
+        btn24.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn24.setName("btnField17"); // NOI18N
         btn24.addActionListener(new java.awt.event.ActionListener() {
@@ -2207,13 +2252,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab46.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt16.setEditable(false);
+        txt16.setFont(frames.UGui.getFont(0,0));
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(208, 18));
 
+        txt31.setFont(frames.UGui.getFont(0,0));
         txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt31.setPreferredSize(new java.awt.Dimension(56, 18));
 
         btn6.setText("...");
+        btn6.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn6.setName("btnField17"); // NOI18N
         btn6.addActionListener(new java.awt.event.ActionListener() {
@@ -2281,7 +2329,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
                         .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2353,7 +2401,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn24)
                     .addComponent(lab63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pan8.add(pan16, "card16");
@@ -2372,10 +2420,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab50.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt36.setEditable(false);
+        txt36.setFont(frames.UGui.getFont(0,0));
         txt36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt36.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt37.setEditable(false);
+        txt37.setFont(frames.UGui.getFont(0,0));
         txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt37.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2389,6 +2439,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab55.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt38.setEditable(false);
+        txt38.setFont(frames.UGui.getFont(0,0));
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt38.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2402,6 +2453,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab56.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt39.setEditable(false);
+        txt39.setFont(frames.UGui.getFont(0,0));
         txt39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt39.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2411,6 +2463,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab54.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt40.setEditable(false);
+        txt40.setFont(frames.UGui.getFont(0,0));
         txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt40.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2424,6 +2477,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab57.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt41.setEditable(false);
+        txt41.setFont(frames.UGui.getFont(0,0));
         txt41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt41.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2434,6 +2488,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab58.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt42.setEditable(false);
+        txt42.setFont(frames.UGui.getFont(0,0));
         txt42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt42.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2444,6 +2499,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab59.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt43.setEditable(false);
+        txt43.setFont(frames.UGui.getFont(0,0));
         txt43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt43.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2454,6 +2510,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab60.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt44.setEditable(false);
+        txt44.setFont(frames.UGui.getFont(0,0));
         txt44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt44.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2475,7 +2532,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt42, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addComponent(txt42, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2487,11 +2544,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt43, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addComponent(txt43, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt44, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addComponent(txt44, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2541,7 +2598,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pan8.add(pan17, "card17");
@@ -2554,7 +2611,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         );
         pan18Layout.setVerticalGroup(
             pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 292, Short.MAX_VALUE)
         );
 
         pan8.add(pan18, "card18");
@@ -2577,7 +2634,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nИзделия\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan3);
 
-        pan6.setPreferredSize(new java.awt.Dimension(700, 404));
         pan6.setLayout(new java.awt.BorderLayout());
 
         scr4.setPreferredSize(new java.awt.Dimension(700, 240));

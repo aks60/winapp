@@ -574,10 +574,10 @@ public class Tex extends javax.swing.JFrame {
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
         mn01.setActionCommand("*Учреждение");
-        mn01.setFont(frames.UGui.getFont(1,1));
+        mn01.setFont(frames.UGui.getFont(0,1));
         mn01.setLabel("  Настройки  ");
 
-        mn12.setFont(frames.UGui.getFont(1,1));
+        mn12.setFont(frames.UGui.getFont(0,1));
         mn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn12.setText("Установки");
         mn12.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +587,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn01.add(mn12);
 
-        mn15.setFont(frames.UGui.getFont(1,1));
+        mn15.setFont(frames.UGui.getFont(0,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn15.setText("Правила расч...");
         mn15.addActionListener(new java.awt.event.ActionListener() {
@@ -597,7 +597,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn01.add(mn15);
 
-        mn11.setFont(frames.UGui.getFont(1,1));
+        mn11.setFont(frames.UGui.getFont(0,1));
         mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn11.setText("Коэффициенты");
         mn11.addActionListener(new java.awt.event.ActionListener() {
@@ -608,7 +608,7 @@ public class Tex extends javax.swing.JFrame {
         mn01.add(mn11);
         mn01.add(mn13);
 
-        mn14.setFont(frames.UGui.getFont(1,1));
+        mn14.setFont(frames.UGui.getFont(0,1));
         mn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn14.setText("Выход");
         mn14.addActionListener(new java.awt.event.ActionListener() {
@@ -620,10 +620,10 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setFont(frames.UGui.getFont(1,1));
+        mn02.setFont(frames.UGui.getFont(0,1));
         mn02.setLabel("  Справочники  ");
 
-        mn26.setFont(frames.UGui.getFont(1,1));
+        mn26.setFont(frames.UGui.getFont(0,1));
         mn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn26.setText("Константы");
         mn26.addActionListener(new java.awt.event.ActionListener() {
@@ -633,7 +633,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn02.add(mn26);
 
-        mn21.setFont(frames.UGui.getFont(1,1));
+        mn21.setFont(frames.UGui.getFont(0,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn21.setText("Текстуры");
         mn21.addActionListener(new java.awt.event.ActionListener() {
@@ -643,7 +643,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn02.add(mn21);
 
-        mn24.setFont(frames.UGui.getFont(1,1));
+        mn24.setFont(frames.UGui.getFont(0,1));
         mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn24.setText("Валюта");
         mn24.addActionListener(new java.awt.event.ActionListener() {
@@ -653,7 +653,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn02.add(mn24);
 
-        mn23.setFont(frames.UGui.getFont(1,1));
+        mn23.setFont(frames.UGui.getFont(0,1));
         mn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn23.setText("Параметры");
         mn23.addActionListener(new java.awt.event.ActionListener() {
@@ -663,7 +663,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn02.add(mn23);
 
-        mn27.setFont(frames.UGui.getFont(1,1));
+        mn27.setFont(frames.UGui.getFont(0,1));
         mn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn27.setText("Группы печати");
         mn27.addActionListener(new java.awt.event.ActionListener() {
@@ -674,7 +674,7 @@ public class Tex extends javax.swing.JFrame {
         mn02.add(mn27);
         mn02.add(mn25);
 
-        mn22.setFont(frames.UGui.getFont(1,1));
+        mn22.setFont(frames.UGui.getFont(0,1));
         mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn22.setText("Справочники");
         mn22.addActionListener(new java.awt.event.ActionListener() {
@@ -686,10 +686,10 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
-        mn09.setFont(frames.UGui.getFont(1,1));
+        mn09.setFont(frames.UGui.getFont(0,1));
         mn09.setLabel("  Системы  ");
 
-        mn91.setFont(frames.UGui.getFont(1,1));
+        mn91.setFont(frames.UGui.getFont(0,1));
         mn91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
         mn91.setText("Модели");
         mn91.addActionListener(new java.awt.event.ActionListener() {
@@ -699,7 +699,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn09.add(mn91);
 
-        mn94.setFont(frames.UGui.getFont(1,1));
+        mn94.setFont(frames.UGui.getFont(0,1));
         mn94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
         mn94.setText("Артикулы");
         mn94.addActionListener(new java.awt.event.ActionListener() {
@@ -710,7 +710,7 @@ public class Tex extends javax.swing.JFrame {
         mn09.add(mn94);
         mn09.add(mn93);
 
-        mn92.setFont(frames.UGui.getFont(1,1));
+        mn92.setFont(frames.UGui.getFont(0,1));
         mn92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
         mn92.setText("Системы");
         mn92.addActionListener(new java.awt.event.ActionListener() {
@@ -722,10 +722,10 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn09);
 
-        mn03.setFont(frames.UGui.getFont(1,1));
+        mn03.setFont(frames.UGui.getFont(0,1));
         mn03.setLabel("  Составы  ");
 
-        mn31.setFont(frames.UGui.getFont(1,1));
+        mn31.setFont(frames.UGui.getFont(0,1));
         mn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn31.setText("Комплекты");
         mn31.addActionListener(new java.awt.event.ActionListener() {
@@ -735,7 +735,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn03.add(mn31);
 
-        mn32.setFont(frames.UGui.getFont(1,1));
+        mn32.setFont(frames.UGui.getFont(0,1));
         mn32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn32.setText("Соединения");
         mn32.addActionListener(new java.awt.event.ActionListener() {
@@ -745,7 +745,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn03.add(mn32);
 
-        mn34.setFont(frames.UGui.getFont(1,1));
+        mn34.setFont(frames.UGui.getFont(0,1));
         mn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn34.setText("Вставки");
         mn34.addActionListener(new java.awt.event.ActionListener() {
@@ -755,7 +755,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn03.add(mn34);
 
-        mn35.setFont(frames.UGui.getFont(1,1));
+        mn35.setFont(frames.UGui.getFont(0,1));
         mn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn35.setText("Заполнения");
         mn35.addActionListener(new java.awt.event.ActionListener() {
@@ -765,7 +765,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn03.add(mn35);
 
-        mn36.setFont(frames.UGui.getFont(1,1));
+        mn36.setFont(frames.UGui.getFont(0,1));
         mn36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn36.setText("Фурнитура");
         mn36.addActionListener(new java.awt.event.ActionListener() {
@@ -776,7 +776,7 @@ public class Tex extends javax.swing.JFrame {
         mn03.add(mn36);
         mn03.add(mn38);
 
-        mn37.setFont(frames.UGui.getFont(1,1));
+        mn37.setFont(frames.UGui.getFont(0,1));
         mn37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
         mn37.setText("Спецификация");
         mn37.addActionListener(new java.awt.event.ActionListener() {
@@ -789,11 +789,11 @@ public class Tex extends javax.swing.JFrame {
         mn0.add(mn03);
 
         mn07.setActionCommand(" Заказы  ");
-        mn07.setFont(frames.UGui.getFont(1,1));
+        mn07.setFont(frames.UGui.getFont(0,1));
         mn07.setLabel(" Заказы");
         mn07.setPreferredSize(new java.awt.Dimension(67, 19));
 
-        mn71.setFont(frames.UGui.getFont(1,1));
+        mn71.setFont(frames.UGui.getFont(0,1));
         mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn71.setText("Контрагенты");
         mn71.addActionListener(new java.awt.event.ActionListener() {
@@ -803,7 +803,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn07.add(mn71);
 
-        mn72.setFont(frames.UGui.getFont(1,1));
+        mn72.setFont(frames.UGui.getFont(0,1));
         mn72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn72.setText("Заказы");
         mn72.addActionListener(new java.awt.event.ActionListener() {
@@ -814,7 +814,7 @@ public class Tex extends javax.swing.JFrame {
         mn07.add(mn72);
         mn07.add(mn74);
 
-        mn73.setFont(frames.UGui.getFont(1,1));
+        mn73.setFont(frames.UGui.getFont(0,1));
         mn73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn73.setText("Дилер");
         mn73.addActionListener(new java.awt.event.ActionListener() {
@@ -826,12 +826,12 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn07);
 
-        mn06.setFont(frames.UGui.getFont(1,1));
+        mn06.setFont(frames.UGui.getFont(0,1));
         mn06.setLabel("  Сервис  ");
 
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("Установка соединения");
-        mn63.setFont(frames.UGui.getFont(1,1));
+        mn63.setFont(frames.UGui.getFont(0,1));
 
         buttonMenuGroup.add(mn631);
         mn631.setFont(frames.UGui.getFont(1,1));
@@ -868,15 +868,15 @@ public class Tex extends javax.swing.JFrame {
 
         mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn62.setText("Вид интерфейса");
-        mn62.setFont(frames.UGui.getFont(1,1));
+        mn62.setFont(frames.UGui.getFont(0,1));
         mn06.add(mn62);
 
         mn0.add(mn06);
 
-        mn05.setFont(frames.UGui.getFont(1,1));
+        mn05.setFont(frames.UGui.getFont(0,1));
         mn05.setLabel("  Справка  ");
 
-        mn51.setFont(frames.UGui.getFont(1,1));
+        mn51.setFont(frames.UGui.getFont(0,1));
         mn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn51.setText("Справка");
         mn51.addActionListener(new java.awt.event.ActionListener() {
@@ -886,7 +886,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn05.add(mn51);
 
-        mn52.setFont(frames.UGui.getFont(1,1));
+        mn52.setFont(frames.UGui.getFont(0,1));
         mn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn52.setText("Часто задаваемые вопросы");
         mn52.addActionListener(new java.awt.event.ActionListener() {
@@ -896,7 +896,7 @@ public class Tex extends javax.swing.JFrame {
         });
         mn05.add(mn52);
 
-        mn54.setFont(frames.UGui.getFont(1,1));
+        mn54.setFont(frames.UGui.getFont(0,1));
         mn54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn54.setText("О программе");
         mn54.addActionListener(new java.awt.event.ActionListener() {
