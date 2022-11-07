@@ -602,6 +602,7 @@ public class Fillings extends javax.swing.JFrame {
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Мммммммммм", "1", "1,2,3", null},
@@ -634,6 +635,7 @@ public class Fillings extends javax.swing.JFrame {
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr3.setPreferredSize(new java.awt.Dimension(300, 200));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"kkkkkkkkkkk", "77"},
@@ -669,6 +671,7 @@ public class Fillings extends javax.swing.JFrame {
         scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr2.setPreferredSize(new java.awt.Dimension(500, 300));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null, null, null},
@@ -702,6 +705,7 @@ public class Fillings extends javax.swing.JFrame {
         scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr4.setPreferredSize(new java.awt.Dimension(300, 300));
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"zzzzz", "aaaaa"},
@@ -735,6 +739,7 @@ public class Fillings extends javax.swing.JFrame {
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr5.setPreferredSize(new java.awt.Dimension(454, 304));
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"yyyyyyyy", "fffffffffffffff", "44", null, null, null},

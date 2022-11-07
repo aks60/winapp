@@ -188,6 +188,7 @@ public class Groups extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(450, 433));
         pan7.setLayout(new java.awt.BorderLayout());
 
+        tab7.setFont(frames.UGui.getFont(0,0));
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -229,12 +230,13 @@ public class Groups extends javax.swing.JFrame {
 
         pan7.add(scr7, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Рассчётные параметры", pan7);
+        tabb.addTab("<html><font size=\"3\">Рассчётные параметры.", pan7);
 
         pan2.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", null, null},
@@ -282,6 +284,7 @@ public class Groups extends javax.swing.JFrame {
 
         scr1.setBorder(null);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", null, null},
@@ -327,6 +330,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan5.setLayout(new java.awt.BorderLayout());
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -373,6 +377,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan3.setLayout(new java.awt.BorderLayout());
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1111", null},
@@ -415,6 +420,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan4.setLayout(new java.awt.BorderLayout());
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -460,6 +466,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan6.setLayout(new java.awt.BorderLayout());
 
+        tab6.setFont(frames.UGui.getFont(0,0));
         tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},

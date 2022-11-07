@@ -710,6 +710,7 @@ public class Elements extends javax.swing.JFrame {
         scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 0, 0, 0));
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, "vvvvvvvvvvvvvvv", "111", null, null, null, null,  new Double(0.0), null},
@@ -756,6 +757,7 @@ public class Elements extends javax.swing.JFrame {
 
         scr4.setPreferredSize(new java.awt.Dimension(260, 320));
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"ххххххххххххххххххх", "111"},
@@ -791,6 +793,7 @@ public class Elements extends javax.swing.JFrame {
 
         scr1.setPreferredSize(new java.awt.Dimension(120, 404));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"wwwwwww"},
@@ -826,6 +829,7 @@ public class Elements extends javax.swing.JFrame {
 
         scr5.setPreferredSize(new java.awt.Dimension(260, 204));
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxxxxxxxxxxx", "111"},
@@ -863,6 +867,7 @@ public class Elements extends javax.swing.JFrame {
 
         scr3.setPreferredSize(new java.awt.Dimension(454, 204));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxx", null, "mmmmm", "kkkkkkk", "vvvvv", "ffffff", null},

@@ -79,19 +79,22 @@ public class Setting extends javax.swing.JFrame {
 
         jLabel7.setText("Font\n");
         jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel7.setMaximumSize(new java.awt.Dimension(26, 20));
         jLabel7.setPreferredSize(new java.awt.Dimension(40, 20));
 
         comboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBox.setBorder(null);
         comboBox.setMinimumSize(new java.awt.Dimension(110, 18));
-        comboBox.setPreferredSize(new java.awt.Dimension(104, 19));
+        comboBox.setPreferredSize(new java.awt.Dimension(104, 20));
 
         jLabel8.setText("Размер");
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel8.setMaximumSize(new java.awt.Dimension(39, 20));
+        jLabel8.setPreferredSize(new java.awt.Dimension(39, 20));
 
         spinner2.setBorder(null);
         spinner2.setMinimumSize(new java.awt.Dimension(36, 18));
-        spinner2.setPreferredSize(new java.awt.Dimension(60, 19));
+        spinner2.setPreferredSize(new java.awt.Dimension(60, 20));
 
         btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp2.setText("Сохранить шрифт в настройках программы");
@@ -121,7 +124,7 @@ public class Setting extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(spinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(21, Short.MAX_VALUE)))
@@ -137,7 +140,7 @@ public class Setting extends javax.swing.JFrame {
                     .addGap(15, 15, 15)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(spinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

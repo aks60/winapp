@@ -796,6 +796,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         group1.add(tbtn1);
+        tbtn1.setFont(frames.UGui.getFont(0,0));
         tbtn1.setSelected(true);
         tbtn1.setText("Основн.");
         tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -807,6 +808,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         group1.add(tbtn2);
+        tbtn2.setFont(frames.UGui.getFont(0,0));
         tbtn2.setText("Дополн.");
         tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tbtn2.setPreferredSize(new java.awt.Dimension(60, 25));
@@ -817,6 +819,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         group1.add(tbtn3);
+        tbtn3.setFont(frames.UGui.getFont(0,0));
         tbtn3.setText("Наборы");
         tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tbtn3.setPreferredSize(new java.awt.Dimension(60, 25));
@@ -931,6 +934,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         scr1.setBorder(null);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"333333333333333", "3", "3", null, null, null, "3", null, null, null, null, null, null, null},
@@ -974,6 +978,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         scr3.setPreferredSize(new java.awt.Dimension(0, 0));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxx", "mmmmm"},
@@ -1003,6 +1008,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan8.setPreferredSize(new java.awt.Dimension(300, 90));
         pan8.setLayout(new java.awt.BorderLayout());
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxxxxxxxxx", "11"},
@@ -1056,6 +1062,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan11.setLayout(new java.awt.BorderLayout());
 
+        tab2a.setFont(frames.UGui.getFont(0,0));
         tab2a.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"11", "xxxxxxxxx", "11", "11", null},
@@ -1092,6 +1099,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         tabb1.addTab("Детализация (1 уровень)", pan11);
 
+        tab2c.setFont(frames.UGui.getFont(0,0));
         tab2c.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"11", "xxxxxxxxx", "11", "11", null},
@@ -1123,6 +1131,7 @@ public class Furniturs extends javax.swing.JFrame {
         scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)"));
         scr2b.setPreferredSize(new java.awt.Dimension(500, 140));
 
+        tab2b.setFont(frames.UGui.getFont(0,0));
         tab2b.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"11", "xxxxxxxxx", "11", "11", null},
@@ -1156,6 +1165,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         scr6.setPreferredSize(new java.awt.Dimension(300, 200));
 
+        tab6.setFont(frames.UGui.getFont(0,0));
         tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"wwwwwwwwwww", "11"},
@@ -1192,6 +1202,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         scr5.setPreferredSize(new java.awt.Dimension(300, 108));
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxx", "0", "2600", "0", "360"},

@@ -689,6 +689,7 @@ public class Joinings extends javax.swing.JFrame {
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv", null, null, null},
@@ -740,6 +741,7 @@ public class Joinings extends javax.swing.JFrame {
         scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr2.setPreferredSize(new java.awt.Dimension(300, 234));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "Мммммммммм", null, null},
@@ -786,6 +788,7 @@ public class Joinings extends javax.swing.JFrame {
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr3.setPreferredSize(new java.awt.Dimension(300, 234));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"11", "111"},
@@ -830,6 +833,7 @@ public class Joinings extends javax.swing.JFrame {
         scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr4.setPreferredSize(new java.awt.Dimension(454, 234));
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"yyyyyyyy", "fffffffffffffff", "44", "7", null, null, null},
@@ -878,6 +882,7 @@ public class Joinings extends javax.swing.JFrame {
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr5.setPreferredSize(new java.awt.Dimension(300, 234));
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"eeeeeeeeee", "22"},
