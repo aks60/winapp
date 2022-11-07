@@ -398,8 +398,8 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="frames.UGui.getFont(1,0)" type="code"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="10"/>
@@ -430,8 +430,8 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="frames.UGui.getFont(1,0)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="30"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -461,8 +461,8 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="frames.UGui.getFont(1,0)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2211;"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -570,6 +570,9 @@
           <SubComponents>
             <Component class="javax.swing.JSpinner" name="spinner">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="frames.UGui.getFont(1,0)" type="code"/>
+                </Property>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                   <SpinnerModel initial="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
@@ -690,6 +693,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="tab1">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="2">
                             <Column editable="true" title="&#x41d;&#x43e;&#x43c;&#x435;&#x440; &#x437;&#x430;&#x43a;&#x430;&#x437;&#x430;" type="java.lang.String"/>
@@ -802,6 +808,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="tab2">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="4" rowCount="2">
                                     <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
@@ -960,6 +969,9 @@
                             </Component>
                             <Component class="javax.swing.JComboBox" name="jComboBox1">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
                                     <StringItem index="0" value="&#x41f;&#x43e; &#x441;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x438;"/>
@@ -1005,6 +1017,9 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt3">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -1054,6 +1069,9 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt7">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="123,4"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1068,6 +1086,9 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt8">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="321,4"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1126,6 +1147,9 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txt10">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="80000,8"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1164,6 +1188,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="tab5">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {&quot;   &#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;&quot;,  new Float(0.0), null, null},&#xa;        {&quot;   &#x41a;&#x43e;&#x43c;&#x43f;&#x43b;&#x435;&#x43a;&#x442;&#x430;&#x446;&#x438;&#x438;&quot;,  new Float(0.0), null, null},&#xa;        {&quot;   &#x418;&#x442;&#x43e;&#x433;&#x43e; &#x437;&#x430; &#x437;&#x430;&#x43a;&#x430;&#x437;&quot;,  new Float(0.0), null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;&quot;, &quot;&#x421;&#x43a;&#x438;&#x434;&#x43a;&#x430; (%)&quot;, &quot;&#x411;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43e;&#x43a;&quot;, &quot;&#x421;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, true, false, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;&#xa;    public void setValueAt(Object aValue, int row, int column) {&#xa;        super.setValueAt(aValue, row, column);&#xa;        Record projectRec = qProject.get(UGui.getIndexRec(tab1));&#xa;        if (row == 0 &amp;&amp; column == 1 &amp;&amp; projectRec.get(eProject.disc2).equals(aValue) == false) {&#xa;            projectRec.set(eProject.disc2, aValue);&#xa;        } else if (row == 1 &amp;&amp; column == 1 &amp;&amp; projectRec.get(eProject.disc3).equals(aValue) == false) {&#xa;            projectRec.set(eProject.disc3, aValue);&#xa;        } else if (row == 2 &amp;&amp; column == 1 &amp;&amp; projectRec.get(eProject.disc4).equals(aValue) == false) {&#xa;            projectRec.set(eProject.disc4, aValue);&#xa;        }&#xa;    }&#xa;}" type="code"/>
                                 </Property>
@@ -1258,6 +1285,9 @@
                               <SubComponents>
                                 <Component class="javax.swing.JTable" name="tab3">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                    </Property>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                       <Table columnCount="3" rowCount="2">
                                         <Column editable="false" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;&#x44b; &#x43a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;" type="java.lang.Object"/>
@@ -3373,6 +3403,11 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Component class="javax.swing.JTree" name="winTree">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -3431,6 +3466,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="tab4">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="12" rowCount="2">
                             <Column editable="true" title="&#x418;&#x437;&#x434;&#x435;&#x43b;&#x438;&#x435;" type="java.lang.Object"/>

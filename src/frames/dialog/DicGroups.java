@@ -232,6 +232,7 @@ public class DicGroups extends javax.swing.JDialog {
 
         scr1.setBorder(null);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Nmae 0"},

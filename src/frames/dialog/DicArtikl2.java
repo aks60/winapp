@@ -251,6 +251,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(350, 600));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Name 1", "Value 1"},

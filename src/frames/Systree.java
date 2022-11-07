@@ -1150,6 +1150,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         panSspinner.setPreferredSize(new java.awt.Dimension(100, 24));
         panSspinner.setLayout(new java.awt.BorderLayout());
 
+        spinner.setFont(frames.UGui.getFont(1,0));
         spinner.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
         spinner.setBorder(null);
         spinner.setPreferredSize(new java.awt.Dimension(50, 24));
@@ -1239,6 +1240,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr1.setPreferredSize(new java.awt.Dimension(260, 550));
 
         sysTree.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        sysTree.setFont(frames.UGui.getFont(0,0));
         sysTree.setEditable(true);
         sysTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1267,6 +1269,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr7.setBorder(null);
         scr7.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        tab7.setFont(frames.UGui.getFont(0,0));
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Xxxxxxxxxxxxx", "uuuuuuu", "12345"},
@@ -1353,14 +1356,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt9.setEditable(false);
+        txt9.setFont(frames.UGui.getFont(0,0));
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt9.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt13.setEditable(false);
+        txt13.setFont(frames.UGui.getFont(0,0));
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt13.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt14.setEditable(false);
+        txt14.setFont(frames.UGui.getFont(0,0));
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt14.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1426,14 +1432,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt17.setFont(frames.UGui.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txt22.setFont(frames.UGui.getFont(0,0));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txt23.setFont(frames.UGui.getFont(0,0));
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -1476,7 +1485,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -1495,10 +1504,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab34.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt32.setEditable(false);
+        txt32.setFont(frames.UGui.getFont(0,0));
         txt32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt32.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt33.setEditable(false);
+        txt33.setFont(frames.UGui.getFont(0,0));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt33.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1530,6 +1541,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab53.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt27.setEditable(false);
+        txt27.setFont(frames.UGui.getFont(0,0));
         txt27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt27.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1543,6 +1555,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt28.setEditable(false);
+        txt28.setFont(frames.UGui.getFont(0,0));
         txt28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt28.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1556,6 +1569,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt29.setEditable(false);
+        txt29.setFont(frames.UGui.getFont(0,0));
         txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt29.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1596,9 +1610,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addGap(4, 4, 4)
                 .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pan22Layout.createSequentialGroup()
-                        .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn18)
-                            .addComponent(txt27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn19)
@@ -1608,12 +1620,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                             .addComponent(btn20)
                             .addComponent(txt29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pan22Layout.createSequentialGroup()
-                        .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lab52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pan13Layout = new javax.swing.GroupLayout(pan13);
@@ -1649,7 +1663,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pan22, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 83, Short.MAX_VALUE))
+                .addGap(0, 99, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1677,9 +1691,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt19.setEditable(false);
+        txt19.setFont(frames.UGui.getFont(0,0));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        txt18.setFont(frames.UGui.getFont(0,0));
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt18.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1689,6 +1705,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab61.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt34.setEditable(false);
+        txt34.setFont(frames.UGui.getFont(0,0));
         txt34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt34.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1742,7 +1759,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(lab61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn25))
-                .addGap(0, 174, Short.MAX_VALUE))
+                .addGap(0, 188, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -1806,25 +1823,31 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt20.setEditable(false);
+        txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt30.setEditable(false);
+        txt30.setFont(frames.UGui.getFont(0,0));
         txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt30.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt25.setEditable(false);
+        txt25.setFont(frames.UGui.getFont(0,0));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt25.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt21.setEditable(false);
+        txt21.setFont(frames.UGui.getFont(0,0));
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        txt31.setFont(frames.UGui.getFont(0,0));
         txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt31.setPreferredSize(new java.awt.Dimension(56, 18));
 
         txt16.setEditable(false);
+        txt16.setFont(frames.UGui.getFont(0,0));
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1833,6 +1856,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt24.setFont(frames.UGui.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt24.setPreferredSize(new java.awt.Dimension(60, 18));
@@ -1842,11 +1866,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab42.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txt26.setFont(frames.UGui.getFont(0,0));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt45.setEditable(false);
+        txt45.setFont(frames.UGui.getFont(0,0));
         txt45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt45.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1860,6 +1886,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt47.setEditable(false);
+        txt47.setFont(frames.UGui.getFont(0,0));
         txt47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt47.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1873,10 +1900,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt46.setEditable(false);
+        txt46.setFont(frames.UGui.getFont(0,0));
         txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt46.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt48.setEditable(false);
+        txt48.setFont(frames.UGui.getFont(0,0));
         txt48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt48.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2098,6 +2127,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab50.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt36.setEditable(false);
+        txt36.setFont(frames.UGui.getFont(0,0));
         txt36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt36.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2108,6 +2138,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab58.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt37.setEditable(false);
+        txt37.setFont(frames.UGui.getFont(0,0));
         txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt37.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2119,10 +2150,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab55.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt38.setEditable(false);
+        txt38.setFont(frames.UGui.getFont(0,0));
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt38.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
+        btn26.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btn26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn26.setMaximumSize(new java.awt.Dimension(18, 18));
         btn26.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2135,6 +2168,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
+        btn27.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btn27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn27.setMaximumSize(new java.awt.Dimension(18, 18));
         btn27.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2154,6 +2188,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab56.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt39.setEditable(false);
+        txt39.setFont(frames.UGui.getFont(0,0));
         txt39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt39.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2163,6 +2198,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab54.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt40.setEditable(false);
+        txt40.setFont(frames.UGui.getFont(0,0));
         txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt40.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2174,10 +2210,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab57.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt41.setEditable(false);
+        txt41.setFont(frames.UGui.getFont(0,0));
         txt41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt41.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
+        btn28.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btn28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn28.setMaximumSize(new java.awt.Dimension(18, 18));
         btn28.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2190,6 +2228,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         txt42.setEditable(false);
+        txt42.setFont(frames.UGui.getFont(0,0));
         txt42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt42.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2200,6 +2239,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab59.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt43.setEditable(false);
+        txt43.setFont(frames.UGui.getFont(0,0));
         txt43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt43.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2210,6 +2250,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab60.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt44.setEditable(false);
+        txt44.setFont(frames.UGui.getFont(0,0));
         txt44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt44.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2305,7 +2346,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
 
         pan7.add(pan17, "card17");
@@ -2318,7 +2359,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         );
         pan18Layout.setVerticalGroup(
             pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 261, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         pan7.add(pan18, "card18");
@@ -2387,45 +2428,55 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt1.setEditable(false);
+        txt1.setFont(frames.UGui.getFont(0,0));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt1.setPreferredSize(new java.awt.Dimension(70, 18));
 
+        txt2.setFont(frames.UGui.getFont(0,0));
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt2.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt3.setFont(frames.UGui.getFont(0,0));
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt3.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt4.setFont(frames.UGui.getFont(0,0));
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt4.setPreferredSize(new java.awt.Dimension(72, 18));
 
+        txt5.setFont(frames.UGui.getFont(0,0));
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt5.setPreferredSize(new java.awt.Dimension(72, 18));
 
         txt7.setEditable(false);
+        txt7.setFont(frames.UGui.getFont(0,0));
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt7.setPreferredSize(new java.awt.Dimension(70, 18));
 
         txt8.setEditable(false);
+        txt8.setFont(frames.UGui.getFont(0,0));
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt8.setPreferredSize(new java.awt.Dimension(450, 18));
 
+        txt10.setFont(frames.UGui.getFont(0,0));
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt10.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt11.setEditable(false);
+        txt11.setFont(frames.UGui.getFont(0,0));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt11.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt11.setPreferredSize(new java.awt.Dimension(70, 18));
 
+        txt15.setFont(frames.UGui.getFont(0,0));
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt15.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt15.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -2458,6 +2509,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab47.setText("Коэф. рентабельности");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
+        txt35.setFont(frames.UGui.getFont(0,0));
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt35.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt35.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -2581,7 +2633,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lab23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp", pan6);
@@ -2591,6 +2643,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr2.setBorder(null);
         scr2.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -2637,6 +2690,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr3.setBorder(null);
         scr3.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -2683,6 +2737,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr4.setBorder(null);
         scr4.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -2725,6 +2780,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         scr5.setBorder(null);
 
+        tab5.setFont(frames.UGui.getFont(0,1));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -2762,6 +2818,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr6.setPreferredSize(new java.awt.Dimension(240, 324));
+
+        winTree.setFont(frames.UGui.getFont(0,0));
         scr6.setViewportView(winTree);
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);

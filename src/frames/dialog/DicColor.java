@@ -213,6 +213,7 @@ public class DicColor extends javax.swing.JDialog {
 
         scr1.setPreferredSize(new java.awt.Dimension(412, 160));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "name1"},
@@ -248,6 +249,7 @@ public class DicColor extends javax.swing.JDialog {
 
         pan1.add(scr1, java.awt.BorderLayout.NORTH);
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},

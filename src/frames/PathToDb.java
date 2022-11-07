@@ -151,7 +151,7 @@ public class PathToDb extends javax.swing.JDialog {
         labMes.setMaximumSize(new java.awt.Dimension(200, 14));
         labMes.setPreferredSize(new java.awt.Dimension(390, 14));
 
-        labUser1.setFont(frames.UGui.getFont(1,1));
+        labUser1.setFont(frames.UGui.getFont(0,0));
         labUser1.setText("Сервер");
         labUser1.setAlignmentX(0.5F);
         labUser1.setMaximumSize(new java.awt.Dimension(60, 14));
@@ -167,7 +167,7 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser2.setFont(frames.UGui.getFont(1,1));
+        labUser2.setFont(frames.UGui.getFont(0,0));
         labUser2.setText("Файл БД");
         labUser2.setAlignmentX(0.5F);
         labUser2.setMaximumSize(new java.awt.Dimension(60, 14));
@@ -197,7 +197,7 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser3.setFont(frames.UGui.getFont(1,1));
+        labUser3.setFont(frames.UGui.getFont(0,0));
         labUser3.setText("Порт");
         labUser3.setAlignmentX(0.5F);
 
@@ -206,13 +206,13 @@ public class PathToDb extends javax.swing.JDialog {
         edPort.setMinimumSize(new java.awt.Dimension(0, 0));
         edPort.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        labUser.setFont(frames.UGui.getFont(1,1));
+        labUser.setFont(frames.UGui.getFont(0,0));
         labUser.setText("Пользователь");
         labUser.setAlignmentX(0.5F);
         labUser.setMaximumSize(new java.awt.Dimension(120, 14));
         labUser.setPreferredSize(new java.awt.Dimension(96, 14));
 
-        labPass.setFont(frames.UGui.getFont(1,1));
+        labPass.setFont(frames.UGui.getFont(0,0));
         labPass.setText("Пароль");
         labPass.setAlignmentX(0.5F);
         labPass.setMaximumSize(new java.awt.Dimension(120, 14));

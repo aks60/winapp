@@ -209,6 +209,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Модели конструкций");
+        setFont(frames.UGui.getFont(0,1));
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -466,6 +467,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "хххххххххх1", "123"},
@@ -657,19 +659,23 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         pan7.setPreferredSize(new java.awt.Dimension(700, 40));
 
+        lab4.setFont(frames.UGui.getFont(0,0));
         lab4.setText("INDEX");
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab4.setPreferredSize(new java.awt.Dimension(40, 18));
 
         txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField4.setFont(frames.UGui.getFont(0,0));
 
+        lab5.setFont(frames.UGui.getFont(0,0));
         lab5.setText("INDEX");
         lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab5.setPreferredSize(new java.awt.Dimension(40, 18));
 
         txtField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField5.setFont(frames.UGui.getFont(0,0));
 
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);

@@ -136,6 +136,7 @@ public class DicTypset extends javax.swing.JDialog {
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Nmae 0"},

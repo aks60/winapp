@@ -102,6 +102,7 @@ public class FilterTable2 extends javax.swing.JPanel {
         });
         add(btn1);
 
+        labFilter.setFont(frames.UGui.getFont(0,0));
         labFilter.setText("Поле не выбрано");
         labFilter.setMaximumSize(new java.awt.Dimension(140, 18));
         labFilter.setMinimumSize(new java.awt.Dimension(140, 18));
@@ -109,6 +110,7 @@ public class FilterTable2 extends javax.swing.JPanel {
         add(labFilter);
 
         txtFilter.setEditable(true);
+        txtFilter.setFont(frames.UGui.getFont(0,0));
         txtFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(120, 20));
@@ -128,6 +130,7 @@ public class FilterTable2 extends javax.swing.JPanel {
         });
         add(btn2);
 
+        checkFilter.setFont(frames.UGui.getFont(0,0));
         checkFilter.setText("в конце строки");
         checkFilter.setMaximumSize(new java.awt.Dimension(120, 18));
         checkFilter.setMinimumSize(new java.awt.Dimension(103, 18));

@@ -1045,7 +1045,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         buttonGroup.add(btnF1);
-        btnF1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF1.setFont(frames.UGui.getFont(1,0));
         btnF1.setSelected(true);
         btnF1.setText("10");
         btnF1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1062,7 +1062,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         buttonGroup.add(btnF2);
-        btnF2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF2.setFont(frames.UGui.getFont(1,0));
         btnF2.setText("30");
         btnF2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF2.setFocusable(false);
@@ -1078,7 +1078,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         buttonGroup.add(btnF3);
-        btnF3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF3.setFont(frames.UGui.getFont(1,0));
         btnF3.setText("∑");
         btnF3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF3.setFocusable(false);
@@ -1129,6 +1129,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         panSspinner.setPreferredSize(new java.awt.Dimension(100, 24));
         panSspinner.setLayout(new java.awt.BorderLayout());
 
+        spinner.setFont(frames.UGui.getFont(1,0));
         spinner.setModel(new javax.swing.SpinnerNumberModel());
         spinner.setBorder(null);
         spinner.setPreferredSize(new java.awt.Dimension(50, 24));
@@ -1235,6 +1236,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr1.setBorder(null);
         scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1282,6 +1284,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         scr2.setPreferredSize(new java.awt.Dimension(204, 404));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1341,6 +1344,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab1.setMinimumSize(new java.awt.Dimension(34, 14));
         lab1.setPreferredSize(new java.awt.Dimension(86, 18));
 
+        jComboBox1.setFont(frames.UGui.getFont(0,0));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "По спецификации" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jComboBox1.setMinimumSize(new java.awt.Dimension(12, 12));
@@ -1353,6 +1357,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab3.setMinimumSize(new java.awt.Dimension(34, 14));
         lab3.setPreferredSize(new java.awt.Dimension(40, 18));
 
+        txt3.setFont(frames.UGui.getFont(0,0));
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setFocusable(false);
         txt3.setPreferredSize(new java.awt.Dimension(62, 20));
@@ -1373,11 +1378,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab7.setMinimumSize(new java.awt.Dimension(4, 14));
         lab7.setPreferredSize(new java.awt.Dimension(36, 18));
 
+        txt7.setFont(frames.UGui.getFont(0,0));
         txt7.setText("123,4");
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(40, 20));
 
+        txt8.setFont(frames.UGui.getFont(0,0));
         txt8.setText("321,4");
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setFocusable(false);
@@ -1397,6 +1404,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab9.setMinimumSize(new java.awt.Dimension(34, 14));
         lab9.setPreferredSize(new java.awt.Dimension(86, 18));
 
+        txt10.setFont(frames.UGui.getFont(0,0));
         txt10.setText("80000,8");
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setFocusable(false);
@@ -1459,6 +1467,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         scr5.setPreferredSize(new java.awt.Dimension(450, 90));
 
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"   Конструкции",  new Float(0.0), null, null},
@@ -1521,6 +1530,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr3.setBorder(null);
         scr3.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -2553,6 +2563,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr6.setPreferredSize(new java.awt.Dimension(4, 260));
+
+        winTree.setFont(frames.UGui.getFont(0,0));
         scr6.setViewportView(winTree);
 
         pan5.add(scr6, java.awt.BorderLayout.CENTER);
@@ -2570,6 +2582,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         scr4.setPreferredSize(new java.awt.Dimension(700, 240));
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},

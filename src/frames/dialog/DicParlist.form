@@ -235,6 +235,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tab1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="2">
                     <Column editable="true" title="numb" type="java.lang.Object"/>

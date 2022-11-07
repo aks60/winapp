@@ -59,6 +59,7 @@ public class DicHandl extends javax.swing.JDialog {
         centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         buttonGroup.add(rbt0);
+        rbt0.setFont(frames.UGui.getFont(0,0));
         rbt0.setText("По середине");
         rbt0.setMinimumSize(new java.awt.Dimension(85, 18));
         rbt0.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -69,6 +70,7 @@ public class DicHandl extends javax.swing.JDialog {
         });
 
         buttonGroup.add(rbt1);
+        rbt1.setFont(frames.UGui.getFont(0,0));
         rbt1.setText("Константная");
         rbt1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -77,6 +79,7 @@ public class DicHandl extends javax.swing.JDialog {
         });
 
         buttonGroup.add(rbt2);
+        rbt2.setFont(frames.UGui.getFont(0,0));
         rbt2.setText("На высоте");
         rbt2.setPreferredSize(new java.awt.Dimension(90, 23));
         rbt2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -85,6 +88,7 @@ public class DicHandl extends javax.swing.JDialog {
             }
         });
 
+        txt01.setFont(frames.UGui.getFont(0,0));
         txt01.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         jLabel1.setText("мм");

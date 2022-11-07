@@ -310,6 +310,7 @@ public class DicKits extends javax.swing.JDialog {
         lab13.setMinimumSize(new java.awt.Dimension(34, 14));
         lab13.setPreferredSize(new java.awt.Dimension(92, 18));
 
+        txt1.setFont(frames.UGui.getFont(0,0));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -320,10 +321,12 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
         lab14.setPreferredSize(new java.awt.Dimension(92, 18));
 
+        txt2.setFont(frames.UGui.getFont(0,0));
         txt2.setToolTipText("");
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txt3.setFont(frames.UGui.getFont(0,0));
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -349,14 +352,17 @@ public class DicKits extends javax.swing.JDialog {
         lab32.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt9.setEditable(false);
+        txt9.setFont(frames.UGui.getFont(0,0));
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt9.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt13.setEditable(false);
+        txt13.setFont(frames.UGui.getFont(0,0));
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt13.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt14.setEditable(false);
+        txt14.setFont(frames.UGui.getFont(0,0));
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt14.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -466,6 +472,7 @@ public class DicKits extends javax.swing.JDialog {
 
         scr1.setPreferredSize(new java.awt.Dimension(412, 300));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", "name1",  new Integer(1)},
@@ -513,6 +520,7 @@ public class DicKits extends javax.swing.JDialog {
         scr2.setMaximumSize(new java.awt.Dimension(32767, 120));
         scr2.setPreferredSize(new java.awt.Dimension(454, 120));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", "Name1", "111", "111", "111", "x", null,  new Integer(1)},
@@ -561,6 +569,7 @@ public class DicKits extends javax.swing.JDialog {
         scr3.setMaximumSize(new java.awt.Dimension(32767, 80));
         scr3.setPreferredSize(new java.awt.Dimension(454, 80));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"name1", "111"},
@@ -596,6 +605,7 @@ public class DicKits extends javax.swing.JDialog {
         south.setPreferredSize(new java.awt.Dimension(600, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
+        labFilter.setFont(frames.UGui.getFont(0,0));
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
@@ -603,6 +613,7 @@ public class DicKits extends javax.swing.JDialog {
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
         south.add(labFilter);
 
+        txtFilter.setFont(frames.UGui.getFont(0,0));
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
         txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
@@ -615,6 +626,7 @@ public class DicKits extends javax.swing.JDialog {
         });
         south.add(txtFilter);
 
+        checkFilter.setFont(frames.UGui.getFont(0,0));
         checkFilter.setText("в конце строки");
         south.add(checkFilter);
 

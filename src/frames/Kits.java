@@ -372,7 +372,7 @@ public class Kits extends javax.swing.JFrame {
         });
 
         cbx1.setBackground(new java.awt.Color(212, 208, 200));
-        cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbx1.setFont(frames.UGui.getFont(0,0));
         cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Продажа", "Скатка", "Ламинация", "Стеклопакет" }));
         cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         cbx1.setPreferredSize(new java.awt.Dimension(160, 25));
@@ -442,6 +442,7 @@ public class Kits extends javax.swing.JFrame {
 
         scr1.setBorder(null);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", "111111111111111",  new Integer(1)},
@@ -483,6 +484,7 @@ public class Kits extends javax.swing.JFrame {
 
         scr2.setBorder(null);
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "111", "1", "1", "1", null, null,  new Integer(1)},
@@ -524,6 +526,7 @@ public class Kits extends javax.swing.JFrame {
         scr3.setBorder(null);
         scr3.setPreferredSize(new java.awt.Dimension(0, 200));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", "1", null},

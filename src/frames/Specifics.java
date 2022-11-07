@@ -205,7 +205,7 @@ public class Specifics extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -237,8 +237,7 @@ public class Specifics extends javax.swing.JFrame {
         });
 
         btnArtikles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
-        btnArtikles.setToolTipText(bundle1.getString("Поиск")); // NOI18N
+        btnArtikles.setToolTipText(bundle.getString("Поиск")); // NOI18N
         btnArtikles.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArtikles.setFocusable(false);
         btnArtikles.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -301,7 +300,7 @@ public class Specifics extends javax.swing.JFrame {
         });
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRefresh.setToolTipText(bundle1.getString("Обновить")); // NOI18N
+        btnRefresh.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnRefresh.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnRefresh.setFocusable(false);
         btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -366,6 +365,7 @@ public class Specifics extends javax.swing.JFrame {
 
         scr1.setBorder(null);
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -687,7 +687,7 @@ public class Specifics extends javax.swing.JFrame {
 
         });
 
-        tab1.getTableHeader().setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11));
+        tab1.getTableHeader().setFont(frames.UGui.getFont(0,0));
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");
         angl.add(cm.getColumn(12));

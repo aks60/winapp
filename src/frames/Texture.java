@@ -370,6 +370,7 @@ public class Texture extends javax.swing.JFrame {
         scr2.setBorder(null);
         scr2.setAutoscrolls(true);
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "111", null, null, null, null, null},
@@ -412,6 +413,7 @@ public class Texture extends javax.swing.JFrame {
 
         scr1.setPreferredSize(new java.awt.Dimension(300, 584));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1111111",  new Double(1.0), null},
@@ -461,6 +463,7 @@ public class Texture extends javax.swing.JFrame {
         scr3.setAutoscrolls(true);
         scr3.setPreferredSize(new java.awt.Dimension(300, 600));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1111111111", null},
@@ -486,6 +489,7 @@ public class Texture extends javax.swing.JFrame {
         scr4.setBorder(null);
         scr4.setAutoscrolls(true);
 
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "xxxxxx", null, null, null, null, null, null, null, null, null},

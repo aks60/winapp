@@ -167,8 +167,9 @@ public class LogoToDb extends javax.swing.JDialog {
         progressBar.setRequestFocusEnabled(false);
         progressBar.setVerifyInputWhenFocusTarget(false);
 
-        labMes.setFont(frames.UGui.getFont(0,1));
+        labMes.setFont(frames.UGui.getFont(0,0));
         labMes.setText("<html>Ошибка соединения с базой данных!");
+        labMes.setToolTipText("Ошибка соединения с базой данных!");
         labMes.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labMes.setPreferredSize(new java.awt.Dimension(240, 14));
 
@@ -196,7 +197,7 @@ public class LogoToDb extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 10, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -206,7 +207,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         btnOk.setFont(frames.UGui.getFont(0,0));

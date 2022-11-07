@@ -18,7 +18,6 @@ public class Setting extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        spinner2 = new javax.swing.JSpinner();
         panCentr = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         textPane4 = new javax.swing.JTextPane();
@@ -27,7 +26,7 @@ public class Setting extends javax.swing.JFrame {
         comboBox = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         btnProp2 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinner2 = new javax.swing.JSpinner();
         pan4 = new javax.swing.JPanel();
         textPane3 = new javax.swing.JTextPane();
         jPanel5 = new javax.swing.JPanel();
@@ -51,12 +50,8 @@ public class Setting extends javax.swing.JFrame {
         panTool = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
-        spinner2.setBorder(null);
-        spinner2.setMinimumSize(new java.awt.Dimension(60, 20));
-        spinner2.setPreferredSize(new java.awt.Dimension(60, 20));
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Установки");
+        setTitle("Установки grgergererherhreth");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(480, 580));
         setResizable(false);
@@ -83,24 +78,28 @@ public class Setting extends javax.swing.JFrame {
 
         jPanel6.setPreferredSize(new java.awt.Dimension(305, 68));
 
+        jLabel7.setFont(frames.UGui.getFont(0,0));
         jLabel7.setText("Font\n");
         jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel7.setMaximumSize(new java.awt.Dimension(50, 22));
         jLabel7.setMinimumSize(new java.awt.Dimension(50, 22));
         jLabel7.setPreferredSize(new java.awt.Dimension(50, 22));
 
+        comboBox.setFont(frames.UGui.getFont(0,0));
         comboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBox.setBorder(null);
         comboBox.setMaximumSize(new java.awt.Dimension(220, 22));
         comboBox.setMinimumSize(new java.awt.Dimension(220, 22));
         comboBox.setPreferredSize(new java.awt.Dimension(220, 22));
 
+        jLabel8.setFont(frames.UGui.getFont(0,0));
         jLabel8.setText("Размер");
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel8.setMaximumSize(new java.awt.Dimension(50, 22));
         jLabel8.setMinimumSize(new java.awt.Dimension(50, 22));
         jLabel8.setPreferredSize(new java.awt.Dimension(50, 22));
 
+        btnProp2.setFont(frames.UGui.getFont(0,0));
         btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp2.setText("Сохранить шрифт в настройках программы");
         btnProp2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -114,9 +113,10 @@ public class Setting extends javax.swing.JFrame {
             }
         });
 
-        jSpinner1.setMaximumSize(new java.awt.Dimension(80, 22));
-        jSpinner1.setMinimumSize(new java.awt.Dimension(80, 22));
-        jSpinner1.setPreferredSize(new java.awt.Dimension(80, 22));
+        spinner2.setFont(frames.UGui.getFont(0,0));
+        spinner2.setMaximumSize(new java.awt.Dimension(80, 22));
+        spinner2.setMinimumSize(new java.awt.Dimension(80, 22));
+        spinner2.setPreferredSize(new java.awt.Dimension(80, 22));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -128,7 +128,7 @@ public class Setting extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,7 +146,7 @@ public class Setting extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(btnProp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -167,42 +167,49 @@ public class Setting extends javax.swing.JFrame {
         textPane3.setPreferredSize(new java.awt.Dimension(160, 40));
         pan4.add(textPane3, java.awt.BorderLayout.WEST);
 
+        jLabel3.setFont(frames.UGui.getFont(0,0));
         jLabel3.setText("Word");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel3.setMaximumSize(new java.awt.Dimension(40, 22));
         jLabel3.setMinimumSize(new java.awt.Dimension(40, 22));
         jLabel3.setPreferredSize(new java.awt.Dimension(40, 22));
 
+        txtWord.setFont(frames.UGui.getFont(0,0));
         txtWord.setAutoscrolls(false);
         txtWord.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtWord.setMaximumSize(new java.awt.Dimension(236, 22));
         txtWord.setMinimumSize(new java.awt.Dimension(236, 22));
         txtWord.setPreferredSize(new java.awt.Dimension(236, 22));
 
+        jLabel4.setFont(frames.UGui.getFont(0,0));
         jLabel4.setText("Excel");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel4.setMaximumSize(new java.awt.Dimension(40, 22));
         jLabel4.setMinimumSize(new java.awt.Dimension(40, 22));
         jLabel4.setPreferredSize(new java.awt.Dimension(40, 22));
 
+        txtExcel.setFont(frames.UGui.getFont(0,0));
         txtExcel.setAutoscrolls(false);
         txtExcel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtExcel.setMaximumSize(new java.awt.Dimension(236, 22));
         txtExcel.setMinimumSize(new java.awt.Dimension(236, 22));
         txtExcel.setPreferredSize(new java.awt.Dimension(236, 22));
 
+        jLabel9.setFont(frames.UGui.getFont(0,0));
         jLabel9.setText("HTML");
         jLabel9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel9.setMaximumSize(new java.awt.Dimension(40, 22));
         jLabel9.setMinimumSize(new java.awt.Dimension(40, 22));
         jLabel9.setPreferredSize(new java.awt.Dimension(40, 22));
 
+        txtHtml.setFont(frames.UGui.getFont(0,0));
         txtHtml.setAutoscrolls(false);
         txtHtml.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtHtml.setMaximumSize(new java.awt.Dimension(236, 22));
         txtHtml.setMinimumSize(new java.awt.Dimension(236, 22));
         txtHtml.setPreferredSize(new java.awt.Dimension(236, 22));
 
+        btnProp3.setFont(frames.UGui.getFont(0,0));
         btnProp3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp3.setText("Сохранить параметры отчётов");
         btnProp3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -271,18 +278,21 @@ public class Setting extends javax.swing.JFrame {
 
         jPanel4.setPreferredSize(new java.awt.Dimension(305, 20));
 
+        jLabel13.setFont(frames.UGui.getFont(0,0));
         jLabel13.setText("Путь");
         jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel13.setMaximumSize(new java.awt.Dimension(40, 22));
         jLabel13.setMinimumSize(new java.awt.Dimension(40, 22));
         jLabel13.setPreferredSize(new java.awt.Dimension(40, 22));
 
+        txtURL.setFont(frames.UGui.getFont(0,0));
         txtURL.setAutoscrolls(false);
         txtURL.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtURL.setMaximumSize(new java.awt.Dimension(236, 22));
         txtURL.setMinimumSize(new java.awt.Dimension(236, 22));
         txtURL.setPreferredSize(new java.awt.Dimension(236, 22));
 
+        btnProp4.setFont(frames.UGui.getFont(0,0));
         btnProp4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp4.setText("Сохранить путь к серверу");
         btnProp4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -336,6 +346,7 @@ public class Setting extends javax.swing.JFrame {
 
         jPanel3.setPreferredSize(new java.awt.Dimension(336, 40));
 
+        checkBox1.setFont(frames.UGui.getFont(0,0));
         checkBox1.setText(" Откатить на предыдущую версию");
         checkBox1.setMaximumSize(new java.awt.Dimension(213, 22));
         checkBox1.setMinimumSize(new java.awt.Dimension(213, 22));
@@ -384,6 +395,7 @@ public class Setting extends javax.swing.JFrame {
         panTool.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panTool.setPreferredSize(new java.awt.Dimension(500, 50));
 
+        btnClose.setFont(frames.UGui.getFont(0,0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         btnClose.setText("Выход");
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -472,7 +484,6 @@ public class Setting extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;

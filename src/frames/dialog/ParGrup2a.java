@@ -136,6 +136,7 @@ public class ParGrup2a extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(300, 400));
         centr.setLayout(new java.awt.BorderLayout());
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"name1"},

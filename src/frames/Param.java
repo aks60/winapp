@@ -259,6 +259,7 @@ public class Param extends javax.swing.JFrame {
 
         scr1.setPreferredSize(new java.awt.Dimension(454, 304));
 
+        tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"zzzzzz", null, null, null, null, null, null, null, null},
@@ -306,6 +307,7 @@ public class Param extends javax.swing.JFrame {
 
         scr2.setPreferredSize(new java.awt.Dimension(454, 204));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},

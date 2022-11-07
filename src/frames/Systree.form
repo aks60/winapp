@@ -57,7 +57,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,67,0,0,3,45"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,107,0,0,3,45"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -350,6 +350,9 @@
           <SubComponents>
             <Component class="javax.swing.JSpinner" name="spinner">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="frames.UGui.getFont(1,0)" type="code"/>
+                </Property>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                   <SpinnerModel initial="0.0" numberType="java.lang.Float" stepSize="1.0" type="number"/>
                 </Property>
@@ -482,6 +485,9 @@
                     <EmptyBorder/>
                   </Border>
                 </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                </Property>
                 <Property name="editable" type="boolean" value="true"/>
               </Properties>
               <Events>
@@ -568,6 +574,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="tab7">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="3" rowCount="2">
                                     <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object">
@@ -689,7 +698,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Component id="pan21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                                  <EmptySpace pref="80" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -864,6 +873,9 @@
                             <Component class="javax.swing.JTextField" name="txt9">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -877,6 +889,9 @@
                             <Component class="javax.swing.JTextField" name="txt13">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -890,6 +905,9 @@
                             <Component class="javax.swing.JTextField" name="txt14">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -952,6 +970,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt17">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -967,6 +988,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt22">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -982,6 +1006,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt23">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1058,7 +1085,7 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pan22" min="-2" pref="103" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="99" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1099,6 +1126,9 @@
                         <Component class="javax.swing.JTextField" name="txt32">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1112,6 +1142,9 @@
                         <Component class="javax.swing.JTextField" name="txt33">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1185,10 +1218,7 @@
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="btn18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txt27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="btn18" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="btn19" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1201,14 +1231,17 @@
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lab51" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="lab51" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txt27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="lab52" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="lab53" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1265,6 +1298,9 @@
                             <Component class="javax.swing.JTextField" name="txt27">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -1292,6 +1328,9 @@
                             <Component class="javax.swing.JTextField" name="txt28">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -1319,6 +1358,9 @@
                             <Component class="javax.swing.JTextField" name="txt29">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
@@ -1418,7 +1460,7 @@
                                       <Component id="txt34" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn25" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="174" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="188" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1473,6 +1515,9 @@
                         <Component class="javax.swing.JTextField" name="txt19">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1485,6 +1530,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt18">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1514,6 +1562,9 @@
                         <Component class="javax.swing.JTextField" name="txt34">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1841,6 +1892,9 @@
                         <Component class="javax.swing.JTextField" name="txt20">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1854,6 +1908,9 @@
                         <Component class="javax.swing.JTextField" name="txt30">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1867,6 +1924,9 @@
                         <Component class="javax.swing.JTextField" name="txt25">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1880,6 +1940,9 @@
                         <Component class="javax.swing.JTextField" name="txt21">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1892,6 +1955,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt31">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1905,6 +1971,9 @@
                         <Component class="javax.swing.JTextField" name="txt16">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1933,6 +2002,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt24">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1964,6 +2036,9 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt26">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -1980,6 +2055,9 @@
                         <Component class="javax.swing.JTextField" name="txt45">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2007,6 +2085,9 @@
                         <Component class="javax.swing.JTextField" name="txt47">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2034,6 +2115,9 @@
                         <Component class="javax.swing.JTextField" name="txt46">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2047,6 +2131,9 @@
                         <Component class="javax.swing.JTextField" name="txt48">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2369,7 +2456,7 @@
                                       <Component id="lab57" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt41" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2411,6 +2498,9 @@
                         <Component class="javax.swing.JTextField" name="txt36">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2441,6 +2531,9 @@
                         <Component class="javax.swing.JTextField" name="txt37">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2472,6 +2565,9 @@
                         <Component class="javax.swing.JTextField" name="txt38">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2486,6 +2582,9 @@
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/resource/img16/b018.gif"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="resource/hint/hint-ru.properties" key="&#x41f;&#x43e;&#x438;&#x441;&#x43a; &#x437;&#x430;&#x43f;&#x438;&#x441;&#x438;" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2511,6 +2610,9 @@
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/resource/img16/b018.gif"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="resource/hint/hint-ru.properties" key="&#x41f;&#x43e;&#x438;&#x441;&#x43a; &#x437;&#x430;&#x43f;&#x438;&#x441;&#x438;" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2553,6 +2655,9 @@
                         <Component class="javax.swing.JTextField" name="txt39">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2582,6 +2687,9 @@
                         <Component class="javax.swing.JTextField" name="txt40">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2613,6 +2721,9 @@
                         <Component class="javax.swing.JTextField" name="txt41">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2627,6 +2738,9 @@
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/resource/img16/b018.gif"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="resource/hint/hint-ru.properties" key="&#x41f;&#x43e;&#x438;&#x441;&#x43a; &#x437;&#x430;&#x43f;&#x438;&#x441;&#x438;" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2651,6 +2765,9 @@
                         <Component class="javax.swing.JTextField" name="txt42">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2681,6 +2798,9 @@
                         <Component class="javax.swing.JTextField" name="txt43">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2711,6 +2831,9 @@
                         <Component class="javax.swing.JTextField" name="txt44">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -2738,7 +2861,7 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="261" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="281" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2924,7 +3047,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="88" max="32767" attributes="0"/>
+                              <EmptySpace pref="102" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -3099,6 +3222,9 @@
                     <Component class="javax.swing.JTextField" name="txt1">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3114,6 +3240,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt2">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3129,6 +3258,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt3">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3144,6 +3276,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt4">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3159,6 +3294,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt5">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3175,6 +3313,9 @@
                     <Component class="javax.swing.JTextField" name="txt7">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3191,6 +3332,9 @@
                     <Component class="javax.swing.JTextField" name="txt8">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3206,6 +3350,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt10">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3222,6 +3369,9 @@
                     <Component class="javax.swing.JTextField" name="txt11">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3237,6 +3387,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt15">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3304,6 +3457,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt35">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                        </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder bevelType="0"/>
@@ -3352,6 +3508,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tab2">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="6" rowCount="4">
                                 <Column editable="true" title="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
@@ -3446,6 +3605,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tab3">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="8" rowCount="4">
                                 <Column editable="true" title="&#x2116;&#x43f;&#x43f;" type="java.lang.Integer"/>
@@ -3552,6 +3714,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tab4">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="4" rowCount="4">
                                 <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object"/>
@@ -3631,6 +3796,9 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tab5">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,1)" type="code"/>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="2" rowCount="2">
                                 <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
@@ -3689,6 +3857,11 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Component class="javax.swing.JTree" name="winTree">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="frames.UGui.getFont(0,0)" type="code"/>
+                            </Property>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>

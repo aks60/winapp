@@ -272,6 +272,7 @@ public class DicSyspod extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(240, 601));
         pan1.setLayout(new java.awt.BorderLayout());
 
+        tree1.setFont(frames.UGui.getFont(0,0));
         scr1.setViewportView(tree1);
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -284,6 +285,7 @@ public class DicSyspod extends javax.swing.JDialog {
         scr2.setBorder(null);
         scr2.setPreferredSize(new java.awt.Dimension(360, 400));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
