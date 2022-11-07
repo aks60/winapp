@@ -1044,7 +1044,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tool.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
         btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnIns.setFocusable(false);
@@ -1135,6 +1135,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btn5.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn5.setMaximumSize(new java.awt.Dimension(25, 25));
         btn5.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -1155,7 +1156,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         panSspinner.add(spinner, java.awt.BorderLayout.CENTER);
 
         btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
-        btnMoveU.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
         btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMoveU.setFocusable(false);
         btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1171,7 +1172,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
-        btnMoveD.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
         btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMoveD.setFocusable(false);
         btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

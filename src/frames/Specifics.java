@@ -237,7 +237,8 @@ public class Specifics extends javax.swing.JFrame {
         });
 
         btnArtikles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnArtikles.setToolTipText(bundle.getString("Печать")); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        btnArtikles.setToolTipText(bundle1.getString("Поиск")); // NOI18N
         btnArtikles.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArtikles.setFocusable(false);
         btnArtikles.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -300,7 +301,7 @@ public class Specifics extends javax.swing.JFrame {
         });
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRefresh.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnRefresh.setToolTipText(bundle1.getString("Обновить")); // NOI18N
         btnRefresh.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnRefresh.setFocusable(false);
         btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

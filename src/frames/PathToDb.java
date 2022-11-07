@@ -141,7 +141,6 @@ public class PathToDb extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Установка соединения с базой данных");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(510, 260));
         setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -186,6 +185,8 @@ public class PathToDb extends javax.swing.JDialog {
 
         btnFile.setFont(frames.UGui.getFont(0,0));
         btnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b033.gif"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        btnFile.setToolTipText(bundle.getString("Выбрать файл")); // NOI18N
         btnFile.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFile.setMaximumSize(new java.awt.Dimension(27, 16));
         btnFile.setMinimumSize(new java.awt.Dimension(17, 16));

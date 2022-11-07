@@ -534,7 +534,7 @@ public class Elements extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -598,7 +598,7 @@ public class Elements extends javax.swing.JFrame {
         });
 
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
-        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnReport.setFocusable(false);
         btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -614,7 +614,7 @@ public class Elements extends javax.swing.JFrame {
         });
 
         btnFindArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnFindArtikl.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFindArtikl.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFindArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFindArtikl.setFocusable(false);
         btnFindArtikl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -641,7 +641,7 @@ public class Elements extends javax.swing.JFrame {
         });
 
         btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
-        btnFindSystree.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFindSystree.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFindSystree.setFocusable(false);
         btnFindSystree.setMaximumSize(new java.awt.Dimension(25, 25));

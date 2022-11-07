@@ -950,7 +950,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -966,6 +966,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
+        btnSet.setToolTipText(bundle.getString("Выбрать список")); // NOI18N
         btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnSet.setEnabled(false);
         btnSet.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -1027,7 +1028,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         btnCalc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c041.gif"))); // NOI18N
-        btnCalc.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnCalc.setToolTipText(bundle.getString("Пересчитать")); // NOI18N
         btnCalc.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnCalc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         btnCalc.setFocusable(false);
@@ -1109,7 +1110,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab2.setPreferredSize(new java.awt.Dimension(120, 24));
 
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnFind.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFind.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFind.setFocusable(false);
         btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

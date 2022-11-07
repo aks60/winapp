@@ -720,7 +720,7 @@ public class Artikles extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -800,7 +800,7 @@ public class Artikles extends javax.swing.JFrame {
         });
 
         btnMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
-        btnMove.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMove.setToolTipText(bundle.getString("Переместить")); // NOI18N
         btnMove.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMove.setFocusable(false);
         btnMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1026,10 +1026,8 @@ public class Artikles extends javax.swing.JFrame {
         pan98.add(txt18);
 
         btn18.setText("...");
+        btn18.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn18.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn18.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn18.setPreferredSize(new java.awt.Dimension(18, 18));
         btn18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn18(evt);
@@ -1136,10 +1134,8 @@ public class Artikles extends javax.swing.JFrame {
         pan102.add(txt5);
 
         btn5.setText("...");
+        btn5.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn5.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn5.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn5.setPreferredSize(new java.awt.Dimension(18, 18));
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5(evt);
@@ -1227,11 +1223,9 @@ public class Artikles extends javax.swing.JFrame {
         pan92.add(txt7);
 
         btn7.setText("...");
+        btn7.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn7.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn7.setMinimumSize(new java.awt.Dimension(18, 18));
         btn7.setName("btn7"); // NOI18N
-        btn7.setPreferredSize(new java.awt.Dimension(18, 18));
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1247,11 +1241,9 @@ public class Artikles extends javax.swing.JFrame {
         pan92.add(txt17);
 
         btn17.setText("...");
+        btn17.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn17.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn17.setMinimumSize(new java.awt.Dimension(18, 18));
         btn17.setName("btn17"); // NOI18N
-        btn17.setPreferredSize(new java.awt.Dimension(18, 18));
         btn17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1279,10 +1271,8 @@ public class Artikles extends javax.swing.JFrame {
         pan93.add(txt19);
 
         btn19.setText("...");
+        btn19.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn19.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn19.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn19.setPreferredSize(new java.awt.Dimension(18, 18));
         btn19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn19(evt);
@@ -1305,10 +1295,8 @@ public class Artikles extends javax.swing.JFrame {
         pan93.add(txt20);
 
         btn20.setText("...");
+        btn20.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn20.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn20.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn20.setPreferredSize(new java.awt.Dimension(18, 18));
         btn20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn20(evt);
@@ -1343,6 +1331,7 @@ public class Artikles extends javax.swing.JFrame {
         pan94.add(txt22);
 
         btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btn13.setToolTipText(bundle.getString("Фильтр")); // NOI18N
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn13.setMaximumSize(new java.awt.Dimension(18, 18));
         btn13.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -1355,10 +1344,8 @@ public class Artikles extends javax.swing.JFrame {
         pan94.add(btn13);
 
         btn22.setText("...");
+        btn22.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn22.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn22.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn22.setPreferredSize(new java.awt.Dimension(18, 18));
         btn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn22(evt);
@@ -1387,6 +1374,7 @@ public class Artikles extends javax.swing.JFrame {
         pan95.add(txt10);
 
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btn8.setToolTipText(bundle.getString("Фильтр")); // NOI18N
         btn8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn8.setMaximumSize(new java.awt.Dimension(18, 18));
         btn8.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -1399,10 +1387,8 @@ public class Artikles extends javax.swing.JFrame {
         pan95.add(btn8);
 
         btn37.setText("...");
+        btn37.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn37.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn37.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn37.setPreferredSize(new java.awt.Dimension(18, 18));
         btn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn37(evt);
@@ -1431,10 +1417,8 @@ public class Artikles extends javax.swing.JFrame {
         pan96.add(txt11);
 
         btn11.setText("...");
+        btn11.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn11.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn11.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn11.setPreferredSize(new java.awt.Dimension(18, 18));
         btn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn11(evt);
@@ -1483,10 +1467,8 @@ public class Artikles extends javax.swing.JFrame {
         pan104.add(txt42);
 
         btn35.setText("...");
+        btn35.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn35.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn35.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn35.setPreferredSize(new java.awt.Dimension(18, 18));
         pan104.add(btn35);
 
         pan2.add(pan104);
@@ -1532,10 +1514,7 @@ public class Artikles extends javax.swing.JFrame {
 
         btn9.setText("...");
         btn9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn9.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn9.setMinimumSize(new java.awt.Dimension(18, 18));
         btn9.setName("btnField7"); // NOI18N
-        btn9.setPreferredSize(new java.awt.Dimension(18, 18));
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1552,10 +1531,7 @@ public class Artikles extends javax.swing.JFrame {
 
         btn21.setText("...");
         btn21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn21.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn21.setMinimumSize(new java.awt.Dimension(18, 18));
         btn21.setName("btnField17"); // NOI18N
-        btn21.setPreferredSize(new java.awt.Dimension(18, 18));
         btn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1584,9 +1560,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn23.setText("...");
         btn23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn23.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn23.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn23.setPreferredSize(new java.awt.Dimension(18, 18));
         btn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn19(evt);
@@ -1610,9 +1583,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn24.setText("...");
         btn24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn24.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn24.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn24.setPreferredSize(new java.awt.Dimension(18, 18));
         btn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn20(evt);
@@ -1655,9 +1625,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn6.setText("...");
         btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn6.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn6.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn6.setPreferredSize(new java.awt.Dimension(18, 18));
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5(evt);
@@ -1705,9 +1672,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn25.setText("...");
         btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn25.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn25.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn25.setPreferredSize(new java.awt.Dimension(18, 18));
         btn25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn22(evt);
@@ -1749,9 +1713,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn10.setText("...");
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn10.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn10.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn10.setPreferredSize(new java.awt.Dimension(18, 18));
         btn10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn37(evt);
@@ -1782,9 +1743,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn36.setText("...");
         btn36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn36.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn36.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn36.setPreferredSize(new java.awt.Dimension(18, 18));
         pan19.add(btn36);
 
         pan7.add(pan19);
@@ -1893,10 +1851,7 @@ public class Artikles extends javax.swing.JFrame {
 
         btn26.setText("...");
         btn26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn26.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn26.setMinimumSize(new java.awt.Dimension(18, 18));
         btn26.setName("btnField17"); // NOI18N
-        btn26.setPreferredSize(new java.awt.Dimension(18, 18));
         btn26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1913,10 +1868,7 @@ public class Artikles extends javax.swing.JFrame {
 
         btn16.setText("...");
         btn16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn16.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn16.setMinimumSize(new java.awt.Dimension(18, 18));
         btn16.setName("btnField7"); // NOI18N
-        btn16.setPreferredSize(new java.awt.Dimension(18, 18));
         btn16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7(evt);
@@ -1946,9 +1898,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn27.setText("...");
         btn27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn27.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn27.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn27.setPreferredSize(new java.awt.Dimension(18, 18));
         btn27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn19(evt);
@@ -1972,9 +1921,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn28.setText("...");
         btn28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn28.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn28.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn28.setPreferredSize(new java.awt.Dimension(18, 18));
         btn28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn20(evt);
@@ -2004,9 +1950,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn33.setText("...");
         btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn33.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn33.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn33.setPreferredSize(new java.awt.Dimension(18, 18));
         btn33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5(evt);
@@ -2076,9 +2019,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn30.setText("...");
         btn30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn30.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn30.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn30.setPreferredSize(new java.awt.Dimension(18, 18));
         btn30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn22(evt);
@@ -2120,9 +2060,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn32.setText("...");
         btn32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn32.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn32.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn32.setPreferredSize(new java.awt.Dimension(18, 18));
         btn32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn37(evt);
@@ -2153,9 +2090,6 @@ public class Artikles extends javax.swing.JFrame {
 
         btn34.setText("...");
         btn34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn34.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn34.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn34.setPreferredSize(new java.awt.Dimension(18, 18));
         btn34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn34(evt);

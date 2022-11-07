@@ -226,7 +226,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         });
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -290,7 +290,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         });
 
         btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
-        btnChoice.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnChoice.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnChoice.setFocusable(false);
         btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -306,7 +306,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         });
 
         btnRemov.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c042.gif"))); // NOI18N
-        btnRemov.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRemov.setToolTipText(bundle.getString("Очистить")); // NOI18N
         btnRemov.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnRemov.setFocusable(false);
         btnRemov.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -371,7 +371,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         });
 
         btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
-        btnMoveU.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
         btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMoveU.setFocusable(false);
         btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -387,7 +387,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         });
 
         btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
-        btnMoveD.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
         btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMoveD.setFocusable(false);
         btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

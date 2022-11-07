@@ -619,6 +619,7 @@ public class Profstroy {
                     + "delete from sysprof a where a.systree_id = old.id; "
                     + "delete from syspar1 a where a.systree_id = old.id; "
                     + "delete from sysfurn a where a.systree_id = old.id; "
+                    + "delete from prjprod a where a.systree_id = old.id; "
                     + "delete from sysprod a where a.systree_id = old.id; end");
             executeSql("create or alter trigger kits_bd for kits active before delete position 0 as begin "
                     + "delete from kitdet a where a.kits_id = old.id; end");
@@ -652,6 +653,9 @@ public class Profstroy {
             executeSql("create or alter trigger furndet_bd for furndet active before delete position 0 as begin "
                     + "delete from furnpar2 a where a.furndet_id = old.id; "          
                     + "delete from furnside2 a where a.furndet_id = old.id; end");             
+            executeSql("create or alter trigger project_bd for project active before delete position 0 as begin "
+                    + "delete from prjkit a where a.project_id = old.id; "          
+                    + "delete from prjprod a where a.project_id = old.id; end");             
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
