@@ -68,7 +68,7 @@ public class AboutBox extends javax.swing.JFrame {
 
         labImage.setBackground(new java.awt.Color(255, 255, 255));
         labImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d035.png"))); // NOI18N
+        labImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif"))); // NOI18N
         labImage.setMaximumSize(new java.awt.Dimension(300, 70));
         labImage.setOpaque(true);
         labImage.setPreferredSize(new java.awt.Dimension(80, 60));
@@ -107,18 +107,25 @@ public class AboutBox extends javax.swing.JFrame {
         centr.setBackground(new java.awt.Color(255, 255, 255));
         centr.setPreferredSize(new java.awt.Dimension(300, 160));
 
+        jLabel1.setFont(frames.UGui.getFont(0,0));
         jLabel1.setText("Программа для расчета оконных конструкций");
 
+        jLabel3.setFont(frames.UGui.getFont(0,0));
         jLabel3.setText("из пластика, дерева и алюминия.");
 
+        jLabel4.setFont(frames.UGui.getFont(0,0));
         jLabel4.setText("Разработчик: Аксёнов Сергей Аркадьевич");
 
+        jLabel5.setFont(frames.UGui.getFont(0,0));
         jLabel5.setText("Сайт разработчика: http: www.iicokna.ru");
 
+        jLabel6.setFont(frames.UGui.getFont(0,0));
         jLabel6.setText("Телефон: +7(903)XXX-XX-XX");
 
+        jLabel7.setFont(frames.UGui.getFont(0,0));
         jLabel7.setText("Релиз версии: 1.01");
 
+        jLabel8.setFont(frames.UGui.getFont(0,0));
         jLabel8.setText("Выпуск первой версии 2021");
 
         javax.swing.GroupLayout centrLayout = new javax.swing.GroupLayout(centr);
