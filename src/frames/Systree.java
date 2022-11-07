@@ -2780,7 +2780,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         scr5.setBorder(null);
 
-        tab5.setFont(frames.UGui.getFont(0,1));
+        tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},

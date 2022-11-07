@@ -492,7 +492,7 @@ public class Partner extends javax.swing.JFrame {
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab47.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab47.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab47.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab47.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt12.setFont(frames.UGui.getFont(0,0));
         txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -504,7 +504,7 @@ public class Partner extends javax.swing.JFrame {
         lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab48.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab48.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab48.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab48.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt13.setFont(frames.UGui.getFont(0,0));
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -516,7 +516,7 @@ public class Partner extends javax.swing.JFrame {
         lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab49.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab49.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab49.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab49.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt14.setFont(frames.UGui.getFont(0,0));
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -528,7 +528,7 @@ public class Partner extends javax.swing.JFrame {
         lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab50.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab50.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab50.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt15.setFont(frames.UGui.getFont(0,0));
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -544,7 +544,7 @@ public class Partner extends javax.swing.JFrame {
         lab53.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab53.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab53.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab53.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab53.setPreferredSize(new java.awt.Dimension(96, 18));
 
         lab57.setFont(frames.UGui.getFont(0,0));
         lab57.setText("Дилер");
@@ -568,23 +568,23 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -594,6 +594,7 @@ public class Partner extends javax.swing.JFrame {
         pan4Layout.setVerticalGroup(
             pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -617,7 +618,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;\nЧастное лицо\n&nbsp;&nbsp;", pan4);
