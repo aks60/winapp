@@ -7,9 +7,9 @@ public class AboutBox extends javax.swing.JFrame {
     public AboutBox() {
         initComponents();
 
-        labProjectVersion.setText("Версия программы - 1.0");
-        labBase.setText("Версия базы данных - 1.0");
-        labConfig.setText("Конфигурация  - 2.0");
+//        labProjectVersion.setText("Версия программы - 1.0");
+//        labBase.setText("Версия базы данных - 1.0");
+//        labConfig.setText("Конфигурация  - 2.0");
     }
 
     @SuppressWarnings("unchecked")
