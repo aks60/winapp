@@ -116,7 +116,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,72,0,0,3,37"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,87,0,0,3,-124"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -167,7 +167,7 @@
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="lab2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                  <EmptySpace pref="157" max="32767" attributes="0"/>
                   <Component id="btnTest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="340" max="-2" attributes="0"/>
                       <Component id="panSspinner" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="361" max="32767" attributes="0"/>
+                      <EmptySpace pref="456" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -919,7 +919,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="lab3" pref="60" max="32767" attributes="1"/>
+                                              <Component id="lab3" pref="59" max="32767" attributes="1"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="txt3" min="-2" pref="61" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -1050,7 +1050,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btn1" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn1ActionPerformed"/>
@@ -1435,7 +1444,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lab32" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txt14" pref="258" max="32767" attributes="0"/>
+                                                  <Component id="txt14" pref="257" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lab27" min="-2" max="-2" attributes="0"/>
@@ -1544,7 +1553,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btn9" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToWindows"/>
@@ -1561,7 +1579,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btn13" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToWindows"/>
@@ -1578,7 +1605,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btn2" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToWindows"/>
@@ -1779,7 +1815,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lab33" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txt32" pref="266" max="32767" attributes="0"/>
+                                              <Component id="txt32" pref="265" max="32767" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Component id="btn22" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -1950,7 +1986,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
@@ -1967,7 +2012,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
@@ -1984,7 +2038,16 @@
                                         <EtchetBorder bevelType="0"/>
                                       </Border>
                                     </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[21, 20]"/>
+                                    </Property>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
@@ -2115,7 +2178,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sysprofToFrame"/>
@@ -2154,7 +2226,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lab29" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="txt19" pref="266" max="32767" attributes="0"/>
+                                              <Component id="txt19" pref="265" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="btn3" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -2244,7 +2316,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToArtiklGlass"/>
@@ -2325,7 +2406,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromGlass"/>
@@ -2596,7 +2686,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sysfurnToStvorka"/>
@@ -2613,7 +2712,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="handkToStvorka"/>
@@ -2630,7 +2738,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToHandl"/>
@@ -2647,7 +2764,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="typeOpenToStvorka"/>
@@ -2837,7 +2963,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loopToStvorka"/>
@@ -2892,7 +3027,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromLoop"/>
@@ -2947,7 +3091,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lockToStvorka"/>
@@ -3002,7 +3155,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromLock"/>
@@ -3066,7 +3228,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                                 <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[21, 20]"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="heightHandlToStvorka"/>
