@@ -189,7 +189,7 @@ public class PathToDb extends javax.swing.JDialog {
         btnFile.setToolTipText(bundle.getString("Выбрать файл")); // NOI18N
         btnFile.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFile.setMaximumSize(new java.awt.Dimension(27, 16));
-        btnFile.setMinimumSize(new java.awt.Dimension(17, 16));
+        btnFile.setMinimumSize(new java.awt.Dimension(27, 26));
         btnFile.setPreferredSize(new java.awt.Dimension(27, 26));
         btnFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
