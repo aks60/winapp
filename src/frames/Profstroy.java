@@ -614,7 +614,19 @@ public class Profstroy {
             alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
             alterTable("kitpar2", "fk_kitpar1", "kitdet_id", "kitdet");
             alterTable("alter table sysuser add constraint unq1_sysuser unique (user2)");
-
+            executeSql("create or alter trigger artikl_bd for artikl active before delete position 0 as begin "
+                    + "delete from artdet a where a.artikl_id = old.id; "
+                    + "delete from element a where a.artikl_id = old.id; "
+                    + "delete from furndet a where a.artikl_id = old.id; "                                     
+                    + "delete from glasdet a where a.artikl_id = old.id; "
+                    + "delete from glasprof a where a.artikl_id = old.id; "
+                    + "delete from joining a where a.artikl_id = old.id; "
+                    + "delete from joindet a where a.artikl_id = old.id; "
+                    + "delete from kits a where a.artikl_id = old.id; "
+                    + "delete from rulecalc a where a.artikl_id = old.id; "
+                    + "delete from sysfurn a where a.artikl_id = old.id; " 
+                    + "delete from sysprof a where a.artikl_id = old.id; " 
+                    + "delete from prjkit a where a.artikl_id = old.id; end");
             executeSql("create or alter trigger systree_bd for systree active before delete position 0 as begin "
                     + "delete from sysprof a where a.systree_id = old.id; "
                     + "delete from syspar1 a where a.systree_id = old.id; "
@@ -630,6 +642,7 @@ public class Profstroy {
             executeSql("create or alter trigger joining_bd for joining active before delete position 0 as begin "
                     + "delete from joinvar a where a.joining_id = old.id; end");
             executeSql("create or alter trigger joinvar_bd for joinvar active before delete position 0 as begin "
+                    + "delete from joindet a where a.joinvar_id = old.id; "
                     + "delete from joinpar1 a where a.joinvar_id = old.id; end");
             executeSql("create or alter trigger joindet_bd for joindet active before delete position 0 as begin "
                     + "delete from joinpar2 a where a.joindet_id = old.id; end");

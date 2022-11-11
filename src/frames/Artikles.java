@@ -2335,10 +2335,16 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+//Object obj = JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(this, tab2) == 0) {
-                UGui.deleteRecord(tab1);
+                if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
+                        + "\n соединениях, вставках, заполнениях, форнитуре \n то записи этого артикула "
+                        + "будут удалены. \n Вы действительно хотите удалить уртикул ?", "Предупреждение",
+                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                    UGui.deleteRecord(tab1);
+                }
             }
         } else if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0) {
@@ -2503,7 +2509,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
         HtmlOfTable.load("Артикулы", qArtikl, eArtikl.values());
-        ExecuteCmd.documentType(this); 
+        ExecuteCmd.documentType(this);
     }//GEN-LAST:event_itReport1ppmCategAction
 
     private void itReport2ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport2ppmCategAction
@@ -2746,9 +2752,9 @@ public class Artikles extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(0, tab1);
-        south.add(filterTable, 0);        
-        filterTable.getTxt().grabFocus();   
-        
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));

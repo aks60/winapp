@@ -444,7 +444,7 @@ public class Adm extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -496,7 +496,7 @@ public class Adm extends javax.swing.JFrame {
         toolBar1.setPreferredSize(new java.awt.Dimension(112, 28));
 
         btnConv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c070.gif"))); // NOI18N
-        btnConv.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnConv.setToolTipText(bundle.getString("Конвертировать базу данных")); // NOI18N
         btnConv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConv.setFocusable(false);
         btnConv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -989,7 +989,7 @@ public class Adm extends javax.swing.JFrame {
         });
 
         btnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
-        btnUp.setToolTipText(bundle.getString("Удалить")); // NOI18N
+        btnUp.setToolTipText(bundle.getString("Изменить пароль пользователя")); // NOI18N
         btnUp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnUp.setFocusable(false);
         btnUp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1005,7 +1005,7 @@ public class Adm extends javax.swing.JFrame {
         });
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b043.gif"))); // NOI18N
-        btnDel.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnDel.setToolTipText(bundle.getString("Удалить пользователя")); // NOI18N
         btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnDel.setFocusable(false);
         btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1021,7 +1021,7 @@ public class Adm extends javax.swing.JFrame {
         });
 
         btnSysdba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c071.gif"))); // NOI18N
-        btnSysdba.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnSysdba.setToolTipText(bundle.getString("Изменить пароль администратора")); // NOI18N
         btnSysdba.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnSysdba.setFocusable(false);
         btnSysdba.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
