@@ -2008,7 +2008,7 @@ public class Artikles extends javax.swing.JFrame {
         txt35.setEditable(false);
         txt35.setFont(frames.UGui.getFont(0,0));
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt35.setPreferredSize(new java.awt.Dimension(40, 18));
+        txt35.setPreferredSize(new java.awt.Dimension(38, 18));
         pan22.add(txt35);
 
         btn28.setText("...");
@@ -2045,6 +2045,9 @@ public class Artikles extends javax.swing.JFrame {
 
         btn33.setText("...");
         btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn33.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn33.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn33.setPreferredSize(new java.awt.Dimension(21, 20));
         btn33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5(evt);

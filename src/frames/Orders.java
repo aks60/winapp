@@ -2158,22 +2158,22 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt20.setEditable(false);
         txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt20.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt20.setPreferredSize(new java.awt.Dimension(178, 18));
 
         txt30.setEditable(false);
         txt30.setFont(frames.UGui.getFont(0,0));
         txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt30.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt30.setPreferredSize(new java.awt.Dimension(178, 18));
 
         txt25.setEditable(false);
         txt25.setFont(frames.UGui.getFont(0,0));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt25.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt25.setPreferredSize(new java.awt.Dimension(178, 18));
 
         txt21.setEditable(false);
         txt21.setFont(frames.UGui.getFont(0,0));
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt21.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt21.setPreferredSize(new java.awt.Dimension(178, 18));
 
         lab41.setFont(frames.UGui.getFont(0,0));
         lab41.setText("Ширина");
@@ -2210,7 +2210,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt45.setEditable(false);
         txt45.setFont(frames.UGui.getFont(0,0));
         txt45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt45.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt45.setPreferredSize(new java.awt.Dimension(178, 18));
 
         btn15.setText("...");
         btn15.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2235,7 +2235,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt47.setEditable(false);
         txt47.setFont(frames.UGui.getFont(0,0));
         txt47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt47.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt47.setPreferredSize(new java.awt.Dimension(178, 18));
 
         btn17.setText("...");
         btn17.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2260,7 +2260,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt46.setEditable(false);
         txt46.setFont(frames.UGui.getFont(0,0));
         txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt46.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt46.setPreferredSize(new java.awt.Dimension(178, 18));
 
         btn23.setText("...");
         btn23.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2285,7 +2285,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt48.setEditable(false);
         txt48.setFont(frames.UGui.getFont(0,0));
         txt48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt48.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt48.setPreferredSize(new java.awt.Dimension(178, 18));
 
         btn24.setText("...");
         btn24.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2393,7 +2393,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan16Layout.createSequentialGroup()
                         .addComponent(lab46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt16, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

@@ -2523,7 +2523,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lab46" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txt16" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt16" pref="203" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="txt31" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -2791,7 +2791,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -2807,7 +2807,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -2823,7 +2823,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -2839,7 +2839,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -2948,7 +2948,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -3012,7 +3012,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -3076,7 +3076,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -3140,7 +3140,7 @@
                                   </Border>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[180, 18]"/>
+                                  <Dimension value="[178, 18]"/>
                                 </Property>
                               </Properties>
                             </Component>
