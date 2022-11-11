@@ -47,6 +47,7 @@ import javax.swing.text.StyleContext;
 
 public class Adm extends javax.swing.JFrame {
 
+    public String hint = "resource.hint.hint-ru";
     private Thread thread = null;
     private char card = 'I';
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
@@ -496,7 +497,7 @@ public class Adm extends javax.swing.JFrame {
         toolBar1.setPreferredSize(new java.awt.Dimension(112, 28));
 
         btnConv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c070.gif"))); // NOI18N
-        btnConv.setToolTipText(bundle.getString("Конвертировать базу данных")); // NOI18N
+        btnConv.setToolTipText(bundle.getString("Конвертор базы данных")); // NOI18N
         btnConv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConv.setFocusable(false);
         btnConv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
