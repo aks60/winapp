@@ -185,7 +185,7 @@ public class PathToDb extends javax.swing.JDialog {
 
         btnFile.setFont(frames.UGui.getFont(0,0));
         btnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b033.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno_ru_RU"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
         btnFile.setToolTipText(bundle.getString("Выбрать файл")); // NOI18N
         btnFile.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFile.setMaximumSize(new java.awt.Dimension(27, 16));
