@@ -19,25 +19,25 @@ public class Winscript {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
-        if (base_name.toLowerCase().contains("sial3.fdb")) {
+        if (base_name.toLowerCase().contains("sial3")) {
             return Sial3.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
+        } else if (base_name.toLowerCase().contains("alutex3")) {
             return Alutex3.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
+        } else if (base_name.toLowerCase().contains("alutech3")) {
             return Alutech3.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("bimax.fdb")) {
+        } else if (base_name.toLowerCase().contains("bimax")) {
             return Bimax.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
+        } else if (base_name.toLowerCase().contains("vidnal")) {
             return Vidnal.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("krauss.fdb")) {
+        } else if (base_name.toLowerCase().contains("krauss")) {
             return Krauss.script(prj, nuni);
 
-        } else if (base_name.toLowerCase().contains("sokol.fdb")) {
+        } else if (base_name.toLowerCase().contains("sokol")) {
             return Sokol.script(prj, nuni);
         }
         return null;

@@ -274,7 +274,7 @@ public class Wincalc {
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.constructiv(" + e);
+            System.err.println("Ошибка:Wincalc.constructiv() " + e);
         }
     }
 

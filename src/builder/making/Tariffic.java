@@ -143,7 +143,7 @@ public class Tariffic extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:specif.Tariffication.calc() " + e);
+            System.err.println("Ошибка:Tariffic.calc() " + e);
         } finally {
             Query.conf = conf;
         }
@@ -193,7 +193,7 @@ public class Tariffic extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:specif.Tariffication.calc(xxx) " + e);
+            System.err.println("Ошибка:Tariffic.kits() " + e);
         }
         return kitList;
     }
@@ -295,51 +295,57 @@ public class Tariffic extends Cal5e {
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
     private static void rulecalcPrise(Wincalc winc, Record rulecalcRec, Specific specifRec) {
 
-        //Если артикул ИЛИ тип ИЛИ подтип совпали
-        if (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null) {
-            if ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
-                if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
-                        && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
-                        && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
+        try {
+            //Если артикул ИЛИ тип ИЛИ подтип совпали
+            if (specifRec.artiklRec.get(eArtikl.id) != null && 
+                    (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
+                
+                if ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
+                    if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
+                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
+                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
 
-                    if (rulecalcRec.getInt(eRulecalc.common) == 0) {
-                        if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
-                            specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
-                        }
+                        if (rulecalcRec.getInt(eRulecalc.common) == 0) {
+                            if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
+                                specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
+                            }
 
-                    } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
-                        LinkedList<IElem5e> elemList = winc.listElem;
-                        float quantity3 = 0;
-                        if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
-                            for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                                if (elem5e.spcRec().artikl.equals(specifRec.artikl)) {
-                                    quantity3 = quantity3 + elem5e.spcRec().quant1;
+                        } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
+                            LinkedList<IElem5e> elemList = winc.listElem;
+                            float quantity3 = 0;
+                            if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
+                                for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
+                                    if (elem5e.spcRec().artikl.equals(specifRec.artikl)) {
+                                        quantity3 = quantity3 + elem5e.spcRec().quant1;
+                                    }
+                                    for (Specific specifRec2 : elem5e.spcRec().spcList) {
+                                        if (specifRec2.artikl.equals(specifRec.artikl)) {
+                                            quantity3 = quantity3 + specifRec2.quant1;
+                                        }
+                                    }
                                 }
-                                for (Specific specifRec2 : elem5e.spcRec().spcList) {
-                                    if (specifRec2.artikl.equals(specifRec.artikl)) {
-                                        quantity3 = quantity3 + specifRec2.quant1;
+                            } else { //по подтипу, типу
+                                for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
+                                    Specific specifRec2 = elem5e.spcRec();
+                                    if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
+                                        quantity3 = quantity3 + elem5e.spcRec().quant1;
+                                    }
+                                    for (Specific specifRec3 : specifRec2.spcList) {
+                                        if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
+                                            quantity3 = quantity3 + specifRec3.quant1;
+                                        }
                                     }
                                 }
                             }
-                        } else { //по подтипу, типу
-                            for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                                Specific specifRec2 = elem5e.spcRec();
-                                if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                    quantity3 = quantity3 + elem5e.spcRec().quant1;
-                                }
-                                for (Specific specifRec3 : specifRec2.spcList) {
-                                    if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                        quantity3 = quantity3 + specifRec3.quant1;
-                                    }
-                                }
+                            if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
+                                specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                             }
-                        }
-                        if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
-                            specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                         }
                     }
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Tariffic.rulecalcPrise() " + e);
         }
     }
 

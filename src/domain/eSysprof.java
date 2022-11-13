@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.up;
 import enums.UseSide;
 import enums.UseArtiklTo;
 import java.util.ArrayList;
@@ -76,13 +77,13 @@ public enum eSysprof implements Field {
                 }
             }
             if (mapPrio.size() == 0) {
-                return null;
+                return up.newRecord();
             }
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
                 + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public static Record find3(int _id) {
