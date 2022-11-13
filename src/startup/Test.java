@@ -78,7 +78,17 @@ public class Test {
             //parse();
             //uid();
             //script();      
+/*
+ delete from artikl;
+delete from kits;
+delete from joining;
+delete from glasgrp;
+delete from furniture;
+delete from project;
+delete from prjpart;
+delete from rulecalc;
 
+             */
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -93,11 +103,10 @@ public class Test {
         if (_case.equals("one")) {
             winc.build(builder.script.Winscript.test(601001, true));
             winc.constructiv(true);
-            
+
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
-
             //DBCompare.iwinXls(winc, true);
             DBCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
