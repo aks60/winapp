@@ -253,7 +253,7 @@ public class Wincalc {
 
             //Построим список спецификаций
             for (IElem5e elem5e : listElem) {
-                if (elem5e.spcRec().artikl.trim().charAt(0) != '@') {
+                if (elem5e.spcRec().artikl.isEmpty() || elem5e.spcRec().artikl.trim().charAt(0) != '@') {
                     listSpec.add(elem5e.spcRec());
                     elem5e.spcRec().spcList.forEach(spc -> listSpec.add(spc));
                 }
