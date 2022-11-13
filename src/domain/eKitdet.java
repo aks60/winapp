@@ -11,7 +11,7 @@ public enum eKitdet implements Field {
     color1_id("4", "10", "1", "Основная текстура", "color1_id"),
     color2_id("4", "10", "1", "Внутренняя текстура", "color2_id"),
     color3_id("4", "10", "1", "Внешняя текстура", "color3_id"),
-    artikl_id("4", "10", "0", "Артикл", "artikl_id"),
+    artikl_id("4", "10", "0", "Артикул", "artikl_id"),
     kits_id("4", "10", "0", "Комплект", "kits_id");
 //    clnum("4", "10", "1", "Основная текстура", "CLNUM"),
 //    clnu1("4", "10", "1", "Внутренняя текстура", "CLNU1"),

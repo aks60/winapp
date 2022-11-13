@@ -24,6 +24,7 @@ public class Main {
         
         //eProp.profile = "tex";
         //eProp.locate = true;
+        //eProp.locale = new Locale("en", "SU");
         
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {

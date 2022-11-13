@@ -13,7 +13,7 @@ public enum eFurndet implements Field {
     id("4", "10", "0", "Идентификатор", "FINCB"),    
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
-    artikl_id("4", "10", "1", "Артикл", "artikl_id"),    
+    artikl_id("4", "10", "1", "Артикул", "artikl_id"),    
     furniture_id1("4", "10", "1", "Фурнитура", "furniture_id1"),
     furniture_id2("4", "10", "1", "Набор", "furniture_id2"),
     furndet_id("4", "10", "0", "Зависимая детализация", "FINCS");

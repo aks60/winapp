@@ -616,6 +616,7 @@ public class Profstroy {
             alterTable("alter table sysuser add constraint unq1_sysuser unique (user2)");
             executeSql("create or alter trigger artikl_bd for artikl active before delete position 0 as begin "
                     + "delete from artdet a where a.artikl_id = old.id; "
+                    + "delete from elemdet a where a.artikl_id = old.id; "
                     + "delete from element a where a.artikl_id = old.id; "
                     + "delete from furndet a where a.artikl_id = old.id; "                                  
                     + "delete from glasdet a where a.artikl_id = old.id; "
