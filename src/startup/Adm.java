@@ -47,7 +47,6 @@ import javax.swing.text.StyleContext;
 
 public class Adm extends javax.swing.JFrame {
 
-    public String hint = "resource.hint.hint-ru";
     private Thread thread = null;
     private char card = 'I';
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
@@ -445,7 +444,7 @@ public class Adm extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -479,7 +478,6 @@ public class Adm extends javax.swing.JFrame {
         btnMenu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c032.gif"))); // NOI18N
         btnMenu.setText("Гл. меню");
-        btnMenu.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMenu.setFocusable(false);
         btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -515,7 +513,6 @@ public class Adm extends javax.swing.JFrame {
         toolBar1.add(filler1);
 
         btnBaseEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c068.gif"))); // NOI18N
-        btnBaseEdit.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnBaseEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnBaseEdit.setFocusable(false);
         btnBaseEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -533,7 +530,6 @@ public class Adm extends javax.swing.JFrame {
         toolBar1.add(filler2);
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c069.gif"))); // NOI18N
-        btnLogin.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnLogin.setFocusable(false);
         btnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -748,6 +744,7 @@ public class Adm extends javax.swing.JFrame {
         lab6.setPreferredSize(new java.awt.Dimension(84, 19));
 
         btn10.setText("...");
+        btn10.setToolTipText(bundle.getString("Печать")); // NOI18N
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn10.setName("btnField17"); // NOI18N
         btn10.setPreferredSize(new java.awt.Dimension(18, 19));
@@ -974,7 +971,7 @@ public class Adm extends javax.swing.JFrame {
         pan14.setPreferredSize(new java.awt.Dimension(548, 29));
 
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b042.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnIns.setToolTipText(bundle.getString("Добавить пользователя")); // NOI18N
         btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnIns.setFocusable(false);
         btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

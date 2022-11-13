@@ -93,6 +93,8 @@ public class FilterTable extends javax.swing.JPanel {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
+        btn1.setToolTipText(bundle.getString("Фильтр/Поиск")); // NOI18N
         btn1.setBorder(null);
         btn1.setMaximumSize(new java.awt.Dimension(30, 23));
         btn1.setMinimumSize(new java.awt.Dimension(30, 23));
@@ -125,6 +127,7 @@ public class FilterTable extends javax.swing.JPanel {
         add(txtFilter);
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif"))); // NOI18N
+        btn2.setToolTipText(bundle.getString("Шаблон")); // NOI18N
         btn2.setBorder(null);
         btn2.setMaximumSize(new java.awt.Dimension(26, 23));
         btn2.setMinimumSize(new java.awt.Dimension(26, 23));

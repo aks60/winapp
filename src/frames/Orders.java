@@ -957,7 +957,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -1368,6 +1368,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt3.setPreferredSize(new java.awt.Dimension(62, 20));
 
         btn1.setText("...");
+        btn1.setToolTipText(bundle.getString("Выбрать")); // NOI18N
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn1.setMaximumSize(new java.awt.Dimension(21, 20));
         btn1.setMinimumSize(new java.awt.Dimension(21, 20));

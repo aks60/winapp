@@ -229,7 +229,7 @@ public class Texture extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -293,7 +293,7 @@ public class Texture extends javax.swing.JFrame {
         });
 
         btnRep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
-        btnRep.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRep.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnRep.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnRep.setFocusable(false);
         btnRep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

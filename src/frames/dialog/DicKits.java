@@ -218,7 +218,7 @@ public class DicKits extends javax.swing.JDialog {
         north.setPreferredSize(new java.awt.Dimension(600, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint/hint-ru"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClose.setFocusable(false);
@@ -367,6 +367,7 @@ public class DicKits extends javax.swing.JDialog {
         txt14.setPreferredSize(new java.awt.Dimension(180, 18));
 
         btn9.setText("...");
+        btn9.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btn9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn9.setMaximumSize(new java.awt.Dimension(21, 20));
         btn9.setMinimumSize(new java.awt.Dimension(21, 20));
@@ -379,6 +380,7 @@ public class DicKits extends javax.swing.JDialog {
         });
 
         btn13.setText("...");
+        btn13.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn13.setMaximumSize(new java.awt.Dimension(21, 20));
         btn13.setMinimumSize(new java.awt.Dimension(21, 20));
@@ -391,6 +393,7 @@ public class DicKits extends javax.swing.JDialog {
         });
 
         btn14.setText("...");
+        btn14.setToolTipText(bundle.getString("Закрыть")); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn14.setMaximumSize(new java.awt.Dimension(21, 20));
         btn14.setMinimumSize(new java.awt.Dimension(21, 20));

@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
-import javax.swing.JTextField;
-import startup.Main;
 
 /**
  *
@@ -54,7 +52,7 @@ public enum eProp {
     public String value;
 
     public static String password = "*";
-    public static FileWriter logconv = null;
+    public static Locale locale = new Locale("en", "US"); //локализация
     public static String fb = "fb";
     public static boolean dev = true;     //признак разработки и тестирования
     public static boolean locate = false;  //координаты фрейма разработки и тестирования
