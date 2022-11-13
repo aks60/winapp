@@ -924,23 +924,23 @@ public class Elements extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab2) == 0) {
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab3, tab4) == 0) {
+            if (UGui.isDeleteRecord(tab2, this, tab3, tab4) == 0) {
                 UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab5) == 0) {
+            if (UGui.isDeleteRecord(tab3, this, tab5) == 0) {
                 UGui.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
                 UGui.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(tab5, this) == 0) {
                 UGui.deleteRecord(tab5);
             }
         }
