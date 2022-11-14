@@ -79,7 +79,7 @@ public class Test {
             //uid();
             //script();      
 /*
- delete from artikl;
+delete from artikl;
 delete from kits;
 delete from joining;
 delete from glasgrp;
@@ -87,8 +87,15 @@ delete from furniture;
 delete from project;
 delete from prjpart;
 delete from rulecalc;
-
-             */
+delete from colmap; 
+delete from params;  
+delete from color;    
+delete from syssize; 
+delete from currenc;
+delete from sysprod;
+delete from sysmodel;
+delete from groups where grup != 9;
+*/
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

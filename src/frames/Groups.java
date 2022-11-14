@@ -230,7 +230,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan7.add(scr7, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Рассчётные параметры.", pan7);
+        tabb.addTab("<html><font size=\"3\">Рассчётные параметры", pan7);
 
         pan2.setLayout(new java.awt.BorderLayout());
 

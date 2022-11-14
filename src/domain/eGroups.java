@@ -8,13 +8,23 @@ import dataset.Record;
 public enum eGroups implements Field {
     up("0", "0", "0", "Группы наименований", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
-    grup("5", "5", "0", "Группа", "grup"),
+    grup("5", "5", "0", "2-Коэф. групп текстур 3-Серии профилей  4-Наценки групп МЦ 5-Скидки групп МЦ "
+            + "6-Категории профилей 7-Группы соотв. текстур 8-Категории вставок 9-Рассчётные параметры", "grup"),
     npp("4", "10", "1", "Ном.п.п", "npp"),
     name("12", "96", "1", "Название группы", "name"),
     val("8", "15", "1", "Значение", "coeff");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
-
+    
+    //2-Коэф. групп текстур
+    //3-Серии профилей    
+    //4-Наценки групп МЦ
+    //5-Скидки групп МЦ
+    //6-Категории профилей
+    //7-Группы соотв. текстур      
+    //8-Категории вставок
+    //9-Рассчётные параметры
+      
     eGroups(Object... p) {
         meta.init(p);
     }
@@ -41,8 +51,8 @@ public enum eGroups implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "='", _id, "'");
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
-    } 
-    
+    }
+
     public String toString() {
         return meta.descr();
     }
