@@ -250,10 +250,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         }
         if (index != -1) {
             UGui.setSelectedIndex(tab1, index);
+            UGui.scrollRectToIndex(index, tab1);
         } else {
             UGui.setSelectedRow(tab1);
         }
-        UGui.scrollRectToIndex(index, tab1);
     }
 
     public void loadingTab2() {

@@ -57,3 +57,23 @@ WHERE u.rdb$relation_name = 'DEFROLE'
 ORDER BY 1, 2
 
 SELECT CURRENT_USER FROM RDB$DATABASE
+
+Удаление всех данных в бд
+delete from artikl;
+delete from kits;
+delete from joining;
+delete from glasgrp;
+delete from furniture;
+delete from project;
+delete from prjpart;
+delete from rulecalc;
+delete from colmap; 
+delete from params;  
+delete from color;    
+delete from syssize; 
+delete from currenc;
+delete from sysprod;
+delete from sysmodel;
+delete from groups where grup != 9;
+alter table systree drop constraint fk_systree1;
+delete from systree;

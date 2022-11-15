@@ -45,11 +45,13 @@ public class Tex extends javax.swing.JFrame {
     private void winc_build() {
         int sysprodID = Integer.valueOf(eProp.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
-        String script = sysprodRec.getStr(eSysprod.script);
-        if (script != null && script.isEmpty() == false) {
-            JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
-            script2.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id)); //запишем nuni в script
-            winc.build(script2.toString()); //калькуляция изделия                
+        if (sysprodRec != null) {
+            String script = sysprodRec.getStr(eSysprod.script);
+            if (script != null && script.isEmpty() == false) {
+                JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
+                script2.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id)); //запишем nuni в script
+                winc.build(script2.toString()); //калькуляция изделия                
+            }
         }
     }
 
