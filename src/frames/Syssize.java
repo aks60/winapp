@@ -25,6 +25,7 @@ public class Syssize extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         btnChoice.setVisible(false);
+        btnRemove.setVisible(false);
     }
 
     public Syssize(Frame owner, ListenerRecord listener, int id) {
@@ -33,6 +34,9 @@ public class Syssize extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         this.owner = owner;
+        btnIns.setVisible(false);
+        btnDel.setVisible(false);
+        btnRef.setVisible(false);
         owner.setEnabled(false);
         this.listener = listener;
         for (int i = 0; i < qSyssize.size(); i++) {
@@ -209,11 +213,11 @@ public class Syssize extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,6 +334,10 @@ public class Syssize extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eSyssize.up, (record) -> {
+                record.set(eSyssize.falz, 0);
+                record.set(eSyssize.naxl, 0);
+                record.set(eSyssize.prip, 0);
+                record.set(eSyssize.zax, 0);
             });
         }
     }//GEN-LAST:event_btnInsert

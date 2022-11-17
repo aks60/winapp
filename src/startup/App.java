@@ -84,6 +84,7 @@ public enum App {
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
     Specification, Syssize, TestFrame, RuleCalc, DBCompare;
     public javax.swing.JFrame frame;
+    public static javax.swing.JFrame active;
 
     public void createFrame(java.awt.Window parent, Object... param) {
         if (frame != null) {
@@ -201,6 +202,7 @@ public enum App {
                     break;
             }
             //eProfile.appframe = frame;
+            active = frame;
             frame.setName(this.name());
             FrameToFile.setFrameSize(frame); //размеры окна
             frame.addWindowListener(new java.awt.event.WindowAdapter() {

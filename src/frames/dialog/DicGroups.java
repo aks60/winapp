@@ -46,7 +46,7 @@ public class DicGroups extends javax.swing.JDialog {
 
     public void loadingModel() {
         if (grup.numb() == TypeGroups.SERI_PROF.id) {
-            setTitle("Серии профилей");
+            setTitle("Серии");
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -64,7 +64,7 @@ public class DicGroups extends javax.swing.JDialog {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             setSelectedRow(tab3);
         } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
-            setTitle("Группы фильтров");
+            setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -174,9 +174,9 @@ public class DicGroups extends javax.swing.JDialog {
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -272,6 +272,7 @@ public class DicGroups extends javax.swing.JDialog {
 
         scr2.setBorder(null);
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Nmae 0", null},
@@ -313,6 +314,9 @@ public class DicGroups extends javax.swing.JDialog {
         pan3.setName(""); // NOI18N
         pan3.setLayout(new java.awt.BorderLayout());
 
+        scr3.setBorder(null);
+
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -326,6 +330,7 @@ public class DicGroups extends javax.swing.JDialog {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
@@ -347,6 +352,9 @@ public class DicGroups extends javax.swing.JDialog {
         pan4.setName("pan4"); // NOI18N
         pan4.setLayout(new java.awt.BorderLayout());
 
+        scr4.setBorder(null);
+
+        tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -360,6 +368,7 @@ public class DicGroups extends javax.swing.JDialog {
         ));
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);

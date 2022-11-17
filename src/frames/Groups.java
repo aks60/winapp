@@ -496,6 +496,11 @@ public class Groups extends javax.swing.JFrame {
         tab6.setFillsViewportHeight(true);
         tab6.setName("tab4"); // NOI18N
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Groups.this.mousePressed(evt);
+            }
+        });
         scr6.setViewportView(tab6);
         if (tab6.getColumnModel().getColumnCount() > 0) {
             tab6.getColumnModel().getColumn(1).setMaxWidth(40);
@@ -667,11 +672,13 @@ public class Groups extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
+                record.set(eGroups.val, 0);
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });
 
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordEnd(tab2, eGroups.up, (record) -> {
+                record.set(eGroups.val, 0);
                 record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
             });
 
@@ -687,6 +694,7 @@ public class Groups extends javax.swing.JFrame {
 
         } else if (tab5.getBorder() != null) {
             UGui.insertRecordEnd(tab5, eGroups.up, (record) -> {
+                record.set(eGroups.val, 1);
                 record.set(eGroups.grup, TypeGroups.COLOR.id);
             });
 
@@ -695,6 +703,8 @@ public class Groups extends javax.swing.JFrame {
                 record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
             });
         }
+        eGroups.query().clear();
+        eGroups.query();
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport

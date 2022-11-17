@@ -1395,7 +1395,7 @@ public class Artikles extends javax.swing.JFrame {
         pan95.add(filler10);
 
         lab22.setFont(frames.UGui.getFont(0,0));
-        lab22.setText("Серия профилей");
+        lab22.setText("Серия");
         lab22.setToolTipText("");
         lab22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab22.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1761,7 +1761,7 @@ public class Artikles extends javax.swing.JFrame {
         pan17.add(filler30);
 
         lab41.setFont(frames.UGui.getFont(0,0));
-        lab41.setText("Серия профилей");
+        lab41.setText("Серия");
         lab41.setToolTipText("");
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2151,7 +2151,7 @@ public class Artikles extends javax.swing.JFrame {
         pan25.add(filler40);
 
         lab48.setFont(frames.UGui.getFont(0,0));
-        lab48.setText("Серия профилей");
+        lab48.setText("Серия");
         lab48.setToolTipText("");
         lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab48.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2336,8 +2336,12 @@ public class Artikles extends javax.swing.JFrame {
                 UGui.insertRecordEnd(tab1, eArtikl.up, (record) -> {
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
+                    record.setNo(eArtikl.otx_norm, 0);
+                    record.setNo(eArtikl.coeff, 1);
                 });
                 rsvArtikl.clear();
+            } else {
+                JOptionPane.showMessageDialog(this, "Выберите тип артикула", "ВНИМАНИЕ!", 1);
             }
 
         } else if (tab2.getBorder() != null) {

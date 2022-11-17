@@ -629,14 +629,14 @@ public class UGui {
             int index = getIndexRec(table);
             Record record = query.get(index);
             record.set(0, Query.DEL);
-            query.delete(record);
-            query.removeRec(index);
-            ((DefTableModel) table.getModel()).fireTableRowsDeleted(row, row);
-
-            row = (row > 0) ? --row : 0;
-            if (query.size() > 0) {
-                index = table.convertRowIndexToModel(row);
-                UGui.setSelectedIndex(table, index);
+            if (query.delete(record)) {
+                query.removeRec(index);
+                ((DefTableModel) table.getModel()).fireTableRowsDeleted(row, row);
+                row = (row > 0) ? --row : 0;
+                if (query.size() > 0) {
+                    index = table.convertRowIndexToModel(row);
+                    UGui.setSelectedIndex(table, index);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);

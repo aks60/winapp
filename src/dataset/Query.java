@@ -1,6 +1,7 @@
 package dataset;
 
 import static dataset.Query.INS;
+import java.awt.Window;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 import startup.App;
 
 public class Query extends Table {
- 
+
     public static String conf = "app";
     private static String schema = "";
     public Connection connection = null;
@@ -254,8 +255,7 @@ public class Query extends Table {
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (Conn.web() == false && e.getErrorCode() == 335544466) {
-                JOptionPane.showMessageDialog(App.Top.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
-
+                JOptionPane.showMessageDialog(App.active, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
             return false;
         }
