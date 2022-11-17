@@ -1230,6 +1230,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         centr.setPreferredSize(new java.awt.Dimension(800, 550));
         centr.setLayout(new java.awt.BorderLayout());
 
+        tabb1.setFont(frames.UGui.getFont(1,0));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 Orders.this.stateChanged(evt);
@@ -1523,7 +1524,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         pan1.add(pan11, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("<html><font size=\"3\"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Заказы &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan1);
+        tabb1.addTab("       Заказы       ", pan1);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -2690,7 +2691,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         panDesign.setLayout(new java.awt.BorderLayout());
         pan3.add(panDesign, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nИзделия\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan3);
+        tabb1.addTab("        Изделия        ", pan3);
 
         pan6.setLayout(new java.awt.BorderLayout());
 
@@ -2736,7 +2737,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         pan6.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nКомплектация\n&nbsp;&nbsp;&nbsp;", pan6);
+        tabb1.addTab("   Комплектация   ", pan6);
 
         centr.add(tabb1, java.awt.BorderLayout.CENTER);
 

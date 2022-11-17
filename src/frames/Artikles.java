@@ -1359,15 +1359,15 @@ public class Artikles extends javax.swing.JFrame {
         txt22.setEditable(false);
         txt22.setFont(frames.UGui.getFont(0,0));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt22.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt22.setPreferredSize(new java.awt.Dimension(177, 18));
         pan94.add(txt22);
 
         btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn13.setToolTipText(bundle.getString("Фильтр")); // NOI18N
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn13.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn13.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn13.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn13.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn13.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn13.setPreferredSize(new java.awt.Dimension(21, 20));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn13(evt);
@@ -1406,15 +1406,15 @@ public class Artikles extends javax.swing.JFrame {
         txt10.setEditable(false);
         txt10.setFont(frames.UGui.getFont(0,0));
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt10.setPreferredSize(new java.awt.Dimension(180, 18));
+        txt10.setPreferredSize(new java.awt.Dimension(177, 18));
         pan95.add(txt10);
 
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn8.setToolTipText(bundle.getString("Фильтр")); // NOI18N
         btn8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn8.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn8.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn8.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn8.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn8.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn8.setPreferredSize(new java.awt.Dimension(21, 20));
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn8(evt);
@@ -2338,23 +2338,32 @@ public class Artikles extends javax.swing.JFrame {
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                     record.setNo(eArtikl.otx_norm, 0);
                     record.setNo(eArtikl.coeff, 1);
+                    if (typeArtikl.id1 == 1 || typeArtikl.id1 == 3) {
+                        record.setNo(eArtikl.unit, UseUnit.METR.id);
+                    } else if (typeArtikl.id1 == 5) {
+                        record.setNo(eArtikl.unit, UseUnit.METR2.id);
+                    }
                 });
                 rsvArtikl.clear();
+                rsvArtikl.load();
             } else {
                 JOptionPane.showMessageDialog(this, "Выберите тип артикула", "ВНИМАНИЕ!", 1);
             }
 
         } else if (tab2.getBorder() != null) {
-
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
-                Record artiklRec = qArtikl.get(index);
-                Record artdetRec = eArtdet.up.newRecord(Query.INS);
-                artdetRec.setNo(eArtdet.id, Conn.genId(eArtdet.up));
-                artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
-                qArtdet.add(artdetRec);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.scrollRectToRow(tab2.getSelectedRow() - 1, tab2);
+
+                UGui.insertRecordEnd(tab2, eArtikl.up, (record) -> {
+                    Record artiklRec = qArtikl.get(index);
+                    record.setNo(eArtdet.id, Conn.genId(eArtdet.up));
+                    record.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
+                    record.setNo(eArtdet.cost_c1, 0);
+                    record.setNo(eArtdet.cost_c2, 0);
+                    record.setNo(eArtdet.cost_c3, 0);
+                    record.setNo(eArtdet.cost_c4, 0);
+                    record.setNo(eArtdet.coef, 1);
+                });
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -2365,7 +2374,7 @@ public class Artikles extends javax.swing.JFrame {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
                         + "\n соединениях, вставках, заполнениях, форнитуре \n то записи этого артикула "
                         + "будут удалены. \n Вы действительно хотите удалить уртикул ?", "Предупреждение",
-                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                     UGui.deleteRecord(tab1);
                 }
             }

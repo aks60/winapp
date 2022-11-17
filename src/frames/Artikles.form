@@ -1782,7 +1782,7 @@
                           </Border>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[180, 18]"/>
+                          <Dimension value="[177, 18]"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1800,13 +1800,13 @@
                           </Border>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -1900,7 +1900,7 @@
                           </Border>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[180, 18]"/>
+                          <Dimension value="[177, 18]"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1918,13 +1918,13 @@
                           </Border>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[18, 18]"/>
+                          <Dimension value="[21, 20]"/>
                         </Property>
                       </Properties>
                       <Events>

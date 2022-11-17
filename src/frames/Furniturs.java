@@ -1058,6 +1058,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan9.setPreferredSize(new java.awt.Dimension(505, 300));
         pan9.setLayout(new java.awt.BorderLayout());
 
+        tabb1.setFont(frames.UGui.getFont(1,0));
         tabb1.setPreferredSize(new java.awt.Dimension(0, 0));
 
         pan11.setLayout(new java.awt.BorderLayout());
@@ -1128,7 +1129,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan9.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)"));
+        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(1,0)));
         scr2b.setPreferredSize(new java.awt.Dimension(500, 140));
 
         tab2b.setFont(frames.UGui.getFont(0,0));

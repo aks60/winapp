@@ -2422,6 +2422,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan1.add(pan2);
 
+        tabb1.setFont(frames.UGui.getFont(1,0));
         tabb1.setPreferredSize(new java.awt.Dimension(540, 250));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -2702,7 +2703,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addContainerGap(102, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp", pan6);
+        tabb1.addTab("   Основные   ", pan6);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -2749,7 +2750,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nПрофили\n&nbsp;&nbsp;&nbsp", pan3);
+        tabb1.addTab("   Профили   ", pan3);
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -2796,7 +2797,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">&nbsp;&nbsp;&nbsp\nФурнитура\n&nbsp;&nbsp;&nbsp", pan4);
+        tabb1.addTab("   Фурнитура   ", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -2840,7 +2841,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nПараметры\n&nbsp;&nbsp;&nbsp", pan5);
+        tabb1.addTab("   Параметры   ", pan5);
 
         pan10.setLayout(new java.awt.BorderLayout());
 
@@ -2890,7 +2891,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nМодели\n&nbsp;&nbsp;&nbsp", pan10);
+        tabb1.addTab("   Модели   ", pan10);
 
         pan1.add(tabb1);
         tabb1.getAccessibleContext().setAccessibleName("<html><font size=\"3\">&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp");

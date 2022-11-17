@@ -178,6 +178,7 @@ public class Groups extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(600, 459));
         centr.setLayout(new java.awt.BorderLayout());
 
+        tabb.setFont(frames.UGui.getFont(1,0));
         tabb.setPreferredSize(new java.awt.Dimension(600, 459));
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -230,7 +231,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan7.add(scr7, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Рассчётные параметры", pan7);
+        tabb.addTab("Рассчётные параметры", pan7);
 
         pan2.setLayout(new java.awt.BorderLayout());
 
@@ -278,7 +279,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Скидки групп МЦ", pan2);
+        tabb.addTab("Скидки групп МЦ", pan2);
 
         panl1.setLayout(new java.awt.BorderLayout());
 
@@ -326,7 +327,7 @@ public class Groups extends javax.swing.JFrame {
 
         panl1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Наценки групп МЦ", panl1);
+        tabb.addTab("Наценки групп МЦ", panl1);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -373,7 +374,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan5.add(scr5, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Коэф. групп текстур", pan5);
+        tabb.addTab("Коэф. групп текстур", pan5);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -416,7 +417,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Серии профилей", pan3);
+        tabb.addTab("     Серии МЦ    ", pan3); // NOI18N
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -462,7 +463,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Категории профилей", pan4);
+        tabb.addTab("     Категории МЦ    ", pan4);
 
         pan6.setLayout(new java.awt.BorderLayout());
 
@@ -508,7 +509,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan6.add(scr6, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Категории вставок", pan6);
+        tabb.addTab("Категории вставок", pan6);
 
         centr.add(tabb, java.awt.BorderLayout.CENTER);
 

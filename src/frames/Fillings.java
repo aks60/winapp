@@ -664,6 +664,7 @@ public class Fillings extends javax.swing.JFrame {
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
         tabb1.setToolTipText("");
+        tabb1.setFont(frames.UGui.getFont(1,0));
         tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
 
         pan4.setLayout(new java.awt.BorderLayout());
