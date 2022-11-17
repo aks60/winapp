@@ -576,7 +576,7 @@ public class Tex extends javax.swing.JFrame {
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
         mn01.setActionCommand("*Учреждение");
-        mn01.setFont(frames.UGui.getFont(0,1));
+        mn01.setFont(frames.UGui.getFont(1,1));
         mn01.setLabel("  Настройки  ");
 
         mn12.setFont(frames.UGui.getFont(0,1));
@@ -622,7 +622,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setFont(frames.UGui.getFont(0,1));
+        mn02.setFont(frames.UGui.getFont(1,1));
         mn02.setLabel("  Справочники  ");
 
         mn26.setFont(frames.UGui.getFont(0,1));
@@ -688,7 +688,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
-        mn09.setFont(frames.UGui.getFont(0,1));
+        mn09.setFont(frames.UGui.getFont(1,1));
         mn09.setLabel("  Системы  ");
 
         mn91.setFont(frames.UGui.getFont(0,1));
@@ -724,7 +724,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn09);
 
-        mn03.setFont(frames.UGui.getFont(0,1));
+        mn03.setFont(frames.UGui.getFont(1,1));
         mn03.setLabel("  Составы  ");
 
         mn31.setFont(frames.UGui.getFont(0,1));
@@ -790,9 +790,9 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn07.setActionCommand(" Заказы  ");
-        mn07.setFont(frames.UGui.getFont(0,1));
-        mn07.setLabel(" Заказы");
+        mn07.setText("  Заказы ");
+        mn07.setActionCommand("  Заказы  ");
+        mn07.setFont(frames.UGui.getFont(1,1));
         mn07.setPreferredSize(new java.awt.Dimension(67, 19));
 
         mn71.setFont(frames.UGui.getFont(0,1));
@@ -828,7 +828,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn07);
 
-        mn06.setFont(frames.UGui.getFont(0,1));
+        mn06.setFont(frames.UGui.getFont(1,1));
         mn06.setLabel("  Сервис  ");
 
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
@@ -875,7 +875,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn06);
 
-        mn05.setFont(frames.UGui.getFont(0,1));
+        mn05.setFont(frames.UGui.getFont(1,1));
         mn05.setLabel("  Справка  ");
 
         mn51.setFont(frames.UGui.getFont(0,1));
