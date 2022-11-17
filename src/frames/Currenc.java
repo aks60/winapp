@@ -27,7 +27,7 @@ public class Currenc extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-        btnChoice.setVisible(false);
+        List.of(btnChoice, btnRemove).forEach(b -> b.setVisible(false));
         setVisible(true);
     }
 
@@ -36,6 +36,8 @@ public class Currenc extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.setVisible(false));
+        ((DefTableModel) tab1.getModel()).setCellEditable(false, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
@@ -205,11 +207,11 @@ public class Currenc extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 373, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,6 +270,11 @@ public class Currenc extends javax.swing.JFrame {
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Currenc.this.mouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -302,7 +309,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1);
+       // UGui.stopCellEditing(tab1);
         List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -343,8 +350,14 @@ public class Currenc extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         HtmlOfTable.load("Отчёт по спецификации", tab1);
-        ExecuteCmd.documentType(this);  
+        ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
+
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_mouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;

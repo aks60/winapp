@@ -24,8 +24,7 @@ public class Syssize extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-        btnChoice.setVisible(false);
-        btnRemove.setVisible(false);
+        List.of(btnChoice, btnRemove).forEach(b -> b.setVisible(false));
     }
 
     public Syssize(Frame owner, ListenerRecord listener, int id) {
@@ -34,9 +33,8 @@ public class Syssize extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         this.owner = owner;
-        btnIns.setVisible(false);
-        btnDel.setVisible(false);
-        btnRef.setVisible(false);
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.setVisible(false));
+        ((DefTableModel) tab1.getModel()).setCellEditable(false, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
         owner.setEnabled(false);
         this.listener = listener;
         for (int i = 0; i < qSyssize.size(); i++) {
@@ -294,6 +292,9 @@ public class Syssize extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                museClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Syssize.this.mousePressed(evt);
             }
@@ -317,6 +318,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        UGui.stopCellEditing(tab1);
         qSyssize.execsql();
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -370,6 +372,12 @@ public class Syssize extends javax.swing.JFrame {
         HtmlOfTable.load("Правила расчёта", tab1);
         ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
+
+    private void museClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_museClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_museClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

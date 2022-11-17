@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.App;
 import common.listener.ListenerFrame;
+import java.util.List;
 
 public class DefTableModel extends DefaultTableModel implements ListenerFrame {
 
@@ -115,6 +116,15 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
         return editable[columnIndex];
     }
 
+    public void setCellEditable(boolean edit, Field... field) {
+        List list = List.of(field);
+        for (int i = 0; i < columns.length; i++) {
+            if(list.contains(columns[i])) {
+               editable[i] = edit; 
+            }
+        }
+    }
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 

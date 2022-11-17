@@ -568,6 +568,7 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        UGui.stopCellEditing(tab1, tab2, tab3);
         List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);

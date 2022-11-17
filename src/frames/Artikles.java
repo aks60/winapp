@@ -2360,8 +2360,6 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-//Object obj = JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "

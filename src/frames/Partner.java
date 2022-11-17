@@ -922,6 +922,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        UGui.stopCellEditing(tab1);
         qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
