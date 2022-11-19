@@ -4171,7 +4171,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder justification="2" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;">
+                    <TitledBorder justification="2" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x44b; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
                       </Border>

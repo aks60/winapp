@@ -730,12 +730,12 @@ public class Profstroy {
             Record record = eSetting.up.newRecord(Query.INS);
             record.setNo(eSetting.id, 1);
             record.setNo(eSetting.name, "Версия программы");
-            record.setNo(eSetting.val, "1.0");
+            record.setNo(eSetting.val, "2.0");
             q.insert(record);
             record = eSetting.up.newRecord(Query.INS);
             record.setNo(eSetting.id, 2);
             record.setNo(eSetting.name, "Версия базы данных");
-            record.setNo(eSetting.val, "ps" + versionPs);
+            record.setNo(eSetting.val, "2.0");
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {

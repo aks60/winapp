@@ -66,9 +66,9 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab4, qCateg, eGroups.name);
-        new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id
+        new DefTableModel(tab1, qCateg, eGroups.name);
+        new DefTableModel(tab2, qKits, eKits.name);
+        new DefTableModel(tab3, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id
                 , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -89,7 +89,7 @@ public class Kits extends javax.swing.JFrame {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
-                    int index = tab2.convertRowIndexToModel(row);
+                    int index = tab3.convertRowIndexToModel(row);
                     int id = qKitdet.getAs(index, eKitdet.artikl_id);
                     Record record = eArtikl.get(id);
                     return UseUnit.getName(record.getInt(eArtikl.unit));
@@ -97,7 +97,7 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
+        new DefTableModel(tab4, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
@@ -115,64 +115,64 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
-        UGui.setSelectedRow(tab1);
+        tab3.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
+        UGui.setSelectedRow(tab2);
     }
 
     public void listenerAdd() {
 
-        UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
 
             Set set = new HashSet();
             qKits.forEach(rec -> set.add(rec.getStr(eKits.groups_id)));
             List list = List.of(set.toArray());
             Collections.sort(list);
             JComboBox jcb = new JComboBox(list.toArray());
-            if (qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.groups_id).isEmpty() == false) {
-                int index = list.indexOf(qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.groups_id));
+            if (qKits.get(UGui.getIndexRec(tab2)).getStr(eKits.groups_id).isEmpty() == false) {
+                int index = list.indexOf(qKits.get(UGui.getIndexRec(tab2)).getStr(eKits.groups_id));
                 jcb.setSelectedIndex(index);
             }
             jcb.setEditable(true);
             JOptionPane.showMessageDialog(null, jcb, "Категория", JOptionPane.QUESTION_MESSAGE);
             Object result = jcb.getSelectedItem();
 
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab1);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            int index = UGui.getIndexRec(tab2);
             qKits.set(result, index, eKits.groups_id);
-            UGui.fireTableRowUpdated(tab1);
+            UGui.fireTableRowUpdated(tab2);
         });
 
-        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
-            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+        UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor1, colorSet);
         });
 
-        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+        UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor2, colorSet);
         });
 
-        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
-            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+        UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor3, colorSet);
         });
 
-        UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            int index = UGui.getIndexRec(tab2);
+        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
+            int index = UGui.getIndexRec(tab3);
             if (index != -1) {
                 int param = -1;
                 Record recordDet = qKitdet.get(index);
@@ -186,25 +186,25 @@ public class Kits extends javax.swing.JFrame {
                     param = 9000;
                 }
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2);
+                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3);
                 }, eParams.kits, param);
             }
         });
 
-        UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab3, component, eKitpar2.params_id);
+        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return UGui.listenerCell(tab4, component, eKitpar2.params_id);
 
         }).addActionListener(event -> {
-            Record record = qKitpar2.get(UGui.getIndexRec(tab3));
+            Record record = qKitpar2.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eKitpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3, tab4, tab1);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3, tab4, tab1);
                 }, list);
             }
         });
@@ -213,67 +213,71 @@ public class Kits extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerArtikl = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            if (tab2.getBorder() != null) {
-                int index = UGui.getIndexRec(tab2);
-                qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eKitdet.artikl_id);
-                UGui.fireTableRowUpdated(tab2);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            if (tab3.getBorder() != null) {
+                int index = UGui.getIndexRec(tab3);
+                qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eKitdet.artikl_id);
+                UGui.fireTableRowUpdated(tab3);
             }
         };
 
         listenerColor1 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab2);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             record2.set(eKitdet.color1_id, ID);
-            UGui.fireTableRowUpdated(tab2);
+            UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColor2 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab2);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             record2.set(eKitdet.color2_id, ID);
-            UGui.fireTableRowUpdated(tab2);
+            UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColor3 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab2);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             record2.set(eKitdet.color3_id, ID);
-            UGui.fireTableRowUpdated(tab2);
+            UGui.fireTableRowUpdated(tab3);
         };
     }
 
     public void selectionTab1(ListSelectionEvent event) {
+        
+    }
+    
+    public void selectionTab2(ListSelectionEvent event) {
         List.of(qKitdet).forEach(q -> q.execsql());
-        UGui.clearTable(tab2, tab3);
-        int index = UGui.getIndexRec(tab1);
+        UGui.clearTable(tab3, tab4);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qKits.get(index);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab3);
         }
     }
 
-    public void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab3(ListSelectionEvent event) {
         List.of(qKitpar2).forEach(q -> q.execsql());
-        UGui.clearTable(tab3);
-        int index = UGui.getIndexRec(tab2);
+        UGui.clearTable(tab4);
+        int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             Record record = qKitdet.get(index);
             Integer id = record.getInt(eKitdet.id);
             //qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
             qKitpar2.clear();
             qKitpar2.addAll(eKitpar2.find(id));
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab4);
         }
     }
 
@@ -289,15 +293,15 @@ public class Kits extends javax.swing.JFrame {
         cbx1 = new javax.swing.JComboBox<>();
         btnFind = new javax.swing.JButton();
         west = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
-        scr4 = new javax.swing.JScrollPane();
-        tab4 = new javax.swing.JTable();
-        centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
+        centr = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -447,23 +451,23 @@ public class Kits extends javax.swing.JFrame {
         west.setPreferredSize(new java.awt.Dimension(380, 10));
         west.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Списки комплектов", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список комплектов", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
-        tab1.setFont(frames.UGui.getFont(0,0));
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
+        tab2.setFont(frames.UGui.getFont(0,0));
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "111111111111111",  new Integer(1)},
-                {"222", "222222222222222",  new Integer(2)}
+                {"111111111111111",  new Integer(1)},
+                {"222222222222222",  new Integer(2)}
             },
             new String [] {
-                "Категория", "Название комплекта", "ID"
+                "Название комплектов", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -474,28 +478,27 @@ public class Kits extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(46);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(46);
         }
 
-        west.add(scr1, java.awt.BorderLayout.CENTER);
+        west.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " ", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr4.setPreferredSize(new java.awt.Dimension(120, 404));
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " ", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr1.setPreferredSize(new java.awt.Dimension(120, 404));
 
-        tab4.setFont(frames.UGui.getFont(0,0));
-        tab4.setModel(new javax.swing.table.DefaultTableModel(
+        tab1.setFont(frames.UGui.getFont(0,0));
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"wwwwwww"},
                 {"ddddddddd"}
@@ -512,27 +515,27 @@ public class Kits extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab4.setFillsViewportHeight(true);
-        tab4.setName("tab1"); // NOI18N
-        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
-        scr4.setViewportView(tab4);
+        scr1.setViewportView(tab1);
 
-        west.add(scr4, java.awt.BorderLayout.WEST);
+        west.add(scr1, java.awt.BorderLayout.WEST);
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
         centr.setPreferredSize(new java.awt.Dimension(600, 200));
         centr.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
-        tab2.setFont(frames.UGui.getFont(0,0));
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
+        tab3.setFont(frames.UGui.getFont(0,0));
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "111", "1", "1", "1", null, null,  new Integer(1)},
                 {"2", "222", "2", "2", "2", null, null,  new Integer(2)}
@@ -556,32 +559,32 @@ public class Kits extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab3.setFillsViewportHeight(true);
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(140);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(46);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(260);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tab3.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(7).setMaxWidth(46);
         }
 
-        centr.add(scr2, java.awt.BorderLayout.CENTER);
+        centr.add(scr3, java.awt.BorderLayout.CENTER);
 
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr3.setPreferredSize(new java.awt.Dimension(0, 200));
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr4.setPreferredSize(new java.awt.Dimension(0, 200));
 
-        tab3.setFont(frames.UGui.getFont(0,0));
-        tab3.setModel(new javax.swing.table.DefaultTableModel(
+        tab4.setFont(frames.UGui.getFont(0,0));
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"111", "1", null},
                 {"222", "2", null}
@@ -598,21 +601,21 @@ public class Kits extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab3.setFillsViewportHeight(true);
-        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
-        scr3.setViewportView(tab3);
-        if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setPreferredWidth(480);
-            tab3.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tab3.getColumnModel().getColumn(2).setPreferredWidth(40);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(480);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(40);
         }
 
-        centr.add(scr3, java.awt.BorderLayout.SOUTH);
+        centr.add(scr4, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -630,85 +633,85 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
         List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());        
-        int index4 = UGui.getIndexRec(tab4);
-        int index = UGui.getIndexRec(tab1);
-        int index2 = UGui.getIndexRec(tab2);
-        int index3 = UGui.getIndexRec(tab3);
+        int index4 = UGui.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab2);
+        int index2 = UGui.getIndexRec(tab3);
+        int index3 = UGui.getIndexRec(tab4);
         loadingData(String.valueOf(cbx1.getSelectedIndex()));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedIndex(tab4, index4);
-        UGui.setSelectedIndex(tab1, index);
-        UGui.setSelectedIndex(tab2, index2);
-        UGui.setSelectedIndex(tab3, index3);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab1, index4);
+        UGui.setSelectedIndex(tab2, index);
+        UGui.setSelectedIndex(tab3, index2);
+        UGui.setSelectedIndex(tab4, index3);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab2) == 0) {
-                UGui.deleteRecord(tab1);
-            }
-
-        } else if (tab2.getBorder() != null) {
+        if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(this, tab3) == 0) {
                 UGui.deleteRecord(tab2);
             }
 
         } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(this, tab4) == 0) {
                 UGui.deleteRecord(tab3);
+            }
+
+        } else if (tab4.getBorder() != null) {
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab4);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        if (tab1.getBorder() != null) {
-            int index = UGui.getIndexRec(tab1);
+        if (tab2.getBorder() != null) {
+            int index = UGui.getIndexRec(tab2);
             String name = qKits.getAs(index, eKits.groups_id);
-            UGui.insertRecordCur(tab1, eKits.up, (record) -> {
+            UGui.insertRecordCur(tab2, eKits.up, (record) -> {
                 if (index != -1) {
                     record.set(eKits.groups_id, name);
                 }
                 record.set(eKits.types_st, cbx1.getSelectedIndex());
             });
 
-        } else if (tab2.getBorder() != null) {
-            int index = UGui.getIndexRec(tab1, 0);
-            UGui.insertRecordCur(tab2, eKitdet.up, (record) -> {
+        } else if (tab3.getBorder() != null) {
+            int index = UGui.getIndexRec(tab2, 0);
+            UGui.insertRecordCur(tab3, eKitdet.up, (record) -> {
                 record.set(eKitdet.kits_id, qKits.getAs(index, eKits.id));
             });
 
-        } else if (tab3.getBorder() != null) {
-            int index = UGui.getIndexRec(tab2, 0);
-            UGui.insertRecordCur(tab3, eKitpar2.up, (record) -> {
+        } else if (tab4.getBorder() != null) {
+            int index = UGui.getIndexRec(tab3, 0);
+            UGui.insertRecordCur(tab4, eKitpar2.up, (record) -> {
                 record.set(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
             });
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
         List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+        List.of(tab2, tab3, tab4, tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = cbx1.getSelectedIndex();
         loadingData(String.valueOf(index));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        UGui.setSelectedRow(tab2);
     }//GEN-LAST:event_comboBoxAction
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab2, tab3, tab4, tab1));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void btnFind(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind
-        if (tab2.getBorder() != null) {
-            Record record = ((DefTableModel) tab2.getModel()).getQuery().get(UGui.getIndexRec(tab2));
+        if (tab3.getBorder() != null) {
+            Record record = ((DefTableModel) tab3.getModel()).getQuery().get(UGui.getIndexRec(tab3));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(eKitdet.artikl_id), false);
                 FrameProgress.create(this, new ListenerFrame() {
@@ -744,23 +747,23 @@ public class Kits extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(0, tab1);
+        filterTable = new FilterTable(0, tab2);
         south.add(filterTable, 0);
 
         filterTable.getTxt().grabFocus();
-        btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
-        btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
-        btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnIns.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
+        btnDel.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
+        btnRef.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
 
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                UGui.stopCellEditing(tab1, tab2, tab3);
-                tab1.setBorder(null);
+                UGui.stopCellEditing(tab2, tab3, tab4);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
+                tab4.setBorder(null);
                 if (e.getSource() instanceof JTable) {
                     ((JTable) e.getSource()).setBorder(border);
                 }
@@ -769,27 +772,20 @@ public class Kits extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        //scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                //"Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));                
-        //scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-        //        "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));        
-        //scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                //"Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-                
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
+                    selectionTab2(event);
                 }
             }
         });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                selectionTab2(event);
+                selectionTab3(event);
             }
         });
-        tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
     }
 }
