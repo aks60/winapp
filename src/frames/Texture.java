@@ -50,8 +50,8 @@ public class Texture extends javax.swing.JFrame {
 
     public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
-        qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR.id, "order by", eGroups.name);
-        qGroup2.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id, "order by", eGroups.name);
+        qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        qGroup2.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id, "order by", eGroups.name);
     }
 
     public void loadingModel() {
@@ -579,7 +579,7 @@ public class Texture extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.COLOR.id);
+                record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
                 record.set(eGroups.name, "");
                 record.set(eGroups.val, 1);
             });
@@ -593,7 +593,7 @@ public class Texture extends javax.swing.JFrame {
 
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.COLMAP.id);
+                record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
                 record.set(eGroups.name, "");
             });
 

@@ -37,7 +37,7 @@ public class ParColor2 extends javax.swing.JDialog {
 
     public void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
     }
 
     public void loadingModel() {

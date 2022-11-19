@@ -9,11 +9,13 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eGroups;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
 import enums.Enam;
+import enums.TypeGroups;
 import enums.UseUnit;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -39,6 +41,7 @@ import startup.App;
 
 public class Kits extends javax.swing.JFrame {
 
+    private Query qGrCateg = new Query(eGroups.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
@@ -57,8 +60,9 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingData(String type) {
         eArtikl.query();
+        qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qKits.select(eKits.up, "where", eKits.types, "=", type, "order by", eKits.categ, ",", eKits.name);
+        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.categ, ",", eKits.name);
     }
 
     public void loadingModel() {
@@ -131,7 +135,7 @@ public class Kits extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, jcb, "Категория", JOptionPane.QUESTION_MESSAGE);
             Object result = jcb.getSelectedItem();
 
-            UGui.stopCellEditing(tab1, tab2, tab3);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab1);
             qKits.set(result, index, eKits.categ);
             UGui.fireTableRowUpdated(tab1);
@@ -194,12 +198,12 @@ public class Kits extends javax.swing.JFrame {
             int grup = record.getInt(eKitpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3);
+                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3);
+                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, list);
             }
         });
@@ -208,7 +212,7 @@ public class Kits extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerArtikl = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             if (tab2.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2);
                 qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eKitdet.artikl_id);
@@ -217,7 +221,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor1 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -226,7 +230,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor2 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -235,7 +239,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor3 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -286,6 +290,8 @@ public class Kits extends javax.swing.JFrame {
         west = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -477,6 +483,38 @@ public class Kits extends javax.swing.JFrame {
 
         west.add(scr1, java.awt.BorderLayout.CENTER);
 
+        scr4.setPreferredSize(new java.awt.Dimension(120, 404));
+
+        tab4.setFont(frames.UGui.getFont(0,0));
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"wwwwwww"},
+                {"ddddddddd"}
+            },
+            new String [] {
+                "Категория"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab4.setFillsViewportHeight(true);
+        tab4.setName("tab1"); // NOI18N
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
+        scr4.setViewportView(tab4);
+
+        west.add(scr4, java.awt.BorderLayout.WEST);
+
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
         centr.setPreferredSize(new java.awt.Dimension(600, 200));
@@ -568,13 +606,15 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2, tab3);
-        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());        
+        int index4 = UGui.getIndexRec(tab4);
         int index = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
         int index3 = UGui.getIndexRec(tab3);
         loadingData(String.valueOf(cbx1.getSelectedIndex()));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab4, index4);
         UGui.setSelectedIndex(tab1, index);
         UGui.setSelectedIndex(tab2, index2);
         UGui.setSelectedIndex(tab3, index3);
@@ -606,7 +646,7 @@ public class Kits extends javax.swing.JFrame {
                 if (index != -1) {
                     record.set(eKits.categ, name);
                 }
-                record.set(eKits.types, cbx1.getSelectedIndex());
+                record.set(eKits.types_st, cbx1.getSelectedIndex());
             });
 
         } else if (tab2.getBorder() != null) {
@@ -624,13 +664,13 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab1, tab2, tab3);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
-        UGui.stopCellEditing(tab1, tab2, tab3);
-        List.of(tab1, tab2, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = cbx1.getSelectedIndex();
         loadingData(String.valueOf(index));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -638,7 +678,7 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxAction
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
@@ -669,10 +709,12 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
@@ -682,9 +724,9 @@ public class Kits extends javax.swing.JFrame {
         south.add(filterTable, 0);
 
         filterTable.getTxt().grabFocus();
-        btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
-        btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
-        btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
+        btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
 
         FocusListener listenerFocus = new FocusListener() {
 

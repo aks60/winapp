@@ -49,7 +49,7 @@ public class Elements extends Cal5e {
                 detail(elementList3, elem5e);
 
                 //Варианты состава по серии профилей
-                int series_id = elem5e.artiklRecAn().getInt(eArtikl.series_id);
+                int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
                 List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
             }

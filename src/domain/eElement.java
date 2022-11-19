@@ -16,9 +16,9 @@ public enum eElement implements Field {
     markup("8", "15", "1", "Наценка %", "VPERC"),
     todef("16", "5", "1", "Ставить по умолчанию", "todef"),
     toset("16", "5", "1", "Установка обязательности", "toset"),
-    series_id("4", "10", "1", "Серия", "series_id"),
+    groups1_id("4", "10", "1", "Серия", "groups1_id"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
-    elemgrp_id("4", "10", "0", "Группы", "elemgrp_id");
+    groups2_id("4", "10", "0", "Категории", "groups2_id");
     //series("12", "32", "1", "Для серии", "VLETS"),
     //vsets("5", "5", "1", "Установка обязательности", "VSETS"), //0 -умолчание нет, обязательно нет 1 -умолчание да, обязательно да, 2 -умолчание да, обязательно нет"
     //vtype("12", "16", "1", "Тип состава (1 - внутренний, 5 - состав_С/П)", "VTYPE"),
@@ -56,9 +56,9 @@ public enum eElement implements Field {
 
     public static List<Record> find(int series2_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> series2_id == rec.getInt(series_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
+            return query().stream().filter(rec -> series2_id == rec.getInt(groups1_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", series_id, "=", series2_id, "and", todef, "> 0");
+        return new Query(values()).select(up, "where", groups1_id, "=", series2_id, "and", todef, "> 0");
     }
 
     public static List<Record> find2(int artikl2_id) {
@@ -71,9 +71,9 @@ public enum eElement implements Field {
     public static List<Record> find3(int artikl2_id, int series2_id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> (artikl2_id == rec.getInt(artikl_id)
-                    || series2_id == rec.getInt(series_id)) && rec.getInt(todef) > 0).collect(Collectors.toList());
+                    || series2_id == rec.getInt(groups1_id)) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where (", artikl_id, "=", artikl2_id, "or", series_id, "=", series2_id, ") and", todef, "> 0");
+        return new Query(values()).select(up, "where (", artikl_id, "=", artikl2_id, "or", groups1_id, "=", series2_id, ") and", todef, "> 0");
     }
     
     public String toString() {

@@ -94,7 +94,7 @@ public class Fillings extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         if (subsql == null) {

@@ -115,7 +115,7 @@ public class Joinings extends javax.swing.JFrame {
     public void loadingData() {
 
         tab1.setToolTipText("");
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);

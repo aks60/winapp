@@ -69,7 +69,7 @@ public class DicKits extends javax.swing.JDialog {
 
     public void loadingData(String type) {
         eArtikl.query();
-        qKits.select(eKits.up, "where", eKits.types, "=", type, "order by", eKits.categ, ",", eKits.name);
+        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.categ, ",", eKits.name);
     }
 
     private void loadingModel() {

@@ -45,7 +45,7 @@ public class DicColor extends javax.swing.JDialog {
         initElements();
         this.listener = listener;
         qColorAll.addAll(colorSet);
-        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
+        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
                 if (colorRec.getInt(eColor.colgrp_id) == colgrpRec.getInt(eGroups.id)) {
@@ -63,7 +63,7 @@ public class DicColor extends javax.swing.JDialog {
         super(parent, true);
         this.master = master;
         initComponents();
-        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
+        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
         qColorAll.select(eColor.up, "order by", eColor.name);
         initElements();
         this.listener = listener;

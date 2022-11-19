@@ -103,8 +103,8 @@ public class Tariffic extends Cal5e {
                 }
 
                 elem5e.spcRec().costpric2 = elem5e.spcRec().costpric1 * elem5e.spcRec().quant2; //себест. за ед. с отходом 
-                Record artgrp1Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.artgrp1_id));
-                Record artgrp2Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.artgrp2_id));
+                Record artgrp1Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups1_id));
+                Record artgrp2Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups2_id));
                 float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                 float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                 float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
@@ -123,8 +123,8 @@ public class Tariffic extends Cal5e {
                         }
                     }
                     spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом  
-                    Record artgrp1bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
-                    Record artgrp2bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
+                    Record artgrp1bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups1_id));
+                    Record artgrp2bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups2_id));
                     float m1 = artgrp1bRec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                     float m2 = artgrp2bRec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                     float m3 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
@@ -180,8 +180,8 @@ public class Tariffic extends Cal5e {
                         }
                         spc.costpric1 += artdetPrice(spc); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
                         spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом 
-                        Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp1_id));
-                        Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.artgrp2_id));
+                        Record artgrp1Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups1_id));
+                        Record artgrp2Rec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups2_id));
                         float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
                         float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
                         float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности

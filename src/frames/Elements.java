@@ -105,7 +105,7 @@ public class Elements extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_PROF.id);
-        qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
+        qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
         Record record = eGroups.up.newRecord(Query.SEL);
         record.setNo(eGroups.id, -1);
@@ -129,7 +129,7 @@ public class Elements extends javax.swing.JFrame {
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qGrCateg, eGroups.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.signset, eElement.series_id, eElement.todef, eElement.toset, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.signset, eElement.groups1_id, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -137,7 +137,7 @@ public class Elements extends javax.swing.JFrame {
                     int typset = Integer.valueOf(val.toString());
                     return List.of(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
-                } else if (val != null && columns[col] == eElement.series_id) {
+                } else if (val != null && columns[col] == eElement.groups1_id) {
                     return qGrSeri.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
                 }
                 return val;
@@ -230,7 +230,7 @@ public class Elements extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab2, 5).addActionListener(event -> {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
-                int id = qElement.getAs(index, eElement.series_id);
+                int id = qElement.getAs(index, eElement.groups1_id);
                 new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
             }
         });
@@ -364,7 +364,7 @@ public class Elements extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int series_id = record.getInt(eGroups.id);
-                qElement.set(series_id, UGui.getIndexRec(tab2), eElement.series_id);
+                qElement.set(series_id, UGui.getIndexRec(tab2), eElement.groups1_id);
                 UGui.fireTableRowUpdated(tab2);
             }
         };
@@ -410,18 +410,18 @@ public class Elements extends javax.swing.JFrame {
             if (id == -1 || id == -5) {
                 if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.elemgrp_id, "where", eGroups.npp, "=", Math.abs(id));
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id, "where", eGroups.npp, "=", Math.abs(id));
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.elemgrp_id, "where", eGroups.npp, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id, "where", eGroups.npp, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
                 }
             } else {
                 if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+                            "where", eElement.groups2_id, "=", id, "order by", eElement.name);
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
+                            "where", eElement.groups2_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -956,7 +956,7 @@ public class Elements extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab2, eElement.up, (record) -> {
                 Record groupsRec = qGrCateg.get(UGui.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
-                record.set(eElement.elemgrp_id, id);
+                record.set(eElement.groups2_id, id);
                 Record record2 = eArtikl.up.newRecord();
                 qElement.table(eArtikl.up).add(record2);
             });

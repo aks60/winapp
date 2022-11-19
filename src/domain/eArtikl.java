@@ -39,13 +39,13 @@ public enum eArtikl implements Field {
     with_seal("5", "5", "1", "С уплотнением", "AWORK"),
     otx_norm("8", "15", "1", "Норма отхода", "AOUTS"),
     coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
-    artgrp1_id("4", "10", "1", "Группы наценок", "artgrp1_id"),
-    artgrp2_id("4", "10", "1", "Группы скидок", "artgrp2_id"),
+    groups1_id("4", "10", "1", "Группы наценок", "groups1_id"),
+    groups2_id("4", "10", "1", "Группы скидок", "groups2_id"),
     currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
     currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT"),
-    artgrp3_id("4", "10", "1", "Категория профилей", "artgrp3_id"),
+    groups3_id("4", "10", "1", "Категория профилей", "groups3_id"),
     analog_id("4", "10", "1", "Аналог профиля", "analog_id"),
-    series_id("4", "10", "1", "Серия профиля", "series_id");
+    groups4_id("4", "10", "1", "Серия профиля", "groups4_id");
     //group2("12", "32", "1", "Категория", "APREF")
     //series("12", "32", "1", "Серия", "ASERI"),
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
@@ -137,9 +137,9 @@ public enum eArtikl implements Field {
 
     public static List<Record> find3(int _series_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _series_id == rec.getInt(series_id)).collect(Collectors.toList());
+            return query().stream().filter(rec -> _series_id == rec.getInt(groups4_id)).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", series_id, "=", _series_id, "");
+        return new Query(values()).select(up, "where", groups4_id, "=", _series_id, "");
     }
 
     public static Record virtualRec() {

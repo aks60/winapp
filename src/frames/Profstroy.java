@@ -432,14 +432,14 @@ public class Profstroy {
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
             updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");
-            updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
+            updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
-            executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
-            executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
-            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");
-            executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLMAP.numb() + ")");
+            executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
+            executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
+            executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
+            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
+            executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
             executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -447,8 +447,8 @@ public class Profstroy {
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
-            executeSql("update element set elemgrp_id = (select id from groups a where grup = 8 and a.name = element.vpref and a.npp = element.atypm)");
+            updateSql(eElement.up, eElement.groups1_id, "vlets", eGroups.up, "name");
+            executeSql("update element set groups2_id = (select id from groups a where grup = 8 and a.name = element.vpref and a.npp = element.atypm)");
             executeSql("4", "update element set typset = vtype");
             executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
@@ -530,7 +530,8 @@ public class Profstroy {
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
-            //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
+            //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");                     
+            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref and a.npp = kits.ktype)");         
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
@@ -560,15 +561,15 @@ public class Profstroy {
             alterTable("colmap", "fk_colmap_1", "colgrp_id", "groups");
             alterTable("colmap", "fk_colmap_2", "color_id1", "color");
             alterTable("colmap", "fk_colmap_3", "color_id2", "color");
-            alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");
-            alterTable("artikl", "fk_artikl2", "artgrp2_id", " groups");
-            alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");
-            alterTable("artikl", "fk_artikl4", "series_id", "groups");
+            alterTable("artikl", "fk_artikl1", "groups1_id", "groups");
+            alterTable("artikl", "fk_artikl2", "groups2_id", " groups");
+            alterTable("artikl", "fk_artikl3", "groups3_id", "groups");
+            alterTable("artikl", "fk_artikl4", "groups4_id", "groups");
             alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
-            alterTable("element", "fk_element1", "elemgrp_id", "groups");
+            alterTable("element", "fk_element1", "groups2_id", "groups");
             alterTable("element", "fk_element2", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet1", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet2", "element_id", "element");
@@ -607,6 +608,7 @@ public class Profstroy {
             alterTable("prjkit", "fk_prjkit1", "prjprod_id", "prjprod");
             alterTable("prjkit", "fk_prjkit2", "project_id", "project");
             alterTable("prjkit", "fk_prjkit3", "artikl_id", "artikl");
+            alterTable("kits", "fk_kits1", "groups_id", "groups");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
@@ -756,7 +758,7 @@ public class Profstroy {
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
                         + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
@@ -783,13 +785,19 @@ public class Profstroy {
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
+                st2.executeUpdate(sql);
+            }
+            rs = st1.executeQuery("select distinct KPREF, KTYPE from KOMPLST order by  KTYPE, KPREF");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "'," + rs.getInt("KTYPE") + ")";
                 st2.executeUpdate(sql);
             }
             cn2.commit();

@@ -102,7 +102,7 @@ public class Paint {
                         spc.setColor(side, colorFromFirst(spc));
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID);
+                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.groups4_id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -123,7 +123,7 @@ public class Paint {
                         return false;
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID);
+                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.groups4_id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -145,7 +145,7 @@ public class Paint {
                         return false;
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeriesParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
+                    artdetColorFK = colorFromSeriesParam(spc.artiklRec.getInt(eArtikl.groups4_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -153,7 +153,7 @@ public class Paint {
                         return false;
                     }
                 } else {
-                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.groups4_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
