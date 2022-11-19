@@ -207,13 +207,13 @@ public class Profstroy {
             loadModels();
 
             println(Color.GREEN, "Удаление лищних столбцов");
-//            executeSql("ALTER TABLE GROUPS DROP  FK;");
-//            for (Field fieldUp : App.db) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
-//            }
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            for (Field fieldUp : App.db) {
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
+            }
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -368,7 +368,7 @@ public class Profstroy {
         }
     }
 
-    //Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах
+    //Секция удаления потеренных ссылок (фантомов)
     public static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
@@ -531,7 +531,7 @@ public class Profstroy {
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");                     
-            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref and a.npp = kits.ktype)");         
+            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref and a.npp = kits.types_st)");         
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");

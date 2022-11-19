@@ -62,11 +62,11 @@ public class Kits extends javax.swing.JFrame {
         eArtikl.query();
         qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.categ, ",", eKits.name);
+        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.groups_id, ",", eKits.name);
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
+        new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id
                 , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
@@ -123,12 +123,12 @@ public class Kits extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
 
             Set set = new HashSet();
-            qKits.forEach(rec -> set.add(rec.getStr(eKits.categ)));
+            qKits.forEach(rec -> set.add(rec.getStr(eKits.groups_id)));
             List list = List.of(set.toArray());
             Collections.sort(list);
             JComboBox jcb = new JComboBox(list.toArray());
-            if (qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.categ).isEmpty() == false) {
-                int index = list.indexOf(qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.categ));
+            if (qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.groups_id).isEmpty() == false) {
+                int index = list.indexOf(qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.groups_id));
                 jcb.setSelectedIndex(index);
             }
             jcb.setEditable(true);
@@ -137,7 +137,7 @@ public class Kits extends javax.swing.JFrame {
 
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab1);
-            qKits.set(result, index, eKits.categ);
+            qKits.set(result, index, eKits.groups_id);
             UGui.fireTableRowUpdated(tab1);
         });
 
@@ -641,10 +641,10 @@ public class Kits extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             int index = UGui.getIndexRec(tab1);
-            String name = qKits.getAs(index, eKits.categ);
+            String name = qKits.getAs(index, eKits.groups_id);
             UGui.insertRecordCur(tab1, eKits.up, (record) -> {
                 if (index != -1) {
-                    record.set(eKits.categ, name);
+                    record.set(eKits.groups_id, name);
                 }
                 record.set(eKits.types_st, cbx1.getSelectedIndex());
             });

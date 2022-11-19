@@ -69,12 +69,12 @@ public class DicKits extends javax.swing.JDialog {
 
     public void loadingData(String type) {
         eArtikl.query();
-        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.categ, ",", eKits.name);
+        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.groups_id, ",", eKits.name);
     }
 
     private void loadingModel() {
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
+        new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id,
                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
