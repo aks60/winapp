@@ -185,7 +185,7 @@ public class Groups extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(600, 459));
         centr.setLayout(new java.awt.BorderLayout());
 
-        tabb.setFont(frames.UGui.getFont(1,0));
+        tabb.setFont(frames.UGui.getFont(0,0));
         tabb.setPreferredSize(new java.awt.Dimension(600, 459));
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

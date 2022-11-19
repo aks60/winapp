@@ -251,6 +251,8 @@ public class ParGrup2 extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(350, 400));
         pan1.setLayout(new java.awt.BorderLayout());
 
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,7 +292,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         pan2.setPreferredSize(new java.awt.Dimension(350, 180));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -330,6 +332,8 @@ public class ParGrup2 extends javax.swing.JDialog {
         pan3.setName("pan3"); // NOI18N
         pan3.setPreferredSize(new java.awt.Dimension(350, 400));
         pan3.setLayout(new java.awt.BorderLayout());
+
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -449,12 +453,12 @@ public class ParGrup2 extends javax.swing.JDialog {
     // </editor-fold>     
     public void initElements() {
 
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+//        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+//        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

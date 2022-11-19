@@ -380,7 +380,14 @@
             <Container class="javax.swing.JScrollPane" name="scrTree">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="2" title="&#x422;&#x438;&#x43f;&#x44b; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                      <Connection PropertyName="font" code="frames.UGui.getFont(0,0)" type="code"/>
+                    </TitledBorder>
+                  </Border>
                 </Property>
               </Properties>
               <AuxValues>
@@ -429,6 +436,18 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="scr1">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="2" title="&#x421;&#x432;&#x43e;&#x439;&#x441;&#x442;&#x432;&#x430; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                      <Connection PropertyName="font" code="frames.UGui.getFont(0,0)" type="code"/>
+                    </TitledBorder>
+                  </Border>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                   <BorderConstraints direction="Center"/>
@@ -456,7 +475,7 @@
                         <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;. &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x43e;&#x439;" type="java.lang.Float"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -4151,7 +4170,14 @@
             <Container class="javax.swing.JScrollPane" name="scr2">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="2" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                      <Connection PropertyName="font" code="frames.UGui.getFont(0,0)" type="code"/>
+                    </TitledBorder>
+                  </Border>
                 </Property>
               </Properties>
               <AuxValues>
@@ -4183,7 +4209,7 @@
                         <Column editable="true" title="&#x414;&#x432;&#x443;&#x445;&#x441;&#x442;&#x43e;&#x440;&#x43e;&#x43d;&#x43d;&#x44f;&#x44f;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x417;&#x430; &#x435;&#x434;. &#x432;&#x435;&#x441;&#x430;" type="java.lang.Float"/>
                         <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;. &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x43e;&#x439;" type="java.lang.Object"/>
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -4250,6 +4276,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                     <Property name="fillsViewportHeight" type="boolean" value="true"/>
                     <Property name="name" type="java.lang.String" value="tab2" noResource="true"/>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">

@@ -391,7 +391,5 @@ public class Currenc extends javax.swing.JFrame {
             }
         };
         tab1.addFocusListener(listenerFocus);
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
     }
 }

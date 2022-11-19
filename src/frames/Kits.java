@@ -41,7 +41,7 @@ import startup.App;
 
 public class Kits extends javax.swing.JFrame {
 
-    private Query qGrCateg = new Query(eGroups.values());
+    private Query qCateg = new Query(eGroups.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
@@ -60,12 +60,13 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingData(String type) {
         eArtikl.query();
-        qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
+        qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.npp, ",", eGroups.name);
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.groups_id, ",", eKits.name);
     }
 
     public void loadingModel() {
+        new DefTableModel(tab4, qCateg, eGroups.name);
         new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id
                 , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
@@ -446,7 +447,7 @@ public class Kits extends javax.swing.JFrame {
         west.setPreferredSize(new java.awt.Dimension(380, 10));
         west.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "комплектов", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -461,9 +462,16 @@ public class Kits extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
@@ -483,6 +491,7 @@ public class Kits extends javax.swing.JFrame {
 
         west.add(scr1, java.awt.BorderLayout.CENTER);
 
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " Списки", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr4.setPreferredSize(new java.awt.Dimension(120, 404));
 
         tab4.setFont(frames.UGui.getFont(0,0));
@@ -520,7 +529,7 @@ public class Kits extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(600, 200));
         centr.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -535,9 +544,16 @@ public class Kits extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -561,7 +577,7 @@ public class Kits extends javax.swing.JFrame {
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr3.setBorder(null);
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr3.setPreferredSize(new java.awt.Dimension(0, 200));
 
         tab3.setFont(frames.UGui.getFont(0,0));
@@ -573,7 +589,15 @@ public class Kits extends javax.swing.JFrame {
             new String [] {
                 "Параметр", "Значение", "ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -745,12 +769,13 @@ public class Kits extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+        //scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                //"Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));                
+        //scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+        //        "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));        
+        //scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                //"Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+                
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

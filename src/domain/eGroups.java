@@ -15,17 +15,7 @@ public enum eGroups implements Field {
     val("8", "15", "1", "Значение", "coeff");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
-    
-    //2-Коэф. групп текстур
-    //3-Серии профилей    
-    //4-Наценки групп МЦ
-    //5-Скидки групп МЦ
-    //6-Категории профилей
-    //7-Группы соотв. текстур      
-    //8-Категории вставок
-    //9-Рассчётные параметры
-    //10-Категории комплектов
-      
+
     eGroups(Object... p) {
         meta.init(p);
     }

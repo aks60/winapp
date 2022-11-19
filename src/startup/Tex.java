@@ -1126,7 +1126,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private void mnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup1
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Groups.createFrame(Tex.this, 4, 5, 6);
+                App.Groups.createFrame(Tex.this, 4, 5, 6, 7);
             }
         });
     }//GEN-LAST:event_mnGroup1

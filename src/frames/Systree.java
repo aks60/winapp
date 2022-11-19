@@ -2422,7 +2422,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         pan1.add(pan2);
 
-        tabb1.setFont(frames.UGui.getFont(1,0));
+        tabb1.setFont(frames.UGui.getFont(0,0));
         tabb1.setPreferredSize(new java.awt.Dimension(540, 250));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

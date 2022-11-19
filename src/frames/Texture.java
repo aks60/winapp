@@ -362,12 +362,13 @@ public class Texture extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
+        jTabbedPane1.setFont(frames.UGui.getFont(0,0));
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(800, 500));
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 500));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Описание текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr2.setAutoscrolls(true);
 
         tab2.setFont(frames.UGui.getFont(0,0));
@@ -411,6 +412,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Группы текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr1.setPreferredSize(new java.awt.Dimension(300, 584));
 
         tab1.setFont(frames.UGui.getFont(0,0));
@@ -454,12 +456,12 @@ public class Texture extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
 
-        jTabbedPane1.addTab("<html><font size=\"3\">Справочник цветов      ", pan1);
+        jTabbedPane1.addTab("Справочник цветов      ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 500));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        scr3.setBorder(null);
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Текстуры профилей", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr3.setAutoscrolls(true);
         scr3.setPreferredSize(new java.awt.Dimension(300, 600));
 
@@ -486,7 +488,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan2.add(scr3, java.awt.BorderLayout.WEST);
 
-        scr4.setBorder(null);
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Группы отображения текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr4.setAutoscrolls(true);
 
         tab4.setFont(frames.UGui.getFont(0,0));
@@ -526,7 +528,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("<html><font size=\"3\">Группы соответствия цветов", pan2);
+        jTabbedPane1.addTab("Группы соответствия цветов", pan2);
 
         centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -688,13 +690,5 @@ public class Texture extends javax.swing.JFrame {
                 }
             }
         });
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Группы текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Описание текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Текстуры профилей", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Группы отображения текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
     }
 }

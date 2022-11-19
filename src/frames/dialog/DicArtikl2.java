@@ -229,7 +229,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(460, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
-        scrTree.setBorder(null);
+        scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scrTree.setPreferredSize(new java.awt.Dimension(200, 600));
 
         tree.setFont(frames.UGui.getFont(0,0));
@@ -248,7 +248,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
         centr.add(scrTree, java.awt.BorderLayout.WEST);
 
-        scr1.setBorder(null);
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr1.setPreferredSize(new java.awt.Dimension(350, 600));
 
         tab1.setFont(frames.UGui.getFont(0,0));
@@ -413,10 +413,6 @@ public class DicArtikl2 extends javax.swing.JDialog {
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Список артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
     }
 }

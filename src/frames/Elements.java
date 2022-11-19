@@ -707,7 +707,7 @@ public class Elements extends javax.swing.JFrame {
         pan1.setPreferredSize(new java.awt.Dimension(847, 320));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 0, 0, 0));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
         tab2.setFont(frames.UGui.getFont(0,0));
@@ -755,6 +755,7 @@ public class Elements extends javax.swing.JFrame {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr4.setPreferredSize(new java.awt.Dimension(260, 320));
 
         tab4.setFont(frames.UGui.getFont(0,0));
@@ -791,6 +792,7 @@ public class Elements extends javax.swing.JFrame {
 
         pan1.add(scr4, java.awt.BorderLayout.EAST);
 
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " "));
         scr1.setPreferredSize(new java.awt.Dimension(120, 404));
 
         tab1.setFont(frames.UGui.getFont(0,0));
@@ -827,6 +829,7 @@ public class Elements extends javax.swing.JFrame {
 
         pan2.setLayout(new java.awt.BorderLayout());
 
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr5.setPreferredSize(new java.awt.Dimension(260, 204));
 
         tab5.setFont(frames.UGui.getFont(0,0));
@@ -865,6 +868,7 @@ public class Elements extends javax.swing.JFrame {
 
         pan2.add(scr5, java.awt.BorderLayout.EAST);
 
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr3.setPreferredSize(new java.awt.Dimension(454, 204));
 
         tab3.setFont(frames.UGui.getFont(0,0));
@@ -1138,16 +1142,6 @@ public class Elements extends javax.swing.JFrame {
         filterTable.getTxt().grabFocus();
 
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "                 ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

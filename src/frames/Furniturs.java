@@ -932,7 +932,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan4.setPreferredSize(new java.awt.Dimension(500, 200));
         pan4.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -976,6 +976,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(300, 108));
         pan7.setLayout(new java.awt.BorderLayout());
 
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr3.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab3.setFont(frames.UGui.getFont(0,0));
@@ -1058,7 +1059,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan9.setPreferredSize(new java.awt.Dimension(505, 300));
         pan9.setLayout(new java.awt.BorderLayout());
 
-        tabb1.setFont(frames.UGui.getFont(1,0));
+        tabb1.setFont(frames.UGui.getFont(0,0));
         tabb1.setPreferredSize(new java.awt.Dimension(0, 0));
 
         pan11.setLayout(new java.awt.BorderLayout());
@@ -1129,7 +1130,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan9.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(1,0)));
+        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr2b.setPreferredSize(new java.awt.Dimension(500, 140));
 
         tab2b.setFont(frames.UGui.getFont(0,0));
@@ -1201,6 +1202,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.CENTER);
 
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Ограничения сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr5.setPreferredSize(new java.awt.Dimension(300, 108));
 
         tab5.setFont(frames.UGui.getFont(0,0));
@@ -1579,13 +1581,6 @@ public class Furniturs extends javax.swing.JFrame {
         filterTable.getTxt().grabFocus();
 
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Ограничения сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-        
         DefaultTableColumnModel columnModel = (DefaultTableColumnModel) tab1.getColumnModel();
         for (int i = 1; i < 6; ++i) {
             columnModel.getColumn(i).setMinWidth(0);
