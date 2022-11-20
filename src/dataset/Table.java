@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static java.util.stream.Collectors.toList;
 
 public class Table extends ArrayList<Record> {
 
@@ -60,4 +61,12 @@ public class Table extends ArrayList<Record> {
         Object obj = get(index, field);
         return (obj == null) ? (T) def : (T) obj;
     }
+    
+    public Record find(Object val, Field field) {
+        return this.stream().filter(rec -> rec.get(field).equals(val)).findFirst().orElse(field.newRecord());
+    }
+
+    public List<Record> filter(Object val, Field field) {
+        return this.stream().filter(rec -> rec.get(field).equals(val)).collect(toList());
+    }    
 }

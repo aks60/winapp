@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import domain.eArtdet;
 import domain.eArtikl;
+import domain.eGroups;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
@@ -29,8 +30,6 @@ import domain.eParams;
 import domain.ePrjkit;
 import enums.Enam;
 import enums.UseUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JTextField;
@@ -47,6 +46,7 @@ public class DicKits extends javax.swing.JDialog {
     private static final int serialVersionUID = 1343775792;
     private ListenerObject<Query> listener = null;
     private Query qPrjkit = new Query(ePrjkit.values());
+    private Query qCateg = new Query(eGroups.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
@@ -73,8 +73,17 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
+        qCateg.select(eGroups.up, "where", eGroups.grup, "= 10");
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name);
+        new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name) {
+
+            public Object getValueAt(int col, int row, Object val) {
+                if (val != null && col == 0) {
+                    return qCateg.find(val, eGroups.id).getStr(eGroups.name);
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id,
                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
