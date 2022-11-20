@@ -69,7 +69,7 @@ public class DicKits extends javax.swing.JDialog {
 
     public void loadingData(String type) {
         eArtikl.query();
-        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.groups_id, ",", eKits.name);
+        qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
     }
 
     private void loadingModel() {
@@ -178,7 +178,6 @@ public class DicKits extends javax.swing.JDialog {
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
-        cbx1 = new javax.swing.JComboBox<>();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
@@ -248,17 +247,6 @@ public class DicKits extends javax.swing.JDialog {
             }
         });
 
-        cbx1.setBackground(new java.awt.Color(212, 208, 200));
-        cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Продажа", "Скатка", "Ламинация", "Стеклопакет" }));
-        cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        cbx1.setPreferredSize(new java.awt.Dimension(160, 25));
-        cbx1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxAction(evt);
-            }
-        });
-
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -266,9 +254,7 @@ public class DicKits extends javax.swing.JDialog {
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 471, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -278,9 +264,7 @@ public class DicKits extends javax.swing.JDialog {
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -742,15 +726,6 @@ public class DicKits extends javax.swing.JDialog {
 //        }
     }//GEN-LAST:event_tabMousePressed
 
-    private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
-        UGui.stopCellEditing(tab1, tab2);
-        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        int index = cbx1.getSelectedIndex();
-        loadingData(String.valueOf(index));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
-    }//GEN-LAST:event_comboBoxAction
-
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
             JTextField txt = (evt.getSource() == btn9) ? txt9 : (evt.getSource() == btn13) ? txt13 : txt14;
@@ -795,7 +770,6 @@ public class DicKits extends javax.swing.JDialog {
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
-    private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel lab13;

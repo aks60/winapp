@@ -1,9 +1,11 @@
 package frames;
 
 import builder.param.ParamList;
+import common.UCom;
 import common.eProp;
 import common.listener.ListenerFrame;
 import common.listener.ListenerRecord;
+import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -14,6 +16,7 @@ import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
+import domain.eSysmodel;
 import enums.Enam;
 import enums.TypeGroups;
 import enums.UseUnit;
@@ -36,6 +39,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import startup.App;
 
@@ -53,23 +57,23 @@ public class Kits extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerSet();
-        loadingData("0");
+        loadingData();
         loadingModel();
         listenerAdd();
     }
 
-    public void loadingData(String type) {
+    public void loadingData() {
         eArtikl.query();
-        qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.npp, ",", eGroups.name);
+        qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.name);
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qKits.select(eKits.up, "where", eKits.types_st, "=", type, "order by", eKits.groups_id, ",", eKits.name);
+        qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
     }
 
     public void loadingModel() {
         new DefTableModel(tab1, qCateg, eGroups.name);
         new DefTableModel(tab2, qKits, eKits.name);
-        new DefTableModel(tab3, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id
-                , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
+        new DefTableModel(tab3, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id,
+                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -116,7 +120,7 @@ public class Kits extends javax.swing.JFrame {
             }
         };
         tab3.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
-        UGui.setSelectedRow(tab2);
+        UGui.setSelectedRow(tab1);
     }
 
     public void listenerAdd() {
@@ -136,7 +140,7 @@ public class Kits extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, jcb, "Категория", JOptionPane.QUESTION_MESSAGE);
             Object result = jcb.getSelectedItem();
 
-            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab2);
             qKits.set(result, index, eKits.groups_id);
             UGui.fireTableRowUpdated(tab2);
@@ -199,12 +203,12 @@ public class Kits extends javax.swing.JFrame {
             int grup = record.getInt(eKitpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3, tab4, tab1);
+                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3, tab4, tab1);
+                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, list);
             }
         });
@@ -213,7 +217,7 @@ public class Kits extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerArtikl = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             if (tab3.getBorder() != null) {
                 int index = UGui.getIndexRec(tab3);
                 qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eKitdet.artikl_id);
@@ -222,7 +226,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor1 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -231,7 +235,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor2 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -240,7 +244,7 @@ public class Kits extends javax.swing.JFrame {
         };
 
         listenerColor3 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab3);
             Record record2 = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
@@ -250,9 +254,18 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void selectionTab1(ListSelectionEvent event) {
-        
+        List.of(qKits, qKitdet).forEach(q -> q.execsql());
+        UGui.clearTable(tab2, tab3, tab4);
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qCateg.get(index);
+            Integer id = record.getInt(eGroups.id);
+            qKits.select(eKits.up, "where", eKits.groups_id, "=", id, "order by", eKits.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
     }
-    
+
     public void selectionTab2(ListSelectionEvent event) {
         List.of(qKitdet).forEach(q -> q.execsql());
         UGui.clearTable(tab3, tab4);
@@ -290,7 +303,6 @@ public class Kits extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        cbx1 = new javax.swing.JComboBox<>();
         btnFind = new javax.swing.JButton();
         west = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -382,17 +394,6 @@ public class Kits extends javax.swing.JFrame {
             }
         });
 
-        cbx1.setBackground(new java.awt.Color(212, 208, 200));
-        cbx1.setFont(frames.UGui.getFont(0,0));
-        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Продажа", "Скатка", "Ламинация", "Стеклопакет" }));
-        cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        cbx1.setPreferredSize(new java.awt.Dimension(160, 25));
-        cbx1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxAction(evt);
-            }
-        });
-
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnFind.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -420,11 +421,9 @@ public class Kits extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(86, 86, 86)
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 484, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 602, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -434,21 +433,19 @@ public class Kits extends javax.swing.JFrame {
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         west.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        west.setPreferredSize(new java.awt.Dimension(380, 10));
+        west.setPreferredSize(new java.awt.Dimension(420, 10));
         west.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список комплектов", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -633,13 +630,13 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
-        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());        
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         int index4 = UGui.getIndexRec(tab1);
         int index = UGui.getIndexRec(tab2);
         int index2 = UGui.getIndexRec(tab3);
         int index3 = UGui.getIndexRec(tab4);
-        loadingData(String.valueOf(cbx1.getSelectedIndex()));
+        loadingData();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         UGui.setSelectedIndex(tab1, index4);
         UGui.setSelectedIndex(tab2, index);
@@ -666,14 +663,32 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        if (tab2.getBorder() != null) {
+        if (tab1.getBorder() != null) {
+            Object result = JOptionPane.showInputDialog(Kits.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);
+            if (result != null) {
+                Record groupsRec = eGroups.up.newRecord(Query.INS);
+                int id = Conn.genId(eGroups.up);
+                groupsRec.setNo(eGroups.id, id);
+                groupsRec.setNo(eGroups.grup, TypeGroups.CATEG_KIT.id);
+                groupsRec.setNo(eGroups.name, result);
+                qCateg.insert(groupsRec);
+                loadingData();
+                for (int i = 0; i < qCateg.size(); ++i) {
+                    if (qCateg.get(i).getInt(eGroups.id) == id) {
+                        UGui.setSelectedIndex(tab1, i - 1);
+                        ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
+                        UGui.scrollRectToRow(i, tab1);
+                        break;
+                    }
+                }
+            }
+        } else if (tab2.getBorder() != null) {
             int index = UGui.getIndexRec(tab2);
             String name = qKits.getAs(index, eKits.groups_id);
             UGui.insertRecordCur(tab2, eKits.up, (record) -> {
                 if (index != -1) {
                     record.set(eKits.groups_id, name);
                 }
-                record.set(eKits.types_st, cbx1.getSelectedIndex());
             });
 
         } else if (tab3.getBorder() != null) {
@@ -691,21 +706,12 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
-    private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
-        UGui.stopCellEditing(tab2, tab3, tab4, tab1);
-        List.of(tab2, tab3, tab4, tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        int index = cbx1.getSelectedIndex();
-        loadingData(String.valueOf(index));
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab2);
-    }//GEN-LAST:event_comboBoxAction
-
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab2, tab3, tab4, tab1));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
@@ -730,7 +736,6 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
@@ -751,16 +756,17 @@ public class Kits extends javax.swing.JFrame {
         south.add(filterTable, 0);
 
         filterTable.getTxt().grabFocus();
-        btnIns.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
-        btnDel.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
-        btnRef.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab1));
+        btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
 
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                UGui.stopCellEditing(tab2, tab3, tab4);
+                UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+                tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
                 tab4.setBorder(null);
@@ -772,6 +778,13 @@ public class Kits extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
+            }
+        });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -784,6 +797,7 @@ public class Kits extends javax.swing.JFrame {
                 selectionTab3(event);
             }
         });
+        tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         tab3.addFocusListener(listenerFocus);
         tab4.addFocusListener(listenerFocus);

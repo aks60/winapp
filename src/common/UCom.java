@@ -1,6 +1,8 @@
 package common;
 
 import builder.ICom5t;
+import dataset.Field;
+import dataset.Query;
 import enums.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -301,5 +303,17 @@ public class UCom {
 
     public static float tan(float angl) {
         return (float) Math.tan(Math.toRadians(angl));
+    }
+
+    public static int max(Query query, Field field) {
+        return  query.stream().max((a, b) -> {
+            if (a.getInt(field) > b.getInt(field)) {
+                return 1;
+            } else if (a.getInt(field) < b.getInt(field)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }).get().getInt(field);
     }
 }
