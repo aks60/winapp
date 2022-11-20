@@ -546,7 +546,7 @@ public class UGui {
 
     //Выделить запись
     public static void setSelectedIndex(JTable table, int index) {
-        if (table.getRowCount() > 0) {
+        if (table.getRowCount() > 0 && index != -1) {
 
             int row = table.convertRowIndexToView(index);
             if (row < table.getRowCount()) {

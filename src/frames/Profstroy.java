@@ -531,7 +531,7 @@ public class Profstroy {
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");                     
-            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref and a.npp = kits.types_st)");         
+            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref)");         
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
@@ -794,10 +794,10 @@ public class Profstroy {
                         + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
                 st2.executeUpdate(sql);
             }
-            rs = st1.executeQuery("select distinct KPREF, KTYPE from KOMPLST order by  KTYPE, KPREF");
+            rs = st1.executeQuery("select distinct KPREF from KOMPLST order by KPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "'," + rs.getInt("KTYPE") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
                 st2.executeUpdate(sql);
             }
             cn2.commit();

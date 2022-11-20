@@ -113,7 +113,7 @@ public enum App {
                     }
                     break;
                 case Groups:
-                    frame = new Groups(param);
+                    frame = new Groups((int) param[0]);
                     break;
                 case Color:
                     frame = new Texture();
