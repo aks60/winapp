@@ -1,23 +1,18 @@
 package frames;
 
 import dataset.Query;
-import domain.eGlaspar1;
 import domain.eGroups;
-import enums.Enam;
-import builder.param.ParamList;
 import enums.TypeGroups;
 import static frames.UGui.getIndexRec;
 import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRenderer;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.awt.Component;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -65,10 +60,11 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab6, qCategVst, eGroups.name);
         new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
         new DefTableModel(tab8, qCategKit, eGroups.name);
-        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
-        tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
-        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+
+        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer(3)));
+        List.of(tab1, tab2, tab5, tab7).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));       
+        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer(3) {
+            
             public Component getTableCellRendererComponent(JTable table, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 if (column == 1) {
@@ -89,15 +85,9 @@ public class Groups extends javax.swing.JFrame {
                 }
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
-        });
-        UGui.setSelectedRow(tab1);
-        UGui.setSelectedRow(tab2);
-        UGui.setSelectedRow(tab3);
-        UGui.setSelectedRow(tab4);
-        UGui.setSelectedRow(tab5);
-        UGui.setSelectedRow(tab6);
-        UGui.setSelectedRow(tab7);
-        UGui.setSelectedRow(tab8);
+        });       
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8).forEach(tab -> UGui.setSelectedRow(tab));
+
 
         UGui.buttonCellEditor(tab7, 1, (component) -> {
 

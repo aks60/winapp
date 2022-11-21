@@ -20,30 +20,21 @@ import common.listener.ListenerObject;
 public class DefCellEditor extends DefaultCellEditor {
 
     private int check = 0;
-    private int scale = 0;
     private ListenerObject listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
 
-//    public DefCellEditor(int scale) {
-//        super(new JTextField());
-//        this.scale = (int) scale;
-//        field(true);
-//        filter();
-//        this.getComponent().setLocale(eProp.locale);
-//    }
-    
-    public DefCellEditor(char check) {
+    public DefCellEditor(int check) {
         super(new JTextField());
-        this.check = (int) check;
-        field(true);
+        this.check = check;
+        init(true);
         filter();
         this.getComponent().setLocale(eProp.locale);
     }
 
     public DefCellEditor(JButton button) {
         super(new JTextField());
-        field(false);
+        init(false);
         button(button);
         this.getComponent().setLocale(eProp.locale);
     }
@@ -51,13 +42,13 @@ public class DefCellEditor extends DefaultCellEditor {
     public DefCellEditor(ListenerObject listener, JButton button) {
         super(new JTextField());
         this.listenerCell = listener;
-        field(false);
+        init(false);
         button(button);
         filter();
         this.getComponent().setLocale(eProp.locale);
     }
 
-    private void field(boolean editable) {
+    private void init(boolean editable) {
         JTextField editorText = (JTextField) editorComponent;
         panel.setBorder(null);
         panel.setBackground(new java.awt.Color(240, 240, 240));
@@ -108,11 +99,7 @@ public class DefCellEditor extends DefaultCellEditor {
             Field field = ((DefTableModel) table.getModel()).columns[column];
             ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         }
-        if (value instanceof Float || value instanceof Double) {
-            delegate.setValue(UCom.format(value, scale));
-        } else {
-            delegate.setValue(value);
-        }
+        delegate.setValue(value);
         return panel;
     }
 
