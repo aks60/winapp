@@ -182,7 +182,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
                 query.table(field).set(value, row, field);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(App.Top.frame, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(App.active, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
