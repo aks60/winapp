@@ -1,5 +1,6 @@
 package frames.swing;
 
+import common.eProp;
 import dataset.Field;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -27,12 +28,14 @@ public class DefCellEditor extends DefaultCellEditor {
         this.check = check;
         field(true);
         filter();
+        this.getComponent().setLocale(eProp.locale);
     }
 
     public DefCellEditor(JButton button) {
         super(new JTextField());
         field(false);
         button(button);
+        this.getComponent().setLocale(eProp.locale);
     }
 
     public DefCellEditor(ListenerObject listener, JButton button) {
@@ -41,6 +44,7 @@ public class DefCellEditor extends DefaultCellEditor {
         field(false);
         button(button);
         filter();
+        this.getComponent().setLocale(eProp.locale);
     }
 
     private void field(boolean editable) {

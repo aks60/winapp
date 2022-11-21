@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class UCom {
 
-    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(new Locale("ru", "RU"));
+    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
 
     public static String df0(Object val) {
         df.applyPattern("#0.#");

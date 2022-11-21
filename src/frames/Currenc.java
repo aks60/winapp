@@ -1,5 +1,6 @@
 package frames;
 
+import common.eProp;
 import dataset.Query;
 import domain.eCurrenc;
 import frames.swing.DefCellEditor;
@@ -47,9 +48,10 @@ public class Currenc extends javax.swing.JFrame {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
     }
 
-    public void loadingModel() {
-        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
+    public void loadingModel() {        
+        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);        
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
+        tab1.setLocale(eProp.locale);
         UGui.setSelectedRow(tab1);
     }
 
