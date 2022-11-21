@@ -4,12 +4,32 @@ import builder.ICom5t;
 import dataset.Field;
 import dataset.Query;
 import enums.Type;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class UCom {
 
+    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(new Locale("ru", "RU"));
+
+    public static String df0(Object val) {
+        df.applyPattern("#0.#");
+        return df.format(val);
+    }
+
+    public static String df1(Object val) {
+        df.applyPattern("#0.0");
+        return df.format(val);
+    }
+    
+    public static String df2(Object val) {
+        df.applyPattern("#0.00");
+        return df.format(val);
+    }
+    
     public static Integer getInt(String str) {
         try {
             if (str == null || str.isEmpty()) {
@@ -306,7 +326,7 @@ public class UCom {
     }
 
     public static int max(Query query, Field field) {
-        return  query.stream().max((a, b) -> {
+        return query.stream().max((a, b) -> {
             if (a.getInt(field) > b.getInt(field)) {
                 return 1;
             } else if (a.getInt(field) < b.getInt(field)) {

@@ -11,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
-import dataset.Field;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -176,7 +175,7 @@ public class Currenc extends javax.swing.JFrame {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemove(evt);
             }
         });
 
@@ -309,7 +308,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-       // UGui.stopCellEditing(tab1);
+        UGui.stopCellEditing(tab1);
         List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -343,10 +342,10 @@ public class Currenc extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
+    private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
         listener.action(eCurrenc.up.newRecord());
         this.dispose();
-    }//GEN-LAST:event_btnRemoveert
+    }//GEN-LAST:event_btnRemove
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         HtmlOfTable.load("Отчёт по спецификации", tab1);

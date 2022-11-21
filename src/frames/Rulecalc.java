@@ -35,6 +35,7 @@ public class Rulecalc extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerSet();
+        tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
 
     public void loadingData() {
@@ -259,6 +260,8 @@ public class Rulecalc extends javax.swing.JFrame {
 
         pan1.setLayout(new java.awt.BorderLayout());
 
+        scr2.setBorder(null);
+
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -344,10 +347,11 @@ public class Rulecalc extends javax.swing.JFrame {
             Record rulecalcRec = eRulecalc.up.newRecord(Query.INS);
             Record artiklRec = eArtikl.up.newRecord();
             rulecalcRec.setNo(eRulecalc.id, Conn.genId(eRulecalc.up));
-            rulecalcRec.setNo(eRulecalc.id, Conn.genId(eRulecalc.up));
+            rulecalcRec.set(eRulecalc.quant, 1);
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(qRulecalc.size() - 1, qRulecalc.size() - 1);
+            UGui.setSelectedIndex(tab2, qRulecalc.size() - 1);
             UGui.scrollRectToIndex(qRulecalc.size() - 1, tab2);
         }
     }//GEN-LAST:event_btnInsert

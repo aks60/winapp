@@ -590,6 +590,9 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
+                record.setNo(eColor.coef1, 1);
+                record.setNo(eColor.coef2, 1);
+                record.setNo(eColor.coef3, 1);
                 qColall.add(record);
             });
 
