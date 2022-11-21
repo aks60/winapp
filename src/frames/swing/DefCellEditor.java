@@ -1,5 +1,6 @@
 package frames.swing;
 
+import common.UCom;
 import common.eProp;
 import dataset.Field;
 import java.awt.Component;
@@ -19,13 +20,22 @@ import common.listener.ListenerObject;
 public class DefCellEditor extends DefaultCellEditor {
 
     private int check = 0;
+    private int scale = 0;
     private ListenerObject listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
 
-    public DefCellEditor(int check) {
+//    public DefCellEditor(int scale) {
+//        super(new JTextField());
+//        this.scale = (int) scale;
+//        field(true);
+//        filter();
+//        this.getComponent().setLocale(eProp.locale);
+//    }
+    
+    public DefCellEditor(char check) {
         super(new JTextField());
-        this.check = check;
+        this.check = (int) check;
         field(true);
         filter();
         this.getComponent().setLocale(eProp.locale);
@@ -98,13 +108,17 @@ public class DefCellEditor extends DefaultCellEditor {
             Field field = ((DefTableModel) table.getModel()).columns[column];
             ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         }
-        delegate.setValue(value);
+        if (value instanceof Float || value instanceof Double) {
+            delegate.setValue(UCom.format(value, scale));
+        } else {
+            delegate.setValue(value);
+        }
         return panel;
     }
 
     @Override
     public boolean isCellEditable(EventObject anEvent) {
-        if (anEvent instanceof MouseEvent == true) {            
+        if (anEvent instanceof MouseEvent == true) {
             if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
                 listenerCell.action(DefCellEditor.this);
             }

@@ -15,21 +15,27 @@ public class UCom {
 
     private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
 
-    public static String df0(Object val) {
-        df.applyPattern("#0.#");
+    public static String format(Object val, int scale) {
+        if (scale == 1) {
+            df.applyPattern("#0.#");
+        } else if (scale == 2) {
+            df.applyPattern("#0.##");
+        } else if (scale == 3) {
+            df.applyPattern("#0.###");
+        } else if (scale == 4) {
+            df.applyPattern("#0.####");
+        } else if (scale == 11) {
+            df.applyPattern("#0.0");
+        } else if (scale == 12) {
+            df.applyPattern("#0.00");
+        } else if (scale == 13) {
+            df.applyPattern("#0.000");
+        } else if (scale == 14) {
+            df.applyPattern("#0.0000");
+        }
         return df.format(val);
     }
 
-    public static String df1(Object val) {
-        df.applyPattern("#0.0");
-        return df.format(val);
-    }
-    
-    public static String df2(Object val) {
-        df.applyPattern("#0.00");
-        return df.format(val);
-    }
-    
     public static Integer getInt(String str) {
         try {
             if (str == null || str.isEmpty()) {

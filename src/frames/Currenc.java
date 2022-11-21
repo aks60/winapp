@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import frames.swing.DefCellRenderer;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -51,6 +52,7 @@ public class Currenc extends javax.swing.JFrame {
     public void loadingModel() {        
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);        
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRenderer(4));
         tab1.setLocale(eProp.locale);
         UGui.setSelectedRow(tab1);
     }
