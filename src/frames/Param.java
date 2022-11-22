@@ -8,7 +8,7 @@ import frames.dialog.DicColor;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
@@ -47,7 +47,7 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab2, qPardet, eParams.text, eParams.kits,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
-        DefCellBoolRenderer br = new DefCellBoolRenderer();
+        DefCellRendererBool br = new DefCellRendererBool();
         List.of(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
         List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 

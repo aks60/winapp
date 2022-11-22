@@ -25,7 +25,7 @@ import frames.dialog.DicColor;
 import frames.dialog.ParGrup2;
 import frames.dialog.ParGrup2a;
 import frames.dialog.ParGrup2b;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JOptionPane;
@@ -119,7 +119,7 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-        tab3.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
+        tab3.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
         UGui.setSelectedRow(tab1);
     }
 

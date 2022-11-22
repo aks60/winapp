@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
@@ -268,7 +268,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
 
-        tab4.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
+        tab4.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
         tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

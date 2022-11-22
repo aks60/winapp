@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import dataset.Conn;
 import domain.eSysuser;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -81,7 +81,7 @@ public class Partner extends javax.swing.JFrame {
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
-        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellBoolRenderer());
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
 
         rsv = new DefFieldEditor(tab1);
         rsv.add(ePrjpart.partner, txt22);

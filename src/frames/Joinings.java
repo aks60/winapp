@@ -30,7 +30,7 @@ import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
 import enums.TypeGroups;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.dialog.DicColvar;
 import enums.UseColor;
 import frames.swing.FilterTable;
@@ -234,7 +234,7 @@ public class Joinings extends javax.swing.JFrame {
                 return comp;
             }
         });
-        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
 
         UGui.setSelectedRow(tab1);
     }

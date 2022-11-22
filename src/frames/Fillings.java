@@ -33,7 +33,7 @@ import enums.TypeGroups;
 import enums.UseColor;
 import frames.dialog.DicName;
 import java.util.List;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.FilterTable;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -166,7 +166,7 @@ public class Fillings extends javax.swing.JFrame {
         };
         new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
 
-        DefCellBoolRenderer br = new DefCellBoolRenderer();
+        DefCellRendererBool br = new DefCellRendererBool();
         List.of(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);

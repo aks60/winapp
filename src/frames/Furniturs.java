@@ -35,7 +35,7 @@ import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.FilterTable;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -328,9 +328,9 @@ public class Furniturs extends javax.swing.JFrame {
             }
         };
 
-        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellBoolRenderer());
-        tab1.getColumnModel().getColumn(4).setCellRenderer(new DefCellBoolRenderer());
-        tab1.getColumnModel().getColumn(5).setCellRenderer(new DefCellBoolRenderer());
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
+        tab1.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
+        tab1.getColumnModel().getColumn(5).setCellRenderer(new DefCellRendererBool());
 
         UGui.setSelectedRow(tab1);
     }

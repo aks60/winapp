@@ -23,7 +23,7 @@ import enums.UseUnit;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicGroups;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.FilterTable;
 import java.awt.CardLayout;
 import java.awt.Window;
@@ -139,9 +139,9 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
-        tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellBoolRenderer());
-        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
+        tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
+        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
 
         rsvArtikl = new DefFieldEditor(tab1) {
 

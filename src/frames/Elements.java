@@ -34,7 +34,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.util.Set;
@@ -206,7 +206,7 @@ public class Elements extends javax.swing.JFrame {
             }
         };
 
-        DefCellBoolRenderer br = new DefCellBoolRenderer();
+        DefCellRendererBool br = new DefCellRendererBool();
         List.of(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
