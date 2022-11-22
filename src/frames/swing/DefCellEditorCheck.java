@@ -14,6 +14,7 @@ public class DefCellEditorCheck extends DefaultCellEditor {
     
     public DefCellEditorCheck(int pattern) {
         super(new JTextField());
+        editorComponent.setFont(frames.UGui.getFont(0,0));
         this.pattern = pattern;
         filter();
     }

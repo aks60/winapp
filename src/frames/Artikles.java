@@ -1,5 +1,6 @@
 package frames;
 
+import common.eProp;
 import frames.dialog.DicColor;
 import dataset.Conn;
 import dataset.Field;
@@ -10,7 +11,6 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import enums.TypeArtikl;
-import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -38,7 +38,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
-import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import report.ExecuteCmd;
@@ -84,6 +83,8 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     public void loadingData() {
+         //txt3.setLocale(eProp.locale);
+         
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
@@ -937,7 +938,7 @@ public class Artikles extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(220);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(26);

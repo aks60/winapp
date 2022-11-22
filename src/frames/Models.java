@@ -470,16 +470,23 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "хххххххххх1", "123"},
-                {"99", "мммммммммм1", "321"}
+                {null, null, "123"},
+                {null, null, "321"}
             },
             new String [] {
                 "№", "Наименование", "Рисунок"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];

@@ -8,8 +8,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
-import frames.swing.DefCellEditorCheck;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRendererNumb;
 import java.util.List;
+import javax.swing.table.TableColumn;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -52,10 +54,9 @@ public class Syssize extends javax.swing.JFrame {
 
     public void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
-        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorCheck(3));
-        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorCheck(3));
-        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorCheck(3));
-        tab1.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(3));
+        List<TableColumn> list = List.of(tab1.getColumnModel().getColumn(1), tab1.getColumnModel().getColumn(2), tab1.getColumnModel().getColumn(3), tab1.getColumnModel().getColumn(4));
+        list.forEach(col -> col.setCellEditor(new DefCellEditorNumb(2)));
+        list.forEach(col -> col.setCellRenderer(new DefCellRendererNumb(2)));
         UGui.setSelectedRow(tab1);
     }
 

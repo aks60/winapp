@@ -53,6 +53,7 @@ public class DefCellEditor extends DefaultCellEditor {
         panel.setBorder(null);
         panel.setBackground(new java.awt.Color(240, 240, 240));
         panel.setLayout(new java.awt.BorderLayout());
+        editorText.setFont(frames.UGui.getFont(0,0));
         editorText.setPreferredSize(new java.awt.Dimension(60, 18));
         editorText.setEditable(editable);
         editorText.setBorder(null);

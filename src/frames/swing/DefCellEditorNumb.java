@@ -13,6 +13,7 @@ public class DefCellEditorNumb  extends DefaultCellEditor {
     public DefCellEditorNumb(int scale) {
         super(new JTextField());
         this.scale = scale;
+        editorComponent.setFont(frames.UGui.getFont(0,0));
         editorComponent.setPreferredSize(new java.awt.Dimension(60, 18));
         editorComponent.setBorder(null);
     }

@@ -3,6 +3,7 @@
  */
 package frames.swing;
 
+import common.eProp;
 import frames.UGui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,7 @@ public class DefFieldEditor {
     //Добавить компонент отображения
     public void add(Field field, JTextComponent jtxt) {
         mapTxt.put(jtxt, field);
+        //jtxt.setLocale(eProp.locale);
         if (field.meta().edit() == false) { //если редактирование запрещено
             jtxt.setEditable(false);
             jtxt.setBackground(new java.awt.Color(255, 255, 255));

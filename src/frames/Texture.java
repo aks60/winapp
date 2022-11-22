@@ -23,7 +23,8 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
-import frames.swing.DefCellEditorCheck;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRendererNumb;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -83,6 +84,7 @@ public class Texture extends javax.swing.JFrame {
                 return val;
             }
         };
+        
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -91,11 +93,14 @@ public class Texture extends javax.swing.JFrame {
                 lab.setBackground(new java.awt.Color(rgb));
                 return lab;
             }
-        });
+        });        
         tab2.getColumnModel().getColumn(5).setCellRenderer(new DefCellRendererBool());
-        tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorCheck(3));
-        tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorCheck(3));
-        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(3));
+        tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorNumb(3));
+        tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorNumb(3));
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererNumb(3));
+        tab2.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererNumb(3));
+        tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererNumb(3));
 
         DefCellRendererBool br = new DefCellRendererBool();
         List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
