@@ -10,15 +10,14 @@ import enums.TypeArtikl;
 import enums.TypeForm;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
-import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
-import java.util.Arrays;
-import java.util.stream.Stream;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import frames.swing.DefCellEditorCheck;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRenderer;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -63,14 +62,17 @@ public class Rulecalc extends javax.swing.JFrame {
             }
         };
 
-        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(6));
-        tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditor(5));
-        tab2.getColumnModel().getColumn(6).setCellEditor(new DefCellEditor(3));
-        tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditor(3));
-        tab2.getColumnModel().getColumn(8).setCellEditor(new DefCellEditor(5));
-        tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditor(5));
-        tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(6));
+        tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditorCheck(5));       
+        tab2.getColumnModel().getColumn(6).setCellEditor(new DefCellEditorNumb(3));
+        tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditorNumb(3));        
+        tab2.getColumnModel().getColumn(8).setCellEditor(new DefCellEditorCheck(5));
+        tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditorCheck(5));
+        tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditorCheck(5));
 
+        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRenderer(3));
+        tab2.getColumnModel().getColumn(7).setCellRenderer(new DefCellRenderer(3));
+        
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
                 UGui.stopCellEditing(tab2);
