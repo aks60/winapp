@@ -6,14 +6,11 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class DefCellRenderer extends DefaultTableCellRenderer {
+public class DefCellRendererNumb extends DefaultTableCellRenderer {
 
-    private int scale = 2;
-
-    public DefCellRenderer() {
-    }
+    protected int scale = 2;
     
-    public DefCellRenderer(int scale) {
+    public DefCellRendererNumb(int scale) {
         this.scale = scale;
     }
 

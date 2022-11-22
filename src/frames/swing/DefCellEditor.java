@@ -19,18 +19,18 @@ import common.listener.ListenerObject;
 
 public class DefCellEditor extends DefaultCellEditor {
 
-    private int check = 0;
+//    private int check = 0;
     private ListenerObject listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
 
-    public DefCellEditor(int check) {
-        super(new JTextField());
-        this.check = check;
-        init(true);
-        filter();
-        this.getComponent().setLocale(eProp.locale);
-    }
+//    public DefCellEditor(int check) {
+//        super(new JTextField());
+//        this.check = check;
+//        init(true);
+//        filter();
+//        this.getComponent().setLocale(eProp.locale);
+//    }
 
     public DefCellEditor(JButton button) {
         super(new JTextField());
@@ -114,18 +114,18 @@ public class DefCellEditor extends DefaultCellEditor {
     }
 
     private boolean check(String s) {
-        if (check == 0) {
+//        if (check == 0) {
             return listenerCell.action(s);
-        } else if (check == 3 && "0123456789.,".indexOf(s) != -1) {
-            return true;
-        } else if (check == 4 && "0123456789;".indexOf(s) != -1) {
-            return true;
-        } else if (check == 5 && "0123456789-;".indexOf(s) != -1) {
-            return true;
-        } else if (check == 6 && "0123456789,-;".indexOf(s) != -1) {
-            return true;
-        }
-        return false;
+//        } else if (check == 3 && "0123456789.,".indexOf(s) != -1) {
+//            return true;
+//        } else if (check == 4 && "0123456789;".indexOf(s) != -1) {
+//            return true;
+//        } else if (check == 5 && "0123456789-;".indexOf(s) != -1) {
+//            return true;
+//        } else if (check == 6 && "0123456789,-;".indexOf(s) != -1) {
+//            return true;
+//        }
+//        return false;
     }
 
     public JButton getButton() {

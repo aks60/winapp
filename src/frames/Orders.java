@@ -25,7 +25,7 @@ import dataset.Record;
 import domain.eProject;
 import domain.ePrjpart;
 import frames.dialog.DicDate;
-import frames.swing.DefCellRenderer;
+import frames.swing.DefCellRendererNumb;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
@@ -206,8 +206,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
-        tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
+        //tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
+       // tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -1253,7 +1253,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {

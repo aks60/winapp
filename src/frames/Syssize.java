@@ -2,13 +2,13 @@ package frames;
 
 import dataset.Query;
 import domain.eSyssize;
-import frames.swing.DefCellEditor;
 import java.awt.Frame;
 import java.awt.Window;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import frames.swing.DefCellEditorCheck;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -52,10 +52,10 @@ public class Syssize extends javax.swing.JFrame {
 
     public void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
-        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
-        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
-        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
-        tab1.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
+        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorCheck(3));
+        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorCheck(3));
+        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorCheck(3));
+        tab1.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(3));
         UGui.setSelectedRow(tab1);
     }
 

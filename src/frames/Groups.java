@@ -1,12 +1,13 @@
 package frames;
 
+import common.UCom;
 import dataset.Query;
 import domain.eGroups;
 import enums.TypeGroups;
 import static frames.UGui.getIndexRec;
 import frames.swing.DefCellEditor;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.DefCellRenderer;
+import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.awt.Component;
@@ -61,10 +62,10 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
         new DefTableModel(tab8, qCategKit, eGroups.name);
 
-        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer(3)));
-        List.of(tab1, tab2, tab5, tab7).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));       
-        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer(3) {
-            
+        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3)));
+        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));   
+        tab7.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3));
+        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3) { 
             public Component getTableCellRendererComponent(JTable table, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 if (column == 1) {
@@ -73,14 +74,14 @@ public class Groups extends javax.swing.JFrame {
                         if ((double) value == 3) {
                             value = "1 мм";
                         } else if ((double) value == 2) {
-                            value = "0.5 мм";
+                            value = "0,5 мм";
                         } else if ((double) value == 1) {
-                            value = "0.1 мм";
+                            value = "0,1 мм";
                         } else if ((double) value == 0) {
                             value = "точное";
                         }
                     } else if (id != -1 && (id == 2055 || id == 2056 || id == 2058 || id == 2101 || id == 2104)) {
-                        value = value + "%";
+                        value = UCom.format(value, scale) + "%";
                     }
                 }
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -104,12 +105,12 @@ public class Groups extends javax.swing.JFrame {
                 }
             } else {  //проверка на коррекность ввода
                 String txt = (String) component;
-                return ("0123456789.".indexOf(txt) != -1);
+                return ("0123456789,".indexOf(txt) != -1);
             }
             return true;
 
         }).addActionListener(event -> {
-            String arrStr[] = {"точное", "0.1 мм", "0.5 мм", "1.0 мм"};
+            String arrStr[] = {"точное", "0,1 мм", "0,5 мм", "1,0 мм"};
             double arrDbl[] = {0, 1, 2, 3};
             Object result = JOptionPane.showInputDialog(Groups.this, "Выберите точность рассчёта",
                     "Округление длины профилей", JOptionPane.QUESTION_MESSAGE, null, arrStr, arrStr[0]);

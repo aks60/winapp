@@ -9,13 +9,11 @@ import domain.eGroups;
 import domain.eParams;
 import enums.TypeGroups;
 import frames.dialog.DicColor;
-import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
-import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.awt.Component;
@@ -25,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
+import frames.swing.DefCellEditorCheck;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -94,9 +93,9 @@ public class Texture extends javax.swing.JFrame {
             }
         });
         tab2.getColumnModel().getColumn(5).setCellRenderer(new DefCellRendererBool());
-        tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
-        tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
-        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorCheck(3));
+        tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorCheck(3));
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(3));
 
         DefCellRendererBool br = new DefCellRendererBool();
         List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
