@@ -13,13 +13,14 @@ import java.util.List;
 
 public class UCom {
 
-    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
+//    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
+    private static DecimalFormat df = new DecimalFormat();
 
-    public static void init() {
-        DecimalFormatSymbols fs = new DecimalFormatSymbols(eProp.locale);
-        fs.setGroupingSeparator(' ');
-        df.setDecimalFormatSymbols(fs);
-    }
+//    public static void init() {
+//        DecimalFormatSymbols fs = new DecimalFormatSymbols(eProp.locale);
+//        fs.setGroupingSeparator(' ');
+//        df.setDecimalFormatSymbols(fs);
+//    }
 
     public static String format(Object val, int scale) {
         if (scale == 1) {

@@ -13,6 +13,7 @@ public class Main {
 
     //Конструктор
     public Main() {
+        Locale.setDefault(eProp.locale); 
         LogoToDb frame = new LogoToDb(null);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
@@ -21,11 +22,8 @@ public class Main {
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
         
-        UCom.init();
-        Locale.setDefault(Locale.ENGLISH);      
-        //eProp.profile = "tex";
-        //eProp.locate = true;
-        
+        //UCom.init();
+
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
                 eProp.profile = args[0];
