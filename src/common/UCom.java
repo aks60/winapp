@@ -5,15 +5,21 @@ import dataset.Field;
 import dataset.Query;
 import enums.Type;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class UCom {
 
     private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
+
+    public static void init() {
+        DecimalFormatSymbols fs = new DecimalFormatSymbols(eProp.locale);
+        fs.setGroupingSeparator(' ');
+        df.setDecimalFormatSymbols(fs);
+    }
 
     public static String format(Object val, int scale) {
         if (scale == 1) {

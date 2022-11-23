@@ -1,8 +1,8 @@
 package startup;
 
+import common.UCom;
 import frames.LogoToDb;
 import frames.FrameToFile;
-import common.eProfile;
 import common.eProp;
 import java.util.Locale;
 import javax.swing.SwingUtilities;
@@ -20,11 +20,11 @@ public class Main {
 
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
-        Locale.setDefault(Locale.ENGLISH);
         
+        UCom.init();
+        Locale.setDefault(Locale.ENGLISH);      
         //eProp.profile = "tex";
         //eProp.locate = true;
-        //eProp.locale = new Locale("en", "SU");
         
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {

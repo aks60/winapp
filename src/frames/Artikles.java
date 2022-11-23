@@ -1,5 +1,6 @@
 package frames;
 
+import common.UCom;
 import common.eProp;
 import frames.dialog.DicColor;
 import dataset.Conn;
@@ -39,9 +40,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -50,6 +55,7 @@ import report.HtmlOfTable;
  */
 public class Artikles extends javax.swing.JFrame {
 
+    //private DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
     private Query qGroups = new Query(eGroups.values());
     private Query qSyssize = new Query(eSyssize.values());
     private Query qColor = new Query(eColor.values());
@@ -85,6 +91,14 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     public void loadingData() {
+        DecimalFormat df = new DecimalFormat("#,##0.###");
+        DecimalFormatSymbols fs = new DecimalFormatSymbols(eProp.locale);
+        fs.setGroupingSeparator(' ');        
+        df.setDecimalFormatSymbols(fs);
+
+        frmTxt.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(df)));
+        frmTxt.setValue(123456.1876);
+
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
@@ -149,14 +163,14 @@ public class Artikles extends javax.swing.JFrame {
             public Set<JTextField> set = new HashSet();
             private DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
 
-            public void setText(JTextField jtf, String str) {
+            public void setText(JTextField jtf, String val) {
                 set.add(jtf);
-                jtf.setText(str);
+                jtf.setText(val);
             }
-            
-            public void setText(JTextField jtf, String str, int scale) {
+
+            public void setText(JTextField jtf, String val, String pattern) {
                 set.add(jtf);
-                jtf.setText(str);
+                jtf.setText(UCom.format(val, pattern));
             }
 
             @Override
@@ -478,6 +492,7 @@ public class Artikles extends javax.swing.JFrame {
         btnReport = new javax.swing.JButton();
         btnMove = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
+        frmTxt = new javax.swing.JFormattedTextField();
         center = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
@@ -833,6 +848,10 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
+        frmTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        frmTxt.setFont(frames.UGui.getFont(0,0));
+        frmTxt.setPreferredSize(new java.awt.Dimension(164, 24));
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -846,7 +865,9 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 555, Short.MAX_VALUE)
+                .addGap(90, 90, 90)
+                .addComponent(frmTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -860,7 +881,9 @@ public class Artikles extends javax.swing.JFrame {
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(frmTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2560,7 +2583,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn37
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        // TODO add your handling code here:
+        //DefaultFormatterFactory class
     }//GEN-LAST:event_btnTest
 
     private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
@@ -2663,6 +2686,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
+    private javax.swing.JFormattedTextField frmTxt;
     private javax.swing.JMenuItem itReport1;
     private javax.swing.JMenuItem itReport2;
     private javax.swing.JLabel lab1;

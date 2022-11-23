@@ -13,9 +13,6 @@ import java.util.List;
 
 public class UMod {
 
-    UMod(IElem5e elem5e) {
-    }
-
     //Укорочение мм от высоты ручки 
     public static float get_25013(Specific spcRec, Specific spcAdd) {
 

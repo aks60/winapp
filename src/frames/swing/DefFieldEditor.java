@@ -3,7 +3,6 @@
  */
 package frames.swing;
 
-import common.eProp;
 import frames.UGui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +15,7 @@ import dataset.Field;
 import dataset.Query;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.JTree;
 
@@ -34,7 +34,7 @@ public class DefFieldEditor {
     public DefFieldEditor(JTree comp) {
         this.comp = comp;
     }
-    
+
     //Конструктор
     public DefFieldEditor(JTable comp) {
         this.comp = comp;
@@ -123,7 +123,11 @@ public class DefFieldEditor {
             jtxt.setText(UGui.DateToStr(val));
 
         } else {
-            jtxt.setText(val.toString());
+            if (jtxt instanceof JFormattedTextField) {
+                ((JFormattedTextField) jtxt).setValue(val);
+            } else {
+                jtxt.setText(val.toString());
+            }
         }
         jtxt.getCaret().setDot(1);
     }
@@ -162,7 +166,7 @@ public class DefFieldEditor {
                         if (index != -1) {
                             Field field = mapTxt.get(jtxt);
                             String str = jtxt.getText();
-                            if (((JTable) comp).getRowCount() > 0) {   
+                            if (((JTable) comp).getRowCount() > 0) {
                                 if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
                                     str = String.valueOf(str).replace(',', '.');
                                 }
