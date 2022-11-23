@@ -9,16 +9,18 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
 public class DefCellEditorCheck extends DefaultCellEditor {
-   
+
     private int pattern = 0;
-    
+
     public DefCellEditorCheck(int pattern) {
         super(new JTextField());
-        editorComponent.setFont(frames.UGui.getFont(0,0));
         this.pattern = pattern;
+        editorComponent.setFont(frames.UGui.getFont(0, 0));
+        editorComponent.setPreferredSize(new java.awt.Dimension(60, 18));
+        editorComponent.setBorder(null);
         filter();
     }
-    
+
     private void filter() {
 
         JTextField editorText = (JTextField) editorComponent;
@@ -52,5 +54,5 @@ public class DefCellEditorCheck extends DefaultCellEditor {
             return true;
         }
         return false;
-    }    
+    }
 }

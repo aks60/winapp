@@ -38,6 +38,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import report.ExecuteCmd;
@@ -83,8 +85,6 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-         //txt3.setLocale(eProp.locale);
-         
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
@@ -147,8 +147,14 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
+            private DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
 
             public void setText(JTextField jtf, String str) {
+                set.add(jtf);
+                jtf.setText(str);
+            }
+            
+            public void setText(JTextField jtf, String str, int scale) {
                 set.add(jtf);
                 jtf.setText(str);
             }

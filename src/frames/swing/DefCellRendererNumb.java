@@ -9,9 +9,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class DefCellRendererNumb extends DefaultTableCellRenderer {
 
     protected int scale = 2;
+    private String pattern = null;
     
     public DefCellRendererNumb(int scale) {
         this.scale = scale;
+    }
+    
+    public DefCellRendererNumb(String pattern) {
+        this.pattern = pattern;
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -21,7 +26,8 @@ public class DefCellRendererNumb extends DefaultTableCellRenderer {
             return super.getTableCellRendererComponent(table, UGui.simpleFormat.format(value), isSelected, hasFocus, row, column);
         }
         if (value instanceof Float || value instanceof Double) {
-            return super.getTableCellRendererComponent(table, UCom.format(value, scale), isSelected, hasFocus, row, column);
+            String val = (pattern == null) ? UCom.format(value, scale) : UCom.format(value, pattern);
+            return super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }

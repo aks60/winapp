@@ -36,6 +36,11 @@ public class UCom {
         return df.format(val);
     }
 
+    public static String format(Object val, String pattern) {
+        df.applyPattern(pattern);
+        return df.format(val);
+    }
+
     public static Integer getInt(String str) {
         try {
             if (str == null || str.isEmpty()) {
