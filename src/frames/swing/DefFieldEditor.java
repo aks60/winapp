@@ -50,7 +50,6 @@ public class DefFieldEditor {
     //Добавить компонент отображения
     public void add(Field field, JTextComponent jtxt) {
         mapTxt.put(jtxt, field);
-        //jtxt.setLocale(eProp.locale);
         if (field.meta().edit() == false) { //если редактирование запрещено
             jtxt.setEditable(false);
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
@@ -74,62 +73,71 @@ public class DefFieldEditor {
 
     //Загрузить данные в компоненты
     public void load() {
-        if (comp instanceof JTable) {
-            load(UGui.getIndexRec((JTable) comp));
+        try {
+            if (comp instanceof JTable) {
+                load(UGui.getIndexRec((JTable) comp));
 
-        } else if (comp instanceof JTree) {
-            DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
-            update = false;
-            try {
-                for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-                    JTextComponent jtxt = me.getKey();
-                    Field field = me.getValue();
-                    Object val = node.rec().get(field);
-                    text(jtxt, field, val);
+            } else if (comp instanceof JTree) {
+                DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
+                update = false;
+                try {
+                    for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+                        JTextComponent jtxt = me.getKey();
+                        Field field = me.getValue();
+                        Object val = node.rec().get(field);
+                        text(jtxt, field, val);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Oшибка:DefFieldEditor.load() " + e);
+                } finally {
+                    update = true;
                 }
-            } catch (Exception e) {
-                System.err.println("Oшибка:DefFieldEditor.load() " + e);
-            } finally {
-                update = true;
             }
+        } catch (Exception e) {
+            System.out.println("Ошибка:DefFieldEditor.load1()");
         }
     }
 
     //Загрузить данные в компоненты
     public void load(Integer index) {
-        update = false;
         try {
-            if (index != null && index != -1) {
-                for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-                    JTextComponent jtxt = me.getKey();
-                    Field field = me.getValue();
-                    Object val = query.table(field).get(index, field);
-                    text(jtxt, field, val);
+            update = false;
+            try {
+                if (index != null && index != -1) {
+                    for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+                        JTextComponent jtxt = me.getKey();
+                        Field field = me.getValue();
+                        Object val = query.table(field).get(index, field);
+                        text(jtxt, field, val);
+                    }
                 }
+            } finally {
+                update = true;
             }
-        } finally {
-            update = true;
+        } catch (Exception e) {
+            System.out.println("Ошибка:DefFieldEditor.load2()");
         }
     }
 
     private void text(JTextComponent jtxt, Field field, Object val) {
-        if (val == null) {
-            if (field.meta().type().equals(Field.TYPE.STR)) {
-                jtxt.setText("");
-            } else {
-                jtxt.setText("0");
-            }
-        } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-            jtxt.setText(UGui.DateToStr(val));
+        try {
+            if (val == null) {
+                if (field.meta().type().equals(Field.TYPE.STR)) {
+                    jtxt.setText("");
+                } else {
+                    jtxt.setText("0");
+                }
+            } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+                jtxt.setText(UGui.DateToStr(val));
 
-        } else {
-            if (jtxt instanceof JFormattedTextField) {
-                ((JFormattedTextField) jtxt).setValue(val);
             } else {
-                jtxt.setText(val.toString());
+                    jtxt.setText(val.toString());
             }
+            jtxt.getCaret().setDot(1);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка:DefFieldEditor.text()");
         }
-        jtxt.getCaret().setDot(1);
     }
 
     //Редактирование
@@ -165,15 +173,16 @@ public class DefFieldEditor {
                         int index = UGui.getIndexRec((JTable) comp);
                         if (index != -1) {
                             Field field = mapTxt.get(jtxt);
-                            String str = jtxt.getText();
+                            Object str = jtxt.getText();
+
                             if (((JTable) comp).getRowCount() > 0) {
                                 if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
                                     str = String.valueOf(str).replace(',', '.');
+                                } else {
+                                    query.table(field).set(str, index, field);
                                 }
-                                query.table(field).set(str, index, field);
                             }
                         }
-
                     } else if (comp instanceof JTree) {
                         DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
                         node.rec().set(mapTxt.get(jtxt), jtxt.getText());
