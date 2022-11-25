@@ -18,6 +18,10 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 /**
  * <p>
@@ -55,6 +59,28 @@ public class TabeFieldFormat {
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
         }
         jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
+
+        if ("{3}".equals(jtxt.getName()) == true) {
+
+            PlainDocument doc = (PlainDocument) jtxt.getDocument();
+            doc.setDocumentFilter(new DocumentFilter() {
+                int parrern = 3;
+
+                @Override
+                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    if (string.length() > 1 || UCom.check(string, parrern)) { //проверка на коррекность ввода
+                        super.insertString(fb, offset, string, attr);
+                    }
+                }
+
+                @Override
+                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                    if (string.length() > 1 || UCom.check(string, parrern)) {  //проверка на коррекность ввода
+                        super.replace(fb, offset, length, string, attrs);
+                    }
+                }
+            });
+        }
     }
 
     //Очистить текст
@@ -85,16 +111,14 @@ public class TabeFieldFormat {
                         JTextComponent jtxt = me.getKey();
                         Field field = me.getValue();
                         Object val = node.rec().get(field);
-                        text(jtxt, field, val);
+                        setText(jtxt, field, val);
                     }
-                } catch (Exception e) {
-                    System.err.println("Oшибка:DefFieldEditor.load() " + e);
                 } finally {
                     update = true;
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:DefFieldEditor.load1()");
+            System.out.println("Ошибка:TableFieldFormat.load1() " + e);
         }
     }
 
@@ -108,43 +132,47 @@ public class TabeFieldFormat {
                         JTextComponent jtxt = me.getKey();
                         Field field = me.getValue();
                         Object val = query.table(field).get(index, field);
-                        text(jtxt, field, val);
+                        setText(jtxt, field, val);
                     }
                 }
             } finally {
                 update = true;
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:DefFieldEditor.load2()");
+            System.out.println("Ошибка:TableFieldFormat.load2() " + e);
         }
     }
 
-    private void text(JTextComponent jtxt, Field field, Object val) {
+    private void setText(JTextComponent jtxt, Field field, Object val) {
         try {
-            if (val == null) {
-                if (field.meta().type().equals(Field.TYPE.STR)) {
-                    jtxt.setText("");
-                } else {
-                    jtxt.setText("0");
-                }
+            if (val == null || (val != null && val.toString().isEmpty())) {
+                Object o = (field.meta().type().equals(Field.TYPE.STR) == true) ? "" : 0;
+                jtxt.setText(o.toString());
+
             } else if (field.meta().type().equals(Field.TYPE.DATE)) {
                 jtxt.setText(UGui.DateToStr(val));
 
+            } else if (field.meta().type().equals(Field.TYPE.DBL)) {
+                val = String.valueOf(val).replace(',', '.');
+                double v = Double.parseDouble(val.toString());
+                jtxt.setText(UCom.format(v, 3));
+
+            } else if (field.meta().type().equals(Field.TYPE.FLT)) {
+                val = String.valueOf(val).replace(',', '.');
+                float v = Float.parseFloat(val.toString());
+                jtxt.setText(UCom.format(v, 3));
+                
             } else {
-                if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
-                    jtxt.setText(UCom.format(val, 3));
-                } else {
-                    jtxt.setText(val.toString());
-                }
+                jtxt.setText(val.toString());
             }
             jtxt.getCaret().setDot(1);
 
         } catch (Exception e) {
-            System.out.println("Ошибка:DefFieldEditor.text()");
+            System.out.println("Ошибка:TableFieldFormat.setText() " + e);
         }
     }
 
-    //Редактирование
+//Редактирование
     class DocListiner implements DocumentListener, ActionListener {
 
         private JTextComponent jtxt;
@@ -182,9 +210,8 @@ public class TabeFieldFormat {
                             if (((JTable) comp).getRowCount() > 0) {
                                 if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
                                     str = String.valueOf(str).replace(',', '.');
-                                } else {
-                                    query.table(field).set(str, index, field);
                                 }
+                                query.table(field).set(str, index, field);
                             }
                         }
                     } else if (comp instanceof JTree) {
@@ -193,7 +220,7 @@ public class TabeFieldFormat {
                     }
                 }
             } catch (Exception e) {
-                System.err.println("Ошибка:DefFieldEditor.DocListiner.fieldUpdate() " + e);
+                System.err.println("Ошибка:TableFieldFormat.DocListiner.fieldUpdate() " + e);
             }
         }
     }

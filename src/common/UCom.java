@@ -13,34 +13,50 @@ import java.util.List;
 
 public class UCom {
 
-//    private static DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
     private static DecimalFormat df = new DecimalFormat();
 
-//    public static void init() {
-//        DecimalFormatSymbols fs = new DecimalFormatSymbols(eProp.locale);
-//        fs.setGroupingSeparator(' ');
-//        df.setDecimalFormatSymbols(fs);
-//    }
+    public static boolean check(String val, int pattern) {
+        try {
+            if (pattern == 3 && "0123456789,".indexOf(val) != -1) {
+                return true;
+            } else if (pattern == 4 && "0123456789;".indexOf(val) != -1) {
+                return true;
+            } else if (pattern == 5 && "0123456789-;".indexOf(val) != -1) {
+                return true;
+            } else if (pattern == 6 && "0123456789,-;".indexOf(val) != -1) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:UCom.check() " + e);
+        }
+        return false;
+    }
 
     public static String format(Object val, int scale) {
-        if (scale == 1) {
-            df.applyPattern("#0.#");
-        } else if (scale == 2) {
-            df.applyPattern("#0.##");
-        } else if (scale == 3) {
-            df.applyPattern("#0.###");
-        } else if (scale == 4) {
-            df.applyPattern("#0.####");
-        } else if (scale == 11) {
-            df.applyPattern("#0.0");
-        } else if (scale == 12) {
-            df.applyPattern("#0.00");
-        } else if (scale == 13) {
-            df.applyPattern("#0.000");
-        } else if (scale == 14) {
-            df.applyPattern("#0.0000");
+        try {
+            if (scale == 1) {
+                df.applyPattern("#0.#");
+            } else if (scale == 2) {
+                df.applyPattern("#0.##");
+            } else if (scale == 3) {
+                df.applyPattern("#0.###");
+            } else if (scale == 4) {
+                df.applyPattern("#0.####");
+            } else if (scale == 11) {
+                df.applyPattern("#0.0");
+            } else if (scale == 12) {
+                df.applyPattern("#0.00");
+            } else if (scale == 13) {
+                df.applyPattern("#0.000");
+            } else if (scale == 14) {
+                df.applyPattern("#0.0000");
+            }
+            return df.format(val);
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:UCom.format() " + e);
+            return val.toString();
         }
-        return df.format(val);
     }
 
     public static String format(Object val, String pattern) {

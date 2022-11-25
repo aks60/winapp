@@ -1,6 +1,6 @@
 package frames.swing;
 
-import common.listener.ListenerObject;
+import common.UCom;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
@@ -29,30 +29,17 @@ public class DefCellEditorCheck extends DefaultCellEditor {
 
             @Override
             public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (string.length() > 1 || check(string)) { //проверка на коррекность ввода
+                if (string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
                     super.insertString(fb, offset, string, attr);
                 }
             }
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                if (string.length() > 1 || check(string)) {  //проверка на коррекность ввода
+                if (string.length() > 1 || UCom.check(string, pattern)) {  //проверка на коррекность ввода
                     super.replace(fb, offset, length, string, attrs);
                 }
             }
         });
-    }
-
-    private boolean check(String s) {
-        if (pattern == 3 && "0123456789.,".indexOf(s) != -1) {
-            return true;
-        } else if (pattern == 4 && "0123456789;".indexOf(s) != -1) {
-            return true;
-        } else if (pattern == 5 && "0123456789-;".indexOf(s) != -1) {
-            return true;
-        } else if (pattern == 6 && "0123456789,-;".indexOf(s) != -1) {
-            return true;
-        }
-        return false;
     }
 }
