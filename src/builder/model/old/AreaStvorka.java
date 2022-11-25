@@ -34,7 +34,7 @@ import enums.PKjson;
 import enums.Type;
 import enums.TypeOpen2;
 import frames.UJson;
-import frames.swing.Draw;
+import frames.swing.DrawStroke;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -261,32 +261,32 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1() + (elemR.x2() - elemR.x1()) / 2;
                 Y1 = elemR.y1() + (elemR.y2() - elemR.y1()) / 2;
-                Draw.drawLine(winc, elemL.x1(), elemL.y1(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
-                Draw.drawLine(winc, elemL.x1(), elemL.y2(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
+                DrawStroke.drawLine(winc, elemL.x1(), elemL.y1(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
+                DrawStroke.drawLine(winc, elemL.x1(), elemL.y2(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1() + (elemL.x2() - elemL.x1()) / 2;
                 Y1 = elemL.y1() + (elemL.y2() - elemL.y1()) / 2;
-                Draw.drawLine(winc, elemR.x2(), elemR.y1(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
-                Draw.drawLine(winc, elemR.x2(), elemR.y2(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
+                DrawStroke.drawLine(winc, elemR.x2(), elemR.y1(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
+                DrawStroke.drawLine(winc, elemR.x2(), elemR.y2(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                Draw.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x1(), elemB.y2());
-                Draw.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x2(), elemB.y2());
+                DrawStroke.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x1(), elemB.y2());
+                DrawStroke.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x2(), elemB.y2());
             }
 
             if (root.type() == Type.DOOR) {
                 DY = 20;
                 winc.gc2d.rotate(Math.toRadians(-90), X1 - DX, Y1 - DY);
-                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+                DrawStroke.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
                 DX = DX - 12;
                 Y1 = Y1 + 20;
                 DY = 60;
-                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+                DrawStroke.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
 
             } else {
                 int handlRGB = eColor.find(this.handleColor).getInt(eColor.rgb);
-                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, handlRGB, Color.BLACK);
+                DrawStroke.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, handlRGB, Color.BLACK);
                 DX = DX - 12;
                 Y1 = Y1 + 20;
             }

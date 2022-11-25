@@ -17,7 +17,7 @@ import common.UCom;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
-import frames.swing.Draw;
+import frames.swing.DrawStroke;
 import java.util.List;
 
 public class ElemCross extends ElemSimple {
@@ -194,10 +194,10 @@ public class ElemCross extends ElemSimple {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (Layout.VERT == owner.layout()) {
-            Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.HORIZ == owner.layout()) {
-            Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 
