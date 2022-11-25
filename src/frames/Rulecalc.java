@@ -69,9 +69,6 @@ public class Rulecalc extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(8).setCellEditor(new DefCellEditorCheck(5));
         tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditorCheck(5));
         tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditorCheck(5));
-
-        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererNumb(3));
-        tab2.getColumnModel().getColumn(7).setCellRenderer(new DefCellRendererNumb(3));
         
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {

@@ -206,8 +206,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        //tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
-       // tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -3808,13 +3806,5 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         });
-//        DefaultTableCellRenderer tr = (DefaultTableCellRenderer) tab5.getColumnModel().getColumn(1).getCellRenderer();
-//        tr.setHorizontalAlignment(JLabel.CENTER);
-//        tab5.getColumnModel().getColumn(1).setCellRenderer(tr);
-//        for (int col = 2; col < 4; col++) {
-//            DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
-//            rnd.setHorizontalAlignment(JLabel.RIGHT);
-//            tab5.getColumnModel().getColumn(col).setCellRenderer(new DefaultTableCellRenderer());
-//        }
     }
 }

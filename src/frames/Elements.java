@@ -205,10 +205,7 @@ public class Elements extends javax.swing.JFrame {
                 return val;
             }
         };
-
-        DefCellRendererBool br = new DefCellRendererBool();
-        List.of(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
-
+        List.of(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(new DefCellRendererBool()));
         UGui.setSelectedRow(tab1);
     }
 

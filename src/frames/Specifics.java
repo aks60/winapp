@@ -376,7 +376,7 @@ public class Specifics extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -647,18 +647,11 @@ public class Specifics extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
+        //tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(15).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
         if ("Nimbus".equals(eProp.lookandfeel.read())) {
             for (int i = 15; i < 22; i++) {
                 tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);

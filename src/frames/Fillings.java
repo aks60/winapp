@@ -165,10 +165,7 @@ public class Fillings extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
-
-        DefCellRendererBool br = new DefCellRendererBool();
-        List.of(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
-
+        List.of(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(new DefCellRendererBool()));
         UGui.setSelectedRow(tab1);
     }
 

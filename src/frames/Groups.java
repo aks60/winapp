@@ -62,7 +62,6 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
         new DefTableModel(tab8, qCategKit, eGroups.name);
 
-        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3)));
         List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));   
         tab7.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3));
         tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3) { 

@@ -984,7 +984,15 @@ public class DBCompare extends javax.swing.JFrame {
             new String [] {
                 "№пп", "Проект", "Заказ", "Артикл", "X1", "Y1", "X2", "Y2", "Длина", "Ширина", "Высота", "Радиус", "Тип"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab4.setFillsViewportHeight(true);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
@@ -1212,12 +1220,5 @@ public class DBCompare extends javax.swing.JFrame {
             }
         };
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
-        tab4.getColumnModel().getColumn(4).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(5).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(6).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(7).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(9).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(10).setCellRenderer(cellRenderer3);
-        tab4.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
     }
 }
