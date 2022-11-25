@@ -39,15 +39,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRendererNumb;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Locale;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -146,6 +143,8 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
+        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorNumb(3));
+        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
@@ -924,7 +923,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, false
