@@ -22,6 +22,7 @@ import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
 import builder.param.ParamList;
+import common.UCom;
 import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;
@@ -849,15 +850,12 @@ public class UGui {
     }
 
     //Проверка на коррекность ввода
-    public static void documentFilter(int numb, JTextField... txtField) {
+    public static void documentFilter(int pattern, JTextField... txtField) {
         for (JTextField txtField2 : txtField) {
             ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+
                 public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (numb == 1 && (string.length() > 1 || "0123456789;-".indexOf(string) != -1)) {
-                        super.replace(fb, offset, length, string, attrs);
-                    } else if (numb == 2 && (string.length() > 1 || "0123456789;-".indexOf(string) != -1)) {
-                        super.replace(fb, offset, length, string, attrs);
-                    } else if (numb == 3 && (string.length() > 1 || "0123456789.".indexOf(string) != -1)) {
+                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }

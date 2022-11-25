@@ -58,24 +58,24 @@ public class TabeFieldFormat {
             jtxt.setEditable(false);
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
         }
+        int pattern = 3;
+        
         jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
 
-        if ("{3}".equals(jtxt.getName()) == true) {
-            
+        if ("{3}".equals(jtxt.getName()) == true) {            
             PlainDocument doc = (PlainDocument) jtxt.getDocument();
             doc.setDocumentFilter(new DocumentFilter() {
-                int parrern = 3;
-
+                
                 @Override
                 public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                    if (string != null && string.length() > 1 || UCom.check(string, parrern)) { //проверка на коррекность ввода
+                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
                         super.insertString(fb, offset, string, attr);
                     }
                 }
 
                 @Override
                 public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string != null && string.length() > 1 || UCom.check(string, parrern)) {  //проверка на коррекность ввода
+                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) {  //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }

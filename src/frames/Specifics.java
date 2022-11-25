@@ -138,7 +138,7 @@ public class Specifics extends javax.swing.JFrame {
             vectorLast.set(indexLast - 9, sum9);
             vectorLast.set(indexLast - 13, sum13);
             dtm.addRow(vectorLast);
-            labSum.setText("Итого:" + sum1);
+            labSum.setText("Итого: " + UCom.format(sum1, "#,##0.###"));
         }
     }
 
