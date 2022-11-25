@@ -849,20 +849,6 @@ public class UGui {
         }
     }
 
-    //Проверка на коррекность ввода
-    public static void documentFilter(int pattern, JTextField... txtField) {
-        for (JTextField txtField2 : txtField) {
-            ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
-
-                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
-                        super.replace(fb, offset, length, string, attrs);
-                    }
-                }
-            });
-        }
-    }
-
     //Список для выбора ручек, подвесов, накладок в створке   
     public static Query artTypeToFurndetList(int furnitureID, Query qArtikl) {
         try {
@@ -918,4 +904,18 @@ public class UGui {
         });
         return colorSet;
     }
+
+      //Проверка на коррекность ввода
+//    public static void documentFilter(int pattern, JTextField... txtField) {
+//        for (JTextField txtField2 : txtField) {
+//            ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+//
+//                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+//                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
+//                        super.replace(fb, offset, length, string, attrs);
+//                    }
+//                }
+//            });
+//        }
+//    }
 }

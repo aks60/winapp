@@ -54,32 +54,50 @@ public class TabeFieldFormat {
     //Добавить компонент отображения
     public void add(Field field, JTextComponent jtxt) {
         mapTxt.put(jtxt, field);
+        
         if (field.meta().edit() == false) { //если редактирование запрещено
             jtxt.setEditable(false);
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
-        }
-        int pattern = 3;
-        
-        jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
-
-        if ("{3}".equals(jtxt.getName()) == true) {            
+        } else {            
+            jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
             PlainDocument doc = (PlainDocument) jtxt.getDocument();
-            doc.setDocumentFilter(new DocumentFilter() {
-                
-                @Override
-                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
-                        super.insertString(fb, offset, string, attr);
-                    }
-                }
 
-                @Override
-                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string != null && string.length() > 1 || UCom.check(string, pattern)) {  //проверка на коррекность ввода
-                        super.replace(fb, offset, length, string, attrs);
+            if ("{3}".equals(jtxt.getName()) == true) {
+                doc.setDocumentFilter(new DocumentFilter() {
+
+                    @Override
+                    public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                        if (string != null && string.length() > 1 || UCom.check(string, 3)) { //проверка на коррекность ввода
+                            super.insertString(fb, offset, string, attr);
+                        }
                     }
-                }
-            });
+
+                    @Override
+                    public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                        if (string != null && string.length() > 1 || UCom.check(string, 3)) {  //проверка на коррекность ввода
+                            super.replace(fb, offset, length, string, attrs);
+                        }
+                    }
+                });
+                
+            } else if("{5}".equals(jtxt.getName()) == true) {
+                doc.setDocumentFilter(new DocumentFilter() {
+
+                    @Override
+                    public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                        if (string != null && string.length() > 1 || UCom.check(string, 5)) { //проверка на коррекность ввода
+                            super.insertString(fb, offset, string, attr);
+                        }
+                    }
+
+                    @Override
+                    public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                        if (string != null && string.length() > 1 || UCom.check(string, 5)) {  //проверка на коррекность ввода
+                            super.replace(fb, offset, length, string, attrs);
+                        }
+                    }
+                });                
+            }
         }
     }
 
@@ -161,7 +179,7 @@ public class TabeFieldFormat {
                 val = String.valueOf(val).replace(',', '.');
                 float v = Float.parseFloat(val.toString());
                 jtxt.setText(UCom.format(v, 3));
-                
+
             } else {
                 jtxt.setText(val.toString());
             }
