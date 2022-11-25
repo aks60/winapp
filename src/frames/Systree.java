@@ -1452,16 +1452,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt17.setFont(frames.UGui.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt17.setName("{3}"); // NOI18N
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt22.setFont(frames.UGui.getFont(0,0));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt22.setName("{3}"); // NOI18N
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt23.setFont(frames.UGui.getFont(0,0));
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt23.setName("{3}"); // NOI18N
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
@@ -1909,6 +1912,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt24.setFont(frames.UGui.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt24.setName("{3}"); // NOI18N
         txt24.setPreferredSize(new java.awt.Dimension(60, 18));
 
         lab42.setFont(frames.UGui.getFont(0,0));
@@ -1919,6 +1923,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt26.setFont(frames.UGui.getFont(0,0));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt26.setName("{3}"); // NOI18N
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt45.setEditable(false);
@@ -2499,21 +2504,25 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt2.setFont(frames.UGui.getFont(0,0));
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt2.setName("{5}"); // NOI18N
         txt2.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt3.setFont(frames.UGui.getFont(0,0));
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt3.setName("{5}"); // NOI18N
         txt3.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt4.setFont(frames.UGui.getFont(0,0));
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt4.setName("{5}"); // NOI18N
         txt4.setPreferredSize(new java.awt.Dimension(72, 18));
 
         txt5.setFont(frames.UGui.getFont(0,0));
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt5.setName("{5}"); // NOI18N
         txt5.setPreferredSize(new java.awt.Dimension(72, 18));
 
         txt7.setEditable(false);
@@ -2542,6 +2551,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt15.setFont(frames.UGui.getFont(0,0));
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt15.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt15.setName("{5}"); // NOI18N
         txt15.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btn4.setText("...");
@@ -2587,6 +2597,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt35.setFont(frames.UGui.getFont(0,0));
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt35.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt35.setName("{3}"); // NOI18N
         txt35.setPreferredSize(new java.awt.Dimension(80, 18));
 
         javax.swing.GroupLayout pan6Layout = new javax.swing.GroupLayout(pan6);
@@ -3904,8 +3915,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         new UColor();
         south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        UGui.documentFilter(5, txt2, txt3, txt4, txt5, txt15);
-        UGui.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
+        //documentFilter(5, txt2, txt3, txt4, txt5, txt15);
+        //documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);        
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) sysTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
