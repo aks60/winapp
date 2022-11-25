@@ -1,7 +1,7 @@
 package frames.swing;
 
 //Фильтр, отбирающий файлы
-public class FilterFile extends javax.swing.filechooser.FileFilter {
+public class FileFilter extends javax.swing.filechooser.FileFilter {
 
     //Принимаем файл или отказываем ему
     public boolean accept(java.io.File f) {

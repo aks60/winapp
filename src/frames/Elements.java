@@ -36,7 +36,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
@@ -61,7 +61,7 @@ public class Elements extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values());
     private Query qElempar2 = new Query(eElempar2.values());
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
 
@@ -1134,7 +1134,7 @@ public class Elements extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(0, tab2);
+        filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

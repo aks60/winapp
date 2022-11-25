@@ -34,7 +34,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -50,7 +50,7 @@ public class Kits extends javax.swing.JFrame {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
     private Query qParams = new Query(eParams.values());
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerArtikl, listenerColor1, listenerColor2, listenerColor3;
 
     public Kits() {
@@ -737,7 +737,7 @@ public class Kits extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(0, tab2);
+        filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);
 
         filterTable.getTxt().grabFocus();

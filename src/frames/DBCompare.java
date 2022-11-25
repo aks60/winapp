@@ -6,7 +6,7 @@ import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -58,7 +58,7 @@ public class DBCompare extends javax.swing.JFrame {
     private Graphics2D gc2d = null;
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     private HashMap<Integer, String> hmColor = new HashMap();
     private JPanel paintPanel = new JPanel() {
 
@@ -1207,7 +1207,7 @@ public class DBCompare extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         //sorter = new TableRowSorter<DefaultTableModel>((DefaultTableModel) tab1.getModel());
-        filterTable = new FilterTable(0, tab1);
+        filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {

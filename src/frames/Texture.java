@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JColorChooser;
@@ -36,7 +36,7 @@ public class Texture extends javax.swing.JFrame {
     private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerColor1, listenerColor2;
 
     public Texture() {
@@ -676,7 +676,7 @@ public class Texture extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(0, tab2);
+        filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();
         

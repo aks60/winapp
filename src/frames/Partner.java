@@ -3,10 +3,10 @@ package frames;
 import dataset.Query;
 import dataset.Record;
 import domain.ePrjpart;
-import frames.swing.DefFieldEditor;
+import frames.swing.TabeFieldFormat;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.Frame;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -27,10 +27,10 @@ public class Partner extends javax.swing.JFrame {
     private int ID = -1;
     private Window owner = null;
     private ListenerRecord listener = null;
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     private Query qPrjcontr = new Query(ePrjpart.values(), eSysuser.values());
     private Query qSysuser = new Query(eSysuser.values());
-    private DefFieldEditor rsv = null;
+    private TabeFieldFormat rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
 
     public Partner() {
@@ -83,7 +83,7 @@ public class Partner extends javax.swing.JFrame {
         });
         tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
 
-        rsv = new DefFieldEditor(tab1);
+        rsv = new TabeFieldFormat(tab1);
         rsv.add(ePrjpart.partner, txt22);
         rsv.add(ePrjpart.addr_leve1, txt12);
         rsv.add(ePrjpart.addr_leve2, txt14);
@@ -1063,7 +1063,7 @@ public class Partner extends javax.swing.JFrame {
     public void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        filterTable = new FilterTable(0, tab1);
+        filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

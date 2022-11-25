@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import frames.swing.DefTableModel;
-import frames.swing.DefFieldEditor;
+import frames.swing.TabeFieldFormat;
 import domain.eGroups;
 import domain.eSyssize;
 import enums.TypeGroups;
@@ -25,7 +25,7 @@ import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicGroups;
 import frames.swing.DefCellRendererBool;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.CardLayout;
 import java.awt.Window;
 import java.util.HashSet;
@@ -60,8 +60,8 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
 
-    private DefFieldEditor rsvArtikl;
-    private FilterTable filterTable = null;
+    private TabeFieldFormat rsvArtikl;
+    private TableFieldFilter filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -149,7 +149,7 @@ public class Artikles extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
 
-        rsvArtikl = new DefFieldEditor(tab1) {
+        rsvArtikl = new TabeFieldFormat(tab1) {
 
             public Set<JTextField> set = new HashSet();
             private DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
@@ -2813,7 +2813,7 @@ public class Artikles extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(0, tab1);
+        filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

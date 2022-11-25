@@ -10,7 +10,7 @@ import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
@@ -23,7 +23,7 @@ public class DicArtikl extends javax.swing.JDialog {
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
 
     public DicArtikl(java.awt.Frame parent, ListenerRecord listener, List<Record> list) {
         super(parent, true);
@@ -270,7 +270,7 @@ public class DicArtikl extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(1, tab2);
+        filterTable = new TableFieldFilter(1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
     }

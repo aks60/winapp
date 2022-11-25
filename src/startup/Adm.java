@@ -13,7 +13,7 @@ import dataset.eExcep;
 import domain.eSysuser;
 import frames.PathToDb;
 import frames.UGui;
-import frames.swing.FilterFile;
+import frames.swing.FileFilter;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -1341,7 +1341,7 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCard
 
     private void btn10btnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10btnAction
-        FilterFile filter = new FilterFile();
+        FileFilter filter = new FileFilter();
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
         chooser.setFileFilter(filter);

@@ -33,7 +33,7 @@ import enums.TypeGroups;
 import frames.swing.DefCellRendererBool;
 import frames.dialog.DicColvar;
 import enums.UseColor;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,7 +60,7 @@ public class Joinings extends javax.swing.JFrame {
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
     private ListenerRecord listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
-    private FilterTable filterTable = new FilterTable();
+    private TableFieldFilter filterTable = new TableFieldFilter();
 
     //Запуск из Tex (главное меню)
     public Joinings() {

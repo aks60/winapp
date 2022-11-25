@@ -9,7 +9,7 @@ import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,7 +28,7 @@ public class Groups extends javax.swing.JFrame {
     private Query qColGrp = new Query(eGroups.values());
     private Query qCategVst = new Query(eGroups.values());
     private Query qCategKit = new Query(eGroups.values());
-    private FilterTable filterTable = new FilterTable();
+    private TableFieldFilter filterTable = new TableFieldFilter();
 
     public Groups(int mode) {
         initComponents();

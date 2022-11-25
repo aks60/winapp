@@ -11,7 +11,7 @@ import java.util.List;
  * В этом классе предусмотрена сортировка не только по ывбранным полям одной
  * таблицы, но и по ссылкам на поля других таблиц
  */
-public class DefFieldSorted { //implements Comparator<ArrayList> {
+public class TableFieldSorted { //implements Comparator<ArrayList> {
 
     private static int ret = 0;
 

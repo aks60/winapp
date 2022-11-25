@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -22,7 +21,6 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter3 = null;
     private Connection cn = Test.connect1();
     private Query qOrders = new Query(eProject.values());
-    private FilterTable2 filterTable = null;
 
     public TestFrame() {
         initComponents();

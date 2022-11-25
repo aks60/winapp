@@ -11,7 +11,7 @@ import enums.TypeForm;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
 import frames.swing.DefTableModel;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
@@ -26,7 +26,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private ListenerRecord listenerArtikl, listenerForm;
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
 
     public Rulecalc() {
         initComponents();
@@ -391,7 +391,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(2, tab2);
+        filterTable = new TableFieldFilter(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2)));

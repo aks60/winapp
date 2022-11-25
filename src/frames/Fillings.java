@@ -34,7 +34,7 @@ import enums.UseColor;
 import frames.dialog.DicName;
 import java.util.List;
 import frames.swing.DefCellRendererBool;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
@@ -53,7 +53,7 @@ public class Fillings extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values());
-    private FilterTable filterTable = new FilterTable();
+    private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";

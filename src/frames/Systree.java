@@ -39,7 +39,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import frames.swing.DefCellRendererBool;
-import frames.swing.DefFieldEditor;
+import frames.swing.TabeFieldFormat;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.making.Furniture;
@@ -81,7 +81,7 @@ import common.DecimalFormat2;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import common.listener.ListenerReload;
 import java.util.Collections;
 import java.util.List;
@@ -108,8 +108,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private int systreeID = -1; //выбранная система (nuni)
     private Canvas canvas = new Canvas();
     private Scene scene = null;
-    private FilterTable filterTable = new FilterTable();
-    private DefFieldEditor rsvSystree;
+    private TableFieldFilter filterTable = new TableFieldFilter();
+    private TabeFieldFormat rsvSystree;
     private java.awt.Frame models = null;
     private DefMutableTreeNode sysNode = null;
     private DefMutableTreeNode winNode = null;
@@ -286,7 +286,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        rsvSystree = new DefFieldEditor(sysTree) {
+        rsvSystree = new TabeFieldFormat(sysTree) {
 
             public Set<JTextField> set = new HashSet();
 

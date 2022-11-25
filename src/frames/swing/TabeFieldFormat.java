@@ -23,7 +23,7 @@ import javax.swing.JTree;
  * <p>
  * Визуализация полей </p>
  */
-public class DefFieldEditor {
+public class TabeFieldFormat {
 
     private JComponent comp = null;
     private Query query = null;
@@ -31,18 +31,18 @@ public class DefFieldEditor {
     private static boolean update = false;
 
     //Конструктор
-    public DefFieldEditor(JTree comp) {
+    public TabeFieldFormat(JTree comp) {
         this.comp = comp;
     }
 
     //Конструктор
-    public DefFieldEditor(JTable comp) {
+    public TabeFieldFormat(JTable comp) {
         this.comp = comp;
         this.query = ((DefTableModel) comp.getModel()).getQuery();
     }
 
     //Конструктор
-    public DefFieldEditor(JTable comp, Query query) {
+    public TabeFieldFormat(JTable comp, Query query) {
         this.comp = comp;
         this.query = query;
     }

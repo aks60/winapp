@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
-import frames.swing.FilterFile;
+import frames.swing.FileFilter;
 import java.awt.Frame;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -394,7 +394,7 @@ public class PathToDb extends javax.swing.JDialog {
 }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
-        FilterFile filter = new FilterFile();
+        FileFilter filter = new FileFilter();
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
         chooser.setFileFilter(filter);

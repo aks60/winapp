@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class FilterTable extends javax.swing.JPanel {
+public class TableFieldFilter extends javax.swing.JPanel {
 
     private JTable table = null;
     private JTable[] tableList = null;
@@ -29,11 +29,11 @@ public class FilterTable extends javax.swing.JPanel {
     private int indexBegin = 0;
     private boolean search = false;
 
-    public FilterTable() {
+    public TableFieldFilter() {
         initComponents();
     }
 
-    public FilterTable(int index, JTable... table) {
+    public TableFieldFilter(int index, JTable... table) {
         initComponents();
         tableList = table;
         mousePressed(table[0]);

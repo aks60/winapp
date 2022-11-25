@@ -36,7 +36,7 @@ import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
 import frames.swing.DefCellRendererBool;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,7 +71,7 @@ public class Furniturs extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private FilterTable filterTable = new FilterTable();
+    private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";

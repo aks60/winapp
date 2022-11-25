@@ -71,7 +71,7 @@ import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
 import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -113,7 +113,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private Scene scene = null;
     Object[] column = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
     private Gson gson = new GsonBuilder().create();
-    private FilterTable filterTable = new FilterTable();
+    private TableFieldFilter filterTable = new TableFieldFilter();
     private DecimalFormat2 df0 = new DecimalFormat2("#0");
     private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
     private static DecimalFormat2 df2 = new DecimalFormat2("#0.00");

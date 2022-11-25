@@ -37,7 +37,7 @@ import startup.App;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
-import frames.swing.FilterTable;
+import frames.swing.TableFieldFilter;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
 import javax.swing.DefaultListCellRenderer;
@@ -55,7 +55,7 @@ public class Specifics extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc winc = new Wincalc();
-    private FilterTable filterTable = null;
+    private TableFieldFilter filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b077.gif")
@@ -588,7 +588,7 @@ public class Specifics extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(4, tab1);
+        filterTable = new TableFieldFilter(4, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
