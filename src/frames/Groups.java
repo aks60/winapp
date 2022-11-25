@@ -5,7 +5,7 @@ import dataset.Query;
 import domain.eGroups;
 import enums.TypeGroups;
 import static frames.UGui.getIndexRec;
-import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
@@ -91,8 +91,8 @@ public class Groups extends javax.swing.JFrame {
 
         UGui.buttonCellEditor(tab7, 1, (component) -> {
 
-            if (component instanceof DefCellEditor) { //установим вид и тип ячейки
-                DefCellEditor editor = (DefCellEditor) component;
+            if (component instanceof DefCellEditorBtn) { //установим вид и тип ячейки
+                DefCellEditorBtn editor = (DefCellEditorBtn) component;
                 int groupsID = qDecInc.getAs(getIndexRec(tab7), eGroups.id);
                 if (groupsID == 2073) {
                     editor.getButton().setVisible(true);

@@ -48,7 +48,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefTableModel;
 import java.util.Enumeration;
 import javax.swing.JPanel;
@@ -706,14 +706,14 @@ public class UGui {
     //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonCellEditor(JTable table, int column) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditorBtn(btn));
         return btn;
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonCellEditor(JTable table, int column, ListenerObject listener) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(listener, btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditorBtn(listener, btn));
         return btn;
     }
 
@@ -746,8 +746,8 @@ public class UGui {
     public static boolean listenerCell(JTable table, Object component, Field params_id) {
         Query qParam = ((DefTableModel) table.getModel()).getQuery();
 
-        if (component instanceof DefCellEditor) { //установим вид и тип ячейки
-            DefCellEditor editor = (DefCellEditor) component;
+        if (component instanceof DefCellEditorBtn) { //установим вид и тип ячейки
+            DefCellEditorBtn editor = (DefCellEditorBtn) component;
             int paramsID = qParam.getAs(getIndexRec(table), params_id);
 
             if (paramsID < 0) { //пользовательский список параметров

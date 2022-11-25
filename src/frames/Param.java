@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
-import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import javax.swing.DefaultCellEditor;
@@ -24,7 +24,7 @@ public class Param extends javax.swing.JFrame {
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
     private DefaultCellEditor editorStr = null;
-    private DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
+    private DefCellEditorBtn editorBtn = new DefCellEditorBtn(new JButton("..."));
     private FilterTable filterTable = null;
     private ListenerRecord listenerColor;
 

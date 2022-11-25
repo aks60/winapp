@@ -1026,6 +1026,7 @@ public class Artikles extends javax.swing.JFrame {
 
         txt3.setFont(frames.UGui.getFont(0,0));
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt3.setName(""); // NOI18N
         txt3.setPreferredSize(new java.awt.Dimension(44, 18));
         pan91.add(txt3);
 

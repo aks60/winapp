@@ -3,6 +3,7 @@
  */
 package frames.swing;
 
+import common.UCom;
 import frames.UGui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +16,6 @@ import dataset.Field;
 import dataset.Query;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.JTree;
 
@@ -131,7 +131,11 @@ public class DefFieldEditor {
                 jtxt.setText(UGui.DateToStr(val));
 
             } else {
+                if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
+                    jtxt.setText(UCom.format(val, 3));
+                } else {
                     jtxt.setText(val.toString());
+                }
             }
             jtxt.getCaret().setDot(1);
 

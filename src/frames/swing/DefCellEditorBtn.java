@@ -17,7 +17,7 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import common.listener.ListenerObject;
 
-public class DefCellEditor extends DefaultCellEditor {
+public class DefCellEditorBtn extends DefaultCellEditor {
 
 //    private int check = 0;
     private ListenerObject listenerCell = null;
@@ -32,14 +32,14 @@ public class DefCellEditor extends DefaultCellEditor {
 //        this.getComponent().setLocale(eProp.locale);
 //    }
 
-    public DefCellEditor(JButton button) {
+    public DefCellEditorBtn(JButton button) {
         super(new JTextField());
         init(false);
         button(button);
         this.getComponent().setLocale(eProp.locale);
     }
 
-    public DefCellEditor(ListenerObject listener, JButton button) {
+    public DefCellEditorBtn(ListenerObject listener, JButton button) {
         super(new JTextField());
         this.listenerCell = listener;
         init(false);
@@ -108,7 +108,7 @@ public class DefCellEditor extends DefaultCellEditor {
     public boolean isCellEditable(EventObject anEvent) {
         if (anEvent instanceof MouseEvent == true) {
             if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
-                listenerCell.action(DefCellEditor.this);
+                listenerCell.action(DefCellEditorBtn.this);
             }
         }
         return delegate.isCellEditable(anEvent);

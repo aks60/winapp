@@ -141,8 +141,8 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor) {
-            if (((DefCellEditor) table.getColumnModel().getColumn(columnIndex)
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditorBtn) {
+            if (((DefCellEditorBtn) table.getColumnModel().getColumn(columnIndex)
                     .getCellEditor()).getTextField().isEditable() == false) {
                 return; //если DefCellEditor и редактирокание запрещено, всё остальное стандартно
             }
