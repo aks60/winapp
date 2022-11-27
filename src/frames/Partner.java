@@ -3,7 +3,7 @@ package frames;
 import dataset.Query;
 import dataset.Record;
 import domain.ePrjpart;
-import frames.swing.TabeFieldFormat;
+import frames.swing.TableFieldFormat;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import frames.swing.TableFieldFilter;
@@ -30,7 +30,7 @@ public class Partner extends javax.swing.JFrame {
     private TableFieldFilter filterTable = null;
     private Query qPrjcontr = new Query(ePrjpart.values(), eSysuser.values());
     private Query qSysuser = new Query(eSysuser.values());
-    private TabeFieldFormat rsv = null;
+    private TableFieldFormat rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
 
     public Partner() {
@@ -83,7 +83,7 @@ public class Partner extends javax.swing.JFrame {
         });
         tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
 
-        rsv = new TabeFieldFormat(tab1);
+        rsv = new TableFieldFormat(tab1);
         rsv.add(ePrjpart.partner, txt22);
         rsv.add(ePrjpart.addr_leve1, txt12);
         rsv.add(ePrjpart.addr_leve2, txt14);

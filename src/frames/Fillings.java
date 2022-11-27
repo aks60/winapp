@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import frames.swing.DefCellEditorNumb;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -165,6 +166,8 @@ public class Fillings extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
+        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(2));
+        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorNumb("2"));
         List.of(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(new DefCellRendererBool()));
         UGui.setSelectedRow(tab1);
     }
@@ -602,14 +605,29 @@ public class Fillings extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Мммммммммм", "1", "1,2,3", null},
-                {"Ррррррррррр", "2", "1,2,3", null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
                 "Название", "Зазор", "Толщины доступные", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -672,13 +690,28 @@ public class Fillings extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null, null, null},
-                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk", null, null, null}
+                {null, "22", "222222", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null, null, null},
+                {null, "33", "333333", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk", null, null, null}
             },
             new String [] {
                 "Толщина", "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

@@ -39,7 +39,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import frames.swing.DefCellRendererBool;
-import frames.swing.TabeFieldFormat;
+import frames.swing.TableFieldFormat;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.making.Furniture;
@@ -109,7 +109,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private TableFieldFilter filterTable = new TableFieldFilter();
-    private TabeFieldFormat rsvSystree;
+    private TableFieldFormat rsvSystree;
     private java.awt.Frame models = null;
     private DefMutableTreeNode sysNode = null;
     private DefMutableTreeNode winNode = null;
@@ -140,6 +140,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public final void loadingData() {
+        tabb1.setSelectedIndex(4);
         //Получим сохр. systreeID системы при выходе из программы
         Record sysprodRec = null;
         if (this.systreeID == -1 && "-1".equals(eProp.sysprodID.read()) != true) {
@@ -286,7 +287,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        rsvSystree = new TabeFieldFormat(sysTree) {
+        rsvSystree = new TableFieldFormat(sysTree) {
 
             public Set<JTextField> set = new HashSet();
 
@@ -572,7 +573,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 for (int i = 0; i < qSysprod.size(); ++i) {
                     if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
                         index = i;
-                        tabb1.setSelectedIndex(4);
+                        //tabb1.setSelectedIndex(4);
                         UGui.scrollRectToIndex(index, tab5);
                     }
                 }
@@ -2954,12 +2955,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-//        UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
-//        qSystree.execsql();
-//        List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-//        if (models != null) {
-//            models.dispose();
-//        }
+        UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
+        qSystree.execsql();
+        List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        if (models != null) {
+            models.dispose();
+        }
     }//GEN-LAST:event_windowClosed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged

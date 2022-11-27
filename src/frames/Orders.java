@@ -114,9 +114,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     Object[] column = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
     private Gson gson = new GsonBuilder().create();
     private TableFieldFilter filterTable = new TableFieldFilter();
-    private DecimalFormat2 df0 = new DecimalFormat2("#0");
     private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
-    private static DecimalFormat2 df2 = new DecimalFormat2("#0.00");
     private ListenerObject<Query> listenerQuery = null;
 
     public Orders() {

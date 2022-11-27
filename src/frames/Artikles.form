@@ -3951,8 +3951,8 @@
                         <Column editable="true" title="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x438;&#x442;&#x44c;" type="java.lang.Boolean"/>
                         <Column editable="true" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;&#x44f;&#x44f;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x414;&#x432;&#x443;&#x445;&#x441;&#x442;&#x43e;&#x440;&#x43e;&#x43d;&#x43d;&#x44f;&#x44f;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x417;&#x430; &#x435;&#x434;. &#x432;&#x435;&#x441;&#x430;" type="java.lang.Float"/>
-                        <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;. &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x43e;&#x439;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#x417;&#x430; &#x435;&#x434;. &#x432;&#x435;&#x441;&#x430;" type="java.lang.Double"/>
+                        <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;. &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x43e;&#x439;" type="java.lang.Double"/>
                         <Column editable="false" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>

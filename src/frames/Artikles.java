@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import frames.swing.DefTableModel;
-import frames.swing.TabeFieldFormat;
+import frames.swing.TableFieldFormat;
 import domain.eGroups;
 import domain.eSyssize;
 import enums.TypeGroups;
@@ -60,7 +60,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
 
-    private TabeFieldFormat rsvArtikl;
+    private TableFieldFormat rsvArtikl;
     private TableFieldFilter filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
@@ -87,7 +87,7 @@ public class Artikles extends javax.swing.JFrame {
         setSelectionPath(artiklRec);
     }
 
-    public void loadingData() {        
+    public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
@@ -96,7 +96,7 @@ public class Artikles extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.groups4_id, eArtikl.groups3_id) {
+        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.groups4_id, eArtikl.groups3_id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -112,8 +112,8 @@ public class Artikles extends javax.swing.JFrame {
                 return val;
             }
         };
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
-                eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.coef, eArtdet.cost_min, eArtdet.id) {
+        new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
+                eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.coef) {
 
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -149,7 +149,7 @@ public class Artikles extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
 
-        rsvArtikl = new TabeFieldFormat(tab1) {
+        rsvArtikl = new TableFieldFormat(tab1) {
 
             public Set<JTextField> set = new HashSet();
             private DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(eProp.locale);
@@ -2173,7 +2173,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, true, true, true, true, true, false

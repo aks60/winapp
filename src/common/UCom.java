@@ -17,7 +17,9 @@ public class UCom {
 
     public static boolean check(String val, int pattern) {
         try {
-            if (val != null && pattern == 3 && "0123456789,".indexOf(val) != -1) {//3
+            if (val != null && pattern == 2 && "0123456789,;".indexOf(val) != -1) {//3
+                return true;
+            } else if (val != null && pattern == 3 && "0123456789,".indexOf(val) != -1) {//3
                 return true;
             } else if (val != null && pattern == 4 && "0123456789;".indexOf(val) != -1) {
                 return true;
@@ -34,22 +36,33 @@ public class UCom {
 
     public static String format(Object val, int scale) {
         try {
-            if (scale == 1) {
-                df.applyPattern("#0.#");
-            } else if (scale == 2) {
-                df.applyPattern("#0.##");
-            } else if (scale == 3) {
-                df.applyPattern("#0.###");
-            } else if (scale == 4) {
-                df.applyPattern("#0.####");
-            } else if (scale == 11) {
-                df.applyPattern("#0.0");
-            } else if (scale == 12) {
-                df.applyPattern("#0.00");
-            } else if (scale == 13) {
-                df.applyPattern("#0.000");
-            } else if (scale == 14) {
-                df.applyPattern("#0.0000");
+            switch (scale) {
+                case 1:
+                    df.applyPattern("#0.#");
+                    break;
+                case 2:
+                    df.applyPattern("#0.##");
+                    break;
+                case 3:
+                    df.applyPattern("#0.###");
+                    break;
+                case 4:
+                    df.applyPattern("#0.####");
+                    break;
+                case 11:
+                    df.applyPattern("#0.0");
+                    break;
+                case 12:
+                    df.applyPattern("#0.00");
+                    break;
+                case 13:
+                    df.applyPattern("#0.000");
+                    break;
+                case 14:
+                    df.applyPattern("#0.0000");
+                    break;
+                default:
+                    break;
             }
             return df.format(val);
             

@@ -27,7 +27,7 @@ import javax.swing.text.PlainDocument;
  * <p>
  * Визуализация полей </p>
  */
-public class TabeFieldFormat {
+public class TableFieldFormat {
 
     private JComponent comp = null;
     private Query query = null;
@@ -35,18 +35,18 @@ public class TabeFieldFormat {
     private static boolean update = false;
 
     //Конструктор
-    public TabeFieldFormat(JTree comp) {
+    public TableFieldFormat(JTree comp) {
         this.comp = comp;
     }
 
     //Конструктор
-    public TabeFieldFormat(JTable comp) {
+    public TableFieldFormat(JTable comp) {
         this.comp = comp;
         this.query = ((DefTableModel) comp.getModel()).getQuery();
     }
 
     //Конструктор
-    public TabeFieldFormat(JTable comp, Query query) {
+    public TableFieldFormat(JTable comp, Query query) {
         this.comp = comp;
         this.query = query;
     }
@@ -61,42 +61,29 @@ public class TabeFieldFormat {
         } else {            
             jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
             PlainDocument doc = (PlainDocument) jtxt.getDocument();
-
-            if ("{3}".equals(jtxt.getName()) == true) {
+            
+            if (jtxt.getName() != null && jtxt.getName().isEmpty() == false 
+                    && List.of("{2}", "{3}", "{4}", "{5}", "{6}").contains(jtxt.getName()) == true) {
+                
+                int pattern =  Integer.parseInt(jtxt.getName().substring(1, jtxt.getName().length() - 1));     
+                
                 doc.setDocumentFilter(new DocumentFilter() {
 
                     @Override
                     public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                        if (string != null && string.length() > 1 || UCom.check(string, 3)) { //проверка на коррекность ввода
+                        if (string != null && string.length() > 1 || UCom.check(string, pattern)) { //проверка на коррекность ввода
                             super.insertString(fb, offset, string, attr);
                         }
                     }
 
                     @Override
                     public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                        if (string != null && string.length() > 1 || UCom.check(string, 3)) {  //проверка на коррекность ввода
+                        if (string != null && string.length() > 1 || UCom.check(string, pattern)) {  //проверка на коррекность ввода
                             super.replace(fb, offset, length, string, attrs);
                         }
                     }
                 });
                 
-            } else if("{5}".equals(jtxt.getName()) == true) {
-                doc.setDocumentFilter(new DocumentFilter() {
-
-                    @Override
-                    public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                        if (string != null && string.length() > 1 || UCom.check(string, 5)) { //проверка на коррекность ввода
-                            super.insertString(fb, offset, string, attr);
-                        }
-                    }
-
-                    @Override
-                    public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                        if (string != null && string.length() > 1 || UCom.check(string, 5)) {  //проверка на коррекность ввода
-                            super.replace(fb, offset, length, string, attrs);
-                        }
-                    }
-                });                
             }
         }
     }
