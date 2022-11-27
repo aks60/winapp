@@ -230,7 +230,7 @@ public class Tariffic extends Cal5e {
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
                     float m1 = artdetRec.getFloat(eArtdet.cost_unit); //тариф единица измерения
-                    float m2 = specificRec.elem5e.artiklRec().getFloat(eArtikl.density); //удельный вес                    
+                    float m2 = (specificRec.elem5e == null) ? 0 : specificRec.elem5e.artiklRec().getFloat(eArtikl.density); //удельный вес                    
                     if (m1 > 0 && m2 > 0) {
                         artdetPrice += m1 * m2;
                     } else {
@@ -297,9 +297,9 @@ public class Tariffic extends Cal5e {
 
         try {
             //Если артикул ИЛИ тип ИЛИ подтип совпали
-            if (specifRec.artiklRec.get(eArtikl.id) != null && 
-                    (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
-                
+            if (specifRec.artiklRec.get(eArtikl.id) != null
+                    && (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
+
                 if ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
                     if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
                             && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
