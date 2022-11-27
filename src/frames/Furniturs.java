@@ -962,7 +962,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(280);
             tab1.getColumnModel().getColumn(13).setMaxWidth(40);
         }
 
