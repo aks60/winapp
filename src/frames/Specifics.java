@@ -387,11 +387,11 @@ public class Specifics extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(31);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(34);
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(24);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(22);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
@@ -399,7 +399,7 @@ public class Specifics extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(9).setPreferredWidth(48);
             tab1.getColumnModel().getColumn(10).setPreferredWidth(48);
-            tab1.getColumnModel().getColumn(11).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(11).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(36);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(36);
             tab1.getColumnModel().getColumn(14).setPreferredWidth(38);
@@ -588,12 +588,12 @@ public class Specifics extends javax.swing.JFrame {
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
-        tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
+        tab1.getTableHeader().setPreferredSize(new Dimension(0, 46));
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb("#0"));
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererNumb("#0"));
         tab1.getColumnModel().getColumn(9).setCellRenderer(new DefCellRendererNumb(1));
         tab1.getColumnModel().getColumn(10).setCellRenderer(new DefCellRendererNumb(1));
-        tab1.getColumnModel().getColumn(11).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(11).setCellRenderer(new DefCellRendererNumb(3));
         tab1.getColumnModel().getColumn(12).setCellRenderer(new DefCellRendererNumb(1));
         tab1.getColumnModel().getColumn(13).setCellRenderer(new DefCellRendererNumb(1));
         tab1.getColumnModel().getColumn(14).setCellRenderer(new DefCellRendererNumb(1));
