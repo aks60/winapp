@@ -35,9 +35,8 @@ public class UCom {
     }
 
     public static String format(Object val, int scale) {
-        try {
-            val = (val == null) ? 0 : val;
-            
+        val = (val == null) ? 0 : val; 
+        try {                
             if (scale == 1) {
                 df.applyPattern("#0.#");
             } else if (scale == 2) {
@@ -47,7 +46,7 @@ public class UCom {
             } else if (scale == 4) {
                 df.applyPattern("#0.####");
             } else if (scale == 9) {
-                df.applyPattern("#,##0.###");
+                df.applyPattern("#,##0.##");
             }
             return df.format(val);
 

@@ -77,7 +77,6 @@ import builder.making.UColor;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.making.Cal5e;
-import common.DecimalFormat2;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
@@ -104,7 +103,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
-    private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
+    //private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
     private int systreeID = -1; //выбранная система (nuni)
     private Canvas canvas = new Canvas();
     private Scene scene = null;
@@ -603,9 +602,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
                 setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
                 setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
-                setText(txt17, df1.frm(winc.rootGson.width()));
-                setText(txt22, df1.frm(winc.rootGson.height()));
-                setText(txt23, df1.frm(winc.rootGson.height2()));
+                setText(txt17, UCom.format(winc.rootGson.width(), 1));
+                setText(txt22, UCom.format(winc.rootGson.height(), 1));
+                setText(txt23, UCom.format(winc.rootGson.height2(), 1));
                 txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
 
                 //Параметры
@@ -647,10 +646,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 IArea5e sta = (IArea5e) winNode.com5t();
                 int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
 /////////////////////////////////////
-                setText(txt24, df1.frm(sta.frames().get(Layout.BOTT).width()));
+                setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
                 float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();
 /////////////////////////////////////                
-                setText(txt26, df1.frm(h));
+                setText(txt26, UCom.format(h, 1));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck()[0]);
                 setText(txt30, stv.typeOpen().name2);
@@ -658,7 +657,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt16, stv.handleLayout().name);
                 if (stv.handleLayout() == LayoutHandle.VARIAT) {
                     txt31.setEditable(true);
-                    setText(txt31, df1.frm(stv.handleHeight()));
+                    setText(txt31, UCom.format(stv.handleHeight(), 1));
                 } else {
                     txt31.setEditable(false);
                     setText(txt31, "");

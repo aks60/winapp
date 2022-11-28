@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import common.eProp;
 import dataset.Record;
-import domain.eArtikl;
 import domain.eElemdet;
 import domain.eFurndet;
 import domain.eGlasdet;
@@ -15,13 +14,11 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.making.Specific;
-import common.ArrayList2;
 import common.UCom;
 import dataset.Query;
 import domain.eSysprod;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +34,7 @@ import startup.App;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
+import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
@@ -50,10 +48,6 @@ import report.HtmlOfTable;
 
 public class Specifics extends javax.swing.JFrame {
 
-    private DecimalFormat df0 = new DecimalFormat("#0");
-    private DecimalFormat df1 = new DecimalFormat("#0.0");
-    private DecimalFormat df2 = new DecimalFormat("#0.00");
-    private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc winc = new Wincalc();
     private TableFieldFilter filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
@@ -138,7 +132,7 @@ public class Specifics extends javax.swing.JFrame {
             vectorLast.set(indexLast - 9, sum9);
             vectorLast.set(indexLast - 13, sum13);
             dtm.addRow(vectorLast);
-            labSum.setText("Итого: " + UCom.format(sum1, "#,##0.###"));
+            labSum.setText("Итого: " + UCom.format(sum1, "#,##0.##"));
         }
     }
 
@@ -595,63 +589,21 @@ public class Specifics extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
-        DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    value = (value.equals("Virtual")) ? null : value;
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    value = (UCom.getFloat(value.toString()) > 0) ? df0.format(value) : null;
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    value = (UCom.getFloat(value.toString()) > 0) ? df1.format(value) : null;
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    value = (UCom.getFloat(value.toString()) > 0) ? df2.format(value) : null;
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        DefaultTableCellRenderer cellRenderer4 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    value = (UCom.getFloat(value.toString()) > 0) ? df3.format(value) : null;
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        tab1.getColumnModel().getColumn(1).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(2).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(6).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(7).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
-        //tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(15).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb("#0"));
+        tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererNumb("#0"));
+        tab1.getColumnModel().getColumn(9).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(10).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(11).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(12).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(13).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(14).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(15).setCellRenderer(new DefCellRendererNumb(1));
+        tab1.getColumnModel().getColumn(18).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(19).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(20).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(21).setCellRenderer(new DefCellRendererNumb(2));
+        tab1.getColumnModel().getColumn(22).setCellRenderer(new DefCellRendererNumb(9));
+        tab1.getColumnModel().getColumn(23).setCellRenderer(new DefCellRendererNumb(9));
         if ("Nimbus".equals(eProp.lookandfeel.read())) {
             for (int i = 15; i < 22; i++) {
                 tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
