@@ -823,7 +823,7 @@ public class Artikles extends javax.swing.JFrame {
         });
 
         btnClone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c065.gif"))); // NOI18N
-        btnClone.setToolTipText(bundle.getString("Переместить")); // NOI18N
+        btnClone.setToolTipText(bundle.getString("Клонировать запись")); // NOI18N
         btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnClone.setFocusable(false);
         btnClone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
