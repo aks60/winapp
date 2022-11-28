@@ -199,13 +199,21 @@ public class ParGrup2v extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Name 1"},
-                {null, "Name 2"}
+                {"1", "Name 1"},
+                {"2", "Name 2"}
             },
             new String [] {
                 "ID", "Значение параметра"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

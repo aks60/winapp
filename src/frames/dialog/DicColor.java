@@ -216,21 +216,13 @@ public class DicColor extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "name1"},
-                {null, "name2"}
+                {"1", "name1"},
+                {"2", "name2"}
             },
             new String [] {
                 "ID", "Группы текстур"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -252,6 +244,9 @@ public class DicColor extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"1", "1111111"},
+                {"2", "2222222"},
+                {null, null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -260,7 +255,15 @@ public class DicColor extends javax.swing.JDialog {
             new String [] {
                 "ID", "Название текстуры"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

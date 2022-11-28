@@ -288,7 +288,8 @@ public class DicSyspod extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
+                {"11111111111", null},
+                {"22222222222", null},
                 {null, null}
             },
             new String [] {
@@ -296,7 +297,7 @@ public class DicSyspod extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
