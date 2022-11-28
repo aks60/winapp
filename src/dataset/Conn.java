@@ -100,7 +100,7 @@ public class Conn {
         try {
             connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
-            System.out.println("Ошибка:Conn.autocommit() " + e);
+            System.err.println("Ошибка:Conn.autocommit() " + e);
         }
     }
 

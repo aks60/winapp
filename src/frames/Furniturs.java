@@ -50,6 +50,8 @@ import common.listener.ListenerFrame;
 import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
+import frames.swing.DefCellEditorNumb;
+import frames.swing.DefCellRendererNumb;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableColumnModel;
@@ -328,10 +330,13 @@ public class Furniturs extends javax.swing.JFrame {
             }
         };
 
-        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
-        tab1.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
-        tab1.getColumnModel().getColumn(5).setCellRenderer(new DefCellRendererBool());
+        List.of(3,4,5).forEach(i -> tab1.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererBool()));
+        List.of(6,7,8).forEach(i -> tab1.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(1)));
+        tab1.getColumnModel().getColumn(12).setCellEditor(new DefCellEditorNumb("4"));
 
+        List.of(1,2,3,4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererNumb(3)));
+        List.of(1,2,3,4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(3)));
+        
         UGui.setSelectedRow(tab1);
     }
 
@@ -634,7 +639,7 @@ public class Furniturs extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:Furniturs.deteilFind()");
+            System.err.println("Ошибка:Furniturs.deteilFind()");
         }
     }
 
@@ -937,15 +942,15 @@ public class Furniturs extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"333333333333333", "3", "3", null, null, null, "3", null, null, null, null, null, null, null},
-                {"444444444444444", "3", "4", null, null, null, "5", null, null, null, null, null, null, null}
+                {"xxxxxxxxx", "3", "3", null, null, null, null, null, null, null, null, null, null, null},
+                {"vvvvvvvvv", "3", "4", null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Название", "Вид", "Сторона ручки", "По середине", "Константная", "Вариационная", "Р/2 максимальная", "Ширина максимальная", "Высота максимальная", "Вес максимальный", "Створка", "Использ. параметры", "Ограничения", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1110,7 +1115,15 @@ public class Furniturs extends javax.swing.JFrame {
             new String [] {
                 "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2c.setFillsViewportHeight(true);
         tab2c.setName("tab2c"); // NOI18N
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1142,7 +1155,15 @@ public class Furniturs extends javax.swing.JFrame {
             new String [] {
                 "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2b.setFillsViewportHeight(true);
         tab2b.setName("tab2b"); // NOI18N
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1208,13 +1229,21 @@ public class Furniturs extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", "0", "2600", "0", "360"},
-                {"zzzzzzzzz", "0", "2600", "0", "360"}
+                {"xxxxxxxx", null, null, null, null},
+                {"zzzzzzzzz", null, null, null, null}
             },
             new String [] {
                 "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab5.setFillsViewportHeight(true);
         tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1512,7 +1541,7 @@ public class Furniturs extends javax.swing.JFrame {
                         });
                     }
                 }
-            }        
+            }
         } else {
             JOptionPane.showMessageDialog(Furniturs.this, "В системе профилей фурнитура не найдена", "Сообщение", JOptionPane.NO_OPTION);
         }
@@ -1526,7 +1555,7 @@ public class Furniturs extends javax.swing.JFrame {
                 }
             }
         }
-    }    
+    }
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

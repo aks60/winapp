@@ -123,7 +123,7 @@ public class TableFieldFormat {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:TableFieldFormat.load1() " + e);
+            System.err.println("Ошибка:TableFieldFormat.load1() " + e);
         }
     }
 
@@ -144,7 +144,7 @@ public class TableFieldFormat {
                 update = true;
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:TableFieldFormat.load2() " + e);
+            System.err.println("Ошибка:TableFieldFormat.load2() " + e);
         }
     }
 
@@ -173,7 +173,7 @@ public class TableFieldFormat {
             jtxt.getCaret().setDot(1);
 
         } catch (Exception e) {
-            System.out.println("Ошибка:TableFieldFormat.setText() " + e);
+            System.err.println("Ошибка:TableFieldFormat.setText() " + e);
         }
     }
 

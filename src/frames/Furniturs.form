@@ -533,9 +533,9 @@
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="14" rowCount="2">
-                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
-                              <Data value="333333333333333"/>
-                              <Data value="444444444444444"/>
+                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
+                              <Data value="xxxxxxxxx"/>
+                              <Data value="vvvvvvvvv"/>
                             </Column>
                             <Column editable="true" title="&#x412;&#x438;&#x434;" type="java.lang.Object">
                               <Data value="3"/>
@@ -548,13 +548,10 @@
                             <Column editable="true" title="&#x41f;&#x43e; &#x441;&#x435;&#x440;&#x435;&#x434;&#x438;&#x43d;&#x435;" type="java.lang.Boolean"/>
                             <Column editable="true" title="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x430;&#x43d;&#x442;&#x43d;&#x430;&#x44f;" type="java.lang.Boolean"/>
                             <Column editable="true" title="&#x412;&#x430;&#x440;&#x438;&#x430;&#x446;&#x438;&#x43e;&#x43d;&#x43d;&#x430;&#x44f;" type="java.lang.Boolean"/>
-                            <Column editable="true" title="&#x420;/2 &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Object">
-                              <Data value="3"/>
-                              <Data value="5"/>
-                            </Column>
-                            <Column editable="true" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x412;&#x44b;&#x441;&#x43e;&#x442;&#x430; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x412;&#x435;&#x441; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x44b;&#x439;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x420;/2 &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Double"/>
+                            <Column editable="true" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Double"/>
+                            <Column editable="true" title="&#x412;&#x44b;&#x441;&#x43e;&#x442;&#x430; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x430;&#x44f;" type="java.lang.Double"/>
+                            <Column editable="true" title="&#x412;&#x435;&#x441; &#x43c;&#x430;&#x43a;&#x441;&#x438;&#x43c;&#x430;&#x43b;&#x44c;&#x43d;&#x44b;&#x439;" type="java.lang.Double"/>
                             <Column editable="true" title="&#x421;&#x442;&#x432;&#x43e;&#x440;&#x43a;&#x430;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x418;&#x441;&#x43f;&#x43e;&#x43b;&#x44c;&#x437;. &#x43f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;&#x44b;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x41e;&#x433;&#x440;&#x430;&#x43d;&#x438;&#x447;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
@@ -1024,7 +1021,7 @@
                                       <Data value="11"/>
                                       <Data value="22"/>
                                     </Column>
-                                    <Column editable="true" title="ID" type="java.lang.Object"/>
+                                    <Column editable="true" title="ID" type="java.lang.Integer"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1123,7 +1120,7 @@
                                   <Data value="11"/>
                                   <Data value="22"/>
                                 </Column>
-                                <Column editable="true" title="ID" type="java.lang.Object"/>
+                                <Column editable="true" title="ID" type="java.lang.Integer"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1287,22 +1284,10 @@
                                   <Data value="xxxxxxxx"/>
                                   <Data value="zzzzzzzzz"/>
                                 </Column>
-                                <Column editable="true" title="&#x41c;&#x438;&#x43d;. &#x434;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Object">
-                                  <Data value="0"/>
-                                  <Data value="0"/>
-                                </Column>
-                                <Column editable="true" title="&#x41c;&#x430;&#x43a;&#x441;. &#x434;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Object">
-                                  <Data value="2600"/>
-                                  <Data value="2600"/>
-                                </Column>
-                                <Column editable="true" title="&#x41c;&#x438;&#x43d;. &#x443;&#x433;&#x43e;&#x43b;" type="java.lang.Object">
-                                  <Data value="0"/>
-                                  <Data value="0"/>
-                                </Column>
-                                <Column editable="true" title="&#x41c;&#x430;&#x43a;&#x441;. &#x443;&#x433;&#x43e;&#x43b;" type="java.lang.Object">
-                                  <Data value="360"/>
-                                  <Data value="360"/>
-                                </Column>
+                                <Column editable="true" title="&#x41c;&#x438;&#x43d;. &#x434;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Double"/>
+                                <Column editable="true" title="&#x41c;&#x430;&#x43a;&#x441;. &#x434;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Double"/>
+                                <Column editable="true" title="&#x41c;&#x438;&#x43d;. &#x443;&#x433;&#x43e;&#x43b;" type="java.lang.Double"/>
+                                <Column editable="true" title="&#x41c;&#x430;&#x43a;&#x441;. &#x443;&#x433;&#x43e;&#x43b;" type="java.lang.Double"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

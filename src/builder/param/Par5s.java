@@ -90,7 +90,7 @@ public class Par5s {
             return engine.eval(script);
 
         } catch (Exception e) {
-            System.out.println("Ошибка: builder.param.Par5s.calcScript() " + e);
+            System.err.println("Ошибка: builder.param.Par5s.calcScript() " + e);
             return -1;
         }
     }

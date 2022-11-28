@@ -1,6 +1,5 @@
 package frames.swing;
 
-import common.UCom;
 import common.eProp;
 import dataset.Field;
 import java.awt.Component;
@@ -16,6 +15,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import common.listener.ListenerObject;
+import frames.UGui;
+import java.util.Date;
 
 public class DefCellEditorBtn extends DefaultCellEditor {
 
@@ -99,9 +100,12 @@ public class DefCellEditorBtn extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
 
+        Field field = ((DefTableModel) table.getModel()).columns[column];
         if (((JTextField) editorComponent).isEditable() == false) {
-            Field field = ((DefTableModel) table.getModel()).columns[column];
             ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
+        }
+        if (field.meta().type() == Field.TYPE.DATE) {
+            value = UGui.DateToStr(value);
         }
         delegate.setValue(value);
         return panel;

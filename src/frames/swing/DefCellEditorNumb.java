@@ -1,6 +1,8 @@
 package frames.swing;
 
 import common.UCom;
+import dataset.Field;
+import frames.UGui;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import javax.swing.DefaultCellEditor;
@@ -64,8 +66,13 @@ public class DefCellEditorNumb extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
         try {
+            Field field = ((DefTableModel) table.getModel()).columns[column];
             if (value instanceof Float || value instanceof Double) {
                 String val = (df != null) ? df.format(value) : UCom.format(value, scale);
+                return super.getTableCellEditorComponent(table, val, isSelected, row, column);
+
+            } else if (field.meta().type() == Field.TYPE.DATE) {
+                String val = UGui.DateToStr(value);
                 return super.getTableCellEditorComponent(table, val, isSelected, row, column);
             }
             return super.getTableCellEditorComponent(table, value, isSelected, row, column);

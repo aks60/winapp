@@ -869,7 +869,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка:Models.btnInsert()");
+            System.err.println("Ошибка:Models.btnInsert()");
         }
     }//GEN-LAST:event_btnInsert
 

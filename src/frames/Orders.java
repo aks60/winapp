@@ -25,7 +25,6 @@ import dataset.Record;
 import domain.eProject;
 import domain.ePrjpart;
 import frames.dialog.DicDate;
-import frames.swing.DefCellRendererNumb;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
@@ -69,6 +68,7 @@ import frames.dialog.DicName;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
+import frames.swing.DefCellRendererBool;
 import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.TableFieldFilter;
@@ -204,6 +204,20 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
+        
+        DefaultTableCellRenderer defaultTableDateRenderer = new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                Field field = ((DefTableModel) table.getModel()).columns[column];
+                if (field.meta().type() == Field.TYPE.DATE) {
+                    value = UGui.DateToStr(value);
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        };
+        tab1.getColumnModel().getColumn(2).setCellRenderer(defaultTableDateRenderer);
+        tab1.getColumnModel().getColumn(3).setCellRenderer(defaultTableDateRenderer);
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
