@@ -36,36 +36,21 @@ public class UCom {
 
     public static String format(Object val, int scale) {
         try {
-            switch (scale) {
-                case 1:
-                    df.applyPattern("#0.#");
-                    break;
-                case 2:
-                    df.applyPattern("#0.##");
-                    break;
-                case 3:
-                    df.applyPattern("#0.###");
-                    break;
-                case 4:
-                    df.applyPattern("#0.####");
-                    break;
-                case 11:
-                    df.applyPattern("#0.0");
-                    break;
-                case 12:
-                    df.applyPattern("#0.00");
-                    break;
-                case 13:
-                    df.applyPattern("#0.000");
-                    break;
-                case 14:
-                    df.applyPattern("#0.0000");
-                    break;
-                default:
-                    break;
+            val = (val == null) ? 0 : val;
+            
+            if (scale == 1) {
+                df.applyPattern("#0.#");
+            } else if (scale == 2) {
+                df.applyPattern("#0.##");
+            } else if (scale == 3) {
+                df.applyPattern("#0.###");
+            } else if (scale == 4) {
+                df.applyPattern("#0.####");
+            } else if (scale == 9) {
+                df.applyPattern("#,##0.###");
             }
             return df.format(val);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:UCom.format() " + e);
             return val.toString();

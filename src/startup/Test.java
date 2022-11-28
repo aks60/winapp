@@ -77,25 +77,7 @@ public class Test {
             //json();
             //parse();
             //uid();
-            //script();      
-/*
-delete from artikl;
-delete from kits;
-delete from joining;
-delete from glasgrp;
-delete from furniture;
-delete from project;
-delete from prjpart;
-delete from rulecalc;
-delete from colmap; 
-delete from params;  
-delete from color;    
-delete from syssize; 
-delete from currenc;
-delete from sysprod;
-delete from sysmodel;
-delete from groups where grup != 9;
-*/
+            //script(); 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -105,10 +87,10 @@ delete from groups where grup != 9;
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(601001, true));
+            winc.build(builder.script.Winscript.test(604008, true));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -337,3 +319,143 @@ delete from groups where grup != 9;
         System.out.println("3-е случайное число: " + random_number3);
     }
 }
+/*
+{
+  "version": "1.0",
+  "name": "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
+  "prj": 604008,
+  "ord": 1,
+  "nuni": 8,
+  "width2": 1300.0,
+  "height1": 1500.0,
+  "height2": 1200.0002,
+  "color1": 1009,
+  "color2": 10009,
+  "color3": 1009,
+  "id": 0.0,
+  "childs": [
+    {
+      "id": 1.0,
+      "childs": [],
+      "layout": "LEFT",
+      "type": "FRAME_SIDE",
+      "param": {}
+    },
+    {
+      "id": 2.0,
+      "childs": [],
+      "layout": "RIGHT",
+      "type": "FRAME_SIDE",
+      "param": {}
+    },
+    {
+      "id": 3.0,
+      "childs": [],
+      "layout": "TOP",
+      "type": "FRAME_SIDE",
+      "param": {}
+    },
+    {
+      "id": 4.0,
+      "childs": [],
+      "layout": "BOTT",
+      "type": "FRAME_SIDE",
+      "param": {}
+    },
+    {
+      "id": 5.0,
+      "childs": [
+        {
+          "id": 6.0,
+          "childs": [],
+          "type": "GLASS",
+          "param": {}
+        }
+      ],
+      "layout": "HORIZ",
+      "type": "AREA",
+      "form": "TOP",
+      "param": {},
+      "length": 300.00006
+    },
+    {
+      "id": 7.0,
+      "childs": [],
+      "type": "IMPOST",
+      "param": {}
+    },
+    {
+      "id": 8.0,
+      "childs": [
+        {
+          "id": 9.0,
+          "childs": [
+            {
+              "id": 10.0,
+              "childs": [
+                {
+                  "id": 11.0,
+                  "childs": [],
+                  "type": "GLASS",
+                  "param": {}
+                }
+              ],
+              "layout": "VERT",
+              "type": "STVORKA",
+              "param": {
+                "typeOpen": 3,
+                "sysfurnID": -1
+              },
+              "length": 650.0
+            }
+          ],
+          "layout": "VERT",
+          "type": "AREA",
+          "param": {},
+          "length": 650.0
+        },
+        {
+          "id": 12.0,
+          "childs": [],
+          "type": "IMPOST",
+          "param": {}
+        },
+        {
+          "id": 13.0,
+          "childs": [
+            {
+              "id": 14.0,
+              "childs": [
+                {
+                  "id": 15.0,
+                  "childs": [],
+                  "type": "GLASS",
+                  "param": {}
+                }
+              ],
+              "layout": "VERT",
+              "type": "STVORKA",
+              "param": {
+                "typeOpen": 3,
+                "sysfurnID": -1
+              },
+              "length": 650.0
+            }
+          ],
+          "layout": "VERT",
+          "type": "AREA",
+          "param": {},
+          "length": 650.0
+        }
+      ],
+      "layout": "HORIZ",
+      "type": "AREA",
+      "param": {},
+      "length": 1200.0002
+    }
+  ],
+  "layout": "VERT",
+  "type": "ARCH",
+  "param": {}
+}
+*/
