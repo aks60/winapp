@@ -377,7 +377,7 @@ public class Specifics extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -410,8 +410,8 @@ public class Specifics extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(19).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
-            tab1.getColumnModel().getColumn(22).setPreferredWidth(52);
-            tab1.getColumnModel().getColumn(23).setPreferredWidth(52);
+            tab1.getColumnModel().getColumn(22).setPreferredWidth(58);
+            tab1.getColumnModel().getColumn(23).setPreferredWidth(58);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
