@@ -752,7 +752,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         btnTest = new javax.swing.JButton();
         lab2 = new javax.swing.JLabel();
         btnFind = new javax.swing.JButton();
-        panSspinner = new javax.swing.JPanel();
+        panSpinner = new javax.swing.JPanel();
         spinner = new javax.swing.JSpinner();
         btnReport = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
@@ -1142,15 +1142,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        panSspinner.setMinimumSize(new java.awt.Dimension(50, 20));
-        panSspinner.setPreferredSize(new java.awt.Dimension(100, 24));
-        panSspinner.setLayout(new java.awt.BorderLayout());
+        panSpinner.setMinimumSize(new java.awt.Dimension(50, 20));
+        panSpinner.setPreferredSize(new java.awt.Dimension(100, 24));
+        panSpinner.setLayout(new java.awt.BorderLayout());
 
         spinner.setFont(frames.UGui.getFont(1,0));
         spinner.setModel(new javax.swing.SpinnerNumberModel());
         spinner.setBorder(null);
+        spinner.setEnabled(false);
         spinner.setPreferredSize(new java.awt.Dimension(50, 24));
-        panSspinner.add(spinner, java.awt.BorderLayout.CENTER);
+        panSpinner.add(spinner, java.awt.BorderLayout.CENTER);
 
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
@@ -1203,7 +1204,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(northLayout.createSequentialGroup()
                     .addGap(340, 340, 340)
-                    .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(456, Short.MAX_VALUE)))
         );
         northLayout.setVerticalGroup(
@@ -1231,7 +1232,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(northLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
-                    .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 7, Short.MAX_VALUE)))
         );
 
@@ -2884,10 +2885,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
         UGui.stopCellEditing(tab1, tab2, tab4, tab3);
         if (tabb1.getSelectedIndex() == 0) {
+            spinner.setEnabled(false);
             UGui.updateBorderAndSql(tab1, List.of(tab1, tab2, tab4, tab3));
         } else if (tabb1.getSelectedIndex() == 1) {
+            spinner.setEnabled(true);
             UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab4, tab3));
         } else if (tabb1.getSelectedIndex() == 2) {
+            spinner.setEnabled(false);
             UGui.updateBorderAndSql(tab4, List.of(tab1, tab2, tab4, tab3));
         }
     }//GEN-LAST:event_stateChanged
@@ -3717,7 +3721,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
-    private javax.swing.JPanel panSspinner;
+    private javax.swing.JPanel panSpinner;
     private javax.swing.JPopupMenu ppReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
