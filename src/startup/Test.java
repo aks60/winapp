@@ -69,8 +69,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            Profstroy.exec();
-            //wincalc();
+            //Profstroy.exec();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -91,7 +91,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(604008, true));
+            winc.build(builder.script.Winscript.test(601009, true));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
