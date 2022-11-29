@@ -69,7 +69,7 @@ public class Test {
 
         eProp.dev = true;
         try {
-            Profstroy.exec();
+            //Profstroy.exec();
             //wincalc();
             //param();
             //query();
@@ -78,6 +78,7 @@ public class Test {
             //parse();
             //uid();
             //script(); 
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

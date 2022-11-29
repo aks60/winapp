@@ -113,6 +113,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private Gson gson = new GsonBuilder().create();
     private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerObject<Query> listenerQuery = null;
+    DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+            value = (value instanceof Double) ? UCom.format(value, 9) : value;
+            JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+            lab.setBackground(new java.awt.Color(212, 208, 200));
+            return lab;
+        }
+    };
 
     public Orders() {
         initComponents();
@@ -122,23 +131,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         loadingModel();
         listenerAdd();
         loadingTab1();
-
-        tab5.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                lab.setBackground(new java.awt.Color(212, 208, 200));
-                return lab;
-            }
-        });
-        tab5.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                lab.setBackground(new java.awt.Color(212, 208, 200));
-                return lab;
-            }
-        });
     }
 
     private void loadingData() {
@@ -331,22 +323,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
             Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
-            //String cname = " " + currencRec.getStr(eCurrenc.name).toLowerCase();
             txt3.setText(currencRec.getStr(eCurrenc.name));
             txt7.setText(UCom.format(projectRec.getDbl(eProject.weight) / 1000, 1));
             txt8.setText(UCom.format(projectRec.getDbl(eProject.square) / 1000000, 1));
 
             Object data[][] = {{
-                " Конструкции", projectRec.getDbl(eProject.disc2),
-                UCom.format(projectRec.getDbl(eProject.price2), 9),
-                UCom.format(projectRec.getDbl(eProject.cost2), 9)},
-            {" Комплектации", projectRec.getDbl(eProject.disc3),
-                UCom.format(projectRec.getDbl(eProject.price3), 9),
-                UCom.format(projectRec.getDbl(eProject.cost3), 9)},
-            {" Итого за заказ", projectRec.getDbl(eProject.disc4),
-                UCom.format(projectRec.getDbl(eProject.price4), 9),
-                UCom.format(projectRec.getDbl(eProject.cost4), 9)}};
+                " Конструкции", projectRec.getDbl(eProject.disc2), projectRec.getDbl(eProject.price2), projectRec.getDbl(eProject.cost2)},
+            {" Комплектации", projectRec.getDbl(eProject.disc3), projectRec.getDbl(eProject.price3), projectRec.getDbl(eProject.cost3)},
+            {" Итого за заказ", projectRec.getDbl(eProject.disc4), projectRec.getDbl(eProject.price4), projectRec.getDbl(eProject.cost4)}};
             ((DefaultTableModel) tab5.getModel()).setDataVector(data, column);
+            tab5.getColumnModel().getColumn(2).setCellRenderer(defaultTableCellRenderer);
+            tab5.getColumnModel().getColumn(3).setCellRenderer(defaultTableCellRenderer);
         }
     }
 
@@ -1488,9 +1475,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"   Конструкции",  new Double(0.0), 0, 0},
-                {"   Комплектации",  new Double(0.0), 0, 0},
-                {"   Итого за заказ",  new Double(0.0), 0, 0}
+                {"   Конструкции", Double.valueOf(0.0), Double.valueOf(0.0), Double.valueOf(0.0)},
+                {"   Комплектации",  new Double(0.0), Double.valueOf(0.0), Double.valueOf(0.0)},
+                {"   Итого за заказ",  new Double(0.0), Double.valueOf(0.0), Double.valueOf(0.0)}
             },
             new String [] {
                 "", "Скидка (%)", "Без скидок", "Со скидкой"
@@ -3367,14 +3354,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         txt8.setText(UCom.format(projectRec.getDbl(eProject.square) / 1000000, 1)); //площадь
 
                         //Стоимость
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.price2), 1), 0, 2); //стоимость конструкций без скидки
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.cost2), 1), 0, 3); //стоимость конструкций со скидкой
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.price3), 1), 1, 2); //стоимость комплектации без скидки
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.cost3), 1), 1, 3); //стоимость комплектации со скидкой
-
+                        tab5.setValueAt(projectRec.getDbl(eProject.price2), 0, 2); //стоимость конструкций без скидки
+                        tab5.setValueAt(projectRec.getDbl(eProject.cost2), 0, 3); //стоимость конструкций со скидкой
+                        tab5.setValueAt(projectRec.getDbl(eProject.price3), 1, 2); //стоимость комплектации без скидки
+                        tab5.setValueAt(projectRec.getDbl(eProject.cost3), 1, 3); //стоимость комплектации со скидкой
                         //Итого
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.price4), 1), 2, 2); //итого стоимость без скидки
-                        tab5.setValueAt(UCom.format(projectRec.getDbl(eProject.cost4), 1), 2, 3); //итого стоимость со скидкой
+                        tab5.setValueAt(projectRec.getDbl(eProject.price4), 2, 2); //итого стоимость без скидки
+                        tab5.setValueAt(projectRec.getDbl(eProject.cost4), 2, 3); //итого стоимость со скидкой
                     }
 
                 } catch (Exception e) {

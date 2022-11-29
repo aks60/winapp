@@ -35,8 +35,8 @@ public class UCom {
     }
 
     public static String format(Object val, int scale) {
-        val = (val == null) ? 0 : val; 
-        try {                
+        val = (val == null) ? 0 : val;
+        try {
             if (scale == 1) {
                 df.applyPattern("#0.#");
             } else if (scale == 2) {
@@ -57,8 +57,14 @@ public class UCom {
     }
 
     public static String format(Object val, String pattern) {
-        df.applyPattern(pattern);
-        return df.format(val);
+        try {
+            df.applyPattern(pattern);
+            return df.format(val);
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:UCom.format2() " + e);
+            return val.toString();
+        }
     }
 
     public static Integer getInt(String str) {
