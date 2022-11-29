@@ -216,7 +216,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: ICom5t.lengthX() " + e);
+            System.out.println("Ошибка:AreaSimple.resizeX()");
         }
     }
 
@@ -278,7 +278,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: ICom5t.lengthY() " + e);
+            System.out.println("Ошибка:AreaSimple.resizeY()");
         }
     }
 
