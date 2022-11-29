@@ -40,9 +40,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.DefCellRendererNumb;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import report.ExecuteCmd;
@@ -2207,7 +2207,6 @@ public class Artikles extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2497,7 +2496,30 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_itReport2ppmCategAction
 
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
-        // TODO add your handling code here:
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            List<Record> artdetList = new ArrayList<>();
+            qArtdet.forEach(rec -> artdetList.add(rec));
+            Record artiklRec = (Record) qArtikl.get(index).clone();
+            artiklRec.setNo(eArtikl.up, Query.INS);
+            int id = Conn.genId(eArtikl.up);
+            artiklRec.setNo(eArtikl.id, id);
+            artiklRec.setNo(eArtikl.code, artiklRec.getStr(eArtikl.code) + "-клон");
+            artiklRec.setNo(eArtikl.name, artiklRec.getStr(eArtikl.name) + "-клон");
+            qArtikl.add(index, artiklRec);
+            qArtikl.insert(artiklRec);
+            for (Record artdetRec : artdetList) {
+                artdetRec.setNo(eArtdet.up, Query.INS);
+                artdetRec.setNo(eArtdet.id, Conn.genId(eArtdet.up));
+                artdetRec.setNo(eArtdet.artikl_id, id);
+                qArtdet.add(artdetRec);
+            }
+            qArtdet.execsql();
+            ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
+            UGui.setSelectedIndex(tab1, index);
+            UGui.scrollRectToIndex(index, tab1);            
+            UGui.setSelectedRow(tab2);
+        }
     }//GEN-LAST:event_btnClone
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
