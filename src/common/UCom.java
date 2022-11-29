@@ -4,9 +4,9 @@ import builder.ICom5t;
 import dataset.Field;
 import dataset.Query;
 import enums.Type;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,11 +60,23 @@ public class UCom {
         try {
             df.applyPattern(pattern);
             return df.format(val);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:UCom.format2() " + e);
             return val.toString();
         }
+    }
+
+    public static double round(double value, int places) {
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public static float round(float value, int places) {
+        BigDecimal bd = new BigDecimal(Float.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.floatValue();
     }
 
     public static Integer getInt(String str) {

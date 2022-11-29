@@ -2,6 +2,7 @@ package builder.script;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import common.UCom;
 import common.eProp;
 import enums.Form;
 import enums.Layout;
@@ -125,7 +126,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public void height1(float h) {
-        height1 = h;
+        width1 = UCom.round(h, 1);
     }
 
     public Float height2() {
@@ -133,7 +134,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public void height2(float h) {
-        height2 = h;
+        width2 = UCom.round(h, 1);
     }
 
     public Float width1() {
@@ -141,7 +142,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public void width1(float w) {
-        width1 = w;
+        width1 = UCom.round(w, 1);
     }
 
     public Float width2() {
@@ -149,7 +150,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public void width2(float w) {
-        width2 = w;
+        width2 = UCom.round(w, 1);
     }
 
     public int color1() {
