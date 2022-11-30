@@ -208,33 +208,33 @@ public class Com5t implements ICom5t {
 
     //Точка попадает в контур четырёхугольника
     @Override
-//    public boolean inside(float x, float y) {
-//        int X = (int) x, Y = (int) y;
-//        int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
-//
-//        if ((X2 | Y2) < 0) {
-//            return false;
-//        }
-//
-//        if (x1 > x2) {
-//            X1 = (int) x2;
-//            X2 = (int) x1;
-//        }
-//
-//        if (y1 > y2) {
-//            Y1 = (int) y2;
-//            Y2 = (int) y1;
-//        }
-//
-//        if (X < X1 || Y < Y1) {
-//            return false;
-//        }
-//        return ((X2 >= X) && (Y2 >= Y));
-//    }
- //   
     public boolean inside(float x, float y) {
-        return ((x1 <= x && x2 >= x) && (y1 <= y && y2 >= y));
+        int X = (int) x, Y = (int) y;
+        int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
+
+        if ((X2 | Y2) < 0) {
+            return false;
+        }
+
+        if (x1 > x2) {
+            X1 = (int) x2;
+            X2 = (int) x1;
+        }
+
+        if (y1 > y2) {
+            Y1 = (int) y2;
+            Y2 = (int) y1;
+        }
+
+        if (X < X1 || Y < Y1) {
+            return false;
+        }
+        return ((X2 >= X) && (Y2 >= Y));
     }
+    
+//    public boolean inside(float x, float y) {
+//        return ((x1 <= x && x <= x2) && (y1 <= y && y <= y2));
+//    }
 
 // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
 //    public boolean inside2(float x, float y) {
