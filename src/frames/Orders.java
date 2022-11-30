@@ -116,7 +116,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-            value = (value instanceof Double) ? UCom.format(value, 9) : value;
+            value = (value instanceof Double) ? UCom.format(value, 19) : value;
             JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
             lab.setBackground(new java.awt.Color(212, 208, 200));
             return lab;
@@ -1385,13 +1385,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab7.setPreferredSize(new java.awt.Dimension(36, 18));
 
         txt7.setFont(frames.UGui.getFont(0,0));
-        txt7.setText("123,4");
+        txt7.setText("0");
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(40, 20));
 
         txt8.setFont(frames.UGui.getFont(0,0));
-        txt8.setText("321,4");
+        txt8.setText("0");
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setFocusable(false);
         txt8.setPreferredSize(new java.awt.Dimension(40, 20));
@@ -1411,7 +1411,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab9.setPreferredSize(new java.awt.Dimension(86, 18));
 
         txt10.setFont(frames.UGui.getFont(0,0));
-        txt10.setText("80000,8");
+        txt10.setText("0,00");
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setFocusable(false);
         txt10.setPreferredSize(new java.awt.Dimension(70, 20));
@@ -3313,6 +3313,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         for (Record prjprodRec : qPrjprod) {
                             Object w = prjprodRec.get(ePrjprod.values().length);
                             if (w instanceof Wincalc) {
+                                
                                 Wincalc win = (Wincalc) w;
                                 String script = prjprodRec.getStr(ePrjprod.script);
                                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
@@ -3321,13 +3322,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 Query.listOpenTable.forEach(q -> q.clear()); //очистим кэш                                
                                 win.constructiv(true); //конструктив                                                               
 
+                                //Площадь изделий
                                 float square = prjprodRec.getFloat(ePrjprod.num, 1) * win.width() * win.height();
                                 projectRec.set(eProject.square, projectRec.getDbl(eProject.square) + square);
 
                                 //Суммируем коонструкции заказа
-                                projectRec.set(eProject.weight, projectRec.getDbl(eProject.weight) + win.weight());
-                                projectRec.set(eProject.price2, projectRec.getDbl(eProject.price2) + win.price());
-                                projectRec.set(eProject.cost2, projectRec.getDbl(eProject.cost2) + win.cost2());
+                                projectRec.set(eProject.weight, projectRec.getDbl(eProject.weight) + win.weight()); //вес изделий
+                                projectRec.set(eProject.price2, projectRec.getDbl(eProject.price2) + win.price()); //стоимость без скидки
+                                projectRec.set(eProject.cost2, projectRec.getDbl(eProject.cost2) + win.cost2()); //стоимость со скидками
 
                                 //Комплектация
                                 ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, win, true); //комплекты
@@ -3337,20 +3339,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 }
                             }
                         }
-                        double cost2 = projectRec.getDbl(eProject.cost2)
-                                - projectRec.getDbl(eProject.cost2)
-                                * projectRec.getDbl(eProject.disc2) / 100;
-                        projectRec.set(eProject.cost2, cost2);
-                        double cost3 = projectRec.getDbl(eProject.cost3)
-                                - projectRec.getDbl(eProject.cost3)
-                                * projectRec.getDbl(eProject.disc3) / 100;
-                        projectRec.set(eProject.cost3, cost3);
+                        double cost2 = projectRec.getDbl(eProject.cost2) - projectRec.getDbl(eProject.cost2) * projectRec.getDbl(eProject.disc2) / 100;
+                        projectRec.set(eProject.cost2, cost2); //стоимость проекта со скидкой менеджера
+                        
+                        double cost3 = projectRec.getDbl(eProject.cost3) - projectRec.getDbl(eProject.cost3) * projectRec.getDbl(eProject.disc3) / 100;
+                        projectRec.set(eProject.cost3, cost3); //стоимость проекта комплектации со скидкой менеджера
 
-                        projectRec.set(eProject.price4, projectRec.getDbl(eProject.price2) + projectRec.getDbl(eProject.price3));
+                        projectRec.set(eProject.price4, projectRec.getDbl(eProject.price2) + projectRec.getDbl(eProject.price3)); //стоимость проекта без скидок
+                        
                         double cost4 = (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3))
-                                - (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3))
-                                * projectRec.getDbl(eProject.disc4) / 100;
-                        projectRec.set(eProject.cost4, cost4);
+                                - (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3))  * projectRec.getDbl(eProject.disc4) / 100;
+                        projectRec.set(eProject.cost4, cost4); //проекта со скидками менеджера
 
                         //Вес, площадь
                         txt7.setText(UCom.format(projectRec.getDbl(eProject.weight) / 1000, 1)); //вес
