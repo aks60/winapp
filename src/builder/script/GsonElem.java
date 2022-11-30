@@ -6,10 +6,8 @@ import com.google.gson.JsonObject;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GsonElem {
 
@@ -96,10 +94,10 @@ public class GsonElem {
         return area;
     }
 
-    public GsonElem addElem(GsonElem element) {
-        element.owner = this;
+    public GsonElem addElem(GsonElem elem) {
+        elem.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;
-        this.childs.add(element);
+        this.childs.add(elem);
         return this;
     }
 
@@ -120,9 +118,9 @@ public class GsonElem {
     }
 
     public JsonObject param() {
-//        if (param instanceof JsonObject == false) {
-//            param = new JsonObject();
-//        }
+        if (param instanceof JsonObject == false) {
+            param = new JsonObject();
+        }
         return param;
     }
 

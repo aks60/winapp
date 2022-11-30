@@ -70,8 +70,6 @@ public class Test {
         eProp.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
-            //Profstroy.exec();
             wincalc();
             //param();
             //query();
