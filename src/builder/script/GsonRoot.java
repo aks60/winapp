@@ -126,7 +126,8 @@ public class GsonRoot extends GsonElem {
     }
 
     public void height1(float h) {
-        width1 = UCom.round(h, 1);
+       // height1 = UCom.round(h, 1);
+        height1 = h;
     }
 
     public Float height2() {
@@ -134,7 +135,8 @@ public class GsonRoot extends GsonElem {
     }
 
     public void height2(float h) {
-        width2 = UCom.round(h, 1);
+        //height2 = UCom.round(h, 1);
+        height2 = h;
     }
 
     public Float width1() {
@@ -142,7 +144,8 @@ public class GsonRoot extends GsonElem {
     }
 
     public void width1(float w) {
-        width1 = UCom.round(w, 1);
+        //width1 = UCom.round(w, 1);
+        width1 = w;
     }
 
     public Float width2() {
@@ -150,7 +153,8 @@ public class GsonRoot extends GsonElem {
     }
 
     public void width2(float w) {
-        width2 = UCom.round(w, 1);
+        //width2 = UCom.round(w, 1);
+        width2 = w;
     }
 
     public int color1() {

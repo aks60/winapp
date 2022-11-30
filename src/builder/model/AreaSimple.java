@@ -177,9 +177,9 @@ public class AreaSimple extends Com5t implements IArea5e {
                             rootGson.width1(k * rootGson.width1());
                         }
                     }
-                    for (IArea5e e : winc.listArea) { //перебор всех вертикальных area
+                    for (IArea5e e : winc.listArea) { //перебор всех гориз. area
                         if (e.layout() == Layout.HORIZ) {
-                            for (ICom5t e2 : e.childs()) { //изменение детей по высоте
+                            for (ICom5t e2 : e.childs()) { //изменение детей по ширине
                                 if (e2 instanceof IArea5e) {
                                     e2.gson().length(k * e2.gson().length());
                                 }
@@ -216,7 +216,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: ICom5t.lengthX() " + e);
+            System.out.println("Ошибка:AreaSimple.resizeX()");
         }
     }
 
@@ -239,7 +239,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                             rootGson.height1(k * rootGson.height1());
                         }
                     }
-                    for (IArea5e e : winc.listArea) { //перебор всех вертикальных area
+                    for (IArea5e e : winc.listArea) { //перебор всех вертик. area
                         if (e.layout() == Layout.VERT) {
                             for (ICom5t e2 : e.childs()) { //изменение детей по высоте
                                 if (e2 instanceof IArea5e) {
@@ -278,7 +278,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: ICom5t.lengthY() " + e);
+            System.out.println("Ошибка:AreaSimple.resizeY()");
         }
     }
 

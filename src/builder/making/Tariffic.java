@@ -78,7 +78,7 @@ public class Tariffic extends Cal5e {
                     //Всё обнуляется и рассчитывается по таблице правил расчёта
                     //Увеличение себестоимости в coeff раз и на incr величину наценки.
 
-                    //Фильтр по полю 'форма профиля', в заполненияч. В БиМакс используюеся только 1, 4, 10, 12 параметры
+                    //Фильтр по полю 'форма профиля', в заполнениях. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                     if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
@@ -293,21 +293,21 @@ public class Tariffic extends Cal5e {
     }
 
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
-    private static void rulecalcPrise(Wincalc winc, Record rulecalcRec, Specific specifRec) {
+    private static void rulecalcPrise(Wincalc winc, Record rulecalcRec, Specific spcRec) {
 
         try {
             //Если артикул ИЛИ тип ИЛИ подтип совпали
-            if (specifRec.artiklRec.get(eArtikl.id) != null
-                    && (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
+            if (spcRec.artiklRec.get(eArtikl.id) != null
+                    && (spcRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
 
-                if ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
-                    if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
-                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
-                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
+                if ((spcRec.artiklRec.getInt(eArtikl.level1) * 100 + spcRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
+                    if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), spcRec.colorID1) == true
+                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), spcRec.colorID2) == true
+                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color3), spcRec.colorID3) == true) {
 
                         if (rulecalcRec.getInt(eRulecalc.common) == 0) {
-                            if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
-                                specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
+                            if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), spcRec.quant2) == true) {
+                                spcRec.costpric1 = spcRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
                             }
 
                         } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
@@ -315,11 +315,11 @@ public class Tariffic extends Cal5e {
                             float quantity3 = 0;
                             if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                                 for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                                    if (elem5e.spcRec().artikl.equals(specifRec.artikl)) {
+                                    if (elem5e.spcRec().artikl.equals(spcRec.artikl)) {
                                         quantity3 = quantity3 + elem5e.spcRec().quant1;
                                     }
                                     for (Specific specifRec2 : elem5e.spcRec().spcList) {
-                                        if (specifRec2.artikl.equals(specifRec.artikl)) {
+                                        if (specifRec2.artikl.equals(spcRec.artikl)) {
                                             quantity3 = quantity3 + specifRec2.quant1;
                                         }
                                     }
@@ -338,7 +338,7 @@ public class Tariffic extends Cal5e {
                                 }
                             }
                             if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
-                                specifRec.costpric1 = specifRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
+                                spcRec.costpric1 = spcRec.costpric1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                             }
                         }
                     }
