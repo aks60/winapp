@@ -231,7 +231,7 @@ public class Com5t implements ICom5t {
 //        }
 //        return ((X2 >= X) && (Y2 >= Y));
 //    }
-    
+ //   
     public boolean inside(float x, float y) {
         return ((x1 <= x && x2 >= x) && (y1 <= y && y2 >= y));
     }
