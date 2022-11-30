@@ -3289,6 +3289,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnToArtiklGlass
 
     private void btnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalc
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 try {
