@@ -2,12 +2,15 @@ package builder.script;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import common.UCom;
 import common.eProp;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
 
+/**
+ * Класс создаётся из см. пакет builder.script.test или скрипта из бд,
+ * после трансформации класс генерит json скрипт конструкции в бд.
+ */
 public class GsonRoot extends GsonElem {
 
     public String version = "1.0";
@@ -89,16 +92,6 @@ public class GsonRoot extends GsonElem {
         }
     }
 
-//    public void height(float h) {
-//        if (type() == Type.ARCH) {
-//            height2 = h;
-//        } else if (type() == Type.TRAPEZE && this.form == Form.RIGHT) {
-//            height2 = h;
-//        } else if (type() == Type.TRAPEZE && this.form == Form.LEFT) {
-//            height1 = h;
-//        }
-//    }
-
     public Float width() {
         if (width1 == null) {
             return width2;
@@ -110,16 +103,6 @@ public class GsonRoot extends GsonElem {
             return width2;
         }
     }
-
-//    public void width(float w) {
-//        if (type() == Type.ARCH) {
-//            width2 = w;
-//        } else if (type() == Type.TRAPEZE && this.form == Form.TOP) {
-//            width1 = w;
-//        } else if (type() == Type.TRAPEZE && this.form == Form.BOTT) {
-//            width2 = w;
-//        }
-//    }
 
     public Float height1() {
         return height1;

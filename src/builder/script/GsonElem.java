@@ -9,6 +9,11 @@ import enums.Type;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Класс создаётся из см. пакет builder.script.test или скрипта из бд,
+ * после трансформации класс генерит json скрипт конструкции в бд.
+ */
 public class GsonElem {
 
     protected static transient float genId = -1;  //идентификатор    
