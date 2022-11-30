@@ -16,7 +16,7 @@ public class GsonElem {
     protected static transient float genId = -1;  //идентификатор    
     protected float id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
-    protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
+    protected LinkedList<GsonElem> childs = null; //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected Form form = null; //форма контура (параметр в развитии)
@@ -87,15 +87,17 @@ public class GsonElem {
     }
 
     public GsonElem addArea(GsonElem area) {
+        area.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;
         if (area.type == Type.STVORKA) {
-            area.length = this.length;
+            area.length = (this.layout == Layout.VERT) ? this.height() : this.width();
         }
         this.childs.add(area);
         return area;
     }
 
     public GsonElem addElem(GsonElem element) {
+        element.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;
         this.childs.add(element);
         return this;
@@ -118,9 +120,9 @@ public class GsonElem {
     }
 
     public JsonObject param() {
-        if (param instanceof JsonObject == false) {
-            param = new JsonObject();
-        }
+//        if (param instanceof JsonObject == false) {
+//            param = new JsonObject();
+//        }
         return param;
     }
 

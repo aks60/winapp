@@ -589,8 +589,8 @@ public class Specifics extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 46));
-        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb("#0"));
-        tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererNumb("#0"));
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb("#0.#"));
+        tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererNumb("#0.#"));
         tab1.getColumnModel().getColumn(9).setCellRenderer(new DefCellRendererNumb(1));
         tab1.getColumnModel().getColumn(10).setCellRenderer(new DefCellRendererNumb(1));
         tab1.getColumnModel().getColumn(11).setCellRenderer(new DefCellRendererNumb(3));
