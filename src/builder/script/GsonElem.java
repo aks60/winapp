@@ -2,6 +2,7 @@ package builder.script;
 
 import builder.Wincalc;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import enums.Form;
 import enums.Layout;
@@ -9,10 +10,9 @@ import enums.Type;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Класс создаётся из см. пакет builder.script.test или скрипта из бд,
- * после трансформации класс генерит json скрипт конструкции в бд.
+ * Класс создаётся из см. пакет builder.script.test или скрипта из бд, после
+ * трансформации класс генерит json скрипт конструкции в бд.
  */
 public class GsonElem {
 
@@ -131,6 +131,16 @@ public class GsonElem {
 
     public void param(JsonObject param) {
         this.param = param;
+    }
+
+    public void paramAdd(String key, Number val) {
+        this.param = (this.param instanceof JsonObject == false) ? this.param = new JsonObject() : this.param;
+        this.param.addProperty(key, val);
+    }
+    
+    public void paramAdd(String key, String val) {
+        this.param = (this.param instanceof JsonObject == false) ? this.param = new JsonObject() : this.param;
+        this.param.addProperty(key, val);
     }
 
     public Float height() {
