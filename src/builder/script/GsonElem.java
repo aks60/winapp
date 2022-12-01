@@ -124,7 +124,7 @@ public class GsonElem {
 
     public JsonObject param() {
         if (param instanceof JsonObject == false) {
-            param = new JsonObject();
+            return new JsonObject();
         }
         return param;
     }
@@ -133,13 +133,13 @@ public class GsonElem {
         this.param = param;
     }
 
-    public void paramAdd(String key, Number val) {
-        this.param = (this.param instanceof JsonObject == false) ? this.param = new JsonObject() : this.param;
+    public void addProperty(String key, Number val) {
+        this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
         this.param.addProperty(key, val);
     }
-    
-    public void paramAdd(String key, String val) {
-        this.param = (this.param instanceof JsonObject == false) ? this.param = new JsonObject() : this.param;
+
+    public void addProperty(String key, String val) {
+        this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
         this.param.addProperty(key, val);
     }
 

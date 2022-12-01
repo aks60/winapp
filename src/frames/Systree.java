@@ -3185,7 +3185,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         if (sysprofRec.get(1) == null) {
                             gsonRama.param().remove(PKjson.sysprofID);
                         } else {
-                            gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            gsonRama.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         }
                         updateScript(selectID);
 
@@ -3217,7 +3217,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         if (sysprofRec.get(1) == null) {
                             gsonElem.param().remove(PKjson.sysprofID);
                         } else {
-                            gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            gsonElem.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         }
                         updateScript(selectID);
                     }
@@ -3410,7 +3410,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (artiklRec.get(1) == null) {
                     glassElem.param().remove(PKjson.artglasID);
                 } else {
-                    glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                    glassElem.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
 
@@ -3434,7 +3434,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (sysfurnRec.get(1) == null) {
                     stvArea.param().remove(PKjson.sysfurnID);
                 } else {
-                    stvArea.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                    stvArea.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
                 }
                 updateScript(windowsID);
                 btnRefresh(null);
@@ -3455,7 +3455,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (typeopenRec.get(1) == null) {
                     stvArea.param().remove(PKjson.typeOpen);
                 } else {
-                    stvArea.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
+                    stvArea.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 }
                 updateScript(elemID);
 
@@ -3479,7 +3479,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklHandl);
                 } else {
-                    stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                    stvArea.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(stvorkaID);
                 btnRefresh(null);
@@ -3506,16 +3506,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (record.get(1) != null) {
                     if (record.getInt(0) == 0) {
-                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                        stvArea.addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
                         txt31.setEditable(false);
 
                     } else if (record.getInt(0) == 1) {
-                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
+                        stvArea.addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
                         txt31.setEditable(false);
 
                     } else if (record.getInt(0) == 2) {
-                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
-                        stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
+                        stvArea.addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
+                        stvArea.addProperty(PKjson.heightHandl, record.getInt(1));
                         txt31.setEditable(true);
                     }
                     updateScript(selectID);
@@ -3539,7 +3539,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (colorRec.get(1) == null) {
                     stvArea.param().remove(PKjson.colorHandl);
                 } else {
-                    stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                    stvArea.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3580,7 +3580,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLoop);
                 } else {
-                    stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
+                    stvArea.addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3605,7 +3605,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLock);
                 } else {
-                    stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
+                    stvArea.addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3628,7 +3628,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (colorRec.get(1) == null) {
                     stvArea.param().remove(PKjson.colorLoop);
                 } else {
-                    stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
+                    stvArea.addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3651,7 +3651,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (colorRec.get(1) == null) {
                     stvArea.param().remove(PKjson.colorLock);
                 } else {
-                    stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
+                    stvArea.addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3679,7 +3679,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (colorRec.get(1) == null) {
                     stvArea.param().remove(PKjson.colorGlass);
                 } else {
-                    stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
+                    stvArea.addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
