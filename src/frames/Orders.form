@@ -15,6 +15,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b053.gif"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x445;&#x43e;&#x434; &#x43c;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43b;&#x43e;&#x432;"/>
           </Properties>
           <Events>
@@ -26,16 +29,24 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b053.gif"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem12"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JPopupMenu$Separator" name="sep1">
+        </Component>
         <MenuItem class="javax.swing.JMenuItem" name="menuItem14">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b055.gif"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430;"/>
           </Properties>
@@ -48,16 +59,24 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b055.gif"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x43c;&#x435;&#x442;&#x430; &#x43f;&#x43e;&#x434;&#x440;&#x43e;&#x431;&#x43d;&#x430;&#x44f;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem13"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JPopupMenu$Separator" name="sep2">
+        </Component>
         <MenuItem class="javax.swing.JMenuItem" name="menuItem15">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b057.gif"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x447;&#x451;&#x442;"/>
           </Properties>
@@ -70,6 +89,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b057.gif"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x447;&#x451;&#x442;-&#x444;&#x430;&#x43a;&#x442;&#x443;&#x440;&#x430;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -77,10 +99,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItem16"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JPopupMenu$Separator" name="sep3">
+        </Component>
         <MenuItem class="javax.swing.JMenuItem" name="menuItem17">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.UGui.getFont(0,1)" type="code"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resource/img16/b053.gif"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43c;&#x43c;&#x435;&#x440;&#x447;&#x435;&#x441;&#x43a;&#x43e;&#x435; &#x43f;&#x440;&#x435;&#x434;&#x43b;..."/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
