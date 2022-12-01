@@ -153,15 +153,25 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaRectangl(this) : new AreaRectangl(this); //простое
+                rootArea = (eProp.old.read().equals("0")) 
+                        ? new builder.model.AreaRectangl(this) 
+                        : new builder.model.AreaRectangl(this); //простое
             } else if (Type.DOOR == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaDoor(this) : new AreaDoor(this); //дверь                
+                rootArea = (eProp.old.read().equals("0")) 
+                        ? new builder.model.AreaDoor(this) 
+                        : new builder.model.AreaDoor(this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaTrapeze(this) : new builder.model.old.AreaTrapeze(this); //трапеция
+                rootArea = (eProp.old.read().equals("0")) 
+                        ? new builder.model.AreaTrapeze(this) 
+                        : new builder.model.AreaTrapeze(this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaTriangl(this) : new AreaTriangl(this); //треугольник
+                rootArea = (eProp.old.read().equals("0")) 
+                        ? new builder.model.AreaTriangl(this) 
+                        : new builder.model.AreaTriangl(this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) ? new AreaArch(this) : new AreaArch(this); //арка
+                rootArea = (eProp.old.read().equals("0")) 
+                        ? new builder.model.AreaArch(this) 
+                        : new builder.model.AreaArch(this); //арка
             }
 
             //Создадим элементы конструкции
@@ -179,8 +189,8 @@ public class Wincalc {
 
                 if (Type.STVORKA == js.type()) {
                     IArea5e area5e = (eProp.old.read().equals("0"))
-                            ? new AreaStvorka(Wincalc.this, owner, js)
-                            : new builder.model.old.AreaStvorka(Wincalc.this, owner, js);
+                            ? new builder.model.AreaStvorka(Wincalc.this, owner, js)
+                            : new builder.model.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
                     this.sysfurnRec = ((IStvorka) area5e).sysfurnRec(); //фурнитура конструкции
                     hm.put(area5e, js);
@@ -191,32 +201,32 @@ public class Wincalc {
                     IArea5e area5e = null;
                     if (js.form() == null) {
                         area5e = (eProp.old.read().equals("0"))
-                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
-                                : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
+                                ? new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
+                                : new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
                     } else {
                         area5e = (eProp.old.read().equals("0"))
-                                ? new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
-                                : new AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
+                                ? new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
+                                : new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
                     }
                     owner.childs().add(area5e);
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME_SIDE == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new ElemFrame(rootArea, js)
-                            : new builder.model.old.ElemFrame(rootArea, js);
+                            ? new builder.model.ElemFrame(rootArea, js)
+                            : new builder.model.ElemFrame(rootArea, js);
                     rootArea.frames().put(js.layout(), elem5e);
 
                 } else if (Type.IMPOST == js.type() || Type.SHTULP == js.type() || Type.STOIKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new ElemCross(owner, js)
-                            : new ElemCross(owner, js);
+                            ? new builder.model.ElemCross(owner, js)
+                            : new builder.model.ElemCross(owner, js);
                     owner.childs().add(elem5e);
 
                 } else if (Type.GLASS == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new ElemGlass(owner, js)
-                            : new builder.model.old.ElemGlass(owner, js);
+                            ? new builder.model.ElemGlass(owner, js)
+                            : new builder.model.ElemGlass(owner, js);
                     this.glassRec = elem5e.artiklRecAn(); //заполнения конструкции
                     owner.childs().add(elem5e);
                 }
