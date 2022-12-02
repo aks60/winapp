@@ -794,19 +794,19 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab1, this) == 0) {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab2, this) == 0) {
                 UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab3, this) == 0) {
                 UGui.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab4.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
                 UGui.deleteRecord(tab4);
             }
         }

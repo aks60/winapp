@@ -2322,16 +2322,16 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab2) == 0) {
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
-                        + "\n соединениях, вставках, заполнениях, форнитуре \n то записи этого артикула "
+                        + "\n соединениях, вставках, заполнениях, форнитуре, \n то записи этого артикула "
                         + "будут удалены. \n Вы действительно хотите удалить уртикул ?", "Предупреждение",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                     UGui.deleteRecord(tab1);
                 }
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(tab2, this) == 0) {
                 UGui.deleteRecord(tab2);
             }
         }

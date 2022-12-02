@@ -328,7 +328,7 @@ public class Syssize extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(tab1, this) == 0) {
                 UGui.deleteRecord(tab1);
             }
         }

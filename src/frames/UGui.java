@@ -647,20 +647,9 @@ public class UGui {
     //Проверка допустимости удаления таблицы
     public static int isDeleteRecord(JTable table, java.awt.Window owner, JTable... tables) {
         if (table.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+            JOptionPane.showMessageDialog(null, "Ни одна из записей не вывыделена", "Предупреждение", JOptionPane.NO_OPTION);
             return 1;
         }
-        for (JTable tab : tables) {
-            if (tab.getRowCount() != 0) {
-                JOptionPane.showMessageDialog(owner, "Перед удалением записи, удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
-                return 1;
-            }
-        }
-        return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-    }
-
-    //Проверка допустимости удаления таблицы
-    public static int isDeleteRecord(java.awt.Window owner, JTable... tables) {
         for (JTable tab : tables) {
             if (tab.getRowCount() != 0) {
                 JOptionPane.showMessageDialog(owner, "Перед удалением записи, удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);

@@ -2817,25 +2817,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             } else {
                 JOptionPane.showMessageDialog(this, "Заказ не выбран.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
-            /*
-            int index = UGui.getIndexRec(tab2);
-            if (index != -1) {
-                if (((JButton) evt.getSource()) == btnIns) {
-                    UGui.insertRecordEnd(tab4, ePrjkit.up, (record2) -> {
-                        record2.set(ePrjkit.prjprod_id, qPrjprod.get(index, ePrjprod.id));
-                        Record record3 = eArtikl.up.newRecord();
-                        qPrjkit.table(eArtikl.up).add(record3);
-                    });
-                } else if (((JButton) evt.getSource()) == btnSet) {
-                    DicKits frame = new DicKits(Orders.this, (q) -> {
-                        loadingTab4();
-                        return true;
-                    }, qPrjprod.getAs(index, ePrjprod.id));
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Изделие не выбрано.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-            }
-             */
         }
     }//GEN-LAST:event_btnInsert
 

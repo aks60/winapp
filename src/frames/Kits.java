@@ -66,7 +66,7 @@ public class Kits extends javax.swing.JFrame {
         eArtikl.query();
         qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.name);
         qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
-        qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);  
+        qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
     public void loadingModel() {
@@ -210,12 +210,12 @@ public class Kits extends javax.swing.JFrame {
             Record kitdetRec = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             kitdetRec.set(eKitdet.color1_id, ID);
-            
-            if(kitdetRec.get(eKitdet.color2_id) == null) {
-               kitdetRec.set(eKitdet.color2_id, ID); 
+
+            if (kitdetRec.get(eKitdet.color2_id) == null) {
+                kitdetRec.set(eKitdet.color2_id, ID);
             }
-            if(kitdetRec.get(eKitdet.color3_id) == null) {
-               kitdetRec.set(eKitdet.color3_id, ID); 
+            if (kitdetRec.get(eKitdet.color3_id) == null) {
+                kitdetRec.set(eKitdet.color3_id, ID);
             }
             UGui.fireTableRowUpdated(tab3);
         };
@@ -623,7 +623,6 @@ public class Kits extends javax.swing.JFrame {
         int index3 = UGui.getIndexRec(tab3);
         int index4 = UGui.getIndexRec(tab4);
         loadingData();
-        //((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedIndex(tab1, index1);
         UGui.setSelectedIndex(tab2, index2);
         UGui.setSelectedIndex(tab3, index3);
@@ -632,17 +631,17 @@ public class Kits extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab3) == 0) {
+            if (UGui.isDeleteRecord(tab2, this, tab3) == 0) {
                 UGui.deleteRecord(tab2);
             }
 
         } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(this, tab4) == 0) {
+            if (UGui.isDeleteRecord(tab3, this, tab4) == 0) {
                 UGui.deleteRecord(tab3);
             }
 
         } else if (tab4.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
                 UGui.deleteRecord(tab4);
             }
         }
@@ -675,7 +674,7 @@ public class Kits extends javax.swing.JFrame {
                     record.set(eKits.groups_id, qCateg.getAs(index, eGroups.id));
                 });
             }
-            
+
         } else if (tab3.getBorder() != null) {
             int index = UGui.getIndexRec(tab2, 0);
             UGui.insertRecordCur(tab3, eKitdet.up, (record) -> {

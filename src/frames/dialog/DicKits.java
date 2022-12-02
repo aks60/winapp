@@ -166,7 +166,9 @@ public class DicKits extends javax.swing.JDialog {
             }
         }
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        tab2.setRowSelectionInterval(0, tab2.getRowCount() - 1);       
+        if (tab2.getRowCount() > 0) {
+            tab2.setRowSelectionInterval(0, tab2.getRowCount() - 1);
+        }
     }
 
     private void selectionTab2() {
@@ -645,7 +647,10 @@ public class DicKits extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        //if (qKitdet.stream().anyMatch(rec -> "1".equals(eArtikl.get(rec.getInt(eKitdet.artikl_id)).getStr(eArtikl.unit))) == true) {
+        if (tab2.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Ни одна из записей не вывыделена", "Предупреждение", JOptionPane.NO_OPTION);
+            return;
+        }
         if (txt3.getText().isEmpty() && txt3.isEditable()) {
             JOptionPane.showMessageDialog(this, "Укажите количество комплектов.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -659,7 +664,6 @@ public class DicKits extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        //}
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
 

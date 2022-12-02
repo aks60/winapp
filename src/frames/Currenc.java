@@ -320,7 +320,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (UGui.isDeleteRecord(this) == 0) {
+        if (UGui.isDeleteRecord(tab1, this) == 0) {
             UGui.deleteRecord(tab1);
         }
     }//GEN-LAST:event_btnDelete

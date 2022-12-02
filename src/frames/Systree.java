@@ -3094,22 +3094,21 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab2, this) == 0) {
                 UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab3, this) == 0) {
                 UGui.deleteRecord(tab3);
             }
-        } else if (tab4.getBorder() != null && tab4.getSelectedRow() != -1) {
-            if (UGui.isDeleteRecord(this) == 0) {
+        } else if (tab4.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
                 UGui.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab5, this) == 0) {
                 UGui.deleteRecord(tab5);
             }
-//          else {    JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);     }
         }
     }//GEN-LAST:event_btnDelete
 

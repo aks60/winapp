@@ -62,9 +62,9 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
         new DefTableModel(tab8, qCategKit, eGroups.name);
 
-        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));   
+        List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));
         tab7.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3));
-        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3) { 
+        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefCellRendererNumb(3) {
             public Component getTableCellRendererComponent(JTable table, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 if (column == 1) {
@@ -85,9 +85,8 @@ public class Groups extends javax.swing.JFrame {
                 }
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
-        });       
+        });
         List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8).forEach(tab -> UGui.setSelectedRow(tab));
-
 
         UGui.buttonCellEditor(tab7, 1, (component) -> {
 
@@ -712,20 +711,32 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (UGui.isDeleteRecord(this) == 0) {
-            if (tab1.getBorder() != null) {
+        if (tab1.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab1, this) == 0) {
                 UGui.deleteRecord(tab1);
-            } else if (tab2.getBorder() != null) {
+            }
+        } else if (tab2.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab2, this) == 0) {
                 UGui.deleteRecord(tab2);
-            } else if (tab3.getBorder() != null) {
+            }
+        } else if (tab3.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab3, this) == 0) {
                 UGui.deleteRecord(tab3);
-            } else if (tab4.getBorder() != null) {
+            }
+        } else if (tab4.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
                 UGui.deleteRecord(tab4);
-            } else if (tab5.getBorder() != null) {
+            }
+        } else if (tab5.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab5, this) == 0) {
                 UGui.deleteRecord(tab5);
-            } else if (tab6.getBorder() != null) {
+            }
+        } else if (tab6.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab6, this) == 0) {
                 UGui.deleteRecord(tab6);
-            } else if (tab8.getBorder() != null) {
+            }
+        } else if (tab8.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab8, this) == 0) {
                 UGui.deleteRecord(tab8);
             }
         }
