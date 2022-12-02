@@ -392,6 +392,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mouseClicked"/>
                     <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mousePressed"/>
                   </Events>
                 </Component>
@@ -429,7 +430,6 @@
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="1" title="&#x41c;&#x435;&#x43d;&#x435;&#x434;&#x436;&#x435;&#x440;">
-                          <Border PropertyName="innerBorder" info="null"/>
                           <Connection PropertyName="font" code="frames.UGui.getFont(0,0)" type="code"/>
                         </TitledBorder>
                       </Border>

@@ -39,6 +39,8 @@ public class Partner extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
+        btnChoice.setVisible(false);
+        btnRemove.setVisible(false);
     }
     
     public Partner(int id) {
@@ -47,6 +49,8 @@ public class Partner extends javax.swing.JFrame {
         this.ID = id;
         loadingData();
         loadingModel();
+        btnChoice.setVisible(false);
+        btnRemove.setVisible(false);        
     }
 
     public Partner(Frame owner, ListenerRecord listener) {
@@ -57,6 +61,7 @@ public class Partner extends javax.swing.JFrame {
         owner.setEnabled(false);
         loadingData();
         loadingModel();
+        ((DefTableModel) tab1.getModel()).setCellEditable(false, ePrjpart.category, ePrjpart.partner, ePrjpart.login, ePrjpart.flag2);
         setVisible(true);
     }
 
@@ -381,6 +386,9 @@ public class Partner extends javax.swing.JFrame {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Partner.this.mouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Partner.this.mousePressed(evt);
             }
@@ -1011,6 +1019,12 @@ public class Partner extends javax.swing.JFrame {
         UGui.updateBorderAndSql(tab1, List.of(tab1));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
+
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_mouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
