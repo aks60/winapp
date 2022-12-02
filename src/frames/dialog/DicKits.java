@@ -136,32 +136,37 @@ public class DicKits extends javax.swing.JDialog {
 
     private void selectionTab1() {
         UGui.clearTable(tab2);
+        List.of(txt9, txt13, txt14).forEach(txt -> txt.setText(null));
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            Record record = qKits.get(index);
-            Integer id = record.getInt(eKits.id);
-            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
-        }
-        List.of(txt1, txt2, txt3).forEach(act -> {
-            act.setEditable(false);
-            act.setBackground(new java.awt.Color(212, 208, 200));
-        });
-        for (Record kitdetRec : qKitdet) {
-            Integer id = kitdetRec.getInt(eKitdet.id);
-            List<Record> kitparList = eKitpar2.find(id);
-            for (Record kitparRec : kitparList) {
-                String text = kitparRec.getStr(eKitpar2.text);
-                if (text.contains("Q")) {
-                    txt3.setEditable(true);
-                    txt3.setBackground(new java.awt.Color(255, 255, 255));
+            Record kitsRec = qKits.get(index);
+            Integer kitsId = kitsRec.getInt(eKits.id);
+            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", kitsId, "order by", eKitdet.artikl_id);
+            List.of(txt1, txt2, txt3).forEach(act -> {
+                act.setEditable(false);
+                act.setBackground(new java.awt.Color(212, 208, 200));
+            });
+            for (Record kitdetRec : qKitdet) {
+                if (kitdetRec.getInt(eKitdet.flag) == 1) {
+                    txt9.setText(eColor.find(kitdetRec.getInt(eKitdet.color1_id)).getStr(eColor.name));
+                    txt13.setText(eColor.find(kitdetRec.getInt(eKitdet.color2_id)).getStr(eColor.name));
+                    txt14.setText(eColor.find(kitdetRec.getInt(eKitdet.color3_id)).getStr(eColor.name));
                 }
-                if (text.contains("L")) {
-                    txt2.setEditable(true);
-                    txt2.setBackground(new java.awt.Color(255, 255, 255));
-                }
-                if (text.contains("H")) {
-                    txt1.setEditable(true);
-                    txt1.setBackground(new java.awt.Color(255, 255, 255));
+                List<Record> kitparList = eKitpar2.find(kitsId);
+                for (Record kitparRec : kitparList) {
+                    String text = kitparRec.getStr(eKitpar2.text);
+                    if (text.contains("Q")) {
+                        txt3.setEditable(true);
+                        txt3.setBackground(new java.awt.Color(255, 255, 255));
+                    }
+                    if (text.contains("L")) {
+                        txt2.setEditable(true);
+                        txt2.setBackground(new java.awt.Color(255, 255, 255));
+                    }
+                    if (text.contains("H")) {
+                        txt1.setEditable(true);
+                        txt1.setBackground(new java.awt.Color(255, 255, 255));
+                    }
                 }
             }
         }
@@ -285,7 +290,6 @@ public class DicKits extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(612, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(513, 550));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
         pan2.setPreferredSize(new java.awt.Dimension(513, 90));
@@ -477,7 +481,7 @@ public class DicKits extends javax.swing.JDialog {
 
         pan1.add(pan2);
 
-        scr1.setPreferredSize(new java.awt.Dimension(412, 300));
+        scr1.setPreferredSize(new java.awt.Dimension(412, 280));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -525,7 +529,7 @@ public class DicKits extends javax.swing.JDialog {
         pan1.add(scr1);
 
         scr2.setMaximumSize(new java.awt.Dimension(32767, 120));
-        scr2.setPreferredSize(new java.awt.Dimension(454, 120));
+        scr2.setPreferredSize(new java.awt.Dimension(454, 140));
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -776,6 +780,39 @@ public class DicKits extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_colorToWindows
 
+    private void setColor(int index, Record record) {
+        if (index == 0) {
+            txt9.setText(record.getStr(eColor.name));
+            colorID[0] = record.getInt(eColor.id);
+            txt13.setText(record.getStr(eColor.name));
+            colorID[1] = record.getInt(eColor.id);
+            txt14.setText(record.getStr(eColor.name));
+            colorID[2] = record.getInt(eColor.id);
+
+        } else if (index == 1) {
+            txt13.setText(record.getStr(eColor.name));
+            colorID[1] = record.getInt(eColor.id);
+
+        } else if (index == 2) {
+            txt14.setText(record.getStr(eColor.name));
+            colorID[2] = record.getInt(eColor.id);
+        }
+    }
+
+    private String getParam(HashMap<Integer, String> mapParam, int... p) {
+
+        if (mapParam != null) {
+            for (int index = 0; index < p.length; ++index) {
+                int key = p[index];
+                String str = mapParam.get(key);
+                if (str != null) {
+                    return str;
+                }
+            }
+        }
+        return null;
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn13;
@@ -923,38 +960,5 @@ public class DicKits extends javax.swing.JDialog {
             return Float.valueOf(s[m]);
         }
         return null;
-    }
-
-    private String getParam(HashMap<Integer, String> mapParam, int... p) {
-
-        if (mapParam != null) {
-            for (int index = 0; index < p.length; ++index) {
-                int key = p[index];
-                String str = mapParam.get(key);
-                if (str != null) {
-                    return str;
-                }
-            }
-        }
-        return null;
-    }
-
-    private void setColor(int index, Record rec) {
-        if (index == 0) {
-            txt9.setText(rec.getStr(eColor.name));
-            colorID[0] = rec.getInt(eColor.id);
-            txt13.setText(rec.getStr(eColor.name));
-            colorID[1] = rec.getInt(eColor.id);
-            txt14.setText(rec.getStr(eColor.name));
-            colorID[2] = rec.getInt(eColor.id);
-
-        } else if (index == 1) {
-            txt13.setText(rec.getStr(eColor.name));
-            colorID[1] = rec.getInt(eColor.id);
-
-        } else if (index == 2) {
-            txt14.setText(rec.getStr(eColor.name));
-            colorID[2] = rec.getInt(eColor.id);
-        }
     }
 }

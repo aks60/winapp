@@ -630,7 +630,11 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (tab2.getBorder() != null) {
+        if (tab1.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
+            }
+        } else if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(tab2, this, tab3) == 0) {
                 UGui.deleteRecord(tab2);
             }
