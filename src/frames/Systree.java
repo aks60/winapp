@@ -856,7 +856,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btnReport1 = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
-        btn5 = new javax.swing.JButton();
+        btnFind = new javax.swing.JButton();
         panSspinner = new javax.swing.JPanel();
         spinner = new javax.swing.JSpinner();
         btnMoveU = new javax.swing.JButton();
@@ -1134,13 +1134,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btn5.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
-        btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn5.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn5.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn5.setPreferredSize(new java.awt.Dimension(25, 25));
-        btn5.addActionListener(new java.awt.event.ActionListener() {
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFind.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
+        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findFromArtikl(evt);
             }
@@ -1200,7 +1200,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -1224,7 +1224,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(btnReport1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMoveD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2943,7 +2943,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        btn5.setEnabled(table == tab2);
         UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
         if (sysTree.isEditing()) {
             sysTree.getCellEditor().stopCellEditing();
@@ -2966,14 +2965,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         UGui.stopCellEditing(sysTree);
         sysTree.setBorder(null);
+        List.of(btnFind, btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(false));
         if (tabb1.getSelectedIndex() == 1) {
             UGui.updateBorderAndSql(tab2, List.of(tab2, tab3, tab4, tab5));
+            btnFind.setEnabled(true);
         } else if (tabb1.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));
+            UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));            
         } else if (tabb1.getSelectedIndex() == 3) {
             UGui.updateBorderAndSql(tab4, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 4) {
             UGui.updateBorderAndSql(tab5, List.of(tab2, tab3, tab4, tab5));
+            btnMoveU.setEnabled(true);
+            btnMoveD.setEnabled(true);
         }
     }//GEN-LAST:event_stateChanged
 
@@ -3075,7 +3078,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     return;
                 }
                 DefMutableTreeNode parentNode = (DefMutableTreeNode) sysNode.getParent();
-                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + sysNode + "?", "Подтвердите удаление",
+                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + sysNode + " узел?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
                     UGui.stopCellEditing(sysTree);
                     if (qSystree.delete(sysNode.rec())) {
@@ -3758,12 +3761,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JButton btn28;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
-    private javax.swing.JButton btn5;
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnMoveD;
     private javax.swing.JButton btnMoveU;

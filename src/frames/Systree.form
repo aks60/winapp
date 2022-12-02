@@ -90,7 +90,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btn5" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnFind" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnMoveU" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                   <Component id="btnReport1" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnTest" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn5" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnFind" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnMoveU" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnMoveD" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -309,7 +309,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTestActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn5">
+        <Component class="javax.swing.JButton" name="btnFind">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c055.gif"/>
