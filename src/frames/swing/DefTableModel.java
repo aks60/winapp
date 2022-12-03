@@ -35,6 +35,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
         this.model = (DefaultTableModel) table.getModel();
         this.query = query;
 
+        ((DefaultCellEditor) table.getDefaultEditor(Object.class)).getComponent().setFont(table.getFont());
         Field[] newArray = Arrays.copyOf(columns, columns.length + 1);
         newArray[newArray.length - 1] = query.fields().get(0).fields()[1];
         this.columns = newArray; //последний столбец всегда = ID
@@ -53,7 +54,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
             resizableList.add(columnModel.getColumn(index).getResizable());
             prefWidthList.add(columnModel.getColumn(index).getPreferredWidth());
             maxWidthList.add(columnModel.getColumn(index).getMaxWidth());
-            minWidthList.add(columnModel.getColumn(index).getMinWidth());
+            minWidthList.add(columnModel.getColumn(index).getMinWidth());            
         }
         table.setModel(this);
         sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());
@@ -82,7 +83,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
     public Query getQuery() {
         return query;
     }
-    
+
     public Query getQuery(Field field) {
         return query.table(field);
     }
@@ -119,12 +120,12 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
     public void setCellEditable(boolean edit, Field... field) {
         List list = List.of(field);
         for (int i = 0; i < columns.length; i++) {
-            if(list.contains(columns[i])) {
-               editable[i] = edit; 
+            if (list.contains(columns[i])) {
+                editable[i] = edit;
             }
         }
     }
-    
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 

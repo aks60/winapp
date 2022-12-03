@@ -43,9 +43,11 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
+import static domain.eProject.owner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -1050,16 +1052,19 @@ public class Joinings extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnTest
 
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
+        if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
+                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+            
             List<Record> joinvarList = new ArrayList<>();
             List<Record> joindetList = new ArrayList<>();
-            Map<Record, Integer> joinpar1Map = new HashMap<>();
             Map<Record, Integer> joindetMap = new HashMap<>();
+            Map<Record, Integer> joinpar1Map = new HashMap<>();
+            Map<Record, Integer> joinpar2Map = new HashMap<>();
             qJoinvar.forEach(rec -> joinvarList.add(rec));
 
             Record joiningClon = (Record) qJoining.get(index).clone();
@@ -1070,41 +1075,44 @@ public class Joinings extends javax.swing.JFrame {
             qJoining.insert(joiningClon);
 
             for (Record joinvarRec : joinvarList) {
-                qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoinpar1.id);                
-                qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoindet.id);                
-
+                qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoinpar1.id);
+                qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoindet.id);
                 Record joinvarClon = (Record) joinvarRec.clone();
                 joinvarClon.setNo(eJoinvar.up, Query.INS);
                 joinvarClon.setNo(eJoinvar.id, Conn.genId(eJoinvar.up));
                 joinvarClon.setNo(eJoinvar.joining_id, joiningClon.getInt(eJoining.id));
-                qJoinpar1.forEach(rec -> joinpar1Map.put(rec, joinvarClon.getInt(eJoinvar.id)));
+                qJoinpar1.forEach(rec -> joinpar2Map.put(rec, joinvarClon.getInt(eJoinvar.id)));
                 qJoindet.forEach(rec -> joindetMap.put(rec, joinvarClon.getInt(eJoinvar.id)));
                 qJoinvar.add(joinvarClon);
             }
-
-            for (Map.Entry<Record, Integer> it : joinpar1Map.entrySet()) {
+            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
                 Record joinpar1Rec = it.getKey();
-                int id = it.getValue();
                 Record joinpar1Clon = (Record) joinpar1Rec.clone();
                 joinpar1Clon.setNo(eJoinpar1.up, Query.INS);
                 joinpar1Clon.setNo(eJoinpar1.id, Conn.genId(eJoinpar1.up));
-                joinpar1Clon.setNo(eJoinpar1.joinvar_id, id);
+                joinpar1Clon.setNo(eJoinpar1.joinvar_id, it.getValue());
                 qJoinpar1.add(joinpar1Clon);
             }
-
             for (Map.Entry<Record, Integer> it : joindetMap.entrySet()) {
                 Record joindetRec = it.getKey();
-                int id = it.getValue();
+                qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", joindetRec.get(eJoindet.id), "order by", eJoinpar2.id);
                 Record joindetClon = (Record) joindetRec.clone();
                 joindetClon.setNo(eJoindet.up, Query.INS);
                 joindetClon.setNo(eJoindet.id, Conn.genId(eJoindet.up));
-                joindetClon.setNo(eJoindet.joinvar_id, id);
+                joindetClon.setNo(eJoindet.joinvar_id, it.getValue());
+                qJoinpar2.forEach(rec -> joinpar2Map.put(rec, joindetClon.getInt(eJoindet.id)));
                 qJoindet.add(joindetClon);
             }
-
-            List.of(qJoinvar, qJoinpar1, qJoindet).forEach(q -> q.execsql());
+            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
+                Record joinpar2Rec = it.getKey();
+                Record joinpar2Clon = (Record) joinpar2Rec.clone();
+                joinpar2Clon.setNo(eJoinpar2.up, Query.INS);
+                joinpar2Clon.setNo(eJoinpar2.id, Conn.genId(eJoinpar2.up));
+                joinpar2Clon.setNo(eJoinpar2.joindet_id, it.getValue());
+                qJoinpar2.add(joinpar2Clon);
+            }
+            List.of(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
-           
             UGui.setSelectedIndex(tab1, index);
             UGui.scrollRectToIndex(index, tab1);
             UGui.setSelectedRow(tab2);

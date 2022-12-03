@@ -2324,8 +2324,8 @@ public class Artikles extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
-                        + "\n соединениях, вставках, заполнениях, форнитуре, \n то записи этого артикула "
-                        + "будут удалены. \n Вы действительно хотите удалить уртикул ?", "Предупреждение",
+                        + "\n соединениях, вставках, заполнениях, фурнитуре, \n то записи этого артикула "
+                        + "будут удалены. \n Вы уверены, что хотите удалить уртикул ?", "Предупреждение",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                     UGui.deleteRecord(tab1);
                 }
@@ -2497,7 +2497,9 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
+        if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
+                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+
             List<Record> artdetList = new ArrayList<>();
             qArtdet.forEach(rec -> artdetList.add(rec));
             Record artiklClon = (Record) qArtikl.get(index).clone();
@@ -2517,7 +2519,7 @@ public class Artikles extends javax.swing.JFrame {
             qArtdet.execsql();
             ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
             UGui.setSelectedIndex(tab1, index);
-            UGui.scrollRectToIndex(index, tab1);            
+            UGui.scrollRectToIndex(index, tab1);
             UGui.setSelectedRow(tab2);
         }
     }//GEN-LAST:event_btnClone

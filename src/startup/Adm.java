@@ -1240,7 +1240,7 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_mnExit
 
     private void userDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущего пользователя?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+        if (JOptionPane.showConfirmDialog(this, "Вы уверены, что хотите удалить текущего пользователя?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             int row = tab4.getSelectedRow();
             if (row != -1) {
                 try {
