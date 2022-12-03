@@ -657,9 +657,6 @@ public class Furniturs extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         btnConstructiv = new javax.swing.JButton();
-        tbtn1 = new javax.swing.JToggleButton();
-        tbtn2 = new javax.swing.JToggleButton();
-        tbtn3 = new javax.swing.JToggleButton();
         btnSet = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         btnFindSystree = new javax.swing.JButton();
@@ -669,6 +666,10 @@ public class Furniturs extends javax.swing.JFrame {
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        tbtn1 = new javax.swing.JToggleButton();
+        tbtn2 = new javax.swing.JToggleButton();
+        tbtn3 = new javax.swing.JToggleButton();
         pan5 = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
@@ -803,40 +804,6 @@ public class Furniturs extends javax.swing.JFrame {
             }
         });
 
-        group1.add(tbtn1);
-        tbtn1.setFont(frames.UGui.getFont(0,0));
-        tbtn1.setSelected(true);
-        tbtn1.setText("Основн.");
-        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn1.setPreferredSize(new java.awt.Dimension(60, 25));
-        tbtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbtnAction(evt);
-            }
-        });
-
-        group1.add(tbtn2);
-        tbtn2.setFont(frames.UGui.getFont(0,0));
-        tbtn2.setText("Дополн.");
-        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn2.setPreferredSize(new java.awt.Dimension(60, 25));
-        tbtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbtnAction(evt);
-            }
-        });
-
-        group1.add(tbtn3);
-        tbtn3.setFont(frames.UGui.getFont(0,0));
-        tbtn3.setText("Наборы");
-        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn3.setPreferredSize(new java.awt.Dimension(60, 25));
-        tbtn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbtnAction(evt);
-            }
-        });
-
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
         btnSet.setToolTipText(bundle.getString("Выбрать список")); // NOI18N
         btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -909,13 +876,7 @@ public class Furniturs extends javax.swing.JFrame {
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -937,11 +898,7 @@ public class Furniturs extends javax.swing.JFrame {
                                 .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnFindSystree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tbtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tbtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnClone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -959,7 +916,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan4.setPreferredSize(new java.awt.Dimension(500, 200));
         pan4.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr1.setBorder(null);
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -995,6 +952,48 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
+        jPanel4.setPreferredSize(new java.awt.Dimension(556, 22));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0));
+
+        group1.add(tbtn1);
+        tbtn1.setFont(frames.UGui.getFont(0,0));
+        tbtn1.setSelected(true);
+        tbtn1.setText("Основная фурнитура");
+        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn1.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
+        jPanel4.add(tbtn1);
+
+        group1.add(tbtn2);
+        tbtn2.setFont(frames.UGui.getFont(0,0));
+        tbtn2.setText("Дополнительная фурнитура");
+        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn2.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
+        jPanel4.add(tbtn2);
+
+        group1.add(tbtn3);
+        tbtn3.setFont(frames.UGui.getFont(0,0));
+        tbtn3.setText("Список наборов");
+        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn3.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
+        jPanel4.add(tbtn3);
+
+        pan4.add(jPanel4, java.awt.BorderLayout.NORTH);
+
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
@@ -1003,7 +1002,7 @@ public class Furniturs extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(300, 108));
         pan7.setLayout(new java.awt.BorderLayout());
 
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, frames.UGui.getFont(0,0)));
         scr3.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab3.setFont(frames.UGui.getFont(0,0));
@@ -1659,6 +1658,7 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
     private javax.swing.ButtonGroup group1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
