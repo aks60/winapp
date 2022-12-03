@@ -2498,7 +2498,7 @@ public class Artikles extends javax.swing.JFrame {
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
-                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 
             List<Record> artdetList = new ArrayList<>();
             qArtdet.forEach(rec -> artdetList.add(rec));

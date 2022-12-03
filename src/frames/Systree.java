@@ -3018,7 +3018,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         if (sysNode != null) {
             if (sysTree.getBorder() != null) {
-                if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите добавить ветку в систему?", "Предупреждение",
+                if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите добавить ветку в систему?", "Подтверждение",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                     Record record = eSystree.up.newRecord(Query.INS);
                     int id = Conn.genId(eSystree.id);

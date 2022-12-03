@@ -650,6 +650,8 @@ public class Furniturs extends javax.swing.JFrame {
     private void initComponents() {
 
         group1 = new javax.swing.ButtonGroup();
+        pan7 = new javax.swing.JPanel();
+        pan8 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -666,15 +668,14 @@ public class Furniturs extends javax.swing.JFrame {
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        pan12 = new javax.swing.JPanel();
         tbtn1 = new javax.swing.JToggleButton();
         tbtn2 = new javax.swing.JToggleButton();
         tbtn3 = new javax.swing.JToggleButton();
         pan5 = new javax.swing.JPanel();
-        pan7 = new javax.swing.JPanel();
+        lab2 = new javax.swing.JLabel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        pan8 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
@@ -689,11 +690,18 @@ public class Furniturs extends javax.swing.JFrame {
         scr2b = new javax.swing.JScrollPane();
         tab2b = new javax.swing.JTable();
         pan10 = new javax.swing.JPanel();
-        scr6 = new javax.swing.JScrollPane();
-        tab6 = new javax.swing.JTable();
+        lab1 = new javax.swing.JLabel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+
+        pan7.setPreferredSize(new java.awt.Dimension(300, 108));
+        pan7.setLayout(new java.awt.BorderLayout());
+
+        pan8.setPreferredSize(new java.awt.Dimension(300, 90));
+        pan8.setLayout(new java.awt.BorderLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
@@ -876,7 +884,7 @@ public class Furniturs extends javax.swing.JFrame {
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 723, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -908,7 +916,7 @@ public class Furniturs extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         center.setPreferredSize(new java.awt.Dimension(900, 500));
-        center.setLayout(new java.awt.BorderLayout());
+        center.setLayout(new javax.swing.BoxLayout(center, javax.swing.BoxLayout.PAGE_AXIS));
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 200));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -952,58 +960,67 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(556, 22));
-        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0));
+        pan12.setPreferredSize(new java.awt.Dimension(556, 26));
+        pan12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0));
 
         group1.add(tbtn1);
         tbtn1.setFont(frames.UGui.getFont(0,0));
         tbtn1.setSelected(true);
         tbtn1.setText("Основная фурнитура");
         tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn1.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn1.setMaximumSize(new java.awt.Dimension(180, 26));
+        tbtn1.setMinimumSize(new java.awt.Dimension(180, 26));
+        tbtn1.setPreferredSize(new java.awt.Dimension(180, 26));
         tbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        jPanel4.add(tbtn1);
+        pan12.add(tbtn1);
 
         group1.add(tbtn2);
         tbtn2.setFont(frames.UGui.getFont(0,0));
         tbtn2.setText("Дополнительная фурнитура");
         tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn2.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn2.setMaximumSize(new java.awt.Dimension(180, 26));
+        tbtn2.setMinimumSize(new java.awt.Dimension(180, 26));
+        tbtn2.setPreferredSize(new java.awt.Dimension(180, 26));
         tbtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        jPanel4.add(tbtn2);
+        pan12.add(tbtn2);
 
         group1.add(tbtn3);
         tbtn3.setFont(frames.UGui.getFont(0,0));
         tbtn3.setText("Список наборов");
         tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn3.setPreferredSize(new java.awt.Dimension(180, 22));
+        tbtn3.setMaximumSize(new java.awt.Dimension(180, 26));
+        tbtn3.setMinimumSize(new java.awt.Dimension(180, 26));
+        tbtn3.setPreferredSize(new java.awt.Dimension(180, 26));
         tbtn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        jPanel4.add(tbtn3);
+        pan12.add(tbtn3);
 
-        pan4.add(jPanel4, java.awt.BorderLayout.NORTH);
+        pan4.add(pan12, java.awt.BorderLayout.NORTH);
 
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
-        pan5.setLayout(new java.awt.BorderLayout());
+        pan5.setLayout(new javax.swing.BoxLayout(pan5, javax.swing.BoxLayout.PAGE_AXIS));
 
-        pan7.setPreferredSize(new java.awt.Dimension(300, 108));
-        pan7.setLayout(new java.awt.BorderLayout());
+        lab2.setText("                  Описаниея сторон");
+        lab2.setMaximumSize(new java.awt.Dimension(300, 46));
+        lab2.setMinimumSize(new java.awt.Dimension(170, 26));
+        lab2.setPreferredSize(new java.awt.Dimension(200, 26));
+        pan5.add(lab2);
 
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, frames.UGui.getFont(0,0)));
-        scr3.setPreferredSize(new java.awt.Dimension(0, 0));
+        scr3.setBorder(null);
+        scr3.setPreferredSize(new java.awt.Dimension(0, 100));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -1028,12 +1045,9 @@ public class Furniturs extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(80);
         }
 
-        pan7.add(scr3, java.awt.BorderLayout.CENTER);
+        pan5.add(scr3);
 
-        pan5.add(pan7, java.awt.BorderLayout.NORTH);
-
-        pan8.setPreferredSize(new java.awt.Dimension(300, 90));
-        pan8.setLayout(new java.awt.BorderLayout());
+        scr4.setPreferredSize(new java.awt.Dimension(452, 100));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -1068,13 +1082,11 @@ public class Furniturs extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
-        pan8.add(scr4, java.awt.BorderLayout.CENTER);
-
-        pan5.add(pan8, java.awt.BorderLayout.CENTER);
+        pan5.add(scr4);
 
         pan1.add(pan5, java.awt.BorderLayout.EAST);
 
-        center.add(pan1, java.awt.BorderLayout.NORTH);
+        center.add(pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 300));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -1083,10 +1095,10 @@ public class Furniturs extends javax.swing.JFrame {
         pan6.setLayout(new java.awt.BorderLayout());
 
         pan9.setPreferredSize(new java.awt.Dimension(505, 300));
-        pan9.setLayout(new java.awt.BorderLayout());
+        pan9.setLayout(new javax.swing.BoxLayout(pan9, javax.swing.BoxLayout.PAGE_AXIS));
 
         tabb1.setFont(frames.UGui.getFont(0,0));
-        tabb1.setPreferredSize(new java.awt.Dimension(0, 0));
+        tabb1.setPreferredSize(new java.awt.Dimension(0, 180));
 
         pan11.setLayout(new java.awt.BorderLayout());
 
@@ -1162,10 +1174,10 @@ public class Furniturs extends javax.swing.JFrame {
 
         tabb1.addTab("Детализация (3 уровень)", scr2c);
 
-        pan9.add(tabb1, java.awt.BorderLayout.CENTER);
+        pan9.add(tabb1);
 
         scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr2b.setPreferredSize(new java.awt.Dimension(500, 140));
+        scr2b.setPreferredSize(new java.awt.Dimension(500, 120));
 
         tab2b.setFont(frames.UGui.getFont(0,0));
         tab2b.setModel(new javax.swing.table.DefaultTableModel(
@@ -1200,12 +1212,54 @@ public class Furniturs extends javax.swing.JFrame {
             tab2b.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
-        pan9.add(scr2b, java.awt.BorderLayout.SOUTH);
+        pan9.add(scr2b);
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
         pan10.setPreferredSize(new java.awt.Dimension(300, 300));
-        pan10.setLayout(new java.awt.BorderLayout());
+        pan10.setLayout(new javax.swing.BoxLayout(pan10, javax.swing.BoxLayout.PAGE_AXIS));
+
+        lab1.setText("                  Ограничения сторон");
+        lab1.setMaximumSize(new java.awt.Dimension(300, 46));
+        lab1.setMinimumSize(new java.awt.Dimension(170, 26));
+        lab1.setPreferredSize(new java.awt.Dimension(200, 34));
+        pan10.add(lab1);
+
+        scr5.setBorder(null);
+        scr5.setPreferredSize(new java.awt.Dimension(300, 108));
+
+        tab5.setFont(frames.UGui.getFont(0,0));
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"xxxxxxxx", null, null, null, null},
+                {"zzzzzzzzz", null, null, null, null}
+            },
+            new String [] {
+                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Furniturs.this.mousePressed(evt);
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(180);
+        }
+
+        pan10.add(scr5);
 
         scr6.setPreferredSize(new java.awt.Dimension(300, 200));
 
@@ -1242,49 +1296,13 @@ public class Furniturs extends javax.swing.JFrame {
             tab6.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
-        pan10.add(scr6, java.awt.BorderLayout.CENTER);
-
-        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Ограничения сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr5.setPreferredSize(new java.awt.Dimension(300, 108));
-
-        tab5.setFont(frames.UGui.getFont(0,0));
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"xxxxxxxx", null, null, null, null},
-                {"zzzzzzzzz", null, null, null, null}
-            },
-            new String [] {
-                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab5.setFillsViewportHeight(true);
-        tab5.setName("tab5"); // NOI18N
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniturs.this.mousePressed(evt);
-            }
-        });
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(180);
-        }
-
-        pan10.add(scr5, java.awt.BorderLayout.NORTH);
+        pan10.add(scr6);
 
         pan6.add(pan10, java.awt.BorderLayout.EAST);
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        center.add(pan2, java.awt.BorderLayout.CENTER);
+        center.add(pan2);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
@@ -1571,7 +1589,7 @@ public class Furniturs extends javax.swing.JFrame {
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
-                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             
 //            List<Record> joinvarList = new ArrayList<>();
 //            List<Record> joindetList = new ArrayList<>();
@@ -1658,11 +1676,13 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
     private javax.swing.ButtonGroup group1;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lab1;
+    private javax.swing.JLabel lab2;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;

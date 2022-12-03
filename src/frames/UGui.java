@@ -656,7 +656,8 @@ public class UGui {
                 return 1;
             }
         }
-        return JOptionPane.showConfirmDialog(owner, "Вы уверены, что хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //return JOptionPane.showConfirmDialog(owner, "Вы уверены, что хотите удалить текущую запись?", "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
     //Обновление записи в таблице JTable
