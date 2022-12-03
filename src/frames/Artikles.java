@@ -2500,14 +2500,14 @@ public class Artikles extends javax.swing.JFrame {
         if (index != -1) {
             List<Record> artdetList = new ArrayList<>();
             qArtdet.forEach(rec -> artdetList.add(rec));
-            Record artiklRec = (Record) qArtikl.get(index).clone();
-            artiklRec.setNo(eArtikl.up, Query.INS);
+            Record artiklClon = (Record) qArtikl.get(index).clone();
+            artiklClon.setNo(eArtikl.up, Query.INS);
             int id = Conn.genId(eArtikl.up);
-            artiklRec.setNo(eArtikl.id, id);
-            artiklRec.setNo(eArtikl.code, artiklRec.getStr(eArtikl.code) + "-клон");
-            artiklRec.setNo(eArtikl.name, artiklRec.getStr(eArtikl.name) + "-клон");
-            qArtikl.add(index, artiklRec);
-            qArtikl.insert(artiklRec);
+            artiklClon.setNo(eArtikl.id, id);
+            artiklClon.setNo(eArtikl.code, artiklClon.getStr(eArtikl.code) + "-клон");
+            artiklClon.setNo(eArtikl.name, artiklClon.getStr(eArtikl.name) + "-клон");
+            qArtikl.add(index, artiklClon);
+            qArtikl.insert(artiklClon);
             for (Record artdetRec : artdetList) {
                 artdetRec.setNo(eArtdet.up, Query.INS);
                 artdetRec.setNo(eArtdet.id, Conn.genId(eArtdet.up));
