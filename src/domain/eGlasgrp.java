@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public enum eGlasgrp implements Field {
     up("0", "0", "0", "Группы заполнения", "GLASGRP"),
     id("4", "10", "0", "Идентификатор", "id"),
-    name("12", "64", "1", "Название группы", "GNAME"),
+    name("12", "96", "1", "Название группы", "GNAME"),
     gap("8", "15", "1", "Зазор", "GZAZO"),
     depth("12", "128", "1", "Доступные толщины", "BFRIC");
     //gnumb("4", "10", "1", "id группы", "GNUMB"),    

@@ -47,6 +47,8 @@ import startup.App;
 import javax.swing.JOptionPane;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import dataset.Conn;
+import domain.eJoinpar2;
 import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
@@ -1590,67 +1592,66 @@ public class Furniturs extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
                 "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-            
-//            List<Record> joinvarList = new ArrayList<>();
-//            List<Record> joindetList = new ArrayList<>();
-//            Map<Record, Integer> joindetMap = new HashMap<>();
-//            Map<Record, Integer> joinpar1Map = new HashMap<>();
-//            Map<Record, Integer> joinpar2Map = new HashMap<>();
-//            qJoinvar.forEach(rec -> joinvarList.add(rec));
-//
-//            Record joiningClon = (Record) qJoining.get(index).clone();
-//            joiningClon.setNo(eJoining.up, Query.INS);
-//            joiningClon.setNo(eJoining.id, Conn.genId(eJoining.up));
-//            joiningClon.setNo(eJoining.name, joiningClon.getStr(eJoining.name) + "-клон");
-//            qJoining.add(index, joiningClon);
-//            qJoining.insert(joiningClon);
-//
-//            for (Record joinvarRec : joinvarList) {
-//                qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoinpar1.id);
-//                qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoindet.id);
-//                Record joinvarClon = (Record) joinvarRec.clone();
-//                joinvarClon.setNo(eJoinvar.up, Query.INS);
-//                joinvarClon.setNo(eJoinvar.id, Conn.genId(eJoinvar.up));
-//                joinvarClon.setNo(eJoinvar.joining_id, joiningClon.getInt(eJoining.id));
-//                qJoinpar1.forEach(rec -> joinpar2Map.put(rec, joinvarClon.getInt(eJoinvar.id)));
-//                qJoindet.forEach(rec -> joindetMap.put(rec, joinvarClon.getInt(eJoinvar.id)));
-//                qJoinvar.add(joinvarClon);
-//            }
-//            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
-//                Record joinpar1Rec = it.getKey();
-//                Record joinpar1Clon = (Record) joinpar1Rec.clone();
-//                joinpar1Clon.setNo(eJoinpar1.up, Query.INS);
-//                joinpar1Clon.setNo(eJoinpar1.id, Conn.genId(eJoinpar1.up));
-//                joinpar1Clon.setNo(eJoinpar1.joinvar_id, it.getValue());
-//                qJoinpar1.add(joinpar1Clon);
-//            }
-//            for (Map.Entry<Record, Integer> it : joindetMap.entrySet()) {
-//                Record joindetRec = it.getKey();
-//                qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", joindetRec.get(eJoindet.id), "order by", eJoinpar2.id);
-//                Record joindetClon = (Record) joindetRec.clone();
-//                joindetClon.setNo(eJoindet.up, Query.INS);
-//                joindetClon.setNo(eJoindet.id, Conn.genId(eJoindet.up));
-//                joindetClon.setNo(eJoindet.joinvar_id, it.getValue());
-//                qJoinpar2.forEach(rec -> joinpar2Map.put(rec, joindetClon.getInt(eJoindet.id)));
-//                qJoindet.add(joindetClon);
-//            }
-//            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
-//                Record joinpar2Rec = it.getKey();
-//                Record joinpar2Clon = (Record) joinpar2Rec.clone();
-//                joinpar2Clon.setNo(eJoinpar2.up, Query.INS);
-//                joinpar2Clon.setNo(eJoinpar2.id, Conn.genId(eJoinpar2.up));
-//                joinpar2Clon.setNo(eJoinpar2.joindet_id, it.getValue());
-//                qJoinpar2.add(joinpar2Clon);
-//            }
-//            List.of(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
-//            ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
-//            UGui.setSelectedIndex(tab1, index);
-//            UGui.scrollRectToIndex(index, tab1);
-//            UGui.setSelectedRow(tab2);
 
+            List<Record> furnside1List = new ArrayList();
+            List<Record> furnside2List = new ArrayList();
+            Map<Record, Integer> furndet2aMap = new HashMap<>();
+            Map<Record, Integer> furndet2bMap = new HashMap<>();
+            Map<Record, Integer> furndet2cMap = new HashMap<>();
+            Map<Record, Integer> furnpar1Map = new HashMap<>();
+            Map<Record, Integer> furnpar2Map = new HashMap<>();
+
+            Record furnitureClon = (Record) qFurniture.get(index).clone();
+            furnitureClon.setNo(eFurniture.up, Query.INS);
+            furnitureClon.setNo(eFurniture.id, Conn.genId(eFurniture.up));
+            furnitureClon.setNo(eFurniture.name, furnitureClon.getStr(eFurniture.name) + "-клон");
+            qFurniture.add(index, furnitureClon);
+            qFurnside1.forEach(rec -> furnside1List.add(rec));
+            qFurndet2a.forEach(rec -> furndet2aMap.put(rec, furnitureClon.getInt(eFurniture.id)));
+
+            for (Record furnside1Rec : furnside1List) {
+                qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", furnside1Rec.get(eFurnside1.id));
+                Record furnside1Clon = (Record) furnside1Rec.clone();
+                furnside1Clon.setNo(eFurnside1.up, Query.INS);
+                furnside1Clon.setNo(eFurnside1.id, Conn.genId(eFurnside1.up));
+                furnside1Clon.setNo(eFurnside1.furniture_id, furnitureClon.getInt(eFurniture.id));
+                qFurnpar1.forEach(rec -> furnpar1Map.put(rec, furnside1Clon.getInt(eFurnside1.id)));
+                qFurnside1.add(furnside1Clon);
+            }
+            for (Map.Entry<Record, Integer> it : furnpar1Map.entrySet()) {
+                Record furnpar1Rec = it.getKey();
+                Record joinpar1Clon = (Record) furnpar1Rec.clone();
+                joinpar1Clon.setNo(eFurnpar1.up, Query.INS);
+                joinpar1Clon.setNo(eFurnpar1.id, Conn.genId(eFurnpar1.up));
+                joinpar1Clon.setNo(eFurnpar1.furnside_id, it.getValue());
+                qFurnpar1.add(joinpar1Clon);
+            }
+            for (Map.Entry<Record, Integer> it : furndet2aMap.entrySet()) {
+                Record furndet2aRec = it.getKey();
+                qFurnpar2.forEach(rec -> furnpar2Map.put(rec, furndet2aRec.getInt(eFurndet.id)));
+                qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_id, "=", furndet2aRec.get(eFurndet.id));
+                Record furndet2aClon = (Record) furndet2aRec.clone();
+                furndet2aClon.setNo(eFurndet.up, Query.INS);
+                furndet2aClon.setNo(eFurndet.id, Conn.genId(eFurndet.up));
+                furndet2aClon.setNo(eFurndet.furniture_id1, it.getValue());
+                furndet2aClon.setNo(eFurndet.furndet_id, furndet2aClon.getInt(eFurndet.id));
+                qFurndet2b.forEach(rec -> furndet2bMap.put(rec, furndet2aClon.getInt(eFurndet.id)));
+                qFurndet2a.add(furndet2aClon);
+            }
+            for (Record furnside1Rec : furnside2List) {
+                qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", furnside1Rec.get(eFurnside1.id));
+                Record furnside1Clon = (Record) furnside1Rec.clone();
+                furnside1Clon.setNo(eFurnside1.up, Query.INS);
+                furnside1Clon.setNo(eFurnside1.id, Conn.genId(eFurnside1.up));
+                furnside1Clon.setNo(eFurnside1.furniture_id, furnitureClon.getInt(eFurniture.id));
+                qFurnpar1.forEach(rec -> furnpar1Map.put(rec, furnside1Clon.getInt(eFurnside1.id)));
+                qFurnside1.add(furnside1Clon);
+            }
+            List.of(qFurniture, qFurndet2a, qFurndet2b, qFurndet2c, qFurnside1, qFurnside2, qFurnpar1, qFurnpar2).forEach(q -> q.execsql());
+            ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
+            UGui.setSelectedIndex(tab1, index);
         }
     }//GEN-LAST:event_btnClone
-    
 
     private void findPathSystree(Record record, StringBuffer path) {
         for (Record rec : eSystree.query()) {

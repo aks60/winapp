@@ -8,7 +8,7 @@ import dataset.Record;
 public enum eFurniture implements Field {
     up("0", "0", "0", "Список фурнитуры", "FURNLST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    name("12", "64", "1", "Название", "FNAME"),
+    name("12", "96", "1", "Название", "FNAME"),
     p2_max("8", "15", "1", "Макс. P/2, мм", "FMAXP"),
     max_height("8", "15", "1", "Макс.выс., мм", "FMAXH"),
     max_width("8", "15", "1", "Макс.шир., мм", "FMAXL"),

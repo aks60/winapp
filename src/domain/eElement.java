@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public enum eElement implements Field {
     up("0", "0", "0", "Вставки", "VSTALST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    name("12", "64", "1", "Наименование", "VNAME"),
+    name("12", "96", "1", "Наименование", "VNAME"),
     typset("4", "10", "1", "Тип состава", "typset"),
     signset("12", "32", "1", "Признак состава", "VSIGN"),
     markup("8", "15", "1", "Наценка %", "VPERC"),
