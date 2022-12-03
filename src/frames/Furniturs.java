@@ -53,7 +53,9 @@ import domain.eSystree;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -330,13 +332,13 @@ public class Furniturs extends javax.swing.JFrame {
             }
         };
 
-        List.of(3,4,5).forEach(i -> tab1.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererBool()));
-        List.of(6,7,8).forEach(i -> tab1.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(1)));
+        List.of(3, 4, 5).forEach(i -> tab1.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererBool()));
+        List.of(6, 7, 8).forEach(i -> tab1.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(1)));
         tab1.getColumnModel().getColumn(12).setCellEditor(new DefCellEditorNumb("4"));
 
-        List.of(1,2,3,4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererNumb(3)));
-        List.of(1,2,3,4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(3)));
-        
+        List.of(1, 2, 3, 4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellRenderer(new DefCellRendererNumb(3)));
+        List.of(1, 2, 3, 4).forEach(i -> tab5.getColumnModel().getColumn(i).setCellEditor(new DefCellEditorNumb(3)));
+
         UGui.setSelectedRow(tab1);
     }
 
@@ -661,6 +663,7 @@ public class Furniturs extends javax.swing.JFrame {
         btnSet = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         btnFindSystree = new javax.swing.JButton();
+        btnClone = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
@@ -871,6 +874,22 @@ public class Furniturs extends javax.swing.JFrame {
             }
         });
 
+        btnClone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c065.gif"))); // NOI18N
+        btnClone.setToolTipText(bundle.getString("Клонировать запись")); // NOI18N
+        btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClone.setFocusable(false);
+        btnClone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClone.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnClone.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnClone.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnClone.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnClone.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClone(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -884,6 +903,8 @@ public class Furniturs extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -894,7 +915,7 @@ public class Furniturs extends javax.swing.JFrame {
                 .addComponent(tbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -920,7 +941,8 @@ public class Furniturs extends javax.swing.JFrame {
                                     .addComponent(tbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tbtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tbtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnClone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -1546,6 +1568,73 @@ public class Furniturs extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(Furniturs.this, "В системе профилей фурнитура не найдена", "Сообщение", JOptionPane.NO_OPTION);
         }
     }//GEN-LAST:event_btnFindSystree
+
+    private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
+                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+            
+//            List<Record> joinvarList = new ArrayList<>();
+//            List<Record> joindetList = new ArrayList<>();
+//            Map<Record, Integer> joindetMap = new HashMap<>();
+//            Map<Record, Integer> joinpar1Map = new HashMap<>();
+//            Map<Record, Integer> joinpar2Map = new HashMap<>();
+//            qJoinvar.forEach(rec -> joinvarList.add(rec));
+//
+//            Record joiningClon = (Record) qJoining.get(index).clone();
+//            joiningClon.setNo(eJoining.up, Query.INS);
+//            joiningClon.setNo(eJoining.id, Conn.genId(eJoining.up));
+//            joiningClon.setNo(eJoining.name, joiningClon.getStr(eJoining.name) + "-клон");
+//            qJoining.add(index, joiningClon);
+//            qJoining.insert(joiningClon);
+//
+//            for (Record joinvarRec : joinvarList) {
+//                qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoinpar1.id);
+//                qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvarRec.get(eJoinvar.id), "order by", eJoindet.id);
+//                Record joinvarClon = (Record) joinvarRec.clone();
+//                joinvarClon.setNo(eJoinvar.up, Query.INS);
+//                joinvarClon.setNo(eJoinvar.id, Conn.genId(eJoinvar.up));
+//                joinvarClon.setNo(eJoinvar.joining_id, joiningClon.getInt(eJoining.id));
+//                qJoinpar1.forEach(rec -> joinpar2Map.put(rec, joinvarClon.getInt(eJoinvar.id)));
+//                qJoindet.forEach(rec -> joindetMap.put(rec, joinvarClon.getInt(eJoinvar.id)));
+//                qJoinvar.add(joinvarClon);
+//            }
+//            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
+//                Record joinpar1Rec = it.getKey();
+//                Record joinpar1Clon = (Record) joinpar1Rec.clone();
+//                joinpar1Clon.setNo(eJoinpar1.up, Query.INS);
+//                joinpar1Clon.setNo(eJoinpar1.id, Conn.genId(eJoinpar1.up));
+//                joinpar1Clon.setNo(eJoinpar1.joinvar_id, it.getValue());
+//                qJoinpar1.add(joinpar1Clon);
+//            }
+//            for (Map.Entry<Record, Integer> it : joindetMap.entrySet()) {
+//                Record joindetRec = it.getKey();
+//                qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", joindetRec.get(eJoindet.id), "order by", eJoinpar2.id);
+//                Record joindetClon = (Record) joindetRec.clone();
+//                joindetClon.setNo(eJoindet.up, Query.INS);
+//                joindetClon.setNo(eJoindet.id, Conn.genId(eJoindet.up));
+//                joindetClon.setNo(eJoindet.joinvar_id, it.getValue());
+//                qJoinpar2.forEach(rec -> joinpar2Map.put(rec, joindetClon.getInt(eJoindet.id)));
+//                qJoindet.add(joindetClon);
+//            }
+//            for (Map.Entry<Record, Integer> it : joinpar2Map.entrySet()) {
+//                Record joinpar2Rec = it.getKey();
+//                Record joinpar2Clon = (Record) joinpar2Rec.clone();
+//                joinpar2Clon.setNo(eJoinpar2.up, Query.INS);
+//                joinpar2Clon.setNo(eJoinpar2.id, Conn.genId(eJoinpar2.up));
+//                joinpar2Clon.setNo(eJoinpar2.joindet_id, it.getValue());
+//                qJoinpar2.add(joinpar2Clon);
+//            }
+//            List.of(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+//            ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
+//            UGui.setSelectedIndex(tab1, index);
+//            UGui.scrollRectToIndex(index, tab1);
+//            UGui.setSelectedRow(tab2);
+
+        }
+    }//GEN-LAST:event_btnClone
+    
+
     private void findPathSystree(Record record, StringBuffer path) {
         for (Record rec : eSystree.query()) {
             if (record.getInt(eSystree.parent_id) == rec.getInt(eSystree.id)) {
@@ -1558,6 +1647,7 @@ public class Furniturs extends javax.swing.JFrame {
     }
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClone;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
