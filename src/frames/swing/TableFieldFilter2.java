@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class TableFieldFilter extends javax.swing.JPanel {
+public class TableFieldFilter2 extends javax.swing.JPanel {
 
     private JTable table = null;
     private JTable[] tableList = null;
@@ -29,17 +29,32 @@ public class TableFieldFilter extends javax.swing.JPanel {
     private int indexBegin = 0;
     private boolean search = false;
 
-    public TableFieldFilter() {
+    public TableFieldFilter2() {
         initComponents();
     }
 
-    public TableFieldFilter(int index, JTable... table) {
+    public TableFieldFilter2(int indexColName, JTable... tables) {
         initComponents();
-        tableList = table;
-        mousePressed(table[0]);
-        labFilter.setText(table[0].getColumnName(index));
-        txtFilter.setName(table[0].getName());
-        this.indexBegin = index;
+        this.tableList = tables;
+        this.table = tables[0];
+        labFilter.setText(tables[0].getColumnName(indexColName));
+        txtFilter.setName(tables[0].getName());
+        this.indexBegin = indexColName;
+        for (JTable tab : tables) {
+            tab.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    try {
+                        if (txtFilter.getText().length() == 0) {
+                            table = (JTable) evt.getSource();
+                            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+                            txtFilter.setName(table.getName());
+                        }
+                    } catch (Exception e) {
+                        System.err.println("ОШИБКА:swing.FilterTable.mousePressed() " + e);
+                    }
+                }
+            });
+        }
     }
 
     public JLabel getLab() {
@@ -48,31 +63,6 @@ public class TableFieldFilter extends javax.swing.JPanel {
 
     public JTextField getTxt() {
         return txtFilter;
-    }
-
-    public void mousePressed(JTable table) {
-        try {
-            if (txtFilter.getText().length() == 0) {
-                this.table = table;
-                labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-                txtFilter.setName(table.getName());
-            }
-        } catch (Exception e) {
-            System.err.println("ОШИБКА:swing.FilterTable.mousePressed() " + e);
-        }
-    }
-
-    //https://coderoad.ru/9549108/%D0%A1%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D1%83%D0%B9%D1%82%D0%B5-%D1%81%D0%BE%D0%B1%D1%8B%D1%82%D0%B8%D0%B5-%D0%B4%D0%B2%D0%BE%D0%B9%D0%BD%D0%BE%D0%B3%D0%BE-%D1%89%D0%B5%D0%BB%D1%87%D0%BA%D0%B0-%D0%BC%D1%8B%D1%88%D0%B8-%D0%B2-Java-Swing
-    public void genericTableColumnClick(Component comp_sender, Component comp_receiver) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                comp_receiver //получатель
-                        .dispatchEvent(new MouseEvent(comp_sender, //отправитель
-                                MouseEvent.MOUSE_CLICKED, 1, MouseEvent.BUTTON1, 0, 0, 1, false
-                        ));
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -156,7 +146,7 @@ public class TableFieldFilter extends javax.swing.JPanel {
 
                 } else if (search == true) {
                     btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-                    indexColumn = (table.getSelectedColumn() == -1) ? indexBegin : table.getSelectedColumn(); 
+                    indexColumn = (table.getSelectedColumn() == -1) ? indexBegin : table.getSelectedColumn();
                     if (table.getModel() instanceof DefTableModel) {
                         Query query = ((DefTableModel) table.getModel()).getQuery();
                         Field field = ((DefTableModel) table.getModel()).columns[indexColumn];

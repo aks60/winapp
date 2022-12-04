@@ -25,7 +25,6 @@ import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicGroups;
 import frames.swing.DefCellRendererBool;
-import frames.swing.TableFieldFilter;
 import java.awt.CardLayout;
 import java.awt.Window;
 import java.util.HashSet;
@@ -40,6 +39,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
+import frames.swing.TableFieldFilter2;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private TableFieldFormat rsvArtikl;
-    private TableFieldFilter filterTable = null;
+    private TableFieldFilter2 filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -2359,7 +2359,6 @@ public class Artikles extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
@@ -2746,7 +2745,7 @@ public class Artikles extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(0, tab1);
+        filterTable = new TableFieldFilter2(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

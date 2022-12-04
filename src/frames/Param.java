@@ -11,10 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefCellEditorBtn;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import common.listener.ListenerRecord;
+import frames.swing.TableFieldFilter2;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -25,7 +25,6 @@ public class Param extends javax.swing.JFrame {
     private Query qPardet = new Query(eParams.values());
     private DefaultCellEditor editorStr = null;
     private DefCellEditorBtn editorBtn = new DefCellEditorBtn(new JButton("..."));
-    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerColor;
 
     public Param() {
@@ -415,7 +414,6 @@ public class Param extends javax.swing.JFrame {
             selectionTab2(null);
         }
         UGui.updateBorderAndSql(table, List.of(tab1, tab2));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -444,9 +442,11 @@ public class Param extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(0, tab1);
+
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
+
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
 
         tab1.getSelectionModel().addListSelectionListener(event -> {

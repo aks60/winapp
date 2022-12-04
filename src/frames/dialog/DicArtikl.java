@@ -10,11 +10,10 @@ import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
-import javax.swing.JTable;
+import frames.swing.TableFieldFilter2;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
@@ -23,7 +22,6 @@ public class DicArtikl extends javax.swing.JDialog {
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
-    private TableFieldFilter filterTable = null;
 
     public DicArtikl(java.awt.Frame parent, ListenerRecord listener, List<Record> list) {
         super(parent, true);
@@ -199,9 +197,6 @@ public class DicArtikl extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DicArtikl.this.mouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                DicArtikl.this.mousePressed(evt);
-            }
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
@@ -249,10 +244,6 @@ public class DicArtikl extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mouseClicked
 
-    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_mousePressed
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -270,8 +261,9 @@ public class DicArtikl extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(1, tab2);
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab2);
         south.add(filterTable, 0);
-        filterTable.getTxt().grabFocus();
+        filterTable.getTxt().grabFocus();        
     }
 }

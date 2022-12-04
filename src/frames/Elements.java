@@ -36,7 +36,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
@@ -44,6 +43,7 @@ import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import domain.eSysprof;
 import domain.eSystree;
+import frames.swing.TableFieldFilter2;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableColumnModel;
@@ -61,7 +61,6 @@ public class Elements extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values());
     private Query qElempar2 = new Query(eElempar2.values());
-    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
 
@@ -1020,7 +1019,6 @@ public class Elements extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4, tab5));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnFindArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindArtikl
@@ -1134,7 +1132,8 @@ public class Elements extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(0, tab2);
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

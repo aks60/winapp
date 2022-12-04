@@ -4,9 +4,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.ePrjpart;
 import frames.swing.TableFieldFormat;
-import javax.swing.JTable;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import java.awt.Frame;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -16,10 +14,9 @@ import common.listener.ListenerRecord;
 import dataset.Conn;
 import domain.eSysuser;
 import frames.swing.DefCellRendererBool;
-import java.awt.Rectangle;
+import frames.swing.TableFieldFilter2;
 import java.sql.ResultSet;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.event.ListSelectionListener;
 
@@ -28,7 +25,6 @@ public class Partner extends javax.swing.JFrame {
     private int ID = -1;
     private Window owner = null;
     private ListenerRecord listener = null;
-    private TableFieldFilter filterTable = null;
     private Query qPrjcontr = new Query(ePrjpart.values(), eSysuser.values());
     private Query qSysuser = new Query(eSysuser.values());
     private TableFieldFormat rsv = null;
@@ -1017,7 +1013,6 @@ public class Partner extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         UGui.updateBorderAndSql(tab1, List.of(tab1));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
@@ -1097,9 +1092,11 @@ public class Partner extends javax.swing.JFrame {
     public void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        filterTable = new TableFieldFilter(0, tab1);
+
+        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
+        
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

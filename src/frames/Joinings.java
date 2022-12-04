@@ -33,7 +33,6 @@ import enums.TypeGroups;
 import frames.swing.DefCellRendererBool;
 import frames.dialog.DicColvar;
 import enums.UseColor;
-import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,7 +42,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
-import static domain.eProject.owner;
+import frames.swing.TableFieldFilter2;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +65,6 @@ public class Joinings extends javax.swing.JFrame {
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
     private ListenerRecord listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
-    private TableFieldFilter filterTable = new TableFieldFilter();
 
     //Запуск из Tex (главное меню)
     public Joinings() {
@@ -1036,7 +1034,6 @@ public class Joinings extends javax.swing.JFrame {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
@@ -1153,9 +1150,12 @@ public class Joinings extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         new UColor();
-        south.add(filterTable, 0);
-        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
 
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+                
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

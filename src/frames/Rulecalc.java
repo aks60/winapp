@@ -11,13 +11,12 @@ import enums.TypeForm;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorCheck;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.DefCellRendererNumb;
+import frames.swing.TableFieldFilter2;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -26,8 +25,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private ListenerRecord listenerArtikl, listenerForm;
-    private TableFieldFilter filterTable = null;
-
+    
     public Rulecalc() {
         initComponents();
         initElements();
@@ -364,7 +362,6 @@ public class Rulecalc extends javax.swing.JFrame {
 
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab2));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -390,10 +387,12 @@ public class Rulecalc extends javax.swing.JFrame {
     public void initElements() {
 
         FrameToFile.setFrameSize(this);
-        new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(2, tab2);
+        new FrameToFile(this, btnClose);      
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
+        
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2)));
     }
 }

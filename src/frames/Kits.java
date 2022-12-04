@@ -1,7 +1,6 @@
 package frames;
 
 import builder.param.ParamList;
-import common.UCom;
 import common.eProp;
 import common.listener.ListenerFrame;
 import common.listener.ListenerRecord;
@@ -16,7 +15,6 @@ import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
-import domain.eSysmodel;
 import enums.Enam;
 import enums.TypeGroups;
 import enums.UseUnit;
@@ -34,13 +32,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
-import java.util.Collections;
+import frames.swing.TableFieldFilter2;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import startup.App;
 
 public class Kits extends javax.swing.JFrame {
@@ -50,7 +44,6 @@ public class Kits extends javax.swing.JFrame {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
     private Query qParams = new Query(eParams.values());
-    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerArtikl, listenerColor1, listenerColor2, listenerColor3;
 
     public Kits() {
@@ -700,7 +693,6 @@ public class Kits extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void btnFind(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind
@@ -740,10 +732,11 @@ public class Kits extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(0, tab2);
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2);
         south.add(filterTable, 0);
-
         filterTable.getTxt().grabFocus();
+        
         btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
         btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
         btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));

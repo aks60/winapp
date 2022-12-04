@@ -518,10 +518,6 @@ public class TestFrame extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         
-//        filterTable = new FilterTable2(0, tab1);
-//        south.add(filterTable, 0);        
-//        filterTable.getTxt().grabFocus();   
-        
         tab1.setAutoCreateRowSorter(true);
         tab2.setAutoCreateRowSorter(true);
         tab3.setAutoCreateRowSorter(true);

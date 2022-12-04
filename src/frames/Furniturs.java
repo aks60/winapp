@@ -36,7 +36,6 @@ import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
 import frames.swing.DefCellRendererBool;
-import frames.swing.TableFieldFilter;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,6 +51,7 @@ import domain.eSysfurn;
 import domain.eSystree;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
+import frames.swing.TableFieldFilter2;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,7 +76,6 @@ public class Furniturs extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
@@ -1469,7 +1468,6 @@ public class Furniturs extends javax.swing.JFrame {
             tab2 = tab2c;
             selectionTab2c(null);
         }
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
@@ -1575,8 +1573,8 @@ public class Furniturs extends javax.swing.JFrame {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в ветках систем профилей", "Ветки систем профилей", 
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/resource/img24/c066.gif")), 
+            Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в ветках систем профилей", "Ветки систем профилей",
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/resource/img24/c066.gif")),
                     pathList.toArray(), pathList.toArray()[0]);
 
             if (result != null || result instanceof Integer) {
@@ -1777,6 +1775,8 @@ public class Furniturs extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

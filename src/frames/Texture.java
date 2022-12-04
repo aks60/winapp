@@ -15,7 +15,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JColorChooser;
@@ -24,7 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.DefCellRendererNumb;
+import frames.swing.TableFieldFilter2;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -36,7 +35,6 @@ public class Texture extends javax.swing.JFrame {
     private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
-    private TableFieldFilter filterTable = null;
     private ListenerRecord listenerColor1, listenerColor2;
 
     public Texture() {
@@ -625,7 +623,6 @@ public class Texture extends javax.swing.JFrame {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepActionPerformed
@@ -676,8 +673,9 @@ public class Texture extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(0, tab2);
-        south.add(filterTable, 0);        
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab2, tab1);
+        south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

@@ -35,7 +35,7 @@ import common.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
 import frames.swing.DefCellRendererNumb;
-import frames.swing.TableFieldFilter;
+import frames.swing.TableFieldFilter2;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
 import javax.swing.DefaultListCellRenderer;
@@ -49,7 +49,7 @@ import report.HtmlOfTable;
 public class Specifics extends javax.swing.JFrame {
 
     private builder.Wincalc winc = new Wincalc();
-    private TableFieldFilter filterTable = null;
+    private TableFieldFilter2 filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b077.gif")
@@ -380,11 +380,6 @@ public class Specifics extends javax.swing.JFrame {
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Specifics.this.mousePressed(evt);
-            }
-        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(32);
@@ -445,10 +440,6 @@ public class Specifics extends javax.swing.JFrame {
         HtmlOfTable.load("Отчёт по спецификации", tab1);
         ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
-
-    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
@@ -582,9 +573,10 @@ public class Specifics extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter(4, tab1);
+       
+        filterTable = new TableFieldFilter2(4, tab1);
         south.add(filterTable, 0);
-        filterTable.getTxt().grabFocus();
+        filterTable.getTxt().grabFocus();        
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);

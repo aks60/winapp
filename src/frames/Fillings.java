@@ -34,13 +34,13 @@ import enums.UseColor;
 import frames.dialog.DicName;
 import java.util.List;
 import frames.swing.DefCellRendererBool;
-import frames.swing.TableFieldFilter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import frames.swing.DefCellEditorNumb;
+import frames.swing.TableFieldFilter2;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -54,7 +54,6 @@ public class Fillings extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values());
-    private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";
@@ -911,7 +910,6 @@ public class Fillings extends javax.swing.JFrame {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
@@ -972,11 +970,13 @@ public class Fillings extends javax.swing.JFrame {
     // </editor-fold>
 
     private void initElements() {
-        new FrameToFile(this, btnClose);
+        new FrameToFile(this, btnClose);  
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));        
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

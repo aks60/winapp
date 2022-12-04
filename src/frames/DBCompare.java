@@ -6,7 +6,7 @@ import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
-import frames.swing.TableFieldFilter;
+import frames.swing.TableFieldFilter2;
 import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -58,7 +57,6 @@ public class DBCompare extends javax.swing.JFrame {
     private Graphics2D gc2d = null;
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
-    private TableFieldFilter filterTable = null;
     private HashMap<Integer, String> hmColor = new HashMap();
     private JPanel paintPanel = new JPanel() {
 
@@ -1145,7 +1143,7 @@ public class DBCompare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        filterTable.mousePressed((JTable) evt.getSource());
+
     }//GEN-LAST:event_tabMousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
@@ -1206,10 +1204,11 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        //sorter = new TableRowSorter<DefaultTableModel>((DefaultTableModel) tab1.getModel());
-        filterTable = new TableFieldFilter(0, tab1);
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
+        
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {

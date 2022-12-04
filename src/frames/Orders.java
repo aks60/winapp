@@ -69,7 +69,7 @@ import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
 import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
-import frames.swing.TableFieldFilter;
+import frames.swing.TableFieldFilter2;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -111,7 +111,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private Scene scene = null;
     Object[] column = new String[]{"", "Скидка (%)", "Без скидок", "Со скидкой"};
     private Gson gson = new GsonBuilder().create();
-    private TableFieldFilter filterTable = new TableFieldFilter();
     private ListenerObject<Query> listenerQuery = null;
     DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
         @Override
@@ -2829,7 +2828,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab4, tab3));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
@@ -3733,8 +3731,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void initElements() {
         new FrameToFile(this, btnClose);
-        new UColor();
+        new UColor();       
+        
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
         south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+        
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         //UGui.documentFilter(3, txt7);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));

@@ -80,8 +80,8 @@ import builder.making.Cal5e;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
-import frames.swing.TableFieldFilter;
 import common.listener.ListenerReload;
+import frames.swing.TableFieldFilter2;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -106,7 +106,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private boolean writeNuni = true;
     private Canvas canvas = new Canvas();
     private Scene scene = null;
-    private TableFieldFilter filterTable = new TableFieldFilter();
     private TableFieldFormat rsvSystree;
     private java.awt.Frame models = null;
     private DefMutableTreeNode sysNode = null;
@@ -2954,7 +2953,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
         sysTree.setBorder(null);
         UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
-        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -3919,7 +3917,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         new FrameToFile(this, btnClose);
         new UColor();
+
+        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2, tab3, tab4, tab5, tab7);
         south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();        
+        
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.setDocumentFilter(3, txt17, txt22, txt23, txt24, txt26);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
