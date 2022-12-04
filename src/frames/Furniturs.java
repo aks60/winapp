@@ -1581,7 +1581,6 @@ public class Furniturs extends javax.swing.JFrame {
                 for (int i = 0; i < pathList.size(); ++i) {
                     if (result.equals(pathList.get(i))) {
                         Object id = keyList.get(i);
-                        System.out.println(id);
                         FrameProgress.create(Furniturs.this, new ListenerFrame() {
                             public void actionRequest(Object obj) {
                                 App.Systree.createFrame(Furniturs.this, id);
