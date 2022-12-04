@@ -409,7 +409,7 @@ public class Partner extends javax.swing.JFrame {
         pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.Y_AXIS));
 
         pan7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Менеджер", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        pan7.setPreferredSize(new java.awt.Dimension(243, 76));
+        pan7.setPreferredSize(new java.awt.Dimension(243, 80));
 
         lab54.setFont(frames.UGui.getFont(0,0));
         lab54.setText("ФИО");
@@ -419,6 +419,7 @@ public class Partner extends javax.swing.JFrame {
         lab54.setMinimumSize(new java.awt.Dimension(34, 14));
         lab54.setPreferredSize(new java.awt.Dimension(98, 18));
 
+        txt19.setEditable(false);
         txt19.setFont(frames.UGui.getFont(0,0));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(200, 18));
@@ -431,6 +432,7 @@ public class Partner extends javax.swing.JFrame {
         lab56.setMinimumSize(new java.awt.Dimension(34, 14));
         lab56.setPreferredSize(new java.awt.Dimension(98, 18));
 
+        txt21.setEditable(false);
         txt21.setFont(frames.UGui.getFont(0,0));
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setPreferredSize(new java.awt.Dimension(200, 18));
@@ -443,6 +445,7 @@ public class Partner extends javax.swing.JFrame {
         lab55.setMinimumSize(new java.awt.Dimension(34, 14));
         lab55.setPreferredSize(new java.awt.Dimension(98, 18));
 
+        txt20.setEditable(false);
         txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(200, 18));
