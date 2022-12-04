@@ -1474,7 +1474,8 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c 
+                    : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
         Record record = ((DefTableModel) table.getModel()).getQuery().get(UGui.getIndexRec(table));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
         FrameProgress.create(this, new ListenerFrame() {

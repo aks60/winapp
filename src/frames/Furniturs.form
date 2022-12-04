@@ -722,7 +722,6 @@
             </Container>
             <Container class="javax.swing.JPanel" name="pan5">
               <Properties>
-                <Property name="alignmentX" type="float" value="0.5"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[300, 200]"/>
                 </Property>
