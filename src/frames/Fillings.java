@@ -40,7 +40,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -972,7 +972,7 @@ public class Fillings extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);  
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

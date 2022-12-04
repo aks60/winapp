@@ -42,7 +42,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -1151,7 +1151,7 @@ public class Joinings extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         new UColor();
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
                 

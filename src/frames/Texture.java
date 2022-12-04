@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -674,7 +674,7 @@ public class Texture extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab2, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(1, tab2, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

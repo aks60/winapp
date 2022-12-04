@@ -18,7 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {
@@ -359,7 +359,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

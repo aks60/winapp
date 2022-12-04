@@ -14,7 +14,7 @@ import common.listener.ListenerRecord;
 import dataset.Conn;
 import domain.eSysuser;
 import frames.swing.DefCellRendererBool;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
@@ -1093,7 +1093,7 @@ public class Partner extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(1, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

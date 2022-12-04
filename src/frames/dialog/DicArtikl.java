@@ -13,7 +13,7 @@ import frames.swing.DefTableModel;
 import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
@@ -262,7 +262,7 @@ public class DicArtikl extends javax.swing.JDialog {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();        
     }

@@ -81,7 +81,7 @@ import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -3918,7 +3918,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         new FrameToFile(this, btnClose);
         new UColor();
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2, tab3, tab4, tab5, tab7);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab2, tab3, tab4, tab5, tab7);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();        
         

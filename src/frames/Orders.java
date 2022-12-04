@@ -69,7 +69,7 @@ import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
 import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -3733,7 +3733,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         new FrameToFile(this, btnClose);
         new UColor();       
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

@@ -35,7 +35,7 @@ import common.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
 import frames.swing.DefCellRendererNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
 import javax.swing.DefaultListCellRenderer;
@@ -49,7 +49,7 @@ import report.HtmlOfTable;
 public class Specifics extends javax.swing.JFrame {
 
     private builder.Wincalc winc = new Wincalc();
-    private TableFieldFilter2 filterTable = null;
+    private TableFieldFilter filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b077.gif")
@@ -574,7 +574,7 @@ public class Specifics extends javax.swing.JFrame {
     public void initElements() {
         new FrameToFile(this, btnClose);
        
-        filterTable = new TableFieldFilter2(4, tab1);
+        filterTable = new TableFieldFilter(4, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();        
 

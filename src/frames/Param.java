@@ -14,7 +14,7 @@ import frames.swing.DefTableModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import common.listener.ListenerRecord;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -443,7 +443,7 @@ public class Param extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

@@ -9,7 +9,7 @@ import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -885,7 +885,7 @@ public class Groups extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

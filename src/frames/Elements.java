@@ -43,7 +43,7 @@ import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import domain.eSysprof;
 import domain.eSystree;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableColumnModel;
@@ -1133,7 +1133,7 @@ public class Elements extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

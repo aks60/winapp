@@ -6,7 +6,7 @@ import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -1205,7 +1205,7 @@ public class DBCompare extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

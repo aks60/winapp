@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import common.listener.ListenerRecord;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -351,7 +351,7 @@ public class DicColor extends javax.swing.JDialog {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(1, tab1, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(1, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

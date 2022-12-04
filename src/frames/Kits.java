@@ -32,7 +32,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.HashSet;
 import java.util.List;
 import startup.App;
@@ -733,7 +733,7 @@ public class Kits extends javax.swing.JFrame {
     public void initElements() {
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorCheck;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -389,7 +389,7 @@ public class Rulecalc extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);      
         
-        TableFieldFilter2 filterTable = new TableFieldFilter2(2, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         

@@ -51,7 +51,7 @@ import domain.eSysfurn;
 import domain.eSystree;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1776,7 +1776,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter2 filterTable = new TableFieldFilter2(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

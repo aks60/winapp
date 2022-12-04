@@ -39,7 +39,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
-import frames.swing.TableFieldFilter2;
+import frames.swing.TableFieldFilter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private TableFieldFormat rsvArtikl;
-    private TableFieldFilter2 filterTable = null;
+    private TableFieldFilter filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -2745,7 +2745,7 @@ public class Artikles extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new TableFieldFilter2(0, tab1);
+        filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
