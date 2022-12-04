@@ -48,9 +48,7 @@ import javax.swing.JOptionPane;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
-import domain.eJoinpar2;
 import domain.eSysfurn;
-import domain.eSysprof;
 import domain.eSystree;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
@@ -58,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -1425,7 +1424,7 @@ public class Furniturs extends javax.swing.JFrame {
             });
 
         } else if (tab5.getBorder() != null) {
-            JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c 
+            JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c
                     : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
             Query query = ((DefTableModel) table.getModel()).getQuery();
             if (UGui.getIndexRec(table) != -1) {
@@ -1474,8 +1473,8 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-            JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c 
-                    : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
+        JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c
+                : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
         Record record = ((DefTableModel) table.getModel()).getQuery().get(UGui.getIndexRec(table));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
         FrameProgress.create(this, new ListenerFrame() {
@@ -1553,32 +1552,38 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTest
 
     private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree
-        int index = UGui.getIndexRec(tab1);
-        Record record = qFurniture.get(index);
-        List<Record> sysprofList1 = eSysfurn.query().stream().filter(rec -> record.getInt(eFurniture.id) == rec.getInt(eSysfurn.furniture_id)).collect(Collectors.toList());
-        Set<Integer> sysprofList2 = new HashSet();
-        sysprofList1.forEach(rec -> sysprofList2.add(rec.getInt(eSysprof.systree_id)));
         List<String> pathList = new ArrayList();
         List<Integer> keyList = new ArrayList();
-        StringBuffer path = new StringBuffer();
+        StringBuffer bufferPath = new StringBuffer();
+
+        int index = UGui.getIndexRec(tab1);
+        Record furnitureRec = qFurniture.get(index);
+        List<Record> sysfurnList1 = eSysfurn.query().stream().filter(rec -> furnitureRec.getInt(eFurniture.id) == rec.getInt(eSysfurn.furniture_id)).collect(Collectors.toList());
+        Set<Integer> systreeList = new HashSet();
+        sysfurnList1.forEach(rec -> systreeList.add(rec.getInt(eSysfurn.systree_id)));
+
         for (Record rec : eSystree.query()) {
-            if (sysprofList2.contains(rec.get(eSystree.id))) {
-                path = path.append(rec.getStr(eSystree.name));
-                findPathSystree(rec, path);
-                pathList.add(path.toString());
+            if (systreeList.contains(rec.get(eSystree.id))) {
+                bufferPath = bufferPath.append(rec.getStr(eSystree.name));
+                findPathSystree(rec, bufferPath);
+                pathList.add(bufferPath.toString());
                 keyList.add(rec.getInt(eSystree.id));
-                path.delete(0, path.length());
+                bufferPath.delete(0, bufferPath.length());
             }
         }
         if (pathList.size() != 0) {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в ветках систем профилей", "Ветки систем профилей", 
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/resource/img24/c066.gif")), 
+                    pathList.toArray(), pathList.toArray()[0]);
+
             if (result != null || result instanceof Integer) {
                 for (int i = 0; i < pathList.size(); ++i) {
                     if (result.equals(pathList.get(i))) {
                         Object id = keyList.get(i);
+                        System.out.println(id);
                         FrameProgress.create(Furniturs.this, new ListenerFrame() {
                             public void actionRequest(Object obj) {
                                 App.Systree.createFrame(Furniturs.this, id);
@@ -1591,7 +1596,7 @@ public class Furniturs extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(Furniturs.this, "В системе профилей фурнитура не найдена", "Сообщение", JOptionPane.NO_OPTION);
         }
     }//GEN-LAST:event_btnFindSystree
-    
+
     private void clone2(Map<Record, Integer> furnside2Map, Map<Record, Integer> furnpar2Map) {
         for (Map.Entry<Record, Integer> it : furnside2Map.entrySet()) {
             Record furnside2Rec = it.getKey();
@@ -1610,7 +1615,7 @@ public class Furniturs extends javax.swing.JFrame {
             qFurnpar2.add(furnpar2Clon);
         }
     }
-    
+
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",

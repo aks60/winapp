@@ -102,9 +102,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
-
-    //private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
     private int systreeID = -1; //выбранная система (nuni)
+    private boolean writeNuni = true;
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private TableFieldFilter filterTable = new TableFieldFilter();
@@ -124,24 +123,26 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         loadingModel();
         listenerAdd();
         listenerSet();
+        tabb1.setSelectedIndex(4);
     }
 
     public Systree(int nuni) {
         initComponents();
         scene = new Scene(canvas, spinner, this);
         this.systreeID = nuni;
+        this.writeNuni = false;
         initElements();
         loadingData();
         loadingSysTree();
         loadingModel();
         listenerAdd();
         listenerSet();
+        tabb1.setSelectedIndex(2);
     }
 
     public final void loadingData() {
-        tabb1.setSelectedIndex(4);
-        //Получим сохр. systreeID системы при выходе из программы
-        Record sysprodRec = null;
+        //Получим сохранённую systreeID при выходе из программы
+        Record sysprodRec = null; //при открытии указывает на конструкцию
         if (this.systreeID == -1 && "-1".equals(eProp.sysprodID.read()) != true) {
             sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
         }
@@ -149,8 +150,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
 
         } else if (eSysprod.query().isEmpty() == false) {
-            sysprodRec = eSysprod.query().get(0);
-            this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
+            if (this.systreeID == -1) {
+                sysprodRec = eSysprod.query().get(0);
+                this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
+            }
         }
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
@@ -716,7 +719,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
-            eProp.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
+            if (writeNuni == true) {
+                eProp.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
+            }
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
 
             Object w = sysprodRec.get(eSysprod.values().length);
@@ -2970,7 +2975,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             UGui.updateBorderAndSql(tab2, List.of(tab2, tab3, tab4, tab5));
             btnFind.setEnabled(true);
         } else if (tabb1.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));            
+            UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 3) {
             UGui.updateBorderAndSql(tab4, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 4) {
@@ -3916,7 +3921,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         new UColor();
         south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        UGui.setDocumentFilter(3, txt17, txt22, txt23, txt24, txt26);        
+        UGui.setDocumentFilter(3, txt17, txt22, txt23, txt24, txt26);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) sysTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
