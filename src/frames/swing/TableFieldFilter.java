@@ -127,7 +127,7 @@ public class TableFieldFilter extends javax.swing.JPanel {
         add(txtFilter);
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif"))); // NOI18N
-        btn2.setToolTipText(bundle.getString("Шаблон")); // NOI18N
+        btn2.setToolTipText(bundle.getString("Изменить пароль администратора")); // NOI18N
         btn2.setBorder(null);
         btn2.setMaximumSize(new java.awt.Dimension(26, 23));
         btn2.setMinimumSize(new java.awt.Dimension(26, 23));
