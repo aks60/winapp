@@ -483,8 +483,6 @@ public class Artikles extends javax.swing.JFrame {
         btnMove = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         btnClone = new javax.swing.JButton();
-        btnMoveU = new javax.swing.JButton();
-        btnMoveD = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
@@ -841,40 +839,6 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
-        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
-        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
-        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnMoveU.setEnabled(false);
-        btnMoveU.setFocusable(false);
-        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveUbtnMove(evt);
-            }
-        });
-
-        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
-        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
-        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnMoveD.setEnabled(false);
-        btnMoveD.setFocusable(false);
-        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveDbtnMove(evt);
-            }
-        });
-
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -890,11 +854,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 578, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 634, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -915,13 +875,9 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(btnMove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2412,11 +2368,6 @@ public class Artikles extends javax.swing.JFrame {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2));
-        if (table == tab1) {
-            List.of(btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(true));
-        } else {
-            List.of(btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(false));
-        }
     }//GEN-LAST:event_mousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
@@ -2581,54 +2532,6 @@ public class Artikles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClone
 
-    private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
-        JTable table = tab1;
-        int index = UGui.getIndexRec(table);
-        int index2 = index;
-        if (index != -1 && table != null) {
-            JButton btn = (JButton) evt.getSource();
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-
-            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                Collections.swap(query, index, ++index2);
-
-            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                Collections.swap(query, index, --index2);
-            }
-            for (int i = 0; i < query.size(); i++) {
-                query.set(i + 1, i, eArtikl.npp);
-            }
-            query.execsql();
-
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(table, index2);
-        }
-    }//GEN-LAST:event_btnMoveUbtnMove
-
-    private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
-        JTable table = tab1;
-        int index = UGui.getIndexRec(table);
-        int index2 = index;
-        if (index != -1 && table != null) {
-            JButton btn = (JButton) evt.getSource();
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-
-            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                Collections.swap(query, index, ++index2);
-
-            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                Collections.swap(query, index, --index2);
-            }
-            for (int i = 0; i < query.size(); i++) {
-                query.set(i + 1, i, eArtikl.npp);
-            }
-            query.execsql();
-
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(table, index2);
-        }
-    }//GEN-LAST:event_btnMoveDbtnMove
-
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -2665,8 +2568,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnMove;
-    private javax.swing.JButton btnMoveD;
-    private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnTest;
