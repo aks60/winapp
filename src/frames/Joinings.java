@@ -717,15 +717,15 @@ public class Joinings extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv", null, null, null},
-                {"ccccc", "vvvvv", "uuuuuuuuuuuuu", null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "Артикул 1", "Артикул 2", "Название", "Основн...", "Аналог", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, false
@@ -753,7 +753,8 @@ public class Joinings extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setPreferredWidth(320);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(3).setMaxWidth(80);
-            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
@@ -899,7 +900,8 @@ public class Joinings extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(5).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);

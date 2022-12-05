@@ -930,9 +930,16 @@ public class Furniturs extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
@@ -946,7 +953,8 @@ public class Furniturs extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(280);
-            tab1.getColumnModel().getColumn(13).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(13).setMaxWidth(60);
         }
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1104,9 +1112,16 @@ public class Furniturs extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2a.setFillsViewportHeight(true);
@@ -1121,6 +1136,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab2a.getColumnModel().getColumnCount() > 0) {
             tab2a.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2a.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab2a.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1139,9 +1155,16 @@ public class Furniturs extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2c.setFillsViewportHeight(true);
@@ -1156,6 +1179,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab2c.getColumnModel().getColumnCount() > 0) {
             tab2c.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2c.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab2c.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2c.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1179,9 +1203,16 @@ public class Furniturs extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2b.setFillsViewportHeight(true);
@@ -1196,6 +1227,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab2b.getColumnModel().getColumnCount() > 0) {
             tab2b.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2b.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab2b.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2b.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 

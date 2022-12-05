@@ -225,7 +225,8 @@ public class Groups extends javax.swing.JFrame {
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab7.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab7.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab7.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab7.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan7.add(scr7, java.awt.BorderLayout.CENTER);
@@ -274,7 +275,8 @@ public class Groups extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -323,7 +325,8 @@ public class Groups extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(1).setMaxWidth(120);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -373,7 +376,8 @@ public class Groups extends javax.swing.JFrame {
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab5.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan5.add(scr5, java.awt.BorderLayout.CENTER);
@@ -419,7 +423,8 @@ public class Groups extends javax.swing.JFrame {
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
@@ -468,7 +473,8 @@ public class Groups extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
@@ -517,7 +523,8 @@ public class Groups extends javax.swing.JFrame {
         });
         scr6.setViewportView(tab6);
         if (tab6.getColumnModel().getColumnCount() > 0) {
-            tab6.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab6.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan6.add(scr6, java.awt.BorderLayout.CENTER);
@@ -566,7 +573,8 @@ public class Groups extends javax.swing.JFrame {
         });
         scr8.setViewportView(tab8);
         if (tab8.getColumnModel().getColumnCount() > 0) {
-            tab8.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab8.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab8.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan8.add(scr8, java.awt.BorderLayout.CENTER);

@@ -927,7 +927,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, false
@@ -960,7 +960,8 @@ public class Artikles extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(3).setMaxWidth(120);
             tab1.getColumnModel().getColumn(4).setMaxWidth(0);
             tab1.getColumnModel().getColumn(5).setMaxWidth(0);
-            tab1.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
@@ -2194,7 +2195,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, true, true, true, true, true, false
@@ -2208,6 +2209,7 @@ public class Artikles extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2233,7 +2235,8 @@ public class Artikles extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(11).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(11).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(11).setMaxWidth(60);
         }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);

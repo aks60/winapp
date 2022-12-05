@@ -641,7 +641,8 @@ public class Fillings extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setMaxWidth(160);
-            tab1.getColumnModel().getColumn(3).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -727,7 +728,8 @@ public class Fillings extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan4.add(scr2, java.awt.BorderLayout.CENTER);
@@ -782,9 +784,16 @@ public class Fillings extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab5.setFillsViewportHeight(true);
@@ -805,7 +814,8 @@ public class Fillings extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
             tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(4).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab5.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
         pan3.add(scr5, java.awt.BorderLayout.CENTER);

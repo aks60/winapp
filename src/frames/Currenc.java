@@ -297,7 +297,8 @@ public class Currenc extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

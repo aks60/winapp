@@ -406,7 +406,8 @@ public class Texture extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);

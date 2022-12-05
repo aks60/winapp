@@ -717,11 +717,18 @@ public class Elements extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -746,7 +753,8 @@ public class Elements extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(7).setMaxWidth(80);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(8).setMaxWidth(80);
-            tab2.getColumnModel().getColumn(9).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(9).setMaxWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
@@ -876,7 +884,22 @@ public class Elements extends javax.swing.JFrame {
             new String [] {
                 "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -893,7 +916,8 @@ public class Elements extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(3).setPreferredWidth(60);
             tab3.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab3.getColumnModel().getColumn(5).setPreferredWidth(60);
-            tab3.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         pan2.add(scr3, java.awt.BorderLayout.CENTER);
