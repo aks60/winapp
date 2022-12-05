@@ -58,7 +58,7 @@ public class Conn {
         return application == false;
     }
 
-    public static void close(Connection connection) throws SQLException {
+    public static void close() throws SQLException {
         if (application == false) {
             connection.close();
         }
@@ -163,7 +163,7 @@ public class Conn {
                 next_id = rs.getInt("GEN_ID");
             }
             rs.close();
-            close(conn);
+            close();
             return next_id;
         } catch (SQLException e) {
             System.err.println("Ошибка генерации ключа " + e);

@@ -16,7 +16,6 @@ public class Query extends Table {
 
     public static String conf = "app";
     private static String schema = "";
-    public Connection connection = null;
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
@@ -25,13 +24,11 @@ public class Query extends Table {
     public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
-        this.connection = Conn.connection();
         this.root = query;
     }
 
     public Query(Field... fields) {
         this.root = this;
-        this.connection = Conn.connection();
         mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
@@ -45,28 +42,6 @@ public class Query extends Table {
 
     public Query(Field[]... fieldsArr) {
         this.root = this;
-        this.connection = Conn.connection();
-        mapQuery.put(fieldsArr[0][0].tname(), this);
-        for (Field[] fields : fieldsArr) {
-            for (Field field : fields) {
-                if (!field.name().equals("up")) {
-                    if (mapQuery.get(field.tname()) == null) {
-                        mapQuery.put(field.tname(), new Query(this));
-                    }
-                    mapQuery.get(field.tname()).fields.add(field);
-                }
-            }
-        }
-    }
-
-    public Query(Connection connection, Query query) {
-        this.connection = connection;
-        this.root = query;
-    }
-
-    public Query(Connection connection, Field[]... fieldsArr) {
-        this.root = this;
-        this.connection = connection;
         mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
@@ -117,7 +92,7 @@ public class Query extends Table {
         }
         //System.out.println("SQL-SELECT: " + sql);
         try {
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);
             this.sql = s;
             while (recordset.next()) {
@@ -135,7 +110,7 @@ public class Query extends Table {
                 }
             }
             statement.close();
-            Conn.close(this.connection);
+            Conn.close();
             return this;
 
         } catch (SQLException e) {
@@ -146,7 +121,7 @@ public class Query extends Table {
 
     public void insert(Record record) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = Conn.connection().createStatement();
             //если нет, генерю сам
             String nameCols = "", nameVals = "";
             //цикл по полям таблицы
@@ -165,7 +140,7 @@ public class Query extends Table {
                 statement.executeUpdate(sql);
                 record.setNo(0, SEL);
             }
-            Conn.close(this.connection);
+            Conn.close();
 
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
@@ -173,7 +148,7 @@ public class Query extends Table {
     }
 
     public void insert2(Record record) throws SQLException {
-        Statement statement = connection.createStatement();
+        Statement statement = Conn.connection().createStatement();
         //если нет, генерю сам
         String nameCols = "", nameVals = "";
         //цикл по полям таблицы
@@ -192,13 +167,13 @@ public class Query extends Table {
             statement.executeUpdate(sql);
             record.setNo(0, SEL);
         }
-        Conn.close(this.connection);
+        Conn.close();
     }
 
     public void update(Record record) {
         try {
             String nameCols = "";
-            Statement statement = statement = connection.createStatement();
+            Statement statement = statement = Conn.connection().createStatement();
             //цикл по полям таблицы
             for (Field field : fields) {
                 if (field.meta().type() != Field.TYPE.OBJ) {
@@ -214,7 +189,7 @@ public class Query extends Table {
                 statement.executeUpdate(sql);
                 record.setNo(0, SEL);
             }
-            Conn.close(this.connection);
+            Conn.close();
 
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
@@ -223,7 +198,7 @@ public class Query extends Table {
 
     public void update2(Record record) throws SQLException {
         String nameCols = "";
-        Statement statement = statement = connection.createStatement();
+        Statement statement = Conn.connection().createStatement();
         //цикл по полям таблицы
         for (Field field : fields) {
             if (field.meta().type() != Field.TYPE.OBJ) {
@@ -239,17 +214,17 @@ public class Query extends Table {
             statement.executeUpdate(sql);
             record.setNo(0, SEL);
         }
-        Conn.close(this.connection);
+        Conn.close();
     }
 
     public boolean delete(Record record) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = Conn.connection().createStatement();
             Field[] f = fields.get(0).fields();
             String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             System.out.println("SQL-DELETE " + sql);
             statement.executeUpdate(sql);
-            Conn.close(this.connection);
+            Conn.close();
             return true;
 
         } catch (SQLException e) {
@@ -262,12 +237,12 @@ public class Query extends Table {
     }
 
     public int delete2(Record record) throws SQLException {
-        Statement statement = connection.createStatement();
+        Statement statement = Conn.connection().createStatement();
         Field[] f = fields.get(0).fields();
         String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
         System.out.println("SQL-DELETE " + sql);
         int ret = statement.executeUpdate(sql);
-        Conn.close(this.connection);
+        Conn.close();
         return ret;
     }
 
