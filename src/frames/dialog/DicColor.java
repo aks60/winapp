@@ -75,7 +75,7 @@ public class DicColor extends javax.swing.JDialog {
     
     
     private void loadingModel() {
-        new DefTableModel(tab1, qColgrp, eGroups.id, eGroups.name);
+        new DefTableModel(tab1, qColgrp, eGroups.name, eGroups.id);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name);
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -256,8 +256,8 @@ public class DicColor extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111111", null},
-                {"2222222", null},
+                {null, "1111111"},
+                {null, "2222222"},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -265,11 +265,11 @@ public class DicColor extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "Название текстуры", "ID"
+                "Код текстуры", "Название текстуры"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -293,8 +293,8 @@ public class DicColor extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
