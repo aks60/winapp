@@ -3,6 +3,7 @@ package frames;
 import common.UCom;
 import dataset.Query;
 import domain.eGroups;
+import domain.eSysprod;
 import enums.TypeGroups;
 import static frames.UGui.getIndexRec;
 import frames.swing.DefCellEditorBtn;
@@ -11,7 +12,9 @@ import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
 import frames.swing.TableFieldFilter;
 import java.awt.Component;
+import java.util.Collections;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -157,6 +160,8 @@ public class Groups extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnMoveD = new javax.swing.JButton();
+        btnMoveU = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -656,6 +661,38 @@ public class Groups extends javax.swing.JFrame {
             }
         });
 
+        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
+        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveD.setFocusable(false);
+        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveDbtnMove(evt);
+            }
+        });
+
+        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
+        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveU.setFocusable(false);
+        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveUbtnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -667,7 +704,11 @@ public class Groups extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 428, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -677,12 +718,18 @@ public class Groups extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -842,11 +889,61 @@ public class Groups extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabbStateChanged
 
+    private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8);
+        int index = UGui.getIndexRec(table);
+        int index2 = index;
+        if (index != -1 && table != null) {
+            JButton btn = (JButton) evt.getSource();
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(query, index, ++index2);
+
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                Collections.swap(query, index, --index2);
+            }
+            for (int i = 0; i < query.size(); i++) {
+                query.set(i + 1, i, eGroups.npp);
+            }
+            query.execsql();
+
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
+        }
+    }//GEN-LAST:event_btnMoveDbtnMove
+
+    private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8);
+        int index = UGui.getIndexRec(table);
+        int index2 = index;
+        if (index != -1 && table != null) {
+            JButton btn = (JButton) evt.getSource();
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(query, index, ++index2);
+
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                Collections.swap(query, index, --index2);
+            }
+            for (int i = 0; i < query.size(); i++) {
+                query.set(i + 1, i, eGroups.npp);
+            }
+            query.execsql();
+
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
+        }
+    }//GEN-LAST:event_btnMoveUbtnMove
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnMoveD;
+    private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;

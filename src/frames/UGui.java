@@ -420,7 +420,7 @@ public class UGui {
         }
     }
 
-    //Установить бордер
+    //Установить пустой бордер
     public static void createEmptyBorder(final Container c) {
         List<Component> comps = getAllComponents(c);
         for (Component comp : comps) {
@@ -428,6 +428,16 @@ public class UGui {
                 ((JPanel) comp).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
             }
         }
+    }
+
+    //Получить таблицу от непустого бордера
+    public static JTable tableFromBorder(JTable... tables) {
+        for (JTable table : tables) {
+            if (table.getBorder() != null) {
+                return table;
+            }
+        }
+        return null;
     }
 
     //Все компоненты формы
@@ -555,6 +565,21 @@ public class UGui {
                 table.setRowSelectionInterval(row, row);
             } else {
                 table.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    //Выделить запись по ключу
+    public static void setSelectedFromID(JTable table, int id) {
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        if (id == -1) {
+            UGui.setSelectedRow(table);
+        } else {
+            for (int i = 0; i < ((DefTableModel) table.getModel()).getQuery().size(); ++i) {
+                if (query.get(i).getInt(1) == id) {
+                    UGui.setSelectedIndex(table, i);
+                    UGui.scrollRectToRow(i, table);
+                }
             }
         }
     }
@@ -895,7 +920,7 @@ public class UGui {
         return colorSet;
     }
 
-      //Проверка на коррекность ввода
+    //Проверка на коррекность ввода
     public static void setDocumentFilter(int pattern, JTextField... txtField) {
         for (JTextField txtField2 : txtField) {
             ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {

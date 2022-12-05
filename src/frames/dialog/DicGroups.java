@@ -16,9 +16,11 @@ import frames.swing.DefTableModel;
 import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javax.swing.JToggleButton;
 import common.listener.ListenerRecord;
+import domain.eSysprod;
+import java.util.Collections;
 import java.util.List;
+import javax.swing.JButton;
 
 public class DicGroups extends javax.swing.JDialog {
 
@@ -26,7 +28,7 @@ public class DicGroups extends javax.swing.JDialog {
     private Enam grup = null;
     private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());
-    private int ID = 0;
+    private int ID = -1;
 
     public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int id) {
         super(parent, true);
@@ -50,40 +52,26 @@ public class DicGroups extends javax.swing.JDialog {
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            setSelectedRow(tab1);
+            UGui.setSelectedFromID(tab1, ID);
         } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            setSelectedRow(tab2);
+            UGui.setSelectedFromID(tab2, ID);
         } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            setSelectedRow(tab3);
+            UGui.setSelectedFromID(tab3, ID);
         } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            setSelectedRow(tab4);
+            UGui.setSelectedFromID(tab4, ID);
         }
-    }
-
-    public void setSelectedRow(JTable tab) {
-        if (ID > 0) {
-            for (int i = 0; i < qGroups.size(); ++i) {
-                if (qGroups.get(i).getInt(eGroups.id) == ID) {
-                    UGui.setSelectedIndex(tab, i);
-                    UGui.scrollRectToRow(i, tab);
-                }
-            }
-        } else {
-            UGui.setSelectedRow(tab);
-        }
-        UGui.updateBorderAndSql(tab, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,6 +82,8 @@ public class DicGroups extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnMoveU = new javax.swing.JButton();
+        btnMoveD = new javax.swing.JButton();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -167,6 +157,38 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
 
+        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
+        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveU.setFocusable(false);
+        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveUbtnMove(evt);
+            }
+        });
+
+        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
+        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveD.setFocusable(false);
+        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveDbtnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -176,7 +198,11 @@ public class DicGroups extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -188,7 +214,10 @@ public class DicGroups extends javax.swing.JDialog {
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -409,17 +438,7 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-
-        int index = -1;
-        if (tab1.getBorder() != null) {
-            index = UGui.getIndexRec(tab1);
-        } else if (tab2.getBorder() != null) {
-            index = UGui.getIndexRec(tab2);
-        } else if (tab3.getBorder() != null) {
-            index = UGui.getIndexRec(tab3);
-        } else if (tab4.getBorder() != null) {
-            index = UGui.getIndexRec(tab4);
-        }
+        int index = UGui.getIndexRec(UGui.tableFromBorder(tab1, tab2, tab3, tab4));
         if (index != -1) {
             listener.action(qGroups.get(index));
             this.dispose();
@@ -459,10 +478,60 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tabMousePressed
 
+    private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4);
+        int index = UGui.getIndexRec(table);
+        int index2 = index;
+        if (index != -1 && table != null) {
+            JButton btn = (JButton) evt.getSource();
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(query, index, ++index2);
+
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                Collections.swap(query, index, --index2);
+            }
+            for (int i = 0; i < query.size(); i++) {
+                query.set(i + 1, i, eGroups.npp);
+            }
+            query.execsql();
+
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
+        }
+    }//GEN-LAST:event_btnMoveUbtnMove
+
+    private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4);
+        int index = UGui.getIndexRec(table);
+        int index2 = index;
+        if (index != -1 && table != null) {
+            JButton btn = (JButton) evt.getSource();
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(query, index, ++index2);
+
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                Collections.swap(query, index, --index2);
+            }
+            for (int i = 0; i < query.size(); i++) {
+                query.set(i + 1, i, eGroups.npp);
+            }
+            query.execsql();
+
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
+        }
+    }//GEN-LAST:event_btnMoveDbtnMove
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnMoveD;
+    private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;

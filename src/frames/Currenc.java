@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import domain.eGroups;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Currenc extends javax.swing.JFrame {
     private ListenerRecord listener = null;
     private Window owner = null;
     private Query qCurrenc = new Query(eCurrenc.values());
+    private int ID = -1;
 
     public Currenc() {
         initComponents();
@@ -45,16 +47,30 @@ public class Currenc extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    public Currenc(Frame owner, ListenerRecord listener, int id) {
+        initComponents();
+        this.ID = id;
+        initElements();
+        loadingData();
+        loadingModel();
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.setVisible(false));
+        ((DefTableModel) tab1.getModel()).setCellEditable(false, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
+        this.owner = owner;
+        owner.setEnabled(false);
+        this.listener = listener;
+        setVisible(true);
+    }
+    
     public void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
     }
 
-    public void loadingModel() {        
-        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);        
+    public void loadingModel() {
+        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(4));
         tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererNumb(4));
         tab1.setLocale(eProp.locale);
-        UGui.setSelectedRow(tab1);
+        UGui.setSelectedFromID(tab1, ID); 
     }
 
     @SuppressWarnings("unchecked")
