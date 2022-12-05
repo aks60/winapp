@@ -341,8 +341,8 @@ public class Groups extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
+                {"1111",  new Double(3.0), null},
+                {"2222",  new Double(3.0), null},
                 {null, null, null},
                 {null, null, null}
             },
@@ -439,8 +439,8 @@ public class Groups extends javax.swing.JFrame {
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
+                {"11111", null},
+                {"22222", null},
                 {null, null},
                 {null, null}
             },
@@ -489,10 +489,8 @@ public class Groups extends javax.swing.JFrame {
         tab6.setFont(frames.UGui.getFont(0,0));
         tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1111", null},
+                {"2222", null}
             },
             new String [] {
                 "Наименование", "ID"
@@ -539,10 +537,8 @@ public class Groups extends javax.swing.JFrame {
         tab8.setFont(frames.UGui.getFont(0,0));
         tab8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1111", null},
+                {"2222", null}
             },
             new String [] {
                 "Наименование", "ID"

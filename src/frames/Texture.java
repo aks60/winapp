@@ -383,9 +383,16 @@ public class Texture extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -451,7 +458,8 @@ public class Texture extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(48);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
@@ -474,7 +482,15 @@ public class Texture extends javax.swing.JFrame {
             new String [] {
                 "Название группы", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -483,7 +499,8 @@ public class Texture extends javax.swing.JFrame {
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan2.add(scr3, java.awt.BorderLayout.WEST);
@@ -502,7 +519,7 @@ public class Texture extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -523,7 +540,8 @@ public class Texture extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab4.getColumnModel().getColumn(2).setPreferredWidth(100);
             tab4.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(10).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(10).setMaxWidth(60);
         }
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);

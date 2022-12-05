@@ -465,7 +465,7 @@ public class Kits extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(46);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         west.add(scr2, java.awt.BorderLayout.CENTER);
@@ -551,7 +551,7 @@ public class Kits extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab3.getColumnModel().getColumn(6).setPreferredWidth(60);
             tab3.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab3.getColumnModel().getColumn(7).setMaxWidth(46);
+            tab3.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         centr.add(scr3, java.awt.BorderLayout.CENTER);
@@ -562,21 +562,13 @@ public class Kits extends javax.swing.JFrame {
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "1", null},
-                {"222", "2", null}
+                {"111", "1"},
+                {"222", "2"}
             },
             new String [] {
-                "Параметр", "Значение", "ID"
+                "Параметр", "Значение"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -588,7 +580,6 @@ public class Kits extends javax.swing.JFrame {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(0).setPreferredWidth(480);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tab4.getColumnModel().getColumn(2).setPreferredWidth(40);
         }
 
         centr.add(scr4, java.awt.BorderLayout.SOUTH);

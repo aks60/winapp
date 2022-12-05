@@ -412,11 +412,26 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="2">
-                        <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; 1" type="java.lang.Integer"/>
-                        <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; 2" type="java.lang.Integer"/>
-                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String"/>
-                        <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;..." type="java.lang.String"/>
-                        <Column editable="true" title="&#x410;&#x43d;&#x430;&#x43b;&#x43e;&#x433;" type="java.lang.String"/>
+                        <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; 1" type="java.lang.Object">
+                          <Data value="11"/>
+                          <Data value="22"/>
+                        </Column>
+                        <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; 2" type="java.lang.Object">
+                          <Data value="11"/>
+                          <Data value="22"/>
+                        </Column>
+                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
+                          <Data value="1111"/>
+                          <Data value="2222"/>
+                        </Column>
+                        <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;..." type="java.lang.String">
+                          <Data value="1"/>
+                          <Data value="2"/>
+                        </Column>
+                        <Column editable="true" title="&#x410;&#x43d;&#x430;&#x43b;&#x43e;&#x433;" type="java.lang.String">
+                          <Data value="1"/>
+                          <Data value="2"/>
+                        </Column>
                         <Column editable="false" title="ID" type="java.lang.Integer"/>
                       </Table>
                     </Property>
@@ -596,13 +611,13 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="2">
-                        <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.String">
-                          <Data value="11"/>
-                          <Data value="22"/>
+                        <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object">
+                          <Data value="1111"/>
+                          <Data value="2222"/>
                         </Column>
-                        <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.String">
-                          <Data value="111"/>
-                          <Data value="222"/>
+                        <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                          <Data value="1"/>
+                          <Data value="2"/>
                         </Column>
                       </Table>
                     </Property>

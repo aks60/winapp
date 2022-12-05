@@ -2187,8 +2187,8 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {"1", "111", null, null, null, null, null, null, null, null, null, null},
+                {"2", "222", null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"

@@ -1254,9 +1254,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
@@ -1276,7 +1283,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             tab1.getColumnModel().getColumn(4).setPreferredWidth(200);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(6).setMaxWidth(50);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1300,10 +1307,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false, true
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1329,8 +1336,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             tab2.getColumnModel().getColumn(2).setMinWidth(68);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab2.getColumnModel().getColumn(2).setMaxWidth(68);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(3).setMaxWidth(50);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         pan7.add(scr2, java.awt.BorderLayout.CENTER);
@@ -1528,9 +1535,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 "Параметры конструкции", "Значение по умолчанию", "ID"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, true, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -1543,7 +1557,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(400);
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab3.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan14.add(scr3, java.awt.BorderLayout.CENTER);
@@ -2687,11 +2702,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab4.setFillsViewportHeight(true);
@@ -2711,7 +2733,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             tab4.getColumnModel().getColumn(9).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(11).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(11).setMaxWidth(50);
+            tab4.getColumnModel().getColumn(11).setMaxWidth(60);
         }
 
         pan6.add(scr4, java.awt.BorderLayout.CENTER);
