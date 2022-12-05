@@ -650,8 +650,6 @@ public class Furniturs extends javax.swing.JFrame {
     private void initComponents() {
 
         group1 = new javax.swing.ButtonGroup();
-        pan7 = new javax.swing.JPanel();
-        pan8 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -682,7 +680,6 @@ public class Furniturs extends javax.swing.JFrame {
         pan6 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
-        pan11 = new javax.swing.JPanel();
         scr2a = new javax.swing.JScrollPane();
         tab2a = new javax.swing.JTable();
         scr2c = new javax.swing.JScrollPane();
@@ -696,12 +693,6 @@ public class Furniturs extends javax.swing.JFrame {
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-
-        pan7.setPreferredSize(new java.awt.Dimension(300, 108));
-        pan7.setLayout(new java.awt.BorderLayout());
-
-        pan8.setPreferredSize(new java.awt.Dimension(300, 90));
-        pan8.setLayout(new java.awt.BorderLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
@@ -1010,7 +1001,6 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
-        pan5.setAlignmentX(0.5F);
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
         pan5.setLayout(new javax.swing.BoxLayout(pan5, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -1101,8 +1091,6 @@ public class Furniturs extends javax.swing.JFrame {
         tabb1.setFont(frames.UGui.getFont(0,0));
         tabb1.setPreferredSize(new java.awt.Dimension(0, 180));
 
-        pan11.setLayout(new java.awt.BorderLayout());
-
         tab2a.setFont(frames.UGui.getFont(0,0));
         tab2a.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1136,9 +1124,7 @@ public class Furniturs extends javax.swing.JFrame {
             tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
-        pan11.add(scr2a, java.awt.BorderLayout.CENTER);
-
-        tabb1.addTab("Детализация (1 уровень)", pan11);
+        tabb1.addTab("Детализация (1 уровень)", scr2a);
 
         tab2c.setFont(frames.UGui.getFont(0,0));
         tab2c.setModel(new javax.swing.table.DefaultTableModel(
@@ -1739,14 +1725,11 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
-    private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
-    private javax.swing.JPanel pan7;
-    private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2a;
