@@ -523,7 +523,8 @@ public class DicKits extends javax.swing.JDialog {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan1.add(scr1);
@@ -572,7 +573,8 @@ public class DicKits extends javax.swing.JDialog {
             tab2.getColumnModel().getColumn(3).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan1.add(scr2);
