@@ -58,13 +58,13 @@ public class PathToDb extends javax.swing.JDialog {
                         //ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
                         ResultSet rs = st.executeQuery("SELECT u.RDB$USER, u.RDB$RELATION_NAME FROM RDB$USER_PRIVILEGES u WHERE u.RDB$RELATION_NAME != 'DEFROLE' and u.RDB$USER = '" + edUser.getText().toUpperCase() + "'");
                         while (rs.next()) {
-                            String role = rs.getString("RDB$RELATION_NAME").trim();
+                            eProp.role = rs.getString("RDB$RELATION_NAME").trim();
                             Conn.connection().close();
-                            pass = Conn.connection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
+                            pass = Conn.connection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), eProp.role);
                             if (pass == eExcep.yesConn) {
-                                if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
+                                if (App.Top.frame == null && eProfile.P02.roleSet.contains(eProp.role)) {
                                     App.createApp(eProfile.P02);
-                                } else if (App.Top.frame == null && eProfile.P03.roleSet.contains(role)) {
+                                } else if (App.Top.frame == null && eProfile.P03.roleSet.contains(eProp.role)) {
                                     App.createApp(eProfile.P03);
                                 }
                                 eProp.base_num.write(num_base);

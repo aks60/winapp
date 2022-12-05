@@ -25,7 +25,7 @@ public class Partner extends javax.swing.JFrame {
     private int ID = -1;
     private Window owner = null;
     private ListenerRecord listener = null;
-    private Query qPrjcontr = new Query(ePrjpart.values(), eSysuser.values());
+    private Query qPrjpart = new Query(ePrjpart.values(), eSysuser.values());
     private Query qSysuser = new Query(eSysuser.values());
     private TableFieldFormat rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
@@ -62,24 +62,24 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login, 
+        qPrjpart.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login, 
                 "order by", ePrjpart.category, ",", ePrjpart.login);
     }
 
     public void loadingModel() {
         if(ID != -1) {
             Record record = ePrjpart.find(ID);
-            qPrjcontr.clear();
-            qPrjcontr.add(record);
+            qPrjpart.clear();
+            qPrjpart.add(record);
         }
-        new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.login, ePrjpart.flag2);
+        new DefTableModel(tab1, qPrjpart, ePrjpart.category, ePrjpart.partner, ePrjpart.login, ePrjpart.flag2);
 
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
             if (result != null) {
                 UGui.stopCellEditing(tab1);
-                qPrjcontr.set(result, UGui.getIndexRec(tab1), ePrjpart.category);
+                qPrjpart.set(result, UGui.getIndexRec(tab1), ePrjpart.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
@@ -118,7 +118,7 @@ public class Partner extends javax.swing.JFrame {
         UGui.stopCellEditing(tab1);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            int flag = qPrjcontr.getAs(index, ePrjpart.flag2);
+            int flag = qPrjpart.getAs(index, ePrjpart.flag2);
             int i = (flag == 1) ? 1 : 0;
             tabb1.setSelectedIndex(i);
         }
@@ -953,7 +953,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1);
-        qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
+        qPrjpart.mapQuery().values().forEach(q -> q.execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -980,7 +980,7 @@ public class Partner extends javax.swing.JFrame {
                     prjpartRec.setNo(ePrjpart.login, login);
                     prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
                     Record record2 = new Query(eSysuser.values()).select(eSysuser.up, "where", eSysuser.login, "= '", login + "'").get(0);
-                    qPrjcontr.table(eSysuser.up).add(record2);
+                    qPrjpart.table(eSysuser.up).add(record2);
 
                 } catch (Exception e) {
                     System.err.println("Ошибка:Partner.btnInsert() " + e);
@@ -992,10 +992,10 @@ public class Partner extends javax.swing.JFrame {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && listener != null) {
-            Record record = qPrjcontr.get(index);
+            Record record = qPrjpart.get(index);
             listener.action(record);
-        }
-        this.dispose();
+            this.dispose();
+        } 
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
@@ -1005,7 +1005,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1);
-        qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
+        qPrjpart.mapQuery().values().forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed

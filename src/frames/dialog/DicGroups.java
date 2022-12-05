@@ -443,7 +443,6 @@ public class DicGroups extends javax.swing.JDialog {
             listener.action(qGroups.get(index));
             this.dispose();
         }
-
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
