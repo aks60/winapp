@@ -159,16 +159,23 @@ public class ParGrup2v extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "3"},
-                {"1", "3"}
+                {"3", null},
+                {"3", null}
             },
             new String [] {
-                "ID", "Название "
+                "Название ", "ID"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -183,7 +190,8 @@ public class ParGrup2v extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         center.add(scr1, java.awt.BorderLayout.CENTER);
@@ -199,16 +207,23 @@ public class ParGrup2v extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Name 1"},
-                {"2", "Name 2"}
+                {"Name 1", null},
+                {"Name 2", null}
             },
             new String [] {
-                "ID", "Значение параметра"
+                "Значение параметра", "ID"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -228,7 +243,8 @@ public class ParGrup2v extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         south.add(scr2, java.awt.BorderLayout.CENTER);

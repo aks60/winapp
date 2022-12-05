@@ -356,8 +356,8 @@ public class Partner extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {"111", "111", null, null, null},
+                {"222", "222", null, null, null}
             },
             new String [] {
                 "Категория", "Контрагент", "User", "Организация", "ID"
@@ -395,7 +395,8 @@ public class Partner extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(16);
-            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);

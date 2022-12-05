@@ -262,15 +262,15 @@ public class Param extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzzz", null, null, null, null, null, null, null, null},
-                {"xxxxx", null, null, null, null, null, null, null, null}
+                {"11111", null, null, null, null, null, null, null, null},
+                {"22222", null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Название параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Текстура", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, true, true, false
@@ -295,7 +295,8 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(300);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab1.getColumnModel().getColumn(8).setMaxWidth(48);
+            tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(8).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -311,8 +312,8 @@ public class Param extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {"1111", null, null, null, null, null, null, null, null},
+                {"2222", null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Надпись", "ID"
@@ -344,7 +345,8 @@ public class Param extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(300);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(48);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(60);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);

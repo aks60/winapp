@@ -266,10 +266,8 @@ public class Syssize extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {"111",  new Double(1.0),  new Double(1.0),  new Double(1.0),  new Double(1.0), null},
+                {"222",  new Double(2.0),  new Double(2.0),  new Double(2.0),  new Double(2.0), null}
             },
             new String [] {
                 "Система артикулов", "Припуск на сварку", "Нахлест створки", "Заход импоста", "Наплав системы", "ID"
@@ -304,7 +302,8 @@ public class Syssize extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(200);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

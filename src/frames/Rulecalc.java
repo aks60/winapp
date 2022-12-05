@@ -303,7 +303,8 @@ public class Rulecalc extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(9).setPreferredWidth(72);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(72);
             tab2.getColumnModel().getColumn(11).setPreferredWidth(180);
-            tab2.getColumnModel().getColumn(12).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(12).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(12).setMaxWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);

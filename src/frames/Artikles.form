@@ -3978,8 +3978,14 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="12" rowCount="2">
-                        <Column editable="true" title="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x430;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x430;" type="java.lang.Object">
+                          <Data value="1"/>
+                          <Data value="2"/>
+                        </Column>
+                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                          <Data value="111"/>
+                          <Data value="222"/>
+                        </Column>
                         <Column editable="true" title="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x438;&#x442;&#x44c;" type="java.lang.Boolean"/>
                         <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;&#x430;&#x44f;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x438;&#x442;&#x44c;" type="java.lang.Boolean"/>

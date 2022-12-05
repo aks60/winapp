@@ -1275,20 +1275,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab7.setFont(frames.UGui.getFont(0,0));
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11111", "111", null},
-                {"22222", "222", null},
-                {null, null, null},
-                {null, null, null}
+                {"111", "1", null},
+                {"222", "2", null}
             },
             new String [] {
                 "Параметр", "Значение по умолчанию", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1311,7 +1309,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab7.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab7.getColumnModel().getColumn(2).setMaxWidth(46);
+            tab7.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab7.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
         pan11.add(scr7, java.awt.BorderLayout.CENTER);
@@ -2745,11 +2744,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -2767,7 +2773,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(3).setMinWidth(200);
             tab2.getColumnModel().getColumn(4).setMaxWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
@@ -2792,11 +2799,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab3.setFillsViewportHeight(true);
@@ -2814,7 +2828,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab3.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab3.getColumnModel().getColumn(3).setMaxWidth(80);
-            tab3.getColumnModel().getColumn(7).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
@@ -2829,15 +2844,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111", "111",  new Boolean(true), null},
-                {"2222", "222",  new Boolean(true), null}
+                {"111", "1",  new Boolean(true), null},
+                {"222", "2",  new Boolean(true), null}
             },
             new String [] {
                 "Параметр", "Значение по умолчанию", "Закреплено", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2856,7 +2871,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab4.getColumnModel().getColumn(2).setMaxWidth(80);
-            tab4.getColumnModel().getColumn(3).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);

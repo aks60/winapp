@@ -765,21 +765,13 @@ public class Elements extends javax.swing.JFrame {
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ххххххххххххххххххх", "111"},
-                {"vvvvvvvvvvvvvvvvvvv", "222"}
+                {"1111", "111"},
+                {"2222", "222"}
             },
             new String [] {
                 "Параметр", "Значение"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -839,21 +831,13 @@ public class Elements extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxxxxxxxxxxx", "111"},
-                {"zzzzzzzzzzzzzzzzzzzz", "222"}
+                {"1111", "111"},
+                {"2222", "222"}
             },
             new String [] {
                 "Параметр", "Значение"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab5.setFillsViewportHeight(true);
         tab5.setMinimumSize(new java.awt.Dimension(6, 64));
         tab5.setName("tab5"); // NOI18N

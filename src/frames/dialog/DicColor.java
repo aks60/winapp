@@ -212,13 +212,28 @@ public class DicColor extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "name1"},
-                {"2", "name2"}
+                {"name1", null},
+                {"name2", null}
             },
             new String [] {
-                "ID", "Группы текстур"
+                "Группы текстур", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -232,7 +247,9 @@ public class DicColor extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.NORTH);
@@ -240,8 +257,8 @@ public class DicColor extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "1111111"},
-                {"2", "2222222"},
+                {"1111111", null},
+                {"2222222", null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -249,12 +266,19 @@ public class DicColor extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "ID", "Название текстуры"
+                "Название текстуры", "ID"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -270,7 +294,8 @@ public class DicColor extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
