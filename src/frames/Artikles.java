@@ -408,11 +408,11 @@ public class Artikles extends javax.swing.JFrame {
             ((CardLayout) pan6.getLayout()).show(pan6, name);
 
             if (e == TypeArtikl.ROOT) {
-                qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.npp, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
             } else if (node.isLeaf()) {
-                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.npp, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
             } else {
-                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.npp, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
             lab1.setText((node2 != null && node.getParent() != null) ? "Тип: " + ((TypeArtikl) node2.getUserObject()).id1
