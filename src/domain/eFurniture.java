@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 
 public enum eFurniture implements Field {
-    up("0", "0", "0", "Список фурнитуры", "FURNLST"),
+    up("0", "0", "0", "Фурнитура", "FURNLST"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "96", "1", "Название", "FNAME"),
     p2_max("8", "15", "1", "Макс. P/2, мм", "FMAXP"),

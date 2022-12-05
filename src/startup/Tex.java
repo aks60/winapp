@@ -18,6 +18,8 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
+import domain.eArtikl;
+import domain.eSysfurn;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -1132,11 +1134,15 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_mnGroup1
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Tex.this);
-            }
-        });
+//        FrameProgress.create(Tex.this, new ListenerFrame() {
+//            public void actionRequest(Object obj) {
+//                App.DBCompare.createFrame(Tex.this);
+//            }
+//        });
+
+          System.out.println(eArtikl.find(8, false));
+          System.out.println(winc.nuni + "  " + eSysfurn.find(winc.nuni));
+          
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

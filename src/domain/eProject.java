@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 
 public enum eProject implements Field {
-    up("0", "0", "0", "Список заказов (проектов)", "LISTPRJ"),
+    up("0", "0", "0", "Заказы проектов", "LISTPRJ"),
     id("4", "10", "0", "Идентификатор", "id"),
     num_ord("12", "32", "1", "Номер заказа", "ZNUMB"),
     num_acc("12", "32", "1", "Номер счета", "INUMB"),         

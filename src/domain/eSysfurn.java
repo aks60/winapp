@@ -45,6 +45,7 @@ public enum eSysfurn implements Field {
     public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", npp, ",", id); //id - т.к. при конвертиров. наруш. порядок след.
+            Query.listOpenTable.add(query);
         }
         return query;
     }
