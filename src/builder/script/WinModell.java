@@ -1,12 +1,9 @@
 package builder.script;
 
-import static builder.script.WinScript.rootGson;
-import com.google.gson.Gson;
+import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WinModell {
 

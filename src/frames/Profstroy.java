@@ -55,16 +55,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import builder.script.WinScript;
+import builder.script.Winscript;
 import domain.eProject;
 import domain.eSysmodel;
 import domain.eSysprod;
 import java.awt.Color;
-import java.util.Arrays;
 import java.util.Queue;
 import javax.swing.JOptionPane;
 import startup.App;
-import startup.Main;
 import static startup.Test.numDb;
 
 /**
@@ -684,14 +682,14 @@ public class Profstroy {
     public static void loadModels() {
         try {
             println(Color.GREEN, "Секция загрузки тестовых моделей");
-            List<Integer> prjList = WinScript.models("max");
+            List<Integer> prjList = Winscript.models("max");
 
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
                 
                 //Загрузка моделей
-                String script = WinScript.test(prj, false);
+                String script = Winscript.test(prj, false);
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;                   
@@ -707,7 +705,7 @@ public class Profstroy {
                 }
 
                 //Загрузка конструкций систем
-                String script2 = WinScript.test(prj, true);
+                String script2 = Winscript.test(prj, true);
                 if (script2 != null) { 
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "<html> Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;
