@@ -1,6 +1,6 @@
 package startup;
 
-import builder.script.Winscript;
+import builder.script.WinScript;
 import common.*;
 import dataset.*;
 import builder.param.test.ElementTest;
@@ -91,7 +91,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(601006, true));
+            winc.build(builder.script.WinScript.test(601006, true));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -102,9 +102,9 @@ public class Test {
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = Winscript.models(_case);
+            List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = builder.script.Winscript.test(prj, true);
+                String script = builder.script.WinScript.test(prj, true);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -114,9 +114,9 @@ public class Test {
             }
 
         } else if (_case.equals("max")) {
-            List<Integer> prjList = Winscript.models(_case);
+            List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = builder.script.Winscript.test(prj, true);
+                String script = builder.script.WinScript.test(prj, true);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

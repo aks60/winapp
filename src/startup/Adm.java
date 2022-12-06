@@ -1,6 +1,6 @@
 package startup;
 
-import builder.script.Winscript;
+import builder.script.WinScript;
 import frames.FrameToFile;
 import common.eProfile;
 import common.eProp;
@@ -83,7 +83,7 @@ public class Adm extends javax.swing.JFrame {
             labPath2.setText(eProp.server3.read() + "/" + eProp.port3.read() + "\\" + eProp.base3.read());
 
         }
-        edPath.setText(Winscript.path());
+        edPath.setText(WinScript.path());
         if (eProp.dev == true) {
             edPort.setText((eProp.base_num.read().equals("2") || eProp.base_num.read().equals("3")) ? "3055" : "3050");
         } else {
