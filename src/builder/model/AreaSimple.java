@@ -139,7 +139,6 @@ public class AreaSimple extends Com5t implements IArea5e {
                 }
             }
         } catch (Exception e) {
-            System.out.println(winc.rootGson.prj);
             System.err.println("Ошибка:ICom5t.parsingParam() " + e);
         }
     }
