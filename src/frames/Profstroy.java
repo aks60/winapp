@@ -684,7 +684,7 @@ public class Profstroy {
     public static void loadModels() {
         try {
             println(Color.GREEN, "Секция загрузки тестовых моделей");
-            println(Color.BLACK, "loadModels()");
+            //println(Color.BLACK, "loadModels()");
             List<Integer> prjList = Winscript.models("max");
 
             cn2.commit();
@@ -694,6 +694,9 @@ public class Profstroy {
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;
+                    
+                    println(Color.BLACK, name);
+                    
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
                     record.setNo(eSysmodel.id, Conn.genId(eSysmodel.up));
