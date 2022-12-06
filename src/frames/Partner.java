@@ -63,7 +63,7 @@ public class Partner extends javax.swing.JFrame {
 
     public void loadingData() {
         qPrjpart.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login, 
-                "order by", ePrjpart.category, ",", ePrjpart.login);
+                "where", ePrjpart.login, "=", eSysuser.login, "order by", ePrjpart.category, ",", ePrjpart.partner);
     }
 
     public void loadingModel() {
