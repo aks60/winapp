@@ -7,13 +7,12 @@ import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import builder.script.WinScript;
-import static builder.script.WinScript.rootGson;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -70,8 +69,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -99,7 +98,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.WinScript.test(601001, true));
+            winc.build(WinScript.test(601001, true));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -112,7 +111,7 @@ public class Test {
         } else if (_case.equals("min")) {
             List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = builder.script.WinScript.test(prj, true);
+                String script = WinScript.test(prj, true);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -124,7 +123,7 @@ public class Test {
         } else if (_case.equals("max")) {
             List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = builder.script.WinScript.test(prj, true);
+                String script = WinScript.test(prj, true);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

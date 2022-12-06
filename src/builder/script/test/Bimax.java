@@ -623,9 +623,8 @@ public final class Bimax {
         }
         
         String json = new GsonBuilder().create().toJson(rootGson);
-        JsonParser parser = new JsonParser();
-        JsonElement node = parser.parse(json);
-        JsonObject obj = node.getAsJsonObject();
+        JsonElement jsonObject = new JsonParser().parse(json);
+        JsonObject obj = jsonObject.getAsJsonObject();
         obj.addProperty("prj2", 77);
         obj.addProperty("ord2", 88);
         obj.addProperty("nuni2", 99);
