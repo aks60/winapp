@@ -817,7 +817,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
             if (prj != null) {
                 String json = builder.script.WinScript.test(Integer.valueOf(prj.toString()), false);
-                GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
+                GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
 
 //            JFileChooser chooser = new JFileChooser();
 //            chooser.setCurrentDirectory(new File("."));
@@ -836,7 +836,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 Record record = eSysmodel.up.newRecord(Query.INS);
                 record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
                 record.set(eSysmodel.npp, qModels.size());
-                record.set(eSysmodel.name, "<html>" + win.prj + " " + win.name);
+                record.set(eSysmodel.name, "<html>" + gsonRoot.prj + " " + gsonRoot.name);
                 record.set(eSysmodel.script, json);
 
                 if (tab1.getBorder() != null) {

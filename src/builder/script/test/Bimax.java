@@ -621,18 +621,10 @@ public final class Bimax {
         else {
             return null;
         }
-        
-        String json = new GsonBuilder().create().toJson(rootGson);
-        JsonElement jsonObject = new JsonParser().parse(json);
-        JsonObject obj = jsonObject.getAsJsonObject();
-        obj.addProperty("prj2", 77);
-        obj.addProperty("ord2", 88);
-        obj.addProperty("nuni2", 99);
-        
         if (nuni == false) {
             rootGson.propery(prj.toString(), -3, null);
         }
-        return obj.toString();
 
+        return new GsonBuilder().create().toJson(rootGson);
     }
 }
