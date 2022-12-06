@@ -1,6 +1,6 @@
 package builder.script;
 
-import static builder.script.Winscript2.rootGson;
+import static builder.script.WinScript.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
