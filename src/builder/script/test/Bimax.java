@@ -4,6 +4,9 @@ import builder.script.GsonElem;
 import builder.script.GsonRoot;
 import static builder.script.WinScript.rootGson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
@@ -11,7 +14,7 @@ import enums.Type;
 public final class Bimax {
 
     public static String script(Integer prj, boolean nuni) {
-
+        int ord = 1;
         if (prj == 601001) { //PUNIC = 427817
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009);
@@ -618,9 +621,19 @@ public final class Bimax {
         else {
             return null;
         }
+        
+        String json = new GsonBuilder().create().toJson(rootGson);
+        JsonParser parser = new JsonParser();
+        JsonElement node = parser.parse(json);
+        JsonObject obj = node.getAsJsonObject();
+        obj.addProperty("prj2", 77);
+        obj.addProperty("ord2", 88);
+        obj.addProperty("nuni2", 99);
+        
         if (nuni == false) {
             rootGson.propery(prj.toString(), -3, null);
         }
-        return new GsonBuilder().create().toJson(rootGson);
+        return obj.toString();
+
     }
 }

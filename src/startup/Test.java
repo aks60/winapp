@@ -7,7 +7,9 @@ import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import builder.script.WinScript;
+import static builder.script.WinScript.rootGson;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
@@ -77,7 +79,14 @@ public class Test {
             //parse();
             //uid();
             //script(); 
-            
+//            String json = builder.script.WinScript.test(601006, true);
+//            JsonParser parser = new JsonParser();
+//            JsonElement node = parser.parse(json);
+//            JsonObject obj = node.getAsJsonObject();
+//            obj.addProperty("prjTest", "777");
+//            JsonElement nameNode = obj.get("prjTest");
+//            System.out.println("name: " + nameNode.getAsString());
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -90,7 +99,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.WinScript.test(601006, true));
+            winc.build(builder.script.WinScript.test(601001, true));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -458,4 +467,4 @@ public class Test {
   "type": "ARCH",
   "param": {}
 }
-*/
+ */
