@@ -11,7 +11,7 @@ import common.eProp;
 import java.util.Arrays;
 import java.util.List;
 
-public class Winscript {
+public class Winscript2 {
 
     public static GsonRoot rootGson;
 

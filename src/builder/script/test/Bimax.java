@@ -2,7 +2,7 @@ package builder.script.test;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
-import static builder.script.Winscript.rootGson;
+import static builder.script.Winscript2.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.Form;
 import enums.Layout;
