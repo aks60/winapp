@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
 
-public class Krauss {
+public final class Krauss {
 
     public static String script(Integer prj, boolean nuni) {
 

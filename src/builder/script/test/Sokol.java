@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
 
-public class Sokol {
+public final class Sokol {
 
     public static String script(Integer prj, boolean nuni) {
 
