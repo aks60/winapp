@@ -75,7 +75,7 @@ public class DicColor extends javax.swing.JDialog {
     
     
     private void loadingModel() {
-        new DefTableModel(tab1, qColgrp, eGroups.name, eGroups.id);
+        new DefTableModel(tab1, qColgrp, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name);
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -212,23 +212,16 @@ public class DicColor extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1", null},
-                {"name2", null}
+                {"name1"},
+                {"name2"}
             },
             new String [] {
-                "Группы текстур", "ID"
+                "Группы текстур"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -246,10 +239,6 @@ public class DicColor extends javax.swing.JDialog {
             }
         });
         scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-        }
 
         pan1.add(scr1, java.awt.BorderLayout.NORTH);
 
@@ -375,7 +364,7 @@ public class DicColor extends javax.swing.JDialog {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         
-        TableFieldFilter filterTable = new TableFieldFilter(1, tab1, tab2);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         
