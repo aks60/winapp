@@ -184,7 +184,7 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
 
-            //Нерешёння проблема со штапиком
+            //Нерешённая проблема со штапиком
         } else if (prj == 604004) {
             rootGson = new GsonRoot("1.0", -1, -1, -3, "Rehau\\Delight\\ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1700, 1050, -3, -3, -3);
@@ -407,7 +407,7 @@ public class GsonScript {
 
         } else if (prj == 508916) { //Трапеции
             rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE 58\\ОКНА\\Открывание внутрь",
-                    Layout.VERT, Type.TRAPEZE, 900, 1400, 1000, 1009, 10005, 1009);
+                    Layout.VERT, Type.TRAPEZE, 900, 1400, 1000, -3, -3, -3);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -637,7 +637,7 @@ public class GsonScript {
             }
 
             public boolean shouldSkipField(FieldAttributes f) {
-                return f.getName().equals("prj") || f.getName().equals("ord");
+                return f.getName().equals("id") || f.getName().equals("prj") || f.getName().equals("ord");
             }
         });
         return builder.create().toJson(rootGson);

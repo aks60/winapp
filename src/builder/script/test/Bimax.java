@@ -176,7 +176,7 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:4, sysfurnID:2916}")) //,artiklHandl:5058,colorHandl:1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
 
-            //Нерешёння проблема со штапиком
+            //Нерешённая проблема со штапиком
         } else if (prj == 604004) { //PUNIC =
             rootGson = new GsonRoot("1.0", prj, 1, 37, "Rehau\\Delight\\1 ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1700, 1050, 1009, 1009, 1009);
