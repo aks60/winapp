@@ -44,10 +44,10 @@ public class Main {
             public void run() {
                 try {
                     runRussifier();
-                    String lafName = eProp.lookandfeel.read();
+                    String lafname = eProp.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                        if (lafName.equals(laf.getName())) {
+                        if (lafname.equals(laf.getName())) {
                             UIManager.setLookAndFeel(laf.getClassName());
                         }
                     }

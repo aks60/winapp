@@ -697,6 +697,7 @@ public class Furniturs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setName(""); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Furniturs.this.windowClosed(evt);
@@ -1233,7 +1234,7 @@ public class Furniturs extends javax.swing.JFrame {
         lab1.setText("                  Ограничения сторон");
         lab1.setMaximumSize(new java.awt.Dimension(300, 46));
         lab1.setMinimumSize(new java.awt.Dimension(170, 26));
-        lab1.setPreferredSize(new java.awt.Dimension(200, 34));
+        lab1.setPreferredSize(new java.awt.Dimension(200, 26));
         pan10.add(lab1);
 
         scr5.setBorder(null);
@@ -1585,7 +1586,7 @@ public class Furniturs extends javax.swing.JFrame {
                         Object id = keyList.get(i);
                         FrameProgress.create(Furniturs.this, new ListenerFrame() {
                             public void actionRequest(Object obj) {
-                                App.Systree.createFrame(Furniturs.this, id);
+                                App.Systree.createFrame(Furniturs.this, id, 2);
                             }
                         });
                     }
@@ -1840,5 +1841,8 @@ public class Furniturs extends javax.swing.JFrame {
                 }
             }
         });
+        if ("Nimbus".equals(eProp.lookandfeel.read())) {
+            lab1.setPreferredSize(new java.awt.Dimension(200, 34));
+        }
     }
 }

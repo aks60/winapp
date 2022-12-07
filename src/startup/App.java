@@ -171,7 +171,7 @@ public enum App {
                     if (param.length == 0) {
                         frame = new Systree();
                     } else {
-                        frame = new Systree((int) param[0]);
+                        frame = new Systree((int) param[0], (int) param[1]);
                     }
                     break;
                 case Partner:

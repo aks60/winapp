@@ -125,7 +125,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tabb1.setSelectedIndex(4);
     }
 
-    public Systree(int nuni) {
+    public Systree(int nuni, int mode) {
         initComponents();
         scene = new Scene(canvas, spinner, this);
         this.systreeID = nuni;
@@ -136,7 +136,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         loadingModel();
         listenerAdd();
         listenerSet();
-        tabb1.setSelectedIndex(2);
+        tabb1.setSelectedIndex(mode);
     }
 
     public final void loadingData() {
