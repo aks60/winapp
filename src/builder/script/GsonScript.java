@@ -16,7 +16,7 @@ import enums.Layout;
 import enums.Type;
 import java.util.List;
 
-public class WinScript {
+public class GsonScript {
 
     public static GsonRoot rootGson;
     

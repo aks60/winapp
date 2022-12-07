@@ -55,7 +55,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import builder.script.WinScript;
+import builder.script.GsonScript;
 import domain.eProject;
 import domain.eSysmodel;
 import domain.eSysprod;
@@ -682,17 +682,17 @@ public class Profstroy {
     public static void loadModels() {
         try {
             println(Color.GREEN, "Секция загрузки тестовых моделей");
-            List<Integer> prjList = WinScript.models("max");
+            List<Integer> prjList = GsonScript.models("max");
 
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
                 
                 //Загрузка моделей
-                String script = WinScript.makeJson(prj);
+                String script = GsonScript.script(prj);
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
-                    String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;                   
+                    String name = "<html> Kod:" + prj + " " + gson.name;                   
                     println(Color.BLACK, name); //в отчёт                   
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
@@ -705,10 +705,10 @@ public class Profstroy {
                 }
 
                 //Загрузка конструкций систем
-                String script2 = WinScript.makeJson(prj);
+                String script2 = GsonScript.makeJson(prj);
                 if (script2 != null) { 
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
-                    String name2 = "<html> Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;
+                    String name2 = "<html> Kod:" + prj + " " + gson2.name;
                     Query q2 = new Query(eSysprod.values());
                     Record record2 = eSysprod.up.newRecord(Query.INS);
                     record2.setNo(eSysprod.id, Conn.genId(eSysprod.up));

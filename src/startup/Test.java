@@ -6,7 +6,7 @@ import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
-import builder.script.WinScript;
+import builder.script.GsonScript;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -98,7 +98,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(WinScript.makeJson(601001));
+            winc.build(GsonScript.makeJson(601001));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -109,9 +109,9 @@ public class Test {
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = WinScript.models(_case);
+            List<Integer> prjList = GsonScript.models(_case);
             for (int prj : prjList) {
-                String script = WinScript.makeJson(prj);
+                String script = GsonScript.makeJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -121,9 +121,9 @@ public class Test {
             }
 
         } else if (_case.equals("max")) {
-            List<Integer> prjList = WinScript.models(_case);
+            List<Integer> prjList = GsonScript.models(_case);
             for (int prj : prjList) {
-                String script = WinScript.makeJson(prj);
+                String script = GsonScript.makeJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

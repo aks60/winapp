@@ -816,7 +816,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         try {
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
             if (prj != null) {
-                String json = builder.script.WinScript.makeJson(Integer.valueOf(prj.toString()));
+                String json = builder.script.GsonScript.makeJson(Integer.valueOf(prj.toString()));
                 GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
 
 //            JFileChooser chooser = new JFileChooser();
