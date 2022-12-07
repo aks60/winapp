@@ -69,8 +69,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -98,7 +98,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(WinScript.test(601001, true));
+            winc.build(WinScript.makeJson(601001));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -111,7 +111,7 @@ public class Test {
         } else if (_case.equals("min")) {
             List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = WinScript.test(prj, true);
+                String script = WinScript.makeJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -123,7 +123,7 @@ public class Test {
         } else if (_case.equals("max")) {
             List<Integer> prjList = WinScript.models(_case);
             for (int prj : prjList) {
-                String script = WinScript.test(prj, true);
+                String script = WinScript.makeJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

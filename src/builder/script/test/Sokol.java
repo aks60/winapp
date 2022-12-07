@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Sokol {
 
-    public static String script(Integer prj, boolean nuni) {
+    public static String script(Integer prj) {
 
         if (prj == 1) {
             rootGson = new GsonRoot("1.0", prj, 1, 13, "SOKOL\\МП-40",
@@ -25,9 +25,6 @@ public final class Sokol {
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;
-        }
-        if (nuni == false) {
-            rootGson.propery(prj.toString(), -3, null);
         }
         return new GsonBuilder().create().toJson(rootGson);
     }

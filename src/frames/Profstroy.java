@@ -689,7 +689,7 @@ public class Profstroy {
             for (int prj : prjList) {
                 
                 //Загрузка моделей
-                String script = WinScript.test(prj, false);
+                String script = WinScript.makeJson(prj);
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;                   
@@ -705,7 +705,7 @@ public class Profstroy {
                 }
 
                 //Загрузка конструкций систем
-                String script2 = WinScript.test(prj, true);
+                String script2 = WinScript.makeJson(prj);
                 if (script2 != null) { 
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "<html> Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;

@@ -13,8 +13,8 @@ import enums.Type;
 
 public final class Bimax {
 
-    public static String script(Integer prj, boolean nuni) {
-        int ord = 1;
+    public static String script(Integer prj) {
+        
         if (prj == 601001) { //PUNIC = 427817
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009);
@@ -621,10 +621,6 @@ public final class Bimax {
         else {
             return null;
         }
-        if (nuni == false) {
-            rootGson.propery(prj.toString(), -3, null);
-        }
-
         return new GsonBuilder().create().toJson(rootGson);
     }
 }

@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Alutex3 {
 
-    public static String script(Integer prj, boolean nun) {
+    public static String script(Integer prj) {
 
         if (prj == 4) { //PUNIC = 0  Двери
             rootGson = new GsonRoot("1.0", prj, 1, 10, "ALUTECH\\ALT.W62\\Двери\\Внутрь(1)",
@@ -23,10 +23,6 @@ public final class Alutex3 {
         } else {
             return null;
         }
-        if (nun == false) {
-            rootGson.propery(prj.toString(), -3, null);
-        }
-
         return new GsonBuilder().create().toJson(rootGson);
     }
 }
