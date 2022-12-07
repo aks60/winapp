@@ -13,8 +13,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
+import builder.script.GsonScript;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import common.eProp;
 import frames.swing.draw.Canvas;
 import java.awt.CardLayout;
 import common.listener.ListenerRecord;
@@ -150,7 +152,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-        UGui.updateBorderAndSql(tab, List.of(tab1, tab2, tab3));
+        //UGui.updateBorderAndSql(tab, List.of(tab1, tab2, tab3, tab4));
         UGui.setSelectedRow(tab);
     }
 
@@ -475,8 +477,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, "123"},
-                {null, null, "321"}
+                { new Integer(1), "xxxxxxxxxxxxxxx", "XXX"},
+                { new Integer(2), "zzzzzzzzzzzzzzzzz", "XXX"}
             },
             new String [] {
                 "№", "Наименование", "Рисунок"
@@ -819,53 +821,63 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         try {
-            Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
-            if (prj != null) {
-                String json = builder.script.GsonScript.modelJson(Integer.valueOf(prj.toString()));
-                GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
-                /* Для загрузки файла с диска
+            String json = null;
+            Record record = eSysmodel.up.newRecord(Query.INS);
+            record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
+            record.set(eSysmodel.npp, record.get(eSysmodel.id));
+
+            //Для загрузки скрипта из программы 
+            if (eProp.dev == true) {
+                Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
+                if (prj != null) {
+                    GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
+                    json = GsonScript.modelJson(Integer.valueOf(prj.toString()));
+                    record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name);
+                    record.set(eSysmodel.script, json);
+                }
+            } else {
+                //Для загрузки скрипта с диска              
                 JFileChooser chooser = new JFileChooser();
                 chooser.setCurrentDirectory(new File("."));
                 chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 chooser.setAcceptAllFileFilterUsed(false);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Json (формат json)", "json");
                 chooser.setFileFilter(filter);
-                if (chooser.showDialog(this, "Выбрать") == JFileChooser.CANCEL_OPTION) { return;  }
-                String path = chooser.getSelectedFile().getPath();
-                JsonReader reader = new JsonReader(new FileReader(path));
-                GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
-                String json = new Gson().toJson(win);
-                reader.close();*/
-                Record record = eSysmodel.up.newRecord(Query.INS);
-                record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
-                record.set(eSysmodel.npp, qModels.size());
-                record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name);
-                record.set(eSysmodel.script, json);
-
+                if (chooser.showDialog(this, "Выбрать") != JFileChooser.CANCEL_OPTION) {
+                    String path = chooser.getSelectedFile().getPath();
+                    JsonReader reader = new JsonReader(new FileReader(path));
+                    GsonRoot gsonRoot = new Gson().fromJson(reader, GsonRoot.class);
+                    json = new Gson().toJson(gsonRoot);
+                    reader.close();
+                    record.set(eSysmodel.name, "<html>" + gsonRoot.name);
+                    record.set(eSysmodel.script, json);
+                }
+            }
+            if (json != null) {
                 if (tab1.getBorder() != null) {
                     record.set(eSysmodel.form, 1001);
-                } else if (tab2.getBorder() != null) {
-                    record.set(eSysmodel.form, 1004);
-                } else if (tab3.getBorder() != null) {
-                    record.set(eSysmodel.form, 1002);
-                } else if (tab4.getBorder() != null) {
-                    record.set(eSysmodel.form, 1007);
-                }
-                qModels.insert(record);
-
-                if (tab1.getBorder() != null) {
+                    qModels.insert(record);
                     loadingTab(tab1, 1001);
                     UGui.setSelectedIndex(tab1, qModels.size() - 1);
                     UGui.scrollRectToIndex(qModels.size() - 1, tab1);
+
                 } else if (tab2.getBorder() != null) {
+                    record.set(eSysmodel.form, 1004);
+                    qModels.insert(record);
                     loadingTab(tab2, 1004);
                     UGui.setSelectedIndex(tab2, qModels.size() - 1);
                     UGui.scrollRectToIndex(qModels.size() - 1, tab2);
+
                 } else if (tab3.getBorder() != null) {
+                    record.set(eSysmodel.form, 1002);
+                    qModels.insert(record);
                     loadingTab(tab3, 1002);
                     UGui.setSelectedIndex(tab3, qModels.size() - 1);
                     UGui.scrollRectToIndex(qModels.size() - 1, tab3);
+
                 } else if (tab4.getBorder() != null) {
+                    record.set(eSysmodel.form, 1007);
+                    qModels.insert(record);
                     loadingTab(tab4, 1007);
                     UGui.setSelectedIndex(tab4, qModels.size() - 1);
                     UGui.scrollRectToIndex(qModels.size() - 1, tab4);
@@ -937,7 +949,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
