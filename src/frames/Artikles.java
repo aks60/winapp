@@ -2513,10 +2513,11 @@ public class Artikles extends javax.swing.JFrame {
 
             List<Record> artdetList = new ArrayList<>();
             qArtdet.forEach(rec -> artdetList.add(rec));
+            
             Record artiklClon = (Record) qArtikl.get(index).clone();
             artiklClon.setNo(eArtikl.up, Query.INS);
-            int id = Conn.genId(eArtikl.up);
-            artiklClon.setNo(eArtikl.id, id);
+            int artiklID = Conn.genId(eArtikl.up);
+            artiklClon.setNo(eArtikl.id, artiklID);
             artiklClon.setNo(eArtikl.code, artiklClon.getStr(eArtikl.code) + "-клон");
             artiklClon.setNo(eArtikl.name, artiklClon.getStr(eArtikl.name) + "-клон");
             qArtikl.add(index, artiklClon);
@@ -2524,7 +2525,7 @@ public class Artikles extends javax.swing.JFrame {
             for (Record artdetRec : artdetList) {
                 artdetRec.setNo(eArtdet.up, Query.INS);
                 artdetRec.setNo(eArtdet.id, Conn.genId(eArtdet.up));
-                artdetRec.setNo(eArtdet.artikl_id, id);
+                artdetRec.setNo(eArtdet.artikl_id, artiklID);
                 qArtdet.add(artdetRec);
             }
             qArtdet.execsql();

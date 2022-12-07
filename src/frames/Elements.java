@@ -1126,6 +1126,10 @@ public class Elements extends javax.swing.JFrame {
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
                 "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 
+            //qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
+            //Record record = qGlasdet.table(eGlasdet.up).get(index);
+            //qGlasdet.table(eArtikl.up).add(eArtikl.up.newRecord());
+            
             Map<Record, Integer> elempar2Map = new HashMap<>();
             List<Record> elempar1List = new ArrayList<>();
             List<Record> elemdetList = new ArrayList<>();           
@@ -1133,12 +1137,13 @@ public class Elements extends javax.swing.JFrame {
             qElemdet.forEach(rec -> elemdetList.add(rec));
 
             Record elementClon = (Record) qElement.get(index).clone();
-            elementClon.setNo(eArtikl.up, Query.INS);
-            int elementID = Conn.genId(eArtikl.up);
-            elementClon.setNo(eArtikl.id, elementID);
+            Record artiklClon = (Record) qElement.table(eArtikl.up).get(index).clone();
+            elementClon.setNo(eElement.up, Query.INS);
+            int elementID = Conn.genId(eElement.up);
+            elementClon.setNo(eElement.id, elementID);
             elementClon.setNo(eElement.name, elementClon.getStr(eElement.name) + "-клон");
             qElement.add(index, elementClon);
-            //qElement.insert(elementClon);
+            qElement.table(eArtikl.up).add(index, artiklClon);          
 
             for (Record elempar1Rec : elempar1List) {
                 Record elempar1Clon = (Record) elempar1Rec.clone();
@@ -1147,29 +1152,29 @@ public class Elements extends javax.swing.JFrame {
                 elempar1Clon.setNo(eElempar1.element_id, elementID);
                 qElempar1.add(elempar1Clon);
             }
-//            for (Record elemdetRec : elemdetList) {
-//                Record elemdetClon = (Record) elemdetRec.clone();
-//                elemdetClon.setNo(eElemdet.up, Query.INS);
-//                elemdetClon.setNo(eElemdet.id, Conn.genId(eElemdet.up));
-//                elemdetClon.setNo(eElemdet.element_id, elementID);
-//                qElempar2.select(eElempar2.up, "where", eElempar2.elemdet_id, "=", elemdetRec.get(eElemdet.id));
-//                qElempar2.forEach(rec -> elempar2Map.put(rec, elemdetClon.getInt(eElemdet.id)));
-//                qElemdet.add(elemdetClon);
-//            }
-//            for (Map.Entry<Record, Integer> it : elempar2Map.entrySet()) {
-//                Record elempar2Rec = it.getKey();
-//                Record elempar2Clon = (Record) elempar2Rec.clone();
-//                elempar2Clon.setNo(eElempar2.up, Query.INS);
-//                elempar2Clon.setNo(eElempar2.id, Conn.genId(eElempar2.up));
-//                elempar2Clon.setNo(eElempar2.elemdet_id, it.getValue());
-//                qElempar2.add(elempar2Clon);
-//            }            
+            for (Record elemdetRec : elemdetList) {
+                Record elemdetClon = (Record) elemdetRec.clone();
+                elemdetClon.setNo(eElemdet.up, Query.INS);
+                elemdetClon.setNo(eElemdet.id, Conn.genId(eElemdet.up));
+                elemdetClon.setNo(eElemdet.element_id, elementID);
+                qElempar2.select(eElempar2.up, "where", eElempar2.elemdet_id, "=", elemdetRec.get(eElemdet.id));
+                qElempar2.forEach(rec -> elempar2Map.put(rec, elemdetClon.getInt(eElemdet.id)));
+                qElemdet.add(elemdetClon);
+            }
+            for (Map.Entry<Record, Integer> it : elempar2Map.entrySet()) {
+                Record elempar2Rec = it.getKey();
+                Record elempar2Clon = (Record) elempar2Rec.clone();
+                elempar2Clon.setNo(eElempar2.up, Query.INS);
+                elempar2Clon.setNo(eElempar2.id, Conn.genId(eElempar2.up));
+                elempar2Clon.setNo(eElempar2.elemdet_id, it.getValue());
+                qElempar2.add(elempar2Clon);
+            }            
             
-            //List.of(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+            List.of(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
             ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(index, index);
             UGui.setSelectedIndex(tab2, index);
-            //UGui.scrollRectToIndex(index, tab2);
-            //UGui.setSelectedRow(tab3);
+            UGui.scrollRectToIndex(index, tab2);
+            UGui.setSelectedRow(tab4);
         }
     }//GEN-LAST:event_btnClone
     private void findPathSystree(Record record, StringBuffer path) {
