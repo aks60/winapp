@@ -78,13 +78,6 @@ public class Test {
             //parse();
             //uid();
             //script(); 
-//            String json = builder.script.WinScript.test(601006, true);
-//            JsonParser parser = new JsonParser();
-//            JsonElement node = parser.parse(json);
-//            JsonObject obj = node.getAsJsonObject();
-//            obj.addProperty("prjTest", "777");
-//            JsonElement nameNode = obj.get("prjTest");
-//            System.out.println("name: " + nameNode.getAsString());
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -95,10 +88,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.makeJson(601001));
+            winc.build(GsonScript.makeJson(604004));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
