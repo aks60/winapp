@@ -91,7 +91,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.makeJson(604004));
+            winc.build(GsonScript.testJson(604004));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -104,7 +104,7 @@ public class Test {
         } else if (_case.equals("min")) {
             List<Integer> prjList = GsonScript.models(_case);
             for (int prj : prjList) {
-                String script = GsonScript.makeJson(prj);
+                String script = GsonScript.testJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -116,7 +116,7 @@ public class Test {
         } else if (_case.equals("max")) {
             List<Integer> prjList = GsonScript.models(_case);
             for (int prj : prjList) {
-                String script = GsonScript.makeJson(prj);
+                String script = GsonScript.testJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

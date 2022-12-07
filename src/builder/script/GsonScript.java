@@ -20,7 +20,7 @@ public class GsonScript {
 
     public static GsonRoot rootGson;
 
-    public static String script(Integer prj) {
+    public static String modelJson(Integer prj) {
 
         if (prj == 601001) {
             rootGson = new GsonRoot("1.0", -1, -1, -3, "KBE 58\\ОКНА\\Открывание внутрь",
@@ -406,7 +406,7 @@ public class GsonScript {
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 508916) { //Трапеции
-            rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE 58\\ОКНА\\Открывание внутрь",
+            rootGson = new GsonRoot("1.0", -1, -1, -1, "KBE 58\\ОКНА\\Открывание внутрь",
                     Layout.VERT, Type.TRAPEZE, 900, 1400, 1000, -3, -3, -3);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
@@ -643,8 +643,8 @@ public class GsonScript {
         return builder.create().toJson(rootGson);
     }
 
-// <editor-fold defaultstate="collapsed" desc="makeJson(), models(), path()">     
-    public static String makeJson(Integer prj) {
+// <editor-fold defaultstate="collapsed" desc="testJson(), models(), path()">     
+    public static String testJson(Integer prj) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 

@@ -14,16 +14,21 @@ import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import frames.swing.draw.Canvas;
 import java.awt.CardLayout;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
@@ -816,27 +821,25 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         try {
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
             if (prj != null) {
-                String json = builder.script.GsonScript.script(Integer.valueOf(prj.toString()));
+                String json = builder.script.GsonScript.modelJson(Integer.valueOf(prj.toString()));
                 GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
-
-//            JFileChooser chooser = new JFileChooser();
-//            chooser.setCurrentDirectory(new File("."));
-//            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//            chooser.setAcceptAllFileFilterUsed(false);
-//            FileNameExtensionFilter filter = new FileNameExtensionFilter("Json (формат json)", "json");
-//            chooser.setFileFilter(filter);
-//            if (chooser.showDialog(this, "Выбрать") == JFileChooser.CANCEL_OPTION) {
-//                return;
-//            }
-//            String path = chooser.getSelectedFile().getPath();
-//            JsonReader reader = new JsonReader(new FileReader(path));
-//            GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
-//            String json = new Gson().toJson(win);
-//            reader.close();            
+                /* Для загрузки файла с диска
+                JFileChooser chooser = new JFileChooser();
+                chooser.setCurrentDirectory(new File("."));
+                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                chooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Json (формат json)", "json");
+                chooser.setFileFilter(filter);
+                if (chooser.showDialog(this, "Выбрать") == JFileChooser.CANCEL_OPTION) { return;  }
+                String path = chooser.getSelectedFile().getPath();
+                JsonReader reader = new JsonReader(new FileReader(path));
+                GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
+                String json = new Gson().toJson(win);
+                reader.close();*/
                 Record record = eSysmodel.up.newRecord(Query.INS);
                 record.set(eSysmodel.id, Conn.genId(eSysmodel.up));
                 record.set(eSysmodel.npp, qModels.size());
-                record.set(eSysmodel.name, "<html>" + gsonRoot.prj + " " + gsonRoot.name);
+                record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name);
                 record.set(eSysmodel.script, json);
 
                 if (tab1.getBorder() != null) {

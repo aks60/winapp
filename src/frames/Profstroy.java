@@ -690,7 +690,7 @@ public class Profstroy {
                 
                 //Загрузка моделей. 
                 //При этом prj, ord в скрипте json отсутствуют. см. GsonScript.script(prj)
-                String script = GsonScript.script(prj);
+                String script = GsonScript.modelJson(prj);
                 if (script != null) {
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Kod:" + prj + " " + gson.name;                   
@@ -706,7 +706,7 @@ public class Profstroy {
                 }
 
                 //Загрузка тестовых конструкций систем
-                String script2 = GsonScript.makeJson(prj);
+                String script2 = GsonScript.testJson(prj);
                 if (script2 != null) { 
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;
