@@ -888,7 +888,7 @@ public class Artikles extends javax.swing.JFrame {
         center.setPreferredSize(new java.awt.Dimension(800, 550));
         center.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(180, 500));
+        pan4.setPreferredSize(new java.awt.Dimension(200, 500));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));

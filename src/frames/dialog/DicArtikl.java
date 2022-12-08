@@ -51,7 +51,7 @@ public class DicArtikl extends javax.swing.JDialog {
         initElements();
         Query qFurndet = new Query(eFurndet.id, eArtikl.id).select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                 "where", eFurndet.furniture_id1, "=", furnId, "and", eArtikl.level1, "=", level1, "and", eArtikl.level2, "=", level2);
-        String arr = qFurndet.table(eArtikl.up).stream().map(rec -> rec.getStr(eArtikl.id)).collect(Collectors.joining(",", "(", ")"));
+        String arr = (qFurndet.isEmpty() == false) ? qFurndet.table(eArtikl.up).stream().map(rec -> rec.getStr(eArtikl.id)).collect(Collectors.joining(",", "(", ")")) : "(-1)";
         qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);
         this.listener = listenet;
         loadingModel();
@@ -65,8 +65,19 @@ public class DicArtikl extends javax.swing.JDialog {
                 Field field = columns[col];
                 if (field == eArtikl.level2) {
                     Record record = qArtikl.get(row);
-                    return TypeArtikl.find(record.getInt(eArtikl.level1), 0) + "."
-                            + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    if (record.getInt(eArtikl.level1) == 1) {
+                        return "Проф. " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else if (record.getInt(eArtikl.level1) == 2) {
+                        return "Акс...  " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else if (record.getInt(eArtikl.level1) == 3) {
+                        return "Пог...  " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else if (record.getInt(eArtikl.level1) == 4) {
+                        return "Инст..." + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else if (record.getInt(eArtikl.level1) == 5) {
+                        return "Зап... " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else {
+                        return "";
+                    }
                 }
                 return val;
             }
@@ -201,10 +212,10 @@ public class DicArtikl extends javax.swing.JDialog {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(20);
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tab2.getColumnModel().getColumn(1).setMinWidth(40);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setMinWidth(20);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(300);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
@@ -256,14 +267,14 @@ public class DicArtikl extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        
+
         TableFieldFilter filterTable = new TableFieldFilter(1, tab2);
         south.add(filterTable, 0);
-        filterTable.getTxt().grabFocus();        
+        filterTable.getTxt().grabFocus();
     }
 }

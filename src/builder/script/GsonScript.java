@@ -676,16 +676,16 @@ public class GsonScript {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
-        if (base_name.toLowerCase().contains("sial3.fdb")) {
+        if (base_name.toLowerCase().contains("sial3")) {
             return List.of(601001, 601002, 601003, 601004, 601007, 601008);
 
-        } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
+        } else if (base_name.toLowerCase().contains("alutech3")) {
             return List.of(601001, 601002, 601003, 601004);
 
-        } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
+        } else if (base_name.toLowerCase().contains("alutex3")) {
             return List.of(4);
 
-        } else if (base_name.toLowerCase().contains("bimax.fdb")) {
+        } else if (base_name.toLowerCase().contains("bimax")) {
             return ("max".equals(p)) ? List.of(
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
@@ -696,10 +696,10 @@ public class GsonScript {
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return List.of(26);
 
-        } else if (base_name.toLowerCase().contains("krauss.fdb")) {
+        } else if (base_name.toLowerCase().contains("krauss")) {
             return null;
 
-        } else if (base_name.toLowerCase().contains("sokol.fdb")) {
+        } else if (base_name.toLowerCase().contains("sokol")) {
             return List.of(1);
         }
         return null;

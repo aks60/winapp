@@ -56,32 +56,34 @@ public class Scene extends javax.swing.JPanel {
 
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
+                if (winc != null) {
+                    //Если клик не на конструкции
+                    if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
+                        lineHoriz = List.of(new Scale(winc.rootArea));
+                        lineVert = List.of(new Scale(winc.rootArea));
 
-                //Если клик не на конструкции
-                if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
-                    lineHoriz = List.of(new Scale(winc.rootArea));
-                    lineVert = List.of(new Scale(winc.rootArea));
-
-                } else { //На конструкции
-                    for (IElem5e crs : winc.listElem) {
-                        if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
-                                && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
-                            List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
-                            for (int i = 0; i < areaChilds.size(); ++i) {
-                                if (areaChilds.get(i).id() == crs.id()) {
-                                    if (crs.layout() == Layout.HORIZ) { //area слева и справа от импоста
-                                        lineVert = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
-                                    } else {
-                                        lineHoriz = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
+                    } else { //На конструкции
+                        for (IElem5e crs : winc.listElem) {
+                            if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
+                                    && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
+                                List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
+                                for (int i = 0; i < areaChilds.size(); ++i) {
+                                    if (areaChilds.get(i).id() == crs.id()) {
+                                        if (crs.layout() == Layout.HORIZ) { //area слева и справа от импоста
+                                            lineVert = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
+                                        } else {
+                                            lineHoriz = List.of(new Scale((IArea5e) areaChilds.get(i - 1)), new Scale((IArea5e) areaChilds.get(i + 1)));
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    draw();
                 }
-                draw();
             }
-        });
+        }
+        );
         spinner.addChangeListener(listenerSpinner);
     }
 

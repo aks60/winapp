@@ -54,19 +54,19 @@ public class TableFieldFormat {
     //Добавить компонент отображения
     public void add(Field field, JTextComponent jtxt) {
         mapTxt.put(jtxt, field);
-        
+
         if (field.meta().edit() == false) { //если редактирование запрещено
             jtxt.setEditable(false);
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
-        } else {            
+        } else {
             jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
             PlainDocument doc = (PlainDocument) jtxt.getDocument();
-            
-            if (jtxt.getName() != null && jtxt.getName().isEmpty() == false 
+
+            if (jtxt.getName() != null && jtxt.getName().isEmpty() == false
                     && List.of("{2}", "{3}", "{4}", "{5}", "{6}").contains(jtxt.getName()) == true) {
-                
-                int pattern =  Integer.parseInt(jtxt.getName().substring(1, jtxt.getName().length() - 1));     
-                
+
+                int pattern = Integer.parseInt(jtxt.getName().substring(1, jtxt.getName().length() - 1));
+
                 doc.setDocumentFilter(new DocumentFilter() {
 
                     @Override
@@ -83,7 +83,7 @@ public class TableFieldFormat {
                         }
                     }
                 });
-                
+
             }
         }
     }
@@ -221,7 +221,13 @@ public class TableFieldFormat {
                         }
                     } else if (comp instanceof JTree) {
                         DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
-                        node.rec().set(mapTxt.get(jtxt), jtxt.getText());
+                        Field field = mapTxt.get(jtxt);
+                        Object str = jtxt.getText();
+
+                        if (List.of(Field.TYPE.FLT, Field.TYPE.DBL).contains(field.meta().type())) {
+                            str = String.valueOf(str).replace(',', '.');
+                        }
+                        node.rec().set(field, str);
                     }
                 }
             } catch (Exception e) {

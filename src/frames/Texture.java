@@ -82,7 +82,7 @@ public class Texture extends javax.swing.JFrame {
                 return val;
             }
         };
-        
+
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -91,7 +91,7 @@ public class Texture extends javax.swing.JFrame {
                 lab.setBackground(new java.awt.Color(rgb));
                 return lab;
             }
-        });        
+        });
         tab2.getColumnModel().getColumn(5).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
@@ -109,8 +109,10 @@ public class Texture extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             java.awt.Color color = JColorChooser.showDialog(this, "Выбор цвета", java.awt.Color.WHITE);
-            qColor.set(color.getRGB() & 0x00ffffff, UGui.getIndexRec(tab2), eColor.rgb);
-            qColor.execsql();
+            if (color != null) {
+                qColor.set(color.getRGB() & 0x00ffffff, UGui.getIndexRec(tab2), eColor.rgb);
+                qColor.execsql();
+            }
         });
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor1);
@@ -620,7 +622,8 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
                 record.set(eGroups.name, "");
-                record.setDev(eColor.name, "Группа");
+                record.setDev(eGroups.name, "Группа");
+                record.set(eGroups.val, 1);
             });
 
         } else if (tab4.getBorder() != null) {
@@ -648,7 +651,7 @@ public class Texture extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepActionPerformed
-        JTable tab = null;        
+        JTable tab = null;
         if (tab1.getBorder() != null) {
             tab = tab1;
         } else if (tab2.getBorder() != null) {
@@ -657,7 +660,7 @@ public class Texture extends javax.swing.JFrame {
             tab = tab3;
         } else if (tab4.getBorder() != null) {
             tab = tab4;
-        } 
+        }
         if (tab != null) {
             HtmlOfTable.load("Текстуры", tab);
             ExecuteCmd.documentType(this);
@@ -695,11 +698,11 @@ public class Texture extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        
+
         TableFieldFilter filterTable = new TableFieldFilter(1, tab2, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

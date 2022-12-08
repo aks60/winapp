@@ -402,7 +402,7 @@
         <Container class="javax.swing.JPanel" name="pan4">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[180, 500]"/>
+              <Dimension value="[200, 500]"/>
             </Property>
           </Properties>
           <Constraints>

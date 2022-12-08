@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -19,7 +20,6 @@ import java.util.UUID;
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import static startup.App.Color;
 
 public class Test {
 
