@@ -88,11 +88,11 @@
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnClone" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnFindArtikl" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnFindSystree" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="569" max="32767" attributes="0"/>
+                  <EmptySpace pref="557" max="32767" attributes="0"/>
                   <Component id="btnTest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
