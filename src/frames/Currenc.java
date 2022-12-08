@@ -344,6 +344,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         UGui.insertRecordEnd(tab1, eCurrenc.up, (record) -> {
+            record.setDev(eCurrenc.name, "Курс");
         });
     }//GEN-LAST:event_btnInsert
 

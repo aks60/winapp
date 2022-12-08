@@ -1,11 +1,10 @@
 package dataset;
 
 import common.UCom;
-import dataset.Field;
+import common.eProp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Record<E> extends ArrayList<E> {
 
@@ -35,7 +34,6 @@ public class Record<E> extends ArrayList<E> {
 //            this.add(val);
 //        }
 //    }
-
     //ИЗМЕНЕНИЯ СТАТУСА ЗАПИСИ
     public E set(int index, E element) {
         if (index != 0 && Query.SEL.equals(get(0))) {
@@ -58,6 +56,14 @@ public class Record<E> extends ArrayList<E> {
     //ЗАПИСЬ БЕЗ ИЗМЕНЕНИЯ СТАТУСА
     public E setNo(Field field, E element) {
         return super.set(field.ordinal(), element);
+    }
+
+    //При тестировании для разработчика
+    public void setDev(Field field, String element) {
+        if (eProp.dev == true) {
+            String val = element + "-" + super.get(1);
+            super.set(field.ordinal(), (E) val);
+        }
     }
 
     public Object get(Field field) {

@@ -2290,6 +2290,8 @@ public class Artikles extends javax.swing.JFrame {
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
                 UGui.insertRecordEnd(tab1, eArtikl.up, (record) -> {
+                    record.setDev(eArtikl.code, typeArtikl.name.substring(0, 1));
+                    record.setDev(eArtikl.name, typeArtikl.name);
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                     record.setNo(eArtikl.otx_norm, 0);

@@ -306,7 +306,7 @@ public class Param extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(454, 204));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Значение параметра", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr2.setPreferredSize(new java.awt.Dimension(454, 204));
 
         tab2.setFont(frames.UGui.getFont(0,0));
@@ -392,6 +392,7 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eParams.up, (record) -> {
                 record.setNo(eParams.params_id, record.getInt(eParams.id));
+                record.setDev(eParams.text, "Параметр");
                 List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
@@ -399,6 +400,7 @@ public class Param extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
                 Record record2 = qParams.get(UGui.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
+                record.setDev(eParams.text, "Параметр");
                 List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });

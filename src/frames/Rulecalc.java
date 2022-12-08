@@ -345,6 +345,7 @@ public class Rulecalc extends javax.swing.JFrame {
             Record rulecalcRec = eRulecalc.up.newRecord(Query.INS);
             Record artiklRec = eArtikl.up.newRecord();
             rulecalcRec.setNo(eRulecalc.id, Conn.genId(eRulecalc.up));
+            rulecalcRec.setDev(eRulecalc.name, "Правило");
             rulecalcRec.set(eRulecalc.quant, 1);
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);

@@ -480,7 +480,7 @@ public class Texture extends javax.swing.JFrame {
                 {"2222222222", null}
             },
             new String [] {
-                "Название группы", "ID"
+                "Название групп", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -601,6 +601,7 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
                 record.set(eGroups.name, "");
+                record.setDev(eGroups.name, "Группа");
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
@@ -608,6 +609,7 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
+                record.setDev(eColor.name, "Цвет");
                 record.setNo(eColor.coef1, 1);
                 record.setNo(eColor.coef2, 1);
                 record.setNo(eColor.coef3, 1);
@@ -618,6 +620,7 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
                 record.set(eGroups.name, "");
+                record.setDev(eColor.name, "Группа");
             });
 
         } else if (tab4.getBorder() != null) {
