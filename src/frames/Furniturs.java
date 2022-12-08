@@ -132,7 +132,7 @@ public class Furniturs extends javax.swing.JFrame {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.hand_set1, eFurniture.hand_set2, eFurniture.hand_set3, eFurniture.p2_max,
+        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.hand_set1, eFurniture.hand_set2, eFurniture.hand_set3, eFurniture.max_p2,
                 eFurniture.max_width, eFurniture.max_height, eFurniture.max_weight, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim, eFurniture.id) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -1374,7 +1374,10 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eFurniture.up, (record) -> {
                 int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
+                record.setDev(eFurniture.name, (tbtn1.isSelected()) ?"Осн.фурнитура"  : (tbtn2.isSelected()) ? "Доп.фурнитура" : "Набор для фурнитуры");
                 record.set(eFurniture.types, types);
+                List.of(eFurniture.max_height, eFurniture.max_width, eFurniture.max_p2).forEach(field -> record.set(field, 3000));
+                record.set(eFurniture.max_weight, 300);
                 record.set(eFurniture.ways_use, UseFurn2.P2.id);
             });
 

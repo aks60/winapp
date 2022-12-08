@@ -3067,6 +3067,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     record.set(eSysfurn.systree_id, systreeID);
                     record.setNo(eSysfurn.npp, 0);
                     record.setNo(eSysfurn.replac, 0);
+                    record.setNo(eSysfurn.side_open, TypeOpen2.QUE.id);
+                    record.setNo(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
                     Record record2 = eFurniture.up.newRecord();
                     qSysfurn.table(eFurniture.up).add(record2);;
                 });

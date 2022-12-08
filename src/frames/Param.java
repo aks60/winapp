@@ -400,7 +400,7 @@ public class Param extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
                 Record record2 = qParams.get(UGui.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
-                record.setDev(eParams.text, "Параметр");
+                record.setDev(eParams.text, "Вариант");
                 List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });

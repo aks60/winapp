@@ -109,7 +109,7 @@ public class Texture extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             java.awt.Color color = JColorChooser.showDialog(this, "Выбор цвета", java.awt.Color.WHITE);
-            qColor.set(color.getRGB(), UGui.getIndexRec(tab2), eColor.rgb);
+            qColor.set(color.getRGB() & 0x00ffffff, UGui.getIndexRec(tab2), eColor.rgb);
             qColor.execsql();
         });
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
