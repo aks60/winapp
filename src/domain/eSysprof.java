@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили системы", "SYSPROA"),
     id("4", "10", "0", "Идентификатор", "id"),
-    prio("4", "10", "1", "Приоритет", "APRIO"), //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
+    npp("4", "10", "1", "Приоритет", "APRIO"), //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
     use_type("5", "5", "1", "Тип использования", "ATYPE"),
     use_side("5", "5", "1", "Сторона использования", "ASETS"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id"),
@@ -43,7 +43,7 @@ public enum eSysprof implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", prio);
+            query.select(up, "order by", npp);
             Query.listOpenTable.add(query);
         }
         return query;
@@ -55,7 +55,7 @@ public enum eSysprof implements Field {
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
             return sysproaList;
         }
-        return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", prio);
+        return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);
     }
 
     public static Record find2(int _nuni, UseArtiklTo _type) {
@@ -65,7 +65,7 @@ public enum eSysprof implements Field {
         if (Query.conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
             query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) == _type.id)
-                    .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
+                    .forEach(rec -> mapPrio.put(rec.getInt(npp), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
 
@@ -82,7 +82,7 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
-                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
+                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + npp.name());
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 

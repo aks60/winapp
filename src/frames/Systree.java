@@ -198,7 +198,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 editingStopped(e);
             }
         });
-        new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
+        new DefTableModel(tab2, qSysprof, eSysprof.npp, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -379,23 +379,23 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public void listenerAdd() {
-        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
             }, UseArtiklTo.values());
         });
 
-        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
             }, UseSide.values());
         });
 
-        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
@@ -550,7 +550,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             systreeID = sysNode.rec().getInt(eSystree.id);
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.npp);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
@@ -1172,7 +1172,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveUbtnMove(evt);
+                btnMoveU(evt);
             }
         });
 
@@ -1188,7 +1188,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveDbtnMove(evt);
+                btnMoveD(evt);
             }
         });
 
@@ -2740,11 +2740,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Применение", "Сторона", "Артикул", "Название", "Приоритет", "ID"
+                "Приоритет", "Применение", "Сторона", "Артикул", "Название", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, false
@@ -2769,11 +2769,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(60);
         }
@@ -2796,7 +2796,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки", "Артикул ручки", "Артикул подвеса", "ID"
+                "Приоритет", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки", "Артикул ручки", "Артикул подвеса", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -2986,14 +2986,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         UGui.stopCellEditing(sysTree);
         sysTree.setBorder(null);
         List.of(btnFind, btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(false));
+
         if (tabb1.getSelectedIndex() == 1) {
             UGui.updateBorderAndSql(tab2, List.of(tab2, tab3, tab4, tab5));
+            List.of(btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(true));
             btnFind.setEnabled(true);
+
         } else if (tabb1.getSelectedIndex() == 2) {
             UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));
             List.of(btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(true));
+
         } else if (tabb1.getSelectedIndex() == 3) {
             UGui.updateBorderAndSql(tab4, List.of(tab2, tab3, tab4, tab5));
+
         } else if (tabb1.getSelectedIndex() == 4) {
             UGui.updateBorderAndSql(tab5, List.of(tab2, tab3, tab4, tab5));
             List.of(btnMoveU, btnMoveD).forEach(btn -> btn.setEnabled(true));
@@ -3060,6 +3065,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (tab2.getBorder() != null) {
                 UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
+                    record.set(eSysprof.npp, record.get(1));
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
                 });
@@ -3067,7 +3073,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (tab3.getBorder() != null) {
                 UGui.insertRecordEnd(tab3, eSysfurn.up, (record) -> {
                     record.set(eSysfurn.systree_id, systreeID);
-                    record.setNo(eSysfurn.npp, 0);
+                    record.setNo(eSysfurn.npp, record.get(1));
                     record.setNo(eSysfurn.replac, 0);
                     record.setNo(eSysfurn.side_open, TypeOpen2.QUE.id);
                     record.setNo(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
@@ -3716,49 +3722,77 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_colorFromGlass
 
-    private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
-        int index = UGui.getIndexRec(tab5);
-        int index2 = index;
-        if (index != -1 && tab5 != null) {
-            JButton btn = (JButton) evt.getSource();
-
-            if (btn == btnMoveD && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
-                Collections.swap(qSysprod, index, ++index2);
-
-            } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
-                Collections.swap(qSysprod, index, --index2);
-            }
-            for (int i = 0; i < qSysprod.size(); i++) {
-                qSysprod.set(i + 1, i, eSysprod.npp);
-            }
-            qSysprod.execsql();
-
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab5, index2);
+    private void btnMoveU(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveU
+        JTable table = null;
+        Field field = null;
+        if (tab2.getBorder() != null) {
+            table = tab2;
+            field = eSysprof.npp;
+        } else if (tab3.getBorder() != null) {
+            table = tab3;
+            field = eSysfurn.npp;
+        } else if (tab5.getBorder() != null) {
+            table = tab5;
+            field = eSysprod.npp;
         }
-    }//GEN-LAST:event_btnMoveUbtnMove
-
-    private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
-        int index = UGui.getIndexRec(tab5);
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        int index = UGui.getIndexRec(table);
+        JButton btn = (JButton) evt.getSource();
         int index2 = index;
-        if (index != -1 && tab5 != null) {
-            JButton btn = (JButton) evt.getSource();
+        if (table != null && index != -1 && table != null) {
 
-            if (btn == btnMoveD && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
-                Collections.swap(qSysprod, index, ++index2);
+            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                Collections.swap(query, index, ++index2);
 
-            } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
-                Collections.swap(qSysprod, index, --index2);
+            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                Collections.swap(query, index, --index2);
             }
-            for (int i = 0; i < qSysprod.size(); i++) {
-                qSysprod.set(i + 1, i, eSysprod.npp);
+            for (int i = 0; i < query.size(); i++) {
+                query.set(i + 1, i, field);
             }
-            qSysprod.execsql();
+            query.execsql();
 
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab5, index2);
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(table, index2);
         }
-    }//GEN-LAST:event_btnMoveDbtnMove
+    }//GEN-LAST:event_btnMoveU
+
+    private void btnMoveD(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveD
+        JTable table = null;
+        Field field = null;
+        if (tab2.getBorder() != null) {
+            table = tab2;
+            field = eSysprof.npp;
+        } else if (tab3.getBorder() != null) {
+            table = tab3;
+            field = eSysfurn.npp;
+        } else if (tab5.getBorder() != null) {
+            table = tab5;
+            field = eSysprod.npp;
+        }
+        if (table != null) {
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+            int index = UGui.getIndexRec(table);
+            int index2 = index;
+            if (index != -1 && table != null) {
+                JButton btn = (JButton) evt.getSource();
+
+                if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                    Collections.swap(query, index, ++index2);
+
+                } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                    Collections.swap(query, index, --index2);
+                }
+                for (int i = 0; i < query.size(); i++) {
+                    query.set(i + 1, i, field);
+                }
+                query.execsql();
+
+                ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(table, index2);
+            }
+        }
+    }//GEN-LAST:event_btnMoveD
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3940,8 +3974,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         TableFieldFilter filterTable = new TableFieldFilter(0, tab2, tab3, tab4, tab5, tab7);
         south.add(filterTable, 0);
-        filterTable.getTxt().grabFocus();        
-        
+        filterTable.getTxt().grabFocus();
+
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.setDocumentFilter(3, txt17, txt22, txt23, txt24, txt26);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum eSysfurn implements Field {
     up("0", "0", "0", "Фурнитуры системы профилей", "SYSPROS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    npp("5", "5", "1", "Номер по порядку", "FPORN"),
+    npp("5", "5", "1", "Приоритет обвязки", "FPORN"),
     replac("5", "5", "1", "Замена", "FWHAT"),
     side_open("5", "10", "1", "Сторона открывания по умолчанию", "side_open"),
     hand_pos("5", "10", "1", "Расположение ручки по умолчанию", "hand_pos"),
