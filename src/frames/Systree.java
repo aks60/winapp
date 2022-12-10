@@ -84,6 +84,8 @@ import common.listener.ListenerReload;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import report.ExecuteCmd;
@@ -464,7 +466,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             //Сохраним скрипт в базе
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
             sysprodRec.setNo(eSysprod.id, Conn.genId(eSysprod.id));
-            sysprodRec.setNo(eSysprod.npp, qSysprod.size());
+            sysprodRec.setNo(eSysprod.npp, sysprodRec.get(eSysprod.id));
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, script2);
@@ -550,7 +552,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             systreeID = sysNode.rec().getInt(eSystree.id);
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.npp);
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.npp);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
@@ -1172,7 +1174,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveU(evt);
+                btnMove(evt);
             }
         });
 
@@ -1188,7 +1190,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveD(evt);
+                btnMove(evt);
             }
         });
 
@@ -3722,77 +3724,56 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_colorFromGlass
 
-    private void btnMoveU(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveU
-        JTable table = null;
-        Field field = null;
-        if (tab2.getBorder() != null) {
-            table = tab2;
-            field = eSysprof.npp;
-        } else if (tab3.getBorder() != null) {
-            table = tab3;
-            field = eSysfurn.npp;
-        } else if (tab5.getBorder() != null) {
-            table = tab5;
-            field = eSysprod.npp;
-        }
-        Query query = ((DefTableModel) table.getModel()).getQuery();
-        int index = UGui.getIndexRec(table);
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
         JButton btn = (JButton) evt.getSource();
-        int index2 = index;
-        if (table != null && index != -1 && table != null) {
+        int index = UGui.getIndexRec(UGui.tableFromBorder(tab2, tab3, tab5)), index2 = index;
+        if (index != -1) {
+            if (tab2.getBorder() != null) {
+                if (btn == btnMoveD && tab2.getSelectedRow() < tab2.getRowCount() - 1) {
+                    Collections.swap(qSysprof, index, ++index2);
+                    Collections.swap(qSysprof.table(eArtikl.up), index, index2);
 
-            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                Collections.swap(query, index, ++index2);
-
-            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                Collections.swap(query, index, --index2);
-            }
-            for (int i = 0; i < query.size(); i++) {
-                query.set(i + 1, i, field);
-            }
-            query.execsql();
-
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(table, index2);
-        }
-    }//GEN-LAST:event_btnMoveU
-
-    private void btnMoveD(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveD
-        JTable table = null;
-        Field field = null;
-        if (tab2.getBorder() != null) {
-            table = tab2;
-            field = eSysprof.npp;
-        } else if (tab3.getBorder() != null) {
-            table = tab3;
-            field = eSysfurn.npp;
-        } else if (tab5.getBorder() != null) {
-            table = tab5;
-            field = eSysprod.npp;
-        }
-        if (table != null) {
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-            int index = UGui.getIndexRec(table);
-            int index2 = index;
-            if (index != -1 && table != null) {
-                JButton btn = (JButton) evt.getSource();
-
-                if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                    Collections.swap(query, index, ++index2);
-
-                } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                    Collections.swap(query, index, --index2);
+                } else if (btn == btnMoveU && tab2.getSelectedRow() > 0) {
+                    Collections.swap(qSysprof, index, --index2);
+                    Collections.swap(qSysprof.table(eArtikl.up), index, index2);
                 }
-                for (int i = 0; i < query.size(); i++) {
-                    query.set(i + 1, i, field);
-                }
-                query.execsql();
+                IntStream.range(0, qSysprof.size() - 1).forEach(i -> qSysprof.set(i + 1, i, eSysprof.npp));
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(tab2, index2);
+                qSysprof.execsql();
 
-                ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(table, index2);
+            } else if (tab3.getBorder() != null) {
+                if (tab3.getBorder() != null) {
+                    if (btn == btnMoveD && tab3.getSelectedRow() < tab3.getRowCount() - 1) {
+                        Collections.swap(qSysfurn, index, ++index2);
+                        Collections.swap(qSysfurn.table(eFurniture.up), index, index2);
+
+                    } else if (btn == btnMoveU && tab3.getSelectedRow() > 0) {
+                        Collections.swap(qSysfurn, index, --index2);
+                        Collections.swap(qSysfurn.table(eFurniture.up), index, index2);
+                    }
+                    IntStream.range(0, qSysfurn.size() - 1).forEach(i -> qSysfurn.set(i + 1, i, eSysfurn.npp));
+                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                    UGui.setSelectedIndex(tab3, index2);
+                }
+                qSysprof.execsql();
+
+            } else if (tab5.getBorder() != null) {
+                if (tab5.getBorder() != null) {
+                    if (btn == btnMoveD && tab5.getSelectedRow() < tab5.getRowCount() - 1) {
+                        Collections.swap(qSysprod, index, ++index2);
+
+                    } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
+                        Collections.swap(qSysprod, index, --index2);
+                    }
+                    IntStream.range(0, qSysprod.size() - 1).forEach(i -> qSysprod.set(i + 1, i, eSysprod.npp));
+                    ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                    UGui.setSelectedIndex(tab5, index2);
+                }
+                qSysprod.execsql();
             }
         }
-    }//GEN-LAST:event_btnMoveD
+    }//GEN-LAST:event_btnMove
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

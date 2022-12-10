@@ -12,12 +12,20 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import dataset.Conn;
+import domain.eArtikl;
+import domain.eFurniture;
+import domain.eSysfurn;
+import domain.eSysprod;
+import domain.eSysprof;
 import domain.eSysuser;
 import frames.swing.DefCellRendererBool;
 import frames.swing.TableFieldFilter;
 import java.sql.ResultSet;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
+import javax.swing.JButton;
 import javax.swing.event.ListSelectionListener;
 
 public class Partner extends javax.swing.JFrame {
@@ -38,7 +46,7 @@ public class Partner extends javax.swing.JFrame {
         btnChoice.setVisible(false);
         btnRemove.setVisible(false);
     }
-    
+
     public Partner(int id) {
         initComponents();
         initElements();
@@ -46,7 +54,7 @@ public class Partner extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         btnChoice.setVisible(false);
-        btnRemove.setVisible(false);        
+        btnRemove.setVisible(false);
     }
 
     public Partner(Frame owner, ListenerRecord listener) {
@@ -62,12 +70,12 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjpart.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login, 
-                "where", ePrjpart.login, "=", eSysuser.login, "order by", ePrjpart.category, ",", ePrjpart.partner);
+        qPrjpart.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.login, "=", eSysuser.login,
+                "where", ePrjpart.login, "=", eSysuser.login, "order by", ePrjpart.npp);
     }
 
     public void loadingModel() {
-        if(ID != -1) {
+        if (ID != -1) {
             Record record = ePrjpart.find(ID);
             qPrjpart.clear();
             qPrjpart.add(record);
@@ -136,6 +144,8 @@ public class Partner extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnMoveU = new javax.swing.JButton();
+        btnMoveD = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -307,6 +317,38 @@ public class Partner extends javax.swing.JFrame {
             }
         });
 
+        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
+        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveU.setFocusable(false);
+        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
+        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
+        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveD.setFocusable(false);
+        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -316,13 +358,17 @@ public class Partner extends javax.swing.JFrame {
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 644, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 656, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -338,7 +384,10 @@ public class Partner extends javax.swing.JFrame {
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -972,13 +1021,13 @@ public class Partner extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
 
             UGui.insertRecordCur(tab1, ePrjpart.up, (prjpartRec) -> {
-                
                 try {
                     ResultSet rs = Conn.connection().createStatement()
                             .executeQuery("SELECT current_user FROM rdb$database"); //дёрнем текущего пользователя
                     rs.next();
                     String login = rs.getString(1).trim();
                     prjpartRec.setNo(ePrjpart.login, login);
+                    prjpartRec.setNo(ePrjpart.npp, prjpartRec.get(ePrjpart.id));
                     prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
                     Record record2 = new Query(eSysuser.values()).select(eSysuser.up, "where", eSysuser.login, "= '", login + "'").get(0);
                     qPrjpart.table(eSysuser.up).add(record2);
@@ -996,12 +1045,12 @@ public class Partner extends javax.swing.JFrame {
             Record record = qPrjpart.get(index);
             listener.action(record);
             this.dispose();
-        } 
+        }
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
         listener.action(new Record(Arrays.asList(null, null)));
-        this.dispose();       
+        this.dispose();
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -1025,12 +1074,34 @@ public class Partner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mouseClicked
 
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
+        JButton btn = (JButton) evt.getSource();
+        int index = UGui.getIndexRec(tab1), index2 = index;
+        if (index != -1) {
+            if (btn == btnMoveD && tab1.getSelectedRow() < tab1.getRowCount() - 1) {
+                Collections.swap(qPrjpart, index, ++index2);
+                Collections.swap(qPrjpart.table(eSysuser.up), index, index2);
+
+            } else if (btn == btnMoveU && tab1.getSelectedRow() > 0) {
+                Collections.swap(qPrjpart, index, --index2);
+                Collections.swap(qPrjpart.table(eSysuser.up), index, index2);
+            }
+            IntStream.range(0, qPrjpart.size() - 1).forEach(i -> qPrjpart.set(i + 1, i, ePrjpart.npp));
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab1, index2);
+            qPrjpart.execsql();
+
+        }
+    }//GEN-LAST:event_btnMove
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnMoveD;
+    private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel center;
@@ -1100,7 +1171,7 @@ public class Partner extends javax.swing.JFrame {
         TableFieldFilter filterTable = new TableFieldFilter(1, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

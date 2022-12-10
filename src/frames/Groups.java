@@ -734,7 +734,7 @@ public class Groups extends javax.swing.JFrame {
         btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveDbtnMove(evt);
+                btnMove(evt);
             }
         });
 
@@ -750,7 +750,7 @@ public class Groups extends javax.swing.JFrame {
         btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMoveU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoveUbtnMove(evt);
+                btnMove(evt);
             }
         });
 
@@ -970,7 +970,7 @@ public class Groups extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabbStateChanged
 
-    private void btnMoveDbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDbtnMove
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
         JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9);
         int index = UGui.getIndexRec(table);
         int index2 = index;
@@ -992,31 +992,7 @@ public class Groups extends javax.swing.JFrame {
             ((DefaultTableModel) table.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(table, index2);
         }
-    }//GEN-LAST:event_btnMoveDbtnMove
-
-    private void btnMoveUbtnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUbtnMove
-        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9);
-        int index = UGui.getIndexRec(table);
-        int index2 = index;
-        if (index != -1 && table != null) {
-            JButton btn = (JButton) evt.getSource();
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-
-            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                Collections.swap(query, index, ++index2);
-
-            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                Collections.swap(query, index, --index2);
-            }
-            for (int i = 0; i < query.size(); i++) {
-                query.set(i + 1, i, eGroups.npp);
-            }
-            query.execsql();
-
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(table, index2);
-        }
-    }//GEN-LAST:event_btnMoveUbtnMove
+    }//GEN-LAST:event_btnMove
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

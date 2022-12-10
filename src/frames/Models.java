@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -133,7 +134,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 }
                 return label;
             }
-        });
+        });        
     }
 
     public void loadingTab(JTable tab, int form) {
@@ -474,6 +475,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -959,34 +961,22 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     }//GEN-LAST:event_tabMouseClicked
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
-        JTable table = null;
-        if (btnT1.isSelected()) {
-            table = tab1;
-        } else if (btnT2.isSelected()) {
-            table = tab2;
-        } else if (btnT3.isSelected()) {
-            table = tab3;
-        } else if (btnT4.isSelected()) {
-            table = tab4;
-        }
-        int index = UGui.getIndexRec(table);
-        int index2 = index;
-        if (index != -1 && table != null) {
-            JButton btn = (JButton) evt.getSource();
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4);
+        int index = UGui.getIndexRec(table), index2 = index;
+        JButton btn = (JButton) evt.getSource();
+        if (index != -1) {
+            if (table.getBorder() != null) {
+                if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
+                    Collections.swap(qModels, index, ++index2);
 
-            if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                Collections.swap(qModels, index, ++index2);
-
-            } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                Collections.swap(qModels, index, --index2);
+                } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
+                    Collections.swap(qModels, index, --index2);
+                }
+                IntStream.range(0, qModels.size() - 1).forEach(i -> qModels.set(i + 1, i, eSysmodel.npp));
+                ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(table, index2);
+                qModels.execsql();
             }
-            for (int i = 0; i < qModels.size(); i++) {
-                qModels.set(i + 1, i, eSysmodel.npp);
-            }
-            qModels.execsql();
-
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(table, index2);
         }
     }//GEN-LAST:event_btnMove
 
