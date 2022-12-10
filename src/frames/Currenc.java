@@ -70,7 +70,7 @@ public class Currenc extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(4));
         tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererNumb(4));
         tab1.setLocale(eProp.locale);
-        UGui.setSelectedFromID(tab1, ID); 
+        UGui.setSelectedKey(tab1, ID); 
     }
 
     @SuppressWarnings("unchecked")

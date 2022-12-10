@@ -47,6 +47,7 @@ import domain.eJoinvar;
 import domain.eParams;
 import domain.ePrjkit;
 import domain.ePrjprod;
+import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprod;
@@ -545,7 +546,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            DicArtikl2 frame = new DicArtikl2(this, (record) -> {
+            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4)); 
+            int id = prjkitRec.getInt(ePrjkit.artikl_id, -1);
+            DicArtikl2 frame = new DicArtikl2(this, id, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
                 qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
@@ -555,7 +558,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, (record) -> {
+            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4)); 
+            int id = prjkitRec.getInt(ePrjkit.artikl_id, -1);            
+            DicArtikl2 frame = new DicArtikl2(this, id, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
                 qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);

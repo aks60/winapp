@@ -19,14 +19,17 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
 import frames.swing.TableFieldFilter;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 1338000300;
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private Query qArtiklAll = new Query(eArtikl.values());
+    private Record artiklRec = null;
+    private TreeNode[] selectedPath = null;
 
     public DicArtikl2(java.awt.Frame parent, ListenerRecord listenet, int... level) {
         super(parent, true);
@@ -35,14 +38,29 @@ public class DicArtikl2 extends javax.swing.JDialog {
         String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
         qArtiklAll.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
-        loadingTree();
         loadingModel();
+        loadingTree();
+        setVisible(true);
+    }
+
+    public DicArtikl2(java.awt.Frame parent, int id, ListenerRecord listenet, int... level) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
+        qArtiklAll.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+        if (id != -1) {
+            artiklRec = qArtiklAll.find(id, eArtikl.id);
+        }
+        this.listener = listenet;
+        loadingModel();
+        loadingTree();
         setVisible(true);
     }
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name); 
+        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
     }
 
     public void loadingTree() {
@@ -71,38 +89,24 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
             } else if (it.id2 > 0) {   //остальное       
                 treeNode1.add(treeNode2);
-                treeNode2.add(new javax.swing.tree.DefaultMutableTreeNode(it));
+                DefaultMutableTreeNode defaultMutableTreeNode = new javax.swing.tree.DefaultMutableTreeNode(it);
+                treeNode2.add(defaultMutableTreeNode);
+                if (artiklRec != null && it.id1 == artiklRec.getInt(eArtikl.level1) && it.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    selectedPath = defaultMutableTreeNode.getPath();
+                }
             }
         }
         treeNode1.add(treeNode2);
         tree.setModel(new DefaultTreeModel(treeNode1));
         scrTree.setViewportView(tree);
-        tree.setSelectionRow(0);
-    }
-
-    public void selectionTree2() {
-
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (node != null) {
-            qArtikl.clear();
-            if (node.getUserObject() instanceof TypeArtikl == false) {
-                qArtikl.addAll(qArtiklAll);
-
-            } else if (node.isLeaf()) {
-                TypeArtikl e = (TypeArtikl) node.getUserObject();
-                List<Record> list = qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1 && rec.getInt(eArtikl.level2) == e.id2).findFirst().orElse(null);
-                if (list != null) {
-                    qArtikl.addAll(list);
-                }
-            } else {
-                TypeArtikl e = (TypeArtikl) node.getUserObject();
-                List<Record> list = qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1).findFirst().orElse(null);
-                if (list != null) {
-                    qArtikl.addAll(list);
-                }
-            }
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        if (selectedPath != null) {
+            tree.setSelectionPath(new TreePath(selectedPath));
+            UGui.setSelectedKey(tab1, artiklRec.getInt(eArtikl.id));
+        } else {
+            tree.setSelectionRow(0);
+            UGui.setSelectedRow(tab1);
         }
+
     }
 
     public void selectionTree() {
@@ -114,7 +118,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
             } else if (node.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) node.getUserObject();
-                    qArtikl.addAll(qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1 && rec.getInt(eArtikl.level2) == e.id2).collect(toList()));
+                qArtikl.addAll(qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1 && rec.getInt(eArtikl.level2) == e.id2).collect(toList()));
 
             } else {
                 TypeArtikl e = (TypeArtikl) node.getUserObject();
@@ -123,7 +127,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -362,7 +366,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

@@ -570,12 +570,12 @@ public class UGui {
     }
 
     //Выделить запись по ключу
-    public static void setSelectedFromID(JTable table, int id) {
+    public static void setSelectedKey(JTable table, int id) {
         Query query = ((DefTableModel) table.getModel()).getQuery();
         if (id == -1) {
             UGui.setSelectedRow(table);
         } else {
-            for (int i = 0; i < ((DefTableModel) table.getModel()).getQuery().size(); ++i) {
+            for (int i = 0; i < query.size(); ++i) {
                 if (query.get(i).getInt(1) == id) {
                     UGui.setSelectedIndex(table, i);
                     UGui.scrollRectToRow(i, table);

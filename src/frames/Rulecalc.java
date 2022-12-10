@@ -78,15 +78,19 @@ public class Rulecalc extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
-            int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
+            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2)); 
+            int id = rulecalcRec.getInt(eRulecalc.artikl_id, -1);
+            int type = rulecalcRec.getInt(eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
-            new DicArtikl2(this, listenerArtikl, arr);
+            new DicArtikl2(this, id, listenerArtikl, arr);
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
+            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2)); 
+            int id = rulecalcRec.getInt(eRulecalc.artikl_id, -1);
+            int type = rulecalcRec.getInt(eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
-            new DicArtikl2(this, listenerArtikl, arr);
+            new DicArtikl2(this, id, listenerArtikl, arr);
         });
 
         UGui.buttonCellEditor(tab2, 11).addActionListener(event -> {

@@ -52,25 +52,25 @@ public class DicGroups extends javax.swing.JDialog {
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            UGui.setSelectedFromID(tab1, ID);
+            UGui.setSelectedKey(tab1, ID);
         } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedFromID(tab2, ID);
+            UGui.setSelectedKey(tab2, ID);
         } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedFromID(tab3, ID);
+            UGui.setSelectedKey(tab3, ID);
         } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedFromID(tab4, ID);
+            UGui.setSelectedKey(tab4, ID);
         }
     }
 
