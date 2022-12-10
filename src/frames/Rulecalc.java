@@ -101,10 +101,13 @@ public class Rulecalc extends javax.swing.JFrame {
     }
 
     public void listenerSet() {
-
+//TODO Не могу очистить поле
         listenerArtikl = (arttiklRec) -> {
             int index = UGui.getIndexRec(tab2);
             UGui.stopCellEditing(tab2);
+            //Record rulecalcRec = qRulecalc.table(eRulecalc.up).get(index);
+            //rulecalcRec.set(eRulecalc.artikl_id, arttiklRec.getInt(eArtikl.id));
+            
             qRulecalc.table(eRulecalc.up).set(arttiklRec.getInt(eArtikl.id), index, eRulecalc.artikl_id);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.code), index, eArtikl.code);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.name), index, eArtikl.name);
