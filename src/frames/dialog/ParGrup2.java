@@ -354,11 +354,6 @@ public class ParGrup2 extends javax.swing.JDialog {
         });
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab3tabMouseClicked(evt);
-            }
-        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -423,10 +418,6 @@ public class ParGrup2 extends javax.swing.JDialog {
             btnChoice(null);
         }
     }//GEN-LAST:event_tabMouseClicked
-
-    private void tab3tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3tabMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab3tabMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

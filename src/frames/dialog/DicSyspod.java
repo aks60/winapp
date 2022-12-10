@@ -232,11 +232,6 @@ public class DicSyspod extends javax.swing.JDialog {
         btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -365,10 +360,6 @@ public class DicSyspod extends javax.swing.JDialog {
             btnChoice(null);
         }
     }//GEN-LAST:event_mouseClicked
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoveActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

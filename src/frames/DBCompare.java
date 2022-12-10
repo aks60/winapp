@@ -1025,11 +1025,6 @@ public class DBCompare extends javax.swing.JFrame {
         txt19.setText("506642");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
-        txt19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt19ActionPerformed(evt);
-            }
-        });
 
         txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setText("1");
@@ -1149,10 +1144,6 @@ public class DBCompare extends javax.swing.JFrame {
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
         loadingTabGroup2();
     }//GEN-LAST:event_btn1
-
-    private void txt19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt19ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -668,7 +668,7 @@ public class Texture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRepActionPerformed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        // TODO add your handling code here:
+        // 
     }//GEN-LAST:event_btnTest
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

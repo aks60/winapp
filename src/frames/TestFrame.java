@@ -218,11 +218,6 @@ public class TestFrame extends javax.swing.JFrame {
         sql1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sql1.setMinimumSize(new java.awt.Dimension(6, 20));
         sql1.setPreferredSize(new java.awt.Dimension(600, 20));
-        sql1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sql1ActionPerformed(evt);
-            }
-        });
         pan1.add(sql1, java.awt.BorderLayout.CENTER);
 
         pan11.setLayout(new java.awt.BorderLayout());
@@ -479,10 +474,6 @@ public class TestFrame extends javax.swing.JFrame {
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         selectionTab2();
     }//GEN-LAST:event_btn2ActionPerformed
-
-    private void sql1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sql1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sql1ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;

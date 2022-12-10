@@ -477,7 +477,7 @@ public class DicKits extends javax.swing.JDialog {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lab14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pan1.add(pan2);
@@ -655,7 +655,7 @@ public class DicKits extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (tab2.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Ни одна из записей не вывыделена", "Предупреждение", JOptionPane.NO_OPTION);
+            JOptionPane.showMessageDialog(null, "Ни одна из записей не выделена", "Предупреждение", JOptionPane.NO_OPTION);
             return;
         }
         if (txt3.getText().isEmpty() && txt3.isEditable()) {
@@ -676,13 +676,13 @@ public class DicKits extends javax.swing.JDialog {
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
 
         //Цикл по списку детализации
-        for (Record record : qKitdet) {
+        for (Record kitdetRec : qKitdet) {
             mapParam.clear();
 
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
-            if (kitDet.filter(mapParam, record) == true) {
+            if (kitDet.filter(mapParam, kitdetRec) == true) {
 
-                Record artiklRec = eArtikl.get(record.getInt(eKitdet.artikl_id));
+                Record artiklRec = eArtikl.get(kitdetRec.getInt(eKitdet.artikl_id));
                 Record recordKit = ePrjkit.up.newRecord(Query.INS);
                 recordKit.set(ePrjkit.id, Conn.genId(ePrjkit.up));
                 recordKit.set(ePrjkit.project_id, projectID);
@@ -707,9 +707,11 @@ public class DicKits extends javax.swing.JDialog {
                 angl1 = (angl2 == null) ? 90 : angl2;
                 recordKit.set(ePrjkit.angl2, angl2); //угол 2
 
+                //TODO Нужен авторасчёт текстуры
                 recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
                 recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
                 recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
+                
                 qPrjkit.insert(recordKit);
             }
         }

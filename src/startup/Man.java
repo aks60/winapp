@@ -308,11 +308,6 @@ public class Man extends javax.swing.JFrame {
         btn11.setMaximumSize(new java.awt.Dimension(120, 30));
         btn11.setMinimumSize(new java.awt.Dimension(87, 26));
         btn11.setPreferredSize(new java.awt.Dimension(96, 26));
-        btn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn11ActionPerformed(evt);
-            }
-        });
         pan7.add(btn11);
         btn11.getAccessibleContext().setAccessibleName("");
 
@@ -546,10 +541,6 @@ public class Man extends javax.swing.JFrame {
             mn63.setSelected(true);
         }
     }//GEN-LAST:event_mnBase
-
-    private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn11ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
