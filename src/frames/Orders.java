@@ -546,26 +546,36 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4)); 
+            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4));
             int id = prjkitRec.getInt(ePrjkit.artikl_id, -1);
             DicArtikl2 frame = new DicArtikl2(this, id, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
-                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
-                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
-                UGui.fireTableRowUpdated(tab4);
+                if (record.size() == 2) {
+                   JOptionPane.showMessageDialog(this, "Поле артикул должно иметь значеение");
+                   return;
+                } else {
+                    qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
+                    qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                    qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                    UGui.fireTableRowUpdated(tab4);
+                }
             }, 1, 2, 3, 4, 5);
         });
 
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4)); 
-            int id = prjkitRec.getInt(ePrjkit.artikl_id, -1);            
+            Record prjkitRec = qPrjkit.get(UGui.getIndexRec(tab4));
+            int id = prjkitRec.getInt(ePrjkit.artikl_id, -1);
             DicArtikl2 frame = new DicArtikl2(this, id, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
-                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
-                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
-                UGui.fireTableRowUpdated(tab4);
+                if (record.size() == 2) {
+                   JOptionPane.showMessageDialog(this, "Поле артикул должно иметь значеение");
+                   return;
+                } else {
+                    qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
+                    qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                    qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                    UGui.fireTableRowUpdated(tab4);
+                }
             }, 1, 2, 3, 4, 5);
         });
 
@@ -3303,7 +3313,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         for (Record prjprodRec : qPrjprod) {
                             Object w = prjprodRec.get(ePrjprod.values().length);
                             if (w instanceof Wincalc) {
-                                
+
                                 Wincalc win = (Wincalc) w;
                                 String script = prjprodRec.getStr(ePrjprod.script);
                                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
@@ -3331,14 +3341,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         }
                         double cost2 = projectRec.getDbl(eProject.cost2) - projectRec.getDbl(eProject.cost2) * projectRec.getDbl(eProject.disc2) / 100;
                         projectRec.set(eProject.cost2, cost2); //стоимость проекта со скидкой менеджера
-                        
+
                         double cost3 = projectRec.getDbl(eProject.cost3) - projectRec.getDbl(eProject.cost3) * projectRec.getDbl(eProject.disc3) / 100;
                         projectRec.set(eProject.cost3, cost3); //стоимость проекта комплектации со скидкой менеджера
 
                         projectRec.set(eProject.price4, projectRec.getDbl(eProject.price2) + projectRec.getDbl(eProject.price3)); //стоимость проекта без скидок
-                        
+
                         double cost4 = (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3))
-                                - (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3))  * projectRec.getDbl(eProject.disc4) / 100;
+                                - (projectRec.getDbl(eProject.cost2) + projectRec.getDbl(eProject.cost3)) * projectRec.getDbl(eProject.disc4) / 100;
                         projectRec.set(eProject.cost4, cost4); //проекта со скидками менеджера
 
                         //Вес, площадь
@@ -3758,12 +3768,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void initElements() {
         new FrameToFile(this, btnClose);
-        new UColor();       
-        
+        new UColor();
+
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         //UGui.documentFilter(3, txt7);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
