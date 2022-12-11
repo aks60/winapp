@@ -13,6 +13,7 @@ import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -42,7 +43,7 @@ public class DicSyspod extends javax.swing.JDialog {
         initElements();
         loadingData();
         loadingSys();
-        loadingModel();        
+        loadingModel();
         setVisible(true);
     }
 
@@ -70,14 +71,14 @@ public class DicSyspod extends javax.swing.JDialog {
                 }
                 return label;
             }
-        });  
+        });
         if (selectedPath != null) {
             tree1.setSelectionPath(new TreePath(selectedPath));
         } else {
             tree1.setSelectionRow(0);
-        }        
+        }
     }
-    
+
     public void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
@@ -103,7 +104,7 @@ public class DicSyspod extends javax.swing.JDialog {
     }
 
     public void loadingTab2() {
-        
+
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
         dm.getDataVector().removeAllElements();
@@ -119,9 +120,9 @@ public class DicSyspod extends javax.swing.JDialog {
             } catch (Exception e) {
                 System.err.println("Ошибка:DicSyspod.loadingTab2() " + e);
             }
-        }        
-    }   
-    
+        }
+    }
+
     public void selectionSys() {
 
         systreeNode = (DefMutableTreeNode) tree1.getLastSelectedPathComponent();
@@ -147,7 +148,7 @@ public class DicSyspod extends javax.swing.JDialog {
             //createWincalc(-1); //рисуем виртуалку
         }
     }
-    
+
     public ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
 
         for (DefMutableTreeNode node : nodeList1) {
@@ -232,6 +233,11 @@ public class DicSyspod extends javax.swing.JDialog {
         btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -361,6 +367,11 @@ public class DicSyspod extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mouseClicked
 
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        listener.action(new Record(Arrays.asList(null, null)));
+        this.dispose();
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -377,7 +388,7 @@ public class DicSyspod extends javax.swing.JDialog {
     private javax.swing.JTree tree1;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     public void initElements() {
 
         FrameToFile.setFrameSize(this);
