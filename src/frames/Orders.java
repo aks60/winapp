@@ -552,7 +552,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 if (record.size() == 2) {
                    JOptionPane.showMessageDialog(this, "Поле артикул должно иметь значеение");
-                   return;
                 } else {
                     qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
                     qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
@@ -569,7 +568,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 if (record.size() == 2) {
                    JOptionPane.showMessageDialog(this, "Поле артикул должно иметь значеение");
-                   return;
                 } else {
                     qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
                     qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
