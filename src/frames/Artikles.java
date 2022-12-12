@@ -1002,6 +1002,8 @@ public class Artikles extends javax.swing.JFrame {
         pan91.add(lab13);
 
         txt1.setFont(frames.UGui.getFont(0,0));
+        txt1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt1.setText("777");
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setName("{3}"); // NOI18N
         txt1.setPreferredSize(new java.awt.Dimension(44, 18));
@@ -2187,8 +2189,8 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null, null, null, null, null, null, null, null, null},
-                {"2", "222", null, null, null, null, null, null, null, null, null, null}
+                {"1", "111", null, "0,0", null, null, null, null, null, null, null, null},
+                {"2", "222", null, "0,0", null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"

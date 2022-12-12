@@ -360,6 +360,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     public void initElements() {
 
+        btnRemove.setVisible(false);
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 

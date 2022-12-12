@@ -361,6 +361,7 @@ public class DicColor extends javax.swing.JDialog {
     
     private void initElements() {
 
+        btnRemove.setVisible(false);
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         
