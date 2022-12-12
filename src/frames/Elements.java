@@ -152,9 +152,9 @@ public class Elements extends javax.swing.JFrame {
                     Field field = columns[col];
                     if (eElemdet.color_fk == field) {
                         int colorFk = Integer.valueOf(val.toString());
+                        
                         if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
                             return UseColor.automatic[1];
-
                         } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
                             return UseColor.precision[1];
                         }
@@ -243,8 +243,9 @@ public class Elements extends javax.swing.JFrame {
 
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
-            int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+            int artikID = record.getInt(eElemdet.artikl_id);
+            int colorID = record.getInt(eElemdet.color_fk, -1);
+            ParColor2 frame = new ParColor2(this, listenerColor, artikID, colorID);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {

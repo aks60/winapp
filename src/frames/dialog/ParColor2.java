@@ -17,6 +17,8 @@ import enums.UseColor;
 import common.listener.ListenerRecord;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -25,9 +27,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ParColor2 extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
-    private Query qGroups = new Query(eGroups.values());
-    private Query qColor = new Query(eGroups.values());
+    private Query qGroupsMap = new Query(eGroups.values());
+    private Query qGroupsGrp = new Query(eGroups.values());
+    private Query qColor = new Query(eColor.values());
     private ListenerRecord listener;
+    private int colorID = -1;
 
     public ParColor2(java.awt.Frame parent, ListenerRecord listener, int artikl_id) {
         super(parent, true);
@@ -38,51 +42,71 @@ public class ParColor2 extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
+    
+    public ParColor2(java.awt.Frame parent, ListenerRecord listener, int artiklID, int colorID) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
+        this.colorID = colorID;
+        loadingData(artiklID);
+        loadingModel();
+        setVisible(true);
+    }
 
     public void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id);
+
+        Record color1 = eColor.up.newRecord();
+        color1.set(eColor.colgrp_id, UseColor.automatic[0]);
+        color1.set(eColor.id, UseColor.automatic[0]);
+        color1.set(eColor.name, UseColor.automatic[1]);
+        qColor.add(color1);
+        Record color2 = eColor.up.newRecord();
+        color2.set(eColor.colgrp_id, UseColor.precision[0]);
+        color2.set(eColor.id, UseColor.precision[0]);
+        color2.set(eColor.name, UseColor.precision[1]);
+        qColor.add(color2);
+
+        for (Record record : qArtdet) {
+            if (record.getInt(eArtdet.color_fk) > 0) {
+                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk)));
+            } else if (record.getInt(eArtdet.color_fk) < 0) {
+                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.colgrp_id, "=", Math.abs(record.getInt(eArtdet.color_fk))));
+            }
+        }
     }
 
     public void loadingModel() {
-
-        DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
-        tableModel.getDataVector().removeAllElements();
-        tableModel.addRow(new String[]{UseColor.automatic[0], UseColor.automatic[1]});
-        tableModel.addRow(new String[]{UseColor.precision[0], UseColor.precision[1]});
-        for (Record record : qArtdet) {
-            if (record.getInt(eArtdet.color_fk) > 0) {
-                qColor = new Query(eColor.id, eColor.name, eColor.rgb).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
-                for (Record record1 : qColor) {
-                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
+        new DefTableModel(tab1, qColor, eColor.colgrp_id, eColor.id, eColor.name) {
+            @Override
+            public Object getValueAt(int col, int row, Object val) {
+                if (col == 0) {
+                    Record colorRec = qColor.get(tab1.convertRowIndexToModel(row));
+                    Record groupRec = qGroupsGrp.find(colorRec.get(eColor.colgrp_id), eGroups.id);
+                    return groupRec.get(eGroups.name);
                 }
-            } else if (record.getInt(eArtdet.color_fk) < 0) {
-                int colgrp_id = Math.abs(record.getInt(eArtdet.color_fk));
-                qColor = new Query(eColor.id, eColor.name, eColor.rgb).select(eColor.up, "where", eColor.colgrp_id, "=", colgrp_id);
-                for (Record record1 : qColor) {
-                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name), record1.getStr(eColor.rgb)});
-                }
+                return val;
             }
-        }
-        tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+        };
+        new DefTableModel(tab2, qGroupsMap, eGroups.id, eGroups.name);
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                if (row > 1) {
-                    int rgb = qColor.getAs(row - 2, eColor.rgb, 16777215);
-                    lab.setBackground(new java.awt.Color(rgb));
-
-                } else {
-                    lab.setBackground(new java.awt.Color(16777215));
-                }
+                int rgb = (row > 1) ? qColor.getAs(row - 2, eColor.rgb, 16777215) : 15921906;
+                lab.setBackground(new java.awt.Color(rgb));
                 return lab;
             }
         });
-        tableModel.getDataVector().stream().sorted((rec1, rec2) -> ((Vector) rec1).get(1).toString().compareTo(((Vector) rec2).get(1).toString())).collect(Collectors.toList());
-        tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
-
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        if(colorID > 0) {
+            UGui.setSelectedKey(tab1, colorID);
+        } else {
+            UGui.setSelectedRow(tab1);
+        }        
         UGui.setSelectedRow(tab2);
     }
 
@@ -109,7 +133,6 @@ public class ParColor2 extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры системы");
         setMinimumSize(new java.awt.Dimension(200, 44));
-        setPreferredSize(new java.awt.Dimension(300, 400));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -226,18 +249,20 @@ public class ParColor2 extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(350, 400));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        tab1.setFont(frames.UGui.getFont(0,0));
+        scr1.setBorder(null);
+
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "2"},
-                {"1", "2"}
+                {"11", "111", "111111111"},
+                {"22", "222", "222222222"},
+                {"33", "333", "333333333"}
             },
             new String [] {
-                "Код", "Название"
+                "Группа", "Код", "Название"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -248,13 +273,14 @@ public class ParColor2 extends javax.swing.JDialog {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1tabMouseClicked(evt);
+                ParColor2.this.mouseClicked(evt);
             }
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(300);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -269,8 +295,8 @@ public class ParColor2 extends javax.swing.JDialog {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "3"},
-                {"1", "3"}
+                {"111", "2222222222"},
+                {"111", "2222222222"}
             },
             new String [] {
                 "Код", "Название "
@@ -288,7 +314,7 @@ public class ParColor2 extends javax.swing.JDialog {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2tabMouseClicked(evt);
+                ParColor2.this.mouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -329,13 +355,13 @@ public class ParColor2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        if (btnCard1.isSelected() == true) {
+        if (btnCard1.isSelected() == true) {          
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 0));
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 2));
             listener.action(record);
         } else {
-            Record record = qGroups.get(UGui.getIndexRec(tab2));
+            Record record = qGroupsMap.get(UGui.getIndexRec(tab2));
             listener.action(record);
         }
         this.dispose();
@@ -355,17 +381,11 @@ public class ParColor2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCard
 
-    private void tab1tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1tabMouseClicked
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_tab1tabMouseClicked
-
-    private void tab2tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab2tabMouseClicked
+    }//GEN-LAST:event_mouseClicked
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -389,6 +409,7 @@ public class ParColor2 extends javax.swing.JDialog {
 
     public void initElements() {
 
+        btnRemove.setVisible(false);
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }

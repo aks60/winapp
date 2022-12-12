@@ -370,8 +370,9 @@ public class Furniturs extends javax.swing.JFrame {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
             UGui.buttonCellEditor(tab, 2).addActionListener(event -> {
                 Record record = query.get(UGui.getIndexRec(tab));
-                int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+                int artiklID = record.getInt(eFurndet.artikl_id);
+                int colorID = record.getInt(eFurndet.color_fk, -1);
+                ParColor2 frame = new ParColor2(this, listenerColor, artiklID, colorID);
             });
         }
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {

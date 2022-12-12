@@ -194,7 +194,7 @@ public class Joinings extends javax.swing.JFrame {
                         if (colorFk > 0) {
                             return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                         } else {
-                            //return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                            return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                         }
                     } else if (eJoindet.types == field) {
                         int types = Integer.valueOf(val.toString());
@@ -303,10 +303,11 @@ public class Joinings extends javax.swing.JFrame {
 
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(UGui.getIndexRec(tab4));
-            int artikl_id = record.getInt(eJoindet.artikl_id);
+            int artiklID = record.getInt(eJoindet.artikl_id);
+            int colorID = record.getInt(eJoindet.color_fk, -1);
             new ParColor2(this, (rec) -> {
                 UGui.listenerColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
-            }, artikl_id);
+            }, artiklID, colorID);
         });
 
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
@@ -1059,7 +1060,7 @@ public class Joinings extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
                 "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-            
+
             List<Record> joinvarList = new ArrayList<>();
             List<Record> joindetList = new ArrayList<>();
             Map<Record, Integer> joindetMap = new HashMap<>();
@@ -1157,7 +1158,7 @@ public class Joinings extends javax.swing.JFrame {
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-                
+
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

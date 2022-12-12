@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import domain.eJoindet;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
 import report.ExecuteCmd;
@@ -187,8 +188,9 @@ public class Fillings extends javax.swing.JFrame {
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(UGui.getIndexRec(tab2));
-            int artikl_id = record.getInt(eElemdet.artikl_id);
-            new ParColor2(this, listenerColor, artikl_id);
+            int artiklID = record.getInt(eElemdet.artikl_id);
+            int colorID = record.getInt(eGlasdet.color_fk, -1);
+            new ParColor2(this, listenerColor, artiklID, colorID);
         });
 
         UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {

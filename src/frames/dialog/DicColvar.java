@@ -240,5 +240,6 @@ public class DicColvar extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        btnRemove.setVisible(false);
     }
 }
