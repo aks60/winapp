@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableColumnModel;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 1190782744;
     private Query qJoinvar = new Query(eJoinvar.name, eJoinvar.id);
     private ListenerRecord listener = null;
     private int[] indexIcon = {10, 20, 30, 31, 40, 41};

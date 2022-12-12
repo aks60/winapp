@@ -257,7 +257,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void loadingTab2() {
         int index = -1;
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);   
         List.of(qProject, qPrjprod, qPrjkit).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 

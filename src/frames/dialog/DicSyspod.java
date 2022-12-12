@@ -26,7 +26,6 @@ import javax.swing.tree.TreePath;
 
 public class DicSyspod extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 931126542;
     private Wincalc winc = new Wincalc();
     private ListenerRecord listener = null;
     private int systreeID = -1; //выбранная система

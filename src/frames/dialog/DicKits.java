@@ -43,7 +43,6 @@ import javax.swing.text.PlainDocument;
 //Дополнительные комплекты
 public class DicKits extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 1343775792;
     private ListenerObject<Query> listener = null;
     private Query qPrjkit = new Query(ePrjkit.values());
     private Query qCateg = new Query(eGroups.values());

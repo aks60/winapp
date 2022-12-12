@@ -15,14 +15,18 @@ import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
 import common.listener.ListenerRecord;
+import java.awt.Component;
 import java.util.Arrays;
 import java.util.Vector;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ParColor2 extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 795439357;
     private Query qArtdet = new Query(eArtdet.values());
     private Query qGroups = new Query(eGroups.values());
+    private Query qColor = new Query(eGroups.values());
     private ListenerRecord listener;
 
     public ParColor2(java.awt.Frame parent, ListenerRecord listener, int artikl_id) {
@@ -48,19 +52,33 @@ public class ParColor2 extends javax.swing.JDialog {
         tableModel.addRow(new String[]{UseColor.precision[0], UseColor.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
-                Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
+                qColor = new Query(eColor.id, eColor.name, eColor.rgb).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
                 for (Record record1 : qColor) {
                     tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
                 }
             } else if (record.getInt(eArtdet.color_fk) < 0) {
                 int colgrp_id = Math.abs(record.getInt(eArtdet.color_fk));
-                Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.colgrp_id, "=", colgrp_id);
+                qColor = new Query(eColor.id, eColor.name, eColor.rgb).select(eColor.up, "where", eColor.colgrp_id, "=", colgrp_id);
                 for (Record record1 : qColor) {
-                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
+                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name), record1.getStr(eColor.rgb)});
                 }
             }
         }
-        tableModel.getDataVector().stream().sorted((rec1, rec2) -> ((Vector)rec1).get(1).toString().compareTo(((Vector)rec2).get(1).toString())).collect(Collectors.toList());
+        tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                if (row > 1) {
+                    int rgb = qColor.getAs(row - 2, eColor.rgb, 16777215);
+                    lab.setBackground(new java.awt.Color(rgb));
+
+                } else {
+                    lab.setBackground(new java.awt.Color(16777215));
+                }
+                return lab;
+            }
+        });
+        tableModel.getDataVector().stream().sorted((rec1, rec2) -> ((Vector) rec1).get(1).toString().compareTo(((Vector) rec2).get(1).toString())).collect(Collectors.toList());
         tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -368,7 +386,7 @@ public class ParColor2 extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

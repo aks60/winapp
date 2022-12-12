@@ -42,6 +42,8 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
+import domain.ePrjkit;
+import frames.dialog.DicArtikl2;
 import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -288,11 +290,15 @@ public class Joinings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
+            int id = joindetRec.getInt(eJoindet.artikl_id, -1);
+            new DicArtikl2(this, id, listenerArtikl, 1, 2, 3, 4);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
+            int id = joindetRec.getInt(eJoindet.artikl_id, -1);
+            new DicArtikl2(this, id, listenerArtikl, 1, 2, 3, 4);
         });
 
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
@@ -721,7 +727,7 @@ public class Joinings extends javax.swing.JFrame {
                 {"22", "22", "2222", "2", "2", null}
             },
             new String [] {
-                "Артикул 1", "Артикул 2", "Название", "Основн...", "Аналог", "ID"
+                "Артикул 1", "Артикул 2", "Название", "Основной", "Аналог", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -749,10 +755,12 @@ public class Joinings extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(320);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(3).setMaxWidth(80);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(360);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(68);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(5).setMaxWidth(60);
         }
@@ -983,6 +991,7 @@ public class Joinings extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eJoining.up, (record) -> {
+                record.setDev(eJoining.name, "Соединение-");
             });
 
         } else if (tab2.getBorder() != null) {

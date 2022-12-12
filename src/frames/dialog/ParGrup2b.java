@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 public class ParGrup2b extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 84087232;
     private List<String> list;
     private ListenerRecord listener;
 

@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 public class ParDefault extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 2067173679;
     private Query qParam = new Query(eParams.up.values());
     private ListenerRecord listener;
     

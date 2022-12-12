@@ -12,7 +12,6 @@ import java.util.Arrays;
 //Варианты текстур
 public class DicColvar extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 215206598;
     private ListenerRecord listener = null;
     private int colorFk = 0;
     String[] titl = {"Наименование"};

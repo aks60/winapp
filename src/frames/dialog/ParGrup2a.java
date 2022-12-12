@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 public class ParGrup2a extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 806104648;
     private int grup = -1;
     private Query qParam2 = new Query(eParams.up.values());
     private ListenerRecord listener;

@@ -24,7 +24,6 @@ import javax.swing.JButton;
 
 public class DicGroups extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 1095563562;
     private Enam grup = null;
     private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());

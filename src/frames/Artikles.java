@@ -2318,10 +2318,11 @@ public class Artikles extends javax.swing.JFrame {
                     Record artiklRec = qArtikl.get(index);
                     record.setNo(eArtdet.id, Conn.genId(eArtdet.up));
                     record.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
-                    record.setNo(eArtdet.cost_c1, 0);
-                    record.setNo(eArtdet.cost_c2, 0);
-                    record.setNo(eArtdet.cost_c3, 0);
-                    record.setNo(eArtdet.cost_c4, 0);
+                    double v = (eProp.dev == false) ? 0 : 100;
+                    record.setNo(eArtdet.cost_c1, v);
+                    record.setNo(eArtdet.cost_c2, v);
+                    record.setNo(eArtdet.cost_c3, v);
+                    record.setNo(eArtdet.cost_c4, v);
                     record.setNo(eArtdet.coef, 1);
                 });
             }
@@ -2517,7 +2518,7 @@ public class Artikles extends javax.swing.JFrame {
 
             List<Record> artdetList = new ArrayList<>();
             qArtdet.forEach(rec -> artdetList.add(rec));
-            
+
             Record artiklClon = (Record) qArtikl.get(index).clone();
             artiklClon.setNo(eArtikl.up, Query.INS);
             int artiklID = Conn.genId(eArtikl.up);

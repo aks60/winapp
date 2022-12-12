@@ -17,7 +17,6 @@ import javax.swing.event.ListSelectionListener;
 
 public class ParGrup2v extends javax.swing.JDialog {
 
-    private static final int serialVersionUID = 527183633;
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
     private ListenerRecord listener = null;
