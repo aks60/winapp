@@ -3411,9 +3411,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             };
             if (groupArr == null && colorArr.length == 0) {
-                new DicColor(this, listenerColor, false, false);
+                new DicColor(this, listenerColor, false, true);
             } else {
-                new DicColor(this, listenerColor, groupSet, false);
+                new DicColor(this, listenerColor, groupSet, true);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
