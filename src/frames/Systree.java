@@ -3413,7 +3413,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (groupArr == null && colorArr.length == 0) {
                 new DicColor(this, listenerColor, false, false);
             } else {
-                new DicColor(this, listenerColor, groupSet, true);
+                new DicColor(this, listenerColor, groupSet, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

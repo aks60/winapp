@@ -50,7 +50,7 @@ public class DicKits extends javax.swing.JDialog {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
     private Query qParams = new Query(eParams.values());
-    private int colorID[] = {-1, -1, -1};
+    private Object colorID[] = {-1, -1, -1};
     private int projectID = -1;
     private int prjprodID = -1;
 
@@ -476,7 +476,7 @@ public class DicKits extends javax.swing.JDialog {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lab14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pan1.add(pan2);
@@ -751,7 +751,7 @@ public class DicKits extends javax.swing.JDialog {
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
             JTextField txt = (evt.getSource() == btn9) ? txt9 : (evt.getSource() == btn13) ? txt13 : txt14;
-            int index = (evt.getSource() == btn9) ? 0 : (evt.getSource() == btn13) ? 1 : 2;
+            int indexBtn = (evt.getSource() == btn9) ? 0 : (evt.getSource() == btn13) ? 1 : 2;
             Record record = qKitdet.stream().filter(rec -> 1 == rec.getInt(eKitdet.flag)).findFirst().orElse(null);
             if (qKitdet.size() == 1) {
                 record = qKitdet.get(0);
@@ -773,11 +773,11 @@ public class DicKits extends javax.swing.JDialog {
                     }
                 });
                 DicColor frame = new DicColor(null, (rec) -> {
-                    setColor(index, rec);
+                    setColor(indexBtn, rec);
                 }, colorSet, true);
             } else {
                 DicColor frame = new DicColor(null, (rec) -> {
-                    setColor(index, rec);
+                    setColor(indexBtn, rec);
                 }, false, false);
             }
         } catch (Exception e) {
@@ -785,8 +785,8 @@ public class DicKits extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_colorToWindows
 
-    private void setColor(int index, Record record) {
-        if (index == 0) {
+    private void setColor(int indexBtn, Record record) {
+        if (indexBtn == 0) {
             txt9.setText(record.getStr(eColor.name));
             colorID[0] = record.getInt(eColor.id);
             txt13.setText(record.getStr(eColor.name));
@@ -794,11 +794,11 @@ public class DicKits extends javax.swing.JDialog {
             txt14.setText(record.getStr(eColor.name));
             colorID[2] = record.getInt(eColor.id);
 
-        } else if (index == 1) {
+        } else if (indexBtn == 1) {
             txt13.setText(record.getStr(eColor.name));
             colorID[1] = record.getInt(eColor.id);
 
-        } else if (index == 2) {
+        } else if (indexBtn == 2) {
             txt14.setText(record.getStr(eColor.name));
             colorID[2] = record.getInt(eColor.id);
         }

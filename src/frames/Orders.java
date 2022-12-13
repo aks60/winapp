@@ -584,13 +584,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(ePrjkit.color1_id, record2.getInt(eColor.id));
-                if (record.get(ePrjkit.color2_id) == null) {
-                    record.set(ePrjkit.color2_id, record2.getInt(eColor.id));
-                }
-                if (record.get(ePrjkit.color3_id) == null) {
-                    record.set(ePrjkit.color3_id, record2.getInt(eColor.id));
-                }
+                record.set(ePrjkit.color1_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet, true);
@@ -603,7 +597,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(ePrjkit.color2_id, record2.getInt(eColor.id));
+                record.set(ePrjkit.color2_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet, true);
@@ -616,7 +610,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(ePrjkit.color3_id, record2.getInt(eColor.id));
+                record.set(ePrjkit.color3_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet, true);
@@ -2966,7 +2960,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 if (arr1 == null && arr2.length == 0) {
                     new DicColor(this, listenerColor, false, false);
                 } else {
-                    new DicColor(this, listenerColor, set, true);
+                    new DicColor(this, listenerColor, set, false);
                 }
             }
         } catch (Exception e) {
