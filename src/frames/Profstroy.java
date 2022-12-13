@@ -612,9 +612,6 @@ public class Profstroy {
             alterTable("kits", "fk_kits1", "groups_id", "groups");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
-            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
-            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
-            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
             alterTable("kitpar2", "fk_kitpar1", "kitdet_id", "kitdet");
             alterTable("alter table sysuser add constraint unq1_sysuser unique (user2)");
             executeSql("create or alter trigger artikl_bd for artikl active before delete position 0 as begin "
