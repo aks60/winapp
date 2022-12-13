@@ -186,9 +186,10 @@ public class Joinings extends javax.swing.JFrame {
                     } else if (eJoindet.color_fk == field) {
                         int colorFk = Integer.valueOf(val.toString());
 
-                        if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
+                        if (UseColor.automatic[0].equals(colorFk)) {
                             return UseColor.automatic[1];
-                        } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
+                            
+                        } else if (UseColor.precision[0].equals(colorFk)) {
                             return UseColor.precision[1];
                         }
                         if (colorFk > 0) {

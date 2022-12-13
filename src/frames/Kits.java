@@ -17,6 +17,7 @@ import domain.eKits;
 import domain.eParams;
 import enums.Enam;
 import enums.TypeGroups;
+import enums.UseColor;
 import enums.UseUnit;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -69,8 +70,11 @@ public class Kits extends javax.swing.JFrame {
                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
             public Object getValueAt(int col, int row, Object val) {
-
-                if (val != null && col == 0) {
+                
+                if (val == null && List.of(eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id).contains(columns[col])) {
+                    return UseColor.automatic[1];
+                    
+                } else if (val != null && col == 0) {
                     return eArtikl.get((int) val).getStr(eArtikl.code);
 
                 } else if (val != null && col == 1) {
@@ -130,6 +134,11 @@ public class Kits extends javax.swing.JFrame {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            Record colorRec = eColor.up.newRecord();
+            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.colgrp_id, -3);
+            colorRec.set(eColor.name, UseColor.automatic[1]);
+            colorSet.add(colorRec);
             new DicColor(this, listenerColor1, colorSet);
         });
 
@@ -137,6 +146,11 @@ public class Kits extends javax.swing.JFrame {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            Record colorRec = eColor.up.newRecord();
+            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.colgrp_id, -3);
+            colorRec.set(eColor.name, UseColor.automatic[1]);
+            colorSet.add(colorRec);            
             new DicColor(this, listenerColor2, colorSet);
         });
 
@@ -144,6 +158,11 @@ public class Kits extends javax.swing.JFrame {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            Record colorRec = eColor.up.newRecord();
+            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.colgrp_id, -3);
+            colorRec.set(eColor.name, UseColor.automatic[1]);
+            colorSet.add(colorRec);            
             new DicColor(this, listenerColor3, colorSet);
         });
 
@@ -203,13 +222,12 @@ public class Kits extends javax.swing.JFrame {
             Record kitdetRec = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             kitdetRec.set(eKitdet.color1_id, ID);
-
-            if (kitdetRec.get(eKitdet.color2_id) == null) {
-                kitdetRec.set(eKitdet.color2_id, ID);
-            }
-            if (kitdetRec.get(eKitdet.color3_id) == null) {
-                kitdetRec.set(eKitdet.color3_id, ID);
-            }
+//            if (kitdetRec.get(eKitdet.color2_id) == null) {
+//                kitdetRec.set(eKitdet.color2_id, ID);
+//            }
+//            if (kitdetRec.get(eKitdet.color3_id) == null) {
+//                kitdetRec.set(eKitdet.color3_id, ID);
+//            }
             UGui.fireTableRowUpdated(tab3);
         };
 
@@ -723,11 +741,11 @@ public class Kits extends javax.swing.JFrame {
 // </editor-fold> 
     public void initElements() {
         new FrameToFile(this, btnClose);
-        
+
         TableFieldFilter filterTable = new TableFieldFilter(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
         btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));
         btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4));

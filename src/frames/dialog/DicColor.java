@@ -15,12 +15,11 @@ import java.awt.Component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.stream.Stream;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import common.listener.ListenerRecord;
+import enums.UseColor;
 import frames.swing.TableFieldFilter;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -33,7 +32,7 @@ public class DicColor extends javax.swing.JDialog {
     private Query qColgrp = new Query(eGroups.values());
     private Query qColorAll = new Query(eColor.values());
     private Query qColor = new Query(eColor.id, eColor.name);
-    private boolean master = true;
+    private boolean master = false;
 
     public DicColor(Frame parent, ListenerRecord listener) {
         this(parent, listener, true);
@@ -46,6 +45,11 @@ public class DicColor extends javax.swing.JDialog {
         this.listener = listener;
         qColorAll.addAll(colorSet);
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        Record automaticRec = eGroups.up.newRecord();
+        automaticRec.setNo(eGroups.id, -3);
+        automaticRec.setNo(eGroups.grup, -3);
+        automaticRec.setNo(eGroups.name, UseColor.automatic[1]);
+        colgrpList.add(automaticRec);
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
                 if (colorRec.getInt(eColor.colgrp_id) == colgrpRec.getInt(eGroups.id)) {
@@ -71,8 +75,6 @@ public class DicColor extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    
-    
     private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name);
@@ -100,6 +102,11 @@ public class DicColor extends javax.swing.JDialog {
                 }
             });
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (master == false) {
+                UGui.setSelectedRow(tab2); //блокируем выбор групп текстур
+                tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+                tab1.setBorder(null);
+            }
         }
     }
 
@@ -306,7 +313,7 @@ public class DicColor extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        if (tab1.getBorder() != null && master == true) {
+        if (tab1.getBorder() != null) {
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 listener.action(qColgrp.get(index));
@@ -357,17 +364,17 @@ public class DicColor extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     private void initElements() {
 
         btnRemove.setVisible(false);
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        
+
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

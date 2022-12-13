@@ -110,25 +110,27 @@ public class Fillings extends javax.swing.JFrame {
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types, eGlasdet.types, eGlasdet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
+                if (val != null) {
+                    Field field = columns[col];
+                    if (eGlasdet.color_fk == field) {
+                        int colorFk = Integer.valueOf(val.toString());
 
-                Field field = columns[col];
-                if (eGlasdet.color_fk == field) {
-                    int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
-                        return UseColor.automatic[1];
+                        if (UseColor.automatic[0].equals(colorFk)) {
+                            return UseColor.automatic[1];
 
-                    } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
-                        return UseColor.precision[1];
+                        } else if (UseColor.precision[0].equals(colorFk)) {
+                            return UseColor.precision[1];
+                        }
+                        if (colorFk > 0) {
+                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        } else {
+                            return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        }
+                    } else if (eGlasdet.types == field) {
+                        int types = Integer.valueOf(val.toString());
+                        types = (col == 4) ? types & 0x0000000f : (col == 5) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                        return UseColor.MANUAL.find(types).text();
                     }
-                    if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
-                    } else {
-                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
-                    }
-                } else if (eGlasdet.types == field) {
-                    int types = Integer.valueOf(val.toString());
-                    types = (col == 4) ? types & 0x0000000f : (col == 5) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
-                    return UseColor.MANUAL.find(types).text();
                 }
                 return val;
             }
@@ -982,13 +984,13 @@ public class Fillings extends javax.swing.JFrame {
     // </editor-fold>
 
     private void initElements() {
-        new FrameToFile(this, btnClose);  
-        
+        new FrameToFile(this, btnClose);
+
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
-        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));        
+
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
