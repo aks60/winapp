@@ -778,7 +778,7 @@ public class DicKits extends javax.swing.JDialog {
             } else {
                 DicColor frame = new DicColor(null, (rec) -> {
                     setColor(index, rec);
-                });
+                }, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

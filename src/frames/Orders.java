@@ -2964,7 +2964,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 };
                 if (arr1 == null && arr2.length == 0) {
-                    new DicColor(this, listenerColor);
+                    new DicColor(this, listenerColor, false);
                 } else {
                     new DicColor(this, listenerColor, set);
                 }

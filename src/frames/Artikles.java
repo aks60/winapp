@@ -234,11 +234,11 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.len_unit, txt48);
 
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor);
+            DicColor frame = new DicColor(this, listenerColor, true);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor);
+            DicColor frame = new DicColor(this, listenerColor, true);
         });
     }
 
@@ -2211,7 +2211,6 @@ public class Artikles extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

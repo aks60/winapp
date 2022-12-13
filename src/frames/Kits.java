@@ -71,7 +71,7 @@ public class Kits extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 
-                if (val == null && List.of(eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id).contains(columns[col])) {
+                if (val != null && val.equals(0) && List.of(eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id).contains(columns[col])) {
                     return UseColor.automatic[1];
                     
                 } else if (val != null && col == 0) {
@@ -135,7 +135,7 @@ public class Kits extends javax.swing.JFrame {
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);
@@ -147,7 +147,7 @@ public class Kits extends javax.swing.JFrame {
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);            
@@ -159,7 +159,7 @@ public class Kits extends javax.swing.JFrame {
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, null);
+            colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);            
@@ -222,12 +222,6 @@ public class Kits extends javax.swing.JFrame {
             Record kitdetRec = qKitdet.get(index);
             Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
             kitdetRec.set(eKitdet.color1_id, ID);
-//            if (kitdetRec.get(eKitdet.color2_id) == null) {
-//                kitdetRec.set(eKitdet.color2_id, ID);
-//            }
-//            if (kitdetRec.get(eKitdet.color3_id) == null) {
-//                kitdetRec.set(eKitdet.color3_id, ID);
-//            }
             UGui.fireTableRowUpdated(tab3);
         };
 

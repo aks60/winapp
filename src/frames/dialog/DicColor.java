@@ -34,10 +34,19 @@ public class DicColor extends javax.swing.JDialog {
     private Query qColor = new Query(eColor.id, eColor.name);
     private boolean master = false;
 
-    public DicColor(Frame parent, ListenerRecord listener) {
-        this(parent, listener, true);
+    public DicColor(Frame parent, ListenerRecord listener, boolean master) {
+        super(parent, true);
+        this.master = master;
+        initComponents();
+        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        qColorAll.select(eColor.up, "order by", eColor.name);
+        initElements();
+        this.listener = listener;
+        loadingModel();
+        btnRemove.setVisible(false);
+        setVisible(true);
     }
-
+    
     public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet) {
         super(parent, true);
         initComponents();
@@ -59,19 +68,7 @@ public class DicColor extends javax.swing.JDialog {
             }
         });
         Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
-        loadingModel();
-        setVisible(true);
-    }
-
-    public DicColor(Frame parent, ListenerRecord listener, boolean master) {
-        super(parent, true);
-        this.master = master;
-        initComponents();
-        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        qColorAll.select(eColor.up, "order by", eColor.name);
-        initElements();
-        this.listener = listener;
-        loadingModel();
+        loadingModel();      
         setVisible(true);
     }
 
@@ -366,8 +363,7 @@ public class DicColor extends javax.swing.JDialog {
     // </editor-fold>
 
     private void initElements() {
-
-        btnRemove.setVisible(false);
+        
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 
