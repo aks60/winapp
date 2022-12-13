@@ -58,7 +58,7 @@ public class Param extends javax.swing.JFrame {
     public void listenerAdd() {
 
         editorBtn.getButton().addActionListener(event -> {
-            new DicColor(this, listenerColor, false);
+            new DicColor(this, listenerColor, false, false);
         });
 
         listenerColor = (record) -> {

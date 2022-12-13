@@ -115,16 +115,16 @@ public class Texture extends javax.swing.JFrame {
             }
         });
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor1, false);
+            DicColor frame = new DicColor(this, listenerColor1, false, false);
         });
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor1, false);
+            DicColor frame = new DicColor(this, listenerColor1, false, false);
         });
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor2, false);
+            DicColor frame = new DicColor(this, listenerColor2, false, false);
         });
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor2, false);
+            DicColor frame = new DicColor(this, listenerColor2, false, false);
         });
     }
 

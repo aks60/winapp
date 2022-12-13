@@ -139,7 +139,7 @@ public class Kits extends javax.swing.JFrame {
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);
-            new DicColor(this, listenerColor1, colorSet);
+            new DicColor(this, listenerColor1, colorSet, true);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
@@ -151,7 +151,7 @@ public class Kits extends javax.swing.JFrame {
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);            
-            new DicColor(this, listenerColor2, colorSet);
+            new DicColor(this, listenerColor2, colorSet, true);
         });
 
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
@@ -163,7 +163,7 @@ public class Kits extends javax.swing.JFrame {
             colorRec.set(eColor.colgrp_id, -3);
             colorRec.set(eColor.name, UseColor.automatic[1]);
             colorSet.add(colorRec);            
-            new DicColor(this, listenerColor3, colorSet);
+            new DicColor(this, listenerColor3, colorSet, true);
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {

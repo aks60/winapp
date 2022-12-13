@@ -774,11 +774,11 @@ public class DicKits extends javax.swing.JDialog {
                 });
                 DicColor frame = new DicColor(null, (rec) -> {
                     setColor(index, rec);
-                }, colorSet);
+                }, colorSet, true);
             } else {
                 DicColor frame = new DicColor(null, (rec) -> {
                     setColor(index, rec);
-                }, false);
+                }, false, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

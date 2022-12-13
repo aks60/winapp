@@ -3331,8 +3331,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         }
                     }
                 }
-            }, colorSet
-            );
+            }, colorSet, true);
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3412,9 +3411,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             };
             if (groupArr == null && colorArr.length == 0) {
-                new DicColor(this, listenerColor, false);
+                new DicColor(this, listenerColor, false, false);
             } else {
-                new DicColor(this, listenerColor, groupSet);
+                new DicColor(this, listenerColor, groupSet, true);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -3577,7 +3576,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 updateScript(selectID);
                 btnRefresh(null);
 
-            }, colorSet);
+            }, colorSet, true);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3666,7 +3665,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 updateScript(selectID);
                 btnRefresh(null);
 
-            }, colorSet);
+            }, colorSet, true);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3689,7 +3688,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 updateScript(selectID);
                 btnRefresh(null);
 
-            }, colorSet);
+            }, colorSet, true);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3717,7 +3716,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 updateScript(selectID);
                 btnRefresh(null);
 
-            }, colorSet);
+            }, colorSet, true);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorFromGlass() " + e);

@@ -234,11 +234,11 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.len_unit, txt48);
 
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor, true);
+            DicColor frame = new DicColor(this, listenerColor, true, false);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor, true);
+            DicColor frame = new DicColor(this, listenerColor, true, false);
         });
     }
 

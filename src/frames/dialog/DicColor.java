@@ -34,7 +34,7 @@ public class DicColor extends javax.swing.JDialog {
     private Query qColor = new Query(eColor.id, eColor.name);
     private boolean master = false;
 
-    public DicColor(Frame parent, ListenerRecord listener, boolean master) {
+    public DicColor(Frame parent, ListenerRecord listener, boolean master, boolean remove) {
         super(parent, true);
         this.master = master;
         initComponents();
@@ -43,11 +43,11 @@ public class DicColor extends javax.swing.JDialog {
         initElements();
         this.listener = listener;
         loadingModel();
-        btnRemove.setVisible(false);
+        btnRemove.setVisible(remove);
         setVisible(true);
     }
     
-    public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet) {
+    public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet, boolean remove) {
         super(parent, true);
         initComponents();
         initElements();
@@ -68,7 +68,8 @@ public class DicColor extends javax.swing.JDialog {
             }
         });
         Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
-        loadingModel();      
+        loadingModel();
+        btnRemove.setVisible(remove);
         setVisible(true);
     }
 
