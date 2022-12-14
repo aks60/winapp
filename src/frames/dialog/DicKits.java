@@ -296,7 +296,7 @@ public class DicKits extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(612, 560));
+        centr.setPreferredSize(new java.awt.Dimension(612, 600));
         centr.setLayout(new java.awt.BorderLayout());
 
         pan2.setPreferredSize(new java.awt.Dimension(513, 80));
@@ -488,9 +488,10 @@ public class DicKits extends javax.swing.JDialog {
 
         centr.add(pan2, java.awt.BorderLayout.NORTH);
 
+        pan1.setPreferredSize(new java.awt.Dimension(454, 520));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
-        scr1.setPreferredSize(new java.awt.Dimension(412, 280));
+        scr1.setPreferredSize(new java.awt.Dimension(412, 250));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -589,7 +590,7 @@ public class DicKits extends javax.swing.JDialog {
         pan1.add(scr2);
 
         scr3.setMaximumSize(new java.awt.Dimension(32767, 80));
-        scr3.setPreferredSize(new java.awt.Dimension(454, 100));
+        scr3.setPreferredSize(new java.awt.Dimension(454, 120));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
