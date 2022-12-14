@@ -902,23 +902,23 @@ public class UGui {
         }
     }
 
-//    public static HashSet<Record> artiklToColorSet(int artiklID) {
-//        HashSet<Record> colorSet = new HashSet();
-//        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID);
-//        artdetList.stream().forEach(rec -> {
-//
-//            if (rec.getInt(eArtdet.color_fk) < 0) {
-//                eColor.query().forEach(rec2 -> {
-//                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
-//                        colorSet.add(rec2);
-//                    }
-//                });
-//            } else {
-//                colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
-//            }
-//        });
-//        return colorSet;
-//    }
+    public static HashSet<Record> artiklToColorSet(int artiklID) {
+        HashSet<Record> colorSet = new HashSet();
+        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID);
+        artdetList.stream().forEach(rec -> {
+
+            if (rec.getInt(eArtdet.color_fk) < 0) {
+                eColor.query().forEach(rec2 -> {
+                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                        colorSet.add(rec2);
+                    }
+                });
+            } else {
+                colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+            }
+        });
+        return colorSet;
+    }
 
     public static HashSet<Record> artiklToColorSet(int artiklID, int side) {
         HashSet<Record> colorSet = new HashSet();
