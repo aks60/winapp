@@ -143,7 +143,7 @@ public class DicKits extends javax.swing.JDialog {
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", kitsId, "order by", eKitdet.artikl_id);
             List.of(txt1, txt2, txt3).forEach(act -> act.setEditable(false));
             List.of(txt1, txt2, txt3).forEach(act -> act.setBackground(new java.awt.Color(212, 208, 200)));
-            
+
             for (Record kitdetRec : qKitdet) {
                 if (kitdetRec.getInt(eKitdet.flag) == 1) {
                     txt9.setText(eColor.find(kitdetRec.getInt(eKitdet.color1_id)).getStr(eColor.name));
@@ -666,11 +666,12 @@ public class DicKits extends javax.swing.JDialog {
         } else if (txt1.getText().isEmpty() && txt1.isEditable()) {
             JOptionPane.showMessageDialog(this, "Укажите ширину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
+        } else if ((txt9.getText().isEmpty() && txt9.isEditable())
+                || (txt13.getText().isEmpty() && txt13.isEditable())
+                || (txt14.getText().isEmpty() && txt14.isEditable())) {
+            JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
-//        else if (txt9.getText().isEmpty() || txt13.getText().isEmpty() || txt14.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        }
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
 
@@ -710,7 +711,7 @@ public class DicKits extends javax.swing.JDialog {
                 recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
                 recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
                 recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
-                
+
                 qPrjkit.insert(recordKit);
             }
         }
