@@ -164,7 +164,7 @@ public class Man extends javax.swing.JFrame {
         ppmMain.add(mn30);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SA-OKNA   <АРМ Менеджер>");
+        setTitle("SA.OKNA   <АРМ Менеджер>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(423, 60));
         setPreferredSize(new java.awt.Dimension(659, 84));

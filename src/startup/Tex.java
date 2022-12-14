@@ -173,7 +173,7 @@ public class Tex extends javax.swing.JFrame {
         mn54 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("SA-OKNA   <АРМ Технолог>");
+        setTitle("SA.OKNA   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(800, 80));
         setResizable(false);
@@ -450,7 +450,7 @@ public class Tex extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         tb8.setRollover(true);
-        tb8.setPreferredSize(new java.awt.Dimension(100, 28));
+        tb8.setPreferredSize(new java.awt.Dimension(94, 28));
 
         btn17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c080.gif"))); // NOI18N
         btn17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));

@@ -49,7 +49,7 @@ public class AboutBox extends javax.swing.JFrame {
         labTitle.setBackground(new java.awt.Color(255, 255, 255));
         labTitle.setFont(frames.UGui.getFont(0, 1));
         labTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labTitle.setText("<<SA-OKNA>>");
+        labTitle.setText("<<SA.OKNA>>");
         labTitle.setOpaque(true);
         labTitle.setPreferredSize(new java.awt.Dimension(123, 30));
         north.add(labTitle, java.awt.BorderLayout.PAGE_START);
