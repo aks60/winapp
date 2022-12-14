@@ -581,7 +581,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id), 1);
 
             DicColor frame = new DicColor(this, (record2) -> {
                 record.set(ePrjkit.color1_id, record2.get(eColor.id));
@@ -594,7 +594,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id), 2);
 
             DicColor frame = new DicColor(this, (record2) -> {
                 record.set(ePrjkit.color2_id, record2.get(eColor.id));
@@ -607,7 +607,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record record = qPrjkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id), 3);
 
             DicColor frame = new DicColor(this, (record2) -> {
                 record.set(ePrjkit.color3_id, record2.get(eColor.id));

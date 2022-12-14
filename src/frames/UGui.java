@@ -902,9 +902,28 @@ public class UGui {
         }
     }
 
-    public static HashSet<Record> artiklToColorSet(int artiklID) {
+//    public static HashSet<Record> artiklToColorSet(int artiklID) {
+//        HashSet<Record> colorSet = new HashSet();
+//        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID);
+//        artdetList.stream().forEach(rec -> {
+//
+//            if (rec.getInt(eArtdet.color_fk) < 0) {
+//                eColor.query().forEach(rec2 -> {
+//                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+//                        colorSet.add(rec2);
+//                    }
+//                });
+//            } else {
+//                colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+//            }
+//        });
+//        return colorSet;
+//    }
+
+    public static HashSet<Record> artiklToColorSet(int artiklID, int side) {
         HashSet<Record> colorSet = new HashSet();
-        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID);
+        Field field = (side == 1) ? eArtdet.mark_c1 : (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
+        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID, "and", field, "= 1");
         artdetList.stream().forEach(rec -> {
 
             if (rec.getInt(eArtdet.color_fk) < 0) {
