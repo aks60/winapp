@@ -1335,7 +1335,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                true, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
