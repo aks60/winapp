@@ -55,7 +55,7 @@ public class Wincalc {
     public Record glassRec = null; //заполнение
     public Record sysfurnRec = null; //фурнитура
     public Record syssizeRec = null; //константы    
-    public float genId = 0; //генерация ключа в спецификации
+    public float genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
     private float width1 = 0; //ширина окна верхняя    

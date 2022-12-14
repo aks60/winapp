@@ -85,7 +85,7 @@ public class Profstroy {
     public static void exec() {
         cn1 = startup.Test.connect1(); //источник
         cn2 = startup.Test.connect2(); //приёмник
-        if (JOptionPane.showConfirmDialog(null, "КОНВЕРТАЦИЯ БАЗЫ ДАННЫХ", "КОНВЕРТАЦИЯ",
+        if (JOptionPane.showConfirmDialog(null, "КОНВЕРТАЦИЯ БАЗЫ ДАННЫХ № " + eProp.base_num.read(), "КОНВЕРТАЦИЯ",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             script();
         }
