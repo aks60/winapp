@@ -1027,6 +1027,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnRemov.setVisible(false);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
