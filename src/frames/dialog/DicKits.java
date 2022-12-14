@@ -203,7 +203,6 @@ public class DicKits extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
-        pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         lab30 = new javax.swing.JLabel();
         lab13 = new javax.swing.JLabel();
@@ -220,6 +219,7 @@ public class DicKits extends javax.swing.JDialog {
         btn9 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         btn14 = new javax.swing.JButton();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         scr2 = new javax.swing.JScrollPane();
@@ -299,10 +299,7 @@ public class DicKits extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(612, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(513, 600));
-        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
-
-        pan2.setPreferredSize(new java.awt.Dimension(513, 70));
+        pan2.setPreferredSize(new java.awt.Dimension(513, 80));
 
         lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Кол. комп.  ( Q )");
@@ -486,10 +483,12 @@ public class DicKits extends javax.swing.JDialog {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lab14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        pan1.add(pan2);
+        centr.add(pan2, java.awt.BorderLayout.NORTH);
+
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
         scr1.setPreferredSize(new java.awt.Dimension(412, 280));
 
