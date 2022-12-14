@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import domain.eArtdet;
 import domain.eArtikl;
 import domain.eGroups;
 import domain.eKitdet;
@@ -29,6 +28,7 @@ import domain.eKits;
 import domain.eParams;
 import domain.ePrjkit;
 import enums.Enam;
+import enums.UseColor;
 import enums.UseUnit;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +88,10 @@ public class DicKits extends javax.swing.JDialog {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (val != null && col == 0) {
+                if (val != null && val.equals(0) && List.of(eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id).contains(columns[col])) {
+                    return UseColor.automatic[1];
+
+                } else if (val != null && col == 0) {
                     return eArtikl.get((int) val).getStr(eArtikl.code);
 
                 } else if (val != null && col == 1) {
@@ -141,15 +144,22 @@ public class DicKits extends javax.swing.JDialog {
             Record kitsRec = qKits.get(index);
             Integer kitsId = kitsRec.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", kitsId, "order by", eKitdet.artikl_id);
-            List.of(txt1, txt2, txt3).forEach(act -> act.setEditable(false));
-            List.of(txt1, txt2, txt3).forEach(act -> act.setBackground(new java.awt.Color(212, 208, 200)));
+            List.of(txt1, txt2, txt3, txt9, txt13, txt14).forEach(act -> act.setEditable(false));
+            List.of(txt1, txt2, txt3, txt9, txt13, txt14).forEach(act -> act.setBackground(new java.awt.Color(212, 208, 200)));
 
+            if (qKitdet.stream().filter(rec -> rec.getInt(eKitdet.color1_id) == 0).findFirst().orElse(null) != null) {
+                txt9.setEditable(true);
+                txt9.setBackground(new java.awt.Color(255, 255, 255));
+            }
+            if (qKitdet.stream().filter(rec -> rec.getInt(eKitdet.color2_id) == 0).findFirst().orElse(null) != null) {
+                txt13.setEditable(true);
+                txt13.setBackground(new java.awt.Color(255, 255, 255));
+            }
+            if (qKitdet.stream().filter(rec -> rec.getInt(eKitdet.color3_id) == 0).findFirst().orElse(null) != null) {
+                txt14.setEditable(true);
+                txt14.setBackground(new java.awt.Color(255, 255, 255));
+            }
             for (Record kitdetRec : qKitdet) {
-                if (kitdetRec.getInt(eKitdet.flag) == 1) {
-                    txt9.setText(eColor.find(kitdetRec.getInt(eKitdet.color1_id)).getStr(eColor.name));
-                    txt13.setText(eColor.find(kitdetRec.getInt(eKitdet.color2_id)).getStr(eColor.name));
-                    txt14.setText(eColor.find(kitdetRec.getInt(eKitdet.color3_id)).getStr(eColor.name));
-                }
                 List<Record> kitparList = eKitpar2.find(kitdetRec.getInt(eKitdet.id));
                 for (Record kitparRec : kitparList) {
                     String text = kitparRec.getStr(eKitpar2.text);
@@ -674,7 +684,6 @@ public class DicKits extends javax.swing.JDialog {
         }
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
-
         //Цикл по списку детализации
         for (Record kitdetRec : qKitdet) {
             mapParam.clear();
@@ -683,36 +692,59 @@ public class DicKits extends javax.swing.JDialog {
             if (kitDet.filter(mapParam, kitdetRec) == true) {
 
                 Record artiklRec = eArtikl.get(kitdetRec.getInt(eKitdet.artikl_id));
-                Record recordKit = ePrjkit.up.newRecord(Query.INS);
-                recordKit.set(ePrjkit.id, Conn.genId(ePrjkit.up));
-                recordKit.set(ePrjkit.project_id, projectID);
-                recordKit.set(ePrjkit.prjprod_id, prjprodID);
-                recordKit.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
+                Record prjkitRec = ePrjkit.up.newRecord(Query.INS);
+                prjkitRec.set(ePrjkit.id, Conn.genId(ePrjkit.up));
+                prjkitRec.set(ePrjkit.project_id, projectID);
+                prjkitRec.set(ePrjkit.prjprod_id, prjprodID);
+                prjkitRec.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
-                recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество    
+                prjkitRec.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество    
 
                 Float width = get_8066_9066(mapParam);
                 width = (width == null) ? 0 : width;
-                recordKit.set(ePrjkit.width, width); //длина мм   
+                prjkitRec.set(ePrjkit.width, width); //длина мм   
 
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
-                recordKit.set(ePrjkit.height, height); //ширина  
+                prjkitRec.set(ePrjkit.height, height); //ширина  
 
                 Float angl1 = get_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
-                recordKit.set(ePrjkit.angl1, angl1); //угол 1  
+                prjkitRec.set(ePrjkit.angl1, angl1); //угол 1  
 
                 Float angl2 = get_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
-                recordKit.set(ePrjkit.angl2, angl2); //угол 2
+                prjkitRec.set(ePrjkit.angl2, angl2); //угол 2
 
-                //TODO Нужен авторасчёт текстуры
-                recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
-                recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
-                recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
-
-                qPrjkit.insert(recordKit);
+                prjkitRec.set(ePrjkit.color1_id, kitdetRec.get(eKitdet.color1_id));
+                prjkitRec.set(ePrjkit.color2_id, kitdetRec.get(eKitdet.color2_id));
+                prjkitRec.set(ePrjkit.color3_id, kitdetRec.get(eKitdet.color3_id));
+                
+                if (kitdetRec.getInt(eKitdet.color1_id) == 0) { //Автоподбор
+                    HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 1);
+                    for (Record colorRec : colorSet) {
+                        if (colorID[0].equals(colorRec.get(eColor.id))) {
+                            prjkitRec.set(ePrjkit.color1_id, colorID[0]); //color1
+                        }
+                    }
+                }
+                if (kitdetRec.getInt(eKitdet.color2_id) == 0) { //Автоподбор
+                    HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 2);
+                    for (Record colorRec : colorSet) {
+                        if (colorID[1].equals(colorRec.get(eColor.id))) {
+                            prjkitRec.set(ePrjkit.color2_id, colorID[1]); //color2
+                        }
+                    }
+                }
+                if (kitdetRec.getInt(eKitdet.color3_id) == 0) { //Автоподбор
+                    HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 3);
+                    for (Record colorRec : colorSet) {
+                        if (colorID[2].equals(colorRec.get(eColor.id))) {
+                            prjkitRec.set(ePrjkit.color3_id, colorID[2]); //color3
+                        }
+                    }
+                }
+                qPrjkit.insert(prjkitRec);
             }
         }
 
@@ -753,32 +785,33 @@ public class DicKits extends javax.swing.JDialog {
         try {
             JTextField txt = (evt.getSource() == btn9) ? txt9 : (evt.getSource() == btn13) ? txt13 : txt14;
             int indexBtn = (evt.getSource() == btn9) ? 0 : (evt.getSource() == btn13) ? 1 : 2;
-            Record record = qKitdet.stream().filter(rec -> 1 == rec.getInt(eKitdet.flag)).findFirst().orElse(null);
-            if (qKitdet.size() == 1) {
-                record = qKitdet.get(0);
-            }
-            if (record != null) {
-                int id = record.getInt(eKitdet.artikl_id);
+            Record kitdetRec = qKitdet.stream().filter(rec -> 1 == rec.getInt(eKitdet.flag)).findFirst().orElse(null);
+//            if (qKitdet.size() == 1) {
+//                kitdetRec = qKitdet.get(0);
+//            }
+            if (kitdetRec != null) {
+                int id = kitdetRec.getInt(eKitdet.artikl_id);
                 HashSet<Record> colorSet = new HashSet();
-                Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-                artdetList.forEach(rec -> {
-
-                    if (rec.getInt(eArtdet.color_fk) < 0) {
-                        eColor.query().forEach(rec2 -> {
-                            if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
-                                colorSet.add(rec2);
-                            }
-                        });
-                    } else {
-                        colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
-                    }
-                });
-                DicColor frame = new DicColor(null, (rec) -> {
-                    setColor(indexBtn, rec);
+//                Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
+//                artdetList.forEach(rec -> {
+//
+//                    if (rec.getInt(eArtdet.color_fk) < 0) {
+//                        eColor.query().forEach(rec2 -> {
+//                            if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+//                                colorSet.add(rec2);
+//                            }
+//                        });
+//                    } else {
+//                        colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+//                    }
+//                });
+                colorSet = UGui.artiklToColorSet(id, indexBtn + 1);
+                DicColor frame = new DicColor(null, (colorRc) -> {
+                    setColor(indexBtn, colorRc);
                 }, colorSet, true);
             } else {
-                DicColor frame = new DicColor(null, (rec) -> {
-                    setColor(indexBtn, rec);
+                DicColor frame = new DicColor(null, (colorRec) -> {
+                    setColor(indexBtn, colorRec);
                 }, false, false);
             }
         } catch (Exception e) {
@@ -786,22 +819,22 @@ public class DicKits extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_colorToWindows
 
-    private void setColor(int indexBtn, Record record) {
+    private void setColor(int indexBtn, Record colorRec) {
         if (indexBtn == 0) {
-            txt9.setText(record.getStr(eColor.name));
-            colorID[0] = record.getInt(eColor.id);
-            txt13.setText(record.getStr(eColor.name));
-            colorID[1] = record.getInt(eColor.id);
-            txt14.setText(record.getStr(eColor.name));
-            colorID[2] = record.getInt(eColor.id);
+            txt9.setText(colorRec.getStr(eColor.name));
+            colorID[0] = colorRec.getInt(eColor.id);
+            //txt13.setText(colorRec.getStr(eColor.name));
+            //colorID[1] = colorRec.getInt(eColor.id);
+            //txt14.setText(colorRec.getStr(eColor.name));
+            //colorID[2] = colorRec.getInt(eColor.id);
 
         } else if (indexBtn == 1) {
-            txt13.setText(record.getStr(eColor.name));
-            colorID[1] = record.getInt(eColor.id);
+            txt13.setText(colorRec.getStr(eColor.name));
+            colorID[1] = colorRec.getInt(eColor.id);
 
         } else if (indexBtn == 2) {
-            txt14.setText(record.getStr(eColor.name));
-            colorID[2] = record.getInt(eColor.id);
+            txt14.setText(colorRec.getStr(eColor.name));
+            colorID[2] = colorRec.getInt(eColor.id);
         }
     }
 
