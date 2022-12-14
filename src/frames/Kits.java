@@ -133,7 +133,7 @@ public class Kits extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 1);
             Record colorRec = eColor.up.newRecord();
             colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);
@@ -145,7 +145,7 @@ public class Kits extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 2);
             Record colorRec = eColor.up.newRecord();
             colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);
@@ -157,7 +157,7 @@ public class Kits extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 3);
             Record colorRec = eColor.up.newRecord();
             colorRec.set(eColor.id, 0);
             colorRec.set(eColor.colgrp_id, -3);

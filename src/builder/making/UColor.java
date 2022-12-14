@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+//TODO При авторасчёте подбора цветов необходимо учитывать галочку в табл. artdet.
 public class UColor {
 
     private static final int TYPES = 2;
