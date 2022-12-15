@@ -1,9 +1,6 @@
 package report;
 
 import builder.Wincalc;
-import builder.making.Specific;
-import builder.making.Tariffic;
-import common.MoneyInWords;
 import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
