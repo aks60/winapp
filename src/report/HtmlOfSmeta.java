@@ -118,7 +118,7 @@ public class HtmlOfSmeta {
                 List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
-                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
                 Elements captions2 = tab2List.get(i).getElementsByTag("caption");
                 captions2.get(0).text("Изделие № " + (i + 1));
                 tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));
@@ -202,7 +202,7 @@ public class HtmlOfSmeta {
                 List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
                 prjkitAll.addAll(prjkitList);
 
-                LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
                 Elements captions2 = tab2List.get(i).getElementsByTag("caption");
                 captions2.get(0).text("Изделие № " + (i + 1));
                 tdList.get(2).text(prjprodRec.getStr(ePrjprod.name));

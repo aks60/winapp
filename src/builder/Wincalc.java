@@ -51,9 +51,6 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    //public Record sysprofRec = null; //профиль 
-    public Record glassRec = null; //заполнение
-    public Record sysfurnRec = null; //фурнитура
     public Record syssizeRec = null; //константы    
     public float genId = 0; //для генерация ключа в спецификации
 
@@ -191,7 +188,6 @@ public class Wincalc {
                             ? new builder.model.AreaStvorka(Wincalc.this, owner, js)
                             : new builder.model.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e);
-                    this.sysfurnRec = ((IStvorka) area5e).sysfurnRec(); //фурнитура конструкции
                     hm.put(area5e, js);
 
                     //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
@@ -226,7 +222,6 @@ public class Wincalc {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemGlass(owner, js)
                             : new builder.model.ElemGlass(owner, js);
-                    this.glassRec = elem5e.artiklRecAn(); //заполнения конструкции
                     owner.childs().add(elem5e);
                 }
             }
@@ -275,7 +270,7 @@ public class Wincalc {
             }
 
             //Вес изделия
-            LinkedList<IElem5e> glassList = UCom.listSortObj(listElem, Type.GLASS);
+            LinkedList<IElem5e> glassList = listElem.filter(Type.GLASS);
             for (IElem5e el : glassList) {
                 this.weight += el.artiklRecAn().getFloat(eArtikl.density) * el.width() * el.height() / 1000000; //уд.вес * площадь = вес
             }

@@ -50,7 +50,7 @@ public class Furniture extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<IArea5e> stvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+        LinkedList<IArea5e> stvorkaList = winc.listArea.filter(Type.STVORKA);
         try {
             //Цикл по створкам      
             for (IArea5e areaStv : stvorkaList) {

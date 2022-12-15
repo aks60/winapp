@@ -35,7 +35,7 @@ public class Elements extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<IElem5e> listElem = UCom.listSortObj(winc.listElem, Type.FRAME_SIDE,
+        LinkedList<IElem5e> listElem = winc.listElem.filter(Type.FRAME_SIDE,
                 Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS); //список элементов конструкции
         try {
             //Цикл по списку элементов конструкции

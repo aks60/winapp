@@ -1,5 +1,7 @@
 package report;
 
+import builder.IElem5e;
+import builder.IStvorka;
 import builder.Wincalc;
 import common.eProp;
 import dataset.Record;
@@ -12,6 +14,7 @@ import domain.eProject;
 import domain.eSysfurn;
 import domain.eSystree;
 import domain.eSysuser;
+import enums.Type;
 import frames.UGui;
 import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
@@ -87,10 +90,13 @@ public class HtmlOfOffer {
 
                 tdList.get(0).text("Изделие № " + (i + 1));
                 tdList.get(3).text(eSystree.systemProfile(6));
-                int furniture_id = winc.sysfurnRec.getInt(eSysfurn.furniture_id);
+                IStvorka area5e = (IStvorka) winc.listArea.find(Type.STVORKA);
+                IStvorka stv = (area5e != null) ? ((IStvorka) area5e) : null;
+                int furniture_id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
                 String fname = (furniture_id != -1) ? eFurniture.find(furniture_id).getStr(eFurniture.name) : "";
                 tdList.get(5).text(fname);
-                String gname = (winc.glassRec != null) ? winc.glassRec.getStr(eArtikl.code) + " - " + winc.glassRec.getStr(eArtikl.name) : "";
+                IElem5e elemGlass = winc.listElem.find(Type.GLASS);
+                String gname = (elemGlass != null) ? elemGlass.artiklRec().getStr(eArtikl.code) + " - " + elemGlass.artiklRec().getStr(eArtikl.name) : "";
                 tdList.get(7).text(gname);
                 tdList.get(9).text(eColor.find(winc.colorID1).getStr(eColor.name));
                 tdList.get(11).text(eColor.find(winc.colorID2).getStr(eColor.name));

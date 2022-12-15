@@ -2,7 +2,9 @@ package common;
 
 import builder.ICom5t;
 import builder.script.GsonElem;
+import enums.Type;
 import java.util.LinkedList;
+import java.util.List;
 
 public class LinkedList2<E extends ICom5t> extends LinkedList<E> {
 
@@ -13,11 +15,32 @@ public class LinkedList2<E extends ICom5t> extends LinkedList<E> {
     public E find(float id) {
         return this.stream().filter(it -> it.id() == id).findFirst().get();
     }
-    
+
     public GsonElem gson(float id) {
         ICom5t com5t = this.stream().filter(it -> it.id() == id).findFirst().orElse(null);
-        if(com5t != null) {
+        if (com5t != null) {
             return com5t.gson();
+        }
+        return null;
+    }
+
+    public <T extends ICom5t> LinkedList<T> filter(Type... type) {
+        List tp = List.of(type);
+        LinkedList<T> list2 = new LinkedList();
+        for (E el : this) {
+            if (tp.contains(el.type())) {
+                list2.add((T) el);
+            }
+        }
+        return list2;
+    }
+
+    public E find(Type type) {
+
+        for (E el : this) {
+            if (type == el.type()) {
+                return (E) el;
+            }
         }
         return null;
     }
