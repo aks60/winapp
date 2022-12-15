@@ -75,7 +75,6 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     @Override
     public void initСonstructiv(JsonObject param) {
-        //if(eProperty.dev)
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
