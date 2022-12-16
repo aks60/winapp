@@ -25,9 +25,6 @@ import common.eProp;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
-import java.util.HashMap;
-import common.interfac.IDrawing;
-import common.interfac.ILocation;
 
 public class AreaSimple extends Com5t implements IArea5e {
 
@@ -72,10 +69,13 @@ public class AreaSimple extends Com5t implements IArea5e {
         initParametr(gson.param());
     }
 
+    /**
+     * Профиль через параметр PKjson_sysprofID) 
+     * пример:{sysprofID:1121, typeOpen:4, sysfurnID:2916}
+     */
     @Override
     public void initСonstructiv(JsonObject param) {
-        //if(eProperty.dev)
-        if (isJson(param, PKjson.sysprofID)) {//профили через параметр
+        if (isJson(param, PKjson.sysprofID)) {
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
         winc.listArea.add(this);
@@ -121,10 +121,16 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     }
 
+    /**
+     * Параметры системы(технолога) + параметры менеджера В таблице syspar1 для
+     * каждой системы лежат параметры по умолчанию от технолога. К параметрам от
+     * технолога замешиваем параметры от менеджера см. скрирт, например
+     * {"ioknaParam": [-8252]}. При этом в winc.mapPardef будут изменения с
+     * учётом менеджера.
+     */
     protected void initParametr(JsonObject param) {
         try {
             if (isJson(param)) {
-                HashMap defMap = new HashMap();
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
                 JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
@@ -156,6 +162,11 @@ public class AreaSimple extends Com5t implements IArea5e {
         return childs;
     }
 
+    /**
+     * Изменение размеров конструкции по оси X
+     *
+     * @param v - новый размер
+     */
     @Override
     public void resizeX(float v) {
         GsonRoot rootGson = winc.rootGson;
@@ -218,6 +229,11 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     }
 
+    /**
+     * Изменение размеров конструкции по оси Y
+     *
+     * @param v - новый размер
+     */
     @Override
     public void resizeY(float v) {
         GsonRoot rootGson = winc.rootGson;
@@ -332,60 +348,11 @@ public class AreaSimple extends Com5t implements IArea5e {
         }
     }
 
-    //Рисуем конструкцию
+    /**
+     * Рисуем всю конструкцию!!!
+     */
     @Override
     public void draw() {
-        if (eProp.old.read().equals("1")) {
-            drawing.draw();
-        } else {
-            try {
-                //Прорисовка стеклопакетов
-                LinkedList<IElem5e> elemGlassList = winc.listElem.filter(Type.GLASS);
-                elemGlassList.stream().forEach(el -> el.paint());
-
-                //Прорисовка импостов
-                LinkedList<IElem5e> elemImpostList = winc.listElem.filter(Type.IMPOST);
-                elemImpostList.stream().forEach(el -> el.paint());
-
-                //Прорисовка штульпов
-                LinkedList<IElem5e> elemShtulpList = winc.listElem.filter(Type.SHTULP);
-                elemShtulpList.stream().forEach(el -> el.paint());
-
-                //Прорисовка стоек
-                LinkedList<IElem5e> elemStoikaList = winc.listElem.filter(Type.STOIKA);
-                elemStoikaList.stream().forEach(el -> el.paint());
-
-                //Прорисовка рам
-                frames.get(Layout.TOP).paint();
-                frames.get(Layout.BOTT).paint();
-                frames.get(Layout.LEFT).paint();
-                frames.get(Layout.RIGHT).paint();
-
-                //Прорисовка створок
-                LinkedList<IArea5e> elemStvorkaList = winc.listArea.filter(Type.STVORKA);
-                elemStvorkaList.stream().forEach(el -> el.paint());
-
-                //Рисунок в память
-                if (winc.bufferImg != null) {
-                    ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
-                    if (eProp.dev == true) {
-                        File outputfile = new File("CanvasImage.png");
-                        ImageIO.write(winc.bufferImg, "png", outputfile);
-                    }
-                }
-            } catch (Exception s) {
-                System.err.println("Ошибка:IArea5e.drawWin() " + s);
-            }
-        }
-    }
-
-    public EnumMap<Layout, IElem5e> frame() {
-        return frames;
-    }
-
-// <editor-fold defaultstate="collapsed" desc="Version"> 
-    private IDrawing drawing = () -> {
         try {
             //Прорисовка стеклопакетов
             LinkedList<IElem5e> elemGlassList = winc.listElem.filter(Type.GLASS);
@@ -425,9 +392,9 @@ public class AreaSimple extends Com5t implements IArea5e {
         } catch (Exception s) {
             System.err.println("Ошибка:IArea5e.drawWin() " + s);
         }
-    };
+    }
 
-    private ILocation localion = (float width, float heigh) -> {
-    };
-// </editor-fold>  
+    public EnumMap<Layout, IElem5e> frame() {
+        return frames;
+    }
 }

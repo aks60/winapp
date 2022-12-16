@@ -88,7 +88,9 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         stvLeft.spcRec().height = height();
     }
 
-    //Коррекция координат area створки с учётом нахлёста
+    /**
+     * Коррекция координат area створки с учётом нахлёста
+     */
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
         IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
@@ -123,6 +125,9 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     }
 
+    /**
+     * Фурнитура через параметр или первая в сстеме см. табл. sysfurn
+     */
     @Override
     public void initFurniture(JsonObject param) {
 
@@ -204,7 +209,9 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         }
     }
 
-    //Угловые и прилегающие соединения
+    /**
+     * Угловые и прилегающие соединения
+     */
     @Override
     public void joining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
@@ -241,7 +248,9 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         winc.mapJoin.put(stvRight.joinPoint(2), ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
     }
 
-    //Прорисовка створки
+    /**
+     * Прорисовка створки
+     */
     @Override
     public void paint() {
 
@@ -291,7 +300,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             }
         }
     }
-
+   
     //Фурнитура
     @Override
     public Record sysfurnRec() {
@@ -419,5 +428,5 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     @Override
     public float[] offset() {
         return offset;
-    }
+    }    
 }

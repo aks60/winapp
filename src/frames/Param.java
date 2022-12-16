@@ -447,7 +447,7 @@ public class Param extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

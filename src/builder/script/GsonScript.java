@@ -632,12 +632,12 @@ public class GsonScript {
         }
         GsonBuilder builder = new GsonBuilder();
         builder.setExclusionStrategies(new ExclusionStrategy() {
+            
             public boolean shouldSkipClass(Class<?> arg0) {
                 return false;
             }
-
             public boolean shouldSkipField(FieldAttributes f) {
-                return f.getName().equals("id") || f.getName().equals("prj") || f.getName().equals("ord");
+                return f.getName().equals("prj") || f.getName().equals("ord");
             }
         });
         return builder.create().toJson(rootGson);

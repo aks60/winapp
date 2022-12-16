@@ -42,6 +42,10 @@ public class ElemFrame extends ElemSimple {
         setLocation();
     }
 
+    /**
+     * Профиль через параметр или первая запись в системе см. табл. sysprof
+     * Цвет если нет параметра то берём winc.color.
+     */
     public void initСonstructiv(JsonObject param) {
 
         colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : winc.colorID1;

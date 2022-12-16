@@ -3281,7 +3281,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+                String colorKey = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = winNode.com5t().owner().id();
                 GsonElem parentArea = (GsonElem) winc().listAll.gson(parentId);
 
@@ -3300,9 +3300,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     if (colorRec.get(1) == null) {
-                        jso.remove(colorID);
+                        jso.remove(colorKey);
                     } else {
-                        jso.addProperty(colorID, colorRec.getStr(eColor.id));
+                        jso.addProperty(colorKey, colorRec.getStr(eColor.id));
                     }
                     updateScript(selectID);
 
@@ -3310,9 +3310,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             if (colorRec.get(1) == null) {
-                                elem.param().remove(colorID);
+                                elem.param().remove(colorKey);
                             } else {
-                                elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                                elem.param().addProperty(colorKey, colorRec.getStr(eColor.id));
                             }
                             updateScript(selectID);
                         }
@@ -3323,9 +3323,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             if (colorRec.get(1) == null) {
-                                elem.param().remove(colorID);
+                                elem.param().remove(colorKey);
                             } else {
-                                elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                                elem.param().addProperty(colorKey, colorRec.getStr(eColor.id));
                             }
                             updateScript(selectID);
                         }
