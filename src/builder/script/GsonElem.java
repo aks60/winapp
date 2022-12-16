@@ -124,7 +124,7 @@ public class GsonElem {
 
     public JsonObject param() {
         if (param instanceof JsonObject == false) {
-            return new JsonObject();
+            param = new JsonObject();
         }
         return param;
     }
