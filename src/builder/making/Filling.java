@@ -44,7 +44,7 @@ public class Filling extends Cal5e {
 
     @Override
     public void calc() {
-        LinkedList<IElem5e> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+        LinkedList<IElem5e> elemGlassList = winc.listElem.filter(Type.GLASS);
         //Цикл по списку заполнений
         for (IElem5e elemGlass : elemGlassList) {
             calc(elemGlass);

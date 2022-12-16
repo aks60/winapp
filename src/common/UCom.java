@@ -347,17 +347,6 @@ public class UCom {
         return false;
     }
 
-    public static <T extends ICom5t, E extends ICom5t> LinkedList<T> listSortObj(LinkedList<E> list, Type... type) {
-        List tp = List.of(type);
-        LinkedList<T> list2 = new LinkedList();
-        for (E el : list) {
-            if (tp.contains(el.type())) {
-                list2.add((T) el);
-            }
-        }
-        return list2;
-    }
-
     public static float sin(float angl) {
         return (float) Math.sin(Math.toRadians(angl));
     }

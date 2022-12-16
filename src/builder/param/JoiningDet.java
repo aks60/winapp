@@ -93,7 +93,7 @@ public class JoiningDet extends Par5s {
                 case 12028: //Диапазон веса заполнения, кг 
                 {
                     float weight = 0;
-                    LinkedList<IElem5e> glassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                    LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
                     for (IElem5e glass : glassList) {
                         if (glass.artiklRecAn().getFloat(eArtikl.density) > 0) {
                             weight += glass.width() * glass.height() * glass.artiklRecAn().getFloat(eArtikl.density) / 1000000;
