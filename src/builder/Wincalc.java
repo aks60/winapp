@@ -143,8 +143,6 @@ public class Wincalc {
             this.colorID1 = rootGson.color1();
             this.colorID2 = rootGson.color2();
             this.colorID3 = rootGson.color3();
-            Record artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
-            this.syssizeRec = eSyssize.find(artiklRec);
             eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
