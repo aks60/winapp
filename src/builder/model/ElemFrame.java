@@ -66,7 +66,8 @@ public class ElemFrame extends ElemSimple {
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        //Системные константы как правило н всю систему профилей
+        
+        //Системные константы как правило на всю систему профилей
         if (winc.syssizeRec == null) { 
             winc.syssizeRec = eSyssize.find(artiklRec);
         }

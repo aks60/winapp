@@ -51,7 +51,7 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    public Record syssizeRec = null; //константы    
+    public Record syssizeRec = null; //системные константы    
     public float genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
@@ -103,6 +103,7 @@ public class Wincalc {
             width2 = 0;
             height1 = 0;
             height2 = 0;
+            syssizeRec = null;
             List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
