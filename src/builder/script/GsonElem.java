@@ -23,7 +23,7 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected Form form = null; //форма контура (параметр в развитии)
-    protected JsonObject param = null; //параметры элемента
+    private JsonObject param = null; //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public GsonElem() {
@@ -124,7 +124,7 @@ public class GsonElem {
 
     public JsonObject param() {
         if (param instanceof JsonObject == false) {
-            param = new JsonObject();
+            return new JsonObject();
         }
         return param;
     }
@@ -133,14 +133,20 @@ public class GsonElem {
         this.param = param;
     }
 
-    public void addProperty(String key, Number val) {
+    public void addParam(String key, Number val) {
         this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
         this.param.addProperty(key, val);
     }
 
-    public void addProperty(String key, String val) {
+    public void addParam(String key, String val) {
         this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
         this.param.addProperty(key, val);
+    }
+
+    public void remParam(String key) {
+        if (this.param instanceof JsonObject == true) {
+            this.param.remove(key);
+        }
     }
 
     public Float height() {

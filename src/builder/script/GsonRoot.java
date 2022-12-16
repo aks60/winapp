@@ -62,7 +62,7 @@ public class GsonRoot extends GsonElem {
         this.color2 = color2;
         this.color3 = color3;
         if (paramJson != null) {
-            this.param = new Gson().fromJson(paramJson, JsonObject.class);
+            this.param(new Gson().fromJson(paramJson, JsonObject.class));
         }
     }
 
