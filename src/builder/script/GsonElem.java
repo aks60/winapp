@@ -188,4 +188,15 @@ public class GsonElem {
             }
         });
     }
+
+    public void clearParamIsNull(Wincalc winc) {
+        if (this == winc.rootGson && this.param.isJsonNull() == true) {
+            this.param = null;
+        }
+        this.childs.forEach(el -> {
+            if (this.param.isJsonNull() == true) {
+                this.param = null;
+            }
+        });
+    }
 }
