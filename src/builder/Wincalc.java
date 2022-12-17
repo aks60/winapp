@@ -281,7 +281,6 @@ public class Wincalc {
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET AND SET"> 
-    
     public float genId() {
         return ++genId;
     }
