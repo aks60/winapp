@@ -68,8 +68,13 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
-        artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        
+        //Системные константы как правило на всю систему профилей
+        if (winc.syssizeRec == null) { 
+            winc.syssizeRec = eSyssize.find(artiklRec);
+        }
     }
 
     //Установка координат элементов окна
