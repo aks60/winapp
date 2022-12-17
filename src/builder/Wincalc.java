@@ -51,7 +51,7 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    public Record syssizeRec = null; //константы    
+    public Record syssizeRec = null; //системные константы    
     public float genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
@@ -103,6 +103,7 @@ public class Wincalc {
             width2 = 0;
             height1 = 0;
             height2 = 0;
+            syssizeRec = null;
             List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
@@ -143,8 +144,6 @@ public class Wincalc {
             this.colorID1 = rootGson.color1();
             this.colorID2 = rootGson.color2();
             this.colorID3 = rootGson.color3();
-            Record artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
-            this.syssizeRec = eSyssize.find(artiklRec);
             eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
