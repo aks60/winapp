@@ -91,7 +91,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.testJson(601010));
+            winc.build(GsonScript.testJson(604010));
             winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
