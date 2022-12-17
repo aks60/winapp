@@ -113,7 +113,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private DefMutableTreeNode sysNode = null;
     private DefMutableTreeNode winNode = null;
     private TreeNode[] selectedPath = null;
-    private Gson gson = new GsonBuilder().create();
 
     public Systree() {
         initComponents();
@@ -459,9 +458,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             //Запишем в скрипт ветку из которого будет создаваться окно  
             String script = record.get(2).toString();
-            JsonObject je = gson.fromJson(script, JsonObject.class);
+            JsonObject je = new GsonBuilder().create().fromJson(script, JsonObject.class);
             je.addProperty("nuni", systreeID);
-            String script2 = gson.toJson(je);
+            String script2 = new GsonBuilder().create().toJson(je);
 
             //Сохраним скрипт в базе
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
@@ -769,7 +768,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     public void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
-            String script = gson.toJson(winc().rootGson);
+            String script = winc().rootGson.toJson();
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             qSysprod.update(sysprodRec);
@@ -802,7 +801,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             Object v = sysprodRec.get(eSysprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
+            if (v instanceof Wincalc) {           
                 return (Wincalc) v;
             }
         }
@@ -815,7 +814,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Wincalc win = winc();
             int index = UGui.getIndexRec(tab5);
             if (index != -1) {
-                String script = gson.toJson(win.rootGson);
+                String script = win.rootGson.toJson();
                 win.build(script);
                 win.imageIcon = Canvas.createIcon(win, 68);
                 Record sysprodRec = qSysprod.get(index);
@@ -3216,9 +3215,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = winc.listAll.gson(elemId);
                         if (sysprofRec.get(1) == null) {
-                            gsonRama.remParam(PKjson.sysprofID);
+                            gsonRama.param().remove(PKjson.sysprofID);
                         } else {
-                            gsonRama.addParam(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         }
                         updateScript(selectID);
 
@@ -3248,9 +3247,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         float elemId = winNode.com5t().id();
                         GsonElem gsonElem = winc.listAll.gson(elemId);
                         if (sysprofRec.get(1) == null) {
-                            gsonElem.remParam(PKjson.sysprofID);
+                            gsonElem.param().remove(PKjson.sysprofID);
                         } else {
-                            gsonElem.addParam(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         }
                         updateScript(selectID);
                     }
@@ -3310,9 +3309,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             if (colorRec.get(1) == null) {
-                                elem.remParam(colorKey);
+                                elem.param().remove(colorKey);
                             } else {
-                                elem.addParam(colorKey, colorRec.getStr(eColor.id));
+                                elem.param().addProperty(colorKey, colorRec.getStr(eColor.id));
                             }
                             updateScript(selectID);
                         }
@@ -3323,9 +3322,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             if (colorRec.get(1) == null) {
-                                elem.remParam(colorKey);
+                                elem.param().remove(colorKey);
                             } else {
-                                elem.addParam(colorKey, colorRec.getStr(eColor.id));
+                                elem.param().addProperty(colorKey, colorRec.getStr(eColor.id));
                             }
                             updateScript(selectID);
                         }
@@ -3440,9 +3439,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem glassElem = (GsonElem) winc().listAll.gson(selectID);
                 if (artiklRec.get(1) == null) {
-                    glassElem.remParam(PKjson.artglasID);
+                    glassElem.param().remove(PKjson.artglasID);
                 } else {
-                    glassElem.addParam(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                    glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
 
@@ -3464,9 +3463,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(windowsID);
                 if (sysfurnRec.get(1) == null) {
-                    stvArea.remParam(PKjson.sysfurnID);
+                    stvArea.param().remove(PKjson.sysfurnID);
                 } else {
-                    stvArea.addParam(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                    stvArea.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
                 }
                 updateScript(windowsID);
                 btnRefresh(null);
@@ -3485,9 +3484,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 float elemID = winNode.com5t().id();
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(elemID);
                 if (typeopenRec.get(1) == null) {
-                    stvArea.remParam(PKjson.typeOpen);
+                    stvArea.param().remove(PKjson.typeOpen);
                 } else {
-                    stvArea.addParam(PKjson.typeOpen, typeopenRec.getInt(0));
+                    stvArea.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 }
                 updateScript(elemID);
 
@@ -3507,11 +3506,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(stvorkaID);
-                stvArea.remParam(PKjson.colorHandl);
+                stvArea.param().remove(PKjson.colorHandl);
                 if (artiklRec.get(1) == null) {
-                    stvArea.remParam(PKjson.artiklHandl);
+                    stvArea.param().remove(PKjson.artiklHandl);
                 } else {
-                    stvArea.addParam(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(stvorkaID);
                 btnRefresh(null);
@@ -3538,16 +3537,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (record.get(1) != null) {
                     if (record.getInt(0) == 0) {
-                        stvArea.addParam(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
                         txt31.setEditable(false);
 
                     } else if (record.getInt(0) == 1) {
-                        stvArea.addParam(PKjson.positionHandl, LayoutHandle.CONST.id);
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
                         txt31.setEditable(false);
 
                     } else if (record.getInt(0) == 2) {
-                        stvArea.addParam(PKjson.positionHandl, LayoutHandle.VARIAT.id);
-                        stvArea.addParam(PKjson.heightHandl, record.getInt(1));
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
+                        stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
                         txt31.setEditable(true);
                     }
                     updateScript(selectID);
@@ -3569,9 +3568,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (colorRec.get(1) == null) {
-                    stvArea.remParam(PKjson.colorHandl);
+                    stvArea.param().remove(PKjson.colorHandl);
                 } else {
-                    stvArea.addParam(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                    stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3608,11 +3607,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.remParam(PKjson.colorLoop);
+                stvArea.param().remove(PKjson.colorLoop);
                 if (artiklRec.get(1) == null) {
-                    stvArea.remParam(PKjson.artiklLoop);
+                    stvArea.param().remove(PKjson.artiklLoop);
                 } else {
-                    stvArea.addParam(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3633,11 +3632,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.remParam(PKjson.colorLock);
+                stvArea.param().remove(PKjson.colorLock);
                 if (artiklRec.get(1) == null) {
-                    stvArea.remParam(PKjson.artiklLock);
+                    stvArea.param().remove(PKjson.artiklLock);
                 } else {
-                    stvArea.addParam(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3658,9 +3657,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (colorRec.get(1) == null) {
-                    stvArea.remParam(PKjson.colorLoop);
+                    stvArea.param().remove(PKjson.colorLoop);
                 } else {
-                    stvArea.addParam(PKjson.colorLoop, colorRec.getStr(eColor.id));
+                    stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3681,9 +3680,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (colorRec.get(1) == null) {
-                    stvArea.remParam(PKjson.colorLock);
+                    stvArea.param().remove(PKjson.colorLock);
                 } else {
-                    stvArea.addParam(PKjson.colorLock, colorRec.getStr(eColor.id));
+                    stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3696,7 +3695,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        String json = gson.toJson(winc().rootGson);
+        Gson gSon = new GsonBuilder().create();
+        Wincalc win = winc();
+        win.rootGson.notSerialize();
+        String json = win.rootGson.toJson();
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed
 
@@ -3709,9 +3711,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 if (colorRec.get(1) == null) {
-                    stvArea.remParam(PKjson.colorGlass);
+                    stvArea.param().remove(PKjson.colorGlass);
                 } else {
-                    stvArea.addParam(PKjson.colorGlass, colorRec.getStr(eColor.id));
+                    stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);

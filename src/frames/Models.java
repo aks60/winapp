@@ -834,7 +834,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 if (prj != null) {
                     GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
                     json = GsonScript.modelJson(Integer.valueOf(prj.toString()));
-                    record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name);
+                    record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name());
                     record.set(eSysmodel.script, json);
                 }
             } else {
@@ -849,9 +849,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                     String path = chooser.getSelectedFile().getPath();
                     JsonReader reader = new JsonReader(new FileReader(path));
                     GsonRoot gsonRoot = new Gson().fromJson(reader, GsonRoot.class);
-                    json = new Gson().toJson(gsonRoot);
+                    json = gsonRoot.toJson();
                     reader.close();
-                    record.set(eSysmodel.name, "<html>" + gsonRoot.name);
+                    record.set(eSysmodel.name, "<html>" + gsonRoot.name());
                     record.set(eSysmodel.script, json);
                 }
             }

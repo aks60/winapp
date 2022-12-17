@@ -23,7 +23,7 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected Form form = null; //форма контура (параметр в развитии)
-    private JsonObject param = null; //параметры элемента
+    protected JsonObject param = new JsonObject(); //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public GsonElem() {
@@ -123,30 +123,11 @@ public class GsonElem {
     }
 
     public JsonObject param() {
-        if (param instanceof JsonObject == false) {
-            return new JsonObject();
-        }
         return param;
     }
 
     public void param(JsonObject param) {
         this.param = param;
-    }
-
-    public void addParam(String key, Number val) {
-        this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
-        this.param.addProperty(key, val);
-    }
-
-    public void addParam(String key, String val) {
-        this.param = (this.param instanceof JsonObject == false) ? new JsonObject() : this.param;
-        this.param.addProperty(key, val);
-    }
-
-    public void remParam(String key) {
-        if (this.param instanceof JsonObject == true) {
-            this.param.remove(key);
-        }
     }
 
     public Float height() {
@@ -173,30 +154,30 @@ public class GsonElem {
         return childs;
     }
 
-    //Назначить родителей всем детям и поднять elem.form до rootGson
-    public void parent(Wincalc winc) {
-        if (this == winc.rootGson && this.form != null) {
-            winc.form = this.form;
+    //Назначить родителей всем детям и поднять elem.form до Wincalc
+    public void setOwner(Wincalc winc) {
+        if (this instanceof GsonRoot && this.form != null) {
+            ((GsonRoot) this).form = this.form;
         }
         this.childs.forEach(el -> {
             el.owner = this;
             if (el.form != null) {
                 winc.form = el.form;
             }
-            if (List.of(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                el.parent(winc); //рекурсия 
+            if (List.of(Type.STVORKA, Type.AREA, Type.RECTANGL, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
+                el.setOwner(winc); //рекурсия 
             }
         });
     }
 
-    public void clearParamIsNull(Wincalc winc) {
-        if (this == winc.rootGson && this.param.isJsonNull() == true) {
-            this.param = null;
-        }
-        this.childs.forEach(el -> {
-            if (this.param.isJsonNull() == true) {
-                this.param = null;
+    public void notSerialize() {
+        if (this.childs != null) {
+            for (GsonElem el : this.childs) {
+                if (el.param != null && el.param.size() == 0) {
+                    el.param = null;
+                }
+                el.notSerialize(); //рекурсия  
             }
-        });
+        }
     }
 }

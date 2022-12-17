@@ -72,7 +72,7 @@ public class Tariffic extends Cal5e {
             //Цикл по эдементам конструкции
             for (IElem5e elem5e : winc.listElem) {
 
-                Record systreeRec = eSystree.find(winc.nuni);
+                Record systreeRec = eSystree.find(winc.nuni());
                 //Цикл по правилам расчёта.                 
                 for (Record rulecalcRec : eRulecalc.list()) {
                     //Всё обнуляется и рассчитывается по таблице правил расчёта
@@ -153,7 +153,7 @@ public class Tariffic extends Cal5e {
     public static ArrayList2<Specific> kits(Record prjprodRec, Wincalc winc, boolean norm_otx) {
         ArrayList2<Specific> kitList = new ArrayList2();
         try {
-            Record systreeRec = eSystree.find(winc.nuni); //для нахожд. коэф. рентабельности
+            Record systreeRec = eSystree.find(winc.nuni()); //для нахожд. коэф. рентабельности
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы
             if (prjprodRec != null) {
                 List<Record> prjkitList = ePrjkit.find3(prjprodRec.getInt(ePrjprod.id));
@@ -162,7 +162,7 @@ public class Tariffic extends Cal5e {
                 for (Record prjkitRec : prjkitList) {
                     Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
                     if (artiklRec != null) {
-                        Specific spc = new Specific(++winc.genId, prjkitRec, artiklRec, null);
+                        Specific spc = new Specific(winc.genId(), prjkitRec, artiklRec, null);
                         spc.place = "КОМП";
                         spc.width = prjkitRec.getFloat(ePrjkit.width);
                         spc.height = prjkitRec.getFloat(ePrjkit.height);

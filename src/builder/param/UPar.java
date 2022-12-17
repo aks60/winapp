@@ -199,7 +199,7 @@ class UPar {
     }
 
     static boolean is_13017_14017_24017_25017_31017_33017_34017_37017_38017(String txt, Wincalc winc) {
-        Record systreeRec = eSystree.find(winc.nuni);
+        Record systreeRec = eSystree.find(winc.nuni());
         String[] s = txt.split("/");
         String s2 = (s.length == 1) ? s[0] : s[1];
         if (systreeRec.getStr(eSystree.pref).contains(s2) == false) {

@@ -29,6 +29,6 @@ public final class Krauss {
         } else {
             return null;
         }
-        return new GsonBuilder().create().toJson(rootGson);
+        return rootGson.toJson();
     }
 }

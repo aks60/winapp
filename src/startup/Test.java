@@ -91,14 +91,14 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.testJson(604010));
-            winc.constructiv(true);
+            winc.build(GsonScript.testJson(601004));
+            //winc.constructiv(true);
 
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
             //DBCompare.iwinXls(winc, true);
-            DBCompare.iwinPs4(winc, true);
+            //DBCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {

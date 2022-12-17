@@ -51,7 +51,7 @@ public class Specific {
     }
     
     public Specific(float id, IElem5e elem5e) {
-        ++elem5e.winc().genId;
+        elem5e.winc().genId();
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
@@ -65,7 +65,7 @@ public class Specific {
     }
 
     public Specific(Record detailRec, Record artiklRec, IElem5e elem5e, HashMap<Integer, String> mapParam) {
-        this.id = ++elem5e.winc().genId;
+        this.id = elem5e.winc().genId();
         this.elem5e = elem5e;
         this.mapParam = mapParam;
         this.detailRec = detailRec;

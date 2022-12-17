@@ -49,10 +49,9 @@ import javax.swing.ImageIcon;
 
 public class Wincalc {
 
-    public Connection conn;
-    public Integer nuni = 0;
-    public Record syssizeRec = null; //системные константы    
-    public float genId = 0; //для генерация ключа в спецификации
+    private Integer nuni = 0;
+    private Record syssizeRec = null; //системные константы    
+    private float genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
     private float width1 = 0; //ширина окна верхняя    
@@ -131,7 +130,7 @@ public class Wincalc {
 
             //Назначить родителей т.к. gson.fromJson() это делать не будет,
             //для быстрого доступа поднять elem.form до Wincalc.form
-            rootGson.parent(this);
+            rootGson.setOwner(this);
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
@@ -148,24 +147,24 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) 
-                        ? new builder.model.AreaRectangl(this) 
+                rootArea = (eProp.old.read().equals("0"))
+                        ? new builder.model.AreaRectangl(this)
                         : new builder.model.AreaRectangl(this); //простое
             } else if (Type.DOOR == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) 
-                        ? new builder.model.AreaDoor(this) 
+                rootArea = (eProp.old.read().equals("0"))
+                        ? new builder.model.AreaDoor(this)
                         : new builder.model.AreaDoor(this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) 
-                        ? new builder.model.AreaTrapeze(this) 
+                rootArea = (eProp.old.read().equals("0"))
+                        ? new builder.model.AreaTrapeze(this)
                         : new builder.model.AreaTrapeze(this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) 
-                        ? new builder.model.AreaTriangl(this) 
+                rootArea = (eProp.old.read().equals("0"))
+                        ? new builder.model.AreaTriangl(this)
                         : new builder.model.AreaTriangl(this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = (eProp.old.read().equals("0")) 
-                        ? new builder.model.AreaArch(this) 
+                rootArea = (eProp.old.read().equals("0"))
+                        ? new builder.model.AreaArch(this)
                         : new builder.model.AreaArch(this); //арка
             }
 
@@ -281,7 +280,24 @@ public class Wincalc {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="GET AND SET">    
+    // <editor-fold defaultstate="collapsed" desc="GET AND SET"> 
+    
+    public float genId() {
+        return ++genId;
+    }
+
+    public Integer nuni() {
+        return nuni;
+    }
+
+    public void syssizeRec(Record syssize) {
+        this.syssizeRec = syssize;
+    }
+
+    public Record syssizeRec() {
+        return syssizeRec;
+    }
+
     public String script() {
         return this.script;
     }

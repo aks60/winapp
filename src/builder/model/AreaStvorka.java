@@ -95,11 +95,11 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
-        if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
-            y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = joinRig.x1() + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = joinBot.y1() + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
+        if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
+            x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            x2 = joinRig.x1() + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            y2 = joinBot.y1() + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
             try {
@@ -138,7 +138,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             sysfurnRec = eSysfurn.find2(param.get(PKjson.sysfurnID).getAsInt());
             paramCheck[0] = false;
         } else {
-            sysfurnRec = eSysfurn.find3(winc.nuni); //ищем первую в системе
+            sysfurnRec = eSysfurn.find3(winc.nuni()); //ищем первую в системе
         }
         //Ручка
         if (isJson(param, PKjson.artiklHandl)) {

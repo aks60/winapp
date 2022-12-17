@@ -59,21 +59,21 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = owner.sysprofRec();
         } else {
             if (Layout.BOTT.equals(layout)) {
-                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
-                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.RIGHT, UseSide.VERT);
             } else if (Layout.TOP.equals(layout)) {
-                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.TOP, UseSide.HORIZ);
             } else if (Layout.LEFT.equals(layout)) {
-                sysprofRec = eSysprof.find5(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
+                sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         
         //Системные константы как правило на всю систему профилей
-        if (winc.syssizeRec == null) { 
-            winc.syssizeRec = eSyssize.find(artiklRec);
+        if (winc.syssizeRec() == null) { 
+            winc.syssizeRec(eSyssize.find(artiklRec));
         }
     }
 
@@ -170,7 +170,7 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglCut1 = anglCut[0];
         spcRec.anglCut2 = anglCut[1];
         spcRec.anglHoriz = anglHoriz;
-        double katet = winc.syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
+        double katet = winc.syssizeRec().getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
         if (owner.type() == Type.ARCH) {
             if (owner.type() == Type.ARCH && Layout.TOP == layout) {
@@ -257,18 +257,18 @@ public class ElemFrame extends ElemSimple {
                     if ("Да".equals(spcAdd.getParam(null, 34010))) {
                         Double dw1 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
                         Double dw2 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
-                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec().getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                     }
                 } else {
                     if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
                         Double dw1 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
                         Double dw2 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
-                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec().getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
                     } else if ("от внутреннего фальца".equals(spcAdd.getParam(null, 34010))) {
                         Double dw1 = (artiklRec().getDbl(eArtikl.height) - artiklRec().getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[0]));
                         Double dw2 = (artiklRec().getDbl(eArtikl.height) - artiklRec().getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[1]));
-                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                        spcAdd.width = spcAdd.width + 2 * winc.syssizeRec().getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                     }
                 }
 
@@ -346,7 +346,7 @@ public class ElemFrame extends ElemSimple {
                             spcAdd.width = UMod.get_25013(spcRec, spcAdd); //укорочение от высоты ручки
                         }
                     } else {
-                        spcAdd.width += width() + winc.syssizeRec.getFloat(eSyssize.prip) * 2;
+                        spcAdd.width += width() + winc.syssizeRec().getFloat(eSyssize.prip) * 2;
                     }
                 } else if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
                     spcAdd.width += spcRec.width;

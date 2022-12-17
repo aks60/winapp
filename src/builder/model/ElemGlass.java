@@ -47,7 +47,7 @@ public class ElemGlass extends ElemSimple {
         if (isJson(param, PKjson.artglasID)) {
             artiklRec(eArtikl.find(param.get(PKjson.artglasID).getAsInt(), false));
         } else {
-            Record sysreeRec = eSystree.find(winc.nuni); //по умолчанию стеклопакет
+            Record sysreeRec = eSystree.find(winc.nuni()); //по умолчанию стеклопакет
             artiklRec(eArtikl.find2(sysreeRec.getStr(eSystree.glas)));
         }
         artiklRecAn(artiklRec);
@@ -118,7 +118,7 @@ public class ElemGlass extends ElemSimple {
         } else {
             IElem5e insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
 
-            if (winc.syssizeRec.getInt(eSyssize.id) == -1) {
+            if (winc.syssizeRec().getInt(eSyssize.id) == -1) {
                 y2 = insideBott.y2() - insideBott.artiklRec().getFloat(eArtikl.size_centr) - gsize[0];
                 x2 = insideRight.x2() - insideRight.artiklRec().getFloat(eArtikl.size_centr) - gsize[1];
                 y1 = insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.size_centr) + gsize[2];

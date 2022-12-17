@@ -320,7 +320,7 @@ public class UGui {
         jsonArr.add(paramDef);
         jsonObj.add(PKjson.ioknaParam, jsonArr);
         gsonRoot.param(jsonObj);
-        return gson.toJson(gsonRoot);
+        return gsonRoot.toJson();
     }
 
     public static String designTitle() {

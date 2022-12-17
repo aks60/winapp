@@ -145,7 +145,7 @@ public class FillingDet extends Par5s {
                 case 14095: //Если признак системы конструкции 
                 case 15095: //Если признак системы конструкции  
                 {
-                    Record systreeRec = eSystree.find(winc.nuni);
+                    Record systreeRec = eSystree.find(winc.nuni());
                     String[] arr = rec.getStr(TEXT).split(";");
                     List<String> arrList = List.of(arr);
                     boolean ret = false;

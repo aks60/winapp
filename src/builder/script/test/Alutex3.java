@@ -23,6 +23,6 @@ public final class Alutex3 {
         } else {
             return null;
         }
-        return new GsonBuilder().create().toJson(rootGson);
+        return rootGson.toJson();
     }
 }

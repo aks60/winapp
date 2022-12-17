@@ -120,7 +120,7 @@ public class FillingVar extends Par5s {
                         }
                     }
                 case 13095:  //Если признак системы конструкции 
-                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni())) {
                         return false;
                     }
                     break;

@@ -26,6 +26,6 @@ public final class Sokol {
         } else {
             return null;
         }
-        return new GsonBuilder().create().toJson(rootGson);
+        return rootGson.toJson();
     }
 }

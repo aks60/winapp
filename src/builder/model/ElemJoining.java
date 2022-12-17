@@ -39,7 +39,7 @@ public class ElemJoining {
     }
 
     public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, float angl) {
-        this.id = ++winc.genId;
+        this.id = winc.genId();
         this.winc = winc;
         this.type = type;
         this.layout = layout;

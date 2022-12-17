@@ -250,7 +250,7 @@ public class JoiningVar extends Par5s {
                 case 3095:  //Если признак системы конструкции 
                 case 4095: //Если признак системы конструкции 
                 {
-                    Record systreefRec = eSystree.find(winc.nuni);
+                    Record systreefRec = eSystree.find(winc.nuni());
                     String[] arr = rec.getStr(TEXT).split(";");
                     List<String> arrList = List.of(arr);
                     boolean ret = false;
