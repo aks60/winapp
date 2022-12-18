@@ -801,7 +801,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             Object v = sysprodRec.get(eSysprod.values().length);
-            if (v instanceof Wincalc) {           
+            if (v instanceof Wincalc) {
                 return (Wincalc) v;
             }
         }
@@ -3393,26 +3393,24 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                if (colorRec.get(1) != null) {
-                    Wincalc winc = winc();
-                    builder.script.GsonElem rootArea = winc.listAll.gson(selectID);
-                    if (rootArea != null) {
-                        if (evt.getSource() == btn9) {
-                            winc.rootGson.color1(colorRec.getInt(eColor.id));
-                        } else if (evt.getSource() == btn13) {
-                            winc.rootGson.color2(colorRec.getInt(eColor.id));
-                        } else {
-                            winc.rootGson.color3(colorRec.getInt(eColor.id));
-                        }
-                        updateScript(selectID);
-                        btnRefresh(null);
+                Wincalc winc = winc();
+                builder.script.GsonElem rootArea = winc.listAll.gson(selectID);
+                if (rootArea != null) {
+                    if (evt.getSource() == btn9) {
+                        winc.rootGson.color1(colorRec.getInt(eColor.id));
+                    } else if (evt.getSource() == btn13) {
+                        winc.rootGson.color2(colorRec.getInt(eColor.id));
+                    } else {
+                        winc.rootGson.color3(colorRec.getInt(eColor.id));
                     }
+                    updateScript(selectID);
+                    btnRefresh(null);
                 }
             };
             if (groupArr == null && colorArr.length == 0) {
-                new DicColor(this, listenerColor, false, true);
+                new DicColor(this, listenerColor, false, false);
             } else {
-                new DicColor(this, listenerColor, groupSet, true);
+                new DicColor(this, listenerColor, groupSet, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

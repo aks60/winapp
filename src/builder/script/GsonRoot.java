@@ -180,6 +180,5 @@ public class GsonRoot extends GsonElem {
     public String toJson() {
         this.notSerialize();        
         return new GsonBuilder().create().toJson(this);
-        //return new GsonBuilder().registerTypeAdapter(GsonRoot.class, new JsonSerializer2()).create().toJson(this);
     }
 }
