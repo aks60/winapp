@@ -21,8 +21,11 @@ import frames.swing.draw.Canvas;
 import java.awt.CardLayout;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import common.listener.ListenerReload;
 import dataset.Conn;
+import domain.eSysprod;
 import frames.swing.DefTableModel;
+import frames.swing.draw.Scene;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Collections;
@@ -33,16 +36,18 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public final class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
+public final class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object>, ListenerReload {
 
     public Wincalc winc = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
     private Canvas canvas = new Canvas();
+    private Scene scene = null;
     private Query qModels = new Query(eSysmodel.values());
 
     public Models() {
         initComponents();
+        scene = new Scene(canvas, spinner, this);
         initElements();
         loadingModel();
         btnChoice.setVisible(false);
@@ -52,6 +57,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
+        scene = new Scene(canvas, spinner, this);
         initElements();
         loadingModel();
         this.owner = owner;
@@ -170,6 +176,29 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         }
     }
 
+        @Override
+    public void reload() {
+//        try {
+//            Wincalc win = winc();
+//            int index = UGui.getIndexRec(tab5);
+//            if (index != -1) {
+//                String script = win.rootGson.toJson();
+//                win.build(script);
+//                win.imageIcon = Canvas.createIcon(win, 68);
+//                Record sysprodRec = qSysprod.get(index);
+//                sysprodRec.set(eSysprod.script, script);
+//                sysprodRec.set(eSysprod.values().length, win);
+//                canvas.draw();
+//                scene.lineHoriz.forEach(e -> e.init());
+//                scene.lineVert.forEach(e -> e.init());
+//                scene.draw();
+//                selectionWinTree();
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Systree.reload() " + e);
+//        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -188,6 +217,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         btnT4 = new javax.swing.JToggleButton();
         btnMoveU = new javax.swing.JButton();
         btnMoveD = new javax.swing.JButton();
+        panSspinner = new javax.swing.JPanel();
+        spinner = new javax.swing.JSpinner();
         west = new javax.swing.JPanel();
         pan13 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -203,13 +234,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab4 = new javax.swing.JTable();
         centr = new javax.swing.JPanel();
         pan17 = new javax.swing.JPanel();
-        pan4 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
-        lab4 = new javax.swing.JLabel();
-        txtField4 = new javax.swing.JFormattedTextField();
-        lab5 = new javax.swing.JLabel();
-        txtField5 = new javax.swing.JFormattedTextField();
         pan8 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
@@ -411,6 +437,16 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             }
         });
 
+        panSspinner.setMinimumSize(new java.awt.Dimension(50, 20));
+        panSspinner.setPreferredSize(new java.awt.Dimension(100, 24));
+        panSspinner.setLayout(new java.awt.BorderLayout());
+
+        spinner.setFont(frames.UGui.getFont(1,0));
+        spinner.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+        spinner.setBorder(null);
+        spinner.setPreferredSize(new java.awt.Dimension(50, 24));
+        panSspinner.add(spinner, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -438,7 +474,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addGap(112, 112, 112)
+                .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -450,6 +488,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRemov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMoveD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -458,10 +498,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                             .addComponent(btnT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMoveD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -666,61 +705,23 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         pan17.setPreferredSize(new java.awt.Dimension(600, 500));
         pan17.setLayout(new java.awt.BorderLayout());
 
-        pan4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan4.setPreferredSize(new java.awt.Dimension(400, 430));
-        pan4.setLayout(new java.awt.BorderLayout());
-
         panDesign.setLayout(new java.awt.BorderLayout());
-        pan4.add(panDesign, java.awt.BorderLayout.CENTER);
+        pan17.add(panDesign, java.awt.BorderLayout.CENTER);
 
         pan7.setPreferredSize(new java.awt.Dimension(700, 40));
-
-        lab4.setFont(frames.UGui.getFont(0,0));
-        lab4.setText("INDEX");
-        lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab4.setPreferredSize(new java.awt.Dimension(40, 18));
-
-        txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        txtField4.setFont(frames.UGui.getFont(0,0));
-
-        lab5.setFont(frames.UGui.getFont(0,0));
-        lab5.setText("INDEX");
-        lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab5.setPreferredSize(new java.awt.Dimension(40, 18));
-
-        txtField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        txtField5.setFont(frames.UGui.getFont(0,0));
 
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);
         pan7Layout.setHorizontalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+            .addGap(0, 426, Short.MAX_VALUE)
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan7Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        pan4.add(pan7, java.awt.BorderLayout.NORTH);
+        pan17.add(pan7, java.awt.BorderLayout.NORTH);
 
         pan8.setPreferredSize(new java.awt.Dimension(744, 10));
 
@@ -728,14 +729,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 426, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        pan4.add(pan8, java.awt.BorderLayout.SOUTH);
+        pan17.add(pan8, java.awt.BorderLayout.SOUTH);
 
         pan9.setPreferredSize(new java.awt.Dimension(10, 376));
 
@@ -747,10 +748,10 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
 
-        pan4.add(pan9, java.awt.BorderLayout.EAST);
+        pan17.add(pan9, java.awt.BorderLayout.EAST);
 
         pan10.setPreferredSize(new java.awt.Dimension(10, 336));
 
@@ -762,12 +763,10 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
 
-        pan4.add(pan10, java.awt.BorderLayout.WEST);
-
-        pan17.add(pan4, java.awt.BorderLayout.CENTER);
+        pan17.add(pan10, java.awt.BorderLayout.WEST);
 
         centr.add(pan17, java.awt.BorderLayout.CENTER);
 
@@ -996,8 +995,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private javax.swing.JToggleButton btnT4;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
-    private javax.swing.JLabel lab4;
-    private javax.swing.JLabel lab5;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan13;
@@ -1005,28 +1002,28 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private javax.swing.JPanel pan15;
     private javax.swing.JPanel pan17;
     private javax.swing.JPanel pan18;
-    private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
+    private javax.swing.JPanel panSspinner;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JPanel south;
+    private javax.swing.JSpinner spinner;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
-    private javax.swing.JFormattedTextField txtField4;
-    private javax.swing.JFormattedTextField txtField5;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        panDesign.add(scene, java.awt.BorderLayout.CENTER);
         btnRemov.setVisible(false);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
