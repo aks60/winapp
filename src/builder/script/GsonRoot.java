@@ -3,7 +3,6 @@ package builder.script;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import common.JsonSerializer2;
 import common.eProp;
 import enums.Form;
 import enums.Layout;
