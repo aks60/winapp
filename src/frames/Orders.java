@@ -3534,7 +3534,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 updateScript(selectID);
                 btnRefresh(null);
 
-            }, colorSet, true);
+            }, colorSet, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorFromGlass() " + e);
