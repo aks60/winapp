@@ -9,6 +9,7 @@ import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Класс создаётся из см. пакет builder.script.test или скрипта из бд, после
@@ -180,4 +181,31 @@ public class GsonElem {
             }
         }
     }
+    
+    public static JsonObject deepMerge(JsonObject source, JsonObject target) {
+
+        for (Map.Entry<String, JsonElement> sourceEntry : source.entrySet()) {
+            String key = sourceEntry.getKey();
+            JsonElement value = sourceEntry.getValue();
+
+            if (target.has(key) == false) {
+                if (value.isJsonNull() == false) {
+                    target.add(key, value);
+                }
+
+            } else {
+                if (value.isJsonNull() == false) {
+
+                    if (value.isJsonObject()) {
+                        deepMerge(value.getAsJsonObject(), target.get(key).getAsJsonObject());
+                    } else {
+                        target.add(key, value);
+                    }
+                } else {
+                    target.remove(key);
+                }
+            }
+        }
+        return target;
+    }    
 }

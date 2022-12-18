@@ -1,10 +1,9 @@
 package builder.script;
 
-import static builder.script.GsonScript.rootGson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.Since;
+import common.JsonSerializer2;
 import common.eProp;
 import enums.Form;
 import enums.Layout;
@@ -95,7 +94,6 @@ public class GsonRoot extends GsonElem {
         return name;
     }
 
-    
     public Float height() {
         if (height1 == null) {
             return height2;
@@ -179,9 +177,10 @@ public class GsonRoot extends GsonElem {
     public void color3(int color3) {
         this.color3 = color3;
     }
-    
+
     public String toJson() {
-        this.notSerialize();
+        this.notSerialize();        
         return new GsonBuilder().create().toJson(this);
+        //return new GsonBuilder().registerTypeAdapter(GsonRoot.class, new JsonSerializer2()).create().toJson(this);
     }
 }
