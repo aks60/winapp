@@ -12,6 +12,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
+import builder.making.Cal5e;
+import builder.making.Joining;
 import builder.script.GsonRoot;
 import builder.script.GsonScript;
 import com.google.gson.Gson;
@@ -38,12 +40,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object>, ListenerReload {
 
-    public Wincalc winc = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
     private Canvas canvas = new Canvas();
     private Scene scene = null;
-    private Query qModels = new Query(eSysmodel.values());
+    private Query qSysmodel = new Query(eSysmodel.values());
 
     public Models() {
         initComponents();
@@ -52,7 +53,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         loadingModel();
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
-        loadingTab(tab1, 1001);
+        loadingTab1(tab1, 1001);
     }
 
     public Models(java.awt.Window owner, ListenerRecord listener) {
@@ -63,20 +64,18 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         this.owner = owner;
         this.listenet = listener;
         owner.setEnabled(false);
-        loadingTab(tab1, 1001);
+        loadingTab1(tab1, 1001);
     }
 
     public void loadingModel() {
-        panDesign.add(canvas, java.awt.BorderLayout.CENTER);
-        canvas.setVisible(true);
-        new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        new DefTableModel(tab1, qSysmodel, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Object v = qModels.get(row).get(eSysmodel.values().length);
+                    Object v = qSysmodel.get(row).get(eSysmodel.values().length);
                     if (v instanceof Wincalc) {
                         label.setIcon(((Wincalc) v).imageIcon);
                     }
@@ -87,14 +86,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 return label;
             }
         });
-        new DefTableModel(tab2, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        new DefTableModel(tab2, qSysmodel, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Object v = qModels.get(row).get(eSysmodel.values().length);
+                    Object v = qSysmodel.get(row).get(eSysmodel.values().length);
                     if (v instanceof Wincalc) {
                         label.setIcon(((Wincalc) v).imageIcon);
                     }
@@ -105,14 +104,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 return label;
             }
         });
-        new DefTableModel(tab3, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        new DefTableModel(tab3, qSysmodel, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab3.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Object v = qModels.get(row).get(eSysmodel.values().length);
+                    Object v = qSysmodel.get(row).get(eSysmodel.values().length);
                     if (v instanceof Wincalc) {
                         label.setIcon(((Wincalc) v).imageIcon);
                     }
@@ -123,14 +122,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 return label;
             }
         });
-        new DefTableModel(tab4, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        new DefTableModel(tab4, qSysmodel, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab4.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Object v = qModels.get(row).get(eSysmodel.values().length);
+                    Object v = qSysmodel.get(row).get(eSysmodel.values().length);
                     if (v instanceof Wincalc) {
                         label.setIcon(((Wincalc) v).imageIcon);
                     }
@@ -140,17 +139,20 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 }
                 return label;
             }
-        });        
+        });
+        canvas.setVisible(true);
     }
 
-    public void loadingTab(JTable tab, int form) {
-        qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form, "order by npp");
+    public void loadingTab1(JTable tab, int form) {
+        qSysmodel.select(eSysmodel.up, "where", eSysmodel.form, "=", form, "order by npp");
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
-        for (Record record : qModels.table(eSysmodel.up)) {
+        for (Record record : qSysmodel.table(eSysmodel.up)) {
             try {
                 String script = record.getStr(eSysmodel.script);
                 Wincalc iwin2 = new Wincalc(script);
+                Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                joining.calc();
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
@@ -163,42 +165,55 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         UGui.setSelectedRow(tab);
     }
 
-    public void selectionTab(ListSelectionEvent event, JTable tab) {
+    public void selectionTab1(ListSelectionEvent event, JTable tab) {
         int index = UGui.getIndexRec(tab);
         if (index != -1) {
-            Record record = qModels.get(index);
-            Object v = record.get(eSysmodel.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                winc = (Wincalc) v;
-                canvas.init(winc);
+            Record sysmodelRec = qSysmodel.get(index);
+            Object w = sysmodelRec.get(eSysmodel.values().length);
+            if (w instanceof Wincalc) { //прорисовка окна               
+                Wincalc win = (Wincalc) w;
+                scene.init(win);
                 canvas.draw();
+                scene.draw();
             }
         }
     }
 
-        @Override
+    @Override
     public void reload() {
-//        try {
-//            Wincalc win = winc();
-//            int index = UGui.getIndexRec(tab5);
-//            if (index != -1) {
-//                String script = win.rootGson.toJson();
-//                win.build(script);
-//                win.imageIcon = Canvas.createIcon(win, 68);
-//                Record sysprodRec = qSysprod.get(index);
-//                sysprodRec.set(eSysprod.script, script);
-//                sysprodRec.set(eSysprod.values().length, win);
-//                canvas.draw();
-//                scene.lineHoriz.forEach(e -> e.init());
-//                scene.lineVert.forEach(e -> e.init());
-//                scene.draw();
-//                selectionWinTree();
-//            }
-//        } catch (Exception e) {
-//            System.err.println("Ошибка:Systree.reload() " + e);
-//        }
+        try {
+            int index = UGui.getIndexRec(tab1);
+            if (index != -1) {
+                Wincalc win = winc();
+                String script = win.rootGson.toJson();
+                win.build(script);
+                win.imageIcon = Canvas.createIcon(win, 68);
+                Record sysmodelRec = qSysmodel.get(index);
+                sysmodelRec.set(eSysmodel.script, script);
+                sysmodelRec.set(eSysmodel.values().length, win);
+                canvas.draw();
+                scene.lineHoriz.forEach(e -> e.init());
+                scene.lineVert.forEach(e -> e.init());
+                scene.draw();
+                //selectionWinTree();
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Models.reload() " + e);
+        }
     }
-    
+
+    private Wincalc winc() {
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record sysmodelRec = qSysmodel.table(eSysmodel.up).get(index);
+            Object v = sysmodelRec.get(eSysmodel.values().length);
+            if (v instanceof Wincalc) {
+                return (Wincalc) v;
+            }
+        }
+        return null;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -797,7 +812,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        loadingTab(tab1, 1001);
+        loadingTab1(tab1, 1001);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -857,31 +872,31 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             if (json != null) {
                 if (tab1.getBorder() != null) {
                     record.set(eSysmodel.form, 1001);
-                    qModels.insert(record);
-                    loadingTab(tab1, 1001);
-                    UGui.setSelectedIndex(tab1, qModels.size() - 1);
-                    UGui.scrollRectToIndex(qModels.size() - 1, tab1);
+                    qSysmodel.insert(record);
+                    loadingTab1(tab1, 1001);
+                    UGui.setSelectedIndex(tab1, qSysmodel.size() - 1);
+                    UGui.scrollRectToIndex(qSysmodel.size() - 1, tab1);
 
                 } else if (tab2.getBorder() != null) {
                     record.set(eSysmodel.form, 1004);
-                    qModels.insert(record);
-                    loadingTab(tab2, 1004);
-                    UGui.setSelectedIndex(tab2, qModels.size() - 1);
-                    UGui.scrollRectToIndex(qModels.size() - 1, tab2);
+                    qSysmodel.insert(record);
+                    loadingTab1(tab2, 1004);
+                    UGui.setSelectedIndex(tab2, qSysmodel.size() - 1);
+                    UGui.scrollRectToIndex(qSysmodel.size() - 1, tab2);
 
                 } else if (tab3.getBorder() != null) {
                     record.set(eSysmodel.form, 1002);
-                    qModels.insert(record);
-                    loadingTab(tab3, 1002);
-                    UGui.setSelectedIndex(tab3, qModels.size() - 1);
-                    UGui.scrollRectToIndex(qModels.size() - 1, tab3);
+                    qSysmodel.insert(record);
+                    loadingTab1(tab3, 1002);
+                    UGui.setSelectedIndex(tab3, qSysmodel.size() - 1);
+                    UGui.scrollRectToIndex(qSysmodel.size() - 1, tab3);
 
                 } else if (tab4.getBorder() != null) {
                     record.set(eSysmodel.form, 1007);
-                    qModels.insert(record);
-                    loadingTab(tab4, 1007);
-                    UGui.setSelectedIndex(tab4, qModels.size() - 1);
-                    UGui.scrollRectToIndex(qModels.size() - 1, tab4);
+                    qSysmodel.insert(record);
+                    loadingTab1(tab4, 1007);
+                    UGui.setSelectedIndex(tab4, qSysmodel.size() - 1);
+                    UGui.scrollRectToIndex(qSysmodel.size() - 1, tab4);
                 }
             }
         } catch (Exception e) {
@@ -907,9 +922,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         int index = UGui.getIndexRec(table);
         if (index != -1) {
             Record record = new Record();
-            record.add(qModels.get(index, eSysmodel.id));
-            record.add(qModels.get(index, eSysmodel.name));
-            record.add(qModels.get(index, eSysmodel.script));
+            record.add(qSysmodel.get(index, eSysmodel.id));
+            record.add(qSysmodel.get(index, eSysmodel.name));
+            record.add(qSysmodel.get(index, eSysmodel.script));
             listenet.action(record);
         }
         this.dispose();
@@ -926,22 +941,22 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private void btnToggl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToggl
         if (btnT1.isSelected()) {
-            loadingTab(tab1, 1001);
+            loadingTab1(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
             UGui.updateBorderAndSql(tab1, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab1);
         } else if (btnT2.isSelected()) {
-            loadingTab(tab2, 1004);
+            loadingTab1(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
             UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab2);
         } else if (btnT3.isSelected()) {
-            loadingTab(tab3, 1002);
+            loadingTab1(tab3, 1002);
             ((CardLayout) west.getLayout()).show(west, "pan15");
             UGui.updateBorderAndSql(tab3, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab3);
         } else {
-            loadingTab(tab4, 1007);
+            loadingTab1(tab4, 1007);
             ((CardLayout) west.getLayout()).show(west, "pan18");
             UGui.updateBorderAndSql(tab4, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab4);
@@ -966,15 +981,15 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         if (index != -1) {
             if (table.getBorder() != null) {
                 if (btn == btnMoveD && table.getSelectedRow() < table.getRowCount() - 1) {
-                    Collections.swap(qModels, index, ++index2);
+                    Collections.swap(qSysmodel, index, ++index2);
 
                 } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
-                    Collections.swap(qModels, index, --index2);
+                    Collections.swap(qSysmodel, index, --index2);
                 }
-                IntStream.range(0, qModels.size() - 1).forEach(i -> qModels.set(i + 1, i, eSysmodel.npp));
+                IntStream.range(0, qSysmodel.size() - 1).forEach(i -> qSysmodel.set(i + 1, i, eSysmodel.npp));
                 ((DefaultTableModel) table.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(table, index2);
-                qModels.execsql();
+                qSysmodel.execsql();
             }
         }
     }//GEN-LAST:event_btnMove
@@ -1028,28 +1043,28 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab(event, tab1);
+                    selectionTab1(event, tab1);
                 }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab(event, tab2);
+                    selectionTab1(event, tab2);
                 }
             }
         });
         tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab(event, tab3);
+                    selectionTab1(event, tab3);
                 }
             }
         });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab(event, tab4);
+                    selectionTab1(event, tab4);
                 }
             }
         });
