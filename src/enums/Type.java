@@ -16,7 +16,7 @@ public enum Type implements Enam {
     SHTULP(9, 9, "Штульп"),
     GLASS(10, 777, "Заполнение (Стеклопакет, стекло)"),
     MOSKITKA(13, 777, "Москитка"),
-    RASKLADKA(14, 777, "Раскладка"),
+    RASKLADKA(14, 7, "Раскладка"),
     SAND(15, 777, "Сэндвич"),
     JALOUSIE(15, 777, "Жалюзи"),
     //SUPPORT(XX, "Подкладка"),

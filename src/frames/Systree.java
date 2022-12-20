@@ -3695,7 +3695,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
         Gson gSon = new GsonBuilder().create();
         Wincalc win = winc();
-        win.rootGson.notSerialize();
+        win.rootGson.notSerialize(win.rootGson);
         String json = win.rootGson.toJson();
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed

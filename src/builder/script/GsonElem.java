@@ -171,17 +171,20 @@ public class GsonElem {
         });
     }
 
-    public void notSerialize() {
+    public void notSerialize(GsonElem gsonElem) {
+        if (gsonElem == this) {
+            this.param = null;
+        }
         if (this.childs != null) {
             for (GsonElem el : this.childs) {
                 if (el.param != null && el.param.size() == 0) {
                     el.param = null;
                 }
-                el.notSerialize(); //рекурсия  
+                el.notSerialize(this); //рекурсия  
             }
         }
     }
-    
+
     public static JsonObject deepMerge(JsonObject source, JsonObject target) {
 
         for (Map.Entry<String, JsonElement> sourceEntry : source.entrySet()) {
@@ -207,5 +210,5 @@ public class GsonElem {
             }
         }
         return target;
-    }    
+    }
 }
