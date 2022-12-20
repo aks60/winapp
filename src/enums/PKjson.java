@@ -7,6 +7,7 @@ public class PKjson {
     public final static String sysprofID = "sysprofID"; //ID профиля
     public final static String sysfurnID = "sysfurnID"; //ID Фурнитуры
     public final static String artglasID = "artglasID"; //ID заполнения
+    public final static String elementID = "elementID"; //ID заполнения
 
     public final static String artiklHandl = "artiklHandl"; //Ручка на створке
     public final static String artiklLoop = "artiklLoop"; //Подвес на створке
@@ -32,7 +33,6 @@ public class PKjson {
     
     public final static String rascladkaHor = "rascladkaHor";
     public final static String rascladkaVert = "rascladkaVert";
-    public final static String moskidka = "moskidka";
     
 //    public static String joinSide0 = "joinSide0"; //Соединение элемента левое
 //    public static String joinSide1 = "joinSide1"; //Соединение элемента правое

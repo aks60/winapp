@@ -69,8 +69,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            Profstroy.exec();
-            //wincalc();
+            //Profstroy.exec();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -88,12 +88,11 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.testJson(601004));
+            winc.build(GsonScript.testJson(601001));
             //winc.constructiv(true);
-
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
