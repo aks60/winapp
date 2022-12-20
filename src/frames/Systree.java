@@ -3090,7 +3090,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (sysNode != null && sysNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new ListenerFrame() {
                         public void actionRequest(Object obj) {
-                            models = new Models(Systree.this, listenerModel);
+                            models = new Models(listenerModel);
                             FrameToFile.setFrameSize(models);
                             models.setVisible(true);
                         }
