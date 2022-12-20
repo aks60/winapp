@@ -47,23 +47,25 @@ public class Tariffic extends Cal5e {
             //Расчёт себес-сти за ед.изм. и колич. материала
             //Цикл по эдементам конструкции
             for (IElem5e elem5e : winc.listElem) {
+                if (filter(elem5e)) {
 
-                elem5e.spcRec().costpric1 += artdetPrice(elem5e.spcRec()); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
-                elem5e.spcRec().quant1 = formatAmount(elem5e.spcRec()); //количество без отхода
-                elem5e.spcRec().quant2 = elem5e.spcRec().quant1;  //базовое количество с отходом
-                if (norm_otx == true) {
-                    float otx = elem5e.spcRec().artiklRec.getFloat(eArtikl.otx_norm);
-                    elem5e.spcRec().quant2 = elem5e.spcRec().quant2 + (elem5e.spcRec().quant1 * otx / 100); //количество с отходом
-                }
-                //Вложенная спецификация
-                //Цикл по детализации эдемента
-                for (Specific specificationRec2 : elem5e.spcRec().spcList) {
-                    specificationRec2.costpric1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
-                    specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
-                    specificationRec2.quant2 = specificationRec2.quant1; //базовое количество с отходом
+                    elem5e.spcRec().costpric1 += artdetPrice(elem5e.spcRec()); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
+                    elem5e.spcRec().quant1 = formatAmount(elem5e.spcRec()); //количество без отхода
+                    elem5e.spcRec().quant2 = elem5e.spcRec().quant1;  //базовое количество с отходом
                     if (norm_otx == true) {
-                        float otx = specificationRec2.artiklRec.getFloat(eArtikl.otx_norm);
-                        specificationRec2.quant2 = specificationRec2.quant2 + (specificationRec2.quant1 * otx / 100); //количество с отходом
+                        float otx = elem5e.spcRec().artiklRec.getFloat(eArtikl.otx_norm);
+                        elem5e.spcRec().quant2 = elem5e.spcRec().quant2 + (elem5e.spcRec().quant1 * otx / 100); //количество с отходом
+                    }
+                    //Вложенная спецификация
+                    //Цикл по детализации эдемента
+                    for (Specific specificationRec2 : elem5e.spcRec().spcList) {
+                        specificationRec2.costpric1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
+                        specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
+                        specificationRec2.quant2 = specificationRec2.quant1; //базовое количество с отходом
+                        if (norm_otx == true) {
+                            float otx = specificationRec2.artiklRec.getFloat(eArtikl.otx_norm);
+                            specificationRec2.quant2 = specificationRec2.quant2 + (specificationRec2.quant1 * otx / 100); //количество с отходом
+                        }
                     }
                 }
             }
@@ -71,75 +73,79 @@ public class Tariffic extends Cal5e {
             //Расчёт стоимости
             //Цикл по эдементам конструкции
             for (IElem5e elem5e : winc.listElem) {
+                if (filter(elem5e)) {
 
-                Record systreeRec = eSystree.find(winc.nuni());
-                //Цикл по правилам расчёта.                 
-                for (Record rulecalcRec : eRulecalc.list()) {
-                    //Всё обнуляется и рассчитывается по таблице правил расчёта
-                    //Увеличение себестоимости в coeff раз и на incr величину наценки.
-
-                    //Фильтр по полю 'форма профиля', в заполнениях. В БиМакс используюеся только 1, 4, 10, 12 параметры
-                    int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
-                    if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
-
-                        if (form == TypeForm.P00.id) {//не проверять форму
-                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
-
-                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner().type()) { //не прямоугольное, не арочное заполнение
-                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
-
-                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
-                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
-                        }
-                    } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
-                            && elem5e.owner().type() == Type.ARCH && elem5e.layout() == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
-                        rulecalcPrise(winc, rulecalcRec, elem5e.spcRec()); //профиль с радиусом
-
-                    } else {
-                        if (form == TypeForm.P00.id) {  //не проверять форму
-                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec()); //всё остальное не проверять форму
-                        }
-                    }
-                }
-
-                elem5e.spcRec().costpric2 = elem5e.spcRec().costpric1 * elem5e.spcRec().quant2; //себест. за ед. с отходом 
-                Record artgrp1Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups1_id));
-                Record artgrp2Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups2_id));
-                float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
-                float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
-                elem5e.spcRec().price = elem5e.spcRec().costpric2 * k1 * k3;
-                elem5e.spcRec().price = elem5e.spcRec().price + (elem5e.spcRec().price / 100) * percentMarkup; //стоимость без скидки                     
-                elem5e.spcRec().cost2 = elem5e.spcRec().price - (elem5e.spcRec().price / 100) * k2; //стоимость со скидкой 
-
-                //Правила расчёта вложенные
-                for (Specific spc : elem5e.spcRec().spcList) {
-
-                    //Цикл по правилам расчёта.
+                    Record systreeRec = eSystree.find(winc.nuni());
+                    //Цикл по правилам расчёта.                 
                     for (Record rulecalcRec : eRulecalc.list()) {
+                        //Всё обнуляется и рассчитывается по таблице правил расчёта
+                        //Увеличение себестоимости в coeff раз и на incr величину наценки.
+
+                        //Фильтр по полю 'форма профиля', в заполнениях. В БиМакс используюеся только 1, 4, 10, 12 параметры
                         int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
-                        if (form == TypeForm.P00.id) { //не проверять форму 
-                            rulecalcPrise(winc, rulecalcRec, spc);
+                        if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
+
+                            if (form == TypeForm.P00.id) {//не проверять форму
+                                rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
+
+                            } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner().type()) { //не прямоугольное, не арочное заполнение
+                                rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
+
+                            } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
+                                rulecalcPrise(winc, rulecalcRec, elem5e.spcRec());
+                            }
+                        } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
+                                && elem5e.owner().type() == Type.ARCH && elem5e.layout() == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
+                            rulecalcPrise(winc, rulecalcRec, elem5e.spcRec()); //профиль с радиусом
+
+                        } else {
+                            if (form == TypeForm.P00.id) {  //не проверять форму
+                                rulecalcPrise(winc, rulecalcRec, elem5e.spcRec()); //всё остальное не проверять форму
+                            }
                         }
                     }
-                    spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом  
-                    Record artgrp1bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups1_id));
-                    Record artgrp2bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups2_id));
-                    float m1 = artgrp1bRec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
-                    float m2 = artgrp2bRec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
-                    float m3 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
-                    spc.price = spc.costpric2 * m1 * m3;
-                    spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                         
-                    spc.cost2 = spc.price - (spc.price / 100) * m2; //стоимость со скидкой 
+
+                    elem5e.spcRec().costpric2 = elem5e.spcRec().costpric1 * elem5e.spcRec().quant2; //себест. за ед. с отходом 
+                    Record artgrp1Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups1_id));
+                    Record artgrp2Rec = eGroups.find(elem5e.spcRec().artiklRec.getInt(eArtikl.groups2_id));
+                    float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
+                    float k2 = artgrp2Rec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
+                    float k3 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
+                    elem5e.spcRec().price = elem5e.spcRec().costpric2 * k1 * k3;
+                    elem5e.spcRec().price = elem5e.spcRec().price + (elem5e.spcRec().price / 100) * percentMarkup; //стоимость без скидки                     
+                    elem5e.spcRec().cost2 = elem5e.spcRec().price - (elem5e.spcRec().price / 100) * k2; //стоимость со скидкой 
+
+                    //Правила расчёта вложенные
+                    for (Specific spc : elem5e.spcRec().spcList) {
+
+                        //Цикл по правилам расчёта.
+                        for (Record rulecalcRec : eRulecalc.list()) {
+                            int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
+                            if (form == TypeForm.P00.id) { //не проверять форму 
+                                rulecalcPrise(winc, rulecalcRec, spc);
+                            }
+                        }
+                        spc.costpric2 = spc.costpric1 * spc.quant2; //себест. за ед. с отходом  
+                        Record artgrp1bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups1_id));
+                        Record artgrp2bRec = eGroups.find(spc.artiklRec.getInt(eArtikl.groups2_id));
+                        float m1 = artgrp1bRec.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
+                        float m2 = artgrp2bRec.getFloat(eGroups.val, 0);  //скидки группы мат.ценностей
+                        float m3 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
+                        spc.price = spc.costpric2 * m1 * m3;
+                        spc.price = spc.price + (spc.price / 100) * percentMarkup; //стоимость без скидки                         
+                        spc.cost2 = spc.price - (spc.price / 100) * m2; //стоимость со скидкой 
+                    }
                 }
             }
 
             //Расчёт веса элемента конструкции
             for (IElem5e elem5e : winc.listElem) {
-                elem5e.spcRec().weight = elem5e.spcRec().quant1 * elem5e.spcRec().artiklRec.getFloat(eArtikl.density);
+                if (filter(elem5e)) {
+                    elem5e.spcRec().weight = elem5e.spcRec().quant1 * elem5e.spcRec().artiklRec.getFloat(eArtikl.density);
 
-                for (Specific spec : elem5e.spcRec().spcList) {
-                    spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
+                    for (Specific spec : elem5e.spcRec().spcList) {
+                        spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -315,24 +321,28 @@ public class Tariffic extends Cal5e {
                             float quantity3 = 0;
                             if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                                 for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                                    if (elem5e.spcRec().artikl.equals(spcRec.artikl)) {
-                                        quantity3 = quantity3 + elem5e.spcRec().quant1;
-                                    }
-                                    for (Specific specifRec2 : elem5e.spcRec().spcList) {
-                                        if (specifRec2.artikl.equals(spcRec.artikl)) {
-                                            quantity3 = quantity3 + specifRec2.quant1;
+                                    if (filter(elem5e)) {
+                                        if (elem5e.spcRec().artikl.equals(spcRec.artikl)) {
+                                            quantity3 = quantity3 + elem5e.spcRec().quant1;
+                                        }
+                                        for (Specific specifRec2 : elem5e.spcRec().spcList) {
+                                            if (specifRec2.artikl.equals(spcRec.artikl)) {
+                                                quantity3 = quantity3 + specifRec2.quant1;
+                                            }
                                         }
                                     }
                                 }
                             } else { //по подтипу, типу
                                 for (IElem5e elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                                    Specific specifRec2 = elem5e.spcRec();
-                                    if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                        quantity3 = quantity3 + elem5e.spcRec().quant1;
-                                    }
-                                    for (Specific specifRec3 : specifRec2.spcList) {
-                                        if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                            quantity3 = quantity3 + specifRec3.quant1;
+                                    if (filter(elem5e)) {
+                                        Specific specifRec2 = elem5e.spcRec();
+                                        if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
+                                            quantity3 = quantity3 + elem5e.spcRec().quant1;
+                                        }
+                                        for (Specific specifRec3 : specifRec2.spcList) {
+                                            if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
+                                                quantity3 = quantity3 + specifRec3.quant1;
+                                            }
                                         }
                                     }
                                 }
@@ -403,5 +413,19 @@ public class Tariffic extends Cal5e {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.floatValue();
+    }
+
+    //Фильтр на фантомы, грязные фичи...
+    private static boolean filter(IElem5e elem5e) {
+        if (elem5e.artiklRec() == null) {
+            return false;
+        } else if (elem5e.artiklRec().getInt(eArtikl.id) == -3) {
+            return false;
+        } else if (elem5e.spcRec().artiklRec == null) {
+            return false;
+        } else if (elem5e.spcRec().artiklRec.getInt(eArtikl.id) == -3) {
+            return false;
+        }
+        return true;
     }
 }

@@ -1,26 +1,14 @@
 package builder;
 
-import builder.model.ElemGlass;
-import builder.model.AreaStvorka;
-import builder.model.AreaArch;
-import builder.model.AreaTriangl;
 import builder.model.ElemJoining;
-import builder.model.AreaSimple;
-import builder.model.AreaRectangl;
-import builder.model.AreaTrapeze;
-import builder.model.ElemCross;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eSyssize;
 import domain.eSyspar1;
-import domain.eSysprof;
-import enums.UseArtiklTo;
 import builder.making.Cal5e;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.sql.Connection;
 import java.util.Collections;
 import java.util.HashMap;
 import builder.making.Specific;
@@ -29,14 +17,11 @@ import builder.making.Joining;
 import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
-import builder.model.AreaDoor;
-import builder.model.ElemFrame;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import com.google.gson.JsonSyntaxException;
 import common.ArrayList2;
 import common.LinkedList2;
-import common.UCom;
 import common.eProp;
 import enums.Form;
 import enums.Type;
@@ -124,9 +109,10 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String script) {
         try {
-            //===  ДЛЯ ТЕСТИРОВАНИЯ  ==//
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
-            
+            //******************************************************************
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));  //для тестирования
+            //******************************************************************
+
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(script, GsonRoot.class);
 
@@ -222,6 +208,12 @@ public class Wincalc {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemGlass(owner, js)
                             : new builder.model.ElemGlass(owner, js);
+                    owner.childs().add(elem5e);
+
+                } else if (Type.MOSKITKA == js.type()) {
+                    IElem5e elem5e = (eProp.old.read().equals("0"))
+                            ? new builder.model.ElemMosquit(owner, js)
+                            : new builder.model.ElemMosquit(owner, js);
                     owner.childs().add(elem5e);
                 }
             }

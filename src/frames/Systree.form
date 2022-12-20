@@ -2585,28 +2585,28 @@
                                               <Component id="lab63" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lab28" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt54" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="btn16" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="lab28" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lab37" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt55" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="btn30" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="lab37" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lab43" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt56" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="btn31" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="lab43" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
