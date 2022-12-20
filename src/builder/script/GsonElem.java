@@ -21,7 +21,7 @@ public class GsonElem {
     protected float id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
     protected LinkedList<GsonElem> childs = null; //список детей
-    protected Layout layout = null; //сторона расположения эл. рамы
+    protected Layout layout = null; //направление расположения
     protected Type type = null; //тип элемента
     protected Form form = null; //форма контура (параметр в развитии)
     protected JsonObject param = new JsonObject(); //параметры элемента

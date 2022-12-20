@@ -30,7 +30,8 @@ public class PKjson {
     public final static String stvorkaTop = "stvorkaTop"; //Элемент    
     public final static String stvorkaLeft = "stvorkaLeft"; //Элемент 
     
-    public final static String rascladka = "rascladka";
+    public final static String rascladkaHor = "rascladkaHor";
+    public final static String rascladkaVert = "rascladkaVert";
     public final static String moskidka = "moskidka";
     
 //    public static String joinSide0 = "joinSide0"; //Соединение элемента левое
