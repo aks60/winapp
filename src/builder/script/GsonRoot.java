@@ -77,8 +77,8 @@ public class GsonRoot extends GsonElem {
         }
     }
 
-    public int nuni() {
-        return nuni;
+    public Integer nuni() {
+        return (nuni == null) ?-3 :nuni;
     }
 
     public Integer project() {
