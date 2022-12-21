@@ -2505,7 +2505,7 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="txt45" pref="191" max="32767" attributes="0"/>
+                                                              <Component id="txt45" max="32767" attributes="0"/>
                                                               <Component id="txt47" pref="0" max="32767" attributes="0"/>
                                                               <Component id="txt46" pref="0" max="32767" attributes="0"/>
                                                           </Group>
@@ -2526,23 +2526,21 @@
                                               <Group type="102" attributes="0">
                                                   <Component id="lab43" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txt56" pref="191" max="32767" attributes="0"/>
+                                                  <Component id="txt56" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btn31" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lab28" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txt54" pref="191" max="32767" attributes="0"/>
+                                                  <Component id="txt54" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btn16" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lab37" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txt55" pref="191" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btn30" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txt55" min="-2" pref="218" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -2552,19 +2550,19 @@
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txt45" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="btn15" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="lab26" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txt47" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="btn17" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="lab44" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt46" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2572,13 +2570,13 @@
                                               </Group>
                                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txt48" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="btn24" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="lab63" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt54" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2586,15 +2584,12 @@
                                               </Group>
                                               <Component id="lab28" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                  <Component id="txt55" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btn30" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="txt55" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lab37" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                   <Component id="txt56" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2602,7 +2597,7 @@
                                               </Group>
                                               <Component id="lab43" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -2970,26 +2965,6 @@
                                     </Property>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[180, 18]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="btn30">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="..."/>
-                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                        <EtchetBorder bevelType="0"/>
-                                      </Border>
-                                    </Property>
-                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[21, 20]"/>
-                                    </Property>
-                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[21, 20]"/>
-                                    </Property>
-                                    <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[21, 20]"/>
                                     </Property>
                                   </Properties>
                                 </Component>
