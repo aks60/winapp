@@ -9,12 +9,15 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSystree;
+import enums.Layout;
 import enums.PKjson;
 
 public class ElemMosquit extends ElemSimple {
     
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
+        this.layout = Layout.FULL;
+        
         initСonstructiv(gson.param());
     }
 

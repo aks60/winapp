@@ -1834,9 +1834,6 @@
                               <Dimension value="[21, 20]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn5artiklToGlass"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn29">
                           <Properties>
@@ -1857,9 +1854,6 @@
                               <Dimension value="[21, 20]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn29colorFromGlass"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lab67">
                           <Properties>
@@ -2998,9 +2992,6 @@
                                       <Dimension value="[21, 20]"/>
                                     </Property>
                                   </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn30loopToStvorka"/>
-                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txt56">
                                   <Properties>
@@ -3037,9 +3028,6 @@
                                       <Dimension value="[21, 20]"/>
                                     </Property>
                                   </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn31loopToStvorka"/>
-                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>

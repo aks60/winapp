@@ -17,7 +17,8 @@ import java.util.Map;
  */
 public class GsonElem {
 
-    protected static transient float genId = -1;  //идентификатор    
+    //TODO при test "one" genId переполняется?
+    protected static transient float genId = 0;  //идентификатор    
     protected float id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
     protected LinkedList<GsonElem> childs = null; //список детей
@@ -27,11 +28,19 @@ public class GsonElem {
     protected JsonObject param = new JsonObject(); //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
+    /**
+     *  Срабатывает при  десериализации и при new GsonRoot()
+     *  new GsonBuilder().create().fromJson(script, GsonRoot.class);
+     */
     public GsonElem() {
-       // ++genId; 
-       // System.out.println(genId);
+        ++genId;
     }
 
+    /**
+     * Все эти конструкторы запускаются при тестировании и создании моделей. см.
+     * builder.script.test.Bimax.java - при тестировании см.
+     * builder.script.GsonScript.java при создании моделей
+     */
     //Конструктор Elem
     public GsonElem(Type type) {
         this.id = ++genId;

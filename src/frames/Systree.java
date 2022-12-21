@@ -334,12 +334,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public void loadingWinTree(Wincalc winc) {
-        try {
-            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+        try {            
             DefMutableTreeNode root = UGui.loadWinTree(winc);
             winTree.setModel(new DefaultTreeModel(root));
 
             //Установим курсор выделения
+            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             if (selectNode != null) {
                 DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
                 float selectID = selectNode.com5t().id();
@@ -1819,11 +1819,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn5.setMinimumSize(new java.awt.Dimension(21, 20));
         btn5.setName("btnField17"); // NOI18N
         btn5.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5artiklToGlass(evt);
-            }
-        });
 
         btn29.setText("...");
         btn29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1831,11 +1826,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn29.setMinimumSize(new java.awt.Dimension(21, 20));
         btn29.setName("btnField17"); // NOI18N
         btn29.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn29colorFromGlass(evt);
-            }
-        });
 
         lab67.setFont(frames.UGui.getFont(0,0));
         lab67.setText("Кол. ячеек гор...");
@@ -2352,11 +2342,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn30.setMinimumSize(new java.awt.Dimension(21, 20));
         btn30.setName("btnField17"); // NOI18N
         btn30.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn30loopToStvorka(evt);
-            }
-        });
 
         txt56.setEditable(false);
         txt56.setFont(frames.UGui.getFont(0,0));
@@ -2369,11 +2354,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn31.setMinimumSize(new java.awt.Dimension(21, 20));
         btn31.setName("btnField17"); // NOI18N
         btn31.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn31loopToStvorka(evt);
-            }
-        });
 
         javax.swing.GroupLayout pan23Layout = new javax.swing.GroupLayout(pan23);
         pan23.setLayout(pan23Layout);
@@ -4065,14 +4045,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_btnMove
 
-    private void btn5artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5artiklToGlass
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn5artiklToGlass
-
-    private void btn29colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn29colorFromGlass
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn29colorFromGlass
-
     private void mosquitToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mosquitToStvorka
         try {
             IArea5e stvElem = (IArea5e) winNode.com5t();
@@ -4082,13 +4054,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                //IArea5e stvElem = (IArea5e) winc().listAll.find(selectID);
                 ICom5t mosqElem = stvElem.childs().find(enums.Type.MOSKITKA);
                 if (mosqElem == null) { //если нет москитки
                     mosqElem = new ElemMosquit(stvElem, new GsonElem(enums.Type.MOSKITKA));
                 }
                 mosqElem.gson().param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
-                stvElem.childs().add(mosqElem);
+                stvElem.gson().addElem(mosqElem.gson());
                 updateScript(selectID);
 
             }, qArtikl);
@@ -4097,14 +4068,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_mosquitToStvorka
-
-    private void btn30loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30loopToStvorka
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn30loopToStvorka
-
-    private void btn31loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn31loopToStvorka
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn31loopToStvorka
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

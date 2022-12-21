@@ -27,6 +27,12 @@ public class GsonRoot extends GsonElem {
     private Integer color2 = -3;  //внутренняя текстура
     private Integer color3 = -3;  //внешняя текстура    
 
+    /**
+     * Все эти конструкторы запускаются при тестировании и создании моделей.
+     * см. builder.script.test.Bimax.java - при тестировании
+     * см. builder.script.GsonScript.java при создании моделей
+     * При этом зап. констр. по умолч. GsonElem().
+     */
     public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, float width, float height, Integer color1, Integer color2, Integer color3) {
         init(version, prj, ord, nuni, name, layout, type, null, width, height, 0, color1, color2, color3, null);
     }
