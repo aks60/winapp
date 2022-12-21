@@ -152,13 +152,13 @@ public class Com5t implements ICom5t {
     //Ширина в gson
     @Override
     public float lengthX() {
-        return (this.id == 0) ? this.gson.width() : this.gson.length();
+        return (this == winc.rootArea) ? this.gson.width() : this.gson.length();
     }
 
     //Высота в gson
     @Override
     public float lengthY() {
-        return (this.id == 0) ? this.gson.height() : this.gson.length();
+        return (this == winc.rootArea) ? this.gson.height() : this.gson.length();
     }
 
     @Override

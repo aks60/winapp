@@ -640,6 +640,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt18, artiklRec.getStr(eArtikl.name));
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
                 setText(txt34, colorRec.getStr(eColor.name));
+                
+                //Москитка
+            } else if (winNode.com5t().type() == enums.Type.MOSKITKA) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card15");
+                Record artiklRec = winNode.com5t().artiklRec();
+                setText(txt54, artiklRec.getStr(eArtikl.code));
+                setText(txt55, artiklRec.getStr(eArtikl.name));
+                //Record colorRec = eColor.find(winNode.com5t().colorID1());
+                //setText(txt34, colorRec.getStr(eColor.name));
 
                 //Створка
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {
@@ -648,11 +657,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 IStvorka stv = (IStvorka) winNode.com5t();
                 IArea5e sta = (IArea5e) winNode.com5t();
                 int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
-/////////////////////////////////////
-                setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
-                float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();
-/////////////////////////////////////                
-                setText(txt26, UCom.format(h, 1));
+                IArea5e own = winNode.com5t().owner();
+                setText(txt24, own.width());
+                setText(txt26, own.height());
+                //setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
+                //float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();               
+                //setText(txt26, UCom.format(h, 1));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck()[0]);
                 setText(txt30, stv.typeOpen().name2);
@@ -676,8 +686,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt46, stv.lockRec().getStr(eArtikl.code) + " ÷ " + stv.lockRec().getStr(eArtikl.name));
                 setIcon(btn23, stv.paramCheck()[5]);
                 setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck()[6]);
-                //setText(txt54, stv.loopRec().getStr(eArtikl.code) + " ÷ " + stv.loopRec().getStr(eArtikl.name));
+                setIcon(btn24, stv.paramCheck()[6]);                
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
@@ -832,11 +841,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }
 
-    private void setText(JTextField comp, String txt) {
+    private void setText(JTextField comp, Object txt) {
         if (txt == null) {
             comp.setText("");
         }
-        comp.setText(txt);
+        comp.setText(txt.toString());
         comp.setCaretPosition(0);
     }
 
@@ -4077,9 +4086,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ICom5t mosqElem = stvElem.childs().find(enums.Type.MOSKITKA);
                 if (mosqElem == null) { //если нет москитки
                     mosqElem = new ElemMosquit(stvElem, new GsonElem(enums.Type.MOSKITKA));
-                    stvElem.childs().add(mosqElem);
                 }
                 mosqElem.gson().param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
+                stvElem.childs().add(mosqElem);
                 updateScript(selectID);
 
             }, qArtikl);

@@ -28,6 +28,8 @@ public class GsonElem {
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public GsonElem() {
+       // ++genId; 
+       // System.out.println(genId);
     }
 
     //Конструктор Elem
