@@ -183,7 +183,7 @@ public class UGui {
             if (com.type() != Type.STVORKA) {
                 if (com instanceof IElem5e) {
                     frm.add(new DefMutableTreeNode(com));
-                    if (com.type() != Type.GLASS && com.type() != Type.MOSKITKA) {
+                    if (com.type() != Type.GLASS) {
                         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                         }));
                     }
@@ -192,7 +192,7 @@ public class UGui {
                         if (com2.type() != Type.STVORKA) {
                             if (com2 instanceof IElem5e) {
                                 frm.add(new DefMutableTreeNode(com2));
-                                if (com2.type() != Type.GLASS && com2.type() != Type.MOSKITKA) {
+                                if (com2.type() != Type.GLASS) {
                                     ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }
@@ -201,7 +201,7 @@ public class UGui {
                                     if (com3.type() != Type.STVORKA) {
                                         if (com3 instanceof IElem5e) {
                                             frm.add(new DefMutableTreeNode(com3));
-                                            if (com3.type() != Type.GLASS && com3.type() != Type.MOSKITKA) {
+                                            if (com3.type() != Type.GLASS) {
                                                 ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                                 }));
                                             }
@@ -210,7 +210,7 @@ public class UGui {
                                                 if (com4.type() != Type.STVORKA) {
                                                     if (com4 instanceof IElem5e) {
                                                         frm.add(new DefMutableTreeNode(com4));
-                                                        if (com4.type() != Type.GLASS && com4.type() != Type.MOSKITKA) {
+                                                        if (com4.type() != Type.GLASS) {
                                                             ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                                             }));
                                                         }
@@ -255,7 +255,7 @@ public class UGui {
         for (ICom5t com2 : ((IArea5e) com).childs()) {
             if (com2 instanceof IElem5e) {
                 nodeStv.add(new DefMutableTreeNode(com2));
-                if (com2.type() != Type.GLASS && com2.type() != Type.MOSKITKA) {
+                if (com2.type() != Type.GLASS) {
                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                     }));
                 }
@@ -263,7 +263,7 @@ public class UGui {
                 for (ICom5t com3 : ((IArea5e) com2).childs()) {
                     if (com3 instanceof IElem5e) {
                         nodeStv.add(new DefMutableTreeNode(com3));
-                        if (com3.type() != Type.GLASS && com3.type() != Type.MOSKITKA) {
+                        if (com3.type() != Type.GLASS) {
                             ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                             }));
                         }
@@ -271,7 +271,7 @@ public class UGui {
                         for (ICom5t com4 : ((IArea5e) com3).childs()) {
                             if (com4 instanceof IElem5e) {
                                 nodeStv.add(new DefMutableTreeNode(com4));
-                                if (com4.type() != Type.GLASS && com4.type() != Type.MOSKITKA) {
+                                if (com4.type() != Type.GLASS) {
                                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }

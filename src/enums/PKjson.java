@@ -7,15 +7,17 @@ public class PKjson {
     public final static String sysprofID = "sysprofID"; //ID профиля
     public final static String sysfurnID = "sysfurnID"; //ID Фурнитуры
     public final static String artglasID = "artglasID"; //ID заполнения
-    public final static String elementID = "elementID"; //ID заполнения
+    public final static String elementID = "elementID"; //ID составов
 
     public final static String artiklHandl = "artiklHandl"; //Ручка на створке
     public final static String artiklLoop = "artiklLoop"; //Подвес на створке
     public final static String artiklLock = "artiklLock"; //Замок на створке
+    public final static String artiklMosq = "artiklMosq"; //Москитка
     
     public final static String colorHandl = "colorHandl"; //Цвет ручки створки 
     public final static String colorLoop = "colorLoop"; //Цвет подвеса
     public final static String colorLock = "colorLock"; //Цвет замка
+    public final static String colorMosq = "colorMosq"; //Цвет москитки
     public final static String colorGlass = "colorGlass"; //Цвет стекла
 
     public final static String colorID1 = "colorID1"; //Текстура

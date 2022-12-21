@@ -5,9 +5,6 @@ import builder.IArea5e;
 import builder.IElem5e;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eJoining;
-import domain.eJoinpar1;
-import domain.eJoinvar;
 import domain.eSyssize;
 import enums.Layout;
 import enums.LayoutJoin;
@@ -17,41 +14,36 @@ import java.awt.Color;
 import builder.Wincalc;
 import builder.making.Cal5e;
 import builder.making.Joining;
-import builder.making.Specific;
 import builder.script.GsonElem;
-import builder.script.GsonRoot;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import common.UCom;
 import common.eProp;
 import domain.eArtdet;
 import domain.eColor;
+import domain.eElement;
 import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
 import enums.Type;
 import enums.TypeOpen2;
-import frames.UJson;
 import frames.swing.DrawStroke;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class AreaStvorka extends AreaSimple implements IStvorka {
 
     private Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
+    private Record elementRec = eElement.up.newRecord(); //состав москидки
     private Record handleRec = eArtikl.virtualRec(); //ручка
     private Record loopRec = eArtikl.virtualRec(); //подвес(петли)
     private Record lockRec = eArtikl.virtualRec(); //замок
+    private Record mosqRec = eArtikl.virtualRec(); //москитка
 
     private int handleColor = -3; //цвет ручки
     private int loopColor = -3; //цвет подвеса
     private int lockColor = -3; //цвет замка
+    private int mosqColor = -3; //цвет москитки
 
     private float handleHeight = 0; //высота ручки
     private TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
-    private LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
+    private LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке      
     private boolean paramCheck[] = {true, true, true, true, true, true, true, true};
     private float offset[] = {0, 0, 0, 0};
 
@@ -206,7 +198,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }
+        }       
+        //Москитка, цвет
+        if (isJson(param, PKjson.artiklMosq)) {
+            mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
+            mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
+        }          
+        //Состав москитки
+        if (isJson(param, PKjson.elementID)) {
+            elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
+        }        
     }
 
     /**
@@ -415,6 +416,18 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         this.handleLayout = handleLayout;
     }
 
+    //Москитная сетка
+    @Override
+    public Record mosqRec() {
+        return mosqRec;
+    }
+
+    //Сосав москитки
+    @Override    
+    public Record elementRec() {
+        return elementRec;
+    }
+   
     @Override
     public boolean[] paramCheck() {
         return paramCheck;

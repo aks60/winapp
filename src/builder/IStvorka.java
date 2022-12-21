@@ -77,5 +77,10 @@ public interface IStvorka {
 
     //Направление открывания
     void typeOpen(TypeOpen1 typeOpen);
-    
+
+    //Москитная сетка
+    Record mosqRec();
+
+    //Сосав москитки 
+    Record elementRec();
 }

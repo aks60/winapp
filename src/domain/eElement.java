@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.up;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,9 +66,9 @@ public enum eElement implements Field {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", todef, "> 0");        
+        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", todef, "> 0");
     }
-    
+
     public static List<Record> find3(int artikl2_id, int series2_id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> (artikl2_id == rec.getInt(artikl_id)
@@ -75,7 +76,15 @@ public enum eElement implements Field {
         }
         return new Query(values()).select(up, "where (", artikl_id, "=", artikl2_id, "or", groups1_id, "=", series2_id, ") and", todef, "> 0");
     }
-    
+
+    public static Record find4(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", _id, "= id");
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+
     public String toString() {
         return meta.descr();
     }

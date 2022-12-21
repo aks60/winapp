@@ -82,6 +82,7 @@ import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
+import domain.eElement;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
@@ -641,13 +642,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
                 setText(txt34, colorRec.getStr(eColor.name));
                 
-                //Москитка
-            } else if (winNode.com5t().type() == enums.Type.MOSKITKA) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-                tabb2.setSelectedIndex(1);
-                Record artiklRec = winNode.com5t().artiklRec();
-                setText(txt54, artiklRec.getStr(eArtikl.code));
-                setText(txt55, artiklRec.getStr(eArtikl.name));
+//                //Москитка
+//            } else if (winNode.com5t().type() == enums.Type.MOSKITKA) {
+//                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
+//                tabb2.setSelectedIndex(1);
+//                Record artiklRec = winNode.com5t().artiklRec();
+//                setText(txt54, artiklRec.getStr(eArtikl.code));
+//                setText(txt55, artiklRec.getStr(eArtikl.name));
                 //Record colorRec = eColor.find(winNode.com5t().colorID1());
                 //setText(txt34, colorRec.getStr(eColor.name));
 
@@ -674,6 +675,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     setText(txt31, "");
                 }
                 setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
+                setText(txt54, stv.mosqRec().getStr(eArtikl.code));
+                setText(txt55, stv.mosqRec().getStr(eArtikl.name));                
+                setText(txt56, stv.elementRec().getStr(eElement.name));                
+                
                 setIcon(btn21, stv.paramCheck()[7]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck()[2]);
