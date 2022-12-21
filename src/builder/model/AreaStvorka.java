@@ -198,16 +198,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }       
+        }
         //Москитка, цвет
         if (isJson(param, PKjson.artiklMosq)) {
             mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
             mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
-        }          
-        //Состав москитки
-        if (isJson(param, PKjson.elementID)) {
-            elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
-        }        
+            //Состав москитки
+            if (isJson(param, PKjson.elementID)) {
+                elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
+            }
+        }
     }
 
     /**
@@ -301,7 +301,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             }
         }
     }
-   
+
     //Фурнитура
     @Override
     public Record sysfurnRec() {
@@ -316,7 +316,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Ручка
     @Override
-    public void handleRec(Record handleRec) {
+    public void handleRec(Record handleRec
+    ) {
         this.handleRec = handleRec;
     }
 
@@ -328,7 +329,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Подвес(петли)
     @Override
-    public void loopRec(Record loopRec) {
+    public void loopRec(Record loopRec
+    ) {
         this.loopRec = loopRec;
     }
 
@@ -340,7 +342,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Замок
     @Override
-    public void lockRec(Record lockRec) {
+    public void lockRec(Record lockRec
+    ) {
         this.lockRec = lockRec;
     }
 
@@ -352,7 +355,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет ручки
     @Override
-    public void handleColor(int handleColor) {
+    public void handleColor(int handleColor
+    ) {
         this.handleColor = handleColor;
     }
 
@@ -364,7 +368,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет подвеса
     @Override
-    public void loopColor(int loopColor) {
+    public void loopColor(int loopColor
+    ) {
         this.loopColor = loopColor;
     }
 
@@ -376,7 +381,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет замка
     @Override
-    public void lockColor(int lockColor) {
+    public void lockColor(int lockColor
+    ) {
         this.lockColor = lockColor;
     }
 
@@ -388,7 +394,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Высота ручки
     @Override
-    public void handleHeight(float handleHeight) {
+    public void handleHeight(float handleHeight
+    ) {
         this.handleHeight = handleHeight;
     }
 
@@ -400,7 +407,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Направление открывания
     @Override
-    public void typeOpen(TypeOpen1 typeOpen) {
+    public void typeOpen(TypeOpen1 typeOpen
+    ) {
         this.typeOpen = typeOpen;
     }
 
@@ -412,7 +420,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Положение ручки на створке
     @Override
-    public void handleLayout(LayoutHandle handleLayout) {
+    public void handleLayout(LayoutHandle handleLayout
+    ) {
         this.handleLayout = handleLayout;
     }
 
@@ -423,23 +432,24 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     }
 
     //Сосав москитки
-    @Override    
+    @Override
     public Record elementRec() {
         return elementRec;
     }
-   
+
     @Override
     public boolean[] paramCheck() {
         return paramCheck;
     }
 
     @Override
-    public void paramCheck(boolean[] paramCheck) {
+    public void paramCheck(boolean[] paramCheck
+    ) {
         this.paramCheck = paramCheck;
     }
 
     @Override
     public float[] offset() {
         return offset;
-    }    
+    }
 }
