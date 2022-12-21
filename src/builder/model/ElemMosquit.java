@@ -12,7 +12,7 @@ import domain.eSystree;
 import enums.PKjson;
 
 public class ElemMosquit extends ElemSimple {
-
+    
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         initСonstructiv(gson.param());

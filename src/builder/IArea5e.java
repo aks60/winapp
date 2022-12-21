@@ -1,12 +1,11 @@
 package builder;
 
 import builder.making.Specific;
-import builder.model.ElemGlass;
 import com.google.gson.JsonObject;
+import common.LinkedList2;
 import enums.Layout;
 import enums.Type;
 import java.util.EnumMap;
-import java.util.LinkedList;
 
 public interface IArea5e extends ICom5t {
 
@@ -31,7 +30,7 @@ public interface IArea5e extends ICom5t {
 
     EnumMap<Layout, IElem5e> frames();
             
-    LinkedList<ICom5t> childs();
+    LinkedList2<ICom5t> childs();
 
     void resizeX(float v);
 

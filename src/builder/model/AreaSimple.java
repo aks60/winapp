@@ -20,6 +20,7 @@ import builder.Wincalc;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
+import common.LinkedList2;
 import common.UCom;
 import common.eProp;
 import enums.Form;
@@ -30,7 +31,7 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     protected Form form = null; //форма контура (параметр в развитии)
     protected EnumMap<Layout, IElem5e> frames = new EnumMap<>(Layout.class); //список рам в окне     
-    protected LinkedList<ICom5t> childs = new LinkedList(); //дети
+    protected LinkedList2<ICom5t> childs = new LinkedList2(); //дети
 
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);
@@ -160,7 +161,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     @Override
-    public LinkedList<ICom5t> childs() {
+    public LinkedList2<ICom5t> childs() {
         return childs;
     }
 

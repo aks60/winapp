@@ -64,7 +64,7 @@ public class Wincalc {
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
-    public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов
+    public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public ArrayList2<Specific> kitsSpec = new ArrayList2(); //не использую

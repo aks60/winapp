@@ -1,7 +1,7 @@
 package frames;
 
 import builder.IArea5e;
-import com.google.gson.Gson;
+import builder.ICom5t;
 import common.eProp;
 import dataset.Conn;
 import dataset.Field;
@@ -77,6 +77,7 @@ import builder.making.UColor;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.making.Cal5e;
+import builder.model.ElemMosquit;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
@@ -84,7 +85,6 @@ import common.listener.ListenerReload;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -92,7 +92,7 @@ import report.ExecuteCmd;
 import report.HtmlOfTable;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
-   
+
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
@@ -677,6 +677,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setIcon(btn23, stv.paramCheck()[5]);
                 setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck()[6]);
+                //setText(txt54, stv.loopRec().getStr(eArtikl.code) + " ÷ " + stv.loopRec().getStr(eArtikl.name));
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
@@ -2327,7 +2328,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn16.setPreferredSize(new java.awt.Dimension(21, 20));
         btn16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn16loopToStvorka(evt);
+                mosquitToStvorka(evt);
             }
         });
 
@@ -4063,9 +4064,30 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn29colorFromGlass
 
-    private void btn16loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn16loopToStvorka
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn16loopToStvorka
+    private void mosquitToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mosquitToStvorka
+        try {
+            IArea5e stvElem = (IArea5e) winNode.com5t();
+            float selectID = winNode.com5t().id();            
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
+                    "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
+
+            new DicArtikl(this, (artiklRec) -> {
+
+                //IArea5e stvElem = (IArea5e) winc().listAll.find(selectID);
+                ICom5t mosqElem = stvElem.childs().find(enums.Type.MOSKITKA);
+                if (mosqElem == null) { //если нет москитки
+                    mosqElem = new ElemMosquit(stvElem, new GsonElem(enums.Type.MOSKITKA));
+                    stvElem.childs().add(mosqElem);
+                }
+                mosqElem.gson().param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
+                updateScript(selectID);
+
+            }, qArtikl);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_mosquitToStvorka
 
     private void btn30loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30loopToStvorka
         // TODO add your handling code here:

@@ -685,10 +685,10 @@ public class Profstroy {
             int index = 0;
             for (int prj : prjList) {
                 
-                //Загрузка моделей. 
-                //При этом prj, ord в скрипте json отсутствуют. см. GsonScript.script(prj)
+                //Загрузка моделей, таблица SYSMODEL.                 
                 String script = GsonScript.modelJson(prj);
                 if (script != null) {
+                    //При этом nuni, prj, ord в скрипте json отсутствуют.
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
                     String name = "<html> Kod:" + prj + " " + gson.name();                   
                     println(Color.BLACK, name); //в отчёт                   
@@ -702,7 +702,7 @@ public class Profstroy {
                     q.insert(record);
                 }
 
-                //Загрузка тестовых конструкций систем
+                //Загрузка тестовых конструкций в систему, таблица SYSPROD.
                 String script2 = GsonScript.testJson(prj);
                 if (script2 != null) { 
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
