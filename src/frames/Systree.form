@@ -1955,7 +1955,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+                        <Container class="javax.swing.JTabbedPane" name="tabb2">
                           <Properties>
                             <Property name="tabPlacement" type="int" value="3"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">

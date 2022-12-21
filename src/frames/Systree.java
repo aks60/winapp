@@ -643,7 +643,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 
                 //Москитка
             } else if (winNode.com5t().type() == enums.Type.MOSKITKA) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card15");
+                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
+                tabb2.setSelectedIndex(1);
                 Record artiklRec = winNode.com5t().artiklRec();
                 setText(txt54, artiklRec.getStr(eArtikl.code));
                 setText(txt55, artiklRec.getStr(eArtikl.name));
@@ -660,9 +661,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 IArea5e own = winNode.com5t().owner();
                 setText(txt24, own.width());
                 setText(txt26, own.height());
-                //setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
-                //float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();               
-                //setText(txt26, UCom.format(h, 1));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck()[0]);
                 setText(txt30, stv.typeOpen().name2);
@@ -941,7 +939,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt52 = new javax.swing.JTextField();
         txt53 = new javax.swing.JTextField();
         pan16 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabb2 = new javax.swing.JTabbedPane();
         pan20 = new javax.swing.JPanel();
         lab46 = new javax.swing.JLabel();
         lab45 = new javax.swing.JLabel();
@@ -1956,8 +1954,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         pan16.setPreferredSize(new java.awt.Dimension(3100, 200));
         pan16.setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-        jTabbedPane1.setFont(frames.UGui.getFont(-1,0));
+        tabb2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        tabb2.setFont(frames.UGui.getFont(-1,0));
 
         pan20.setPreferredSize(new java.awt.Dimension(308, 98));
 
@@ -2195,7 +2193,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addContainerGap(51, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Основн...", pan20);
+        tabb2.addTab("Основн...", pan20);
 
         txt47.setEditable(false);
         txt47.setFont(frames.UGui.getFont(0,0));
@@ -2449,9 +2447,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Дополн...", pan23);
+        tabb2.addTab("Дополн...", pan23);
 
-        pan16.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        pan16.add(tabb2, java.awt.BorderLayout.CENTER);
 
         pan7.add(pan16, "card16");
 
@@ -4114,7 +4112,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -4207,6 +4204,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab7;
     private javax.swing.JTabbedPane tabb1;
+    private javax.swing.JTabbedPane tabb2;
     private javax.swing.JPanel tool;
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt10;

@@ -160,6 +160,7 @@ public class UGui {
     }
 
     public static DefMutableTreeNode loadWinTree(Wincalc winc) {
+        
         DefMutableTreeNode root = new DefMutableTreeNode(winc.rootArea);
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
@@ -205,19 +206,19 @@ public class UGui {
                                                 }));
                                             }
                                         } else {
-//                                            for (ICom5t com4 : ((IArea5e) com3).childs()) {
-//                                                if (com4.type() != Type.STVORKA) {
-//                                                    if (com4 instanceof IElem5e) {
-//                                                        frm.add(new DefMutableTreeNode(com4));
-//                                                        if (com4.type() != Type.GLASS && com4.type() != Type.MOSKITKA) {
-//                                                            ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-//                                                            }));
-//                                                        }
-//                                                    }
-//                                                } else {
-//                                                    loadWinTree(winc, root, com4);
-//                                                }
-//                                            }
+                                            for (ICom5t com4 : ((IArea5e) com3).childs()) {
+                                                if (com4.type() != Type.STVORKA) {
+                                                    if (com4 instanceof IElem5e) {
+                                                        frm.add(new DefMutableTreeNode(com4));
+                                                        if (com4.type() != Type.GLASS && com4.type() != Type.MOSKITKA) {
+                                                            ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                                                            }));
+                                                        }
+                                                    }
+                                                } else {
+                                                    loadWinTree(winc, root, com4);
+                                                }
+                                            }
                                         }
                                     } else {
                                         loadWinTree(winc, root, com3);
@@ -254,7 +255,7 @@ public class UGui {
         for (ICom5t com2 : ((IArea5e) com).childs()) {
             if (com2 instanceof IElem5e) {
                 nodeStv.add(new DefMutableTreeNode(com2));
-                if (com2.type() != Type.GLASS) {
+                if (com2.type() != Type.GLASS && com2.type() != Type.MOSKITKA) {
                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                     }));
                 }
@@ -262,7 +263,7 @@ public class UGui {
                 for (ICom5t com3 : ((IArea5e) com2).childs()) {
                     if (com3 instanceof IElem5e) {
                         nodeStv.add(new DefMutableTreeNode(com3));
-                        if (com3.type() != Type.GLASS) {
+                        if (com3.type() != Type.GLASS && com3.type() != Type.MOSKITKA) {
                             ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                             }));
                         }
@@ -270,7 +271,7 @@ public class UGui {
                         for (ICom5t com4 : ((IArea5e) com3).childs()) {
                             if (com4 instanceof IElem5e) {
                                 nodeStv.add(new DefMutableTreeNode(com4));
-                                if (com4.type() != Type.GLASS) {
+                                if (com4.type() != Type.GLASS && com4.type() != Type.MOSKITKA) {
                                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }
