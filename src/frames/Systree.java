@@ -119,7 +119,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scene = new Scene(canvas, spinner, this);
         initElements();
         loadingData();
-        loadingSysTree();
+        loadingTree1();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -133,7 +133,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         this.writeNuni = false;
         initElements();
         loadingData();
-        loadingSysTree();
+        loadingTree1();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -158,9 +158,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
-    }
-
-    public void loadingSysTree() {
+        
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
@@ -181,7 +179,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
         ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         sysTree.setModel(new DefaultTreeModel(rootTree));
-        scr1.setViewportView(sysTree);
+        scr1.setViewportView(sysTree);        
     }
 
     public final void loadingModel() {
@@ -333,7 +331,31 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }
 
-    public void loadingWinTree(Wincalc winc) {
+    public void loadingTree1() {
+        Record recordRoot = eSystree.up.newRecord(Query.SEL);
+        recordRoot.set(eSystree.id, -1);
+        recordRoot.set(eSystree.parent_id, -1);
+        recordRoot.set(eSystree.name, "Дерево системы профилей");
+        DefMutableTreeNode rootTree = new DefMutableTreeNode(recordRoot);
+        ArrayList<DefMutableTreeNode> treeList = new ArrayList();
+
+        for (Record record : qSystree) {
+            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
+                DefMutableTreeNode node2 = new DefMutableTreeNode(record);
+                treeList.add(node2);
+                rootTree.add(node2);
+            }
+        }
+        ArrayList<DefMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
+        sysTree.setModel(new DefaultTreeModel(rootTree));
+        scr1.setViewportView(sysTree);
+    }
+    
+    public void loadingTree2(Wincalc winc) {
         try {
             DefMutableTreeNode root = UGui.loadWinTree(winc);
             winTree.setModel(new DefaultTreeModel(root));
@@ -520,13 +542,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 qSysprod.execsql();
                 winc().build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
-                selectionWinTree();
+                selectionTree2();
                 UGui.setSelectedIndex(tab7, index2);
             }
         };
     }
 
-    public void selectionSysTree() {
+    public void selectionTree1() {
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
         List.of(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
@@ -576,7 +598,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }
 
-    public void selectionWinTree() {
+    public void selectionTree2() {
         Object selNode = winTree.getLastSelectedPathComponent();
         if (selNode instanceof DefMutableTreeNode) {
             winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
@@ -625,16 +647,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
                 setText(txt34, colorRec.getStr(eColor.name));
 
-//                //Москитка
-//            } else if (winNode.com5t().type() == enums.Type.MOSKITKA) {
-//                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-//                tabb2.setSelectedIndex(1);
-//                Record artiklRec = winNode.com5t().artiklRec();
-//                setText(txt54, artiklRec.getStr(eArtikl.code));
-//                setText(txt55, artiklRec.getStr(eArtikl.name));
-                //Record colorRec = eColor.find(winNode.com5t().colorID1());
-                //setText(txt34, colorRec.getStr(eColor.name));
-                //Створка
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {
                 new Furniture(winc(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
@@ -729,7 +741,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 canvas.draw();
                 scene.draw();
 
-                loadingWinTree(win);
+                loadingTree2(win);
 
                 winTree.setSelectionInterval(0, 0);
             }
@@ -782,7 +794,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             float id = (selectNode != null) ? selectNode.com5t().id() : -1;
 
             //Перегрузим winTree
-            loadingWinTree(iwin2);
+            loadingTree2(iwin2);
 
             //Перерисуем конструкцию
             scene.init(iwin2);
@@ -790,7 +802,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             scene.draw();
 
             //Обновим поля форм
-            selectionWinTree();
+            selectionTree2();
 
             //Установим курсор
             UGui.selectionPath(id, winTree);
@@ -828,7 +840,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 scene.lineHoriz.forEach(e -> e.init());
                 scene.lineVert.forEach(e -> e.init());
                 scene.draw();
-                selectionWinTree();
+                selectionTree2();
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.reload() " + e);
@@ -3468,7 +3480,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         loadingData();
-        selectionSysTree();
+        selectionTree1();
 
         UGui.selectionPath(id, winTree); //установим курсор выделения 
     }//GEN-LAST:event_btnRefresh
@@ -4345,8 +4357,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionSysTree());
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
+        sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree1());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());
         tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
