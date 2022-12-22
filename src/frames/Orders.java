@@ -645,24 +645,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void loadingWinTree(Wincalc winc) {
         try {
-            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             DefMutableTreeNode root = UGui.loadWinTree(winc);
             winTree.setModel(new DefaultTreeModel(root));
-
-            //Установим курсор выделения
-            if (selectNode != null) {
-                DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-                float selectID = selectNode.com5t().id();
-                do {
-                    if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
-                        TreePath path = new TreePath(curNode.getPath());
-                        winTree.setSelectionPath(path);
-                        winTree.scrollPathToVisible(path);
-                        return;
-                    }
-                    curNode = curNode.getNextNode();
-                } while (curNode != null);
-            }
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWinTree() " + e);
@@ -673,8 +657,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             //Сохраним скрипт в базе
             String script = winc().rootGson.toJson();
-            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
-            prjprodRec.set(ePrjprod.script, script);
+            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab5));
+            prjprodRec.set(eSysprod.script, script);
             qPrjprod.update(prjprodRec);
 
             //Экземпляр нового скрипта
@@ -682,11 +666,15 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            prjprodRec.set(ePrjprod.values().length, iwin2);
+            prjprodRec.set(eSysprod.values().length, iwin2);
 
+            //Запомним курсор
+            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+            float id = (selectNode != null) ? selectNode.com5t().id() : -1;
+            
             //Перегрузим winTree
             loadingWinTree(iwin2);
-
+            
             //Перерисуем конструкцию
             scene.init(iwin2);
             canvas.draw();
@@ -694,6 +682,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             //Обновим поля форм
             selectionWinTree();
+            
+            //Установим курсор
+            UGui.selectionPath(id, winTree);
 
         } catch (Exception e) {
             System.err.println("frames.Systree.updateScript()");;
@@ -2783,14 +2774,19 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+        float id = (selectNode != null) ? selectNode.com5t().id() : -1;
+
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         int index1 = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
         loadingData();
+
         UGui.setSelectedIndex(tab1, index1);
         UGui.setSelectedIndex(tab2, index2);
+        UGui.selectionPath(id, winTree);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -2971,7 +2967,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 winc().rootGson.color3(colorRec.getInt(eColor.id));
                             }
                             updateScript(selectID);
-                            btnRefresh(null);
                         }
                     }
                 };
@@ -3195,7 +3190,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, colorSet, true);
 
@@ -3220,7 +3214,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(stvorkaID);
-                btnRefresh(null);
 
             }, qResult);
 
@@ -3411,7 +3404,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, qResult);
 
@@ -3434,7 +3426,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, colorSet, true);
 
@@ -3459,7 +3450,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, qResult);
 
@@ -3482,7 +3472,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, colorSet, true);
 
@@ -3532,7 +3521,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
                 }
                 updateScript(selectID);
-                btnRefresh(null);
 
             }, colorSet, false);
 

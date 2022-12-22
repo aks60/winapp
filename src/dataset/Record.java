@@ -28,12 +28,6 @@ public class Record<E> extends ArrayList<E> {
         super(c);
     }
 
-//    public Record(E... arr) {
-//        super();
-//        for (E val : arr) {
-//            this.add(val);
-//        }
-//    }
     //ИЗМЕНЕНИЯ СТАТУСА ЗАПИСИ
     public E set(int index, E element) {
         if (index != 0 && Query.SEL.equals(get(0))) {
@@ -139,6 +133,13 @@ public class Record<E> extends ArrayList<E> {
 
     public Date getDate(Field field) {
         return (super.get(field.ordinal()) == null) ? null : (Date) super.get(field.ordinal());
+    }
+
+    public boolean isVirtual() {
+        if (this.get(1) == null || this.getInt(1) == -1) {
+            return true;
+        }
+        return false;
     }
 
     public boolean equals(Object obj) {
