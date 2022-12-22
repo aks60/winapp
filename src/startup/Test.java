@@ -12,12 +12,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
 import javax.script.Bindings;
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -70,12 +70,11 @@ public class Test {
         eProp.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
             //json();
-            //parse();
             //uid();
             //script();
 
@@ -178,10 +177,6 @@ public class Test {
         }
     }
 
-    private static void parse() {
-
-    }
-
     private static void json() {
         Gson gson = new Gson();
         JsonParser parse = new JsonParser();
@@ -246,10 +241,11 @@ public class Test {
 
     //https://spec-zone.ru/RU/Java/Docs/7/technotes/guides/scripting/programmer_guide/index.html#top
     private static void script() throws Exception {
-        ScriptEngineManager factory = new ScriptEngineManager();
-        ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");
-        Bindings scope = engine.createBindings();
-//        
+        
+//        ScriptEngineManager factory = new ScriptEngineManager();
+//        ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");
+//        Bindings scope = engine.createBindings();
+
 //        File f = new File("test.js");
 //        engine.put("file", f);
 //        engine.eval("print(file.getAbsolutePath())");
@@ -262,21 +258,23 @@ public class Test {
 //        engine.put("B", B);
 //        engine.put("L", L);
 //        engine.put("H", H);
+//        engine.eval("var obj = new Object(); obj.length = L; obj.height = H;");
+//        engine.eval("print(obj.length + obj.height);");
 //        engine.eval("print(Math.ceil(L + 33.3));");
-//
+
         //Вызов Функций Сценария и Методов
 //        String script = "function hello(name) { print('Hello, ' + name); }";
 //        engine.eval(script);
 //        Invocable inv = (Invocable) engine;
 //        inv.invokeFunction("hello", "Аксёнов!!" );
-//
+
         //Основанным на объектах сценария
 //        String script = "var obj = new Object(); obj.hello = function(name) { print('Hello, ' + name); }";
 //        engine.eval(script);
 //        Invocable inv = (Invocable) engine;
 //        Object obj = engine.get("obj");
 //        inv.invokeMethod(obj, "hello", "Аксёнов!!" );
-//
+
         //Реализация Интерфейсов Java Сценариями
 //        String script = "function run() { print('run called Аксёнов'); }";
 //        engine.eval(script);
@@ -293,6 +291,7 @@ public class Test {
 //        Runnable r = inv.getInterface(obj, Runnable.class);
 //        Thread th = new Thread(r);
 //        th.start(); 
+//        
 //        float Q = 3;
 //        float L = 1200;
 //        float H = 56;
@@ -300,7 +299,7 @@ public class Test {
 //        engine.put("L", L);
 //        engine.put("H", H);
 //    
-//        String script ="Math.ceil((Q * 2 * L) + 3.3)";
+//        script ="Math.ceil((Q * 2 * L) + 3.3)";
 //        Object result = engine.eval(script);
 //        System.out.println(result);
     }
@@ -319,143 +318,3 @@ public class Test {
         System.out.println("3-е случайное число: " + random_number3);
     }
 }
-/*
-{
-  "version": "1.0",
-  "name": "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-  "prj": 604008,
-  "ord": 1,
-  "nuni": 8,
-  "width2": 1300.0,
-  "height1": 1500.0,
-  "height2": 1200.0002,
-  "color1": 1009,
-  "color2": 10009,
-  "color3": 1009,
-  "id": 0.0,
-  "childs": [
-    {
-      "id": 1.0,
-      "childs": [],
-      "layout": "LEFT",
-      "type": "FRAME_SIDE",
-      "param": {}
-    },
-    {
-      "id": 2.0,
-      "childs": [],
-      "layout": "RIGHT",
-      "type": "FRAME_SIDE",
-      "param": {}
-    },
-    {
-      "id": 3.0,
-      "childs": [],
-      "layout": "TOP",
-      "type": "FRAME_SIDE",
-      "param": {}
-    },
-    {
-      "id": 4.0,
-      "childs": [],
-      "layout": "BOTT",
-      "type": "FRAME_SIDE",
-      "param": {}
-    },
-    {
-      "id": 5.0,
-      "childs": [
-        {
-          "id": 6.0,
-          "childs": [],
-          "type": "GLASS",
-          "param": {}
-        }
-      ],
-      "layout": "HORIZ",
-      "type": "AREA",
-      "form": "TOP",
-      "param": {},
-      "length": 300.00006
-    },
-    {
-      "id": 7.0,
-      "childs": [],
-      "type": "IMPOST",
-      "param": {}
-    },
-    {
-      "id": 8.0,
-      "childs": [
-        {
-          "id": 9.0,
-          "childs": [
-            {
-              "id": 10.0,
-              "childs": [
-                {
-                  "id": 11.0,
-                  "childs": [],
-                  "type": "GLASS",
-                  "param": {}
-                }
-              ],
-              "layout": "VERT",
-              "type": "STVORKA",
-              "param": {
-                "typeOpen": 3,
-                "sysfurnID": -1
-              },
-              "length": 650.0
-            }
-          ],
-          "layout": "VERT",
-          "type": "AREA",
-          "param": {},
-          "length": 650.0
-        },
-        {
-          "id": 12.0,
-          "childs": [],
-          "type": "IMPOST",
-          "param": {}
-        },
-        {
-          "id": 13.0,
-          "childs": [
-            {
-              "id": 14.0,
-              "childs": [
-                {
-                  "id": 15.0,
-                  "childs": [],
-                  "type": "GLASS",
-                  "param": {}
-                }
-              ],
-              "layout": "VERT",
-              "type": "STVORKA",
-              "param": {
-                "typeOpen": 3,
-                "sysfurnID": -1
-              },
-              "length": 650.0
-            }
-          ],
-          "layout": "VERT",
-          "type": "AREA",
-          "param": {},
-          "length": 650.0
-        }
-      ],
-      "layout": "HORIZ",
-      "type": "AREA",
-      "param": {},
-      "length": 1200.0002
-    }
-  ],
-  "layout": "VERT",
-  "type": "ARCH",
-  "param": {}
-}
- */
