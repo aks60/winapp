@@ -126,7 +126,7 @@ public enum eArtikl implements Field {
 
     public static Record find2(String _code) {
         if (_code.equals("0x0x0x0")) {
-            return virtualRec2();
+            return virtualRec();
         }
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(up.newRecord());
@@ -145,22 +145,13 @@ public enum eArtikl implements Field {
     public static Record virtualRec() {
         Record record = up.newRecord();
         record.setNo(id, -3);
-        record.setNo(code, "Авторасчёт");
-        record.setNo(name, "Авторасчёт");
+        record.setNo(code, "");
+        record.setNo(name, "");
+        //для построения типовых конструкций
         record.setNo(height, 80);
         record.setNo(size_centr, 40);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
-        record.setNo(syssize_id, -3);
-        return record;
-    }
-
-    //[SEL, 2633, 4x10x4x10x4, 5, 2, 8, null, 32 Стеклопакет двухкамерный, null, null, 0.0, 1СП-1,5 все, 0.0, 10.0, 0.0, 2, 2250.0, 1605.0, 32.0, 30.0, 10.0, 0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 2, 0, 0, null, 3, null]
-    public static Record virtualRec2() {
-        Record record = up.newRecord();
-        record.setNo(id, -3);
-        record.setNo(code, "Авторасчёт");
-        record.setNo(name, "Стеклопакет");
         record.setNo(syssize_id, -3);
         return record;
     }
