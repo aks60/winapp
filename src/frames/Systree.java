@@ -656,7 +656,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     txt31.setEditable(false);
                     setText(txt31, "");
                 }
-                setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
+                setText(txt21, stv.handleRec().getStr(eArtikl.code));
+                setText(txt59, stv.handleRec().getStr(eArtikl.name));
                 setText(txt54, stv.mosqRec().getStr(eArtikl.code));
                 setText(txt55, stv.mosqRec().getStr(eArtikl.name));
                 setText(txt56, stv.elementRec().getStr(eElement.name));
@@ -664,11 +665,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setIcon(btn21, stv.paramCheck()[7]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck()[2]);
-                setText(txt45, stv.loopRec().getStr(eArtikl.code) + " ÷ " + stv.loopRec().getStr(eArtikl.name));
+                setText(txt45, stv.loopRec().getStr(eArtikl.code));
+                setText(txt57, stv.loopRec().getStr(eArtikl.name));
                 setIcon(btn15, stv.paramCheck()[3]);
                 setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
                 setIcon(btn17, stv.paramCheck()[4]);
-                setText(txt46, stv.lockRec().getStr(eArtikl.code) + " ÷ " + stv.lockRec().getStr(eArtikl.name));
+                setText(txt46, stv.lockRec().getStr(eArtikl.code));
+                setText(txt58, stv.lockRec().getStr(eArtikl.name));
                 setIcon(btn23, stv.paramCheck()[5]);
                 setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck()[6]);
