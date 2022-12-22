@@ -346,21 +346,21 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             DefMutableTreeNode root = UGui.loadWinTree(winc);
             winTree.setModel(new DefaultTreeModel(root));
 
-//            //Установим курсор выделения
-//            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-//            if (selectNode != null) {
-//                DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-//                float selectID = selectNode.com5t().id();
-//                do {
-//                    if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
-//                        TreePath path = new TreePath(curNode.getPath());
-//                        winTree.setSelectionPath(path);
-//                        winTree.scrollPathToVisible(path);
-//                        return;
-//                    }
-//                    curNode = curNode.getNextNode();
-//                } while (curNode != null);
-//            }
+            //Установим курсор выделения
+            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+            if (selectNode != null) {
+                DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+                float selectID = selectNode.com5t().id();
+                do {
+                    if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
+                        TreePath path = new TreePath(curNode.getPath());
+                        winTree.setSelectionPath(path);
+                        winTree.scrollPathToVisible(path);
+                        return;
+                    }
+                    curNode = curNode.getNextNode();
+                } while (curNode != null);
+            }
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWinTree() " + e);
         }
@@ -3425,12 +3425,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         //treePaths2 = winTree.getSelectionPaths();
         //treeNode2 = winNode.getPath();
         
-        DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-        DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-        float selectID = selectNode.com5t().id();
+//        DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+//        DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+//        float selectID = selectNode.com5t().id();
 
         loadingData();
         selectionSysTree();
+        
         //winTree.setSelectionRows(row2);
         //winTree.setSelectionPath(treePath2);
         //winTree.setSelectionPaths(treePaths2);
@@ -3442,15 +3443,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         //if (selectNode != null) {
         //DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
         //float selectID = selectNode.com5t().id();
-        do {
-            if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
-                TreePath path = new TreePath(curNode.getPath());
-                winTree.setSelectionPath(path);
-                winTree.scrollPathToVisible(path);
-                return;
-            }
-            curNode = curNode.getNextNode();
-        } while (curNode != null);
+//        do {
+//            if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
+//                TreePath path = new TreePath(curNode.getPath());
+//                winTree.setSelectionPath(path);
+//                winTree.scrollPathToVisible(path);
+//                return;
+//            }
+//            curNode = curNode.getNextNode();
+//        } while (curNode != null);
         //}        
     }//GEN-LAST:event_btnRefresh
 
