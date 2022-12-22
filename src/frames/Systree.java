@@ -919,7 +919,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt34 = new javax.swing.JTextField();
         btn25 = new javax.swing.JButton();
         lab62 = new javax.swing.JLabel();
-        lab66 = new javax.swing.JLabel();
         lab64 = new javax.swing.JLabel();
         lab65 = new javax.swing.JLabel();
         txt49 = new javax.swing.JTextField();
@@ -1779,13 +1778,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         lab62.setFont(frames.UGui.getFont(0,0));
-        lab62.setText("Артикул");
+        lab62.setText("Раскладка");
         lab62.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab62.setPreferredSize(new java.awt.Dimension(80, 18));
-
-        lab66.setFont(frames.UGui.getFont(0,1));
-        lab66.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lab66.setText("  Раскладка");
 
         lab64.setFont(frames.UGui.getFont(0,0));
         lab64.setText("Название");
@@ -1826,18 +1821,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn29.setPreferredSize(new java.awt.Dimension(21, 20));
 
         lab67.setFont(frames.UGui.getFont(0,0));
-        lab67.setText("Кол. ячеек гор...");
+        lab67.setText("Кол. ячеек горизонтальных");
         lab67.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab67.setMaximumSize(new java.awt.Dimension(284, 18));
         lab67.setMinimumSize(new java.awt.Dimension(64, 18));
-        lab67.setPreferredSize(new java.awt.Dimension(100, 18));
+        lab67.setPreferredSize(new java.awt.Dimension(120, 18));
 
         lab68.setFont(frames.UGui.getFont(0,0));
-        lab68.setText("Кол. ячеек верт...");
+        lab68.setText("Кол. ячеек вертикальных");
         lab68.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab68.setMaximumSize(new java.awt.Dimension(274, 18));
         lab68.setMinimumSize(new java.awt.Dimension(64, 18));
-        lab68.setPreferredSize(new java.awt.Dimension(100, 18));
+        lab68.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt52.setFont(frames.UGui.getFont(0,0));
         txt52.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1854,7 +1849,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             .addGroup(pan15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lab66, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1889,7 +1883,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                                 .addComponent(lab68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 108, Short.MAX_VALUE))
+                                .addGap(0, 90, Short.MAX_VALUE))
                             .addGroup(pan15Layout.createSequentialGroup()
                                 .addComponent(lab65, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1919,8 +1913,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lab66)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1942,7 +1934,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab68, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 83, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -4235,7 +4227,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab63;
     private javax.swing.JLabel lab64;
     private javax.swing.JLabel lab65;
-    private javax.swing.JLabel lab66;
     private javax.swing.JLabel lab67;
     private javax.swing.JLabel lab68;
     private javax.swing.JLabel lab70;
