@@ -14,6 +14,8 @@ import enums.PKjson;
 
 public class ElemMosquit extends ElemSimple {
     
+    private int elementID = -3; //состав москитки
+    
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;

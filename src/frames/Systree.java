@@ -2119,11 +2119,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        txt24.setEditable(false);
         txt24.setFont(frames.UGui.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt24.setEnabled(false);
         txt24.setMinimumSize(new java.awt.Dimension(40, 18));
         txt24.setPreferredSize(new java.awt.Dimension(48, 18));
 
@@ -2881,7 +2879,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt1.setEditable(false);
-        txt1.setBackground(new java.awt.Color(255, 255, 255));
         txt1.setFont(frames.UGui.getFont(0,0));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setDisabledTextColor(new java.awt.Color(0, 0, 0));

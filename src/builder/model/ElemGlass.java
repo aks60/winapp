@@ -334,6 +334,11 @@ public class ElemGlass extends ElemSimple {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
         }
+        
+        if(this.rasclRec.isVirtual() == false) {
+            
+        }
+        
     }
 
     @Override
