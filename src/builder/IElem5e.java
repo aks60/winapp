@@ -1,7 +1,7 @@
 package builder;
 
-import builder.ICom5t;
 import builder.making.Specific;
+import dataset.Record;
 import enums.Layout;
 
 public interface IElem5e extends ICom5t {
@@ -16,9 +16,8 @@ public interface IElem5e extends ICom5t {
     void addSpecific(Specific specification);
 
     /**
-     * Получить элемент прилегающие соединения.
-     * Прил. соед. используется для определения координат
-     * примыкаемого соединения. (см. )
+     * Получить элемент прилегающие соединения. Прил. соед. используется для
+     * определения координат примыкаемого соединения. (см. )
      *
      * @param layoutSide - сторона прилегания
      * @return - элемент прилегания
@@ -27,7 +26,9 @@ public interface IElem5e extends ICom5t {
 
     /**
      * Получить элемент соединения.
-     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл, 2-прилег.артикл
+     *
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * 2-прилег.артикл
      * @return - элемент соединения
      */
     IElem5e joinElem(int side);
@@ -67,6 +68,22 @@ public interface IElem5e extends ICom5t {
     default float radiusGlass() {
         return 0;
     }
+
+    default Record rasclRec() {
+        return null;
+    }
+    
+    default int rasclColor() {
+        return -3;
+    }
+
+    default int rasclHor() {
+        return -3;
+    }
+    
+    default int rasclVert() {
+        return -3;
+    }  
 
     //Попадание клика мышки в контур элемента
     boolean mouseClick(int X, int Y);

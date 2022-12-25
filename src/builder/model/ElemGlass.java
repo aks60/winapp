@@ -28,6 +28,11 @@ public class ElemGlass extends ElemSimple {
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
     public float gsize[] = {0, 0, 0, 0}; //размер от оси до стеклопакета
 
+    private Record rasclRec = eArtikl.virtualRec(); //раскладка
+    private int rasclColor = -3; //цвет раскладки
+    private int rasclHor = 2; //количество проёмов раскладки
+    private int rasclVert = 2; //количество проёмов раскладки   
+
     public ElemGlass(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;
@@ -61,6 +66,25 @@ public class ElemGlass extends ElemSimple {
             colorID1 = colorRec.getInt(eColor.id);
             colorID2 = colorRec.getInt(eColor.id);
             colorID3 = colorRec.getInt(eColor.id);
+        }
+
+        //Раскладка
+        if (isJson(param, PKjson.artiklRascl)) {
+            rasclRec = eArtikl.find(param.get(PKjson.artiklRascl).getAsInt(), false);
+            //Текстура
+            if (isJson(param, PKjson.colorRascl)) {
+                rasclColor = eColor.get(param.get(PKjson.colorRascl).getAsInt()).getInt(eColor.id);
+            } else {
+                rasclColor = eArtdet.find2(rasclRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk); //цвет по умолчанию
+            }
+            //Проёмы
+            if (isJson(param, PKjson.rasclHor)) {
+                rasclHor = param.get(PKjson.rasclHor).getAsInt();
+            }
+            //Проёмы
+            if (isJson(param, PKjson.rasclVert)) {
+                rasclVert = param.get(PKjson.rasclVert).getAsInt();
+            }
         }
     }
 
@@ -245,6 +269,26 @@ public class ElemGlass extends ElemSimple {
         return radiusGlass;
     }
 
+    @Override
+    public Record rasclRec() {
+        return rasclRec;
+    }
+    
+    @Override
+    public int rasclColor() {
+        return rasclColor;
+    }
+    
+    @Override
+    public int rasclHor() {
+        return rasclHor;
+    }
+    
+    @Override
+    public int rasclVert() {
+        return rasclVert;
+    }
+   
     @Override
     public void paint() { //рисуём стёкла
 

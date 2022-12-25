@@ -647,7 +647,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt18, artiklRec.getStr(eArtikl.name));
                 Record colorRec = eColor.find(winNode.com5t().colorID1());
                 setText(txt34, colorRec.getStr(eColor.name));
+                Record rasclRec = ((IElem5e) winNode.com5t()).rasclRec();
+                setText(txt49, rasclRec.getStr(eArtikl.code));
+                setText(txt50, rasclRec.getStr(eArtikl.name));
+                Record colorRascl = eColor.find(((IElem5e) winNode.com5t()).rasclColor());
+                setText(txt51, colorRascl.getStr(eColor.name));
+                spinHor.setValue(((IElem5e) winNode.com5t()).rasclHor());
+                spinVert.setValue(((IElem5e) winNode.com5t()).rasclVert());
 
+                //Створка
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {
                 new Furniture(wincalc(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
@@ -662,19 +670,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt30, stv.typeOpen().name2);
                 setIcon(btn12, stv.paramCheck()[1]);
                 setText(txt16, stv.handleLayout().name);
-                if (stv.handleLayout() == LayoutHandle.VARIAT) {
-                    txt31.setEditable(true);
-                    setText(txt31, UCom.format(stv.handleHeight(), 1));
-                } else {
-                    txt31.setEditable(false);
-                    setText(txt31, "");
-                }
+                txt31.setEditable((stv.handleLayout() == LayoutHandle.VARIAT) ? true : false);
+                setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT)
+                        ? UCom.format(stv.handleHeight(), 1) : "");
                 setText(txt21, stv.handleRec().getStr(eArtikl.code));
                 setText(txt59, stv.handleRec().getStr(eArtikl.name));
                 setText(txt54, stv.mosqRec().getStr(eArtikl.code));
                 setText(txt55, stv.mosqRec().getStr(eArtikl.name));
                 setText(txt56, stv.elementRec().getStr(eElement.name));
-
                 setIcon(btn21, stv.paramCheck()[7]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck()[2]);
@@ -699,7 +702,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
                 List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
-
                 if (ej1 != null) {
                     setText(txt36, ej1.joiningRec.getStr(eJoining.name));
                     setText(txt42, ej1.name());
@@ -947,8 +949,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn29 = new javax.swing.JButton();
         lab67 = new javax.swing.JLabel();
         lab68 = new javax.swing.JLabel();
-        txt52 = new javax.swing.JTextField();
-        txt53 = new javax.swing.JTextField();
+        spinHor = new javax.swing.JSpinner();
+        spinVert = new javax.swing.JSpinner();
         pan16 = new javax.swing.JPanel();
         tabb2 = new javax.swing.JTabbedPane();
         pan20 = new javax.swing.JPanel();
@@ -1505,25 +1507,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        txt17.setBackground(new java.awt.Color(242, 242, 242));
+        txt17.setEditable(false);
         txt17.setFont(frames.UGui.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt17.setEnabled(false);
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        txt22.setBackground(new java.awt.Color(242, 242, 242));
+        txt22.setEditable(false);
         txt22.setFont(frames.UGui.getFont(0,0));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt22.setEnabled(false);
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        txt23.setBackground(new java.awt.Color(242, 242, 242));
+        txt23.setEditable(false);
         txt23.setFont(frames.UGui.getFont(0,0));
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt23.setEnabled(false);
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
@@ -1788,6 +1787,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        txt18.setEditable(false);
         txt18.setFont(frames.UGui.getFont(0,0));
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt18.setPreferredSize(new java.awt.Dimension(180, 18));
@@ -1834,6 +1834,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt49.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        txt50.setEditable(false);
         txt50.setFont(frames.UGui.getFont(0,0));
         txt50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt50.setPreferredSize(new java.awt.Dimension(180, 18));
@@ -1851,7 +1852,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn5.setPreferredSize(new java.awt.Dimension(21, 20));
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5ActionPerformed(evt);
+                rascladkaToGlass(evt);
             }
         });
 
@@ -1861,28 +1862,39 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn29.setMinimumSize(new java.awt.Dimension(21, 20));
         btn29.setName("btnField17"); // NOI18N
         btn29.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToRascladka(evt);
+            }
+        });
 
         lab67.setFont(frames.UGui.getFont(0,0));
         lab67.setText("Кол. ячеек горизонтальных");
         lab67.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab67.setMaximumSize(new java.awt.Dimension(284, 18));
-        lab67.setMinimumSize(new java.awt.Dimension(64, 18));
-        lab67.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab67.setMaximumSize(new java.awt.Dimension(147, 19));
+        lab67.setMinimumSize(new java.awt.Dimension(64, 19));
+        lab67.setPreferredSize(new java.awt.Dimension(128, 19));
 
         lab68.setFont(frames.UGui.getFont(0,0));
         lab68.setText("Кол. ячеек вертикальных");
         lab68.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab68.setMaximumSize(new java.awt.Dimension(274, 18));
-        lab68.setMinimumSize(new java.awt.Dimension(64, 18));
-        lab68.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab68.setMaximumSize(new java.awt.Dimension(274, 19));
+        lab68.setMinimumSize(new java.awt.Dimension(64, 19));
+        lab68.setPreferredSize(new java.awt.Dimension(128, 19));
 
-        txt52.setFont(frames.UGui.getFont(0,0));
-        txt52.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt52.setPreferredSize(new java.awt.Dimension(40, 18));
+        spinHor.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        spinHor.setAlignmentX(0.0F);
+        spinHor.setAlignmentY(0.0F);
+        spinHor.setBorder(null);
+        spinHor.setMinimumSize(new java.awt.Dimension(64, 19));
+        spinHor.setPreferredSize(new java.awt.Dimension(40, 19));
+        spinHor.setValue(2);
 
-        txt53.setFont(frames.UGui.getFont(0,0));
-        txt53.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt53.setPreferredSize(new java.awt.Dimension(40, 18));
+        spinVert.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        spinVert.setBorder(null);
+        spinVert.setMinimumSize(new java.awt.Dimension(64, 19));
+        spinVert.setPreferredSize(new java.awt.Dimension(40, 19));
+        spinVert.setValue(2);
 
         javax.swing.GroupLayout pan15Layout = new javax.swing.GroupLayout(pan15);
         pan15.setLayout(pan15Layout);
@@ -1900,7 +1912,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1921,21 +1933,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                             .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan15Layout.createSequentialGroup()
                         .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan15Layout.createSequentialGroup()
-                                .addComponent(lab68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 97, Short.MAX_VALUE))
                             .addGroup(pan15Layout.createSequentialGroup()
                                 .addComponent(lab65, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt51, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                                .addComponent(txt51, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan15Layout.createSequentialGroup()
+                                .addComponent(lab68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spinVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab67, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spinHor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1971,13 +1984,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinHor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab68, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 83, Short.MAX_VALUE))
+                    .addComponent(spinVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 81, Short.MAX_VALUE))
         );
+
+        txt19.getAccessibleContext().setAccessibleName("");
 
         pan7.add(pan15, "card15");
 
@@ -2856,6 +2871,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt1.setEditable(false);
+        txt1.setBackground(new java.awt.Color(255, 255, 255));
         txt1.setFont(frames.UGui.getFont(0,0));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -2891,10 +2907,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt7.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt7.setPreferredSize(new java.awt.Dimension(70, 18));
 
-        txt8.setEditable(false);
         txt8.setFont(frames.UGui.getFont(0,0));
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt8.setEnabled(false);
         txt8.setPreferredSize(new java.awt.Dimension(450, 18));
 
         txt10.setFont(frames.UGui.getFont(0,0));
@@ -3619,7 +3635,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }, qSysprofFilter);
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.sysprofToFrame() " + e);
         }
     }//GEN-LAST:event_sysprofToFrame
 
@@ -3695,7 +3711,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             }, colorSet, true);
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.colorToFrame() " + e);
         }
     }//GEN-LAST:event_colorToFrame
 
@@ -3775,7 +3791,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 new DicColor(this, listenerColor, groupSet, false);
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.colorToWindows() " + e);
         }
     }//GEN-LAST:event_colorToWindows
 
@@ -3808,7 +3824,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, qArtikl);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.artiklToGlass() " + e);
         }
     }//GEN-LAST:event_artiklToGlass
 
@@ -3832,7 +3848,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, qSysfurn, eFurniture.name);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.sysfurnToStvorka() " + e);
         }
     }//GEN-LAST:event_sysfurnToStvorka
 
@@ -3852,7 +3868,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTMOV,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTMOV, TypeOpen1.UPPER, TypeOpen1.FIXED);
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.typeOpenToStvorka() " + e);
         }
     }//GEN-LAST:event_typeOpenToStvorka
 
@@ -3876,7 +3892,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, qResult);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.handlToStvorka() " + e);
         }
     }//GEN-LAST:event_handlToStvorka
 
@@ -3911,7 +3927,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
 
             } catch (Exception e) {
-                System.err.println("Ошибка: " + e);
+                System.err.println("Ошибка:Systree.heightHandlToStvorka() " + e);
             }
 
         }, indexLayoutHandl);
@@ -3975,7 +3991,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, qResult);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.loopToStvorka() " + e);
         }
     }//GEN-LAST:event_loopToStvorka
 
@@ -4142,7 +4158,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }, qArtikl);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.mosquitToStvorka() " + e);
         }
     }//GEN-LAST:event_mosquitToStvorka
 
@@ -4163,13 +4179,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }, qElements, eElement.name);
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.mosqToElements() " + e);
         }
     }//GEN-LAST:event_mosqToElements
 
     private void btnFind2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind2
         if (tab2.getBorder() != null) {
-            JOptionPane.showMessageDialog(Systree.this, "В разработке");        
+            JOptionPane.showMessageDialog(Systree.this, "В разработке...");
 //            Record sysprofRec = qSysprof.get(UGui.getIndexRec(tab2));
 //            FrameProgress.create(this, new ListenerFrame() {
 //                public void actionRequest(Object obj) {
@@ -4186,9 +4202,46 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_btnFind2
 
-    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        //
-    }//GEN-LAST:event_btn5ActionPerformed
+    private void rascladkaToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rascladkaToGlass
+        try {
+            IElem5e classElem = (IElem5e) winNode.com5t();
+            float selectID = winNode.com5t().id();
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
+                    "where", eArtikl.level1, "= 1 and", eArtikl.level2, "= 12");
+
+            new DicArtikl(this, (artiklRec) -> {
+
+                classElem.gson().param().addProperty(PKjson.artiklRascl, artiklRec.getStr(eArtikl.id));
+                updateScript(selectID);
+
+            }, qArtikl);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.rascladkaToGlass() " + e);
+        }
+    }//GEN-LAST:event_rascladkaToGlass
+
+    private void colorToRascladka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToRascladka
+        try {
+            float selectID = winNode.com5t().id();
+            IElem5e glas = (IElem5e) winNode.com5t();
+            HashSet<Record> colorSet = UGui.artiklToColorSet(glas.rasclRec().getInt(eArtikl.id));
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                GsonElem glassElem = (GsonElem) wincalc().listAll.gson(selectID);
+                if (colorRec.get(1) == null) {
+                    glassElem.param().remove(PKjson.colorRascl);
+                } else {
+                    glassElem.param().addProperty(PKjson.colorRascl, colorRec.getStr(eColor.id));
+                }
+                updateScript(selectID);
+
+            }, colorSet, false);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.colorToRascladka() " + e);
+        }
+    }//GEN-LAST:event_colorToRascladka
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -4321,6 +4374,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JScrollPane scr6;
     private javax.swing.JScrollPane scr7;
     private javax.swing.JPanel south;
+    private javax.swing.JSpinner spinHor;
+    private javax.swing.JSpinner spinVert;
     private javax.swing.JSpinner spinner;
     private javax.swing.JTree sysTree;
     private javax.swing.JTable tab2;
@@ -4377,8 +4432,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTextField txt5;
     private javax.swing.JTextField txt50;
     private javax.swing.JTextField txt51;
-    private javax.swing.JTextField txt52;
-    private javax.swing.JTextField txt53;
     private javax.swing.JTextField txt54;
     private javax.swing.JTextField txt55;
     private javax.swing.JTextField txt56;
