@@ -136,7 +136,7 @@ public class Record<E> extends ArrayList<E> {
     }
 
     public boolean isVirtual() {
-        if (this.get(1) == null || this.getInt(1) == -1) {
+        if (this.get(1) == null || this.getInt(1) == -3) {
             return true;
         }
         return false;

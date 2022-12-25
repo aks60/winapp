@@ -30,11 +30,11 @@ import frames.swing.DrawStroke;
 public class AreaStvorka extends AreaSimple implements IStvorka {
 
     private Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
-    private Record elementRec = eElement.up.newRecord(); //состав москидки
     private Record handleRec = eArtikl.virtualRec(); //ручка
     private Record loopRec = eArtikl.virtualRec(); //подвес(петли)
     private Record lockRec = eArtikl.virtualRec(); //замок
     private Record mosqRec = eArtikl.virtualRec(); //москитка
+    private Record elementRec = eElement.up.newRecord(); //состав москидки    
 
     private int handleColor = -3; //цвет ручки
     private int loopColor = -3; //цвет подвеса
@@ -298,6 +298,22 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 DrawStroke.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, handlRGB, Color.BLACK);
                 DX = DX - 12;
                 Y1 = Y1 + 20;
+            }
+
+            if (this.mosqRec.isVirtual() == false) {
+                winc.gc2d.setColor(Color.getHSBColor(242, 242, 242));
+                IElem5e bott = this.frames.get(Layout.BOTT), right = this.frames.get(Layout.RIGHT), top = this.frames.get(Layout.TOP), left = this.frames.get(Layout.LEFT);
+                int z = (winc.scale < 0.1) ? 80 : 30;
+                int h = 0, w = 0;
+                
+                for (int i = 0; i < (bott.y1() - top.y2()) / z; i++) {
+                    h = h + z;
+                    winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
+                }
+                for (int i = 0; i < (right.x1() - left.x2()) / z; i++) {
+                    w = w + z;
+                    winc.gc2d.drawLine((int) (left.x2() + w), (int) top.y2(), (int) (left.x2() + w), (int) bott.y1());
+                }
             }
         }
     }

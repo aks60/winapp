@@ -1944,6 +1944,9 @@
                               <Connection code="2" type="code"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinHorStateChanged"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JSpinner" name="spinVert">
                           <Properties>
@@ -1963,6 +1966,9 @@
                               <Connection code="2" type="code"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinVertStateChanged"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

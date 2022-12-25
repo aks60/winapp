@@ -1889,12 +1889,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         spinHor.setMinimumSize(new java.awt.Dimension(64, 19));
         spinHor.setPreferredSize(new java.awt.Dimension(40, 19));
         spinHor.setValue(2);
+        spinHor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinHorStateChanged(evt);
+            }
+        });
 
         spinVert.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         spinVert.setBorder(null);
         spinVert.setMinimumSize(new java.awt.Dimension(64, 19));
         spinVert.setPreferredSize(new java.awt.Dimension(40, 19));
         spinVert.setValue(2);
+        spinVert.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinVertStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan15Layout = new javax.swing.GroupLayout(pan15);
         pan15.setLayout(pan15Layout);
@@ -3884,6 +3894,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 stvArea.param().remove(PKjson.colorHandl);
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklHandl);
+                    stvArea.param().remove(PKjson.colorHandl);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
@@ -3983,6 +3994,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 stvArea.param().remove(PKjson.colorLoop);
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLoop);
+                    stvArea.param().remove(PKjson.colorLoop);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
@@ -4007,6 +4019,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 stvArea.param().remove(PKjson.colorLock);
                 if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLock);
+                    stvArea.param().remove(PKjson.colorLock);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
@@ -4152,7 +4165,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                stvElem.gson().param().addProperty(PKjson.artiklMosq, artiklRec.getStr(eArtikl.id));
+                if (artiklRec.get(1) == null) {
+                    stvElem.gson().param().remove(PKjson.artiklMosq);
+                    stvElem.gson().param().remove(PKjson.elementID);
+                } else {
+                    stvElem.gson().param().addProperty(PKjson.artiklMosq, artiklRec.getStr(eArtikl.id));
+                }
                 updateScript(selectID);
 
             }, qArtikl);
@@ -4173,9 +4191,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 new DicName(this, (elementRec) -> {
 
-                    stvElem.gson().param().addProperty(PKjson.elementID, elementRec.getStr(eElement.id));
-                    updateScript(selectID);
+                    if (elementRec.get(1) == null) {
+                        stvElem.gson().param().remove(PKjson.elementID);
+                    } else {
+                        stvElem.gson().param().addProperty(PKjson.elementID, elementRec.getStr(eElement.id));
 
+                    }
+                    updateScript(selectID);
+                    
                 }, qElements, eElement.name);
             }
         } catch (Exception e) {
@@ -4242,6 +4265,20 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             System.err.println("Ошибка:Systree.colorToRascladka() " + e);
         }
     }//GEN-LAST:event_colorToRascladka
+
+    private void spinHorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinHorStateChanged
+        float selectID = winNode.com5t().id();
+        GsonElem glassElem = (GsonElem) wincalc().listAll.gson(selectID);
+        glassElem.param().addProperty(PKjson.rasclHor, spinHor.getValue().toString());
+        updateScript(selectID);
+    }//GEN-LAST:event_spinHorStateChanged
+
+    private void spinVertStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinVertStateChanged
+        float selectID = winNode.com5t().id();
+        GsonElem glassElem = (GsonElem) wincalc().listAll.gson(selectID);
+        glassElem.param().addProperty(PKjson.rasclVert, spinVert.getValue().toString());
+        updateScript(selectID);
+    }//GEN-LAST:event_spinVertStateChanged
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -41,6 +41,7 @@ public class DicArtikl extends javax.swing.JDialog {
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
         loadingModel();
+        btnRemove.setVisible(false);
         setVisible(true);
     }
 
@@ -54,6 +55,7 @@ public class DicArtikl extends javax.swing.JDialog {
         qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);
         this.listener = listenet;
         loadingModel();
+        btnRemove.setVisible(false);
         setVisible(true);
     }
 
@@ -269,7 +271,6 @@ public class DicArtikl extends javax.swing.JDialog {
 
     public void initElements() {
 
-        btnRemove.setVisible(false);
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 
