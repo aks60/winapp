@@ -15,6 +15,7 @@ import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import common.UCom;
+import common.listener.ListenerReload;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -31,7 +32,7 @@ public class ElemGlass extends ElemSimple {
     private Record rasclRec = eArtikl.virtualRec(); //раскладка
     private int rasclColor = -3; //цвет раскладки
     private int rasclHor = 2; //количество проёмов раскладки
-    private int rasclVert = 2; //количество проёмов раскладки   
+    private int rasclVert = 2; //количество проёмов раскладки 
 
     public ElemGlass(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
@@ -339,28 +340,39 @@ public class ElemGlass extends ElemSimple {
     //Раскладка
     @Override
     public void rascladkaPaint() {
+        
         if (this.rasclRec.isVirtual() == false) {
-            winc.gc2d.setColor(Color.getHSBColor(0, 0, 0));
-            float arth = Math.round(this.rasclRec().getFloat(eArtikl.height));
-            final int numx = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
-            final int numy = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
-            final float dy = (y2 - y1) / numy, dx = (x2 - x1) / numx;
-            float h = 0, w = 0;
-            for (int i = 1; i < numy; i++) {
-                h = h + dy;
-                winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
-                winc.gc2d.fillRect((int) x1, Math.round(y1 + h - arth / 2), width().intValue(), (int) arth);
-                winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
-                winc.gc2d.drawRect((int) x1, Math.round(y1 + h - arth / 2), width().intValue(), (int) arth);
-            }
-            for (int i = 1; i < numx; i++) {
-                w = w + dx;
-                winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
-                winc.gc2d.fillRect(Math.round(x1 + w - arth / 2), (int) y1, (int) arth, height().intValue());
-                winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
-                winc.gc2d.drawRect(Math.round(x1 + w - arth / 2), (int) y1, (int) arth, height().intValue());
-            }
-        }
+            IElem5e elemL = joinFlat(Layout.LEFT), elemT = joinFlat(Layout.TOP), elemB = joinFlat(Layout.BOTT), elemR = joinFlat(Layout.RIGHT);
+            float artH = Math.round(this.rasclRec().getFloat(eArtikl.height));
+            final int numX = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
+            final int numY = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
+            final float dy = (elemB.y1() - elemT.y2()) / numY, dx = (elemR.x1() - elemL.x2()) / numX;
+
+            ListenerReload reloadHor = () -> {
+                float h = 0;
+                for (int i = 1; i < numY; i++) {
+                    h = h + dy;
+                    winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
+                    winc.gc2d.fillRect((int) elemL.x2(), Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
+                    winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
+                    winc.gc2d.drawRect((int) elemL.x2(), Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
+                }
+            };
+            ListenerReload reloadVer = () -> {
+                float w = 0;
+                for (int i = 1; i < numX; i++) {
+                    w = w + dx;
+                    winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
+                    winc.gc2d.fillRect(Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
+                    winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
+                    winc.gc2d.drawRect(Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
+                }
+            };
+            //reloadHor.reload(); //целые вертикальные
+            //reloadVer.reload();
+           reloadVer.reload(); //целые горизонтальные
+           reloadHor.reload();             
+        }             
     }
 
     @Override

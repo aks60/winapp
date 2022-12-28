@@ -307,11 +307,11 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 int z = (winc.scale < 0.1) ? 80 : 30;
                 int h = 0, w = 0;
                 
-                for (int i = 0; i < (bott.y1() - top.y2()) / z; i++) {
+                for (int i = 1; i < (bott.y1() - top.y2()) / z; i++) {
                     h = h + z;
                     winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
                 }
-                for (int i = 0; i < (right.x1() - left.x2()) / z; i++) {
+                for (int i = 1; i < (right.x1() - left.x2()) / z; i++) {
                     w = w + z;
                     winc.gc2d.drawLine((int) (left.x2() + w), (int) top.y2(), (int) (left.x2() + w), (int) bott.y1());
                 }
