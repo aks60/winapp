@@ -337,7 +337,7 @@ public class ElemGlass extends ElemSimple {
 
             if (this.rasclRec.isVirtual() == false) {
                 winc.gc2d.setColor(Color.getHSBColor(0, 0, 0));
-                int arth = Math.round(this.rasclRec().getFloat(eArtikl.height) / 2);
+                int arth = Math.round(this.rasclRec().getFloat(eArtikl.height));
                 int numx = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
                 int numy = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
                 int dy = (int) (y2 - y1) / numy, dx = (int) (x2 - x1) / numx;
@@ -347,7 +347,9 @@ public class ElemGlass extends ElemSimple {
                     //winc.gc2d.
                    //winc.gc2d.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y1 + h)); 
 
-                    winc.gc2d.drawRect((int) x1, (int) (y1 + h), width().intValue(), h);
+                    winc.gc2d.drawRect((int) x1, (int) (y1 + h), width().intValue(), arth);
+                    winc.gc2d.setColor(Color.BLACK);
+                    winc.gc2d.fillRect((int) x1, (int) (y1 + h), width().intValue(), arth); 
                 }
                 for (int i = 0; i < numx; i++) {
                     w = w + dx - arth;
