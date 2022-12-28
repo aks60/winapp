@@ -72,7 +72,7 @@ public interface IElem5e extends ICom5t {
     default Record rasclRec() {
         return null;
     }
-    
+
     default int rasclColor() {
         return -3;
     }
@@ -80,13 +80,16 @@ public interface IElem5e extends ICom5t {
     default int rasclHor() {
         return -3;
     }
-    
+
     default int rasclVert() {
         return -3;
-    }  
+    }
 
     //Попадание клика мышки в контур элемента
     boolean mouseClick(int X, int Y);
+
+    default void rascladkaPaint() {
+    }
 
     String toString();
 }

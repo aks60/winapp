@@ -2,7 +2,6 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
-import builder.making.Cal5e;
 import builder.making.Filling;
 import dataset.Record;
 import domain.eArtdet;
@@ -334,32 +333,33 @@ public class ElemGlass extends ElemSimple {
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+        }
+    }
 
-            if (this.rasclRec.isVirtual() == false) {
-                winc.gc2d.setColor(Color.getHSBColor(0, 0, 0));
-                int arth = Math.round(this.rasclRec().getFloat(eArtikl.height));
-                int numx = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
-                int numy = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
-                int dy = (int) (y2 - y1) / numy, dx = (int) (x2 - x1) / numx;
-                int h = 0, w = 0;
-                for (int i = 0; i < numy; i++) {
-                    h = h + dy - arth;
-                    //winc.gc2d.
-                   //winc.gc2d.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y1 + h)); 
-
-                    winc.gc2d.drawRect((int) x1, (int) (y1 + h), width().intValue(), arth);
-                    winc.gc2d.setColor(Color.BLACK);
-                    winc.gc2d.fillRect((int) x1, (int) (y1 + h), width().intValue(), arth); 
-                }
-                for (int i = 0; i < numx; i++) {
-                    w = w + dx - arth;
-                    // winc.gc2d.drawLine((int) (x1 + w), (int) y1, (int) (x1 + w), (int) y2);
-                }
-
+    //Раскладка
+    @Override
+    public void rascladkaPaint() {
+        if (this.rasclRec.isVirtual() == false) {
+            winc.gc2d.setColor(Color.getHSBColor(0, 0, 0));
+            float arth = Math.round(this.rasclRec().getFloat(eArtikl.height));
+            final int numx = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
+            final int numy = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
+            final float dy = (y2 - y1) / numy, dx = (x2 - x1) / numx;
+            float h = 0, w = 0;
+            for (int i = 1; i < numy; i++) {
+                h = h + dy;
+                winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
+                winc.gc2d.fillRect((int) x1, Math.round(y1 + h - arth / 2), width().intValue(), (int) arth);
+                winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
+                winc.gc2d.drawRect((int) x1, Math.round(y1 + h - arth / 2), width().intValue(), (int) arth);
             }
-
-//g.setColor(newColor);
-//g.fillRect(21, 41, 339, 19)            
+            for (int i = 1; i < numx; i++) {
+                w = w + dx;
+                winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
+                winc.gc2d.fillRect(Math.round(x1 + w - arth / 2), (int) y1, (int) arth, height().intValue());
+                winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
+                winc.gc2d.drawRect(Math.round(x1 + w - arth / 2), (int) y1, (int) arth, height().intValue());
+            }
         }
     }
 
