@@ -255,6 +255,13 @@ public class Com5t implements ICom5t {
 //    public boolean inside(float x, float y) {
 //        return ((x1 <= x && x <= x2) && (y1 <= y && y <= y2));
 //    }
+//http://sbp-program.ru/java/sbp-graphics.htm
+//принадлежит многоугольнику    
+//Polygon poly = new Polygon(arrayX, arrayY, 8);
+//g.drawPolygon(poly);
+//Point aPoint = new Point(50, 190);
+//if(poly.contains(aPoint))
+//{g.drawString(«Yes», 50, 190);}    
     
     @Override
     public void paint() {

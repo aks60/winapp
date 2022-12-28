@@ -345,8 +345,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Подвес(петли)
     @Override
-    public void loopRec(Record loopRec
-    ) {
+    public void loopRec(Record loopRec) {
         this.loopRec = loopRec;
     }
 

@@ -20,6 +20,7 @@ import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import enums.UseUnit;
+import java.awt.Color;
 
 public class ElemGlass extends ElemSimple {
 
@@ -273,22 +274,22 @@ public class ElemGlass extends ElemSimple {
     public Record rasclRec() {
         return rasclRec;
     }
-    
+
     @Override
     public int rasclColor() {
         return rasclColor;
     }
-    
+
     @Override
     public int rasclHor() {
         return rasclHor;
     }
-    
+
     @Override
     public int rasclVert() {
         return rasclVert;
     }
-   
+
     @Override
     public void paint() { //рисуём стёкла
 
@@ -333,12 +334,31 @@ public class ElemGlass extends ElemSimple {
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+
+            if (this.rasclRec.isVirtual() == false) {
+                winc.gc2d.setColor(Color.getHSBColor(0, 0, 0));
+                int arth = Math.round(this.rasclRec().getFloat(eArtikl.height) / 2);
+                int numx = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
+                int numy = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
+                int dy = (int) (y2 - y1) / numy, dx = (int) (x2 - x1) / numx;
+                int h = 0, w = 0;
+                for (int i = 0; i < numy; i++) {
+                    h = h + dy - arth;
+                    //winc.gc2d.
+                   //winc.gc2d.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y1 + h)); 
+
+                    winc.gc2d.drawRect((int) x1, (int) (y1 + h), width().intValue(), h);
+                }
+                for (int i = 0; i < numx; i++) {
+                    w = w + dx - arth;
+                    // winc.gc2d.drawLine((int) (x1 + w), (int) y1, (int) (x1 + w), (int) y2);
+                }
+
+            }
+
+//g.setColor(newColor);
+//g.fillRect(21, 41, 339, 19)            
         }
-        
-        if(this.rasclRec.isVirtual() == false) {
-            
-        }
-        
     }
 
     @Override

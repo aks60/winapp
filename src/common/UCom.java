@@ -88,6 +88,7 @@ public class UCom {
             if (str == null || str.isEmpty()) {
                 return 0;
             }
+            str = str.replace(".", ",");
             if (str.charAt(str.length() - 1) == ';') {
                 str = str.substring(0, str.length() - 1);
             }
