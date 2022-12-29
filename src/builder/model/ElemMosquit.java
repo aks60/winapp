@@ -12,14 +12,8 @@ public class ElemMosquit extends ElemSimple {
     
     private int elementID = -3; //состав москитки
     
-    public static ElemMosquit create(IArea5e owner) {
-        GsonElem gsonElem = new GsonElem();
-        
-        return null;
-    }
-    
     public ElemMosquit(IArea5e owner, GsonElem gson) {
-        super(GsonElem.genId(), owner.winc(), owner, gson);
+        super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;
         
         initСonstructiv(gson.param());

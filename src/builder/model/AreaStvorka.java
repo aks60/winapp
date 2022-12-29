@@ -1,4 +1,4 @@
-package builder.model;
+ package builder.model;
 
 import builder.IStvorka;
 import builder.IArea5e;
@@ -199,7 +199,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
         }
-        //Москитка, цвет
+        //Москитка, цвет        
         if (isJson(param, PKjson.artiklMosq)) {
             mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
             mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
@@ -207,6 +207,12 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             if (isJson(param, PKjson.elementID)) {
                 elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
             }
+        }
+        
+        //Москитка вар-2
+        if(childs.filter(Type.MOSKITKA).isEmpty() == false) {
+           ElemMosquit mosq = (ElemMosquit) childs.filter(Type.MOSKITKA).get(0);
+           
         }
     }
 
