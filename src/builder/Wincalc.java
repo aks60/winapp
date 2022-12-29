@@ -210,12 +210,7 @@ public class Wincalc {
                             : new builder.model.ElemGlass(owner, js);
                     owner.childs().add(elem5e);
                     
-                } else if (Type.MOSKITKA == js.type()) {
-                    IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new builder.model.ElemMosquit(owner, js)
-                            : new builder.model.ElemMosquit(owner, js);
-                    owner.childs().add(elem5e);
-                }
+                } 
             }
 
             //Теперь вложенные элементы

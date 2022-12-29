@@ -22,9 +22,9 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))                    
-                    .addElem(new GsonElem(Type.GLASS))
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 84, colorID1: 1009}"));
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklMosq: 2700, elementID: 84}"))
+                    .addElem(new GsonElem(Type.GLASS));                    
 
         } else if (prj == 601002) { //PUNIC = 427818
             rootGson = new GsonRoot("1.0", prj, 1, 29, "Montblanc\\Nord\\1 ОКНА",

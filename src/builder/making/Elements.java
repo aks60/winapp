@@ -15,8 +15,13 @@ import builder.param.ElementVar;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.model.ElemMosquit;
+import builder.script.GsonElem;
+import com.google.gson.JsonObject;
+import common.eProp;
 import dataset.Query;
+import enums.PKjson;
 import enums.Type;
+import java.util.ArrayList;
 
 /**
  * Составы.
@@ -56,10 +61,14 @@ public class Elements extends Cal5e {
                 detail(elementList2, elem5e);
             }
             //Москидки
-            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STOIKA);
-            for (IArea5e stv : stvList) {
-                if(((IStvorka) stv).mosqRec().isVirtual() == false) {
-                    ElemMosquit mosq = null;
+            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STVORKA);
+            for (IArea5e stvArea : stvList) {
+                IStvorka stv = (IStvorka) stvArea;
+                if (stv.mosqRec().isVirtual() == false) {                   
+                    ElemMosquit elem5e = ElemMosquit.create(stv);
+                    List<Record> elementList4 = new ArrayList();
+                    elementList4.add(stv.elementRec());
+                    detail(elementList4, elem5e);
                 }
             }
         } catch (Exception e) {
@@ -87,7 +96,7 @@ public class Elements extends Cal5e {
 
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
                     List<Record> elemdetList = eElemdet.find(element_id); //список элем. детализации
-                    
+
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации

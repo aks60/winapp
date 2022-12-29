@@ -12,14 +12,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
-import javax.script.Bindings;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 
 public class Test {
 
@@ -87,7 +84,7 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
             winc.build(GsonScript.testJson(601001));
@@ -241,15 +238,13 @@ public class Test {
 
     //https://spec-zone.ru/RU/Java/Docs/7/technotes/guides/scripting/programmer_guide/index.html#top
     private static void script() throws Exception {
-        
+
 //        ScriptEngineManager factory = new ScriptEngineManager();
 //        ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");
 //        Bindings scope = engine.createBindings();
-
 //        File f = new File("test.js");
 //        engine.put("file", f);
 //        engine.eval("print(file.getAbsolutePath())");
-
         //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
         //Переменные сценария
 //        float B = 3;
@@ -261,20 +256,17 @@ public class Test {
 //        engine.eval("var obj = new Object(); obj.length = L; obj.height = H;");
 //        engine.eval("print(obj.length + obj.height);");
 //        engine.eval("print(Math.ceil(L + 33.3));");
-
         //Вызов Функций Сценария и Методов
 //        String script = "function hello(name) { print('Hello, ' + name); }";
 //        engine.eval(script);
 //        Invocable inv = (Invocable) engine;
 //        inv.invokeFunction("hello", "Аксёнов!!" );
-
         //Основанным на объектах сценария
 //        String script = "var obj = new Object(); obj.hello = function(name) { print('Hello, ' + name); }";
 //        engine.eval(script);
 //        Invocable inv = (Invocable) engine;
 //        Object obj = engine.get("obj");
 //        inv.invokeMethod(obj, "hello", "Аксёнов!!" );
-
         //Реализация Интерфейсов Java Сценариями
 //        String script = "function run() { print('run called Аксёнов'); }";
 //        engine.eval(script);

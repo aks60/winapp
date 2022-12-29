@@ -81,7 +81,6 @@ import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
 import domain.eElement;
-import domain.eFurndet;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
@@ -671,13 +670,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setIcon(btn12, stv.paramCheck()[1]);
                 setText(txt16, stv.handleLayout().name);
                 txt31.setEditable((stv.handleLayout() == LayoutHandle.VARIAT) ? true : false);
-                setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT)
-                        ? UCom.format(stv.handleHeight(), 1) : "");
+                setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT) ? UCom.format(stv.handleHeight(), 1) : "");
                 setText(txt21, stv.handleRec().getStr(eArtikl.code));
                 setText(txt59, stv.handleRec().getStr(eArtikl.name));
                 setText(txt54, stv.mosqRec().getStr(eArtikl.code));
                 setText(txt55, stv.mosqRec().getStr(eArtikl.name));
-                setText(txt56, stv.elementRec().getStr(eElement.name));
+                setText(txt56, stv.elementRec().getStr(eElement.name));                
                 setIcon(btn21, stv.paramCheck()[7]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck()[2]);
@@ -4195,7 +4193,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                     }
                     updateScript(selectID);
-                    
+
                 }, qElements, eElement.name);
             }
         } catch (Exception e) {

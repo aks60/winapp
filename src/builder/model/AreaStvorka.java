@@ -1,4 +1,4 @@
- package builder.model;
+package builder.model;
 
 import builder.IStvorka;
 import builder.IArea5e;
@@ -37,7 +37,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     private Record lockRec = eArtikl.virtualRec(); //замок
     private Record mosqRec = eArtikl.virtualRec(); //москитка
     private Record elementRec = eElement.up.newRecord(); //состав москидки  
-    private ElemMosquit mosqElem = null;
 
     private int handleColor = -3; //цвет ручки
     private int loopColor = -3; //цвет подвеса
@@ -202,27 +201,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
         }
-        //Москитка, цвет        
+        
+        //Москитка, цвет, состав        
         if (isJson(param, PKjson.artiklMosq)) {
             mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
             mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
-            //Состав москитки
-            if (isJson(param, PKjson.artiklID)) {
+            //Состав
+            if (isJson(param, PKjson.elementID)) {
                 elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
             }
-        }
-        
-        //Москитка вар-2
-//        LinkedList2<ICom5t> mosqList = childs.filter(Type.MOSKITKA);
-//        if(mosqList.isEmpty() == false) {
-//           mosqElem = (ElemMosquit) mosqList.get(0);
-//           JsonObject param2 = mosqElem.gson.param();
-//           
-//           if (isJson(param2, PKjson.artiklID)) {
-//               mosqElem.artiklRec(eArtikl.find(param2.get(PKjson.artiklID).getAsInt(), false));
-//               mosqElem.artiklRecAn(mosqElem.artiklRec);
-//           }
-//        }
+        }        
     }
 
     /**
@@ -321,7 +309,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 IElem5e bott = this.frames.get(Layout.BOTT), right = this.frames.get(Layout.RIGHT), top = this.frames.get(Layout.TOP), left = this.frames.get(Layout.LEFT);
                 int z = (winc.scale < 0.1) ? 80 : 30;
                 int h = 0, w = 0;
-                
+
                 for (int i = 1; i < (bott.y1() - top.y2()) / z; i++) {
                     h = h + z;
                     winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
