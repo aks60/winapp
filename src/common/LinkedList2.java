@@ -24,9 +24,9 @@ public class LinkedList2<E extends ICom5t> extends LinkedList<E> {
         return null;
     }
 
-    public <T extends ICom5t> LinkedList<T> filter(Type... type) {
+    public <T extends ICom5t> LinkedList2<T> filter(Type... type) {
         List tp = List.of(type);
-        LinkedList<T> list2 = new LinkedList();
+        LinkedList2<T> list2 = new LinkedList2();
         for (E el : this) {
             if (tp.contains(el.type())) {
                 list2.add((T) el);

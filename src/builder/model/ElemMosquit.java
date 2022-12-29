@@ -28,7 +28,7 @@ public class ElemMosquit extends ElemSimple {
         }
         artiklRecAn(artiklRec);
 
-        //Цвет стекла
+        //Цвет москитки
         if (isJson(param, PKjson.colorID1)) {
             colorID1 = param.get(PKjson.colorID1).getAsInt();
         } else {

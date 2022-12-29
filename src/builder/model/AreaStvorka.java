@@ -2,6 +2,7 @@
 
 import builder.IStvorka;
 import builder.IArea5e;
+import builder.ICom5t;
 import builder.IElem5e;
 import dataset.Record;
 import domain.eArtikl;
@@ -16,6 +17,7 @@ import builder.making.Cal5e;
 import builder.making.Joining;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import common.LinkedList2;
 import common.eProp;
 import domain.eArtdet;
 import domain.eColor;
@@ -34,7 +36,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     private Record loopRec = eArtikl.virtualRec(); //подвес(петли)
     private Record lockRec = eArtikl.virtualRec(); //замок
     private Record mosqRec = eArtikl.virtualRec(); //москитка
-    private Record elementRec = eElement.up.newRecord(); //состав москидки    
+    private Record elementRec = eElement.up.newRecord(); //состав москидки  
+    private ElemMosquit mosqElem = null;
 
     private int handleColor = -3; //цвет ручки
     private int loopColor = -3; //цвет подвеса
@@ -204,16 +207,22 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
             mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
             //Состав москитки
-            if (isJson(param, PKjson.elementID)) {
+            if (isJson(param, PKjson.artiklID)) {
                 elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
             }
         }
         
         //Москитка вар-2
-        if(childs.filter(Type.MOSKITKA).isEmpty() == false) {
-           ElemMosquit mosq = (ElemMosquit) childs.filter(Type.MOSKITKA).get(0);
-           
-        }
+//        LinkedList2<ICom5t> mosqList = childs.filter(Type.MOSKITKA);
+//        if(mosqList.isEmpty() == false) {
+//           mosqElem = (ElemMosquit) mosqList.get(0);
+//           JsonObject param2 = mosqElem.gson.param();
+//           
+//           if (isJson(param2, PKjson.artiklID)) {
+//               mosqElem.artiklRec(eArtikl.find(param2.get(PKjson.artiklID).getAsInt(), false));
+//               mosqElem.artiklRecAn(mosqElem.artiklRec);
+//           }
+//        }
     }
 
     /**
