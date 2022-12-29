@@ -4,11 +4,7 @@ import builder.IArea5e;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColor;
-import domain.eSystree;
 import enums.Layout;
 import enums.PKjson;
 
@@ -16,8 +12,14 @@ public class ElemMosquit extends ElemSimple {
     
     private int elementID = -3; //состав москитки
     
+    public static ElemMosquit create(IArea5e owner) {
+        GsonElem gsonElem = new GsonElem();
+        
+        return null;
+    }
+    
     public ElemMosquit(IArea5e owner, GsonElem gson) {
-        super(gson.id(), owner.winc(), owner, gson);
+        super(GsonElem.genId(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;
         
         initСonstructiv(gson.param());
@@ -43,24 +45,20 @@ public class ElemMosquit extends ElemSimple {
     //Установка координат элементов окна
     @Override
     public void setLocation() {
-
     }
 
     //Главная спецификация    
     @Override
     public void setSpecific() {
-
     }
 
     //Вложенная спецификация
     @Override
     public void addSpecific(Specific spcAdd) {
-
     }
 
     @Override
     public void paint() { //рисуём стёкла
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package builder.making;
 
+import builder.IArea5e;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
@@ -12,7 +13,8 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.IElem5e;
-import common.UCom;
+import builder.IStvorka;
+import builder.model.ElemMosquit;
 import dataset.Query;
 import enums.Type;
 
@@ -52,6 +54,13 @@ public class Elements extends Cal5e {
                 int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
                 List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
+            }
+            //Москидки
+            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STOIKA);
+            for (IArea5e stv : stvList) {
+                if(((IStvorka) stv).mosqRec().isVirtual() == false) {
+                    ElemMosquit mosq = null;
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);

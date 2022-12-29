@@ -17,7 +17,6 @@ import java.util.Map;
  */
 public class GsonElem {
 
-    //TODO при test "one" genId переполняется?
     protected static transient float genId = 0;  //идентификатор    
     protected float id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
@@ -160,6 +159,10 @@ public class GsonElem {
 
     public GsonElem owner() {
         return owner;
+    }
+    
+    public static float genId() {
+        return ++genId;
     }
 
     public LinkedList<GsonElem> childs() {
