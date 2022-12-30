@@ -26,7 +26,7 @@ public class GsonRoot extends GsonElem {
     private Integer color1 = -3;  //основная текстура
     private Integer color2 = -3;  //внутренняя текстура
     private Integer color3 = -3;  //внешняя текстура    
-
+    
     /**
      * Все эти конструкторы запускаются при тестировании и создании моделей.
      * см. builder.script.test.Bimax.java - при тестировании
@@ -69,7 +69,7 @@ public class GsonRoot extends GsonElem {
         this.color3 = color3;
         if (paramJson != null) {
             this.param(new Gson().fromJson(paramJson, JsonObject.class));
-        }
+        }        
     }
 
     public void propery(String prj, int nuni, String name) {

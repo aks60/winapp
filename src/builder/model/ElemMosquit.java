@@ -12,20 +12,24 @@ import domain.eArtikl;
 import domain.eElement;
 import enums.Layout;
 import enums.PKjson;
+import enums.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ElemMosquit extends ElemSimple {
 
-    public static ElemMosquit create(IStvorka stv) {
+    public static IElem5e create(IStvorka stv) {
         IArea5e stvArea = (IArea5e) stv;
         JsonObject param = new JsonObject();
         param.addProperty(PKjson.artiklMosq, stv.mosqRec().getInt(eArtikl.id));
         param.addProperty(PKjson.elementID, stv.elementRec().getInt(eElement.id));
         GsonElem gson = new GsonElem(enums.Type.MOSKITKA, param.toString());
-        return (eProp.old.read().equals("0"))
+        IElem5e elem5e = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemMosquit(stvArea, gson)
                 : new builder.model.ElemMosquit(stvArea, gson);
+        
+        ((IArea5e) stv).childs().add(elem5e);
+        return elem5e;
     }
 
     public ElemMosquit(IArea5e owner, GsonElem gson) {
@@ -33,6 +37,7 @@ public class ElemMosquit extends ElemSimple {
         this.layout = Layout.FULL;
 
         initСonstructiv(gson.param());
+        setLocation();
     }
 
     public void initСonstructiv(JsonObject param) {
@@ -63,6 +68,11 @@ public class ElemMosquit extends ElemSimple {
     //Установка координат элементов окна
     @Override
     public void setLocation() {
+        if (Type.ARCH == owner.type()) {
+            setDimension(0, 0, owner.x2(), Math.abs(winc.height1() - winc.height2()));
+        } else {
+            setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y2());
+        }
     }
 
     //Главная спецификация    
@@ -73,6 +83,12 @@ public class ElemMosquit extends ElemSimple {
     //Вложенная спецификация
     @Override
     public void addSpecific(Specific spcAdd) {
+        try {         
+            spcRec.spcList.add(spcAdd);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemMosquit.addSpecific() " + e);
+        }
     }
 
     @Override
@@ -81,6 +97,6 @@ public class ElemMosquit extends ElemSimple {
 
     @Override
     public String toString() {
-        return super.toString() + ", москитка";
+        return super.toString();
     }
 }

@@ -32,7 +32,7 @@ public class GsonElem {
      *  new GsonBuilder().create().fromJson(script, GsonRoot.class);
      */
     public GsonElem() {
-        ++genId;
+        ++genId;        
     }
 
     /**
@@ -186,7 +186,7 @@ public class GsonElem {
     }
 
     public void notSerialize(GsonElem gsonElem) {
-        if (gsonElem == this) {
+        if (gsonElem == this && this.param != null && this.param.size() == 0) {
             this.param = null;
         }
         if (this.childs != null) {

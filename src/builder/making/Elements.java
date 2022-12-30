@@ -65,7 +65,7 @@ public class Elements extends Cal5e {
             for (IArea5e stvArea : stvList) {
                 IStvorka stv = (IStvorka) stvArea;
                 if (stv.mosqRec().isVirtual() == false) {                   
-                    ElemMosquit elem5e = ElemMosquit.create(stv);
+                    IElem5e elem5e = ElemMosquit.create(stv);
                     List<Record> elementList4 = new ArrayList();
                     elementList4.add(stv.elementRec());
                     detail(elementList4, elem5e);
@@ -83,8 +83,6 @@ public class Elements extends Cal5e {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
 
-                int element_id = elementRec.getInt(eElement.id);
-
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
 
@@ -95,7 +93,7 @@ public class Elements extends Cal5e {
                     setVariant.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
-                    List<Record> elemdetList = eElemdet.find(element_id); //список элем. детализации
+                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElement.id)); //список элем. детализации
 
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
