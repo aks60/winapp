@@ -1,11 +1,13 @@
 package builder.model;
 
 import builder.IArea5e;
+import builder.ICom5t;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import common.LinkedList2;
 import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
@@ -27,7 +29,6 @@ public class ElemMosquit extends ElemSimple {
         IElem5e elem5e = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemMosquit(stvArea, gson)
                 : new builder.model.ElemMosquit(stvArea, gson);
-        
         ((IArea5e) stv).childs().add(elem5e);
         return elem5e;
     }
@@ -83,7 +84,7 @@ public class ElemMosquit extends ElemSimple {
     //Вложенная спецификация
     @Override
     public void addSpecific(Specific spcAdd) {
-        try {         
+        try {
             spcRec.spcList.add(spcAdd);
 
         } catch (Exception e) {

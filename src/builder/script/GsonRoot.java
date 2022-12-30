@@ -28,6 +28,15 @@ public class GsonRoot extends GsonElem {
     private Integer color3 = -3;  //внешняя текстура    
     
     /**
+     * Конструктор по умолчанию.
+     * Запускается при сериализации GSON библиотекой.
+     * Происходит инициализация полей. Пример: param = new JsonObject()
+     */
+    public GsonRoot() {
+        super();
+    }
+    
+    /**
      * Все эти конструкторы запускаются при тестировании и создании моделей.
      * см. builder.script.test.Bimax.java - при тестировании
      * см. builder.script.GsonScript.java при создании моделей

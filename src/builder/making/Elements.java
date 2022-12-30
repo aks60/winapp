@@ -63,9 +63,10 @@ public class Elements extends Cal5e {
             //Москидки
             LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STVORKA);
             for (IArea5e stvArea : stvList) {
-                IStvorka stv = (IStvorka) stvArea;
-                if (stv.mosqRec().isVirtual() == false) {                   
-                    IElem5e elem5e = ElemMosquit.create(stv);
+                IStvorka stv = (IStvorka) stvArea;              
+                if (stv.mosqRec().isVirtual() == false) {                    
+                    stvArea.childs().removeIf(e -> e.type() == Type.MOSKITKA); //удалим старый обьект москитки
+                    IElem5e elem5e = ElemMosquit.create(stv); //создадим новый объект москитки                  
                     List<Record> elementList4 = new ArrayList();
                     elementList4.add(stv.elementRec());
                     detail(elementList4, elem5e);
