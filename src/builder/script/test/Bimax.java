@@ -17,13 +17,13 @@ public final class Bimax {
         
         if (prj == 601001) { //PUNIC = 427817
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009);
+                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009, "{ioknaParam: [-9504]}");
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklMosq: 2700, elementID: 84}"))
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklMosq: 2700, elementID: 1287}"))
                     .addElem(new GsonElem(Type.GLASS));                    
 
         } else if (prj == 601002) { //PUNIC = 427818

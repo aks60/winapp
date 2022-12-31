@@ -16,6 +16,10 @@ import enums.Layout;
 import enums.Type;
 import java.util.List;
 
+/**
+ * Модели конструкций.
+ * Загружаются в таблицу SYSMODEL.
+ */
 public class GsonScript {
 
     public static GsonRoot rootGson;
@@ -23,14 +27,24 @@ public class GsonScript {
     public static String modelJson(Integer prj) {
 
         if (prj == 601001) {
-            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\ОКНА\\Открывание внутрь",
-                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
+//            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\ОКНА\\Открывание внутрь",
+//                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
+//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+//                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
+//                    .addElem(new GsonElem(Type.GLASS));
+
+            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009, "{ioknaParam: [-9504]}");
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
-                    .addElem(new GsonElem(Type.GLASS));
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklMosq: 2700, sysprofRec: 1287}"))
+                    .addElem(new GsonElem(Type.GLASS));   
 
         } else if (prj == 601002) {
             rootGson = new GsonRoot("1.0", null, null, null, "Montblanc\\Nord\\ОКНА",

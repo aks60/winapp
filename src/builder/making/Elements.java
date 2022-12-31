@@ -60,18 +60,18 @@ public class Elements extends Cal5e {
                 List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
             }
-            //Москидки
-            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STVORKA);
-            for (IArea5e stvArea : stvList) {
-                IStvorka stv = (IStvorka) stvArea;              
-                if (stv.mosqRec().isVirtual() == false) {                    
-                    stvArea.childs().removeIf(e -> e.type() == Type.MOSKITKA); //удалим старый обьект москитки
-                    IElem5e elem5e = ElemMosquit.create(stv); //создадим новый объект москитки                  
-                    List<Record> elementList4 = new ArrayList();
-                    elementList4.add(stv.elementRec());
-                    detail(elementList4, elem5e);
-                }
-            }
+//            //Москидки
+//            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STVORKA);
+//            for (IArea5e stvArea : stvList) {
+//                IStvorka stv = (IStvorka) stvArea;              
+//                if (stv.mosqRec().isVirtual() == false) {                    
+//                    stvArea.childs().removeIf(e -> e.type() == Type.MOSKITKA); //удалим старый обьект москитки
+//                    IElem5e elem5e = ElemMosquit.create(stv); //создадим новый объект москитки                  
+//                    List<Record> elementList4 = new ArrayList();
+//                    elementList4.add(stv.elementRec());
+//                    detail(elementList4, elem5e);
+//                }
+//            }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);
         } finally {

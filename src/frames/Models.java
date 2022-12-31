@@ -836,9 +836,9 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             //Для загрузки скрипта из программы 
             if (eProp.dev == true) {
                 Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
-                if (prj != null) {
-                    GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
+                if (prj != null) {  
                     json = GsonScript.modelJson(Integer.valueOf(prj.toString()));
+                    GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
                     record.set(eSysmodel.name, "<html> Kod:" + prj + "* " + gsonRoot.name());
                     record.set(eSysmodel.script, json);
                 }

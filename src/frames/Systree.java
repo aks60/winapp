@@ -1,6 +1,7 @@
 package frames;
 
 import builder.IArea5e;
+import builder.ICom5t;
 import common.eProp;
 import dataset.Conn;
 import dataset.Field;
@@ -76,6 +77,7 @@ import builder.making.UColor;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.making.Cal5e;
+import common.LinkedList2;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
@@ -673,9 +675,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT) ? UCom.format(stv.handleHeight(), 1) : "");
                 setText(txt21, stv.handleRec().getStr(eArtikl.code));
                 setText(txt59, stv.handleRec().getStr(eArtikl.name));
-                setText(txt54, stv.mosqRec().getStr(eArtikl.code));
-                setText(txt55, stv.mosqRec().getStr(eArtikl.name));
-                setText(txt56, stv.elementRec().getStr(eElement.name));                
                 setIcon(btn21, stv.paramCheck()[7]);
                 setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck()[2]);
@@ -689,6 +688,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setIcon(btn23, stv.paramCheck()[5]);
                 setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck()[6]);
+                //Москитка
+                LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                if (mosqList.isEmpty() == false) {
+                    IElem5e mosq = (IElem5e) mosqList.get(0);
+                    setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
+                    setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
+                    setText(txt56, stv.elementRec().getStr(eElement.name));
+                }                
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
