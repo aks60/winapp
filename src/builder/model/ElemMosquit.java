@@ -21,8 +21,8 @@ import java.util.List;
 
 public class ElemMosquit extends ElemSimple {
 
-    public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
-    
+    //public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
+
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;
@@ -83,22 +83,22 @@ public class ElemMosquit extends ElemSimple {
     }
 
     @Override
-    public void paint() {          
-            if (this.artiklRec.isVirtual() == false) {
-                winc.gc2d.setColor(Color.getHSBColor(242, 242, 242));
-                IElem5e bott = owner().frames().get(Layout.BOTT), right = owner().frames().get(Layout.RIGHT), top = owner().frames().get(Layout.TOP), left = owner().frames().get(Layout.LEFT);
-                int z = (winc.scale < 0.1) ? 80 : 30;
-                int h = 0, w = 0;
+    public void paint() {
+        if (this.artiklRec.isVirtual() == false) {
+            winc.gc2d.setColor(Color.getHSBColor(242, 242, 242));
+            IElem5e bott = owner().frames().get(Layout.BOTT), right = owner().frames().get(Layout.RIGHT), top = owner().frames().get(Layout.TOP), left = owner().frames().get(Layout.LEFT);
+            int z = (winc.scale < 0.1) ? 80 : 30;
+            int h = 0, w = 0;
 
-                for (int i = 1; i < (bott.y1() - top.y2()) / z; i++) {
-                    h = h + z;
-                    winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
-                }
-                for (int i = 1; i < (right.x1() - left.x2()) / z; i++) {
-                    w = w + z;
-                    winc.gc2d.drawLine((int) (left.x2() + w), (int) top.y2(), (int) (left.x2() + w), (int) bott.y1());
-                }
-            }        
+            for (int i = 1; i < (bott.y1() - top.y2()) / z; i++) {
+                h = h + z;
+                winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
+            }
+            for (int i = 1; i < (right.x1() - left.x2()) / z; i++) {
+                w = w + z;
+                winc.gc2d.drawLine((int) (left.x2() + w), (int) top.y2(), (int) (left.x2() + w), (int) bott.y1());
+            }
+        }
     }
 
     @Override

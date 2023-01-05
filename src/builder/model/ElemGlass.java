@@ -30,8 +30,7 @@ public class ElemGlass extends ElemSimple {
 
     private Record rasclRec = eArtikl.virtualRec(); //раскладка
     private int rasclColor = -3; //цвет раскладки
-    private int rasclHor = 2; //количество проёмов раскладки
-    private int rasclVert = 2; //количество проёмов раскладки 
+    private int rasclNumber[] = {2, 2}; //количество проёмов раскладки 
 
     public ElemGlass(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
@@ -79,11 +78,11 @@ public class ElemGlass extends ElemSimple {
             }
             //Проёмы
             if (isJson(param, PKjson.rasclHor)) {
-                rasclHor = param.get(PKjson.rasclHor).getAsInt();
+                rasclNumber[0] = param.get(PKjson.rasclHor).getAsInt();
             }
             //Проёмы
             if (isJson(param, PKjson.rasclVert)) {
-                rasclVert = param.get(PKjson.rasclVert).getAsInt();
+                rasclNumber[1] = param.get(PKjson.rasclVert).getAsInt();
             }
         }
     }
@@ -275,15 +274,11 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override
-    public int rasclHor() {
-        return rasclHor;
+    public int rasclNumber(int num) {
+        return rasclNumber[num];
     }
 
-    @Override
-    public int rasclVert() {
-        return rasclVert;
-    }
-
+    
     @Override
     public void paint() { //рисуём стёкла
 
@@ -334,7 +329,7 @@ public class ElemGlass extends ElemSimple {
     //Раскладка
     @Override
     public void rascladkaPaint() {
-        
+
         if (this.rasclRec.isVirtual() == false) {
             IElem5e elemL = joinFlat(Layout.LEFT), elemT = joinFlat(Layout.TOP), elemB = joinFlat(Layout.BOTT), elemR = joinFlat(Layout.RIGHT);
             float artH = Math.round(this.rasclRec().getFloat(eArtikl.height));
@@ -364,9 +359,9 @@ public class ElemGlass extends ElemSimple {
             };
             //reloadHor.reload(); //целые вертикальные
             //reloadVer.reload();
-           reloadVer.reload(); //целые горизонтальные
-           reloadHor.reload();             
-        }             
+            reloadVer.reload(); //целые горизонтальные
+            reloadHor.reload();
+        }
     }
 
     @Override

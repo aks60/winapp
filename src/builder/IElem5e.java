@@ -73,12 +73,8 @@ public interface IElem5e extends ICom5t {
         return -3;
     }
 
-    default int rasclHor() {
-        return -3;
-    }
-
-    default int rasclVert() {
-        return -3;
+    default int rasclNumber(int num) {
+        return 2;
     }
 
     //Попадание клика мышки в контур элемента
