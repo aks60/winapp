@@ -163,22 +163,16 @@ public class UGui {
     public static DefMutableTreeNode loadWinTree(Wincalc winc) {
         
         DefMutableTreeNode root = new DefMutableTreeNode(winc.rootArea);
-        root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
-        }));
-        DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
-        }));
+        root.add(new DefMutableTreeNode(new Com5t(Type.PARAM)));
+        DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME)));
         frm.add(new DefMutableTreeNode(winc.rootArea.frames().get(Layout.BOTT)));
-        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-        }));
+        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING)));
         frm.add(new DefMutableTreeNode(winc.rootArea.frames().get(Layout.RIGHT)));
-        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-        }));
+        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING)));
         frm.add(new DefMutableTreeNode(winc.rootArea.frames().get(Layout.TOP)));
-        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-        }));
+        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING)));
         frm.add(new DefMutableTreeNode(winc.rootArea.frames().get(Layout.LEFT)));
-        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-        }));
+        ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING)));
         
         for (ICom5t com : winc.rootArea.childs()) {
             if (com.type() != Type.STVORKA) {

@@ -27,6 +27,7 @@ public class DicName extends javax.swing.JDialog {
         this.listener = listenet;
         this.set = set;
         loadingModel();
+        btnIns.setVisible(false);
         setVisible(true);
     }
 
@@ -38,6 +39,7 @@ public class DicName extends javax.swing.JDialog {
         this.field = field;
         this.query = query;
         loadingModel();
+        btnIns.setVisible(false);
         setVisible(true);
     }
 

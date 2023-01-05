@@ -384,9 +384,11 @@ public class AreaSimple extends Com5t implements IArea5e {
 
             //Прорисовка раскладок
             LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
-            glassList.stream().forEach(el -> {
-               el.rascladkaPaint();
-            });
+            glassList.stream().forEach(el -> el.rascladkaPaint());
+            
+            //Прорисовка москиток
+            LinkedList<IElem5e> mosqList = winc.listElem.filter(Type.MOSKITKA);
+            mosqList.stream().forEach(el -> el.paint());
 
             //Рисунок в память
             if (winc.bufferImg != null) {

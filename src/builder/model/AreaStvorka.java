@@ -302,23 +302,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 DX = DX - 12;
                 Y1 = Y1 + 20;
             }
-
-            //Москитка
-            if (this.mosqRec.isVirtual() == false) {
-                winc.gc2d.setColor(Color.getHSBColor(242, 242, 242));
-                IElem5e bott = this.frames.get(Layout.BOTT), right = this.frames.get(Layout.RIGHT), top = this.frames.get(Layout.TOP), left = this.frames.get(Layout.LEFT);
-                int z = (winc.scale < 0.1) ? 80 : 30;
-                int h = 0, w = 0;
-
-                for (int i = 1; i < (bott.y1() - top.y2()) / z; i++) {
-                    h = h + z;
-                    winc.gc2d.drawLine((int) left.x2(), (int) (top.y2() + h), (int) right.x1(), (int) (top.y2() + h));
-                }
-                for (int i = 1; i < (right.x1() - left.x2()) / z; i++) {
-                    w = w + z;
-                    winc.gc2d.drawLine((int) (left.x2() + w), (int) top.y2(), (int) (left.x2() + w), (int) bott.y1());
-                }
-            }
         }
     }
 

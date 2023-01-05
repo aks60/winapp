@@ -694,8 +694,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     IElem5e mosq = (IElem5e) mosqList.get(0);
                     setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
                     setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
-                    setText(txt56, stv.elementRec().getStr(eElement.name));
-                }                
+                    setText(txt56, mosq.sysprofRec().getStr(eElement.name));
+                }
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
@@ -4186,17 +4186,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IArea5e stvElem = (IArea5e) winNode.com5t();
-            Record artiklRec = ((IStvorka) stvElem).mosqRec();
-            if (artiklRec.isVirtual() == false) {
+            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            if (mosqList.isEmpty() == false) {
+                IElem5e mosqElem = (IElem5e) mosqList.get(0);
+                Record artiklRec = mosqElem.artiklRec();
                 Query qElements = new Query(eElement.values()).select(eElement.up,
                         "where", eElement.artikl_id, "=", artiklRec.getInt(eArtikl.id));
 
                 new DicName(this, (elementRec) -> {
 
                     if (elementRec.get(1) == null) {
-                        stvElem.gson().param().remove(PKjson.elementID);
+                        mosqElem.gson().param().remove(PKjson.elementID);
                     } else {
-                        stvElem.gson().param().addProperty(PKjson.elementID, elementRec.getStr(eElement.id));
+                        mosqElem.gson().param().addProperty(PKjson.elementID, elementRec.getStr(eElement.id));
 
                     }
                     updateScript(selectID);
