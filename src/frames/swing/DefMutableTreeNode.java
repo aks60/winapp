@@ -29,6 +29,10 @@ public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
         return newChild;
     }
 
+    public DefMutableTreeNode getLastChild() {
+        return (DefMutableTreeNode) super.getLastChild();
+    }
+
     public String toString() {
         if (obj instanceof Record) {
             return ((Record) obj).getStr(eSystree.name);

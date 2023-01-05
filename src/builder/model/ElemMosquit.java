@@ -21,19 +21,6 @@ import java.util.List;
 
 public class ElemMosquit extends ElemSimple {
 
-    public static IElem5e create(IStvorka stv) {
-        IArea5e stvArea = (IArea5e) stv;
-        JsonObject param = new JsonObject();
-        param.addProperty(PKjson.artiklMosq, stv.mosqRec().getInt(eArtikl.id));
-        param.addProperty(PKjson.elementID, stv.elementRec().getInt(eElement.id));
-        GsonElem gson = new GsonElem(enums.Type.MOSKITKA, param.toString());
-        IElem5e elem5e = (eProp.old.read().equals("0"))
-                ? new builder.model.ElemMosquit(stvArea, gson)
-                : new builder.model.ElemMosquit(stvArea, gson);
-        ((IArea5e) stv).childs().add(elem5e);
-        return elem5e;
-    }
-
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;

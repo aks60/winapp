@@ -200,17 +200,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }
-        
-        //Москитка, цвет, состав        
-        if (isJson(param, PKjson.artiklMosq)) {
-            mosqRec = eArtikl.find(param.get(PKjson.artiklMosq).getAsInt(), false);
-            mosqColor = eArtdet.find2(mosqRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
-            //Состав
-            if (isJson(param, PKjson.elementID)) {
-                elementRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
-            }
-        }        
+        }       
     }
 
     /**

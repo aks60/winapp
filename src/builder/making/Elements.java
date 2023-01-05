@@ -38,16 +38,16 @@ public class Elements extends Cal5e {
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
-    //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
+    //TODO При проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     @Override
     public void calc() {
         super.calc();
         LinkedList<IElem5e> listElem = winc.listElem.filter(Type.FRAME_SIDE,
-                Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS); //список элементов конструкции
+                Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS, Type.MOSKITKA); //список элементов конструкции
         try {
             //Цикл по списку элементов конструкции
             for (IElem5e elem5e : listElem) {
-
+                
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn().getInt(eArtikl.id);
 
@@ -60,18 +60,6 @@ public class Elements extends Cal5e {
                 List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
             }
-//            //Москидки
-//            LinkedList<IArea5e> stvList = winc.listArea.filter(Type.STVORKA);
-//            for (IArea5e stvArea : stvList) {
-//                IStvorka stv = (IStvorka) stvArea;              
-//                if (stv.mosqRec().isVirtual() == false) {                    
-//                    stvArea.childs().removeIf(e -> e.type() == Type.MOSKITKA); //удалим старый обьект москитки
-//                    IElem5e elem5e = ElemMosquit.create(stv); //создадим новый объект москитки                  
-//                    List<Record> elementList4 = new ArrayList();
-//                    elementList4.add(stv.elementRec());
-//                    detail(elementList4, elem5e);
-//                }
-//            }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);
         } finally {

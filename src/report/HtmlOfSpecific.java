@@ -53,7 +53,7 @@ public class HtmlOfSpecific {
         List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
         Wincalc winc = new builder.Wincalc();
 
-        //Цыкл по конструкциям заказа
+        //Цикл по конструкциям заказа
         for (Record prjprodRec : prjprodList) {
             String script = prjprodRec.getStr(ePrjprod.script);
             winc.build(script);

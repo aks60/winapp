@@ -4165,18 +4165,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
 
-            new DicArtikl(this, (artiklRec) -> {
+            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            if (mosqList.isEmpty() == false) {
+                IElem5e mosqElem = (IElem5e) mosqList.get(0);
 
-                if (artiklRec.get(1) == null) {
-                    stvElem.gson().param().remove(PKjson.artiklMosq);
-                    stvElem.gson().param().remove(PKjson.elementID);
-                } else {
-                    stvElem.gson().param().addProperty(PKjson.artiklMosq, artiklRec.getStr(eArtikl.id));
-                }
-                updateScript(selectID);
+                new DicArtikl(this, (artiklRec) -> {
 
-            }, qArtikl);
+                    if (artiklRec.get(1) == null) {
+                        mosqElem.gson().param().remove(PKjson.artiklID);
+                        mosqElem.gson().param().remove(PKjson.elementID);
+                    } else {
+                        mosqElem.gson().param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
+                    }
+                    updateScript(selectID);
 
+                }, qArtikl);
+            }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.mosquitToStvorka() " + e);
         }
