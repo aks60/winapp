@@ -1,6 +1,6 @@
 package builder.making;
 
-import builder.IArea5e;
+import builder.ICom5t;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
@@ -13,15 +13,9 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.IElem5e;
-import builder.IStvorka;
-import builder.model.ElemMosquit;
-import builder.script.GsonElem;
-import com.google.gson.JsonObject;
-import common.eProp;
 import dataset.Query;
-import enums.PKjson;
+import domain.eSysprof;
 import enums.Type;
-import java.util.ArrayList;
 
 /**
  * Составы.
@@ -47,18 +41,22 @@ public class Elements extends Cal5e {
         try {
             //Цикл по списку элементов конструкции
             for (IElem5e elem5e : listElem) {
-                
-                //Варианты состава для артикула профиля
-                int artikl_id = elem5e.artiklRecAn().getInt(eArtikl.id);
 
-                //Варианты состава по артикулу элемента конструкции
-                List<Record> elementList3 = eElement.find2(artikl_id);
-                detail(elementList3, elem5e);
+                if (elem5e.type() == Type.MOSKITKA) {
+                    //По id - профиля
+                    List<Record> elementList4 = List.of(eElement.find4(((ICom5t) elem5e).sysprofRec().getInt(eSysprof.id)));
+                    detail(elementList4, elem5e);
 
-                //Варианты состава по серии профилей
-                int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
-                List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
-                detail(elementList2, elem5e);
+                } else {
+                    //По artikl_id - артикула профилей
+                    List<Record> elementList3 = eElement.find2(elem5e.artiklRecAn().getInt(eArtikl.id));
+                    detail(elementList3, elem5e);
+
+                    //По groups1_id - серии профилей
+                    int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
+                    List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
+                    detail(elementList2, elem5e);
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);
@@ -79,7 +77,7 @@ public class Elements extends Cal5e {
                     //выполним установочные параметры
                     elementVar.listenerFire();
 
-                    setVariant.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
+                    setVariant.add(elementRec.getInt(eElement.id)); //сделано для фильтрации профилей вне конструктива
 
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
                     List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElement.id)); //список элем. детализации

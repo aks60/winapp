@@ -1,5 +1,6 @@
 package frames.swing;
 
+import common.UCom;
 import dataset.Field;
 import dataset.Query;
 import frames.UGui;
@@ -11,6 +12,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -20,6 +22,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 public class TableFieldFilter extends javax.swing.JPanel {
 
@@ -31,10 +37,12 @@ public class TableFieldFilter extends javax.swing.JPanel {
 
     public TableFieldFilter() {
         initComponents();
+        initElements();
     }
 
     public TableFieldFilter(int indexColName, JTable... tables) {
         initComponents();
+        initElements();
         this.tableList = tables;
         this.table = tables[0];
         labFilter.setText(tables[0].getColumnName(indexColName));
@@ -232,5 +240,21 @@ public class TableFieldFilter extends javax.swing.JPanel {
     private javax.swing.JLabel labFilter;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
-// </editor-fold> 
+// </editor-fold>
+
+    public final void initElements() {
+//        PlainDocument doc = (PlainDocument) txtFilter.getDocument();
+//        doc.setDocumentFilter(new DocumentFilter() {
+//
+//            @Override
+//            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+//                    super.insertString(fb, offset, string.toLowerCase(), attr);
+//            }
+//
+//            @Override
+//            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+//                    super.replace(fb, offset, length, string.toLowerCase(), attrs);
+//            }
+//        });
+    }
 }
