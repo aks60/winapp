@@ -21,8 +21,6 @@ import java.util.List;
 
 public class ElemMosquit extends ElemSimple {
 
-    //public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
-
     public ElemMosquit(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
         this.layout = Layout.FULL;

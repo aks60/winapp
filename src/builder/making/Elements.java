@@ -13,6 +13,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.IElem5e;
+import common.UCom;
 import dataset.Query;
 import domain.eSysprof;
 import enums.Type;
@@ -45,8 +46,10 @@ public class Elements extends Cal5e {
                 if (elem5e.type() == Type.MOSKITKA) {
                     //По id - профиля
                     List<Record> elementList4 = List.of(eElement.find4(((ICom5t) elem5e).sysprofRec().getInt(eSysprof.id)));
-                    detail(elementList4, elem5e);
-
+                    for (int side = 0; side < 4; ++side) {
+                        elem5e.anglHoriz(UCom.sideHoriz[side]); //устан. угол. проверяемой стороны
+                        detail(elementList4, elem5e);
+                    }
                 } else {
                     //По artikl_id - артикула профилей
                     List<Record> elementList3 = eElement.find2(elem5e.artiklRecAn().getInt(eArtikl.id));
@@ -97,9 +100,10 @@ public class Elements extends Cal5e {
 
                                 spcAdd.place = "ВСТ";
 
-                                //Если (контейнер) в списке детализации, например профиль с префиксом @
+                                //Если (контейнер) в списке детализации, 
+                                //например профиль в осн. специф. с префиксом @
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103)) {
-                                    elem5e.spcRec().setArtiklRec(spcAdd.artiklRec); //переназначаем артикул, как правило это c префиксом артикула @
+                                    elem5e.spcRec().setArtiklRec(spcAdd.artiklRec); //в основную спецификацию
                                     elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {

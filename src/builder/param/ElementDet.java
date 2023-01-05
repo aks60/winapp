@@ -82,7 +82,7 @@ public class ElementDet extends Par5s {
                         return false;
                     }
                     break;
-                case 33008: //Эффективное заполнение изд., мм 
+                case 33008:  //Эффективное заполнение изд., мм 
                 case 34008:  //Эффективное заполнение изделия, мм 
                 case 40008:  //Эффективное заполнение изд., мм                    
                     if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
@@ -111,10 +111,10 @@ public class ElementDet extends Par5s {
                 case 38017: //Код системы содержит строку     
                 case 39017: //Код системы содержит строку 
                 case 40017: //Код системы содержит строку                 
-                if(UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
-                    return false;
-                }
-                break;
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
+                        return false;
+                    }
+                    break;
                 case 33030:  //Количество 
                 case 38030:  //Количество   
                     mapParam.put(grup, rec.getStr(TEXT));
@@ -191,13 +191,11 @@ public class ElementDet extends Par5s {
                 case 34069:  //Коды внешн. текстуры изделия 
                 case 38069:  //Коды внешн. текстуры изделия 
                 case 39069:  //Коды внешн. текстуры изделия 
-                case 40069: //Коды внешн. текстуры изделия  
-                {
+                case 40069:  //Коды внешн. текстуры изделия  
                     if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 33071:  //Контейнер типа 
                 case 34071:  //Контейнер типа
                     if (UPar.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
@@ -369,16 +367,14 @@ public class ElementDet extends Par5s {
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40005:  //Поправка ширины/высоты, мм 
-                    message(grup);
+                case 40010:  //Поправка на стороны четные/нечетные, мм 
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40006:  //Высота заполнения, мм 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40007:  //Высоту сделать длиной 
                     mapParam.put(grup, rec.getStr(TEXT));
-                    break;
-                case 40010:  //Поправка на стороны четные/нечетные, мм 
-                    message(grup);
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";

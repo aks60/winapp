@@ -653,8 +653,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt50, rasclRec.getStr(eArtikl.name));
                 Record colorRascl = eColor.find(((IElem5e) winNode.com5t()).rasclColor());
                 setText(txt51, colorRascl.getStr(eColor.name));
-                spinHor.setValue(((IElem5e) winNode.com5t()).rasclHor());
-                spinVert.setValue(((IElem5e) winNode.com5t()).rasclVert());
+                spinHor.setValue(((IElem5e) winNode.com5t()).rasclNumber(0));
+                spinVert.setValue(((IElem5e) winNode.com5t()).rasclNumber(1));
 
                 //Створка
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {

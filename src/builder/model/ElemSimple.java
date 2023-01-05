@@ -31,7 +31,16 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     public Specific spcRec() {
         return spcRec;
     }
+    
+    @Override
+    public float anglHoriz() {
+        return anglHoriz;
+    }
 
+    @Override
+    public void anglHoriz(float angl) {
+        this.anglHoriz = angl;
+    }
     @Override
     public float[] anglFlat() {
         return anglFlat;
