@@ -26,7 +26,6 @@ public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус стекла
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 
-    public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
     public float gsize[] = {0, 0, 0, 0}; //размер от оси до стеклопакета
 
     private Record rasclRec = eArtikl.virtualRec(); //раскладка
@@ -163,7 +162,7 @@ public class ElemGlass extends ElemSimple {
     @Override
     public void addSpecific(Specific spcAdd) {
         try {
-            if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3])) {
+            if (Type.ARCH == owner.type() && (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3])) {
                 return;  //нет таких сторон у арки
             }
             spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
@@ -181,11 +180,11 @@ public class ElemGlass extends ElemSimple {
 
                     //AREA, STVORKA
                 } else {
-                    if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
+                    if (anglHoriz == UCom.sideHoriz[0] || anglHoriz == UCom.sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
-                    } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
+                    } else if (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3]) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
@@ -197,7 +196,7 @@ public class ElemGlass extends ElemSimple {
                     spcRec.spcList.add(spcAdd);
                 }
 
-                if (anglHoriz == sideHoriz()[0] || anglHoriz == sideHoriz()[2]) { //по горизонтали
+                if (anglHoriz == UCom.sideHoriz[0] || anglHoriz == UCom.sideHoriz[2]) { //по горизонтали
                     if (spcAdd.mapParam.get(15010) != null) {
                         if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -209,7 +208,7 @@ public class ElemGlass extends ElemSimple {
                         }
                     }
 
-                } else if (anglHoriz == sideHoriz()[1] || anglHoriz == sideHoriz()[3]) { //по вертикали
+                } else if (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3]) { //по вертикали
                     if (spcAdd.mapParam.get(15010) != null) {
                         if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -243,11 +242,6 @@ public class ElemGlass extends ElemSimple {
         } catch (Exception e) {
             System.err.println("Ошибка:ElemGlass.addSpecific() " + e);
         }
-    }
-
-    @Override
-    public float[] sideHoriz() {
-        return sideHoriz;
     }
 
     @Override

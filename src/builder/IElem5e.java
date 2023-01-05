@@ -50,10 +50,6 @@ public interface IElem5e extends ICom5t {
 
     float[] anglCut();
 
-    default float[] sideHoriz() {
-        return null;
-    }
-
     default float[] gsize() {
         return null;
     }

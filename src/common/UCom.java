@@ -14,6 +14,7 @@ import java.util.List;
 public class UCom {
 
     private static DecimalFormat df = new DecimalFormat();
+    public static float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
 
     public static boolean check(String val, int pattern) {
         try {

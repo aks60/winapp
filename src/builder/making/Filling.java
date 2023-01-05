@@ -66,7 +66,7 @@ public class Filling extends Cal5e {
             //Цикл по сторонам стеклопакета
             for (int side = 0; side < 4; ++side) {
                 IElem5e elemFrame = elemFrameList.get(side);
-                elemGlass.anglHoriz(elemGlass.sideHoriz()[side]); //устан. угол. проверяемой стороны
+                elemGlass.anglHoriz(UCom.sideHoriz[side]); //устан. угол. проверяемой стороны
 
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
