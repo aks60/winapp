@@ -43,7 +43,7 @@ public class GsonScript {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, sysprofRec: 1287}"))
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 1287}"))
                     .addElem(new GsonElem(Type.GLASS));   
 
         } else if (prj == 601002) {

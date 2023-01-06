@@ -47,7 +47,7 @@ public class ElemMosquit extends ElemSimple {
             colorID1 = -3;
         }
 
-        //Состав москитки. ВНИМАЕИЕ! sysprofRec подменён на elementID
+        //Состав москитки. ВНИМАЕИЕ! elementID подменён на sysprofRec
         if (isJson(param, PKjson.elementID)) {
             sysprofRec = eElement.find4(param.get(PKjson.elementID).getAsInt());
         } else {
