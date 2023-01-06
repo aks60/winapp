@@ -76,8 +76,7 @@ public class Elements extends Cal5e {
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
 
-                    //Если в проверочных парам. успех,
-                    //выполним установочные параметры
+                    //Выполним установочные параметры (не успользую)
                     elementVar.listenerFire();
 
                     setVariant.add(elementRec.getInt(eElement.id)); //сделано для фильтрации профилей вне конструктива
@@ -102,7 +101,7 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль в осн. специф. с префиксом @
-                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103)) {
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
                                     elem5e.spcRec().setArtiklRec(spcAdd.artiklRec); //в основную спецификацию
                                     elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
 

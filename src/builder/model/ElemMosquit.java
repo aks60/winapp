@@ -12,6 +12,7 @@ import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElement;
+import domain.eSyssize;
 import enums.Layout;
 import enums.PKjson;
 import enums.Type;
@@ -57,16 +58,22 @@ public class ElemMosquit extends ElemSimple {
     //Установка координат элементов окна
     @Override
     public void setLocation() {
-        if (Type.ARCH == owner.type()) {
-            setDimension(0, 0, owner.x2(), Math.abs(winc.height1() - winc.height2()));
-        } else {
-            setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y2());
-        }
+        IElem5e bott = owner().frames().get(Layout.BOTT), right = owner().frames().get(Layout.RIGHT), top = owner().frames().get(Layout.TOP), left = owner().frames().get(Layout.LEFT);
+        setDimension(left.x2(), top.y2(), right.x1(), bott.y1());
     }
 
     //Главная спецификация    
     @Override
     public void setSpecific() {
+
+        spcRec.place = "ВСТ.м";
+        spcRec.setArtiklRec(artiklRec);
+        spcRec.colorID1 = colorID1;
+        spcRec.colorID2 = colorID2;
+        spcRec.colorID3 = colorID3;
+        spcRec.anglHoriz = anglHoriz;
+        spcRec.width = width();
+        spcRec.height = height();
     }
 
     //Вложенная спецификация

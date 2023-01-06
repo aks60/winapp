@@ -1339,7 +1339,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 {"222", "2", null}
             },
             new String [] {
-                "Параметр", "Значение по умолчанию", "ID"
+                "Параметр конструкции", "Значение по умолчанию", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -3234,7 +3234,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 {"222", "2",  new Boolean(true), null}
             },
             new String [] {
-                "Параметр", "Значение по умолчанию", "Закреплено", "ID"
+                "Параметр системы", "Значение по умолчанию", "Закреплено", "ID"
             }
         ) {
             Class[] types = new Class [] {
