@@ -65,15 +65,19 @@ public class ElemMosquit extends ElemSimple {
     //Главная спецификация    
     @Override
     public void setSpecific() {
-
-        spcRec.place = "ВСТ.м";
-        spcRec.setArtiklRec(artiklRec);
-        spcRec.colorID1 = colorID1;
-        spcRec.colorID2 = colorID2;
-        spcRec.colorID3 = colorID3;
-        spcRec.anglHoriz = anglHoriz;
-        spcRec.width = width();
-        spcRec.height = height();
+        try {
+            spcRec.place = "ВСТ.м";
+            spcRec.setArtikl(artiklRec);
+            spcRec.colorID1 = colorID1;
+            spcRec.colorID2 = colorID2;
+            spcRec.colorID3 = colorID3;
+            spcRec.anglHoriz = anglHoriz;
+            spcRec.width = width();
+            spcRec.height = height();
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemMosquit.setSpecific() " + e);
+        }
     }
 
     //Вложенная спецификация

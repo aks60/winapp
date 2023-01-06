@@ -151,6 +151,20 @@ class UPar {
         return true;
     }
 
+    //Номер стороны 
+    static boolean is_38010_39002(IElem5e elem5e, String txt) {
+        if (elem5e.anglHoriz() == 0 && "1".equals(txt) == false) {
+            return false;
+        } else if (elem5e.anglHoriz() == 90 && "2".equals(txt) == false) {
+            return false;
+        } else if (elem5e.anglHoriz() == 180 && "3".equals(txt) == false) {
+            return false;
+        } else if (elem5e.anglHoriz() == 270 && "4".equals(txt) == false) {
+            return false;
+        }
+        return true;
+    }
+
     //Название фурнитуры содержит 
     static boolean is_31037_38037_39037_40037(IElem5e elem5e, String txt) {
         if (Type.STVORKA == elem5e.owner().type()) {

@@ -49,14 +49,14 @@ public enum eSysprof implements Field {
         return query;
     }
 
-    public static ArrayList<Record> find(int _nuni) {
-        if (Query.conf.equals("calc")) {
-            ArrayList<Record> sysproaList = new ArrayList();
-            query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
-            return sysproaList;
-        }
-        return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);
-    }
+//    public static ArrayList<Record> find(int _nuni) {
+//        if (Query.conf.equals("calc")) {
+//            ArrayList<Record> sysproaList = new ArrayList();
+//            query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
+//            return sysproaList;
+//        }
+//        return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);
+//    }
 
     public static Record find2(int _nuni, UseArtiklTo _type) {
         if (_nuni == -3) {

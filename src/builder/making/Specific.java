@@ -57,21 +57,30 @@ public class Specific {
         this.mapParam = new HashMap();
     }
 
-    public Specific(float id, Record detailRec, Record artiklRec, HashMap<Integer, String> mapParam) {
-        this.id = id;
-        this.mapParam = mapParam;
-        this.detailRec = detailRec;
-        setArtiklRec(artiklRec);
-    }
-
     public Specific(Record detailRec, Record artiklRec, IElem5e elem5e, HashMap<Integer, String> mapParam) {
         this.id = elem5e.winc().genId();
         this.elem5e = elem5e;
         this.mapParam = mapParam;
         this.detailRec = detailRec;
-        setArtiklRec(artiklRec);
+        setArtikl(artiklRec);
     }
 
+    public Specific(float id, Record detailRec, Record artiklRec, HashMap<Integer, String> mapParam) {
+        this.id = id;
+        this.mapParam = mapParam;
+        this.detailRec = detailRec;
+        setArtikl(artiklRec);
+    }
+    
+    public void setArtikl(Record artiklRec) {
+        this.artikl = artiklRec.getStr(eArtikl.code);
+        this.name = artiklRec.getStr(eArtikl.name);
+        this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
+        this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
+        this.artiklRec = artiklRec;
+        setAnglCut();
+    }
+    
     public Specific(Specific spec) {
         this.id = spec.id; //++spec.elem5e.winc.genId;
         this.place = spec.place;
@@ -105,15 +114,6 @@ public class Specific {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
                 count, UseUnit.getName(unit), wastePrc, quant1, quant2, costpric1, costpric2, price, cost2));
-    }
-
-    public void setArtiklRec(Record artiklRec) {
-        this.artikl = artiklRec.getStr(eArtikl.code);
-        this.name = artiklRec.getStr(eArtikl.name);
-        this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
-        this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
-        this.artiklRec = artiklRec;
-        setAnglCut();
     }
 
     public void setColor(int side, int colorID) {

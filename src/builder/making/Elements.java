@@ -100,9 +100,9 @@ public class Elements extends Cal5e {
                                 spcAdd.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, 
-                                //например профиль в осн. специф. с префиксом @
+                                //например профиль с префиксом @ в осн. специф.
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
-                                    elem5e.spcRec().setArtiklRec(spcAdd.artiklRec); //в основную спецификацию
+                                    elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
                                     elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {

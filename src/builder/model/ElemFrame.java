@@ -43,8 +43,8 @@ public class ElemFrame extends ElemSimple {
     }
 
     /**
-     * Профиль через параметр или первая запись в системе см. табл. sysprof
-     * Цвет если нет параметра то берём winc.color.
+     * Профиль через параметр или первая запись в системе см. табл. sysprof Цвет
+     * если нет параметра то берём winc.color.
      */
     public void initСonstructiv(JsonObject param) {
 
@@ -70,9 +70,9 @@ public class ElemFrame extends ElemSimple {
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        
+
         //Системные константы как правило на всю систему профилей
-        if (winc.syssizeRec() == null) { 
+        if (winc.syssizeRec() == null) {
             winc.syssizeRec(eSyssize.find(artiklRec));
         }
     }
@@ -161,63 +161,66 @@ public class ElemFrame extends ElemSimple {
     //Главная спецификация
     @Override
     public void setSpecific() {  //добавление основной спецификации
+        try {
+            spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
+            spcRec.setArtikl(artiklRec);
+            spcRec.colorID1 = colorID1;
+            spcRec.colorID2 = colorID2;
+            spcRec.colorID3 = colorID3;
+            spcRec.anglCut1 = anglCut[0];
+            spcRec.anglCut2 = anglCut[1];
+            spcRec.anglHoriz = anglHoriz;
+            double katet = winc.syssizeRec().getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
-        spcRec.setArtiklRec(artiklRec);
-        spcRec.colorID1 = colorID1;
-        spcRec.colorID2 = colorID2;
-        spcRec.colorID3 = colorID3;
-        spcRec.anglCut1 = anglCut[0];
-        spcRec.anglCut2 = anglCut[1];
-        spcRec.anglHoriz = anglHoriz;
-        double katet = winc.syssizeRec().getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-
-        if (owner.type() == Type.ARCH) {
-            if (owner.type() == Type.ARCH && Layout.TOP == layout) {
-                AreaArch areaArch = (AreaArch) root();
-                double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
-                lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-                spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
+            if (owner.type() == Type.ARCH) {
+                if (owner.type() == Type.ARCH && Layout.TOP == layout) {
+                    AreaArch areaArch = (AreaArch) root();
+                    double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
+                    lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
+                    spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.BOTT == layout) {
+                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.LEFT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.RIGHT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                }
+            } else if (owner.type() == Type.TRAPEZE) {
+                if (Layout.TOP == layout) {
+                    double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
+                    spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.BOTT == layout) {
+                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.LEFT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.RIGHT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                }
+            } else {
+                if (Layout.TOP == layout) {
+                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.BOTT == layout) {
+                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.LEFT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.RIGHT == layout) {
+                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                }
             }
-        } else if (owner.type() == Type.TRAPEZE) {
-            if (Layout.TOP == layout) {
-                double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
-                spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            }
-        } else {
-            if (Layout.TOP == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemFrame.setSpecific() " + e);
         }
     }
 

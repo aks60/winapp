@@ -102,7 +102,7 @@ public class ElemGlass extends ElemSimple {
     public void setSpecific() {
 
         spcRec.place = "ЗАП";
-        spcRec.setArtiklRec(artiklRec);
+        spcRec.setArtikl(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;

@@ -98,9 +98,9 @@ public class ElemCross extends ElemSimple {
     @Override
     //Главная спецификация   
     public void setSpecific() {
-
+try {
         spcRec.place = (Layout.HORIZ == owner.layout()) ? "ВСТ.в" : "ВСТ.г";
-        spcRec.setArtiklRec(artiklRec);
+        spcRec.setArtikl(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
@@ -152,6 +152,9 @@ public class ElemCross extends ElemSimple {
                 spcRec.height = artiklRec().getFloat(eArtikl.height);
             }
         }
+        } catch (Exception e) {
+            System.err.println("Ошибка:ElemCross.setSpecific() " + e);
+        }      
     }
 
     //Вложеная спецификация 

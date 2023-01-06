@@ -1,31 +1,23 @@
 package frames.swing;
 
-import common.UCom;
 import dataset.Field;
 import dataset.Query;
 import frames.UGui;
-import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 
 public class TableFieldFilter extends javax.swing.JPanel {
 
@@ -225,6 +217,7 @@ public class TableFieldFilter extends javax.swing.JPanel {
                 }
             } else {
                 btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(txtFilter.getText()), null);
                 txtFilter.setText("");
             }
         } catch (Exception e) {

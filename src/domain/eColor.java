@@ -103,6 +103,24 @@ public enum eColor implements Field {
         }
     }
 
+    public static Record find3(int _color_fk, int mark_cl) {
+        if (_color_fk == -3) {
+            return virtualRec();
+        }
+        if (Query.conf.equals("calc")) {
+            if (_color_fk < 0) {
+                return query().stream().filter(rec -> rec.getInt(colgrp_id) == _color_fk * -1).findFirst().orElse(up.newRecord());
+            } else {
+                return query().stream().filter(rec -> rec.getInt(id) == _color_fk).findFirst().orElse(up.newRecord());
+            }
+        }
+        if (_color_fk < 0) {
+            return new Query(values()).select("select first 1 * from " + up.tname() + " where " + colgrp_id.name() + " = " + (_color_fk * -1)).get(0);
+        } else {
+            return new Query(values()).select(up, "where", id, "=", _color_fk).get(0);
+        }
+    }
+
     public static Record virtualRec() {
         Record record = up.newRecord();
         record.setNo(id, -3);

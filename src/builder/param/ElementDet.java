@@ -314,7 +314,9 @@ public class ElementDet extends Par5s {
                     break;
                 case 38010:  //Номер стороны 
                 case 39002:  //Номер стороны 
-                    message(grup);
+                    if (UPar.is_38010_39002(elem5e, rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
                 case 38037:  //Название фурнитуры содержит 
                 case 39037:  //Название фурнитуры содержит 

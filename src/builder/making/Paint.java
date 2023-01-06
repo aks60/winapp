@@ -163,7 +163,7 @@ public class Paint {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:Color.setting() " + e);
+            System.err.println("Ошибка:Paint.setting() " + e);
         }
         return true;
     }
@@ -308,7 +308,7 @@ public class Paint {
             return -1;
 
         } catch (Exception e) {
-            System.err.println("Ошибка Color.colorFromArtdet() " + e);
+            System.err.println("Ошибка Paint.colorFromArtdet() " + e);
             return -1;
         }
     }
@@ -349,7 +349,7 @@ public class Paint {
                     return -1;
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: Color.colorFromTypes() " + e);
+            System.err.println("Ошибка: Paint.colorFromTypes() " + e);
             return -1;
         }
     }
@@ -372,7 +372,7 @@ public class Paint {
             return -1;
 
         } catch (Exception e) {
-            System.err.println("Ошибна Color.colorFromArt() " + e);
+            System.err.println("Ошибна Paint.colorFromArtikl() " + e);
             return -1;
         }
     }

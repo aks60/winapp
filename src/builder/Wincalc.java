@@ -1,4 +1,3 @@
-
 package builder;
 
 import builder.model.ElemJoining;
@@ -18,14 +17,17 @@ import builder.making.Joining;
 import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
+import builder.making.Paint;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import com.google.gson.JsonSyntaxException;
 import common.ArrayList2;
 import common.LinkedList2;
 import common.eProp;
+import domain.eSysprof;
 import enums.Form;
 import enums.Type;
+import enums.UseArtiklTo;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -123,15 +125,14 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
-            this.width1 = (rootGson.width1() == null)
-                    ? rootGson.width() : rootGson.width1();
+            this.width1 = (rootGson.width1() == null) ? rootGson.width() : rootGson.width1();
             this.width2 = rootGson.width2(); //ширина в основании всегда задана
             this.height1 = rootGson.height1(); //высота слева всегда задана
-            this.height2 = (rootGson.height2() == null)
-                    ? rootGson.height() : rootGson.height2();
-            this.colorID1 = rootGson.color1();
-            this.colorID2 = rootGson.color2();
-            this.colorID3 = rootGson.color3();
+            this.height2 = (rootGson.height2() == null) ? rootGson.height() : rootGson.height2();
+            Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
+            this.colorID1 = (rootGson.color1() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color1();
+            this.colorID2 = (rootGson.color2() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color2();
+            this.colorID3 = (rootGson.color3() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color3();
             eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
@@ -210,14 +211,14 @@ public class Wincalc {
                             ? new builder.model.ElemGlass(owner, js)
                             : new builder.model.ElemGlass(owner, js);
                     owner.childs().add(elem5e);
-                    
-                } else if (Type.MOSKITKA== js.type()) {
+
+                } else if (Type.MOSKITKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemMosquit(owner, js)
                             : new builder.model.ElemMosquit(owner, js);
                     owner.childs().add(elem5e);
-                    
-                } 
+
+                }
             }
 
             //Теперь вложенные элементы
@@ -249,11 +250,15 @@ public class Wincalc {
             calcTariffication = new Tariffic(this, norm_otx); //тарификация
             calcTariffication.calc();
 
-            //Построим список спецификаций
+            //Построим список спецификации
             for (IElem5e elem5e : listElem) {
                 if (elem5e.spcRec().artikl.isEmpty() || elem5e.spcRec().artikl.trim().charAt(0) != '@') {
                     listSpec.add(elem5e.spcRec());
-                    elem5e.spcRec().spcList.forEach(spc -> listSpec.add(spc));
+                }
+                for (Specific spc : elem5e.spcRec().spcList) {
+                    if (spc.artikl.isEmpty() || spc.artikl.trim().charAt(0) != '@') {
+                        listSpec.add(spc);
+                    }
                 }
             }
 

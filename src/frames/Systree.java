@@ -634,8 +634,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     || winNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                setText(txt32, winNode.com5t().artiklRecAn().getStr(eArtikl.code));
-                setText(txt33, winNode.com5t().artiklRecAn().getStr(eArtikl.name));
+                setText(txt32, winNode.com5t().artiklRec().getStr(eArtikl.code));
+                setText(txt33, winNode.com5t().artiklRec().getStr(eArtikl.name));
                 setText(txt27, eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
                 setText(txt28, eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
                 setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
