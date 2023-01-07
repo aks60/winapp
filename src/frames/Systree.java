@@ -4166,9 +4166,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
 
             LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
-            if (mosqList.isEmpty() == false) {
-                IElem5e mosqElem = (IElem5e) mosqList.get(0);
+            if (mosqList.isEmpty() == true) {
+                
+            }
 
+            IElem5e mosqElem = (IElem5e) mosqList.get(0);
+            
+            if (mosqList.isEmpty() == false) {
                 new DicArtikl(this, (artiklRec) -> {
 
                     if (artiklRec.get(1) == null) {
