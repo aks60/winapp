@@ -16,7 +16,7 @@ public final class Bimax {
     public static String script(Integer prj) {
         
         if (prj == 508809) { //PUNIC = 427597
-            rootGson = new GsonRoot("1.0", prj, 1, 291, "Teplowin 100 \\ Classic \\ 1 ОКНА",
+            rootGson = new GsonRoot("1.0", prj, 1, 291, "Teplowin 100\\Classic\\1 ОКНА",
                     Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 1009, 1009, "{ioknaParam: [-9504]}");
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))

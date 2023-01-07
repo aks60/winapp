@@ -77,18 +77,27 @@ import builder.making.UColor;
 import builder.IElem5e;
 import builder.IStvorka;
 import builder.making.Cal5e;
+import builder.script.GsonRoot;
+import builder.script.GsonScript;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import common.LinkedList2;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
 import domain.eElement;
+import domain.eSysmodel;
 import frames.swing.TableFieldFilter;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -3473,14 +3482,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 });
 
             } else if (tab5.getBorder() != null) {
-                if (sysNode != null && sysNode.isLeaf()) {
-                    FrameProgress.create(Systree.this, new ListenerFrame() {
-                        public void actionRequest(Object obj) {
-                            models = new Models(listenerModel);
-                            FrameToFile.setFrameSize(models);
-                            models.setVisible(true);
-                        }
-                    });
+                if (sysNode != null && sysNode.isLeaf()) {                   
+                    testBimax();
+                    
+//                    FrameProgress.create(Systree.this, new ListenerFrame() {
+//                        public void actionRequest(Object obj) {
+//                            models = new Models(listenerModel);
+//                            FrameToFile.setFrameSize(models);
+//                            models.setVisible(true);
+//                        }
+//                    });
                 }
             }
         }
@@ -4166,17 +4177,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
 
             new DicArtikl(this, (artiklRec) -> {
-                
+
                 GsonElem gsonElem = null;
                 LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
-                
+
                 if (mosqList.isEmpty() == false) {
                     IElem5e mosqElem = (IElem5e) mosqList.get(0);
                     gsonElem = mosqElem.gson();
                 } else {
                     gsonElem = new GsonElem(enums.Type.MOSKITKA);
                     GsonElem stvArea = stvElem.gson();
-                    stvArea.childs().add(gsonElem);                   
+                    stvArea.childs().add(gsonElem);
                 }
                 if (artiklRec.get(1) == null) {
                     gsonElem.param().remove(PKjson.artiklID);
@@ -4522,5 +4533,28 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
+    }
+
+    private void testBimax() {
+        try {
+            Object prj = JOptionPane.showInputDialog(Systree.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
+            if (prj != null) {
+                Record record = eSysprod.up.newRecord(Query.INS);
+                record.set(eSysprod.id, Conn.genId(eSysprod.up));
+                record.set(eSysprod.npp, record.get(eSysprod.id));
+                String json = GsonScript.testJson(Integer.valueOf(prj.toString()));
+                GsonRoot gsonRoot = new Gson().fromJson(json, GsonRoot.class);
+                record.set(eSysprod.name, "Kod:" + prj + "* " + gsonRoot.name());
+                record.set(eSysprod.script, json);
+                record.set(eSysprod.systree_id, systreeID);
+                qSysprod.insert(record);
+
+                loadingTab5();
+                UGui.setSelectedIndex(tab5, qSysprod.size() - 1);
+                UGui.scrollRectToIndex(qSysprod.size() - 1, tab5);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.testBimax()");
+        }
     }
 }
