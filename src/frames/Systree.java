@@ -4165,26 +4165,29 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
 
-            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
-            if (mosqList.isEmpty() == true) {
+            new DicArtikl(this, (artiklRec) -> {
                 
-            }
+                GsonElem gsonElem = null;
+                LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+                
+                if (mosqList.isEmpty() == false) {
+                    IElem5e mosqElem = (IElem5e) mosqList.get(0);
+                    gsonElem = mosqElem.gson();
+                } else {
+                    gsonElem = new GsonElem(enums.Type.MOSKITKA);
+                    GsonElem stvArea = stvElem.gson();
+                    stvArea.childs().add(gsonElem);                   
+                }
+                if (artiklRec.get(1) == null) {
+                    gsonElem.param().remove(PKjson.artiklID);
+                    gsonElem.param().remove(PKjson.elementID);
+                } else {
+                    gsonElem.param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
+                }
+                updateScript(selectID);
 
-            IElem5e mosqElem = (IElem5e) mosqList.get(0);
-            
-            if (mosqList.isEmpty() == false) {
-                new DicArtikl(this, (artiklRec) -> {
+            }, qArtikl);
 
-                    if (artiklRec.get(1) == null) {
-                        mosqElem.gson().param().remove(PKjson.artiklID);
-                        mosqElem.gson().param().remove(PKjson.elementID);
-                    } else {
-                        mosqElem.gson().param().addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
-                    }
-                    updateScript(selectID);
-
-                }, qArtikl);
-            }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.mosquitToStvorka() " + e);
         }
@@ -4207,7 +4210,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         mosqElem.gson().param().remove(PKjson.elementID);
                     } else {
                         mosqElem.gson().param().addProperty(PKjson.elementID, elementRec.getStr(eElement.id));
-
                     }
                     updateScript(selectID);
 
