@@ -77,31 +77,26 @@ public class TableFieldFilter extends javax.swing.JPanel {
         btn2 = new javax.swing.JButton();
         checkFilter = new javax.swing.JCheckBox();
 
-        setMaximumSize(new java.awt.Dimension(460, 20));
-        setMinimumSize(new java.awt.Dimension(360, 20));
-        setPreferredSize(new java.awt.Dimension(460, 20));
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setPreferredSize(new java.awt.Dimension(428, 19));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btn1.setToolTipText(bundle.getString("Фильтр/Поиск")); // NOI18N
         btn1.setBorder(null);
-        btn1.setMaximumSize(new java.awt.Dimension(30, 23));
-        btn1.setMinimumSize(new java.awt.Dimension(30, 23));
-        btn1.setPreferredSize(new java.awt.Dimension(30, 23));
+        btn1.setMaximumSize(new java.awt.Dimension(30, 18));
+        btn1.setMinimumSize(new java.awt.Dimension(30, 18));
+        btn1.setPreferredSize(new java.awt.Dimension(30, 18));
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActiPerf(evt);
             }
         });
-        add(btn1);
 
         labFilter.setFont(frames.UGui.getFont(0,0));
         labFilter.setText("Поле не выбрано");
-        labFilter.setMaximumSize(new java.awt.Dimension(140, 18));
-        labFilter.setMinimumSize(new java.awt.Dimension(140, 18));
-        labFilter.setPreferredSize(new java.awt.Dimension(140, 18));
-        add(labFilter);
+        labFilter.setMaximumSize(new java.awt.Dimension(120, 18));
+        labFilter.setMinimumSize(new java.awt.Dimension(120, 18));
+        labFilter.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txtFilter.setFont(frames.UGui.getFont(0,0));
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -114,27 +109,48 @@ public class TableFieldFilter extends javax.swing.JPanel {
                 txtCaretUpdate(evt);
             }
         });
-        add(txtFilter);
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif"))); // NOI18N
         btn2.setToolTipText(bundle.getString("Вставить из буфера обмена / Удалить")); // NOI18N
         btn2.setBorder(null);
-        btn2.setMaximumSize(new java.awt.Dimension(26, 23));
-        btn2.setMinimumSize(new java.awt.Dimension(26, 23));
-        btn2.setPreferredSize(new java.awt.Dimension(26, 23));
+        btn2.setMaximumSize(new java.awt.Dimension(30, 18));
+        btn2.setMinimumSize(new java.awt.Dimension(30, 18));
+        btn2.setPreferredSize(new java.awt.Dimension(30, 18));
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn2ActiPerf(evt);
             }
         });
-        add(btn2);
 
         checkFilter.setFont(frames.UGui.getFont(0,0));
         checkFilter.setText("в конце строки");
         checkFilter.setMaximumSize(new java.awt.Dimension(120, 18));
         checkFilter.setMinimumSize(new java.awt.Dimension(103, 18));
         checkFilter.setPreferredSize(new java.awt.Dimension(120, 18));
-        add(checkFilter);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(labFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(txtFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(checkFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(checkFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate

@@ -142,9 +142,14 @@ public class DBCompare extends javax.swing.JFrame {
             Set<String> setSpcSa = new HashSet();
             Set<String> setSpcPs = new HashSet();
             winc.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
-
+            if (winc.rootGson.project() != null) {
+                txt21.setText(String.valueOf(winc.rootGson.project()));
+            }
+            if (winc.rootGson.order() != null) {
+                txt20.setText(String.valueOf(winc.rootGson.order()));
+            }
             //Заполним на будушее hmSpc из SA
-            for(String art_code: setSpcSa) {
+            for (String art_code : setSpcSa) {
                 Record artiklRec = eArtikl.find2(art_code);
                 hmSpc.put(art_code, new Vector(List.of(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
             }
@@ -158,44 +163,46 @@ public class DBCompare extends javax.swing.JFrame {
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.project());
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + txt21.getText());
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + winc.rootGson.order() + " and clke != -1 order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + txt20.getText() + " and clke != -1 order by a.anumb");
             int npp = 0;
             double sum1 = 0, sum2 = 0;
-            while (rs.next()) {
-                Vector vectorRec = new Vector();
-                vectorRec.add(++npp);
-                for (int i = 0; i < Fld.values().length; i++) {
-                    vectorRec.add(rs.getObject(Fld.values()[i].name()));
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(++npp);
+                    for (int i = 0; i < Fld.values().length; i++) {
+                        vectorRec.add(rs.getObject(Fld.values()[i].name()));
+                    }
+                    vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
+                    vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
+                    vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
+                    String artikl = rs.getString("ANUMB"); //артикул
+                    double leng = rs.getDouble("ALENG"); //длина
+                    float count = rs.getFloat("AQTYP"); //колич
+                    float pogonag = rs.getFloat("AQTYA"); //погонаж
+                    double perc = rs.getDouble("APERC"); //отход
+                    double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
+                    double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
+                    double value1 = (perc * pogonag / 100 + pogonag) * cost;
+                    double value2 = (perc * pogonag / 100 + pogonag) * costdec;
+                    Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                    sum1 = sum1 + value1;
+                    sum2 = sum2 + value2;
+                    vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                
+                    vectorRec.add(value1); //стоим. элемента без скидки
+                    vectorRec.add(value2); //стоим. элемента со скидкой
+
+                    ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+
+                    //Заполним на будушее hmSpc из PS
+                    setSpcPs.add(artikl);
+                    List<Float> val = hmSpc.getOrDefault(artikl, new Vector(List.of(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
+                    val.set(3, val.get(3) + count); //колич в PS
+                    val.set(5, val.get(5) + pogonag); //погонаж в PS               
                 }
-                vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
-                vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
-                vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
-                String artikl = rs.getString("ANUMB"); //артикул
-                double leng = rs.getDouble("ALENG"); //длина
-                float count = rs.getFloat("AQTYP"); //колич
-                float pogonag = rs.getFloat("AQTYA"); //погонаж
-                double perc = rs.getDouble("APERC"); //отход
-                double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
-                double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
-                double value1 = (perc * pogonag / 100 + pogonag) * cost;
-                double value2 = (perc * pogonag / 100 + pogonag) * costdec;
-                Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
-                sum1 = sum1 + value1;
-                sum2 = sum2 + value2;
-                vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                
-                vectorRec.add(value1); //стоим. элемента без скидки
-                vectorRec.add(value2); //стоим. элемента со скидкой
-
-                ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
-
-                //Заполним на будушее hmSpc из PS
-                setSpcPs.add(artikl);
-                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(List.of(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
-                val.set(3, val.get(3) + count); //колич в PS
-                val.set(5, val.get(5) + pogonag); //погонаж в PS               
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + winc.rootGson.project() + "    Изд: punic = " + punic + "  Заказ: onumb = "
@@ -213,9 +220,11 @@ public class DBCompare extends javax.swing.JFrame {
             setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(List.of(e))));
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
-            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + winc.rootGson.order() + " and a.funic = b.funic");
-            while (rs.next()) {
-                ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
+            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
+                }
             }
             rs.close();
 
@@ -229,51 +238,55 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 4 ===
             npp = 0;
-            txt20.setText(String.valueOf(winc.rootGson.project()));
-            txt20.setText(String.valueOf(winc.rootGson.order()));
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + winc.rootGson.order() + "order by TYPP");
-            while (rs.next()) {
-                Vector vectorRec = new Vector();
-                vectorRec.add(++npp);
-                vectorRec.add(rs.getObject("PUNIC"));
-                vectorRec.add(rs.getObject("ONUMB"));
-                vectorRec.add(rs.getObject("ANUMB"));
-                vectorRec.add(rs.getObject("C1X"));
-                vectorRec.add(rs.getObject("C1Y"));
-                vectorRec.add(rs.getObject("C2X"));
-                vectorRec.add(rs.getObject("C2Y"));
-                vectorRec.add(rs.getObject("ALENG"));
-                vectorRec.add(rs.getObject("ALEN1"));
-                vectorRec.add(rs.getObject("ALEN2"));
-                vectorRec.add(rs.getObject("RAD"));
-                vectorRec.add(rs.getObject("TYPP"));
-                ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + txt20.getText() + "order by TYPP");
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(++npp);
+                    vectorRec.add(rs.getObject("PUNIC"));
+                    vectorRec.add(rs.getObject("ONUMB"));
+                    vectorRec.add(rs.getObject("ANUMB"));
+                    vectorRec.add(rs.getObject("C1X"));
+                    vectorRec.add(rs.getObject("C1Y"));
+                    vectorRec.add(rs.getObject("C2X"));
+                    vectorRec.add(rs.getObject("C2Y"));
+                    vectorRec.add(rs.getObject("ALENG"));
+                    vectorRec.add(rs.getObject("ALEN1"));
+                    vectorRec.add(rs.getObject("ALEN2"));
+                    vectorRec.add(rs.getObject("RAD"));
+                    vectorRec.add(rs.getObject("TYPP"));
+                    ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+                }
             }
             rs.close();
 
             //=== Таблица 5 ===
             try {
-                while (rsm.next()) {
-                    if ("CONNLST".equals(rsm.getString("TABLE_NAME")) == true) {
-                        ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
-                        rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
-                                + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
-                                + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
-                                + " where a.punic = " + punic + " and a.onumb = " + winc.rootGson.order() + " order by a.typ, d.cname");
-                        while (rs.next()) {
-                            Vector vectorRec = new Vector();
-                            vectorRec.add(++npp);
-                            vectorRec.add(rs.getObject(1));
-                            vectorRec.add(rs.getObject(2));
-                            vectorRec.add(rs.getObject(3));
-                            vectorRec.add(rs.getObject(4));
-                            vectorRec.add(rs.getObject(5));
-                            vectorRec.add(rs.getObject(6));
-                            vectorRec.add(rs.getObject(7));
-                            ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
+                if (rsm.isLast() == false) {
+                    while (rsm.next()) {
+                        if ("CONNLST".equals(rsm.getString("TABLE_NAME")) == true) {
+                            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
+                            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
+                                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
+                                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
+                                    + " where a.punic = " + punic + " and a.onumb = " + txt20.getText() + " order by a.typ, d.cname");
+                            if (rs.isLast() == false) {
+                                while (rs.next()) {
+                                    Vector vectorRec = new Vector();
+                                    vectorRec.add(++npp);
+                                    vectorRec.add(rs.getObject(1));
+                                    vectorRec.add(rs.getObject(2));
+                                    vectorRec.add(rs.getObject(3));
+                                    vectorRec.add(rs.getObject(4));
+                                    vectorRec.add(rs.getObject(5));
+                                    vectorRec.add(rs.getObject(6));
+                                    vectorRec.add(rs.getObject(7));
+                                    ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
+                                }
+                            }
+                            rs.close();
                         }
-                        rs.close();
                     }
                 }
             } catch (Exception e) {
@@ -284,12 +297,14 @@ public class DBCompare extends javax.swing.JFrame {
             rs = st.executeQuery("select c.pname, b.pname from savefup a "
                     + " left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb"
                     + " left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
-                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + winc.rootGson.order());
-            while (rs.next()) {
-                Vector vectorRec = new Vector();
-                vectorRec.add(rs.getObject(1));
-                vectorRec.add(rs.getObject(2));
-                ((DefaultTableModel) tab7.getModel()).getDataVector().add(vectorRec);
+                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + txt20.getText());
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(rs.getObject(1));
+                    vectorRec.add(rs.getObject(2));
+                    ((DefaultTableModel) tab7.getModel()).getDataVector().add(vectorRec);
+                }
             }
             rs.close();
         } catch (SQLException e) {
@@ -713,7 +728,6 @@ public class DBCompare extends javax.swing.JFrame {
         pan8 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         lab19 = new javax.swing.JLabel();
         lab20 = new javax.swing.JLabel();
@@ -721,6 +735,8 @@ public class DBCompare extends javax.swing.JFrame {
         txt20 = new javax.swing.JTextField();
         btn1 = new javax.swing.JButton();
         labFurn = new javax.swing.JLabel();
+        txt21 = new javax.swing.JTextField();
+        lab21 = new javax.swing.JLabel();
         pan11 = new javax.swing.JPanel();
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
@@ -780,7 +796,7 @@ public class DBCompare extends javax.swing.JFrame {
         pan1Layout.setHorizontalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1001,10 +1017,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan8.add(scr4, java.awt.BorderLayout.CENTER);
 
-        pan9.setPreferredSize(new java.awt.Dimension(263, 40));
-        pan9.setLayout(new java.awt.BorderLayout());
-
-        pan10.setPreferredSize(new java.awt.Dimension(100, 40));
+        pan10.setPreferredSize(new java.awt.Dimension(100, 60));
 
         lab19.setFont(frames.UGui.getFont(0,0));
         lab19.setText("PUNIC");
@@ -1012,7 +1025,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab19.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab19.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab19.setPreferredSize(new java.awt.Dimension(40, 18));
+        lab19.setPreferredSize(new java.awt.Dimension(60, 18));
 
         lab20.setFont(frames.UGui.getFont(0,0));
         lab20.setText("ONUMB");
@@ -1020,6 +1033,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab20.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab20.setPreferredSize(new java.awt.Dimension(60, 20));
 
         txt19.setFont(frames.UGui.getFont(0,0));
         txt19.setText("427597");
@@ -1045,42 +1059,65 @@ public class DBCompare extends javax.swing.JFrame {
         labFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labFurn.setPreferredSize(new java.awt.Dimension(200, 19));
 
+        txt21.setFont(frames.UGui.getFont(0,0));
+        txt21.setText("508809");
+        txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt21.setPreferredSize(new java.awt.Dimension(50, 18));
+
+        lab21.setFont(frames.UGui.getFont(0,0));
+        lab21.setText("PNUMB");
+        lab21.setToolTipText("");
+        lab21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab21.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab21.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab21.setPreferredSize(new java.awt.Dimension(60, 18));
+
         javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
         pan10.setLayout(pan10Layout);
         pan10Layout.setHorizontalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addGroup(pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan10Layout.createSequentialGroup()
+                        .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lab21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pan10Layout.createSequentialGroup()
+                        .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txt21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        pan9.add(pan10, java.awt.BorderLayout.PAGE_START);
-
-        pan8.add(pan9, java.awt.BorderLayout.NORTH);
+        pan8.add(pan10, java.awt.BorderLayout.PAGE_START);
 
         pan6.add(pan8, java.awt.BorderLayout.CENTER);
 
@@ -1155,6 +1192,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab19;
     private javax.swing.JLabel lab20;
+    private javax.swing.JLabel lab21;
     private javax.swing.JLabel labFurn;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
@@ -1169,7 +1207,6 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
-    private javax.swing.JPanel pan9;
     private javax.swing.JScrollPane scr;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
@@ -1188,6 +1225,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;
+    private javax.swing.JTextField txt21;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -1195,11 +1233,11 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        
+
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {

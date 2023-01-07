@@ -158,9 +158,9 @@ public class Tex extends javax.swing.JFrame {
         mn37 = new javax.swing.JMenuItem();
         mn07 = new javax.swing.JMenu();
         mn71 = new javax.swing.JMenuItem();
-        mn72 = new javax.swing.JMenuItem();
-        mn74 = new javax.swing.JPopupMenu.Separator();
         mn73 = new javax.swing.JMenuItem();
+        mn74 = new javax.swing.JPopupMenu.Separator();
+        mn72 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
@@ -807,17 +807,6 @@ public class Tex extends javax.swing.JFrame {
         });
         mn07.add(mn71);
 
-        mn72.setFont(frames.UGui.getFont(0,1));
-        mn72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn72.setText("Заказы");
-        mn72.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnOrder(evt);
-            }
-        });
-        mn07.add(mn72);
-        mn07.add(mn74);
-
         mn73.setFont(frames.UGui.getFont(0,1));
         mn73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn73.setText("Дилер");
@@ -827,6 +816,17 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn07.add(mn73);
+        mn07.add(mn74);
+
+        mn72.setFont(frames.UGui.getFont(0,1));
+        mn72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn72.setText("Заказы");
+        mn72.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnOrder(evt);
+            }
+        });
+        mn07.add(mn72);
 
         mn0.add(mn07);
 
