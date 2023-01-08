@@ -387,11 +387,11 @@ public class ElementVar extends Par5s {
                     break;
                 case 37030:  //Ограничение площади, кв.м.                                      
                     if ("ps3".equals(versionDb)) { //Минимальная площадь, кв.м.
-                        if (rec.getFloat(TEXT) > elem5e.width() / 1000 * elem5e.height() / 1000) {
+                        if (rec.getFloat(TEXT) > elem5e.root().width() / 1000 * elem5e.root().height() / 1000) {
                             return false;
                         }
-                    } else {
-                        if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
+                    } else {                     
+                        if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.root().width() / 1000 * elem5e.root().height() / 1000) == false) {
                             return false;
                         }
                     }
