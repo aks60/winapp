@@ -25,6 +25,17 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen: 4}")) 
                     .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 761}"))
                     .addElem(new GsonElem(Type.GLASS));                    
+        
+        } else if (prj == 508966) { //PUNIC = 427761
+            rootGson = new GsonRoot("1.0", prj, 1, 291, "DarrioColor\\Односторонняя\\Isotech 530\\1 ОКНА",
+                    Layout.VERT, Type.RECTANGL, 900, 1400, 1009, 1009, 1009, "{ioknaParam: [-9504]}");
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen: 4}")) 
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 761}"))
+                    .addElem(new GsonElem(Type.GLASS));                    
 
         } else if (prj == 601001) { //PUNIC = 427817
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",

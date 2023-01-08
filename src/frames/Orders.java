@@ -527,22 +527,28 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);
-            ParDefault frame = new ParDefault(this, record -> {
-                int index = UGui.getIndexRec(tab2);
-                int index2 = UGui.getIndexRec(tab3);
-                if (index != -1) {
-                    Record prjprodRec = qPrjprod.get(index);
-                    String script = prjprodRec.getStr(ePrjprod.script);
-                    String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
-                    prjprodRec.set(ePrjprod.script, script2);
-                    qPrjprod.execsql();
-                    winc().build(script2);
-                    UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                    selectionWinTree();
-                    UGui.setSelectedIndex(tab3, index2);
-                }
-            }, grup);
+            int id = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.id);
+            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
+            if (fixed == 0) {
+                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);
+                ParDefault frame = new ParDefault(this, record -> {
+                    int index = UGui.getIndexRec(tab2);
+                    int index2 = UGui.getIndexRec(tab3);
+                    if (index != -1) {
+                        Record prjprodRec = qPrjprod.get(index);
+                        String script = prjprodRec.getStr(ePrjprod.script);
+                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                        prjprodRec.set(ePrjprod.script, script2);
+                        qPrjprod.execsql();
+                        winc().build(script2);
+                        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+                        selectionWinTree();
+                        UGui.setSelectedIndex(tab3, index2);
+                    }
+                }, grup);
+            } else {
+                JOptionPane.showMessageDialog(Orders.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
+            }
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
@@ -671,10 +677,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             //Запомним курсор
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             float id = (selectNode != null) ? selectNode.com5t().id() : -1;
-            
+
             //Перегрузим winTree
             loadingWinTree(iwin2);
-            
+
             //Перерисуем конструкцию
             scene.init(iwin2);
             canvas.draw();
@@ -682,7 +688,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             //Обновим поля форм
             selectionWinTree();
-            
+
             //Установим курсор
             UGui.selectionPath(id, winTree);
 

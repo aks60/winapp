@@ -205,7 +205,7 @@ public class DBCompare extends javax.swing.JFrame {
                 }
             }
             rs.close();
-            lab1.setText("Проект: pnumb = " + winc.rootGson.project() + "    Изд: punic = " + punic + "  Заказ: onumb = "
+            lab1.setText("Изд: punic=" + punic + "    Проект: pnumb=" + winc.rootGson.project() + "  Заказ: onumb="
                     + winc.rootGson.order() + "   Стоим.без.ск = " + df2.format(sum1) + "   Стоим.со.ск = " + df2.format(sum2));
 
             //=== Таблица 2 ===
@@ -294,15 +294,22 @@ public class DBCompare extends javax.swing.JFrame {
             }
             //=== Таблица 7 ===
             ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select c.pname, b.pname from savefup a "
-                    + " left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb"
-                    + " left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
-                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + txt20.getText());
+//            rs = st.executeQuery("select c.pname, b.pname from savefup a "
+//                    + " left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb"
+//                    + " left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
+//                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + txt20.getText());
+            rs = st.executeQuery("select c.pname, b.pname, e.znumb from savefup a "
+                    + "left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb "
+                    + "left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
+                    + "left join listord d on a.punic = d.punic and a.onumb = d.onumb "
+                    + "left join parsysp e on d.osysp = e.psss and a.pnumb = e.pnumb and a.znumb = e.znumb "
+                    + "where a.nel = 0 and a.punic = " + punic + " and a.onumb = " + txt20.getText());
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
                     vectorRec.add(rs.getObject(1));
                     vectorRec.add(rs.getObject(2));
+                    vectorRec.add(rs.getObject(3));
                     ((DefaultTableModel) tab7.getModel()).getDataVector().add(vectorRec);
                 }
             }
@@ -756,7 +763,7 @@ public class DBCompare extends javax.swing.JFrame {
             .addGap(0, 44, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DBCompare");
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -896,13 +903,13 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Имя параметра", "Значение параметра"
+                "Имя параметра", "Значение параметра", "Совпадение"
             }
         ));
         tab7.setFillsViewportHeight(true);

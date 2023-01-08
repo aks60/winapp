@@ -80,24 +80,19 @@ import builder.making.Cal5e;
 import builder.script.GsonRoot;
 import builder.script.GsonScript;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import common.LinkedList2;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
+import dataset.eExcep;
 import domain.eElement;
-import domain.eSysmodel;
 import frames.swing.TableFieldFilter;
-import java.io.File;
-import java.io.FileReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -453,8 +448,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
-            ParDefault frame = new ParDefault(this, listenerParam3, grup);
+            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
+            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
+            if (fixed == 0) {
+                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
+                ParDefault frame = new ParDefault(this, listenerParam3, grup);
+            } else {
+                JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
+            }
         });
     }
 
@@ -3482,9 +3483,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 });
 
             } else if (tab5.getBorder() != null) {
-                if (sysNode != null && sysNode.isLeaf()) {                   
+                if (sysNode != null && sysNode.isLeaf()) {
                     testBimax();
-                    
+
 //                    FrameProgress.create(Systree.this, new ListenerFrame() {
 //                        public void actionRequest(Object obj) {
 //                            models = new Models(listenerModel);
