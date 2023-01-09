@@ -1513,7 +1513,7 @@ public class Artikles extends javax.swing.JFrame {
         pan97.add(filler12);
 
         lab26.setFont(frames.UGui.getFont(0,0));
-        lab26.setText("Технолог- ий код");
+        lab26.setText("Техн-ий код");
         lab26.setToolTipText("");
         lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab26.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));

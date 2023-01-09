@@ -2143,7 +2143,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.UGui.getFont(0,0)" type="code"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="&#x422;&#x435;&#x445;&#x43d;&#x43e;&#x43b;&#x43e;&#x433;- &#x438;&#x439; &#x43a;&#x43e;&#x434;"/>
+                        <Property name="text" type="java.lang.String" value="&#x422;&#x435;&#x445;&#x43d;-&#x438;&#x439; &#x43a;&#x43e;&#x434;"/>
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
