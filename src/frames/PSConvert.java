@@ -73,7 +73,7 @@ import static startup.Test.numDb;
  * удаляться. Обновление данных выполняется пакетом, если была ошибка,
  * откат и пакет обслуживается отдельными insert.
  */
-public class Profstroy {
+public class PSConvert {
 
     private static Queue<Object[]> que = null;
     private static String versionPs = "4";

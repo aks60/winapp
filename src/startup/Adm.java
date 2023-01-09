@@ -4,7 +4,7 @@ import builder.script.GsonScript;
 import frames.FrameToFile;
 import common.eProfile;
 import common.eProp;
-import frames.Profstroy;
+import frames.PSConvert;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -1383,7 +1383,7 @@ public class Adm extends javax.swing.JFrame {
             txtPane.setText("");
             thread = new Thread(new Runnable() {
                 public void run() {
-                    Profstroy.exec(listQue, c1, c2);
+                    PSConvert.exec(listQue, c1, c2);
                 }
 
             });
