@@ -47,6 +47,7 @@ import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
@@ -152,10 +153,10 @@ public class Elements extends javax.swing.JFrame {
                     Field field = columns[col];
                     if (eElemdet.color_fk == field) {
                         int colorFk = Integer.valueOf(val.toString());
-                        
+
                         if (UseColor.automatic[0].equals(colorFk)) {
                             return UseColor.automatic[1];
-                            
+
                         } else if (UseColor.precision[0].equals(colorFk)) {
                             return UseColor.precision[1];
                         }
@@ -410,11 +411,11 @@ public class Elements extends javax.swing.JFrame {
             if (id == -1 || id == -5) {
                 if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id, 
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id,
                             "where", eGroups.npp, "=", Math.abs(id), "order by", eElement.name);
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id, 
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id,
                             "where", eGroups.npp, "=", Math.abs(id), "and", eElement.id, "in " + subsql, "order by", eElement.name);
                 }
             } else {
@@ -492,6 +493,7 @@ public class Elements extends javax.swing.JFrame {
         btnTest = new javax.swing.JButton();
         btnFindSystree = new javax.swing.JButton();
         btnClone = new javax.swing.JButton();
+        btnMove = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -674,6 +676,22 @@ public class Elements extends javax.swing.JFrame {
             }
         });
 
+        btnMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
+        btnMove.setToolTipText(bundle.getString("Переместить")); // NOI18N
+        btnMove.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMove.setFocusable(false);
+        btnMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMove.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMove.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMove.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMove.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -686,12 +704,14 @@ public class Elements extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFindArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 526, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -716,7 +736,8 @@ public class Elements extends javax.swing.JFrame {
                             .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnClone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnClone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1127,11 +1148,11 @@ public class Elements extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab2);
         if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
                 "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-            
+
             Map<Record, Integer> elempar2Map = new HashMap<>();
             List<Record> elempar1List = new ArrayList<>();
-            List<Record> elemdetList = new ArrayList<>();           
-            qElempar1.forEach(rec -> elempar1List.add(rec));  
+            List<Record> elemdetList = new ArrayList<>();
+            qElempar1.forEach(rec -> elempar1List.add(rec));
             qElemdet.forEach(rec -> elemdetList.add(rec));
 
             Record elementClon = (Record) qElement.get(index).clone();
@@ -1141,7 +1162,7 @@ public class Elements extends javax.swing.JFrame {
             elementClon.setNo(eElement.id, elementID);
             elementClon.setNo(eElement.name, elementClon.getStr(eElement.name) + "-клон");
             qElement.add(index, elementClon);
-            qElement.table(eArtikl.up).add(index, artiklClon);          
+            qElement.table(eArtikl.up).add(index, artiklClon);
 
             for (Record elempar1Rec : elempar1List) {
                 Record elempar1Clon = (Record) elempar1Rec.clone();
@@ -1166,8 +1187,8 @@ public class Elements extends javax.swing.JFrame {
                 elempar2Clon.setNo(eElempar2.id, Conn.genId(eElempar2.up));
                 elempar2Clon.setNo(eElempar2.elemdet_id, it.getValue());
                 qElempar2.add(elempar2Clon);
-            }            
-            
+            }
+
             List.of(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
             ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(index, index);
             UGui.setSelectedIndex(tab2, index);
@@ -1175,6 +1196,31 @@ public class Elements extends javax.swing.JFrame {
             UGui.setSelectedRow(tab4);
         }
     }//GEN-LAST:event_btnClone
+
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
+        try {
+            int index = UGui.getIndexRec(tab2);
+            if (index != -1) {
+                Record elementRec = qElement.get(index);
+                List list = new LinkedList();
+                qGrCateg.forEach(rec -> list.add(rec.getStr(eGroups.name)));
+                Object result = JOptionPane.showInputDialog(Elements.this, "Вставка: " + elementRec.getStr(eElement.name),
+                        "Изменение категории элемента втавки", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
+                if (result != null) {
+                    for (Record groupsRec : qGrCateg) {
+                        if (result.equals(groupsRec.getStr(eGroups.name))) {
+                            elementRec.setNo(eElement.groups2_id, groupsRec.getInt(eGroups.id));
+                            qElement.update(elementRec);
+                            selectionTab1(null);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Elements.btnMove()");
+        }
+    }//GEN-LAST:event_btnMove
+
     private void findPathSystree(Record record, StringBuffer path) {
         for (Record rec : eSystree.query()) {
             if (record.getInt(eSystree.parent_id) == rec.getInt(eSystree.id)) {
@@ -1194,6 +1240,7 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JButton btnFindArtikl;
     private javax.swing.JButton btnFindSystree;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnMove;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnTest;

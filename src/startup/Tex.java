@@ -933,7 +933,7 @@ public class Tex extends javax.swing.JFrame {
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Systree.createFrame(Tex.this);
-                btn1.setSelected(true);
+                //btn1.setSelected(true);
             }
         });
 }//GEN-LAST:event_mn42
@@ -955,7 +955,7 @@ private void mnSpecif(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSpeci
     FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Specification.createFrame(Tex.this);
-            btn1.setSelected(true);
+            //btn1.setSelected(true);
         }
     });
 }//GEN-LAST:event_mnSpecif
