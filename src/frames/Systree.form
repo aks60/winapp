@@ -576,7 +576,7 @@
                                   <Connection code="frames.UGui.getFont(0,0)" type="code"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="2">
+                                  <Table columnCount="4" rowCount="2">
                                     <Column editable="false" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440; &#x43a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;" type="java.lang.Object">
                                       <Data value="111"/>
                                       <Data value="222"/>
@@ -585,6 +585,7 @@
                                       <Data value="1"/>
                                       <Data value="2"/>
                                     </Column>
+                                    <Column editable="true" title="fix" type="java.lang.Object"/>
                                     <Column editable="false" title="ID" type="java.lang.Integer"/>
                                   </Table>
                                 </Property>
@@ -596,6 +597,11 @@
                                       <Renderer/>
                                     </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="140" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>

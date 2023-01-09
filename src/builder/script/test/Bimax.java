@@ -28,7 +28,7 @@ public final class Bimax {
         
         } else if (prj == 508966) { //PUNIC = 427761
             rootGson = new GsonRoot("1.0", prj, 1, 291, "DarrioColor\\Односторонняя\\Isotech 530\\1 ОКНА",
-                    Layout.VERT, Type.RECTANGL, 900, 1400, 1009, 1009, 1009, "{ioknaParam: [-9504]}");
+                    Layout.VERT, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))

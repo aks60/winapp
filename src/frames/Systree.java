@@ -259,7 +259,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
-        new DefTableModel(tab7, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+        new DefTableModel(tab7, qSyspar1, eSyspar1.params_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
@@ -1348,18 +1348,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab7.setFont(frames.UGui.getFont(0,0));
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "1", null},
-                {"222", "2", null}
+                {"111", "1", null, null},
+                {"222", "2", null, null}
             },
             new String [] {
-                "Параметр конструкции", "Значение по умолчанию", "ID"
+                "Параметр конструкции", "Значение по умолчанию", "fix", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1382,8 +1382,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab7.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab7.getColumnModel().getColumn(2).setPreferredWidth(40);
-            tab7.getColumnModel().getColumn(2).setMaxWidth(60);
+            tab7.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab7.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         pan11.add(scr7, java.awt.BorderLayout.CENTER);
