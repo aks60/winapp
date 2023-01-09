@@ -448,10 +448,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Record rec = qSyspar1.get(UGui.getIndexRec(tab7));
-            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
-            Record re2 = eSyspar1.find2(id);
-            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
+            Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
+            int fixed = syspar1Rec.getInt(eSyspar1.fixed);
+//            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
+//            Record re2 = eSyspar1.find2(id);
+//            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
             if (fixed == 0) {
                 Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
                 ParDefault frame = new ParDefault(this, listenerParam3, grup);
