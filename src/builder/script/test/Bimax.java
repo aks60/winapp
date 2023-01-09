@@ -23,7 +23,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen: 4}")) 
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 761}"))
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 84}"))
                     .addElem(new GsonElem(Type.GLASS));                    
         
         } else if (prj == 508966) { //PUNIC = 427761
@@ -34,7 +34,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen: 4}")) 
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 761}"))
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 1123}"))
                     .addElem(new GsonElem(Type.GLASS));                    
 
         } else if (prj == 601001) { //PUNIC = 427817

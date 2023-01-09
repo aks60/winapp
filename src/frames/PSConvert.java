@@ -81,7 +81,7 @@ public class PSConvert {
     private static Connection cn2;
     private static Statement st1; //источник 
     private static Statement st2;//приёмник
-
+    
     public static void exec() {
         cn1 = startup.Test.connect1(); //источник
         cn2 = startup.Test.connect2(); //приёмник
@@ -569,8 +569,7 @@ public class PSConvert {
             alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
-            alterTable("systree", "fk_systree1", "parent_id", "systree");
-            
+            alterTable("systree", "fk_systree1", "parent_id", "systree");           
             alterTable("element", "fk_element1", "groups2_id", "groups");
             alterTable("element", "fk_element2", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet1", "artikl_id", "artikl");
@@ -603,7 +602,7 @@ public class PSConvert {
             alterTable("sysfurn", "fk_sysfurn3", "artikl_id1", "artikl");
             alterTable("sysfurn", "fk_sysfurn4", "artikl_id2", "artikl");        
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("syspar1", "fk_syspar2", "params_id", "systree");
+            alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("sysprod", "fk_sysprod1", "systree_id", "systree");
             alterTable("project", "fk_project1", "prjpart_id", "prjpart");
             alterTable("prjprod", "fk_prjprod1", "project_id", "project");
