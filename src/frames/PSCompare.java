@@ -41,7 +41,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import startup.Test;
 
-public class DB4Compare extends javax.swing.JFrame {
+public class PSCompare extends javax.swing.JFrame {
 
     enum Fld {
         ATYPM("уров1"), ATYPP("уров2"), ANUMB("артикул"), CLNUM("color1"), CLNU1("color2"), CLNU2("color3"),
@@ -99,7 +99,7 @@ public class DB4Compare extends javax.swing.JFrame {
         }
     };
 
-    public DB4Compare(Wincalc winc) {
+    public PSCompare(Wincalc winc) {
         initComponents();
         initElements();
         cn = Test.connect1();
@@ -111,7 +111,7 @@ public class DB4Compare extends javax.swing.JFrame {
         tab1.setColumnSelectionInterval(3, 3);
     }
 
-    public DB4Compare() {
+    public PSCompare() {
         initComponents();
         initElements();
         cn = Test.connect1();

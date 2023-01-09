@@ -55,7 +55,7 @@ import frames.AboutBox;
 import frames.Artikles;
 import frames.Texture;
 import frames.Currenc;
-import frames.DB4Compare;
+import frames.PSCompare;
 import frames.Elements;
 import frames.Fillings;
 import frames.Furniturs;
@@ -71,7 +71,7 @@ import frames.Setting;
 import frames.Specifics;
 import frames.Syssize;
 import frames.Systree;
-import frames.DB4Frame;
+import frames.PSFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
@@ -82,7 +82,7 @@ public enum App {
 
     Top, Setting, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
-    Specification, Syssize, RuleCalc, DB4Frame, DB4Compare;
+    Specification, Syssize, RuleCalc, PSFrame, PSCompare;
     public javax.swing.JFrame frame;
     public static javax.swing.JFrame active;
 
@@ -93,8 +93,8 @@ public enum App {
         try {
             switch (this) {
 
-                case DB4Frame:
-                    frame = new DB4Frame();
+                case PSFrame:
+                    frame = new PSFrame();
                     break;
                 case Setting:
                     frame = new Setting(parent);
@@ -193,11 +193,11 @@ public enum App {
                 case Syssize:
                     frame = new Syssize();
                     break;
-                case DB4Compare:
+                case PSCompare:
                     if (param.length == 0) {
-                        frame = new DB4Compare();
+                        frame = new PSCompare();
                     } else {
-                        frame = new DB4Compare((Wincalc) param[0]);
+                        frame = new PSCompare((Wincalc) param[0]);
                     }
                     break;
             }
