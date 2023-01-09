@@ -14,7 +14,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import startup.Test;
 
-public class TestFrame extends javax.swing.JFrame {
+public class DB4Frame extends javax.swing.JFrame {
 
     private TableRowSorter<DefTableModel> sorter1 = null;
     private TableRowSorter<DefTableModel> sorter2 = null;
@@ -22,7 +22,7 @@ public class TestFrame extends javax.swing.JFrame {
     private Connection cn = Test.connect1();
     private Query qOrders = new Query(eProject.values());
 
-    public TestFrame() {
+    public DB4Frame() {
         initComponents();
         initElements();
         loadingData();
@@ -169,15 +169,15 @@ public class TestFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("TEST");
         setPreferredSize(new java.awt.Dimension(900, 800));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
-        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setBorder(null);
         btnClose.setFocusable(false);
         btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -195,7 +195,7 @@ public class TestFrame extends javax.swing.JFrame {
         northLayout.setHorizontalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap(872, Short.MAX_VALUE)
+                .addContainerGap(880, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -215,18 +215,18 @@ public class TestFrame extends javax.swing.JFrame {
 
         sql1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         sql1.setText("'select * from LISTPRJ'");
-        sql1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        sql1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         sql1.setMinimumSize(new java.awt.Dimension(6, 20));
         sql1.setPreferredSize(new java.awt.Dimension(600, 20));
         pan1.add(sql1, java.awt.BorderLayout.CENTER);
 
         pan11.setLayout(new java.awt.BorderLayout());
 
-        lab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lab1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         lab1.setPreferredSize(new java.awt.Dimension(80, 18));
         pan11.add(lab1, java.awt.BorderLayout.WEST);
 
-        txt1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         txt1.setPreferredSize(new java.awt.Dimension(61, 20));
         txt1.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -280,11 +280,11 @@ public class TestFrame extends javax.swing.JFrame {
 
         pan22.setLayout(new java.awt.BorderLayout());
 
-        lab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lab2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         lab2.setPreferredSize(new java.awt.Dimension(80, 18));
         pan22.add(lab2, java.awt.BorderLayout.WEST);
 
-        txt2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         txt2.setPreferredSize(new java.awt.Dimension(61, 20));
         txt2.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -297,7 +297,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         sql2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         sql2.setText("'select a.* from SPECPAU a where a.PUNIC = ' + id + ' order by a.anumb'");
-        sql2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        sql2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         pan2.add(sql2, java.awt.BorderLayout.CENTER);
 
         btn2.setText("...");
@@ -340,11 +340,11 @@ public class TestFrame extends javax.swing.JFrame {
 
         pan33.setLayout(new java.awt.BorderLayout());
 
-        lab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lab3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         lab3.setPreferredSize(new java.awt.Dimension(80, 18));
         pan33.add(lab3, java.awt.BorderLayout.WEST);
 
-        txt3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         txt3.setPreferredSize(new java.awt.Dimension(61, 20));
         txt3.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -356,7 +356,7 @@ public class TestFrame extends javax.swing.JFrame {
         pan3.add(pan33, java.awt.BorderLayout.WEST);
 
         sql3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        sql3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        sql3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         pan3.add(sql3, java.awt.BorderLayout.CENTER);
 
         btn3.setText("...");
@@ -391,7 +391,6 @@ public class TestFrame extends javax.swing.JFrame {
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMaximumSize(new java.awt.Dimension(32767, 31));
         south.setPreferredSize(new java.awt.Dimension(688, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));

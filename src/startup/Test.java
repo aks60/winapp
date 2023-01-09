@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
-import frames.DBCompare;
+import frames.DB4Compare;
 import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
@@ -93,7 +93,7 @@ public class Test {
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
             //DBCompare.iwinXls(winc, true);
-            DBCompare.iwinPs4(winc, true);
+            DB4Compare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
@@ -104,7 +104,7 @@ public class Test {
                     winc.build(script);
                     winc.constructiv(true);
                     //DBCompare.iwinXls(winc, false);
-                    DBCompare.iwinPs4(winc, false);
+                    DB4Compare.iwinPs4(winc, false);
                 }
             }
 
@@ -116,7 +116,7 @@ public class Test {
                     winc.build(script);
                     winc.constructiv(true);
                     //DBCompare.iwinXls(winc, false);
-                    DBCompare.iwinPs4(winc, false);
+                    DB4Compare.iwinPs4(winc, false);
                 }
             }
         }

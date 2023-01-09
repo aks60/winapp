@@ -538,7 +538,7 @@ public class Specifics extends javax.swing.JFrame {
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         FrameProgress.create(Specifics.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Specifics.this, winc);
+                App.DB4Compare.createFrame(Specifics.this, winc);
             }
         });
     }//GEN-LAST:event_btnTest
