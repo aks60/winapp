@@ -71,7 +71,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     /**
-     * Профиль через параметр PKjson_sysprofID пример створки:{sysprofID:1121,
+     * Профиль через параметр PKjson_sysprofID пример створки:sysprofID:1121,
      * typeOpen:4, sysfurnID:2916} Этого параметра нет в интерфейсе программы,
      * он сделан для тестирования с ps4. Делегируется детьми см. класс ElemFrame
      */
