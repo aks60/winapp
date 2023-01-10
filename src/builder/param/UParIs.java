@@ -17,7 +17,11 @@ import enums.Type;
 import enums.TypeOpen1;
 import java.util.List;
 
-class UPar {
+/**
+ * Участвует в допустимости элемента в конструкции 
+ * через параметр
+ */
+class UParIs {
 
     //Толщина внешнего/внутреннего заполнения, мм
     static List<IElem5e> getGlassDepth(IElem5e elem5e) {

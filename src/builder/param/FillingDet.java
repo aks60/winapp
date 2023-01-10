@@ -45,7 +45,7 @@ public class FillingDet extends Par5s {
                 case 15000: //Для технологического кода контейнера 
                 {
                     IElem5e elem = winc.rootArea.frames().get(Layout.BOTT);
-                    if (!UPar.is_STRING_XX000(rec.getStr(TEXT), elem)) {
+                    if (!UParIs.is_STRING_XX000(rec.getStr(TEXT), elem)) {
                         return false;
                     }
                 }
@@ -54,20 +54,20 @@ public class FillingDet extends Par5s {
                 case 15001: //Если признак состава    
                 {
                     IElem5e elem = winc.rootArea.frames().get(Layout.BOTT);
-                    if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
+                    if (UParIs.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
                         return false;
                     }
                 }
                 break;
                 case 14005: //Тип проема 
                 case 15005: //Тип проема
-                    if (!UPar.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!UParIs.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
                 case 14008: //Эффективное заполнение изд., мм 
                 case 15008: //Эффективное заполнение изд., мм                    
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
+                    if (UParIs.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -81,7 +81,7 @@ public class FillingDet extends Par5s {
                     break;
                 case 14017: //Код системы содержит строку 
                 case 15017: //Код системы содержит строку                    
-                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
+                    if (UParIs.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;

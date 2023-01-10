@@ -68,7 +68,7 @@ public class FurnitureVar extends Par5s {
                 }
                 break;
                 case 21010: //Ограничение длины стороны, мм 
-                    if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                    if (UParIs.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -76,7 +76,7 @@ public class FurnitureVar extends Par5s {
                 {
                     IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.CONST) {
-                        if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                        if (UParIs.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
                         }
                     }
@@ -86,7 +86,7 @@ public class FurnitureVar extends Par5s {
                 {
                     IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.VARIAT) {
-                        if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                        if (UParIs.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
                         }
                     }
@@ -96,7 +96,7 @@ public class FurnitureVar extends Par5s {
                 {
                     IStvorka stv = (IStvorka) elem5e.owner();
                     if (stv.handleLayout() == LayoutHandle.MIDL) {
-                        if (UPar.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                        if (UParIs.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
                         }
                     }

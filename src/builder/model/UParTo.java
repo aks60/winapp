@@ -11,10 +11,14 @@ import domain.eSetting;
 import enums.Layout;
 import java.util.List;
 
-public class UMod {
+/**
+ * Участвует в измении свойств элемента конструкции 
+ * через параметр
+ */
+public class UParTo {
 
     //Укорочение мм от высоты ручки 
-    public static float get_25013(Specific spcRec, Specific spcAdd) {
+    public static float to_25013(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
@@ -38,7 +42,7 @@ public class UMod {
     }
 
     //Расчёт количества ед. с шагом
-    public static float get_14050_24050_33050_38050(Specific spcRec, Specific spcAdd) {
+    public static float to_14050_24050_33050_38050(Specific spcRec, Specific spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
@@ -84,7 +88,7 @@ public class UMod {
     }
 
     //Расчёт количества ед. с шагом
-    public static float get_11050(Specific spcAdd, ElemJoining elemJoin) {
+    public static float to_11050(Specific spcAdd, ElemJoining elemJoin) {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050)); //Шаг, мм
         if (step != -1) {
@@ -133,13 +137,13 @@ public class UMod {
     }
 
     //Количество ед.
-    public static float get_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
+    public static float to_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Поправка, мм
-    public static float get_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
+    public static float to_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return UCom.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
@@ -147,7 +151,7 @@ public class UMod {
     }
 
     //Длина, мм
-    public static float get_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
+    public static float to_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return UCom.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
@@ -157,23 +161,23 @@ public class UMod {
     //Длина, мм
     //public static float get_
     //Коэффициент, [ * коэф-т ]
-    public static float get_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
+    public static float to_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Коэффициент, [ / коэф-т ]
-    public static float get_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
+    public static float to_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Othe
-    public static float get_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
+    public static float to_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Задать Угол_реза_1/Угол_реза_2, °
-    public static void get_34077_39077(Specific spcAdd) {
+    public static void to_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = UCom.getFloat(spcAdd.getParam("-1", 34077));
@@ -195,7 +199,7 @@ public class UMod {
     }
 
     //Ставить однократно
-    public static float get_11070_12070_33078_34078(Specific spcAdd) {
+    public static float to_11070_12070_33078_34078(Specific spcAdd) {
         if ("Да".equals(spcAdd.getParam("Нет", 11070, 12070, 33078, 34078))) {
             return 1;
         } else {
@@ -204,7 +208,7 @@ public class UMod {
     }
 
     //Углы реза
-    public static void get_12075_34075_39075(IElem5e elem5e, Specific spcAdd) {
+    public static void to_12075_34075_39075(IElem5e elem5e, Specific spcAdd) {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
 
         if ("по контейнерам".equals(txt)) {
@@ -226,7 +230,7 @@ public class UMod {
     }
 
     //Высоту сделать длиной 
-    public static void get_40007(Specific spcAdd) {
+    public static void to_40007(Specific spcAdd) {
         if ("Да".equals(spcAdd.getParam("null", 40007))) {
             float height = spcAdd.height;
             spcAdd.height = spcAdd.width;
@@ -235,7 +239,7 @@ public class UMod {
     }
 
     //Округлять количество до ближайшего
-    public static float get_39063(Specific spcAdd) {
+    public static float to_39063(Specific spcAdd) {
         String txt = spcAdd.getParam("null", 39063);
 
         if ("меньшего целого числа".equals(txt)) {

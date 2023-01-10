@@ -153,7 +153,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24017:  //Код системы содержит строку 
                 case 25017:  //Код системы содержит строку                    
-                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
+                    if (UParIs.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
