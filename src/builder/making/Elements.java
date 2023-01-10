@@ -101,7 +101,8 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль с префиксом @ в осн. специф.
-                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, 
+                                        TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
                                     elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
                                     elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
 

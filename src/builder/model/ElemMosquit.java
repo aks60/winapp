@@ -71,7 +71,6 @@ public class ElemMosquit extends ElemSimple {
             spcRec.colorID1 = colorID1;
             spcRec.colorID2 = colorID2;
             spcRec.colorID3 = colorID3;
-            spcRec.anglHoriz = anglHoriz;
             spcRec.width = width();
             spcRec.height = height();
             
