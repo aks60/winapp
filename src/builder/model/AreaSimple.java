@@ -136,17 +136,18 @@ public class AreaSimple extends Com5t implements IArea5e {
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
                 JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
+                    //Цикл по пааметрам менеджера
                     ioknaParamArr.forEach(grup -> {
                         Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера  
-                        Record syspar1Rec = winc.mapPardef.get(paramsRec.getInt(eParams.params_id));
+                        Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.params_id));
                         if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
-                            syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text));
+                            syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text)); //накладываем параметр менеджера
                         }
                     });
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:ICom5t.parsingParam() " + e);
+            System.err.println("Ошибка:AreaSimple.initParametr() " + e);
         }
     }
 

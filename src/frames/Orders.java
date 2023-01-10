@@ -386,7 +386,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             } else if (winNode.com5t().type() == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
-                winc.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
                 Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 

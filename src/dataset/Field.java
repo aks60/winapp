@@ -2,6 +2,7 @@ package dataset;
 
 import domain.eGroups;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -81,5 +82,30 @@ public interface Field {
         return null;
     }
 
+    public static String wrapper(Object value, Field.TYPE type) {
+        try {
+            if (value == null) {
+                return null;
+            } else if (Field.TYPE.STR.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.BLOB.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.BOOL.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.DATE.equals(type)) {
+                if (value instanceof java.util.Date) {
+                    return " '" + new SimpleDateFormat("dd.MM.yyyy").format(value) + "' ";
+                } else {
+                    return " '" + value + "' ";
+                }
+            }
+            return value.toString();
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Ашудв.vrapper() " + e);
+            return null;
+        }
+    }
+    
     public boolean equals(Object other);
 }

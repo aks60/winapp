@@ -64,7 +64,7 @@ public class Wincalc {
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
     public Form form = null; //форма контура (параметр в развитии) 
 
-    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    private HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
@@ -300,6 +300,10 @@ public class Wincalc {
 
     public String script() {
         return this.script;
+    }
+
+    public HashMap<Integer, Record> mapPardef() {
+        return mapPardef;
     }
 
     public float width() {

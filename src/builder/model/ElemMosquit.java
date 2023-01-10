@@ -1,24 +1,18 @@
 package builder.model;
 
 import builder.IArea5e;
-import builder.ICom5t;
 import builder.IElem5e;
-import builder.IStvorka;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import common.LinkedList2;
-import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElement;
-import domain.eSyssize;
 import enums.Layout;
 import enums.PKjson;
-import enums.Type;
+import frames.UGui;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class ElemMosquit extends ElemSimple {
 
@@ -43,7 +37,14 @@ public class ElemMosquit extends ElemSimple {
         //Цвет
         if (isJson(param, PKjson.colorID1)) {
             colorID1 = param.get(PKjson.colorID1).getAsInt();
-        } else {
+        }
+        if (colorID1 == -1) {
+            HashSet<Record> hsColor = UGui.artiklToColorSet(artiklRec.getInt(eArtikl.id));
+            if (hsColor.isEmpty() == false) {
+                colorID1 = hsColor.iterator().next().getInt(eArtikl.id);
+            }
+        }
+        if (colorID1 == -1) {
             colorID1 = -3;
         }
 
@@ -73,7 +74,7 @@ public class ElemMosquit extends ElemSimple {
             spcRec.colorID3 = colorID3;
             spcRec.width = width();
             spcRec.height = height();
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:ElemMosquit.setSpecific() " + e);
         }

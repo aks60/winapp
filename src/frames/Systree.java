@@ -635,7 +635,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (winNode.com5t().type() == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar1.clear();
-                winc.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
                 Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 

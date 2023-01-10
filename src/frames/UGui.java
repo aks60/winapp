@@ -472,7 +472,7 @@ public class UGui {
     }
 
     //Типы данных в базе
-    public static String typeSql(Field.TYPE type, Object size) {
+    public static String typeField(Field.TYPE type, Object size) {
 
         if (type == Field.TYPE.INT) {
             return "INTEGER";
@@ -490,33 +490,6 @@ public class UGui {
             return "SMALLINT";
         }
         return "";
-    }
-
-    //Обернуть данные sql опратора
-    public static Object wrapperSql(Object value, Field.TYPE type) {
-        try {
-            if (value == null) {
-                return null;
-            } else if (Field.TYPE.STR.equals(type)) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.BLOB.equals(type)) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.BOOL.equals(type)) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.DATE.equals(type)) {
-                if (value instanceof java.util.Date) {
-                    return " '" + new SimpleDateFormat("dd.MM.yyyy").format(value) + "' ";
-                } else {
-                    //return " '" + value + "' ";
-                    return null;
-                }
-            }
-            return value;
-
-        } catch (Exception e) {
-            System.err.println("Query.vrapper() " + e);
-            return null;
-        }
     }
 
     //Рекурсия поиска родителя

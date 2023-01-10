@@ -143,7 +143,7 @@ public class PSConvert {
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     String deltaCol[] = entry.getValue();
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + UGui.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + UGui.typeField(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
                 }
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
@@ -231,7 +231,7 @@ public class PSConvert {
         for (int i = 1; i < f.length; ++i) {
 
             Field f2 = f[i];
-            ddl = ddl + "\n" + f2.name() + "  " + UGui.typeSql(f2.meta().type(), f2.meta().size());
+            ddl = ddl + "\n" + f2.name() + "  " + UGui.typeField(f2.meta().type(), f2.meta().size());
             if (f2.meta().isnull() == false) {
                 ddl = ddl + " NOT NULL";
             }
@@ -293,7 +293,7 @@ public class PSConvert {
                         Field field = fields[index];
                         if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
                             Object val = rs1.getObject(field.meta().fname);
-                            nameVal2 = nameVal2 + UGui.wrapperSql(val, field.meta().type()) + ",";
+                            nameVal2 = nameVal2 + Field.wrapper(val, field.meta().type()) + ",";
                         } else {
                             if (field.meta().isnull() == false) { //если not null то тупо пишу 0
                                 nameVal2 = nameVal2 + "0" + ",";
@@ -305,7 +305,7 @@ public class PSConvert {
                     //Цикл по полям не вошедших в eEnum.values()
                     for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                         Object val = rs1.getObject(entry.getKey());
-                        nameVal2 = nameVal2 + UGui.wrapperSql(val, Field.TYPE.type(entry.getValue()[0])) + ",";
+                        nameVal2 = nameVal2 + Field.wrapper(val, Field.TYPE.type(entry.getValue()[0])) + ",";
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
