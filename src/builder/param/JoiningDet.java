@@ -45,35 +45,35 @@ public class JoiningDet extends Par5s {
                 case 12000: //Для технологического кода контейнера 1/2 
                 {
                     String[] arr = rec.getStr(TEXT).split("/");
-                    if (UParIs.is_STRING_XX000(arr[0], elemJoin.elem1) == false) {
+                    if (UPar.is_STRING_XX000(arr[0], elemJoin.elem1) == false) {
                         return false;
                     }
-                    if (arr.length > 1 && UParIs.is_STRING_XX000(arr[1], elemJoin.elem2) == false) {
+                    if (arr.length > 1 && UPar.is_STRING_XX000(arr[1], elemJoin.elem2) == false) {
                         return false;
                     }
                 }
                 break;
                 case 11001: //Если признак состава Арт.1 
                 case 12001: //Если признак состава Арт.1 
-                    if (UParIs.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem1) == false) {
+                    if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem1) == false) {
                         return false;
                     }
                     break;
                 case 11002:  //Если признак состава Арт.2 
                 case 12002:  //Если признак состава Арт.2 
-                    if (UParIs.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem2) == false) {
+                    if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem2) == false) {
                         return false;
                     }
                     break;
                 case 11005:  //Контейнер типа 
                 case 12005:  //Контейнер типа 
-                    if (UParIs.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elemJoin.elem1) == false) {
+                    if (UPar.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elemJoin.elem1) == false) {
                         return false;
                     }
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
                 case 12008:  //Эффективное заполнение изд., мм 
-                    if (UParIs.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -156,7 +156,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11095: //Если признак системы конструкции 
                 case 12095: //Если признак системы конструкции 
-                    if (!UParIs.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni())) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni())) {
                         return false;
                     }
                     break;

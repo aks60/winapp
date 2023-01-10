@@ -164,9 +164,9 @@ public class ElemGlass extends ElemSimple {
             if (Type.ARCH == owner.type() && (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3])) {
                 return;  //нет таких сторон у арки
             }
-            spcAdd.count = UParTo.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-            spcAdd.count += UParTo.to_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
-            spcAdd.width = UParTo.to_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
+            spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count += UPar.to_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
+            spcAdd.width = UPar.to_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
             if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
                 return;  //если стеклопакет сразу выход
             }
@@ -222,9 +222,9 @@ public class ElemGlass extends ElemSimple {
                 if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
                     //
                 }
-                spcAdd.width = UParTo.to_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-                spcAdd.width = spcAdd.width * UParTo.to_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
-                spcAdd.width = spcAdd.width / UParTo.to_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
+                spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+                spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
+                spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
 
             } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
 

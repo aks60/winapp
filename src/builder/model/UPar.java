@@ -15,7 +15,7 @@ import java.util.List;
  * Участвует в измении свойств элемента конструкции 
  * через параметр
  */
-public class UParTo {
+public class UPar {
 
     //Укорочение мм от высоты ручки 
     public static float to_25013(Specific spcRec, Specific spcAdd) {

@@ -21,7 +21,7 @@ import java.util.List;
  * Участвует в допустимости элемента в конструкции 
  * через параметр
  */
-class UParIs {
+class UPar {
 
     //Толщина внешнего/внутреннего заполнения, мм
     static List<IElem5e> getGlassDepth(IElem5e elem5e) {

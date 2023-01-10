@@ -47,7 +47,7 @@ public class ElementVar extends Par5s {
             switch (grup) {
 
                 case 31000: //Для технологического кода контейнера 
-                    if (!UParIs.is_STRING_XX000(rec.getStr(TEXT), elem5e)) {
+                    if (!UPar.is_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -119,13 +119,13 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                    if (UParIs.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
                 case 31011: //Толщина внешнего/внутреннего заполнения, мм
                 {
-                    List<IElem5e> glassList = UParIs.getGlassDepth(elem5e);
+                    List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
@@ -143,7 +143,7 @@ public class ElementVar extends Par5s {
                 break;
                 case 31012: //Для внешнего заполнения, мм", только для PS3
                 {
-                    List<IElem5e> glassList = UParIs.getGlassDepth(elem5e);
+                    List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(1).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
                                 glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
@@ -154,7 +154,7 @@ public class ElementVar extends Par5s {
                 break;
                 case 31013: //Для внутреннего заполнения, мм", только для PS3
                 {
-                    List<IElem5e> glassList = UParIs.getGlassDepth(elem5e);
+                    List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
                                 glassList.get(0).artiklRec().getFloat(eArtikl.depth)) == false) {
@@ -165,7 +165,7 @@ public class ElementVar extends Par5s {
                 break;
                 case 31014: //Заполнения одинаковой толщины 
                 {
-                    List<IElem5e> glassList = UParIs.getGlassDepth(elem5e);
+                    List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if ("Да".equals(rec.getStr(TEXT)) == true) {
                         if (glassList.get(0).artiklRecAn().getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn().getFloat(eArtikl.depth)) {
                             return false;
@@ -188,7 +188,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31017: //Код системы содержит строку 
                 case 37017: //Код системы содержит строку 
-                    if (UParIs.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -241,7 +241,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31037:  //Название фурнитуры содержит 
-                    if (UParIs.is_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
+                    if (UPar.is_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -257,7 +257,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31050: //Контейнер имеет тип 
-                    if (UParIs.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                    if (UPar.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -333,7 +333,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31095:  //Если признак системы конструкции 
                 case 37095:  //Если признак системы конструкции                    
-                    if (!UParIs.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni())) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni())) {
                         return false;
                     }
                     break;
@@ -362,7 +362,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 37008:  //Тип проема 
-                    if (!UParIs.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!UPar.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
