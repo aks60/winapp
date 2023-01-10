@@ -13,6 +13,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.IElem5e;
+import builder.model.UPar;
 import common.UCom;
 import dataset.Query;
 import domain.eSysprof;
@@ -104,8 +105,7 @@ public class Elements extends Cal5e {
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, 
                                         TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
                                     elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
-                                    elem5e.spcRec().mapParam = spcAdd.mapParam; //переназначаем mapParam
-
+                                    UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
                                 } else {
                                     elem5e.addSpecific(spcAdd); //в спецификацию
                                 }

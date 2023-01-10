@@ -12,8 +12,7 @@ import enums.Layout;
 import java.util.List;
 
 /**
- * Участвует в измении свойств элемента конструкции 
- * через параметр
+ * Участвует в измении свойств элемента конструкции через параметр
  */
 public class UPar {
 
@@ -21,22 +20,24 @@ public class UPar {
     public static float to_25013(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
-        List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
-        float dx = UCom.getFloat(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
+        if (!"null".equals(ps)) {
+            List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
+            float dx = UCom.getFloat(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
 
-        if (list.get(0).equals(ps)) {
-            return spcRec.width - dx;
+            if (list.get(0).equals(ps)) {
+                return spcRec.width - dx;
 
-        } else if (list.get(1).equals(ps)) {
-            IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
-            return stv.handleHeight() - dx;
+            } else if (list.get(1).equals(ps)) {
+                IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
+                return stv.handleHeight() - dx;
 
-        } else if (list.get(2).equals(ps)) {
-            IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
-            return spcRec.width - stv.handleHeight() - dx;
+            } else if (list.get(2).equals(ps)) {
+                IStvorka stv = (IStvorka) spcAdd.elem5e.owner();
+                return spcRec.width - stv.handleHeight() - dx;
 
-        } else if (list.get(3).equals(ps)) {
-            return spcRec.width / 2 - dx;
+            } else if (list.get(3).equals(ps)) {
+                return spcRec.width / 2 - dx;
+            }
         }
         return spcAdd.elem5e.length();
     }
@@ -210,22 +211,23 @@ public class UPar {
     //Углы реза
     public static void to_12075_34075_39075(IElem5e elem5e, Specific spcAdd) {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
+        if (!"null".equals(txt)) {
+            if ("по контейнерам".equals(txt)) {
+                spcAdd.anglCut1 = elem5e.anglCut()[0];
+                spcAdd.anglCut2 = elem5e.anglCut()[1];
 
-        if ("по контейнерам".equals(txt)) {
-            spcAdd.anglCut1 = elem5e.anglCut()[0];
-            spcAdd.anglCut2 = elem5e.anglCut()[1];
+            } else if ("установить (90° x 90°)".equals(txt)) {
+                spcAdd.anglCut1 = 90;
+                spcAdd.anglCut2 = 90;
 
-        } else if ("установить (90° x 90°)".equals(txt)) {
-            spcAdd.anglCut1 = 90;
-            spcAdd.anglCut2 = 90;
+            } else if ("установить (90° x 45°)".equals(txt)) {
+                spcAdd.anglCut1 = 90;
+                spcAdd.anglCut2 = 45;
 
-        } else if ("установить (90° x 45°)".equals(txt)) {
-            spcAdd.anglCut1 = 90;
-            spcAdd.anglCut2 = 45;
-
-        } else if ("установить (45° x 45°)".equals(txt)) {
-            spcAdd.anglCut1 = 45;
-            spcAdd.anglCut2 = 45;
+            } else if ("установить (45° x 45°)".equals(txt)) {
+                spcAdd.anglCut1 = 45;
+                spcAdd.anglCut2 = 45;
+            }
         }
     }
 
@@ -241,20 +243,31 @@ public class UPar {
     //Округлять количество до ближайшего
     public static float to_39063(Specific spcAdd) {
         String txt = spcAdd.getParam("null", 39063);
+        if (!"null".equals(txt)) {
 
-        if ("меньшего целого числа".equals(txt)) {
-            return (float) Math.floor(spcAdd.count);
+            if ("меньшего целого числа".equals(txt)) {
+                return (float) Math.floor(spcAdd.count);
 
-        } else if ("большего целого числа".equals(txt)) {
-            return (float) Math.ceil(spcAdd.count);
+            } else if ("большего целого числа".equals(txt)) {
+                return (float) Math.ceil(spcAdd.count);
 
-        } else if ("большего чётного числа".equals(txt)) {
-            return (float) Math.round(spcAdd.count);
+            } else if ("большего чётного числа".equals(txt)) {
+                return (float) Math.round(spcAdd.count);
 
-        } else if ("большего нечётного числа".equals(txt)) {
-            return (float) Math.round(spcAdd.count) + 1;
+            } else if ("большего нечётного числа".equals(txt)) {
+                return (float) Math.round(spcAdd.count) + 1;
+            }
         }
         return spcAdd.count;
     }
 
+    //Поправка ширины/высоты, мм 
+    //Поправка на стороны четные/нечетные, мм     
+    public static void to_40005_40010(Specific spcAdd) {
+        if (!"null".equals(spcAdd.getParam("null", 40005, 40010))) {
+            String[] arr = spcAdd.getParam("null", 40005, 40010).split("/");
+            spcAdd.width = spcAdd.width + UCom.getFloat(arr[0]);
+            spcAdd.height = spcAdd.height + UCom.getFloat(arr[1]);
+        }
+    }
 }

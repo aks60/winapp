@@ -259,7 +259,7 @@ public class ParGrup2 extends javax.swing.JDialog {
                 {"1", "2"}
             },
             new String [] {
-                "numb", "Название"
+                "Код", "Название"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -293,13 +293,14 @@ public class ParGrup2 extends javax.swing.JDialog {
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
+        tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "2", "3"},
                 {"1", "2", "3"}
             },
             new String [] {
-                "grup", "num", "Название "
+                "Группа", "Код", "Название "
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -334,13 +335,14 @@ public class ParGrup2 extends javax.swing.JDialog {
 
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
+        tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "2"},
                 {"1", "2"}
             },
             new String [] {
-                "numb", "Название"
+                "Код", "Название"
             }
         ) {
             boolean[] canEdit = new boolean [] {
