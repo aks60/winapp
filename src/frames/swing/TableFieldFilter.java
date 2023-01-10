@@ -101,10 +101,10 @@ public class TableFieldFilter extends javax.swing.JPanel {
 
         txtFilter.setFont(frames.UGui.getFont(0,0));
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(120, 18));
-        txtFilter.setMinimumSize(new java.awt.Dimension(120, 18));
+        txtFilter.setMaximumSize(new java.awt.Dimension(120, 17));
+        txtFilter.setMinimumSize(new java.awt.Dimension(120, 17));
         txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(120, 18));
+        txtFilter.setPreferredSize(new java.awt.Dimension(120, 17));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtCaretUpdate(evt);
