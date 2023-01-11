@@ -167,7 +167,7 @@ public class DicKits extends javax.swing.JDialog {
                         txt3.setEditable(true);
                         txt3.setBackground(new java.awt.Color(255, 255, 255));
                     }
-                    if (text.contains("L")) {
+                    if (text.contains("L") || text.contains("8050")) {
                         txt2.setEditable(true);
                         txt2.setBackground(new java.awt.Color(255, 255, 255));
                     }
@@ -682,6 +682,7 @@ public class DicKits extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        //float H = UCom.getFloat(txt1.getText(), 0f);
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
         //Цикл по списку детализации
@@ -698,29 +699,39 @@ public class DicKits extends javax.swing.JDialog {
                 prjkitRec.set(ePrjkit.prjprod_id, prjprodID);
                 prjkitRec.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
-                prjkitRec.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество    
+                prjkitRec.set(ePrjkit.numb, to_7030_7031_8060_8061_9060_9061(mapParam)); //количество    
 
-                Float width = get_8066_9066(mapParam);
+                //Длина, мм
+                Float width = to_8065_8066_9065_9066(mapParam);
                 width = (width == null) ? 0 : width;
                 prjkitRec.set(ePrjkit.width, width); //длина мм   
 
-                Float height = get_8071_9071(mapParam);
+                //Ширина, мм
+                Float height = to_8070_8071_9070_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
                 prjkitRec.set(ePrjkit.height, height); //ширина  
 
-                Float angl1 = get_8075(mapParam, 0);
+                //Поправка, мм
+                float correct = to_8050(mapParam);                 
+                prjkitRec.set(ePrjkit.width, width + correct); //длина мм 
+
+                //Угол реза 1
+                Float angl1 = to_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
                 prjkitRec.set(ePrjkit.angl1, angl1); //угол 1  
 
-                Float angl2 = get_8075(mapParam, 1);
+                //Угол реза 2
+                Float angl2 = to_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
                 prjkitRec.set(ePrjkit.angl2, angl2); //угол 2
 
+                //Текстура
                 prjkitRec.set(ePrjkit.color1_id, kitdetRec.get(eKitdet.color1_id));
                 prjkitRec.set(ePrjkit.color2_id, kitdetRec.get(eKitdet.color2_id));
                 prjkitRec.set(ePrjkit.color3_id, kitdetRec.get(eKitdet.color3_id));
-                
-                if (kitdetRec.getInt(eKitdet.color1_id) == 0) { //Автоподбор
+
+                //Автоподбор
+                if (kitdetRec.getInt(eKitdet.color1_id) == 0) {
                     HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 1);
                     for (Record colorRec : colorSet) {
                         if (colorID[0].equals(colorRec.get(eColor.id))) {
@@ -728,7 +739,8 @@ public class DicKits extends javax.swing.JDialog {
                         }
                     }
                 }
-                if (kitdetRec.getInt(eKitdet.color2_id) == 0) { //Автоподбор
+                //Автоподбор
+                if (kitdetRec.getInt(eKitdet.color2_id) == 0) {
                     HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 2);
                     for (Record colorRec : colorSet) {
                         if (colorID[1].equals(colorRec.get(eColor.id))) {
@@ -736,7 +748,8 @@ public class DicKits extends javax.swing.JDialog {
                         }
                     }
                 }
-                if (kitdetRec.getInt(eKitdet.color3_id) == 0) { //Автоподбор
+                //Автоподбор
+                if (kitdetRec.getInt(eKitdet.color3_id) == 0) {
                     HashSet<Record> colorSet = UGui.artiklToColorSet(kitdetRec.getInt(eKitdet.artikl_id), 3);
                     for (Record colorRec : colorSet) {
                         if (colorID[2].equals(colorRec.get(eColor.id))) {
@@ -965,7 +978,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     //Количество ед.
-    private float get_7031_8061_9061(HashMap<Integer, String> mapParam) {
+    private float to_7030_7031_8060_8061_9060_9061(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 7030, 7031, 8060, 8061, 9060, 9061);
         if (numb != null) {
             return Float.valueOf(numb);
@@ -973,8 +986,17 @@ public class DicKits extends javax.swing.JDialog {
         return 1;
     }
 
+    //Поправка, мм
+    private float to_8050(HashMap<Integer, String> mapParam) {
+        String numb = getParam(mapParam, 8050);
+        if (numb != null) {
+            return Float.valueOf(numb);
+        }
+        return 0;
+    }
+
     //Длина, мм
-    private Float get_8066_9066(HashMap<Integer, String> mapParam) {
+    private Float to_8065_8066_9065_9066(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8065, 8066, 9065, 9066);
         if (numb != null) {
             return Float.valueOf(numb);
@@ -983,7 +1005,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     //Ширина, мм
-    private Float get_8071_9071(HashMap<Integer, String> mapParam) {
+    private Float to_8070_8071_9070_9071(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8070, 8071, 9070, 9071);
         if (numb != null) {
             return Float.valueOf(numb);
@@ -992,7 +1014,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     //Углы реза "90х90", "90х45", "45х90", "45х45"
-    private Float get_8075(HashMap<Integer, String> mapParam, int m) {
+    private Float to_8075(HashMap<Integer, String> mapParam, int m) {
         String angl = getParam(mapParam, 8075);
         if (angl != null) {
             String s[] = angl.split("х");

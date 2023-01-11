@@ -370,7 +370,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 40005:  //Поправка ширины/высоты, мм 
                 case 40010:  //Поправка на стороны четные/нечетные, мм 
-                    mapParam.put(grup, rec.getStr(TEXT));
+                       mapParam.put(grup, rec.getStr(TEXT));                   
                     break;
                 case 40006:  //Высота заполнения, мм 
                     mapParam.put(grup, rec.getStr(TEXT));

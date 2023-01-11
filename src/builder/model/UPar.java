@@ -159,8 +159,6 @@ public class UPar {
         return spcAdd.width;
     }
 
-    //Длина, мм
-    //public static float get_
     //Коэффициент, [ * коэф-т ]
     public static float to_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
@@ -264,10 +262,14 @@ public class UPar {
     //Поправка ширины/высоты, мм 
     //Поправка на стороны четные/нечетные, мм     
     public static void to_40005_40010(Specific spcAdd) {
-        if (!"null".equals(spcAdd.getParam("null", 40005, 40010))) {
-            String[] arr = spcAdd.getParam("null", 40005, 40010).split("/");
+        if (!"null".equals(spcAdd.getParam("null", 40005))) {
+            String[] arr = spcAdd.getParam("null", 40005).split("/");
             spcAdd.width = spcAdd.width + UCom.getFloat(arr[0]);
             spcAdd.height = spcAdd.height + UCom.getFloat(arr[1]);
+        } else  if (!"null".equals(spcAdd.getParam("null", 40010))) {
+            String[] arr = spcAdd.getParam("null", 40010).split("/");
+            spcAdd.height = spcAdd.height + UCom.getFloat(arr[0]);
+            spcAdd.width = spcAdd.width + UCom.getFloat(arr[1]); 
         }
     }
 }

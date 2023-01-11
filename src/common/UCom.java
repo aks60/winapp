@@ -112,6 +112,7 @@ public class UCom {
             }
         }
         return -1f;
+        //throw new NumberFormatException("For input string: \"" + in + "\"");
     }
 
     public static Float getFloat(Float val, Float def) {
