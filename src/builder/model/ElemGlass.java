@@ -161,7 +161,7 @@ public class ElemGlass extends ElemSimple {
     @Override
     public void addSpecific(Specific spcAdd) {
         try {
-            if (Type.ARCH == owner.type() && (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3])) {
+            if (Type.ARCH == owner.type() && (anglHoriz == 90 || anglHoriz == 270)) {
                 return;  //нет таких сторон у арки
             }
             spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
@@ -179,11 +179,11 @@ public class ElemGlass extends ElemSimple {
 
                     //AREA, STVORKA
                 } else {
-                    if (anglHoriz == UCom.sideHoriz[0] || anglHoriz == UCom.sideHoriz[2]) { //по горизонтали
+                    if (anglHoriz == 0 || anglHoriz == 180) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
-                    } else if (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3]) { //по вертикали
+                    } else if (anglHoriz == 90 || anglHoriz == 270) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
 
@@ -195,7 +195,7 @@ public class ElemGlass extends ElemSimple {
                     spcRec.spcList.add(spcAdd);
                 }
 
-                if (anglHoriz == UCom.sideHoriz[0] || anglHoriz == UCom.sideHoriz[2]) { //по горизонтали
+                if (anglHoriz == 0 || anglHoriz == 180) { //по горизонтали
                     if (spcAdd.mapParam.get(15010) != null) {
                         if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -207,7 +207,7 @@ public class ElemGlass extends ElemSimple {
                         }
                     }
 
-                } else if (anglHoriz == UCom.sideHoriz[1] || anglHoriz == UCom.sideHoriz[3]) { //по вертикали
+                } else if (anglHoriz == 90 || anglHoriz == 270) { //по вертикали
                     if (spcAdd.mapParam.get(15010) != null) {
                         if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;

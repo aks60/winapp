@@ -47,8 +47,8 @@ public class Elements extends Cal5e {
                 if (elem5e.type() == Type.MOSKITKA) {
                     //По id - профиля
                     List<Record> elementList4 = List.of(eElement.find4(((ICom5t) elem5e).sysprofRec().getInt(eSysprof.id)));
-                    for (int side = 0; side < 4; ++side) {
-                        elem5e.anglHoriz(UCom.sideHoriz[side]); //устан. угол. проверяемой стороны
+                    for (int side : List.of(0, 90, 180, 270)) {
+                        elem5e.anglHoriz(side); //устан. угол. проверяемой стороны
                         detail(elementList4, elem5e);
                     }
                 } else {
@@ -88,7 +88,7 @@ public class Elements extends Cal5e {
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
-    
+
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
                         if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
@@ -102,11 +102,11 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль с префиксом @ в осн. специф.
-                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, 
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102,
                                         TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
                                     elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
                                     UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
-                                    
+
                                 } else {
                                     elem5e.addSpecific(spcAdd); //в спецификацию
                                 }
