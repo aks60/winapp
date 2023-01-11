@@ -178,14 +178,14 @@ public class UPar {
     //Задать Угол_реза_1/Угол_реза_2, °
     public static void to_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
-            if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
+            if (spcAdd.getParam("-361", 34077).equals("-361") == false) {
                 spcAdd.anglCut1 = UCom.getFloat(spcAdd.getParam("-1", 34077));
             }
-            if (spcAdd.getParam("-1", 34078).equals("-1") == false) {
+            if (spcAdd.getParam("-361", 34078).equals("-361") == false) {
                 spcAdd.anglCut2 = UCom.getFloat(spcAdd.getParam("-1", 34078));
             }
         } else {
-            if (spcAdd.getParam("-1", 34077, 39077).equals("-1") == false) {
+            if (spcAdd.getParam("-361", 34077, 39077).equals("-361") == false) {
                 String[] arr = spcAdd.getParam("-1", 34077, 39077).split("/");
                 if (arr[0].equals("*") == false) {
                     spcAdd.anglCut1 = UCom.getFloat(arr[0]);

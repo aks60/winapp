@@ -107,12 +107,12 @@ public class UCom {
             str = str.replace(",", ".");
             try {
                 return Float.valueOf(str);
+                
             } catch (java.lang.NumberFormatException e) {
                 System.err.println("Ошибка:UCom.getFloat() " + e);
             }
         }
-        return -1f;
-        //throw new NumberFormatException("For input string: \"" + in + "\"");
+        throw new NumberFormatException("Ошибка:UCom.getFloat(\"" + str + "\")");
     }
 
     public static Float getFloat(Float val, Float def) {
