@@ -144,7 +144,7 @@ public class UPar {
     }
 
     //Поправка, мм
-    public static float to_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
+    public static float to_12050_15050_34051_39020(Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return UCom.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }

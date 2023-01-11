@@ -10,6 +10,7 @@ import domain.eArtikl;
 import domain.eElement;
 import enums.Layout;
 import enums.PKjson;
+import enums.TypeArtikl;
 import frames.UGui;
 import java.awt.Color;
 import java.util.HashSet;
@@ -84,6 +85,17 @@ public class ElemMosquit extends ElemSimple {
     @Override
     public void addSpecific(Specific spcAdd) {
         try {
+            spcAdd.width = UPar.to_12050_15050_34051_39020(spcAdd); //поправка мм 
+            
+            //Профиль в составе  М/С
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X120)) {
+                if(anglHoriz == 0 || anglHoriz == 180) {
+                    spcAdd.width += spcAdd.elem5e.owner().width();
+                } else if(anglHoriz == 90 || anglHoriz == 270) {
+                    spcAdd.width += spcAdd.elem5e.owner().height();
+                }
+            }
+            
             spcRec.spcList.add(spcAdd);
 
         } catch (Exception e) {
