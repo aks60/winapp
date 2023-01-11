@@ -682,9 +682,12 @@ public class DicKits extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        //float H = UCom.getFloat(txt1.getText(), 0f);
+        float H = UCom.getFloat(txt1.getText(), 0f);
+        float L = UCom.getFloat(txt2.getText(), 0f);
+        float Q = UCom.getFloat(txt3.getText(), 1f);
+        
         HashMap<Integer, String> mapParam = new HashMap();
-        KitDet kitDet = new KitDet(UCom.getFloat(txt3.getText()), UCom.getFloat(txt2.getText()), UCom.getFloat(txt1.getText()));
+        KitDet kitDet = new KitDet(Q, L, H);
         //Цикл по списку детализации
         for (Record kitdetRec : qKitdet) {
             mapParam.clear();
@@ -692,12 +695,12 @@ public class DicKits extends javax.swing.JDialog {
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
             if (kitDet.filter(mapParam, kitdetRec) == true) {
 
-                Record artiklRec = eArtikl.get(kitdetRec.getInt(eKitdet.artikl_id));
+                Record artkitRec = eArtikl.get(kitdetRec.getInt(eKitdet.artikl_id));
                 Record prjkitRec = ePrjkit.up.newRecord(Query.INS);
                 prjkitRec.set(ePrjkit.id, Conn.genId(ePrjkit.up));
                 prjkitRec.set(ePrjkit.project_id, projectID);
                 prjkitRec.set(ePrjkit.prjprod_id, prjprodID);
-                prjkitRec.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
+                prjkitRec.set(ePrjkit.artikl_id, artkitRec.getInt(eArtikl.id));
 
                 prjkitRec.set(ePrjkit.numb, to_7030_7031_8060_8061_9060_9061(mapParam)); //количество    
 
@@ -708,7 +711,7 @@ public class DicKits extends javax.swing.JDialog {
 
                 //Ширина, мм
                 Float height = to_8070_8071_9070_9071(mapParam);
-                height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
+                height = (height == null) ? artkitRec.getFloat(eArtikl.height) : height;
                 prjkitRec.set(ePrjkit.height, height); //ширина  
 
                 //Поправка, мм

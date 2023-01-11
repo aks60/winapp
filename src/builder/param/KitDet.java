@@ -59,10 +59,7 @@ public class KitDet extends Par5s {
                 case 7060:  //Количество на шаг 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 7081:
-                case 9081:  //Если ширина комплекта, мм 
-                    message(rec.getInt(GRUP));
-                    break;                    
+                case 7081:                   
                 case 8050:  //Поправка, мм 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
@@ -87,6 +84,10 @@ public class KitDet extends Par5s {
                 case 8075: //Углы реза 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
+                    //-----------------------ПЕРСПЕКТИВА------------------------
+                case 9081:  //Если ширина комплекта, мм 
+                    message(rec.getInt(GRUP));
+                    break;                     
                 case 8081:  //Ширина комплекта, мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -95,8 +96,7 @@ public class KitDet extends Par5s {
                     break;
                 case 9055:  //Поправка ширины, мм
                     message(rec.getInt(GRUP));
-                    break;
-                    //-----------------------ПЕРСПЕКТИВА------------------------
+                    break;                    
                 case 8083:  //Набрать длину с нахлестом, мм 
                     message(rec.getInt(GRUP));
                     break;                

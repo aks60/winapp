@@ -107,7 +107,7 @@ public class UCom {
             str = str.replace(",", ".");
             try {
                 return Float.valueOf(str);
-                
+
             } catch (java.lang.NumberFormatException e) {
                 System.err.println("Ошибка:UCom.getFloat() " + e);
             }
@@ -115,11 +115,13 @@ public class UCom {
         throw new NumberFormatException("Ошибка:UCom.getFloat(\"" + str + "\")");
     }
 
-    public static Float getFloat(Float val, Float def) {
-        if (val == null) {
+    public static Float getFloat(Object obj, Float def) {
+        try {
+            return getFloat(obj.toString());
+            
+        } catch (java.lang.NumberFormatException e) {
             return def;
         }
-        return val;
     }
 
     public static Double getDbl(String str) {
@@ -131,7 +133,7 @@ public class UCom {
                 System.err.println("Ошибка:UCom.getFloat() " + e);
             }
         }
-        return -1.0;
+        throw new NumberFormatException("Ошибка:UCom.getDbl(\"" + str + "\")");
     }
 
     public static String firstUpperCase(String word) {
