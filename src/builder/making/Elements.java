@@ -94,11 +94,11 @@ public class Elements extends Cal5e {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);                            
-                            if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
-                                spcAdd = elem5e.spcRec();
-                                elem5e.spcRec().setArtikl(artiklRec);
-                                spcAdd.detailRec = elemdetRec;
-                            }
+//                            if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
+//                                spcAdd = elem5e.spcRec();
+//                                elem5e.spcRec().setArtikl(artiklRec);
+//                                spcAdd.detailRec = elemdetRec;
+//                            }
                             
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
@@ -108,14 +108,15 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль с префиксом @ в осн. специф.
-//                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102,
-//                                        TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
-//                                    elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
-//                                    UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
-//
-//                                } else {
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102,
+                                        TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
+                                    elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
+                                    UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
+
+                                } else {
                                     elem5e.addSpecific(spcAdd); //в спецификацию
-//                                }
+                                    //artype(spcAdd, elem5e);
+                                }
                             }
                         }
                     }

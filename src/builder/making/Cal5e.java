@@ -29,9 +29,9 @@ public abstract class Cal5e {
         return winc.rootArea;
     }
 
-    public static void artype(Record atiklRec, List<Record> elementList, IElem5e elem5e) {
-        TypeArtikl val = TypeArtikl.find(atiklRec);
-        switch (val) {
+    public static void artype(Specific spcAdd, IElem5e elem5e) {
+        TypeArtikl typ = TypeArtikl.find(spcAdd.artiklRec);
+        switch (typ) {
             case X100:;
             case X101:
             case X102:
@@ -67,6 +67,7 @@ public abstract class Cal5e {
             case X165:
             case X170:
             case X175:
+                elem5e.addSpecific(spcAdd);
                 break;
             case X200:
             case X201:
@@ -87,6 +88,7 @@ public abstract class Cal5e {
             case X231:
             case X250:
             case X290:
+                elem5e.addSpecific(spcAdd);
                 break;
             case X300:
             case X301:
@@ -99,11 +101,13 @@ public abstract class Cal5e {
             case X350:
             case X371:
             case X372:
+                elem5e.addSpecific(spcAdd);
                 break;
             case X400:
             case X401:
             case X402:
             case X403:
+                elem5e.addSpecific(spcAdd);
                 break;
             case X500:
             case X501:
@@ -120,6 +124,7 @@ public abstract class Cal5e {
             case X550:
             case X590:
             case X599:
+                elem5e.addSpecific(spcAdd);
                 break;
             default:
                 throw new AssertionError();
