@@ -18,8 +18,6 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
-import domain.eArtikl;
-import domain.eSysfurn;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -1138,7 +1136,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             public void actionRequest(Object obj) {
                 App.PSCompare.createFrame(Tex.this);
             }
-        });          
+        });
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

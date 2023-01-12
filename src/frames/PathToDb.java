@@ -3,9 +3,7 @@ package frames;
 import common.eProfile;
 import common.eProp;
 import dataset.Conn;
-import dataset.Query;
 import java.io.File;
-import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
 import frames.swing.FileFilter;
@@ -21,15 +19,11 @@ import startup.App;
  */
 public class PathToDb extends javax.swing.JDialog {
 
-    private Locale locale;
     private String num_base = null;
 
     public PathToDb(Frame parent, String num_base) {
         super(parent, true);
         this.num_base = num_base;
-        Locale loc = new Locale("en", "US");
-        this.setLocale(loc);
-        this.getInputContext().selectInputMethod(loc);
 
         initComponents();
 

@@ -6,6 +6,7 @@ import common.eProfile;
 import common.eProp;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
 import javax.swing.SwingWorker;
 import startup.App;
 
@@ -17,7 +18,8 @@ public class LogoToDb extends javax.swing.JDialog {
     public LogoToDb(java.awt.Window owner) {
         super(owner);
         initComponents();
-
+        
+        this.getInputContext().selectInputMethod(eProp.locale);    
         if (eProp.dev == true) {
             if ("adm".equals(eProp.profile)) {
                 edUser.setText("SYSDBA"); //user
@@ -36,7 +38,7 @@ public class LogoToDb extends javax.swing.JDialog {
             edUser.setText(eProp.user.read());
             edPass.requestFocus();
             getRootPane().setDefaultButton(btnOk);
-        }
+        }           
     }
 
     /**
