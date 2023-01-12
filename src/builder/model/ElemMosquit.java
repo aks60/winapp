@@ -86,17 +86,20 @@ public class ElemMosquit extends ElemSimple {
     public void addSpecific(Specific spcAdd) {
         try {
             spcAdd.width = UPar.to_12050_15050_34051_39020(spcAdd); //поправка мм 
-            
+
             //Профиль в составе  М/С
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X120)) {
-                if(anglHoriz == 0 || anglHoriz == 180) {
+                if (anglHoriz == 0 || anglHoriz == 180) {
                     spcAdd.width += spcAdd.elem5e.owner().width();
-                } else if(anglHoriz == 90 || anglHoriz == 270) {
+                } else if (anglHoriz == 90 || anglHoriz == 270) {
                     spcAdd.width += spcAdd.elem5e.owner().height();
                 }
             }
+            UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
             
-            spcRec.spcList.add(spcAdd);
+            if (spcRec.id != spcAdd.id) {
+                spcRec.spcList.add(spcAdd);
+            }
 
         } catch (Exception e) {
             System.err.println("Ошибка:ElemMosquit.addSpecific() " + e);

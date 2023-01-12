@@ -98,63 +98,63 @@ public class ElemCross extends ElemSimple {
     @Override
     //Главная спецификация   
     public void setSpecific() {
-try {
-        spcRec.place = (Layout.HORIZ == owner.layout()) ? "ВСТ.в" : "ВСТ.г";
-        spcRec.setArtikl(artiklRec);
-        spcRec.colorID1 = colorID1;
-        spcRec.colorID2 = colorID2;
-        spcRec.colorID3 = colorID3;
-        spcRec.anglCut2 = 90;
-        spcRec.anglCut1 = 90;
-        spcRec.anglHoriz = anglHoriz;
+        try {
+            spcRec.place = (Layout.HORIZ == owner.layout()) ? "ВСТ.в" : "ВСТ.г";
+            spcRec.setArtikl(artiklRec);
+            spcRec.colorID1 = colorID1;
+            spcRec.colorID2 = colorID2;
+            spcRec.colorID3 = colorID3;
+            spcRec.anglCut2 = 90;
+            spcRec.anglCut1 = 90;
+            spcRec.anglHoriz = anglHoriz;
 
-        if (type() == Type.IMPOST) {
-            //На эскизе заход импоста не показываю, сразу пишу в спецификацию
-            if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-                float zax = winc.syssizeRec().getFloat(eSyssize.zax);
+            if (type() == Type.IMPOST) {
+                //На эскизе заход импоста не показываю, сразу пишу в спецификацию
+                if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
+                    float zax = winc.syssizeRec().getFloat(eSyssize.zax);
 
-                if (Layout.HORIZ == owner.layout()) { //слева направо  
-                    IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
-                    spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    if (Layout.HORIZ == owner.layout()) { //слева направо  
+                        IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
+                        spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        spcRec.height = artiklRec().getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner.layout()) { //снизу вверх
-                    IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
-                    spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    } else if (Layout.VERT == owner.layout()) { //снизу вверх
+                        IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
+                        spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    }
+                } else {
+                    if (Layout.HORIZ == owner.layout()) { //слева направо  
+                        spcRec.width = y2 - y1;
+                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+
+                    } else if (Layout.VERT == owner.layout()) { //снизу вверх
+                        spcRec.width = x2 - x1;
+                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    }
                 }
-            } else {
+            } else if (type() == Type.SHTULP) {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
                     spcRec.width = y2 - y1;
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner.layout()) { //снизу вверх
+                } else if (Layout.VERT == owner.layout()) { //сверху вниз
+                    spcRec.width = x2 - x1;
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                }
+            } else if (type() == Type.STOIKA) {
+                if (Layout.HORIZ == owner.layout()) { //слева направо  
+                    spcRec.width = y2 - y1;
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+
+                } else if (Layout.VERT == owner.layout()) { //сверху вниз
                     spcRec.width = x2 - x1;
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             }
-        } else if (type() == Type.SHTULP) {
-            if (Layout.HORIZ == owner.layout()) { //слева направо  
-                spcRec.width = y2 - y1;
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-
-            } else if (Layout.VERT == owner.layout()) { //сверху вниз
-                spcRec.width = x2 - x1;
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            }
-        } else if (type() == Type.STOIKA) {
-            if (Layout.HORIZ == owner.layout()) { //слева направо  
-                spcRec.width = y2 - y1;
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-
-            } else if (Layout.VERT == owner.layout()) { //сверху вниз
-                spcRec.width = x2 - x1;
-                spcRec.height = artiklRec().getFloat(eArtikl.height);
-            }
-        }
         } catch (Exception e) {
             System.err.println("Ошибка:ElemCross.setSpecific() " + e);
-        }      
+        }
     }
 
     //Вложеная спецификация 
@@ -185,7 +185,9 @@ try {
             spcAdd.count = UPar.to_11070_12070_33078_34078(spcAdd); //ставить однократно
             spcAdd.count = UPar.to_39063(spcAdd); //округлять количество до ближайшего
 
-            spcRec.spcList.add(spcAdd);
+            if (spcRec.id != spcAdd.id) {
+                spcRec.spcList.add(spcAdd);
+            }
 
         } catch (Exception e) {
             System.err.println("Ошибка:ElemCross.addSpecific() " + e);

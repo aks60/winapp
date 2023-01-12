@@ -158,4 +158,13 @@ public class Record<E> extends ArrayList<E> {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (Object o : this) {
+            str += "  " + o;
+        }
+        return super.toString() + str;
+    }
 }

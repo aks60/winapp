@@ -366,7 +366,9 @@ public class ElemFrame extends ElemSimple {
             spcAdd.count = UPar.to_11070_12070_33078_34078(spcAdd); //ставить однократно
             spcAdd.count = UPar.to_39063(spcAdd); //округлять количество до ближайшего
 
-            spcRec.spcList.add(spcAdd);
+            if (spcRec.id != spcAdd.id) {
+                spcRec.spcList.add(spcAdd);
+            }
 
         } catch (Exception e) {
             System.err.println("Ошибка:ElemFrame.addSpecific() " + e);
