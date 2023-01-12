@@ -39,12 +39,12 @@ public class ElemMosquit extends ElemSimple {
         if (isJson(param, PKjson.colorID1)) {
             colorID1 = param.get(PKjson.colorID1).getAsInt();
         }
-        if (colorID1 == -1) {
-            HashSet<Record> hsColor = UGui.artiklToColorSet(artiklRec.getInt(eArtikl.id));
-            if (hsColor.isEmpty() == false) {
-                colorID1 = hsColor.iterator().next().getInt(eArtikl.id);
-            }
-        }
+//        if (colorID1 == -1) {
+//            HashSet<Record> hsColor = UGui.artiklToColorSet(artiklRec.getInt(eArtikl.id));
+//            if (hsColor.isEmpty() == false) {
+//                colorID1 = hsColor.iterator().next().getInt(eArtikl.id);
+//            }
+//        }
         if (colorID1 == -1) {
             colorID1 = -3;
         }
