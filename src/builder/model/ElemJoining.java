@@ -71,7 +71,7 @@ public class ElemJoining {
                     spcAdd.width = (elem1.y1() > elem2.y1()) ? elem1.y1() - elem2.y2() : elem2.y1() - elem1.y2();
                 }
             }
-            spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcAdd); //кол. ед. с учётом парам. 
             spcAdd.count += UPar.to_11050(spcAdd, this); //кол. ед. с шагом
             spcAdd.width = UPar.to_12050_15050_34051_39020(spcAdd); //поправка мм
 
@@ -80,9 +80,9 @@ public class ElemJoining {
                 spcAdd.width += spcRec.width;
             }
             UPar.to_12075_34075_39075(elem1, spcAdd); //углы реза
-            spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм       
-            spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcAdd); //длина мм       
+            spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcAdd);//"[ / коэф-т ]"
             spcAdd.count = UPar.to_11070_12070_33078_34078(spcAdd); //ставить однократно
 
             elem1.spcRec().spcList.add(spcAdd);

@@ -161,7 +161,7 @@ public class ElemCross extends ElemSimple {
     @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
         try {
-            spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+            spcAdd.count = UPar.to_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcAdd); //кол. ед. с учётом парам. 
             spcAdd.count += UPar.to_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
             spcAdd.width = UPar.to_12050_15050_34051_39020(spcAdd); //поправка мм 
 
@@ -177,10 +177,10 @@ public class ElemCross extends ElemSimple {
             UPar.to_12075_34075_39075(this, spcAdd); //углы реза
             UPar.to_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
             spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм
-            spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcAdd); //длина мм
             spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
-            spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcAdd);//"[ / коэф-т ]"
             UPar.to_40007(spcAdd); //высоту сделать длиной
             spcAdd.count = UPar.to_11070_12070_33078_34078(spcAdd); //ставить однократно
             spcAdd.count = UPar.to_39063(spcAdd); //округлять количество до ближайшего

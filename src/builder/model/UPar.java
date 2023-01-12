@@ -138,7 +138,7 @@ public class UPar {
     }
 
     //Количество ед.
-    public static float to_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
+    public static float to_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
@@ -152,7 +152,7 @@ public class UPar {
     }
 
     //Длина, мм
-    public static float to_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
+    public static float to_12065_15045_25040_34070_39070(Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return UCom.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
@@ -160,17 +160,17 @@ public class UPar {
     }
 
     //Коэффициент, [ * коэф-т ]
-    public static float to_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
+    public static float to_12030_15030_25035_34030_39030(Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Коэффициент, [ / коэф-т ]
-    public static float to_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
+    public static float to_12040_15031_25036_34040_39040(Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Othe
-    public static float to_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
+    public static float to_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
@@ -266,10 +266,10 @@ public class UPar {
             String[] arr = spcAdd.getParam("null", 40005).split("/");
             spcAdd.width = spcAdd.width + UCom.getFloat(arr[0]);
             spcAdd.height = spcAdd.height + UCom.getFloat(arr[1]);
-        } else  if (!"null".equals(spcAdd.getParam("null", 40010))) {
+        } else if (!"null".equals(spcAdd.getParam("null", 40010))) {
             String[] arr = spcAdd.getParam("null", 40010).split("/");
             spcAdd.height = spcAdd.height + UCom.getFloat(arr[0]);
-            spcAdd.width = spcAdd.width + UCom.getFloat(arr[1]); 
+            spcAdd.width = spcAdd.width + UCom.getFloat(arr[1]);
         }
     }
 }
