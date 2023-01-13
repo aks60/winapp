@@ -241,7 +241,9 @@ public class Wincalc {
             //Детали элемента через конструктив попадают в спецификацию через функцию addSpecific();
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
-            calcElements = new Elements(this); //составы
+            Cal5e calcElements = (eProp.old.read().equals("0")) //составы
+                    ? new builder.making.Elements(this)
+                    : new builder.making.old.Elements(this);
             calcElements.calc();
             calcFilling = new Filling(this); //заполнения
             calcFilling.calc();
