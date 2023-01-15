@@ -75,7 +75,7 @@ public class Furniture extends Cal5e {
                     max_size_message = false;
                 }
 
-                middle(areaStv, furnityreRec, 1); //основная фурнитура
+                variant(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Furniture.calc() " + e);
@@ -84,7 +84,7 @@ public class Furniture extends Cal5e {
         }
     }
 
-    protected void middle(IArea5e areaStv, Record furnitureRec, int count) {
+    protected void variant(IArea5e areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList1 = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_id)).collect(toList());
@@ -216,7 +216,7 @@ public class Furniture extends Cal5e {
                 int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
                 try {
-                    middle(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
+                    variant(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
                 } catch (Exception e) {
                     System.err.println("Ошибка:Furniture.middle() " + e);
                 }

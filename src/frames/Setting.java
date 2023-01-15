@@ -350,7 +350,7 @@ public class Setting extends javax.swing.JFrame {
         checkBox1.setText(" Откатить на предыдущую версию");
         checkBox1.setMaximumSize(new java.awt.Dimension(213, 22));
         checkBox1.setMinimumSize(new java.awt.Dimension(213, 22));
-        checkBox1.setPreferredSize(new java.awt.Dimension(213, 22));
+        checkBox1.setPreferredSize(new java.awt.Dimension(280, 22));
         checkBox1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 checkBox1StateChanged(evt);
@@ -371,9 +371,9 @@ public class Setting extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(textPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

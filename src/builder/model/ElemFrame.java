@@ -362,6 +362,7 @@ public class ElemFrame extends ElemSimple {
             spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
             spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcAdd);//"[ / коэф-т ]"
+            UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные (ширины/высоты), мм
             UPar.to_40007(spcAdd); //высоту сделать длиной
             spcAdd.count = UPar.to_11070_12070_33078_34078(spcAdd); //ставить однократно
             spcAdd.count = UPar.to_39063(spcAdd); //округлять количество до ближайшего

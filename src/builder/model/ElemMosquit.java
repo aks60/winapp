@@ -95,7 +95,7 @@ public class ElemMosquit extends ElemSimple {
                     spcAdd.width += spcAdd.elem5e.owner().height();
                 }
             }
-            UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные, мм 
+            UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные (ширины/высоты), мм
             
             if (spcRec.id != spcAdd.id) {
                 spcRec.spcList.add(spcAdd);

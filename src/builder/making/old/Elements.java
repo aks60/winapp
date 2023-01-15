@@ -93,13 +93,8 @@ public class Elements extends Cal5e {
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
                         if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
-                            Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
+                            Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
                             Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
-//                            if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105, TypeArtikl.X520)) {
-//                                spcAdd = elem5e.spcRec();
-//                                elem5e.spcRec().setArtikl(artiklRec);
-//                                spcAdd.detailRec = elemdetRec;
-//                            }
 
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
@@ -116,7 +111,6 @@ public class Elements extends Cal5e {
 
                                 } else {
                                     elem5e.addSpecific(spcAdd); //в спецификацию
-                                    //artype(spcAdd, elem5e);
                                 }
                             }
                         }
