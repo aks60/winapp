@@ -292,6 +292,49 @@ public class PSCompare extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.err.println("Ошибка:DBCompare.loadingTabGroup1() Тавлица CONNLST отсуствует!");
             }
+/*
+                        //=== Таблица 6 ===
+            Vector vectorData = new Vector();
+            Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
+            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
+                    //+ "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate");
+                    + "where a.punic = b.punic and b.pdate > '01.07.2015' and b.pdate < '01.01.2023' order by b.pnumb");
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(rs.getObject("PUNIC"));
+                    vectorRec.add(rs.getObject("PNUMB"));
+                    vectorRec.add(rs.getObject("ONUMB"));
+                    vectorRec.add(rs.getObject("ONAME"));
+                    vectorRec.add(rs.getObject("PDATE"));
+                    try {
+                        Blob blob = rs.getBlob("BPICT");
+                        int blobLength = (int) blob.length();
+                        byte[] bytes = blob.getBytes(1, blobLength);
+                        blob.free();
+                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+                        ImageIcon icon = new ImageIcon(img);
+                        vectorRec.add(icon);
+                        //ImageIO.write(img, "jpg", new File("img.jpg"));
+
+                    } catch (Exception e) {
+                        vectorRec.add(null);
+                    }
+                    vectorData.add(vectorRec);
+                }
+            }
+            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
+                public Class getColumnClass(int column) {
+                    return (column == 5) ? ImageIcon.class : Object.class;
+                    //return Object.class;
+                }
+            };
+            tab6.setModel(model);
+            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
+            rs.close();
+            */            
             //=== Таблица 7 ===
             ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
 //            rs = st.executeQuery("select c.pname, b.pname from savefup a "

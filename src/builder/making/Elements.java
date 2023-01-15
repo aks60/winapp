@@ -1,5 +1,6 @@
 package builder.making;
 
+import builder.making.*;
 import builder.ICom5t;
 import dataset.Record;
 import domain.eArtikl;
@@ -44,14 +45,24 @@ public class Elements extends Cal5e {
             //Цикл по списку элементов конструкции
             for (IElem5e elem5e : listElem) {
 
-                //По artikl_id - артикула профилей
-                List<Record> elementList3 = eElement.find2(elem5e.artiklRecAn().getInt(eArtikl.id));
-                variant(elementList3, elem5e);
+                if (elem5e.type() == Type.MOSKITKA) {
+                    //По id - профиля
+                    List<Record> elementList4 = List.of(eElement.find4(((ICom5t) elem5e).sysprofRec().getInt(eSysprof.id)));
+                    //Цикл по списку элементов сторон маскитки
+                    for (int side : List.of(0, 90, 180, 270)) {
+                        elem5e.anglHoriz(side); //устан. угол. проверяемой стороны
+                        detail(elementList4, elem5e);
+                    }
+                } else {
+                    //По artikl_id - артикула профилей
+                    List<Record> elementList3 = eElement.find2(elem5e.artiklRecAn().getInt(eArtikl.id));
+                    detail(elementList3, elem5e);
 
-                //По groups1_id - серии профилей
-                int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
-                List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
-                variant(elementList2, elem5e);
+                    //По groups1_id - серии профилей
+                    int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
+                    List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
+                    detail(elementList2, elem5e);
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);
@@ -60,7 +71,7 @@ public class Elements extends Cal5e {
         }
     }
 
-    protected void variant(List<Record> elementList, IElem5e elem5e) {
+    protected void detail(List<Record> elementList, IElem5e elem5e) {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
@@ -78,31 +89,43 @@ public class Elements extends Cal5e {
 
                     //Цикл по детализации
                     for (Record elemdetRec : elemdetList) {
-                        Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
+                        HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
 
-                        //Если (контейнер) в списке детализации, 
-                        //например профиль с префиксом @ в осн. специф.
-                        if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, //)) {
-                                TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
-                            Specific spcAdd = detail(elemdetRec, artiklRec, elem5e);
-                            if (spcAdd != null) {
-                                elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
-                            }
+                        //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                        if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
-                            //Москитка
-                        } else if (TypeArtikl.isType(artiklRec, TypeArtikl.X520)) {
-                            for (int side : List.of(0, 90, 180, 270)) {
-                                elem5e.anglHoriz(side); //устан. угол. проверяемой стороны                                 
-                                Specific spcAdd = detail(elemdetRec, artiklRec, elem5e);
-                                if (spcAdd != null) {
-                                    elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации                             
+                            Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
+                            Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
+
+                            if (UColor.colorFromProduct(spcAdd, 1)
+                                    && UColor.colorFromProduct(spcAdd, 2)
+                                    && UColor.colorFromProduct(spcAdd, 3)) {
+
+                                spcAdd.place = "ВСТ";
+
+                                //Если (контейнер) в списке детализации, 
+                                //например профиль с префиксом @ в осн. специф.
+                                //Свойства контейнера менять нельзя!!!
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102,
+                                        TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
+                                    elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
+                                        elem5e.spcRec().setColor(1, spcAdd.colorID1);
+                                        elem5e.spcRec().setColor(2, spcAdd.colorID2);
+                                        elem5e.spcRec().setColor(3, spcAdd.colorID3);                                    
+                                    elem5e.addSpecific(elem5e.spcRec());
+
+                                    //Контейнер маскитка не учавствует в цикле сторон
+                                } else if (TypeArtikl.isType(artiklRec, TypeArtikl.X520)) {
+                                    if (elem5e.anglHoriz() == 0) {
+                                        elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
+                                        elem5e.spcRec().setColor(1, spcAdd.colorID1);
+                                        elem5e.spcRec().setColor(2, spcAdd.colorID2);
+                                        elem5e.spcRec().setColor(3, spcAdd.colorID3);
+                                        elem5e.addSpecific(elem5e.spcRec()); //в спецификацию     
+                                    }
+                                } else {
+                                    elem5e.addSpecific(spcAdd); //в спецификацию
                                 }
-                            }
-
-                        } else {
-                            Specific spcAdd = detail(elemdetRec, artiklRec, elem5e);
-                            if (spcAdd != null) {
-                                elem5e.addSpecific(spcAdd); //в спецификацию
                             }
                         }
                     }
@@ -111,24 +134,5 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.detail() " + e);
         }
-    }
-
-    protected Specific detail(Record elemdetRec, Record artiklRec, IElem5e elem5e) {
-        HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации 
-
-        //ФИЛЬТР детализации, параметры накапливаются в mapParam
-        if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
-            Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
-
-            if (UColor.colorFromProduct(spcAdd, 1)
-                    && UColor.colorFromProduct(spcAdd, 2)
-                    && UColor.colorFromProduct(spcAdd, 3)) {
-
-                spcAdd.place = "ВСТ";
-                //elem5e.addSpecific(spcAdd); //в спецификацию
-                return spcAdd;
-            }
-        }
-        return null;
     }
 }

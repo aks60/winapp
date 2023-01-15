@@ -171,7 +171,7 @@ public class ElemCross extends ElemSimple {
                 spcAdd.anglCut1 = 90;
                 spcAdd.anglCut2 = 90;
             }
-            if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+            if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1)) && spcRec.id != spcAdd.id) {
                 spcAdd.width += spcRec.width;
             }
             UPar.to_12075_34075_39075(this, spcAdd); //углы реза

@@ -82,7 +82,7 @@ public class Specific {
     }
     
     public Specific(Specific spec) {
-        this.id = spec.id; //++spec.elem5e.winc.genId;
+        this.id = spec.id;
         this.place = spec.place;
         this.artikl = spec.artikl;
         this.artiklRec = spec.artiklRec;

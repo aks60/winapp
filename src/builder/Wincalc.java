@@ -12,11 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.HashMap;
 import builder.making.Specific;
-import builder.making.Tariffic;
 import builder.making.Joining;
-import builder.making.Elements;
-import builder.making.Filling;
-import builder.making.Furniture;
 import builder.making.Paint;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
@@ -243,13 +239,19 @@ public class Wincalc {
             calcJoining.calc();
             Cal5e calcElements = (eProp.old.read().equals("0")) //составы
                     ? new builder.making.Elements(this)
-                    : new builder.making.old.Elements(this);
+                    : new builder.making.Elements(this);
             calcElements.calc();
-            calcFilling = new Filling(this); //заполнения
+            calcFilling = (eProp.old.read().equals("0")) //заполнения
+                    ? new builder.making.Filling(this)
+                    : new builder.making.Filling(this);
             calcFilling.calc();
-            calcFurniture = new Furniture(this); //фурнитура 
+            calcFurniture = (eProp.old.read().equals("0")) //фурнитура 
+                    ? new builder.making.Furniture(this)
+                    : new builder.making.Furniture(this);
             calcFurniture.calc();
-            calcTariffication = new Tariffic(this, norm_otx); //тарификация
+            calcTariffication = (eProp.old.read().equals("0")) //тарификация 
+                    ? new builder.making.Tariffic(this, norm_otx)
+                    : new builder.making.Tariffic(this, norm_otx);
             calcTariffication.calc();
 
             //Построим список спецификации

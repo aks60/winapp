@@ -351,13 +351,14 @@ public class ElemFrame extends ElemSimple {
                     } else {
                         spcAdd.width += width() + winc.syssizeRec().getFloat(eSyssize.prip) * 2;
                     }
-                } else if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+                    
+                } else if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1)) && spcRec.id != spcAdd.id) {
                     spcAdd.width += spcRec.width;
                 }
             }
             UPar.to_12075_34075_39075(this, spcAdd); //углы реза
             UPar.to_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-            spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм 
+            spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм 
             spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcAdd); //длина мм
             spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
             spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
