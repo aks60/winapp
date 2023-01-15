@@ -292,13 +292,12 @@ public class PSCompare extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.err.println("Ошибка:DBCompare.loadingTabGroup1() Тавлица CONNLST отсуствует!");
             }
-/*
-                        //=== Таблица 6 ===
+
+            //=== Таблица 6 ===
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
-            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-                    //+ "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate");
-                    + "where a.punic = b.punic and b.pdate > '01.07.2015' and b.pdate < '01.01.2023' order by b.pnumb");
+            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
+                    + "where  a.punic = b.punic and a.punic = " + punic + " and a.onumb = 1 order by b.pnumb");
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -334,7 +333,7 @@ public class PSCompare extends javax.swing.JFrame {
             tab6.getColumnModel().getColumn(1).setMaxWidth(80);
             tab6.getColumnModel().getColumn(2).setMaxWidth(80);
             rs.close();
-            */            
+         
             //=== Таблица 7 ===
             ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
 //            rs = st.executeQuery("select c.pname, b.pname from savefup a "
