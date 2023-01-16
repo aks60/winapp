@@ -326,6 +326,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         rsvSystree.add(eSystree.col2, txt4);
         rsvSystree.add(eSystree.col3, txt5);
         rsvSystree.add(eSystree.pref, txt10);
+        rsvSystree.add(eSystree.note, txt12);
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
 
@@ -1074,6 +1075,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         btn11 = new javax.swing.JButton();
         lab47 = new javax.swing.JLabel();
         txt35 = new javax.swing.JTextField();
+        lab69 = new javax.swing.JLabel();
+        txt12 = new javax.swing.JTextField();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -3061,6 +3064,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt35.setName("{3}"); // NOI18N
         txt35.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        lab69.setFont(frames.UGui.getFont(0,0));
+        lab69.setText("Примечание");
+        lab69.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab69.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        txt12.setFont(frames.UGui.getFont(0,0));
+        txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt12.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt12.setPreferredSize(new java.awt.Dimension(200, 18));
+
         javax.swing.GroupLayout pan6Layout = new javax.swing.GroupLayout(pan6);
         pan6.setLayout(pan6Layout);
         pan6Layout.setHorizontalGroup(
@@ -3068,6 +3081,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             .addGroup(pan6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan6Layout.createSequentialGroup()
+                        .addComponent(lab69, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pan6Layout.createSequentialGroup()
                         .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3180,7 +3197,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lab23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         tabb1.addTab("   Основные   ", pan6);
@@ -4497,6 +4518,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab66;
     private javax.swing.JLabel lab67;
     private javax.swing.JLabel lab68;
+    private javax.swing.JLabel lab69;
     private javax.swing.JLabel lab70;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
@@ -4543,6 +4565,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt10;
     private javax.swing.JTextField txt11;
+    private javax.swing.JTextField txt12;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt15;
