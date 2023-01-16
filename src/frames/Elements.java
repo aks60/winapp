@@ -231,7 +231,7 @@ public class Elements extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 int id = qElement.getAs(index, eElement.groups1_id);
-                new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
+                new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id, true);
             }
         });
 

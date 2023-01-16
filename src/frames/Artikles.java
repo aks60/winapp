@@ -2385,7 +2385,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF, id);
+            new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF, id, false);
         }
     }//GEN-LAST:event_btn8
 
@@ -2436,7 +2436,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups1_id);
-            new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id);
+            new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id, true);
         }
     }//GEN-LAST:event_btn19
 
@@ -2444,7 +2444,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups2_id);
-            new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id);
+            new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id, true);
         }
     }//GEN-LAST:event_btn20
 
@@ -2452,7 +2452,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF, id);
+            new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF, id, false);
         }
     }//GEN-LAST:event_btn13
 
@@ -2460,7 +2460,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups3_id);
-            new DicGroups(this, listenerCateg, TypeGroups.CATEG_PRF, id);
+            new DicGroups(this, listenerCateg, TypeGroups.CATEG_PRF, id, true);
         }
     }//GEN-LAST:event_btn22
 
@@ -2494,7 +2494,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
+            new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id, true);
         }
     }//GEN-LAST:event_btn37
 

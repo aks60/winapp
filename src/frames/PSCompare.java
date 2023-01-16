@@ -239,7 +239,7 @@ public class PSCompare extends javax.swing.JFrame {
             //=== Таблица 4 ===
             npp = 0;
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + txt20.getText() + "order by TYPP");
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB =" + txt20.getText() + "order by TYPP");
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();

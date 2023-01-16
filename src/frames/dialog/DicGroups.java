@@ -29,7 +29,7 @@ public class DicGroups extends javax.swing.JDialog {
     private Query qGroups = new Query(eGroups.values());
     private int ID = -1;
 
-    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int id) {
+    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int id, boolean del) {
         super(parent, true);
         this.grup = grup;
         this.ID = id;
@@ -38,6 +38,7 @@ public class DicGroups extends javax.swing.JDialog {
         initElements();
         loadingData();
         loadingModel();
+        btnRemove.setVisible(del);
         setVisible(true);
     }
 
@@ -52,24 +53,31 @@ public class DicGroups extends javax.swing.JDialog {
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab1, ID);
+            tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            
         } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab2, ID);
+            tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            
         } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab3, ID);
+            tab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            
         } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab4, ID);
+            tab4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         }
     }
 
