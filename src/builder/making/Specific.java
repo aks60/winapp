@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import builder.IElem5e;
+import common.ArrayList2;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class Specific {
 
-    public ArrayList<Specific> spcList = new ArrayList();  //список составов, фурнитур и т.д.
+    public ArrayList2<Specific> spcList = new ArrayList2();  //список составов, фурнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
     public IElem5e elem5e = null;  //элемент пораждающий спецификацию (контейнер)
     public Record variantRec = null;  //вариант в конструктиве

@@ -548,9 +548,9 @@ public class Tex extends javax.swing.JFrame {
         btnTest.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btnTest.setText("Test");
         btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnTest.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnTest.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnTest.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnTest.setMaximumSize(new java.awt.Dimension(28, 28));
+        btnTest.setMinimumSize(new java.awt.Dimension(28, 28));
+        btnTest.setPreferredSize(new java.awt.Dimension(28, 28));
         btnTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTest(evt);

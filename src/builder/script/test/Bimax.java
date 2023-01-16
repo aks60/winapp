@@ -15,7 +15,18 @@ public final class Bimax {
 
     public static String script(Integer prj) {
         
-        if (prj == 508809) { //PUNIC = 427597
+        if (prj == 508807) { //PUNIC = 427595
+            rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.RECTANGL, 900, 1400, 1009, 1009, 1009, "{ioknaParam: [-9504]}");
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen: 4}")) 
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 84}"))
+                    .addElem(new GsonElem(Type.GLASS, "{artglasID: 4267}"));  
+            
+        } else if (prj == 508809) { //PUNIC = 427597
             rootGson = new GsonRoot("1.0", prj, 1, 291, "Teplowin 100\\Classic\\1 ОКНА",
                     Layout.VERT, Type.RECTANGL, 1000, 1520, 1009, 1009, 1009, "{ioknaParam: [-9504]}");
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))

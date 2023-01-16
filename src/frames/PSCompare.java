@@ -141,7 +141,7 @@ public class PSCompare extends javax.swing.JFrame {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpcSa = new HashSet();
             Set<String> setSpcPs = new HashSet();
-            winc.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
+            winc.listSpec.forEach(specRec -> setSpcSa.add(specRec.artikl));
             if (winc.rootGson.project() != null) {
                 txt21.setText(String.valueOf(winc.rootGson.project()));
             }
@@ -154,10 +154,10 @@ public class PSCompare extends javax.swing.JFrame {
                 hmSpc.put(art_code, new Vector(List.of(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
             }
             //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(List.of(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
-            winc.listSpec.forEach(rec -> {
-                List<Float> val = hmSpc.get(rec.artikl);
-                val.set(2, val.get(2) + rec.count); //колич. в SA
-                val.set(4, val.get(4) + rec.quant1); //погонаж в SA
+            winc.listSpec.forEach(specRec -> {
+                List<Float> val = hmSpc.get(specRec.artikl);
+                val.set(2, val.get(2) + specRec.count); //колич. в SA
+                val.set(4, val.get(4) + specRec.quant1); //погонаж в SA
             });
 
             //=== Таблица 1 ===
@@ -297,7 +297,7 @@ public class PSCompare extends javax.swing.JFrame {
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-                    + "where  a.punic = b.punic and a.punic = " + punic + " and a.onumb = 1 order by b.pnumb");
+                    + "where  a.punic = b.punic and a.punic = " + punic + " and a.onumb = " + txt20.getText() + " order by b.pnumb");
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -1085,12 +1085,12 @@ public class PSCompare extends javax.swing.JFrame {
         lab20.setPreferredSize(new java.awt.Dimension(60, 20));
 
         txt19.setFont(frames.UGui.getFont(0,0));
-        txt19.setText("427597");
+        txt19.setText("427595");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("1");
+        txt20.setText("2");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 
@@ -1109,7 +1109,7 @@ public class PSCompare extends javax.swing.JFrame {
         labFurn.setPreferredSize(new java.awt.Dimension(200, 19));
 
         txt21.setFont(frames.UGui.getFont(0,0));
-        txt21.setText("508809");
+        txt21.setText("508807");
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setPreferredSize(new java.awt.Dimension(50, 18));
 
