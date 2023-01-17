@@ -810,29 +810,29 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             qSysprod.update(sysprodRec);
 
             //Экземпляр нового скрипта
-            Wincalc iwin2 = new Wincalc(script);
-            Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
+            Wincalc iwin = new Wincalc(script);
+            Cal5e joining = new Joining(iwin, true);//заполним соединения из конструктива
             joining.calc();
-            iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            sysprodRec.setNo(eSysprod.values().length - 1, iwin2);
+            iwin.imageIcon = Canvas.createIcon(iwin, 68);
+            sysprodRec.setNo(eSysprod.values().length, iwin);
 
             //Запомним курсор
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             float id = (selectNode != null) ? selectNode.com5t().id() : -1;
 
             //Перегрузим winTree
-            loadingTree2(iwin2);
-
-            //Перерисуем конструкцию
-            scene.init(iwin2);
-            canvas.draw();
-            scene.draw();
-
-            //Обновим поля форм
-            selectionTree2();
+            loadingTree2(iwin);
 
             //Установим курсор
             UGui.selectionPath(id, winTree);
+            
+            //Перерисуем конструкцию
+            scene.init(iwin);
+            canvas.draw();
+            scene.draw();
+            
+            //Обновим поля форм
+            selectionTree2();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.updateScript() " + e);
@@ -3614,7 +3614,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        UGui.selectionPath(0.0f, winTree);
+        selectionTree2();
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -4087,7 +4087,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-
+        Wincalc win = wincalc();
+        String json = win.rootGson.toJson();
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass

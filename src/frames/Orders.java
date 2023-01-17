@@ -692,7 +692,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            prjprodRec.setNo(eSysprod.values().length - 1, iwin2);
+            prjprodRec.setNo(ePrjprod.values().length, iwin2);
 
             //Запомним курсор
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
