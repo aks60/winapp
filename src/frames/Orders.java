@@ -89,6 +89,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -736,7 +737,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         }
     }
 
-    private void setText(JTextField comp, String txt) {
+    private void setText(JTextComponent comp, String txt) {
         comp.setText(txt);
         comp.setCaretPosition(0);
     }
@@ -828,8 +829,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         txt22 = new javax.swing.JTextField();
         lab40 = new javax.swing.JLabel();
         txt23 = new javax.swing.JTextField();
-        txt12 = new javax.swing.JTextField();
         lab69 = new javax.swing.JLabel();
+        txt12 = new javax.swing.JTextArea();
         pan13 = new javax.swing.JPanel();
         pan20 = new javax.swing.JPanel();
         lab28 = new javax.swing.JLabel();
@@ -1796,16 +1797,19 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        txt12.setEditable(false);
-        txt12.setFont(frames.UGui.getFont(0,0));
-        txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt12.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt12.setPreferredSize(new java.awt.Dimension(200, 18));
-
         lab69.setFont(frames.UGui.getFont(0,0));
         lab69.setText("Примечание");
         lab69.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab69.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab69.setMaximumSize(new java.awt.Dimension(600, 36));
+        lab69.setMinimumSize(new java.awt.Dimension(80, 36));
+        lab69.setPreferredSize(new java.awt.Dimension(80, 36));
+
+        txt12.setEditable(false);
+        txt12.setFont(frames.UGui.getFont(0,0));
+        txt12.setLineWrap(true);
+        txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt12.setMinimumSize(new java.awt.Dimension(5, 36));
+        txt12.setPreferredSize(new java.awt.Dimension(164, 36));
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
@@ -1815,6 +1819,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(lab69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pan12Layout.createSequentialGroup()
@@ -1829,11 +1837,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pan12Layout.createSequentialGroup()
-                        .addComponent(lab69, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan12Layout.setVerticalGroup(
@@ -1851,10 +1855,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lab69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
         );
@@ -4064,7 +4068,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTabbedPane tabb2;
-    private javax.swing.JTextField txt12;
+    private javax.swing.JTextArea txt12;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt16;
