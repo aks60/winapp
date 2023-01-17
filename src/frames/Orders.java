@@ -307,6 +307,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         UGui.setSelectedRow(tab4);
     }
 
+    public void loadingTree(Wincalc winc) {
+        try {
+            DefMutableTreeNode root = UGui.loadWinTree(winc);
+            winTree.setModel(new DefaultTreeModel(root));
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Order.loadingWinTree() " + e);
+        }
+    }
+
     public void selectionTab1() {
         UGui.clearTable(tab2, tab4);
         List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
@@ -354,7 +364,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 scene.init(win);
                 canvas.draw();
                 scene.draw();
-                loadingWinTree(win);
+                loadingTree(win);
                 winTree.setSelectionInterval(0, 0);
             }
         } else {
@@ -367,133 +377,137 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         loadingTab4();
     }
 
-    public void selectionWinTree() {
-        Object selNode = winTree.getLastSelectedPathComponent();
-        if (selNode instanceof DefMutableTreeNode) {
-            winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-            Wincalc winc = winc();
+    public void selectionTree() {
+        try {
+            Object selNode = winTree.getLastSelectedPathComponent();
+            if (selNode instanceof DefMutableTreeNode) {
+                winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+                Wincalc winc = winc();
 
-            //Конструкции
-            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
-                setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
-                setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
-                setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
-                setText(txt17, String.valueOf(winc.rootGson.width()));
-                setText(txt22, String.valueOf(winc.rootGson.height()));
-                setText(txt23, UCom.format(winc.rootGson.height2(), 1));
-                txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
-                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
-                setText(txt12, eSystree.find(systreeID).getStr(eSystree.note));
+                //Конструкции
+                if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card12");
+                    ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
+                    setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
+                    setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
+                    setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
+                    setText(txt17, String.valueOf(winc.rootGson.width()));
+                    setText(txt22, String.valueOf(winc.rootGson.height()));
+                    setText(txt23, UCom.format(winc.rootGson.height2(), 1));
+                    txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
+                    int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
+                    setText(txt12, eSystree.find(systreeID).getStr(eSystree.note));
 
-                //Параметры
-            } else if (winNode.com5t().type() == enums.Type.PARAM) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card14");
-                qSyspar1.clear();
-                winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
-                ((DefTableModel) tab3.getModel()).fireTableDataChanged();
+                    //Параметры
+                } else if (winNode.com5t().type() == enums.Type.PARAM) {
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card14");
+                    qSyspar1.clear();
+                    winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
+                    ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
-                //Рама, импост...
-            } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type() == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type() == enums.Type.IMPOST
-                    || winNode.com5t().type() == enums.Type.STOIKA
-                    || winNode.com5t().type() == enums.Type.SHTULP) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card13");
-                ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                txt32.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.code));
-                txt33.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.name));
-                txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
-                txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
-                txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
+                    //Рама, импост...
+                } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
+                        || winNode.com5t().type() == enums.Type.STVORKA_SIDE
+                        || winNode.com5t().type() == enums.Type.IMPOST
+                        || winNode.com5t().type() == enums.Type.STOIKA
+                        || winNode.com5t().type() == enums.Type.SHTULP) {
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card13");
+                    ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
+                    txt32.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.code));
+                    txt33.setText(winNode.com5t().artiklRecAn().getStr(eArtikl.name));
+                    txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
+                    txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
+                    txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
 
-                //Стеклопакет
-            } else if (winNode.com5t().type() == enums.Type.GLASS) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card15");
-                Record artiklRec = winNode.com5t().artiklRec();
-                txt19.setText(artiklRec.getStr(eArtikl.code));
-                txt18.setText(artiklRec.getStr(eArtikl.name));
-                Record colorRec = eColor.find(winNode.com5t().colorID1());
-                setText(txt34, colorRec.getStr(eColor.name));
+                    //Стеклопакет
+                } else if (winNode.com5t().type() == enums.Type.GLASS) {
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card15");
+                    Record artiklRec = winNode.com5t().artiklRec();
+                    txt19.setText(artiklRec.getStr(eArtikl.code));
+                    txt18.setText(artiklRec.getStr(eArtikl.name));
+                    Record colorRec = eColor.find(winNode.com5t().colorID1());
+                    setText(txt34, colorRec.getStr(eColor.name));
 
-                //Створка
-            } else if (winNode.com5t().type() == enums.Type.STVORKA) {
-                new Furniture(winc(), true); //найдём ручку створки
-                ((CardLayout) pan8.getLayout()).show(pan8, "card16");
-                IStvorka stv = (IStvorka) winNode.com5t();
-                IArea5e sta = (IArea5e) winNode.com5t();
-                int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
-                setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
-                float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();
-                setText(txt26, UCom.format(h, 1));
-                setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
-                setIcon(btn10, stv.paramCheck()[0]);
-                setText(txt30, stv.typeOpen().name2);
-                setText(txt16, stv.handleLayout().name);
-                if (stv.handleLayout() == LayoutHandle.VARIAT) {
-                    txt31.setEditable(true);
-                    setText(txt31, UCom.format(stv.handleHeight(), 1));
+                    //Створка
+                } else if (winNode.com5t().type() == enums.Type.STVORKA) {
+                    new Furniture(winc(), true); //найдём ручку створки
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card16");
+                    IStvorka stv = (IStvorka) winNode.com5t();
+                    IArea5e sta = (IArea5e) winNode.com5t();
+                    int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
+                    setText(txt24, UCom.format(sta.frames().get(Layout.BOTT).width(), 1));
+                    float h = (sta.frames().get(Layout.RIGHT).height() > sta.frames().get(Layout.LEFT).height()) ? sta.frames().get(Layout.RIGHT).height() : sta.frames().get(Layout.LEFT).height();
+                    setText(txt26, UCom.format(h, 1));
+                    setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
+                    setIcon(btn10, stv.paramCheck()[0]);
+                    setText(txt30, stv.typeOpen().name2);
+                    setText(txt16, stv.handleLayout().name);
+                    if (stv.handleLayout() == LayoutHandle.VARIAT) {
+                        txt31.setEditable(true);
+                        setText(txt31, UCom.format(stv.handleHeight(), 1));
+                    } else {
+                        txt31.setEditable(false);
+                        setText(txt31, "");
+                    }
+                    setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
+                    setIcon(btn12, stv.paramCheck()[1]);
+                    setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
+                    setIcon(btn14, stv.paramCheck()[2]);
+                    setText(txt45, stv.loopRec().getStr(eArtikl.code));
+                    setText(txt58, stv.loopRec().getStr(eArtikl.name));
+                    setIcon(btn15, stv.paramCheck()[3]);
+                    setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
+                    setIcon(btn17, stv.paramCheck()[4]);
+                    setText(txt46, stv.lockRec().getStr(eArtikl.code));
+                    setText(txt57, stv.lockRec().getStr(eArtikl.name));
+                    setIcon(btn23, stv.paramCheck()[5]);
+                    setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
+                    setIcon(btn24, stv.paramCheck()[6]);
+                    //Москитка
+                    LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                    if (mosqList.isEmpty() == false) {
+                        IElem5e mosq = (IElem5e) mosqList.get(0);
+                        setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
+                        setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
+                        setText(txt60, eColor.find(mosq.colorID1()).getStr(eColor.name));
+                        setText(txt56, mosq.sysprofRec().getStr(eElement.name));
+                    }
+
+                    //Соединения
+                } else if (winNode.com5t().type() == enums.Type.JOINING) {
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card17");
+                    DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+                    IElem5e elem5e = (IElem5e) nodeParent.com5t();
+                    ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
+                    ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
+                    ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
+
+                    if (ej1 != null) {
+                        setText(txt36, ej1.joiningRec.getStr(eJoining.name));
+                        setText(txt42, ej1.name());
+                        setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
+                        lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
+                    }
+                    if (ej2 != null) {
+                        setText(txt37, ej2.joiningRec.getStr(eJoining.name));
+                        setText(txt43, ej2.name());
+                        setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
+                        lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
+                    }
+                    if (ej3 != null) {
+                        setText(txt40, ej3.joiningRec.getStr(eJoining.name));
+                        setText(txt44, ej3.name());
+                        setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
+                        lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
+                    }
                 } else {
-                    txt31.setEditable(false);
-                    setText(txt31, "");
+                    ((CardLayout) pan8.getLayout()).show(pan8, "card18");
                 }
-                setText(txt21, stv.handleRec().getStr(eArtikl.code) + " ÷ " + stv.handleRec().getStr(eArtikl.name));
-                setIcon(btn12, stv.paramCheck()[1]);
-                setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
-                setIcon(btn14, stv.paramCheck()[2]);
-                setText(txt45, stv.loopRec().getStr(eArtikl.code));
-                setText(txt58, stv.loopRec().getStr(eArtikl.name));
-                setIcon(btn15, stv.paramCheck()[3]);
-                setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
-                setIcon(btn17, stv.paramCheck()[4]);
-                setText(txt46, stv.lockRec().getStr(eArtikl.code));
-                setText(txt57, stv.lockRec().getStr(eArtikl.name));
-                setIcon(btn23, stv.paramCheck()[5]);
-                setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck()[6]);
-                //Москитка
-                LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
-                if (mosqList.isEmpty() == false) {
-                    IElem5e mosq = (IElem5e) mosqList.get(0);
-                    setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
-                    setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
-                    setText(txt60, eColor.find(mosq.colorID1()).getStr(eColor.name));
-                    setText(txt56, mosq.sysprofRec().getStr(eElement.name));
-                }
-                
-                //Соединения
-            } else if (winNode.com5t().type() == enums.Type.JOINING) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card17");
-                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                IElem5e elem5e = (IElem5e) nodeParent.com5t();
-                ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
-                ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
-                ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
-
-                if (ej1 != null) {
-                    setText(txt36, ej1.joiningRec.getStr(eJoining.name));
-                    setText(txt42, ej1.name());
-                    setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
-                    lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
-                }
-                if (ej2 != null) {
-                    setText(txt37, ej2.joiningRec.getStr(eJoining.name));
-                    setText(txt43, ej2.name());
-                    setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
-                    lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
-                }
-                if (ej3 != null) {
-                    setText(txt40, ej3.joiningRec.getStr(eJoining.name));
-                    setText(txt44, ej3.name());
-                    setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
-                    lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
-                }
-            } else {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card18");
+                List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
             }
-            List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+        } catch (Exception e) {
+            System.err.println("Ошибка:Orders.selectionTree() " + e);
         }
     }
 
@@ -558,7 +572,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         qPrjprod.execsql();
                         winc().build(script2);
                         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                        selectionWinTree();
+                        selectionTree();
                         UGui.setSelectedIndex(tab3, index2);
                     }
                 }, grup);
@@ -665,21 +679,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         };
     }
 
-    public void loadingWinTree(Wincalc winc) {
-        try {
-            DefMutableTreeNode root = UGui.loadWinTree(winc);
-            winTree.setModel(new DefaultTreeModel(root));
-
-        } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingWinTree() " + e);
-        }
-    }
-
     public void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
             String script = winc().rootGson.toJson();
-            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab5));
+            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
             prjprodRec.set(eSysprod.script, script);
             qPrjprod.update(prjprodRec);
 
@@ -688,14 +692,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            prjprodRec.set(eSysprod.values().length, iwin2);
+            prjprodRec.setNo(eSysprod.values().length - 1, iwin2);
 
             //Запомним курсор
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             float id = (selectNode != null) ? selectNode.com5t().id() : -1;
 
             //Перегрузим winTree
-            loadingWinTree(iwin2);
+            loadingTree(iwin2);
 
             //Перерисуем конструкцию
             scene.init(iwin2);
@@ -703,13 +707,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             scene.draw();
 
             //Обновим поля форм
-            selectionWinTree();
+            selectionTree();
 
             //Установим курсор
             UGui.selectionPath(id, winTree);
 
         } catch (Exception e) {
-            System.err.println("frames.Systree.updateScript()");;
+            System.err.println("Ошибка:Order.updateScript() " + e);
         }
     }
 
@@ -728,7 +732,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             scene.lineHoriz.forEach(e -> e.init());
             scene.lineVert.forEach(e -> e.init());
             scene.draw();
-            selectionWinTree();
+            selectionTree();
         }
     }
 
@@ -785,9 +789,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan11 = new javax.swing.JPanel();
-        pan7 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         pan9 = new javax.swing.JPanel();
         pan19 = new javax.swing.JPanel();
         lab1 = new javax.swing.JLabel();
@@ -801,6 +802,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab8 = new javax.swing.JLabel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
+        pan7 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         pan5 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
@@ -1350,59 +1354,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         pan11.setPreferredSize(new java.awt.Dimension(400, 550));
         pan11.setLayout(new java.awt.BorderLayout());
 
-        pan7.setPreferredSize(new java.awt.Dimension(404, 320));
-        pan7.setLayout(new java.awt.BorderLayout());
-
-        scr2.setPreferredSize(new java.awt.Dimension(204, 404));
-
-        tab2.setFont(frames.UGui.getFont(0,0));
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Наименование", "Кол-во", "Рисунок", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, true, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tab2.setFillsViewportHeight(true);
-        tab2.setRowHeight(68);
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Orders.this.mousePressed(evt);
-            }
-        });
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab2.getColumnModel().getColumn(2).setMinWidth(68);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(3).setMaxWidth(60);
-        }
-
-        pan7.add(scr2, java.awt.BorderLayout.CENTER);
-
-        pan11.add(pan7, java.awt.BorderLayout.CENTER);
-
         pan9.setPreferredSize(new java.awt.Dimension(450, 142));
         pan9.setLayout(new java.awt.BorderLayout());
 
@@ -1566,6 +1517,59 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         pan9.add(scr5, java.awt.BorderLayout.CENTER);
 
         pan11.add(pan9, java.awt.BorderLayout.NORTH);
+
+        pan7.setPreferredSize(new java.awt.Dimension(404, 320));
+        pan7.setLayout(new java.awt.BorderLayout());
+
+        scr2.setPreferredSize(new java.awt.Dimension(204, 404));
+
+        tab2.setFont(frames.UGui.getFont(0,0));
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Наименование", "Кол-во", "Рисунок", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        tab2.setRowHeight(68);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Orders.this.mousePressed(evt);
+            }
+        });
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(2).setMinWidth(68);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(60);
+        }
+
+        pan7.add(scr2, java.awt.BorderLayout.CENTER);
+
+        pan11.add(pan7, java.awt.BorderLayout.CENTER);
 
         pan1.add(pan11, java.awt.BorderLayout.EAST);
 
@@ -3165,15 +3169,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_stateChanged
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-//        Currenc frame = new Currenc(this, (record) -> {
-//            int index = UGui.getIndexRec(tab1);
-//            if (index != -1) {
-//                Record record2 = qProject.get(index);
-//                record2.set(eProject.currenc_id, record.get(eCurrenc.id));
-//                rsvPrj.load();
-//            }
-//            UGui.stopCellEditing(tab1, tab2, tab4, tab3);
-//        });
+        Currenc frame = new Currenc(this, (currencRec) -> {
+
+            int index = UGui.getIndexRec(tab1);
+            if (index != -1) {
+                Record record2 = qProject.get(index);
+                record2.set(eProject.currenc_id, currencRec.get(eCurrenc.id));
+                txt3.setText(currencRec.getStr(eCurrenc.name));
+            }
+            UGui.stopCellEditing(tab1, tab2, tab4, tab3);
+        });
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
@@ -3622,12 +3627,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnFilter
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Orders.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                //Отчёт
-                HtmlOfSpecific.specific(qProject.get(UGui.getIndexRec(tab1, 0)));
-            }
-        });
+
     }//GEN-LAST:event_btnTest
 
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
@@ -3848,7 +3848,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             IArea5e stvElem = (IArea5e) winNode.com5t();
             float selectID = winNode.com5t().id();
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
-                "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
+                    "where", eArtikl.level1, "= 5 and", eArtikl.level2, "= 20");
 
             new DicArtikl(this, (artiklRec) -> {
 
@@ -3911,7 +3911,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 IElem5e mosqElem = (IElem5e) mosqList.get(0);
                 Record artiklRec = mosqElem.artiklRec();
                 Query qElements = new Query(eElement.values()).select(eElement.up,
-                    "where", eElement.artikl_id, "=", artiklRec.getInt(eArtikl.id));
+                        "where", eElement.artikl_id, "=", artiklRec.getInt(eArtikl.id));
 
                 new DicName(this, (elementRec) -> {
 
@@ -4124,7 +4124,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         //UGui.documentFilter(3, txt7);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
@@ -4144,7 +4144,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         });
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();

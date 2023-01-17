@@ -613,136 +613,140 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public void selectionTree2() {
-        Object selNode = winTree.getLastSelectedPathComponent();
-        if (selNode instanceof DefMutableTreeNode) {
-            winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-            Wincalc winc = wincalc();
+        try {
+            Object selNode = winTree.getLastSelectedPathComponent();
+            if (selNode instanceof DefMutableTreeNode) {
+                winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+                Wincalc winc = wincalc();
 
-            //Конструкции
-            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
-                setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
-                setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
-                setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
-                setText(txt17, UCom.format(winc.rootGson.width(), 1));
-                setText(txt22, UCom.format(winc.rootGson.height(), 1));
-                setText(txt23, UCom.format(winc.rootGson.height2(), 1));
-                txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
+                //Конструкции
+                if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card12");
+                    ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
+                    setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
+                    setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
+                    setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
+                    setText(txt17, UCom.format(winc.rootGson.width(), 1));
+                    setText(txt22, UCom.format(winc.rootGson.height(), 1));
+                    setText(txt23, UCom.format(winc.rootGson.height2(), 1));
+                    txt23.setEditable(List.of(enums.Type.ARCH, enums.Type.TRIANGL, enums.Type.TRAPEZE).contains(winNode.com5t().type()));
 
-                //Параметры
-            } else if (winNode.com5t().type() == enums.Type.PARAM) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card11");
-                qSyspar1.clear();
-                winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
-                ((DefTableModel) tab7.getModel()).fireTableDataChanged();
+                    //Параметры
+                } else if (winNode.com5t().type() == enums.Type.PARAM) {
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card11");
+                    qSyspar1.clear();
+                    winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
+                    ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
-                //Рама, импост...
-            } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type() == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type() == enums.Type.IMPOST
-                    || winNode.com5t().type() == enums.Type.STOIKA
-                    || winNode.com5t().type() == enums.Type.SHTULP) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card13");
-                ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                setText(txt32, winNode.com5t().artiklRec().getStr(eArtikl.code));
-                setText(txt33, winNode.com5t().artiklRec().getStr(eArtikl.name));
-                setText(txt27, eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
-                setText(txt28, eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
-                setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
+                    //Рама, импост...
+                } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
+                        || winNode.com5t().type() == enums.Type.STVORKA_SIDE
+                        || winNode.com5t().type() == enums.Type.IMPOST
+                        || winNode.com5t().type() == enums.Type.STOIKA
+                        || winNode.com5t().type() == enums.Type.SHTULP) {
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card13");
+                    ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
+                    setText(txt32, winNode.com5t().artiklRec().getStr(eArtikl.code));
+                    setText(txt33, winNode.com5t().artiklRec().getStr(eArtikl.name));
+                    setText(txt27, eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
+                    setText(txt28, eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
+                    setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
 
-                //Стеклопакет
-            } else if (winNode.com5t().type() == enums.Type.GLASS) {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card15");
-                Record artiklRec = winNode.com5t().artiklRec();
-                setText(txt19, artiklRec.getStr(eArtikl.code));
-                setText(txt18, artiklRec.getStr(eArtikl.name));
-                Record colorRec = eColor.find(winNode.com5t().colorID1());
-                setText(txt34, colorRec.getStr(eColor.name));
-                Record rasclRec = ((IElem5e) winNode.com5t()).rasclRec();
-                setText(txt49, rasclRec.getStr(eArtikl.code));
-                setText(txt50, rasclRec.getStr(eArtikl.name));
-                Record colorRascl = eColor.find(((IElem5e) winNode.com5t()).rasclColor());
-                setText(txt51, colorRascl.getStr(eColor.name));
-                spinHor.setValue(((IElem5e) winNode.com5t()).rasclNumber(0));
-                spinVert.setValue(((IElem5e) winNode.com5t()).rasclNumber(1));
+                    //Стеклопакет
+                } else if (winNode.com5t().type() == enums.Type.GLASS) {
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card15");
+                    Record artiklRec = winNode.com5t().artiklRec();
+                    setText(txt19, artiklRec.getStr(eArtikl.code));
+                    setText(txt18, artiklRec.getStr(eArtikl.name));
+                    Record colorRec = eColor.find(winNode.com5t().colorID1());
+                    setText(txt34, colorRec.getStr(eColor.name));
+                    Record rasclRec = ((IElem5e) winNode.com5t()).rasclRec();
+                    setText(txt49, rasclRec.getStr(eArtikl.code));
+                    setText(txt50, rasclRec.getStr(eArtikl.name));
+                    Record colorRascl = eColor.find(((IElem5e) winNode.com5t()).rasclColor());
+                    setText(txt51, colorRascl.getStr(eColor.name));
+                    spinHor.setValue(((IElem5e) winNode.com5t()).rasclNumber(0));
+                    spinVert.setValue(((IElem5e) winNode.com5t()).rasclNumber(1));
 
-                //Створка
-            } else if (winNode.com5t().type() == enums.Type.STVORKA) {
-                new Furniture(wincalc(), true); //найдём ручку створки
-                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-                IStvorka stv = (IStvorka) winNode.com5t();
-                IArea5e sta = (IArea5e) winNode.com5t();
-                int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
-                IArea5e own = winNode.com5t().owner();
-                setText(txt24, own.width());
-                setText(txt26, own.height());
-                setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
-                setIcon(btn10, stv.paramCheck()[0]);
-                setText(txt30, stv.typeOpen().name2);
-                setIcon(btn12, stv.paramCheck()[1]);
-                setText(txt16, stv.handleLayout().name);
-                txt31.setEditable((stv.handleLayout() == LayoutHandle.VARIAT) ? true : false);
-                setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT) ? UCom.format(stv.handleHeight(), 1) : "");
-                setText(txt21, stv.handleRec().getStr(eArtikl.code));
-                setText(txt59, stv.handleRec().getStr(eArtikl.name));
-                setIcon(btn21, stv.paramCheck()[7]);
-                setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
-                setIcon(btn14, stv.paramCheck()[2]);
-                setText(txt45, stv.loopRec().getStr(eArtikl.code));
-                setText(txt57, stv.loopRec().getStr(eArtikl.name));
-                setIcon(btn15, stv.paramCheck()[3]);
-                setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
-                setIcon(btn17, stv.paramCheck()[4]);
-                setText(txt46, stv.lockRec().getStr(eArtikl.code));
-                setText(txt58, stv.lockRec().getStr(eArtikl.name));
-                setIcon(btn23, stv.paramCheck()[5]);
-                setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck()[6]);
-                //Москитка
-                LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
-                if (mosqList.isEmpty() == false) {
-                    IElem5e mosq = (IElem5e) mosqList.get(0);
-                    setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
-                    setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
-                    setText(txt60, eColor.find(mosq.colorID1()).getStr(eColor.name));
-                    setText(txt56, mosq.sysprofRec().getStr(eElement.name));
+                    //Створка
+                } else if (winNode.com5t().type() == enums.Type.STVORKA) {
+                    new Furniture(wincalc(), true); //найдём ручку створки
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card16");
+                    IStvorka stv = (IStvorka) winNode.com5t();
+                    IArea5e sta = (IArea5e) winNode.com5t();
+                    int id = stv.sysfurnRec().getInt(eSysfurn.furniture_id);
+                    IArea5e own = winNode.com5t().owner();
+                    setText(txt24, own.width());
+                    setText(txt26, own.height());
+                    setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
+                    setIcon(btn10, stv.paramCheck()[0]);
+                    setText(txt30, stv.typeOpen().name2);
+                    setIcon(btn12, stv.paramCheck()[1]);
+                    setText(txt16, stv.handleLayout().name);
+                    txt31.setEditable((stv.handleLayout() == LayoutHandle.VARIAT) ? true : false);
+                    setText(txt31, (stv.handleLayout() == LayoutHandle.VARIAT) ? UCom.format(stv.handleHeight(), 1) : "");
+                    setText(txt21, stv.handleRec().getStr(eArtikl.code));
+                    setText(txt59, stv.handleRec().getStr(eArtikl.name));
+                    setIcon(btn21, stv.paramCheck()[7]);
+                    setText(txt25, eColor.find(stv.handleColor()).getStr(eColor.name));
+                    setIcon(btn14, stv.paramCheck()[2]);
+                    setText(txt45, stv.loopRec().getStr(eArtikl.code));
+                    setText(txt57, stv.loopRec().getStr(eArtikl.name));
+                    setIcon(btn15, stv.paramCheck()[3]);
+                    setText(txt47, eColor.find(stv.loopColor()).getStr(eColor.name));
+                    setIcon(btn17, stv.paramCheck()[4]);
+                    setText(txt46, stv.lockRec().getStr(eArtikl.code));
+                    setText(txt58, stv.lockRec().getStr(eArtikl.name));
+                    setIcon(btn23, stv.paramCheck()[5]);
+                    setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
+                    setIcon(btn24, stv.paramCheck()[6]);
+                    //Москитка
+                    LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                    if (mosqList.isEmpty() == false) {
+                        IElem5e mosq = (IElem5e) mosqList.get(0);
+                        setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
+                        setText(txt55, mosq.artiklRec().getStr(eArtikl.name));
+                        setText(txt60, eColor.find(mosq.colorID1()).getStr(eColor.name));
+                        setText(txt56, mosq.sysprofRec().getStr(eElement.name));
+                    }
+
+                    //Соединения
+                } else if (winNode.com5t().type() == enums.Type.JOINING) {
+                    //new Joining(winc(), true); //заполним соединения данными из конструктива
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card17");
+                    DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+                    IElem5e elem5e = (IElem5e) nodeParent.com5t();
+                    ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
+                    ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
+                    ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
+                    List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
+                    if (ej1 != null) {
+                        setText(txt36, ej1.joiningRec.getStr(eJoining.name));
+                        setText(txt42, ej1.name());
+                        setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
+                        lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
+                    }
+                    if (ej2 != null) {
+                        setText(txt37, ej2.joiningRec.getStr(eJoining.name));
+                        setText(txt43, ej2.name());
+                        setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
+                        lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
+                    }
+                    if (ej3 != null && ej3.type == TypeJoin.VAR10) {
+                        setText(txt40, ej3.joiningRec.getStr(eJoining.name));
+                        setText(txt44, ej3.name());
+                        setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
+                        lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
+                    }
+                } else {
+                    ((CardLayout) pan7.getLayout()).show(pan7, "card18");
                 }
-
-                //Соединения
-            } else if (winNode.com5t().type() == enums.Type.JOINING) {
-                //new Joining(winc(), true); //заполним соединения данными из конструктива
-                ((CardLayout) pan7.getLayout()).show(pan7, "card17");
-                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                IElem5e elem5e = (IElem5e) nodeParent.com5t();
-                ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
-                ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
-                ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
-                List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
-                if (ej1 != null) {
-                    setText(txt36, ej1.joiningRec.getStr(eJoining.name));
-                    setText(txt42, ej1.name());
-                    setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
-                    lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
-                }
-                if (ej2 != null) {
-                    setText(txt37, ej2.joiningRec.getStr(eJoining.name));
-                    setText(txt43, ej2.name());
-                    setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
-                    lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
-                }
-                if (ej3 != null && ej3.type == TypeJoin.VAR10) {
-                    setText(txt40, ej3.joiningRec.getStr(eJoining.name));
-                    setText(txt44, ej3.name());
-                    setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
-                    lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
-                }
-            } else {
-                ((CardLayout) pan7.getLayout()).show(pan7, "card18");
+                lab2.setText("ID = " + winNode.com5t().id());
+                List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
             }
-            lab2.setText("ID = " + winNode.com5t().id());
-            List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.selectionTree() " + e);
         }
     }
 
@@ -810,7 +814,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Cal5e joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            sysprodRec.set(eSysprod.values().length, iwin2);
+            sysprodRec.setNo(eSysprod.values().length - 1, iwin2);
 
             //Запомним курсор
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
@@ -831,7 +835,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             UGui.selectionPath(id, winTree);
 
         } catch (Exception e) {
-            System.err.println("frames.Systree.updateScript()");
+            System.err.println("Ошибка:Systree.updateScript() " + e);
         }
     }
 
@@ -3610,22 +3614,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        JTable tab = null;
-        if (tab2.getBorder() != null) {
-            tab = tab2;
-        } else if (tab3.getBorder() != null) {
-            tab = tab3;
-        } else if (tab4.getBorder() != null) {
-            tab = tab4;
-        } else if (tab5.getBorder() != null) {
-            tab = tab5;
-        } else if (tab7.getBorder() != null) {
-            tab = tab7;
-        }
-        if (tab != null) {
-            HtmlOfTable.load("Справочник", tab);
-            ExecuteCmd.documentType(this);
-        }
+        UGui.selectionPath(0.0f, winTree);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3793,11 +3782,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             //Поле текстур заполнено
             if (colorArr.length != 0) {
                 for (Record rec : eColor.query()) {
-                        for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
-                                groupSet.add(rec);
-                            }
+                    for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
+                        if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
+                            groupSet.add(rec);
                         }
+                    }
                 }
             }
 
@@ -4099,9 +4088,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
 
-        Wincalc win = wincalc();
-        String json = win.rootGson.toJson();
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass
