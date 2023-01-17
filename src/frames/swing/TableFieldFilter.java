@@ -18,6 +18,10 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 public class TableFieldFilter extends javax.swing.JPanel {
 
@@ -259,13 +263,20 @@ public class TableFieldFilter extends javax.swing.JPanel {
 //
 //            @Override
 //            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-//                    super.insertString(fb, offset, string.toLowerCase(), attr);
+//                    super.insertString(fb, offset, firstUpperCase(offset, string), attr);
 //            }
 //
 //            @Override
 //            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-//                    super.replace(fb, offset, length, string.toLowerCase(), attrs);
+//                    super.replace(fb, offset, length, firstUpperCase(offset, string), attrs);
 //            }
 //        });
     }
+    
+//    public String firstUpperCase(int offset, String word) {
+//        if (offset != 0 || word == null || word.isEmpty()) {
+//            return word;
+//        }
+//        return word.substring(0, 1).toUpperCase() + word.substring(1);
+//    }    
 }

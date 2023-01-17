@@ -46,7 +46,7 @@ public class DicColor extends javax.swing.JDialog {
         btnRemove.setVisible(remove);
         setVisible(true);
     }
-    
+
     public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet, boolean remove) {
         super(parent, true);
         initComponents();
@@ -54,11 +54,14 @@ public class DicColor extends javax.swing.JDialog {
         this.listener = listener;
         qColorAll.addAll(colorSet);
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        Record automaticRec = eGroups.up.newRecord();
-        automaticRec.setNo(eGroups.id, -3);
-        automaticRec.setNo(eGroups.grup, -3);
-        automaticRec.setNo(eGroups.name, UseColor.automatic[1]);
-        colgrpList.add(automaticRec);
+        Object obj = colorSet.stream().filter(rec -> UseColor.automatic[1].equals(rec.get(eColor.name))).findFirst().orElse(null);
+        if (obj != null) {
+            Record automaticRec = eGroups.up.newRecord();
+            automaticRec.setNo(eGroups.id, -3);
+            automaticRec.setNo(eGroups.grup, -3);
+            automaticRec.setNo(eGroups.name, UseColor.automatic[1]);
+            colgrpList.add(automaticRec);
+        }
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
                 if (colorRec.getInt(eColor.colgrp_id) == colgrpRec.getInt(eGroups.id)) {
@@ -364,7 +367,7 @@ public class DicColor extends javax.swing.JDialog {
     // </editor-fold>
 
     private void initElements() {
-        
+
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 
