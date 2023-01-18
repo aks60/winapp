@@ -1,5 +1,6 @@
 package frames;
 
+import common.listener.ListenerFrame;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -14,18 +15,20 @@ import frames.swing.DefTableModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import domain.eElement;
 import frames.swing.DefCellEditorCheck;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
 import java.util.List;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
+import startup.App;
 
 public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private ListenerRecord listenerArtikl, listenerForm;
-    
+
     public Rulecalc() {
         initComponents();
         initElements();
@@ -61,13 +64,13 @@ public class Rulecalc extends javax.swing.JFrame {
         };
 
         tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorCheck(6));
-        tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditorCheck(5));       
+        tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditorCheck(5));
         tab2.getColumnModel().getColumn(6).setCellEditor(new DefCellEditorNumb(3));
-        tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditorNumb(3));        
+        tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(8).setCellEditor(new DefCellEditorCheck(5));
         tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditorCheck(5));
         tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditorCheck(5));
-        
+
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
                 UGui.stopCellEditing(tab2);
@@ -78,7 +81,7 @@ public class Rulecalc extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
-            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2)); 
+            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2));
             int id = rulecalcRec.getInt(eRulecalc.artikl_id, -1);
             int type = rulecalcRec.getInt(eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
@@ -86,7 +89,7 @@ public class Rulecalc extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2)); 
+            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2));
             int id = rulecalcRec.getInt(eRulecalc.artikl_id, -1);
             int type = rulecalcRec.getInt(eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
@@ -107,7 +110,7 @@ public class Rulecalc extends javax.swing.JFrame {
             UGui.stopCellEditing(tab2);
             //Record rulecalcRec = qRulecalc.table(eRulecalc.up).get(index);
             //rulecalcRec.set(eRulecalc.artikl_id, arttiklRec.getInt(eArtikl.id));
-            
+
             qRulecalc.table(eRulecalc.up).set(arttiklRec.getInt(eArtikl.id), index, eRulecalc.artikl_id);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.code), index, eArtikl.code);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.name), index, eArtikl.name);
@@ -128,6 +131,7 @@ public class Rulecalc extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnFindArtikl = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -226,6 +230,22 @@ public class Rulecalc extends javax.swing.JFrame {
             }
         });
 
+        btnFindArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFindArtikl.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
+        btnFindArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFindArtikl.setFocusable(false);
+        btnFindArtikl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFindArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFindArtikl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFindArtikl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindArtikl(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -237,7 +257,9 @@ public class Rulecalc extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 617, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnFindArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 574, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,7 +274,8 @@ public class Rulecalc extends javax.swing.JFrame {
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFindArtikl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -378,10 +401,28 @@ public class Rulecalc extends javax.swing.JFrame {
         qRulecalc.execsql();
     }//GEN-LAST:event_windowClosed
 
+    private void btnFindArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindArtikl
+        if (tab2.getBorder() != null) {
+            Record rulecalcRec = qRulecalc.get(UGui.getIndexRec(tab2));
+            if (rulecalcRec != null) {
+                Integer v = rulecalcRec.getInt(eRulecalc.artikl_id);
+                if (v != null) {
+                    Record artiklRec = eArtikl.get(v);
+                    FrameProgress.create(this, new ListenerFrame() {
+                        public void actionRequest(Object obj) {
+                            App.Artikles.createFrame(Rulecalc.this, artiklRec);
+                        }
+                    });
+                }
+            }
+        }
+    }//GEN-LAST:event_btnFindArtikl
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFindArtikl;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
@@ -396,12 +437,12 @@ public class Rulecalc extends javax.swing.JFrame {
     public void initElements() {
 
         FrameToFile.setFrameSize(this);
-        new FrameToFile(this, btnClose);      
-        
+        new FrameToFile(this, btnClose);
+
         TableFieldFilter filterTable = new TableFieldFilter(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2)));
     }
 }
