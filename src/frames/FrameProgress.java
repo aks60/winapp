@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.SwingWorker;
+import startup.App;
+import startup.Tex;
 
 public class FrameProgress extends javax.swing.JDialog {
 

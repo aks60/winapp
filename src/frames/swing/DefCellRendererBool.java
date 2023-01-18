@@ -33,14 +33,23 @@ public class DefCellRendererBool extends JCheckBox implements TableCellRenderer,
             setForeground(table.getForeground());
             setBackground(table.getBackground());
         }
-        setSelected((value != null && ((Boolean) value).booleanValue()));
-        setIcon(((value != null && ((Boolean) value).booleanValue())) ? ico : null);
+
+        if (value instanceof Integer) {
+            value = (Integer.valueOf(value.toString()) == 0) ? false : true;
+        } else if (value instanceof Float) {
+            value = (Float.valueOf(value.toString()) == 0) ? false : true;
+        } else if (value instanceof Double) {
+            value = (Double.valueOf(value.toString()) == 0) ? false : true;
+        }
+        setSelected(value.equals(true) || value.equals("true"));
+        setIcon((value.equals(true) || value.equals("true")) ? ico : null);
 
         if (hasFocus) {
             setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
         } else {
             setBorder(noFocusBorder);
         }
+
         setBorderPaintedFlat(true);
         return this;
     }

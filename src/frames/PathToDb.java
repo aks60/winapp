@@ -136,6 +136,11 @@ public class PathToDb extends javax.swing.JDialog {
         setTitle("Установка соединения с базой данных");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         jPanel4.setPreferredSize(new java.awt.Dimension(510, 200));
@@ -321,7 +326,7 @@ public class PathToDb extends javax.swing.JDialog {
         btnOk.setPreferredSize(new java.awt.Dimension(80, 25));
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
+                btnOk(evt);
             }
         });
 
@@ -335,7 +340,7 @@ public class PathToDb extends javax.swing.JDialog {
         btnClose.setPreferredSize(new java.awt.Dimension(80, 25));
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
+                btnClose(evt);
             }
         });
 
@@ -379,13 +384,13 @@ public class PathToDb extends javax.swing.JDialog {
 }//GEN-LAST:event_onCaretUpdate
 
     //Нажал кнопку "ОК"
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+    private void btnOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOk
         connectToDb();
-}//GEN-LAST:event_btnOkActionPerformed
+}//GEN-LAST:event_btnOk
     //Нажал кнопку "ОТМЕНА"
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-}//GEN-LAST:event_btnCloseActionPerformed
+}//GEN-LAST:event_btnClose
 
     private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
         FileFilter filter = new FileFilter();
@@ -397,6 +402,10 @@ public class PathToDb extends javax.swing.JDialog {
             edPath.setText(chooser.getSelectedFile().getPath());
         }
 }//GEN-LAST:event_btnFileActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        //
+    }//GEN-LAST:event_formWindowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

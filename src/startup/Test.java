@@ -66,7 +66,7 @@ public class Test {
 
         eProp.dev = true;
         try {
-            PSConvert.exec();
+            //PSConvert.exec();
             //wincalc();
             //param();
             //query();

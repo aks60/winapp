@@ -278,7 +278,7 @@ public class ParColor2 extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(300);
         }

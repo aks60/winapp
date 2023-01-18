@@ -67,9 +67,9 @@ public class Tex extends javax.swing.JFrame {
     private void connectBaseNumb(String num_base) {
         List.of(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
         Query.listOpenTable.forEach(q -> q.clear());
-        PathToDb frame = new PathToDb(this, num_base);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
+        PathToDb pathToDb = new PathToDb(this, num_base);
+        FrameToFile.setFrameSize(pathToDb);
+        pathToDb.setVisible(true);
 
         if (eProp.base_num.read().equals("1")) {
             btnT7.setSelected(true);
@@ -388,7 +388,7 @@ public class Tex extends javax.swing.JFrame {
         btn24.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mJoining(evt);
+                mnJoining(evt);
             }
         });
         tb2.add(btn24);
@@ -742,7 +742,7 @@ public class Tex extends javax.swing.JFrame {
         mn32.setText("Соединения");
         mn32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mJoining(evt);
+                mnJoining(evt);
             }
         });
         mn03.add(mn32);
@@ -1021,7 +1021,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         });
     }//GEN-LAST:event_mnParametr
 
-    private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
+    private void mnJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJoining
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -1036,7 +1036,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 }
             }
         });
-    }//GEN-LAST:event_mJoining
+    }//GEN-LAST:event_mnJoining
 
     private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
 
@@ -1148,12 +1148,12 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_formWindowActivated
 
     private void mnPartn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartn
-
+                                                                                          
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Partner.createFrame(Tex.this);
             }
-        });
+        });          
     }//GEN-LAST:event_mnPartn
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder

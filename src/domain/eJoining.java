@@ -9,7 +9,7 @@ public enum eJoining implements Field {
     up("0", "0", "0", "Соединения", "CONNLST"), //или CONNECT"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "96", "1", "Название", "CNAME"),
-    main("5", "5", "1", " Битовая маска", "CVARF"), //0x100=256 - установлен флаг Основное соединение. Смысл других бит пока неизвестен.
+    is_main("16", "5", "1", " Битовая маска", "CVARF"), //0x100=256 - установлен флаг Основное соединение. Смысл других бит пока неизвестен.
     analog("12", "32", "1", "Аналоги", "CEQUV"),
     artikl_id1("4", "10", "1", "Артикул", "artikl_id1"),
     artikl_id2("4", "10", "1", "Артикул", "artikl_id2");
@@ -61,10 +61,10 @@ public enum eJoining implements Field {
 
     public static Record find2(String _analog) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && (rec.getInt(is_main) & 0x100) != 0).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'");
-        return recordList.stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
+        return recordList.stream().filter(rec -> (rec.getInt(is_main) & 0x100) != 0).findFirst().orElse(up.newRecord());
     }
  
     public String toString() {

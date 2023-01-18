@@ -134,7 +134,7 @@ public class Joinings extends javax.swing.JFrame {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name, eJoining.main, eJoining.analog) {
+        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name, eJoining.is_main, eJoining.analog) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -1157,7 +1157,7 @@ public class Joinings extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         new UColor();
 
-        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2, tab3, tab4, tab5);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
