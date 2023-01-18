@@ -482,7 +482,7 @@ public class Elements extends javax.swing.JFrame {
 
         ppmCateg = new javax.swing.JPopupMenu();
         itCateg1 = new javax.swing.JMenuItem();
-        itCtag2 = new javax.swing.JMenuItem();
+        itCateg2 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -517,13 +517,13 @@ public class Elements extends javax.swing.JFrame {
         });
         ppmCateg.add(itCateg1);
 
-        itCtag2.setText("ЗАПОЛНЕНИЯ");
-        itCtag2.addActionListener(new java.awt.event.ActionListener() {
+        itCateg2.setText("ЗАПОЛНЕНИЯ");
+        itCateg2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppmCategAction(evt);
             }
         });
-        ppmCateg.add(itCtag2);
+        ppmCateg.add(itCateg2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Вставки");
@@ -1008,13 +1008,18 @@ public class Elements extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecordEnd(tab2, eElement.up, (record) -> {
+            if (UGui.getIndexRec(tab1) != -1)  {
                 Record groupsRec = qGrCateg.get(UGui.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
-                record.set(eElement.groups2_id, id);
-                Record record2 = eArtikl.up.newRecord();
-                qElement.table(eArtikl.up).add(record2);
-            });
+                if ((id == -1 || id == -5) == false) {
+                    UGui.insertRecordEnd(tab2, eElement.up, (record) -> {
+                        record.set(eElement.groups2_id, id);
+                        record.setDev(eElement.name, "Наименование");
+                        Record record2 = eArtikl.up.newRecord();
+                        qElement.table(eArtikl.up).add(record2);
+                    });
+                }
+            }
         } else if (tab3.getBorder() != null) {
             if (UGui.getIndexRec(tab2) != -1) {
                 UGui.insertRecordEnd(tab3, eElemdet.up, (record) -> {
@@ -1046,10 +1051,13 @@ public class Elements extends javax.swing.JFrame {
 
         JMenuItem ppm = (JMenuItem) evt.getSource();
         int level1 = (ppm == itCateg1) ? 1 : 5;
-        Object result = JOptionPane.showInputDialog(Elements.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);
-        if (result != null) {
+        String result = JOptionPane.showInputDialog(Elements.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);
+        int id = Conn.genId(eGroups.up);
+        if (result.isEmpty() && eProp.dev) {
+            result = (ppm == itCateg1) ? "Катег.проф-" + id : "Катег.зап-" + id;
+        }
+        if (result.isEmpty() == false) {
             Record elemgrpRec = eGroups.up.newRecord(Query.INS);
-            int id = Conn.genId(eGroups.up);
             elemgrpRec.setNo(eGroups.id, id);
             elemgrpRec.setNo(eGroups.grup, TypeGroups.CATEG_VST.id);
             elemgrpRec.setNo(eGroups.npp, level1); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
@@ -1246,7 +1254,7 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
     private javax.swing.JMenuItem itCateg1;
-    private javax.swing.JMenuItem itCtag2;
+    private javax.swing.JMenuItem itCateg2;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;

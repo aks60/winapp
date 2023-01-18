@@ -138,8 +138,6 @@ public class Tex extends javax.swing.JFrame {
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
-        mn27 = new javax.swing.JMenuItem();
-        mn25 = new javax.swing.JPopupMenu.Separator();
         mn22 = new javax.swing.JMenuItem();
         mn09 = new javax.swing.JMenu();
         mn91 = new javax.swing.JMenuItem();
@@ -665,17 +663,6 @@ public class Tex extends javax.swing.JFrame {
         });
         mn02.add(mn23);
 
-        mn27.setFont(frames.UGui.getFont(0,1));
-        mn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
-        mn27.setText("Группы печати");
-        mn27.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnReport(evt);
-            }
-        });
-        mn02.add(mn27);
-        mn02.add(mn25);
-
         mn22.setFont(frames.UGui.getFont(0,1));
         mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn22.setText("Справочники");
@@ -1184,10 +1171,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         }
     }//GEN-LAST:event_mnDiler
 
-    private void mnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReport
-        // 
-    }//GEN-LAST:event_mnReport
-
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btn1;
@@ -1237,9 +1220,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenuItem mn22;
     private javax.swing.JMenuItem mn23;
     private javax.swing.JMenuItem mn24;
-    private javax.swing.JPopupMenu.Separator mn25;
     private javax.swing.JMenuItem mn26;
-    private javax.swing.JMenuItem mn27;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;
     private javax.swing.JMenuItem mn34;

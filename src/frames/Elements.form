@@ -16,7 +16,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ppmCategAction"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="itCtag2">
+        <MenuItem class="javax.swing.JMenuItem" name="itCateg2">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x417;&#x410;&#x41f;&#x41e;&#x41b;&#x41d;&#x415;&#x41d;&#x418;&#x42f;"/>
           </Properties>
