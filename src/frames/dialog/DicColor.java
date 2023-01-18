@@ -47,20 +47,32 @@ public class DicColor extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet, boolean remove) {
+    public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet, boolean remove, boolean auto) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
         qColorAll.addAll(colorSet);
+        loadingData(colorSet, auto);
+        loadingModel();
+        btnRemove.setVisible(remove);
+        setVisible(true);
+    }
+    
+    private void loadingData(HashSet<Record> colorSet, boolean auto) {
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        Object obj = colorSet.stream().filter(rec -> UseColor.automatic[1].equals(rec.get(eColor.name))).findFirst().orElse(null);
-        if (obj != null) {
-            Record automaticRec = eGroups.up.newRecord();
-            automaticRec.setNo(eGroups.id, -3);
-            automaticRec.setNo(eGroups.grup, -3);
-            automaticRec.setNo(eGroups.name, UseColor.automatic[1]);
-            colgrpList.add(automaticRec);
+        
+        if (auto == true) {
+            Record autoRec = eGroups.up.newRecord();
+            autoRec.setNo(eGroups.id, -3);
+            autoRec.setNo(eGroups.grup, -3);
+            autoRec.setNo(eGroups.name, UseColor.automatic[1]);
+            colgrpList.add(autoRec);           
+            Record autoRec2 = eColor.up.newRecord();
+            autoRec2.set(eColor.id, 0);
+            autoRec2.set(eColor.colgrp_id, -3);
+            autoRec2.set(eColor.name, UseColor.automatic[1]);
+            colgrpList.add(autoRec2);            
         }
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
@@ -70,10 +82,7 @@ public class DicColor extends javax.swing.JDialog {
                 }
             }
         });
-        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
-        loadingModel();
-        btnRemove.setVisible(remove);
-        setVisible(true);
+        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));        
     }
 
     private void loadingModel() {

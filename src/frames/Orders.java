@@ -642,7 +642,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 record.set(ePrjkit.color1_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
         });
 
         UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
@@ -655,7 +655,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 record.set(ePrjkit.color2_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
         });
 
         UGui.buttonCellEditor(tab4, 5).addActionListener(event -> {
@@ -668,7 +668,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 record.set(ePrjkit.color3_id, record2.get(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
         });
 
     }
@@ -3189,7 +3189,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
-                HashSet<Record> set = new HashSet();
+                HashSet<Record> colorSet = new HashSet();
                 int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
                 Record systreeRec = eSystree.find(systreeID);
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
@@ -3198,7 +3198,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     for (Record rec : eColor.query()) {
                         for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
                             if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                set.add(rec);
+                                colorSet.add(rec);
                             }
                         }
                     }
@@ -3224,7 +3224,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 if (arr2.length == 0) {
                     new DicColor(this, listenerColor, false, false);
                 } else {
-                    new DicColor(this, listenerColor, set, false);
+                    new DicColor(this, listenerColor, colorSet, false, false);
                 }
             }
         } catch (Exception e) {
@@ -3376,7 +3376,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
 
-            }, colorSet, true);
+            }, colorSet, true, false);
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3442,7 +3442,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3673,7 +3673,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3719,7 +3719,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -3768,7 +3768,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, false);
+            }, colorSet, false, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorFromGlass() " + e);
@@ -3899,7 +3899,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                     updateScript(selectID);
 
-                }, colorSet, true);
+                }, colorSet, true, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);

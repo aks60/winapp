@@ -824,7 +824,7 @@ public class DicKits extends javax.swing.JDialog {
                 colorSet = UGui.artiklToColorSet(id, indexBtn + 1);
                 DicColor frame = new DicColor(null, (colorRc) -> {
                     setColor(indexBtn, colorRc);
-                }, colorSet, true);
+                }, colorSet, true, false);
             } else {
                 DicColor frame = new DicColor(null, (colorRec) -> {
                     setColor(indexBtn, colorRec);

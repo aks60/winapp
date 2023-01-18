@@ -134,36 +134,21 @@ public class Kits extends javax.swing.JFrame {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 1);
-            Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, 0);
-            colorRec.set(eColor.colgrp_id, -3);
-            colorRec.set(eColor.name, UseColor.automatic[1]);
-            colorSet.add(colorRec);
-            new DicColor(this, listenerColor1, colorSet, true);
+            new DicColor(this, listenerColor1, colorSet, true, true);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 2);
-            Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, 0);
-            colorRec.set(eColor.colgrp_id, -3);
-            colorRec.set(eColor.name, UseColor.automatic[1]);
-            colorSet.add(colorRec);            
-            new DicColor(this, listenerColor2, colorSet, true);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 2);            
+            new DicColor(this, listenerColor2, colorSet, true, true);
         });
 
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 3);
-            Record colorRec = eColor.up.newRecord();
-            colorRec.set(eColor.id, 0);
-            colorRec.set(eColor.colgrp_id, -3);
-            colorRec.set(eColor.name, UseColor.automatic[1]);
-            colorSet.add(colorRec);            
-            new DicColor(this, listenerColor3, colorSet, true);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 3);           
+            new DicColor(this, listenerColor3, colorSet, true, false);
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {

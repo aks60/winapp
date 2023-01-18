@@ -3765,7 +3765,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         }
                     }
                 }
-            }, colorSet, true);
+            }, colorSet, true, false);
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToFrame() " + e);
         }
@@ -3774,7 +3774,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
             float selectID = winNode.com5t().id();
-            HashSet<Record> groupSet = new HashSet();
+            HashSet<Record> colorSet = new HashSet();
 
             String colorTxt = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
             Integer[] colorArr = UCom.parserInt(colorTxt);
@@ -3784,7 +3784,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 for (Record rec : eColor.query()) {
                     for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
                         if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
-                            groupSet.add(rec);
+                            colorSet.add(rec);
                         }
                     }
                 }
@@ -3808,7 +3808,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (colorArr.length == 0) {
                 new DicColor(this, listenerColor, false, false);
             } else {
-                new DicColor(this, listenerColor, groupSet, false);
+                new DicColor(this, listenerColor, colorSet, false, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToWindows() " + e);
@@ -3969,7 +3969,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -4057,7 +4057,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -4079,7 +4079,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, true);
+            }, colorSet, true, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
@@ -4107,7 +4107,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, false);
+            }, colorSet, false, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorFromGlass() " + e);
@@ -4280,7 +4280,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(selectID);
 
-            }, colorSet, false);
+            }, colorSet, false, false);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToRascladka() " + e);
@@ -4318,7 +4318,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     }
                     updateScript(selectID);
 
-                }, colorSet, true);
+                }, colorSet, true, false);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
