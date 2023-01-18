@@ -230,6 +230,7 @@ public class Joinings extends javax.swing.JFrame {
             }
         };
 
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -725,15 +726,15 @@ public class Joinings extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11", "11", "1111", "1", "1", null},
-                {"22", "22", "2222", "2", "2", null}
+                {"11", "11", "1111", null, null, null},
+                {"22", "22", "2222", null, null, null}
             },
             new String [] {
                 "Артикул 1", "Артикул 2", "Название", "Основной", "Аналог", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, false

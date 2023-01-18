@@ -424,14 +424,8 @@
                           <Data value="1111"/>
                           <Data value="2222"/>
                         </Column>
-                        <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;&#x43e;&#x439;" type="java.lang.String">
-                          <Data value="1"/>
-                          <Data value="2"/>
-                        </Column>
-                        <Column editable="true" title="&#x410;&#x43d;&#x430;&#x43b;&#x43e;&#x433;" type="java.lang.String">
-                          <Data value="1"/>
-                          <Data value="2"/>
-                        </Column>
+                        <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;&#x43e;&#x439;" type="java.lang.Boolean"/>
+                        <Column editable="true" title="&#x410;&#x43d;&#x430;&#x43b;&#x43e;&#x433;" type="java.lang.Object"/>
                         <Column editable="false" title="ID" type="java.lang.Integer"/>
                       </Table>
                     </Property>
