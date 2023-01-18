@@ -1383,7 +1383,7 @@ public class ParamList {
     };
 
     public static Checkparam check_COUNT = (c) -> {
-        return ("-0123456789.".indexOf(c) != -1);
+        return ("-0123456789,".indexOf(c) != -1);
     };
 
     public static Checkparam check_INT = (c) -> {
@@ -1407,24 +1407,24 @@ public class ParamList {
     };
 
     public static Checkparam check_FLOAT = (c) -> {
-        return ("0123456789.".indexOf(c) != -1);
+        return ("0123456789,".indexOf(c) != -1);
     };
 
     public static Checkparam check_FLOAT_MOD = (c) -> {
-        return ("0123456789.".indexOf(c) != -1);
+        return ("0123456789,".indexOf(c) != -1);
     };
 
     public static Checkparam check_FLOAT_LIST = (c) -> {
-        return ("0123456789.-;".indexOf(c) != -1);
+        return ("0123456789,-;".indexOf(c) != -1);
     };
 
     public static Checkparam check_FLOAT_LIST2 = (c) -> {
-        return ("0123456789.*;-/@".indexOf(c) != -1);
+        return ("0123456789,*;-/@".indexOf(c) != -1);
     };
 
     //см. 34049
     public static Checkparam check_FLOAT_LIST2b = (c) -> {
-        return ("0123456789.-/".indexOf(c) != -1);
+        return ("0123456789,-/".indexOf(c) != -1);
     };
     // </editor-fold> 
 

@@ -176,7 +176,8 @@ public class Fillings extends javax.swing.JFrame {
 
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
+            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() 
+                    + " from " + eArtikl.up.tname() + " where " + eArtikl.level1.name() + " = 5" + " order by " + eArtikl.depth.name());
             DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);
         });
 
@@ -641,8 +642,8 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(160);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setMaxWidth(160);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
@@ -812,7 +813,7 @@ public class Fillings extends javax.swing.JFrame {
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab5.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(160);
             tab5.getColumnModel().getColumn(2).setMaxWidth(120);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
@@ -882,6 +883,7 @@ public class Fillings extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eGlasgrp.up, (record) -> {
                 record.set(eGlasgrp.gap, 0);
+                record.setDev(eGlasgrp.name, "Наименование");
             });
 
         } else if (tab2.getBorder() != null) {
