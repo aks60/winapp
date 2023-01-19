@@ -295,6 +295,9 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(300);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab1.getColumnModel().getColumn(7).setMinWidth(0);
+            tab1.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(7).setMaxWidth(0);
             tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(8).setMaxWidth(60);
         }
