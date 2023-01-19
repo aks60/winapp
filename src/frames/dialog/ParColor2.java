@@ -131,7 +131,7 @@ public class ParColor2 extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Параметры системы");
+        setTitle("Параметры текстуры");
         setMinimumSize(new java.awt.Dimension(200, 44));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

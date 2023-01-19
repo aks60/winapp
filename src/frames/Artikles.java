@@ -415,7 +415,7 @@ public class Artikles extends javax.swing.JFrame {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
-            lab1.setText((node2 != null && node.getParent() != null) ? "Тип: " + ((TypeArtikl) node2.getUserObject()).id1
+            lab1.setText((node2 != null && node.getParent() != null) ? " Тип: " + ((TypeArtikl) node2.getUserObject()).id1
                     + "  подтип: " + ((TypeArtikl) node.getUserObject()).id2 : "");
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
@@ -435,7 +435,7 @@ public class Artikles extends javax.swing.JFrame {
             ((CardLayout) pan6.getLayout()).show(pan6, name);
 
             int id = record.getInt(eArtikl.id);
-            lab2.setText("id: " + id);
+            lab2.setText(" id: " + id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
             checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
