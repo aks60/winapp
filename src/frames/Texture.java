@@ -466,7 +466,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
 
-        jTabbedPane1.addTab("       Справочник цветов          ", pan1);
+        jTabbedPane1.addTab("        Описание текстур            ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 500));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -548,7 +548,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Параметры соответствия цветов", pan2);
+        jTabbedPane1.addTab("Параметры соответствия текстур", pan2);
 
         centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -630,12 +630,12 @@ public class Texture extends javax.swing.JFrame {
             UGui.insertRecordEnd(tab4, eColor.up, (record) -> {
                 Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
                 record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));
-                record.set(eColmap.joint, 1);
-                record.set(eColmap.elem, 1);
-                record.set(eColmap.glas, 1);
-                record.set(eColmap.furn, 1);
-                record.set(eColmap.otkos, 1);
-                record.set(eColmap.komp, 1);
+                //record.set(eColmap.joint, 1);
+                //record.set(eColmap.elem, 1);
+                //record.set(eColmap.glas, 1);
+                //record.set(eColmap.furn, 1);
+                //record.set(eColmap.otkos, 1);
+                //record.set(eColmap.komp, 1);
             });
         }
     }//GEN-LAST:event_btnInsert
