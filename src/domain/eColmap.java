@@ -65,9 +65,9 @@ public enum eColmap implements Field {
     public static List<Record> find3(int colorID, int colgrpID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == Math.abs(colgrpID)).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == colgrpID).collect(toList());
         }
-        return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", Math.abs(colgrpID));
+        return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", colgrpID);
     }
 
     public String toString() {

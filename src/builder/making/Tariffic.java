@@ -396,7 +396,7 @@ public class Tariffic extends Cal5e {
     public static boolean isTariff(Record artdetRec, Record colorRec) {
 
         if (artdetRec.getInt(eArtdet.color_fk) < 0) { //этот тариф задан для группы текстур
-            if ((-1 * colorRec.getInt(eColor.groups_id)) == artdetRec.getInt(eArtdet.color_fk)) {
+            if (colorRec.getInt(eColor.groups_id) == artdetRec.getInt(eArtdet.color_fk)) {
                 return true; //текстура принадлежит группе
             }
         } else if (colorRec.getInt(eColor.id) == artdetRec.getInt(eArtdet.color_fk)) {

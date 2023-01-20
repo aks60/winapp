@@ -74,7 +74,7 @@ public class ParColor2 extends javax.swing.JDialog {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk)));
             } else if (record.getInt(eArtdet.color_fk) < 0) {
-                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.groups_id, "=", Math.abs(record.getInt(eArtdet.color_fk))));
+                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.groups_id, "=", record.getInt(eArtdet.color_fk)));
             }
         }
     }

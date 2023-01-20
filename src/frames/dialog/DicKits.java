@@ -813,7 +813,7 @@ public class DicKits extends javax.swing.JDialog {
 //
 //                    if (rec.getInt(eArtdet.color_fk) < 0) {
 //                        eColor.query().forEach(rec2 -> {
-//                            if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+//                            if (rec2.getInt(eColor.colgrp_id) == rec.getInt(eArtdet.color_fk)) {
 //                                colorSet.add(rec2);
 //                            }
 //                        });

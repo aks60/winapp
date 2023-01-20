@@ -3705,7 +3705,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk
                     eColor.query().forEach(rec2 -> {
-                        if (rec2.getInt(eColor.groups_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                        if (rec2.getInt(eColor.groups_id) == rec.getInt(eArtdet.color_fk)) {
                             colorSet.add(rec2);
                         }
                     });

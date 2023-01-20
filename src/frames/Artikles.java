@@ -281,7 +281,7 @@ public class Artikles extends javax.swing.JFrame {
         listenerColor = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eGroups.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eGroups.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(record.getInt(eGroups.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
                     qArtdet.set(record.getInt(eColor.id), UGui.getIndexRec(tab2), eArtdet.color_fk);

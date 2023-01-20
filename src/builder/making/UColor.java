@@ -278,7 +278,7 @@ public class UColor {
 
                     //Группа текстур
                     if (artdetRec.getInt(eArtdet.color_fk) < 0) {
-                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
+                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk)); //фильтр списка определённой группы
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
                             if (colorRec.getInt(eColor.id) == elemColorID) {
@@ -317,7 +317,7 @@ public class UColor {
 
                     //Группа текстур
                     if (artdetRec.getInt(eArtdet.color_fk) < 0) {
-                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
+                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk)); //фильтр списка определённой группы
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
