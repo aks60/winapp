@@ -203,7 +203,7 @@ public class Texture extends javax.swing.JFrame {
         btnRep = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbPan = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -363,8 +363,8 @@ public class Texture extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.setFont(frames.UGui.getFont(0,0));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(800, 500));
+        tabbPan.setFont(frames.UGui.getFont(0,0));
+        tabbPan.setPreferredSize(new java.awt.Dimension(800, 500));
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 500));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -466,7 +466,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
 
-        jTabbedPane1.addTab("        Описание текстур            ", pan1);
+        tabbPan.addTab("        Описание текстур            ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 500));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -548,9 +548,9 @@ public class Texture extends javax.swing.JFrame {
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Параметры соответствия текстур", pan2);
+        tabbPan.addTab("Параметры соответствия текстур", pan2);
 
-        centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        centr.add(tabbPan, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -679,7 +679,6 @@ public class Texture extends javax.swing.JFrame {
     private javax.swing.JButton btnRep;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -692,6 +691,7 @@ public class Texture extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTabbedPane tabbPan;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 

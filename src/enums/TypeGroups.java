@@ -3,7 +3,7 @@ package enums;
 import static enums.UseUnit.values;
 
 public enum TypeGroups implements Enam {
-    EMPTY(1, "Empty"),
+    PARAM_SYS(1, "Список параметров"),
     COLOR_GRP(2, "МЦ группы цветов"),
     SERI_PROF(3, "Серии профилей"),
     PRICE_INC(4, "МЦ группы наценок"),

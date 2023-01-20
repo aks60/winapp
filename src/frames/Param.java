@@ -111,6 +111,7 @@ public class Param extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
+        tabbPan = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -304,7 +305,7 @@ public class Param extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan1, java.awt.BorderLayout.CENTER);
+        tabbPan.addTab("        Параметры систем        ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(454, 204));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -354,7 +355,9 @@ public class Param extends javax.swing.JFrame {
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan2, java.awt.BorderLayout.SOUTH);
+        tabbPan.addTab("Параметры соответствия текстур", pan2);
+
+        centr.add(tabbPan, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -444,6 +447,7 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTabbedPane tabbPan;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     public void initElements() {

@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import builder.script.GsonScript;
+import domain.eParams;
 import domain.eProject;
 import domain.eSysmodel;
 import domain.eSysprod;
@@ -70,8 +71,8 @@ import static startup.Test.numDb;
  * программе eEnum.values() для них один. Отсутствующие поля пс3 в
  * eEnum.values() будут заполняться пустышками. 3. Поля не вошедшие в список
  * столбцов eEnum.values() тоже будут переноситься для sql update и в конце
- * удаляться. Обновление данных выполняется пакетом, если была ошибка,
- * откат и пакет обслуживается отдельными insert.
+ * удаляться. Обновление данных выполняется пакетом, если была ошибка, откат и
+ * пакет обслуживается отдельными insert.
  */
 public class PSConvert {
 
@@ -81,7 +82,7 @@ public class PSConvert {
     private static Connection cn2;
     private static Statement st1; //источник 
     private static Statement st2;//приёмник
-    
+
     public static void exec() {
         cn1 = startup.Test.connect1(); //источник
         cn2 = startup.Test.connect2(); //приёмник
@@ -145,19 +146,23 @@ public class PSConvert {
                     String deltaCol[] = entry.getValue();
                     executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + UGui.typeField(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
                 }
+                //Создание генератора
+                executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
+                
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
-                }
-                //Создание генератора
-                executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-
-                //Особенности таблицы SYSTREE и PARAMS
+                }  
+                
+                //Особенности таблицы SYSTREE GROUPS и PARAMS
                 if ("SYSTREE".equals(fieldUp.tname()) == true) {
                     executeSql("set generator GEN_SYSTREE to 10000");
                 } else if ("PARAMS".equals(fieldUp.tname()) == true) {
                     executeSql("SET GENERATOR  GEN_PARAMS TO -10000");
-                }
+                } else if ("GROUPS".equals(fieldUp.tname()) == true) {
+                    executeSql("SET GENERATOR  GEN_GROUPS TO -10000");
+                    executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
+                }                  
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
@@ -373,7 +378,7 @@ public class PSConvert {
     public static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
-            executeSql("delete from params where pnumb > 0");  //group > 0  
+            //executeSql("delete from params where pnumb > 0");  //group > 0  
             deleteSql(eColmap.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
@@ -435,7 +440,8 @@ public class PSConvert {
             updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
+            executeSql("delete from params a where a.znumb = 0");
+            executeSql("update params a set a.groups_id = (select b.id from groups b where a.pnumb = b.npp and b.grup = 1)");
             executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
@@ -465,8 +471,9 @@ public class PSConvert {
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
-            executeSql("update elempar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            executeSql("update elempar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update elempar1 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
+            executeSql("update elempar2 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
+
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
             updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
@@ -479,8 +486,8 @@ public class PSConvert {
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
-            executeSql("update joinpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            executeSql("update joinpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update joinpar1 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
+            executeSql("update joinpar2 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
@@ -493,8 +500,8 @@ public class PSConvert {
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
-            executeSql("update glaspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            executeSql("update glaspar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update glaspar1 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
+            executeSql("update glaspar2 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
             executeSql("4", "update furniture set hand_set1 = cast(bin_and(thand, 1) as varchar(5)), hand_set2 = cast(bin_shr(bin_and(thand, 2), 1) as varchar(5)), hand_set3 = cast(bin_shr(bin_and(thand, 4), 2) as varchar(5))");
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
@@ -502,8 +509,8 @@ public class PSConvert {
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
-            executeSql("update furnpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            executeSql("update furnpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update furnpar1 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
+            executeSql("update furnpar2 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
             executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
@@ -529,10 +536,10 @@ public class PSConvert {
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
-            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update syspar1 b set b.params_id = (select id from groups a where b.params_id = a.npp) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");                     
-            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref)");         
+            executeSql("update kits set groups_id = (select id from groups a where grup = 10 and a.name = kits.kpref)");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
@@ -569,7 +576,7 @@ public class PSConvert {
             alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
-            alterTable("systree", "fk_systree1", "parent_id", "systree");           
+            alterTable("systree", "fk_systree1", "parent_id", "systree");
             alterTable("element", "fk_element1", "groups2_id", "groups");
             alterTable("element", "fk_element2", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet1", "artikl_id", "artikl");
@@ -600,9 +607,9 @@ public class PSConvert {
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("sysfurn", "fk_sysfurn3", "artikl_id1", "artikl");
-            alterTable("sysfurn", "fk_sysfurn4", "artikl_id2", "artikl");        
+            alterTable("sysfurn", "fk_sysfurn4", "artikl_id2", "artikl");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("syspar1", "fk_syspar2", "params_id", "params");
+            alterTable("syspar1", "fk_syspar2", "params_id", "groups");
             alterTable("sysprod", "fk_sysprod1", "systree_id", "systree");
             alterTable("project", "fk_project1", "prjpart_id", "prjpart");
             alterTable("prjprod", "fk_prjprod1", "project_id", "project");
@@ -619,7 +626,7 @@ public class PSConvert {
                     + "delete from artdet a where a.artikl_id = old.id; "
                     + "delete from elemdet a where a.artikl_id = old.id; "
                     + "delete from element a where a.artikl_id = old.id; "
-                    + "delete from furndet a where a.artikl_id = old.id; "                                  
+                    + "delete from furndet a where a.artikl_id = old.id; "
                     + "delete from glasdet a where a.artikl_id = old.id; "
                     + "delete from glasprof a where a.artikl_id = old.id; "
                     + "delete from joining a where a.artikl_id1 = old.id or a.artikl_id2 = old.id; "
@@ -627,7 +634,7 @@ public class PSConvert {
                     + "delete from kitdet a where a.artikl_id = old.id; "
                     + "delete from rulecalc a where a.artikl_id = old.id; "
                     + "delete from sysfurn a where a.artikl_id1 = old.id or a.artikl_id2 = old.id; "
-                    + "delete from sysprof a where a.artikl_id = old.id; " 
+                    + "delete from sysprof a where a.artikl_id = old.id; "
                     + "delete from prjkit a where a.artikl_id = old.id; end");
             executeSql("create or alter trigger systree_bd for systree active before delete position 0 as begin "
                     + "delete from sysprof a where a.systree_id = old.id; "
@@ -652,25 +659,25 @@ public class PSConvert {
                     + "delete from elempar1 a where a.element_id = old.id; "
                     + "delete from elemdet a where a.element_id = old.id; end");
             executeSql("create or alter trigger elemdet_bd for elemdet active before delete position 0 as begin "
-                    + "delete from elempar2 a where a.elemdet_id = old.id; end");              
+                    + "delete from elempar2 a where a.elemdet_id = old.id; end");
             executeSql("create or alter trigger glasgrp_bd for glasgrp active before delete position 0 as begin "
                     + "delete from glasprof a where a.glasgrp_id = old.id; "
-                    + "delete from glaspar1 a where a.glasgrp_id = old.id; "            
-                    + "delete from glasdet a where a.glasgrp_id = old.id; end");            
+                    + "delete from glaspar1 a where a.glasgrp_id = old.id; "
+                    + "delete from glasdet a where a.glasgrp_id = old.id; end");
             executeSql("create or alter trigger glasdet_bd for glasdet active before delete position 0 as begin "
-                    + "delete from glaspar2 a where a.glasdet_id = old.id; end");            
+                    + "delete from glaspar2 a where a.glasdet_id = old.id; end");
             executeSql("create or alter trigger furniture_bd for furniture active before delete position 0 as begin "
                     + "delete from furnside1 a where a.furniture_id = old.id; "
-                    + "delete from sysfurn a where a.furniture_id = old.id; "            
-                    + "delete from furndet a where a.furniture_id1 = old.id; end");   
+                    + "delete from sysfurn a where a.furniture_id = old.id; "
+                    + "delete from furndet a where a.furniture_id1 = old.id; end");
             executeSql("create or alter trigger furnside1_bd for furnside1 active before delete position 0 as begin "
-                    + "delete from furnpar1 a where a.furnside_id = old.id; end");             
+                    + "delete from furnpar1 a where a.furnside_id = old.id; end");
             executeSql("create or alter trigger furndet_bd for furndet active before delete position 0 as begin "
-                    + "delete from furnpar2 a where a.furndet_id = old.id; "          
-                    + "delete from furnside2 a where a.furndet_id = old.id; end");             
+                    + "delete from furnpar2 a where a.furndet_id = old.id; "
+                    + "delete from furnside2 a where a.furndet_id = old.id; end");
             executeSql("create or alter trigger project_bd for project active before delete position 0 as begin "
-                    + "delete from prjkit a where a.project_id = old.id; "          
-                    + "delete from prjprod a where a.project_id = old.id; end");             
+                    + "delete from prjkit a where a.project_id = old.id; "
+                    + "delete from prjprod a where a.project_id = old.id; end");
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
@@ -685,13 +692,13 @@ public class PSConvert {
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
-                
+
                 //Загрузка моделей, таблица SYSMODEL.                 
                 String script = GsonScript.modelJson(prj);
                 if (script != null) {
                     //При этом nuni, prj, ord в скрипте json отсутствуют.
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
-                    String name = "<html> Kod:" + prj + " " + gson.name();                   
+                    String name = "<html> Kod:" + prj + " " + gson.name();
                     println(Color.BLACK, name); //в отчёт                   
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
@@ -705,7 +712,7 @@ public class PSConvert {
 
                 //Загрузка тестовых конструкций в систему, таблица SYSPROD.
                 String script2 = GsonScript.testJson(prj);
-                if (script2 != null) { 
+                if (script2 != null) {
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "Проект:" + gson2.project() + "/Заказ:" + gson2.order() + " " + gson2.name();
                     Query q2 = new Query(eSysprod.values());
@@ -748,16 +755,19 @@ public class PSConvert {
 
     public static void loadGroups(String mes) {
         println(Color.BLACK, mes);
-        try {
+        try {            
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL) values ("
                         + rs.getInt("SUNIC") + "," + TypeGroups.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
                 st2.executeUpdate(sql);
             }
-            executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
-            executeSql("SET GENERATOR  GEN_GROUPS TO " + 10000);
-
+            rs = st1.executeQuery("select * from PARLIST where ZNUMB = 0");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_SYS.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                st2.executeUpdate(sql);
+            }
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
