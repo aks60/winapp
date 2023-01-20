@@ -161,7 +161,7 @@ public class PSConvert {
                     executeSql("SET GENERATOR  GEN_PARAMS TO -10000");
                 } else if ("GROUPS".equals(fieldUp.tname()) == true) {
                     executeSql("SET GENERATOR  GEN_GROUPS TO -10000");
-                    executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
+                    //executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
                 }                  
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
@@ -213,7 +213,7 @@ public class PSConvert {
             loadModels();
 
             println(Color.GREEN, "Удаление лищних столбцов");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            //executeSql("ALTER TABLE GROUPS DROP  FK;");
             for (Field fieldUp : App.db) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
@@ -442,13 +442,13 @@ public class PSConvert {
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("delete from params a where a.znumb = 0");
             executeSql("update params a set a.groups_id = (select b.id from groups b where a.pnumb = b.npp and b.grup = 1)");
-            executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
-            executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
+            executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.npp and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
+            executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.npp and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
-            executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
-            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.fk and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
+            executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
+            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
-            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");
+            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.npp = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
@@ -466,7 +466,7 @@ public class PSConvert {
             executeSql("4", "update artikl set size_falz = (select a.falz from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
-            executeSql("update elemdet set color_fk = (select -1*id from groups a where a.fk = elemdet.color_fk) where elemdet.color_fk < 0");
+            executeSql("update elemdet set color_fk = (select -1*id from groups a where a.npp = elemdet.color_fk) where elemdet.color_fk < 0");
             executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
@@ -481,7 +481,7 @@ public class PSConvert {
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
-            executeSql("update joindet set color_fk = (select -1*id from groups a where a.fk = joindet.color_fk) where joindet.color_fk < 0");
+            executeSql("update joindet set color_fk = (select -1*id from groups a where a.npp = joindet.color_fk) where joindet.color_fk < 0");
             executeSql("3", "update joindet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
@@ -495,7 +495,7 @@ public class PSConvert {
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
-            executeSql("update glasdet set color_fk = (select -1*id from groups a where a.fk = glasdet.color_fk) where glasdet.color_fk < 0");
+            executeSql("update glasdet set color_fk = (select -1*id from groups a where a.npp = glasdet.color_fk) where glasdet.color_fk < 0");
             executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
@@ -514,7 +514,7 @@ public class PSConvert {
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
             executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
-            executeSql("update furndet set color_fk = (select (-1 * id) from groups a where a.fk = furndet.color_fk) where furndet.color_fk < 0");
+            executeSql("update furndet set color_fk = (select (-1 * id) from groups a where a.npp = furndet.color_fk) where furndet.color_fk < 0");
             executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
@@ -770,21 +770,21 @@ public class PSConvert {
             }
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
                         + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
                 st2.executeUpdate(sql);
@@ -797,7 +797,7 @@ public class PSConvert {
             }
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
