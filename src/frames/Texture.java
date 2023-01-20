@@ -64,7 +64,7 @@ public class Texture extends javax.swing.JFrame {
                 if (field == eColmap.color_id1) {
                     Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 0) {
-                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.colgrp_id))).findFirst().orElse(eColor.up.newRecord());
+                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
                         return record2.getStr(eGroups.name);
                     } else if (col == 1) {
                         return record.getStr(eColor.name);
@@ -72,7 +72,7 @@ public class Texture extends javax.swing.JFrame {
                 } else if (field == eColmap.color_id2) {
                     Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 2) {
-                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.colgrp_id))).findFirst().orElse(eColor.up.newRecord());
+                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
                         return record2.getStr(eGroups.name);
                     } else if (col == 3) {
                         return record.getStr(eColor.name);
@@ -172,7 +172,7 @@ public class Texture extends javax.swing.JFrame {
 
             Record record = qGroup1.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
-            qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup);
+            qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab2);
         }
@@ -185,7 +185,7 @@ public class Texture extends javax.swing.JFrame {
         if (index != -1) {
             Record record = qGroup2.get(index);
             Integer cgrup = record.getInt(eGroups.id);
-            qColmap.select(eColmap.up, "where", eColmap.colgrp_id, "=" + cgrup);
+            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=" + cgrup);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab4);
         }
@@ -610,7 +610,7 @@ public class Texture extends javax.swing.JFrame {
 
             UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
-                record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
+                record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
                 record.setDev(eColor.name, "Цвет");
                 record.setNo(eColor.coef1, 1);
                 record.setNo(eColor.coef2, 1);
@@ -629,7 +629,7 @@ public class Texture extends javax.swing.JFrame {
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordEnd(tab4, eColor.up, (record) -> {
                 Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
-                record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));
+                record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
                 //record.set(eColmap.joint, 1);
                 //record.set(eColmap.elem, 1);
                 //record.set(eColmap.glas, 1);

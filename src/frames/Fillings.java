@@ -48,7 +48,7 @@ import report.HtmlOfTable;
 public class Fillings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
-    private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
+    private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
     private Query qParams = new Query(eParams.values());
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());

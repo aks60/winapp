@@ -240,7 +240,7 @@ public class Tariffic extends Cal5e {
                     if (m1 > 0 && m2 > 0) {
                         artdetPrice += m1 * m2;
                     } else {
-                        Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
+                        Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.groups_id));
                         float z1 = artdetRec.getFloat(eArtdet.cost_c1); //тариф основной текстуры"
                         float z2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текст.
                         float z3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
@@ -254,7 +254,7 @@ public class Tariffic extends Cal5e {
             } else {
                 //Подбираем тариф основной текстуры
                 if (isTariff(artdetRec, color1Rec)) {
-                    Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
+                    Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.groups_id));
                     float k1 = artdetRec.getFloat(eArtdet.cost_c1); //тариф основной текстуры
                     float k2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текстуры
                     float k3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
@@ -264,7 +264,7 @@ public class Tariffic extends Cal5e {
                 }
                 //Подбираем тариф внутренней текстуры
                 if (isTariff(artdetRec, color2Rec)) {
-                    Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
+                    Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.groups_id));
                     float d1 = artdetRec.getFloat(eArtdet.cost_c2); //тариф внутренний текстуры
                     float d2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
                     float d3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
@@ -274,7 +274,7 @@ public class Tariffic extends Cal5e {
                 }
                 //Подбираем тариф внешней текстуры
                 if (isTariff(artdetRec, color3Rec)) {
-                    Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.colgrp_id));
+                    Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.groups_id));
                     float w1 = artdetRec.getFloat(eArtdet.cost_c3); //Тариф внешний текстуры
                     float w2 = color3Rec.getFloat(eColor.coef3); //Ценовой коэф.внешний текстуры
                     float w3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
@@ -396,7 +396,7 @@ public class Tariffic extends Cal5e {
     public static boolean isTariff(Record artdetRec, Record colorRec) {
 
         if (artdetRec.getInt(eArtdet.color_fk) < 0) { //этот тариф задан для группы текстур
-            if ((-1 * colorRec.getInt(eColor.colgrp_id)) == artdetRec.getInt(eArtdet.color_fk)) {
+            if ((-1 * colorRec.getInt(eColor.groups_id)) == artdetRec.getInt(eArtdet.color_fk)) {
                 return true; //текстура принадлежит группе
             }
         } else if (colorRec.getInt(eColor.id) == artdetRec.getInt(eArtdet.color_fk)) {

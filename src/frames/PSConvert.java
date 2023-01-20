@@ -439,8 +439,8 @@ public class PSConvert {
             executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
-            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
-            executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
+            executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
+            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.fk and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
             executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -557,9 +557,9 @@ public class PSConvert {
             println(Color.GREEN, "Секция создания внешних ключей");
             alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
             alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
-            alterTable("color", "fk_color1", "colgrp_id", "groups");
+            alterTable("color", "fk_color1", "groups_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (name)");
-            alterTable("colmap", "fk_colmap_1", "colgrp_id", "groups");
+            alterTable("colmap", "fk_colmap_1", "groups_id", "groups");
             alterTable("colmap", "fk_colmap_2", "color_id1", "color");
             alterTable("colmap", "fk_colmap_3", "color_id2", "color");
             alterTable("artikl", "fk_artikl1", "groups1_id", "groups");

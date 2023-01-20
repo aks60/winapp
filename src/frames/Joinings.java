@@ -58,7 +58,7 @@ public class Joinings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
-    private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
+    private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qJoining = new Query(eJoining.values());
     private Query qJoinvar = new Query(eJoinvar.values());

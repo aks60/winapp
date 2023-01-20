@@ -60,12 +60,12 @@ public class ParColor2 extends javax.swing.JDialog {
         qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id);
 
         Record color1 = eColor.up.newRecord();
-        color1.set(eColor.colgrp_id, UseColor.automatic[0]);
+        color1.set(eColor.groups_id, UseColor.automatic[0]);
         color1.set(eColor.id, UseColor.automatic[0]);
         color1.set(eColor.name, UseColor.automatic[1]);
         qColor.add(color1);
         Record color2 = eColor.up.newRecord();
-        color2.set(eColor.colgrp_id, UseColor.precision[0]);
+        color2.set(eColor.groups_id, UseColor.precision[0]);
         color2.set(eColor.id, UseColor.precision[0]);
         color2.set(eColor.name, UseColor.precision[1]);
         qColor.add(color2);
@@ -74,18 +74,18 @@ public class ParColor2 extends javax.swing.JDialog {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk)));
             } else if (record.getInt(eArtdet.color_fk) < 0) {
-                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.colgrp_id, "=", Math.abs(record.getInt(eArtdet.color_fk))));
+                qColor.addAll(new Query(eColor.values()).select(eColor.up, "where", eColor.groups_id, "=", Math.abs(record.getInt(eArtdet.color_fk))));
             }
         }
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qColor, eColor.colgrp_id, eColor.id, eColor.name) {
+        new DefTableModel(tab1, qColor, eColor.groups_id, eColor.id, eColor.name) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 if (col == 0) {
                     Record colorRec = qColor.get(tab1.convertRowIndexToModel(row));
-                    Record groupRec = qGroupsGrp.find(colorRec.get(eColor.colgrp_id), eGroups.id);
+                    Record groupRec = qGroupsGrp.find(colorRec.get(eColor.groups_id), eGroups.id);
                     return groupRec.get(eGroups.name);
                 }
                 return val;

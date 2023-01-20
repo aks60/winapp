@@ -59,7 +59,7 @@ public class Elements extends javax.swing.JFrame {
     private Query qGrSeri = new Query(eGroups.values());
     private Query qGrCateg = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
-    private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
+    private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values());

@@ -125,7 +125,7 @@ public class Artikles extends javax.swing.JFrame {
                     if (color_fk >= 0) {
                         Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
                         if (col == 0) {
-                            Record colgrpRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == colorRec.getInt(eColor.colgrp_id)).findFirst().orElse(eGroups.up.newRecord());
+                            Record colgrpRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == colorRec.getInt(eColor.groups_id)).findFirst().orElse(eGroups.up.newRecord());
                             return colgrpRec.getStr(eGroups.name);
                         } else {
                             return colorRec.getStr(eColor.name);

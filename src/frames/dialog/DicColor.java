@@ -70,13 +70,13 @@ public class DicColor extends javax.swing.JDialog {
             colgrpList.add(autoRec);           
             Record autoRec2 = eColor.up.newRecord();
             autoRec2.set(eColor.id, 0);
-            autoRec2.set(eColor.colgrp_id, -3);
+            autoRec2.set(eColor.groups_id, -3);
             autoRec2.set(eColor.name, UseColor.automatic[1]);
             colgrpList.add(autoRec2);            
         }
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
-                if (colorRec.getInt(eColor.colgrp_id) == colgrpRec.getInt(eGroups.id)) {
+                if (colorRec.getInt(eColor.groups_id) == colgrpRec.getInt(eGroups.id)) {
                     qColgrp.add(colgrpRec);
                     break;
                 }
@@ -107,7 +107,7 @@ public class DicColor extends javax.swing.JDialog {
             int colgrpId = record.getInt(eGroups.id);
             qColor.clear();
             qColorAll.forEach(rec -> {
-                if (rec.getInt(eColor.colgrp_id) == colgrpId) {
+                if (rec.getInt(eColor.groups_id) == colgrpId) {
                     qColor.add(rec);
                 }
             });

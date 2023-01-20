@@ -325,7 +325,7 @@ public class UColor {
 
                             for (Record colmapRec : colmapList) {
                                 for (Record colmapRec2 : colmapList2) {
-                                    if (colmapRec.getInt(eColmap.colgrp_id) == colmapRec2.getInt(eColmap.colgrp_id)
+                                    if (colmapRec.getInt(eColmap.groups_id) == colmapRec2.getInt(eColmap.groups_id)
                                             && colmapRec.getInt(eColmap.color_id1) == colmapRec2.getInt(eColmap.color_id1)) {
 
                                         return colmapRec2.getInt(eColmap.color_id2);
