@@ -448,9 +448,7 @@ public class PSConvert {
             executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
             executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
-
             executeSql("update artdet set color_fk = (select id from groups a where a.grup = 2 and a.npp = (-1 * artdet.clnum)) where artdet.clnum < 0");                        
-
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
