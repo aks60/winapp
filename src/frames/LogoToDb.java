@@ -19,7 +19,7 @@ public class LogoToDb extends javax.swing.JDialog {
         super(owner);
         initComponents();
         
-        this.getInputContext().selectInputMethod(eProp.locale);    
+        //this.getInputContext().selectInputMethod(eProp.locale);    
         if (eProp.dev == true) {
             if ("adm".equals(eProp.profile)) {
                 edUser.setText("SYSDBA"); //user
