@@ -479,10 +479,9 @@ public class Param extends javax.swing.JFrame {
 
         pan2.add(scr3);
 
-        scr4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
+        scr4.setBorder(null);
         scr4.setAutoscrolls(true);
         scr4.setMinimumSize(new java.awt.Dimension(450, 400));
-        scr4.setPreferredSize(new java.awt.Dimension(450, 400));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -512,13 +511,11 @@ public class Param extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(8).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(9).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
         }
 
         pan2.add(scr4);
