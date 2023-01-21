@@ -61,6 +61,8 @@ public class Main {
                     public void run() {
                         try {
                             eProp.save();
+                            //Main.this.getInputContext().selectInputMethod(eProp.locale);
+                            
                         } catch (Exception e) {
                             System.err.println(e);
                         }

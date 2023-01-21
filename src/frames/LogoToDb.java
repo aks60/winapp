@@ -18,8 +18,7 @@ public class LogoToDb extends javax.swing.JDialog {
     public LogoToDb(java.awt.Window owner) {
         super(owner);
         initComponents();
-        
-        //this.getInputContext().selectInputMethod(eProp.locale);    
+
         if (eProp.dev == true) {
             if ("adm".equals(eProp.profile)) {
                 edUser.setText("SYSDBA"); //user
@@ -38,7 +37,7 @@ public class LogoToDb extends javax.swing.JDialog {
             edUser.setText(eProp.user.read());
             edPass.requestFocus();
             getRootPane().setDefaultButton(btnOk);
-        }           
+        }
     }
 
     /**
@@ -77,6 +76,10 @@ public class LogoToDb extends javax.swing.JDialog {
                                 eProp.user.write(edUser.getText().trim());
                                 eProp.password = String.valueOf(edPass.getPassword()).trim();
                                 eProp.save();
+                                
+                                //eProp.localeOld = LogoToDb.this.getInputContext().getLocale();
+                                //LogoToDb.this.getInputContext().selectInputMethod(eProp.locale);
+                                
                                 dispose();
                             }
                         }
