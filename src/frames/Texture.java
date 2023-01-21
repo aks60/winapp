@@ -37,7 +37,6 @@ public class Texture extends javax.swing.JFrame {
     public Texture() {
         initComponents();
         initElements();
-        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -71,10 +70,14 @@ public class Texture extends javax.swing.JFrame {
     }
 
     public void listenerAdd() {
-
-    }
-
-    public void listenerSet() {
+        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2);
+            java.awt.Color color = JColorChooser.showDialog(this, "Выбор цвета", java.awt.Color.WHITE);
+            if (color != null) {
+                qColor.set(color.getRGB() & 0x00ffffff, UGui.getIndexRec(tab2), eColor.rgb);
+                qColor.execsql();
+            }
+        });
     }
 
     public void selectionTab1(ListSelectionEvent event) {
