@@ -106,7 +106,7 @@ public class Elements extends javax.swing.JFrame {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_PROF.id);
+        qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_ELEM.id);
         qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
         Record record = eGroups.up.newRecord(Query.SEL);
@@ -231,7 +231,7 @@ public class Elements extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 int id = qElement.getAs(index, eElement.groups1_id);
-                new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id, true);
+                new DicGroups(this, listenerSeries, TypeGroups.SERI_ELEM, id, true);
             }
         });
 

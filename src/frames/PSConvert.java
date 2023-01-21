@@ -148,12 +148,12 @@ public class PSConvert {
                 }
                 //Создание генератора
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-                
+
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
-                }  
-                
+                }
+
                 //Особенности таблицы SYSTREE GROUPS и PARAMS
                 if ("SYSTREE".equals(fieldUp.tname()) == true) {
                     executeSql("set generator GEN_SYSTREE to 10000");
@@ -162,7 +162,7 @@ public class PSConvert {
                 } else if ("GROUPS".equals(fieldUp.tname()) == true) {
                     executeSql("SET GENERATOR  GEN_GROUPS TO -10000");
                     //executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
-                }                  
+                }
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
@@ -432,7 +432,7 @@ public class PSConvert {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             loadSetting("Функция loadSetting()");
             loadGroups("Функция loadGroups()");
-            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_ELEM.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
@@ -441,14 +441,14 @@ public class PSConvert {
             updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("delete from params a where a.znumb = 0");
-            executeSql("update params set groups_id = (select a.id from groups a where pnumb = a.npp and a.grup = " + TypeGroups.PARAM_SYS.numb() + ")");
-            executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.npp and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
-            executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.npp and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
-            executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = " + TypeGroups.COLOR_GRP.numb() + ")");
-            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = " + TypeGroups.COLOR_MAP.numb() + ")");
+            executeSql("update params set groups_id = (select a.id from groups a where pnumb = a.npp and a.grup = 1)");
+            executeSql("update artikl set groups1_id = (select a.id from groups a where munic = a.npp and a.grup = 4)");
+            executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.npp and a.grup = 5)");
+            executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = 6)");
+            executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = 2)");
+            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = 7)");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
-            executeSql("update artdet set color_fk = (select id from groups a where a.grup = 2 and a.npp = (-1 * artdet.clnum)) where artdet.clnum < 0");                        
+            executeSql("update artdet set color_fk = (select id from groups a where a.grup = 2 and a.npp = (-1 * artdet.clnum)) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
@@ -547,6 +547,7 @@ public class PSConvert {
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
+            executeSql("update groups set npp = 0");
             String db = (numDb == 1) ? eProp.base1.read() : (numDb == 2) ? eProp.base2.read() : eProp.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
@@ -754,7 +755,7 @@ public class PSConvert {
 
     public static void loadGroups(String mes) {
         println(Color.BLACK, mes);
-        try {  
+        try {
             //Расчётные данные
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
             while (rs.next()) {
@@ -766,7 +767,7 @@ public class PSConvert {
             rs = st1.executeQuery("select * from PARLIST where ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_SYS.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             //Группы цветов
@@ -797,7 +798,7 @@ public class PSConvert {
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_PRF.id + ",'" + rs.getString("APREF") + "')";
+                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             //Параметры соотв. цветов

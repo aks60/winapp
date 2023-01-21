@@ -699,13 +699,13 @@ public class Groups extends javax.swing.JFrame {
 
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
+                record.set(eGroups.grup, TypeGroups.SERI_ELEM.id);
                 record.setDev(eGroups.name, "Серия.МЦ");
             });
 
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordEnd(tab4, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
+                record.set(eGroups.grup, TypeGroups.CATEG_ELEM.id);
                 record.setDev(eGroups.name, "Категория.МЦ");
             });
 
