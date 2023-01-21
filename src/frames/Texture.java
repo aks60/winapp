@@ -32,10 +32,7 @@ public class Texture extends javax.swing.JFrame {
 
     private Query qColall = new Query(eColor.values());
     private Query qGroup1 = new Query(eGroups.values());
-    private Query qGroup2 = new Query(eGroups.values());
     private Query qColor = new Query(eColor.values());
-    private Query qColmap = new Query(eColmap.values());
-    private ListenerRecord listenerColor1, listenerColor2;
 
     public Texture() {
         initComponents();
@@ -49,39 +46,12 @@ public class Texture extends javax.swing.JFrame {
     public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
         qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        qGroup2.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id, "order by", eGroups.name);
     }
 
     public void loadingModel() {
 
         new DefTableModel(tab1, qGroup1, eGroups.name, eGroups.val);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
-        new DefTableModel(tab3, qGroup2, eGroups.name, eGroups.id);
-        new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
-                eColmap.joint, eColmap.elem, eColmap.glas, eColmap.furn, eColmap.komp, eColmap.komp) {
-            public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (field == eColmap.color_id1) {
-                    Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
-                    if (col == 0) {
-                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
-                        return record2.getStr(eGroups.name);
-                    } else if (col == 1) {
-                        return record.getStr(eColor.name);
-                    }
-                } else if (field == eColmap.color_id2) {
-                    Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
-                    if (col == 2) {
-                        Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
-                        return record2.getStr(eGroups.name);
-                    } else if (col == 3) {
-                        return record.getStr(eColor.name);
-                    }
-
-                }
-                return val;
-            }
-        };
 
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -97,76 +67,20 @@ public class Texture extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditorNumb(3));
 
-        DefCellRendererBool br = new DefCellRendererBool();
-        List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
-
         UGui.setSelectedRow(tab1);
-        UGui.setSelectedRow(tab3);
     }
 
     public void listenerAdd() {
 
-        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            java.awt.Color color = JColorChooser.showDialog(this, "Выбор цвета", java.awt.Color.WHITE);
-            if (color != null) {
-                qColor.set(color.getRGB() & 0x00ffffff, UGui.getIndexRec(tab2), eColor.rgb);
-                qColor.execsql();
-            }
-        });
-        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor1, false, false);
-        });
-        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor1, false, false);
-        });
-        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor2, false, false);
-        });
-        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor2, false, false);
-        });
     }
 
     public void listenerSet() {
-
-        listenerColor1 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab4);
-            Record record2 = qColmap.get(index);
-            record2.set(eColmap.color_id1, record.getInt(eParams.id));
-            ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
-        };
-
-        listenerColor2 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab4);
-            Record record2 = qColmap.get(index);
-            record2.set(eColmap.color_id2, record.getInt(eParams.id));
-            ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
-        };
-    }
-
-    public static void setDefaultTableEditorsClicks(JTable table, int clickCountToStart) {
-        TableCellEditor editor;
-        editor = table.getDefaultEditor(Object.class);
-        if (editor instanceof DefaultCellEditor) {
-            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
-        }
-        editor = table.getDefaultEditor(Number.class);
-        if (editor instanceof DefaultCellEditor) {
-            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
-        }
-        editor = table.getDefaultEditor(Boolean.class);
-        if (editor instanceof DefaultCellEditor) {
-            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
-        }
     }
 
     public void selectionTab1(ListSelectionEvent event) {
 
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
+        UGui.stopCellEditing(tab1, tab2);
+        List.of(qGroup1, qColor).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
 
@@ -175,19 +89,6 @@ public class Texture extends javax.swing.JFrame {
             qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab2);
-        }
-    }
-
-    public void selectionTab3(ListSelectionEvent event) {
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(qGroup2, qColmap).forEach(q -> q.execsql());
-        int index = UGui.getIndexRec(tab3);
-        if (index != -1) {
-            Record record = qGroup2.get(index);
-            Integer cgrup = record.getInt(eGroups.id);
-            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=" + cgrup);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4);
         }
     }
 
@@ -203,17 +104,11 @@ public class Texture extends javax.swing.JFrame {
         btnRep = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
-        tabbPan = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        pan2 = new javax.swing.JPanel();
-        scr3 = new javax.swing.JScrollPane();
-        tab3 = new javax.swing.JTable();
-        scr4 = new javax.swing.JScrollPane();
-        tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -363,9 +258,6 @@ public class Texture extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
-        tabbPan.setFont(frames.UGui.getFont(0,0));
-        tabbPan.setPreferredSize(new java.awt.Dimension(800, 500));
-
         pan1.setPreferredSize(new java.awt.Dimension(800, 500));
         pan1.setLayout(new java.awt.BorderLayout());
 
@@ -466,91 +358,7 @@ public class Texture extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
 
-        tabbPan.addTab("        Описание текстур            ", pan1);
-
-        pan2.setPreferredSize(new java.awt.Dimension(800, 500));
-        pan2.setLayout(new java.awt.BorderLayout());
-
-        scr3.setBorder(null);
-        scr3.setAutoscrolls(true);
-        scr3.setPreferredSize(new java.awt.Dimension(300, 600));
-
-        tab3.setFont(frames.UGui.getFont(0,0));
-        tab3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1111111111", null},
-                {"2222222222", null}
-            },
-            new String [] {
-                "Название параметра", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab3.setFillsViewportHeight(true);
-        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Texture.this.mousePressed(evt);
-            }
-        });
-        scr3.setViewportView(tab3);
-        if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab3.getColumnModel().getColumn(1).setMaxWidth(60);
-        }
-
-        pan2.add(scr3, java.awt.BorderLayout.WEST);
-
-        scr4.setBorder(null);
-        scr4.setAutoscrolls(true);
-
-        tab4.setFont(frames.UGui.getFont(0,0));
-        tab4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, "xxxxxx", null, null, null, null, null, null, null, null, null},
-                {null, "zzzzzzz", null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Группа", "Текстура профиля", "Группа", "Текстура элемента", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab4.setFillsViewportHeight(true);
-        tab4.setName("tab4"); // NOI18N
-        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Texture.this.mousePressed(evt);
-            }
-        });
-        scr4.setViewportView(tab4);
-        if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tab4.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab4.getColumnModel().getColumn(10).setMaxWidth(60);
-        }
-
-        pan2.add(scr4, java.awt.BorderLayout.CENTER);
-
-        tabbPan.addTab("Параметры соответствия текстур", pan2);
-
-        centr.add(tabbPan, java.awt.BorderLayout.CENTER);
+        centr.add(pan1, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -568,11 +376,11 @@ public class Texture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        UGui.stopCellEditing(tab1, tab2);
+        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        List.of(tab1, tab2, tab3, tab4).forEach(tab -> UGui.setSelectedRow(tab));
+        List.of(tab1, tab2).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        List.of(tab1, tab2).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -586,14 +394,6 @@ public class Texture extends javax.swing.JFrame {
                 UGui.deleteRecord(tab2);
             }
 
-        } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab3, this, tab4) == 0) {
-                UGui.deleteRecord(tab3);
-            }
-        } else if (tab4.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab4, this) == 0) {
-                UGui.deleteRecord(tab4);
-            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -616,29 +416,17 @@ public class Texture extends javax.swing.JFrame {
                 record.setNo(eColor.coef3, 1);
                 qColall.add(record);
             });
-        } else if (tab3.getBorder() != null) {
-            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
-                record.set(eGroups.name, "");
-                record.setDev(eGroups.name, "Группа");
-                record.set(eGroups.val, 1);
-            });
-        } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eColor.up, (record) -> {
-                Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
-                record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
-            });
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        UGui.stopCellEditing(tab1, tab2);
+        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
     }//GEN-LAST:event_mousePressed
 
     private void btnRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepActionPerformed
@@ -647,10 +435,6 @@ public class Texture extends javax.swing.JFrame {
             tab = tab1;
         } else if (tab2.getBorder() != null) {
             tab = tab2;
-        } else if (tab3.getBorder() != null) {
-            tab = tab3;
-        } else if (tab4.getBorder() != null) {
-            tab = tab4;
         }
         if (tab != null) {
             HtmlOfTable.load("Текстуры", tab);
@@ -672,17 +456,11 @@ public class Texture extends javax.swing.JFrame {
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
-    private javax.swing.JPanel pan2;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
-    private javax.swing.JScrollPane scr3;
-    private javax.swing.JScrollPane scr4;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
-    private javax.swing.JTable tab3;
-    private javax.swing.JTable tab4;
-    private javax.swing.JTabbedPane tabbPan;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -698,13 +476,6 @@ public class Texture extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }
-            }
-        });
-        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab3(event);
                 }
             }
         });

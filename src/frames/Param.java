@@ -543,7 +543,7 @@ public class Param extends javax.swing.JFrame {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
         loadData();
-        UGui.setSelectedRow(tab1);
+        List.of(tab1, tab2).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
