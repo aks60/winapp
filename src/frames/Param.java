@@ -1,6 +1,7 @@
 package frames;
 
 import common.listener.ListenerRecord;
+import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
@@ -11,14 +12,15 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
 import dataset.Field;
+import domain.eArtdet;
 import domain.eColmap;
 import domain.eGroups;
 import enums.TypeGroups;
 import frames.dialog.DicColor;
-import frames.swing.DefCellEditorBtn;
+import frames.swing.TableFieldFilter;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Param extends javax.swing.JFrame {
 
@@ -52,7 +54,7 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab3, qGroups2, eGroups.name);
         new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
                 eColmap.joint, eColmap.elem, eColmap.glas, eColmap.furn, eColmap.komp, eColmap.komp) {
-                    
+
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eColmap.color_id1) {
@@ -78,7 +80,7 @@ public class Param extends javax.swing.JFrame {
         };
 
         DefCellRendererBool br = new DefCellRendererBool();
-        List.of(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
         List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
@@ -89,7 +91,7 @@ public class Param extends javax.swing.JFrame {
 
         ListenerRecord listenerColor1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab3);
+            int index = UGui.getIndexRec(tab4);
             Record colmapRec = qColmap.get(index);
             colmapRec.set(eColmap.color_id1, record.get(eColor.id));
             qColmap.update(colmapRec);
@@ -99,7 +101,7 @@ public class Param extends javax.swing.JFrame {
 
         ListenerRecord listenerColor2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab3);
+            int index = UGui.getIndexRec(tab4);
             Record colmapRec = qColmap.get(index);
             colmapRec.set(eColmap.color_id2, record.get(eColor.id));
             qColmap.update(colmapRec);
@@ -160,6 +162,7 @@ public class Param extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnClone = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         tabbPan = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -267,7 +270,24 @@ public class Param extends javax.swing.JFrame {
         btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReport(evt);
+                btnReportActionPerformed(evt);
+            }
+        });
+
+        btnClone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c065.gif"))); // NOI18N
+        btnClone.setToolTipText(bundle.getString("Клонировать запись")); // NOI18N
+        btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClone.setEnabled(false);
+        btnClone.setFocusable(false);
+        btnClone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClone.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnClone.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnClone.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnClone.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnClone.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClone(evt);
             }
         });
 
@@ -282,7 +302,9 @@ public class Param extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 777, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 734, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,7 +321,8 @@ public class Param extends javax.swing.JFrame {
                             .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -308,11 +331,17 @@ public class Param extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 550));
         centr.setLayout(new java.awt.BorderLayout());
 
+        tabbPan.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                Param.this.stateChanged(evt);
+            }
+        });
+
         pan1.setPreferredSize(new java.awt.Dimension(454, 304));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(200, 304));
+        scr1.setPreferredSize(new java.awt.Dimension(160, 304));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -355,7 +384,8 @@ public class Param extends javax.swing.JFrame {
         pan1.add(scr1);
 
         scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(454, 204));
+        scr2.setMinimumSize(new java.awt.Dimension(450, 400));
+        scr2.setPreferredSize(new java.awt.Dimension(450, 400));
 
         tab2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 4, 0, 0));
         tab2.setFont(frames.UGui.getFont(0,0));
@@ -387,7 +417,7 @@ public class Param extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2mousePressed(evt);
+                Param.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -407,7 +437,7 @@ public class Param extends javax.swing.JFrame {
         pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.LINE_AXIS));
 
         scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(200, 304));
+        scr3.setPreferredSize(new java.awt.Dimension(160, 304));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -438,7 +468,7 @@ public class Param extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab3mousePressed(evt);
+                Param.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -451,6 +481,8 @@ public class Param extends javax.swing.JFrame {
 
         scr4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         scr4.setAutoscrolls(true);
+        scr4.setMinimumSize(new java.awt.Dimension(450, 400));
+        scr4.setPreferredSize(new java.awt.Dimension(450, 400));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -475,10 +507,19 @@ public class Param extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab4mousePressed(evt);
+                Param.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
+        }
 
         pan2.add(scr4);
 
@@ -502,42 +543,58 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-//        UGui.stopCellEditing(tab1, tab2);
-//        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-//        loadData();
-//        UGui.setSelectedRow(tab1);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+        loadData();
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-//        if (tab1.getBorder() != null) {
-//            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
-//                UGui.deleteRecord(tab1);
-//            }
-//        } else if (tab2.getBorder() != null) {
-//            if (UGui.isDeleteRecord(tab2, this) == 0) {
-//                UGui.deleteRecord(tab2);
-//            }
-//        }
+        if (tab1.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
+            }
+        } else if (tab2.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab2, this) == 0) {
+                UGui.deleteRecord(tab2);
+            }
+        } else if (tab3.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab3, this, tab4) == 0) {
+                UGui.deleteRecord(tab3);
+            }
+        } else if (tab4.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
+                UGui.deleteRecord(tab4);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
-//        if (tab1.getBorder() != null) {
-//            UGui.insertRecordEnd(tab1, eParams.up, (record) -> {
-//                record.setNo(eParams.params_id, record.getInt(eParams.id));
-//                record.setDev(eParams.text, "Параметр");
-//                List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-//                        eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
-//            });
-//        } else if (tab2.getBorder() != null) {
-//            UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
-//                Record record2 = qParams.get(UGui.getIndexRec(tab1));
-//                record.setNo(eParams.params_id, record2.getInt(eParams.id));
-//                record.setDev(eParams.text, "Вариант");
-//                List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-//                        eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
-//            });
-//        }
+        if (tab1.getBorder() != null) {
+            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.PARAM_USER.id);
+                record.set(eGroups.name, "");
+                record.setDev(eGroups.name, "Параметр");
+            });
+        } else if (tab2.getBorder() != null) {
+            UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
+                Record groupRec = qGroups1.get(UGui.getIndexRec(tab1));
+                record.setDev(eParams.text, "val");
+                record.setNo(eParams.groups_id, groupRec.getInt(eGroups.id));
+            });
+        } else if (tab3.getBorder() != null) {
+            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
+                record.set(eGroups.name, "");
+                record.setDev(eGroups.name, "Парам.соотв.");
+            });
+        } else if (tab4.getBorder() != null) {
+            UGui.insertRecordEnd(tab4, eColmap.up, (record) -> {
+                Record groupRec = qGroups2.get(UGui.getIndexRec(tab3));
+                record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
+            });
+        }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -546,32 +603,59 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-//        JTable table = (JTable) evt.getSource();
-//        if (table == tab2) {
-//            selectionTab2(null);
-//        }
-//        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
-    }//GEN-LAST:event_mousePressed
-
-    private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-//        HtmlOfTable.load("Параметры", tab1);
-//        ExecuteCmd.documentType(this);
-    }//GEN-LAST:event_btnReport
-
-    private void tab2mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2mousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab2mousePressed
-
-    private void tab3mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3mousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab3mousePressed
-
-    private void tab4mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4mousePressed
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
-    }//GEN-LAST:event_tab4mousePressed
+        boolean b = (table == tab2) ? true : (table == tab4);
+        btnClone.setEnabled(b);
+    }//GEN-LAST:event_mousePressed
+
+    private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        JTable table = (tabbPan.getSelectedIndex() == 0) ? tab1 : tab3;
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
+    }//GEN-LAST:event_stateChanged
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+    }//GEN-LAST:event_btnReportActionPerformed
+
+    private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
+        if (tab2.getBorder() != null) {
+            int index = UGui.getIndexRec(tab2);
+            if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
+                    "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+
+                Record paramClon = (Record) qParams.get(index).clone();
+                paramClon.setNo(eParams.up, Query.INS);
+                int paramID = Conn.genId(eParams.up);
+                paramClon.setNo(eParams.id, paramID);
+                paramClon.setNo(eParams.text, paramClon.getStr(eParams.text) + "-клон");
+                qParams.add(index, paramClon);
+                qParams.insert(paramClon);
+                ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(index, index);
+                UGui.setSelectedIndex(tab2, index);
+                UGui.scrollRectToIndex(index, tab2);
+            }
+        } else if (tab4.getBorder() != null) {
+            int index = UGui.getIndexRec(tab4);
+            if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
+                    "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+
+                Record colmapClon = (Record) qColmap.get(index).clone();
+                colmapClon.setNo(eColmap.up, Query.INS);
+                int colmapID = Conn.genId(eColmap.up);
+                colmapClon.setNo(eColmap.id, colmapID);
+                qColmap.add(index, colmapClon);
+                qColmap.insert(colmapClon);
+                ((DefaultTableModel) tab4.getModel()).fireTableRowsInserted(index, index);
+                UGui.setSelectedIndex(tab4, index);
+                UGui.scrollRectToIndex(index, tab4);
+            }
+        }
+    }//GEN-LAST:event_btnClone
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClone;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
@@ -594,14 +678,15 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabbPan;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+
     public void initElements() {
 
-//        new FrameToFile(this, btnClose);
-//
-//        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2);
-//        south.add(filterTable, 0);
-//        filterTable.getTxt().grabFocus();
-        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
+        new FrameToFile(this, btnClose);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab3);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab3)));
 
         tab1.getSelectionModel().addListSelectionListener(event -> {
             if (event.getValueIsAdjusting() == false) {
@@ -613,6 +698,5 @@ public class Param extends javax.swing.JFrame {
                 selectionTab3(event);
             }
         });
-//        editorStr = (DefaultCellEditor) tab2.getColumnModel().getColumn(0).getCellEditor();
     }
 }

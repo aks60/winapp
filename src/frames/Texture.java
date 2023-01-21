@@ -607,7 +607,6 @@ public class Texture extends javax.swing.JFrame {
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
-
             UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
@@ -617,7 +616,6 @@ public class Texture extends javax.swing.JFrame {
                 record.setNo(eColor.coef3, 1);
                 qColall.add(record);
             });
-
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
@@ -625,17 +623,10 @@ public class Texture extends javax.swing.JFrame {
                 record.setDev(eGroups.name, "Группа");
                 record.set(eGroups.val, 1);
             });
-
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordEnd(tab4, eColor.up, (record) -> {
                 Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
                 record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
-                //record.set(eColmap.joint, 1);
-                //record.set(eColmap.elem, 1);
-                //record.set(eColmap.glas, 1);
-                //record.set(eColmap.furn, 1);
-                //record.set(eColmap.otkos, 1);
-                //record.set(eColmap.komp, 1);
             });
         }
     }//GEN-LAST:event_btnInsert
