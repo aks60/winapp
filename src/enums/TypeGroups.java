@@ -3,13 +3,13 @@ package enums;
 import static enums.UseUnit.values;
 
 public enum TypeGroups implements Enam {
-    PARAM_SYS(1, "Список параметров"),
+    PARAM_USER(1, "Параметры пользов."),
     COLOR_GRP(2, "Группы цветов"),
-    SERI_PROF(3, "Серии профилей"),
-    PRICE_INC(4, "МЦ группы наценок"),
-    PRICE_DEC(5, "МЦ группы скидок"),
-    CATEG_PRF(6, "Категогии профилей"),
-    COLOR_MAP(7, "Параметры соотв. цветов"),
+    SERI_ELEM(3, "Серии МЦ"),
+    PRICE_INC(4, "Наценки МЦ"),
+    PRICE_DEC(5, "Скидки МЦ"),
+    CATEG_ELEM(6, "Категогии МЦ"),
+    COLOR_MAP(7, "Параметры соотв.цветов"),
     CATEG_VST(8, "Категории вставок"),
     SYS_DATA(9, "Расчётные данные"),
     CATEG_KIT(10, "Категории комплектов");

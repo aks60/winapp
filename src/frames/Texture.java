@@ -30,9 +30,9 @@ import report.HtmlOfTable;
 
 public class Texture extends javax.swing.JFrame {
 
+    private Query qColall = new Query(eColor.values());
     private Query qGroup1 = new Query(eGroups.values());
     private Query qGroup2 = new Query(eGroups.values());
-    private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
     private ListenerRecord listenerColor1, listenerColor2;

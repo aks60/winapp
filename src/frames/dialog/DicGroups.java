@@ -47,7 +47,7 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     public void loadingModel() {
-        if (grup.numb() == TypeGroups.SERI_PROF.id) {
+        if (grup.numb() == TypeGroups.SERI_ELEM.id) {
             setTitle("Серии");
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
@@ -71,7 +71,7 @@ public class DicGroups extends javax.swing.JDialog {
             UGui.setSelectedKey(tab3, ID);
             tab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             
-        } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
+        } else if (grup.numb() == TypeGroups.CATEG_ELEM.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
