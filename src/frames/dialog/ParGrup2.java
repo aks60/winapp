@@ -39,6 +39,7 @@ public class ParGrup2 extends javax.swing.JDialog {
 
     public void loadingData() {
         qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
+        
     }
 
     public void loadingModel(int... part) {
@@ -444,14 +445,6 @@ public class ParGrup2 extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     // </editor-fold>     
     public void initElements() {
-
-//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-//        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-//        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
-
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }
