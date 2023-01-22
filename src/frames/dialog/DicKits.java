@@ -28,6 +28,7 @@ import domain.eKits;
 import domain.eParams;
 import domain.ePrjkit;
 import enums.Enam;
+import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseUnit;
 import java.util.HashMap;
@@ -45,11 +46,11 @@ public class DicKits extends javax.swing.JDialog {
 
     private ListenerObject<Query> listener = null;
     private Query qPrjkit = new Query(ePrjkit.values());
+    private Query qGroups = new Query(eGroups.values());
     private Query qCateg = new Query(eGroups.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
-    private Query qParams = new Query(eParams.values());
     private Object colorID[] = {-1, -1, -1};
     private int projectID = -1;
     private int prjprodID = -1;
@@ -72,8 +73,8 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGroups.COLOR_MAP.id, ",", TypeGroups.PARAM_USER.id, ")");
         qCateg.select(eGroups.up, "where", eGroups.grup, "= 10");
-        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -121,12 +122,12 @@ public class DicKits extends javax.swing.JDialog {
                 if (val != null) {
                     Field field = columns[col];
                     if (field == eKitpar2.params_id) {
+
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
-                            Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                            return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                         } else {
-                            Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                            Enam en = ParamList.find(val);
+                            return Record.getDev(en.numb(), en.text());
                         }
                     }
                 }
@@ -685,7 +686,7 @@ public class DicKits extends javax.swing.JDialog {
         float H = UCom.getFloat(txt1.getText(), 0f);
         float L = UCom.getFloat(txt2.getText(), 0f);
         float Q = UCom.getFloat(txt3.getText(), 1f);
-        
+
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(Q, L, H);
         //Цикл по списку детализации
@@ -715,7 +716,7 @@ public class DicKits extends javax.swing.JDialog {
                 prjkitRec.set(ePrjkit.height, height); //ширина  
 
                 //Поправка, мм
-                float correct = to_8050(mapParam);                 
+                float correct = to_8050(mapParam);
                 prjkitRec.set(ePrjkit.width, width + correct); //длина мм 
 
                 //Угол реза 1
