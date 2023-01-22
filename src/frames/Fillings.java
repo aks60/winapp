@@ -174,6 +174,40 @@ public class Fillings extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            List.of(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            UGui.clearTable(tab2, tab3, tab4, tab5);
+            Record record = qGlasgrp.table(eGlasgrp.up).get(index);
+            Integer id = record.getInt(eGlasgrp.id);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id, "order by", eGlasdet.depth);
+            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id, "order by", eArtikl.code);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+            UGui.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab5);
+        }
+    }
+
+    public void selectionTab2(ListSelectionEvent event) {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            List.of(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            UGui.clearTable(tab4);
+            Record record = qGlasdet.table(eGlasdet.up).get(index);
+            Integer id = record.getInt(eGlasdet.id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab4);
+        }
+    }
+
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() 
@@ -354,40 +388,6 @@ public class Fillings extends javax.swing.JFrame {
         listenerPar2 = (record) -> {
             UGui.listenerParam(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
         };
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            List.of(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
-            UGui.clearTable(tab2, tab3, tab4, tab5);
-            Record record = qGlasgrp.table(eGlasgrp.up).get(index);
-            Integer id = record.getInt(eGlasgrp.id);
-            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id, "order by", eGlasdet.depth);
-            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id, "order by", eArtikl.code);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-            UGui.setSelectedRow(tab3);
-            UGui.setSelectedRow(tab5);
-        }
-    }
-
-    public void selectionTab2(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            List.of(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
-            UGui.clearTable(tab4);
-            Record record = qGlasdet.table(eGlasdet.up).get(index);
-            Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4);
-        }
     }
 
     public void deteilFind(int deteilID) {

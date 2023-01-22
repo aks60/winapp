@@ -349,6 +349,75 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+        UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qFurniture.table(eFurniture.up).get(index);
+            Integer id = record.getInt(eFurniture.id);
+            qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
+            qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
+            ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab2a);
+        }
+    }
+
+    public void selectionTab2a(ListSelectionEvent event) {
+        UGui.clearTable(tab2b, tab2c, tab5, tab6);
+        int index = UGui.getIndexRec(tab2a);
+        if (index != -1) {
+            Record record = qFurndet2a.get(index);
+            int id = record.getInt(eFurndet.id);
+            qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
+            ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
+            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+        }
+    }
+
+    public void selectionTab2b(ListSelectionEvent event) {
+        UGui.clearTable(tab2c, tab5, tab6);
+        int index = UGui.getIndexRec(tab2b);
+        if (index != -1) {
+            Record record = qFurndet2b.get(index);
+            Integer id = record.getInt(eFurndet.id);
+            qFurndet2c.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id);
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
+            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+            ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+        }
+    }
+
+    public void selectionTab2c(ListSelectionEvent event) {
+        UGui.clearTable(tab5, tab6);
+        int index = UGui.getIndexRec(tab2c);
+        if (index != -1) {
+            Record record = qFurndet2c.get(index);
+            Integer id = record.getInt(eFurndet.id);
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
+            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+        }
+    }
+
+    public void selectionTab3(ListSelectionEvent event) {
+        UGui.clearTable(tab4);
+        int index = UGui.getIndexRec(tab3);
+        if (index != -1) {
+            Record record = qFurnside1.table(eFurnside1.up).get(index);
+            Integer id = record.getInt(eFurnside1.id);
+            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        }
+    }
+
     public void listenerAdd() {
         UGui.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
@@ -514,75 +583,6 @@ public class Furniturs extends javax.swing.JFrame {
         listenerVariant2 = (record) -> {
             UGui.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-        UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qFurniture.table(eFurniture.up).get(index);
-            Integer id = record.getInt(eFurniture.id);
-            qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
-            qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
-            ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
-            UGui.setSelectedRow(tab2a);
-        }
-    }
-
-    public void selectionTab2a(ListSelectionEvent event) {
-        UGui.clearTable(tab2b, tab2c, tab5, tab6);
-        int index = UGui.getIndexRec(tab2a);
-        if (index != -1) {
-            Record record = qFurndet2a.get(index);
-            int id = record.getInt(eFurndet.id);
-            qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
-            ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        }
-    }
-
-    public void selectionTab2b(ListSelectionEvent event) {
-        UGui.clearTable(tab2c, tab5, tab6);
-        int index = UGui.getIndexRec(tab2b);
-        if (index != -1) {
-            Record record = qFurndet2b.get(index);
-            Integer id = record.getInt(eFurndet.id);
-            qFurndet2c.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id);
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        }
-    }
-
-    public void selectionTab2c(ListSelectionEvent event) {
-        UGui.clearTable(tab5, tab6);
-        int index = UGui.getIndexRec(tab2c);
-        if (index != -1) {
-            Record record = qFurndet2c.get(index);
-            Integer id = record.getInt(eFurndet.id);
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        }
-    }
-
-    public void selectionTab3(ListSelectionEvent event) {
-        UGui.clearTable(tab4);
-        int index = UGui.getIndexRec(tab3);
-        if (index != -1) {
-            Record record = qFurnside1.table(eFurnside1.up).get(index);
-            Integer id = record.getInt(eFurnside1.id);
-            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        }
     }
 
     public void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {

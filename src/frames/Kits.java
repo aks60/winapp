@@ -120,6 +120,47 @@ public class Kits extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+        List.of(qKits, qKitdet).forEach(q -> q.execsql());
+        UGui.clearTable(tab2, tab3, tab4);
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qCateg.get(index);
+            Integer id = record.getInt(eGroups.id);
+            qKits.select(eKits.up, "where", eKits.groups_id, "=", id, "order by", eKits.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
+    }
+
+    public void selectionTab2(ListSelectionEvent event) {
+        List.of(qKitdet).forEach(q -> q.execsql());
+        UGui.clearTable(tab3, tab4);
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qKits.get(index);
+            Integer id = record.getInt(eKits.id);
+            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab3);
+        }
+    }
+
+    public void selectionTab3(ListSelectionEvent event) {
+        List.of(qKitpar2).forEach(q -> q.execsql());
+        UGui.clearTable(tab4);
+        int index = UGui.getIndexRec(tab3);
+        if (index != -1) {
+            Record record = qKitdet.get(index);
+            Integer id = record.getInt(eKitdet.id);
+            //qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
+            qKitpar2.clear();
+            qKitpar2.addAll(eKitpar2.find(id));
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab4);
+        }
+    }
+
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
@@ -227,47 +268,6 @@ public class Kits extends javax.swing.JFrame {
             record2.set(eKitdet.color3_id, ID);
             UGui.fireTableRowUpdated(tab3);
         };
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-        List.of(qKits, qKitdet).forEach(q -> q.execsql());
-        UGui.clearTable(tab2, tab3, tab4);
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qCateg.get(index);
-            Integer id = record.getInt(eGroups.id);
-            qKits.select(eKits.up, "where", eKits.groups_id, "=", id, "order by", eKits.name);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-        }
-    }
-
-    public void selectionTab2(ListSelectionEvent event) {
-        List.of(qKitdet).forEach(q -> q.execsql());
-        UGui.clearTable(tab3, tab4);
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record record = qKits.get(index);
-            Integer id = record.getInt(eKits.id);
-            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
-        }
-    }
-
-    public void selectionTab3(ListSelectionEvent event) {
-        List.of(qKitpar2).forEach(q -> q.execsql());
-        UGui.clearTable(tab4);
-        int index = UGui.getIndexRec(tab3);
-        if (index != -1) {
-            Record record = qKitdet.get(index);
-            Integer id = record.getInt(eKitdet.id);
-            //qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
-            qKitpar2.clear();
-            qKitpar2.addAll(eKitpar2.find(id));
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4);
-        }
     }
 
     @SuppressWarnings("unchecked")

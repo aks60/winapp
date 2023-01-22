@@ -512,18 +512,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         }
     }
 
-    private Wincalc winc() {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-            Object v = sysprodRec.get(ePrjprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                return (Wincalc) v;
-            }
-        }
-        return null;
-    }
-
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
@@ -678,6 +666,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         listenerQuery = (q) -> {
             return true;
         };
+    }
+
+    private Wincalc winc() {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+            Object v = sysprodRec.get(ePrjprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
+        return null;
     }
 
     public void updateScript(float selectID) {

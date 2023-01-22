@@ -47,6 +47,21 @@ public class Texture extends javax.swing.JFrame {
         qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+
+        UGui.stopCellEditing(tab1, tab2);
+        List.of(qGroup1, qColor).forEach(q -> q.execsql());
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+
+            Record record = qGroup1.table(eGroups.up).get(index);
+            Integer cgrup = record.getInt(eGroups.id);
+            qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
+    }
+
     public void loadingModel() {
 
         new DefTableModel(tab1, qGroup1, eGroups.name, eGroups.val);
@@ -78,21 +93,6 @@ public class Texture extends javax.swing.JFrame {
                 qColor.execsql();
             }
         });
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-
-        UGui.stopCellEditing(tab1, tab2);
-        List.of(qGroup1, qColor).forEach(q -> q.execsql());
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-
-            Record record = qGroup1.table(eGroups.up).get(index);
-            Integer cgrup = record.getInt(eGroups.id);
-            qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-        }
     }
 
     @SuppressWarnings("unchecked")

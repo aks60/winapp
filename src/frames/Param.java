@@ -87,6 +87,34 @@ public class Param extends javax.swing.JFrame {
         UGui.setSelectedRow(tab3);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+            UGui.clearTable(tab2);
+            Record groupsRec = qGroups1.get(index);
+            Integer id = groupsRec.getInt(eGroups.id);
+            qParams.select(eParams.up, "where", eParams.groups_id, "=", id, "order by", eParams.text);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
+    }
+
+    public void selectionTab3(ListSelectionEvent event) {
+        int index = UGui.getIndexRec(tab3);
+        if (index != -1) {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+            UGui.clearTable(tab4);
+            Record groupsRec = qGroups2.get(index);
+            Integer id = groupsRec.getInt(eGroups.id);
+            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=", id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab4);
+        }
+    }
+
     public void listenerAdd() {
 
         ListenerRecord listenerColor1 = (record) -> {
@@ -121,34 +149,6 @@ public class Param extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
             new DicColor(this, listenerColor2, false, false);
         });
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
-            UGui.clearTable(tab2);
-            Record groupsRec = qGroups1.get(index);
-            Integer id = groupsRec.getInt(eGroups.id);
-            qParams.select(eParams.up, "where", eParams.groups_id, "=", id, "order by", eParams.text);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-        }
-    }
-
-    public void selectionTab3(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab3);
-        if (index != -1) {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
-            UGui.clearTable(tab4);
-            Record groupsRec = qGroups2.get(index);
-            Integer id = groupsRec.getInt(eGroups.id);
-            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=", id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4);
-        }
     }
 
     @SuppressWarnings("unchecked")

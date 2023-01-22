@@ -390,178 +390,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
     }
 
-    public void listenerAdd() {
-        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
-            }, UseArtiklTo.values());
-        });
-
-        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
-            new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
-            }, UseSide.values());
-        });
-
-        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });
-
-        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });
-
-        UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
-        });
-
-        UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
-            }, TypeOpen2.values());
-        });
-
-        UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
-            }, LayoutHandle.values());
-        });
-
-        UGui.buttonCellEditor(tab3, 5).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
-        });
-
-        UGui.buttonCellEditor(tab3, 6).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
-        });
-
-        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParDefault frame = new ParDefault(this, listenerParam1);
-        });
-
-        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
-            ParDefault frame = new ParDefault(this, listenerParam2, grup);
-        });
-
-        UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
-            int fixed = syspar1Rec.getInt(eSyspar1.fixed);
-//            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
-//            Record re2 = eSyspar1.find2(id);
-//            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
-            if (fixed == 0) {
-                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
-                ParDefault frame = new ParDefault(this, listenerParam3, grup);
-            } else {
-                JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
-            }
-        });
-    }
-
-    public void listenerSet() {
-
-        listenerArtikl = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab2);
-            qSysprof.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eSysprof.artikl_id);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab2, index);
-        };
-
-        listenerModel = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-
-            //Запишем в скрипт ветку из которого будет создаваться окно  
-            String script = record.get(2).toString();
-            JsonObject je = new GsonBuilder().create().fromJson(script, JsonObject.class);
-            je.addProperty("nuni", systreeID);
-            String script2 = new GsonBuilder().create().toJson(je);
-
-            //Сохраним скрипт в базе
-            Record sysprodRec = eSysprod.up.newRecord(Query.INS);
-            sysprodRec.setNo(eSysprod.id, Conn.genId(eSysprod.id));
-            sysprodRec.setNo(eSysprod.npp, sysprodRec.get(eSysprod.id));
-            sysprodRec.setNo(eSysprod.systree_id, systreeID);
-            sysprodRec.setNo(eSysprod.name, record.get(1));
-            sysprodRec.setNo(eSysprod.script, script2);
-            qSysprod.insert(sysprodRec);
-
-            loadingTab5();
-
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            for (int index = 0; index < qSysprod.size(); ++index) {
-                if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
-                    UGui.setSelectedIndex(tab5, index); //выделение рабочей записи
-                    UGui.scrollRectToRow(index, tab5);
-                    winTree.setSelectionRow(0);
-                }
-            }
-        };
-
-        listenerFurn = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eFurniture.id), UGui.getIndexRec(tab3), eSysfurn.furniture_id);
-            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), UGui.getIndexRec(tab3), eFurniture.name);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
-        };
-
-        listenerArt211 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id1);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
-        };
-
-        listenerArt212 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id2);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
-        };
-
-        listenerParam1 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
-            qSyspar2.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
-        listenerParam2 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
-        listenerParam3 = (record) -> {
-            int index = UGui.getIndexRec(tab5);
-            int index2 = UGui.getIndexRec(tab7);
-            if (index != -1) {
-                Record sysprodRec = qSysprod.get(index);
-                String script = sysprodRec.getStr(eSysprod.script);
-                String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
-                sysprodRec.set(eSysprod.script, script2);
-                qSysprod.execsql();
-                wincalc().build(script2);
-                UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
-                selectionTree2();
-                UGui.setSelectedIndex(tab7, index2);
-            }
-        };
-    }
-
     public void selectionTree1() {
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
         List.of(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
@@ -773,6 +601,178 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         } else {
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
+    }
+
+    public void listenerAdd() {
+        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
+            new DicEnums(this, (record) -> {
+                UGui.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+            }, UseArtiklTo.values());
+        });
+
+        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
+            new DicEnums(this, (record) -> {
+                UGui.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+            }, UseSide.values());
+        });
+
+        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+
+        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+
+        UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
+            DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
+        });
+
+        UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
+            DicEnums frame = new DicEnums(this, (record) -> {
+                UGui.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
+            }, TypeOpen2.values());
+        });
+
+        UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
+            DicEnums frame = new DicEnums(this, (record) -> {
+                UGui.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
+            }, LayoutHandle.values());
+        });
+
+        UGui.buttonCellEditor(tab3, 5).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
+            DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
+        });
+
+        UGui.buttonCellEditor(tab3, 6).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
+            DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
+        });
+
+        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
+            ParDefault frame = new ParDefault(this, listenerParam1);
+        });
+
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
+            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
+            ParDefault frame = new ParDefault(this, listenerParam2, grup);
+        });
+
+        UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
+            Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
+            int fixed = syspar1Rec.getInt(eSyspar1.fixed);
+//            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
+//            Record re2 = eSyspar1.find2(id);
+//            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
+            if (fixed == 0) {
+                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
+                ParDefault frame = new ParDefault(this, listenerParam3, grup);
+            } else {
+                JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
+            }
+        });
+    }
+
+    public void listenerSet() {
+
+        listenerArtikl = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab2);
+            qSysprof.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eSysprof.artikl_id);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab2, index);
+        };
+
+        listenerModel = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+
+            //Запишем в скрипт ветку из которого будет создаваться окно  
+            String script = record.get(2).toString();
+            JsonObject je = new GsonBuilder().create().fromJson(script, JsonObject.class);
+            je.addProperty("nuni", systreeID);
+            String script2 = new GsonBuilder().create().toJson(je);
+
+            //Сохраним скрипт в базе
+            Record sysprodRec = eSysprod.up.newRecord(Query.INS);
+            sysprodRec.setNo(eSysprod.id, Conn.genId(eSysprod.id));
+            sysprodRec.setNo(eSysprod.npp, sysprodRec.get(eSysprod.id));
+            sysprodRec.setNo(eSysprod.systree_id, systreeID);
+            sysprodRec.setNo(eSysprod.name, record.get(1));
+            sysprodRec.setNo(eSysprod.script, script2);
+            qSysprod.insert(sysprodRec);
+
+            loadingTab5();
+
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            for (int index = 0; index < qSysprod.size(); ++index) {
+                if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
+                    UGui.setSelectedIndex(tab5, index); //выделение рабочей записи
+                    UGui.scrollRectToRow(index, tab5);
+                    winTree.setSelectionRow(0);
+                }
+            }
+        };
+
+        listenerFurn = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eFurniture.id), UGui.getIndexRec(tab3), eSysfurn.furniture_id);
+            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), UGui.getIndexRec(tab3), eFurniture.name);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab3, index);
+        };
+
+        listenerArt211 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab3, index);
+        };
+
+        listenerArt212 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id2);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab3, index);
+        };
+
+        listenerParam1 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar2.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        listenerParam2 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        listenerParam3 = (record) -> {
+            int index = UGui.getIndexRec(tab5);
+            int index2 = UGui.getIndexRec(tab7);
+            if (index != -1) {
+                Record sysprodRec = qSysprod.get(index);
+                String script = sysprodRec.getStr(eSysprod.script);
+                String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                sysprodRec.set(eSysprod.script, script2);
+                qSysprod.execsql();
+                wincalc().build(script2);
+                UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
+                selectionTree2();
+                UGui.setSelectedIndex(tab7, index2);
+            }
+        };
     }
 
     public ArrayList<DefMutableTreeNode> addChild(

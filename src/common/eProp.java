@@ -54,7 +54,6 @@ public enum eProp {
     public static String password = "*";
     public static String role = null;
     public static Locale locale = new Locale("ru", "RU");
-    public static Locale localeOld = null;
     public static String fb = "fb";
     public static boolean dev = true;     //признак разработки и тестирования
     public static boolean locate = false;  //координаты фрейма разработки и тестирования

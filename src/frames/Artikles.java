@@ -242,6 +242,114 @@ public class Artikles extends javax.swing.JFrame {
         });
     }
 
+    public void loadingTree() {
+
+        nodeRoot = new DefaultMutableTreeNode(TypeArtikl.ROOT);
+        DefaultMutableTreeNode node = null;
+        for (TypeArtikl it : TypeArtikl.values()) {
+            if (it.id1 == 1 && it.id2 == 0) {
+                node = new DefaultMutableTreeNode(TypeArtikl.X100); //"Профили"
+
+            } else if (it.id1 == 2 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X200); //"Аксессуары"
+
+            } else if (it.id1 == 3 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X300); //"Погонаж"
+
+            } else if (it.id1 == 4 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X400); //"Инструмент"
+
+            } else if (it.id1 == 5 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
+
+            } else if (it.id2 > 0) {   //остальное       
+                nodeRoot.add(node);
+                node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
+            }
+        }
+        nodeRoot.add(node);
+        tree.setModel(new DefaultTreeModel(nodeRoot));
+        scrTree.setViewportView(tree);
+        tree.setSelectionRow(0);
+    }
+
+    public void selectionTree() {
+
+        UGui.stopCellEditing(tab1, tab2);
+        List.of(qArtikl, qArtdet).forEach(q -> q.execsql());
+        rsvArtikl.clear();
+        UGui.clearTable(tab1, tab2);
+        UGui.stopCellEditing(tab1, tab2);
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (node != null) {
+            TypeArtikl e = (TypeArtikl) node.getUserObject();
+            String name = (e.id1 > 4) ? "pan8" : (e.id1 > 1) ? "pan7" : "pan2";
+            ((CardLayout) pan6.getLayout()).show(pan6, name);
+
+            if (e == TypeArtikl.ROOT) {
+                qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
+            } else if (node.isLeaf()) {
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+            } else {
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+            }
+            DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
+            lab1.setText((node2 != null && node.getParent() != null) ? " Тип: " + ((TypeArtikl) node2.getUserObject()).id1
+                    + "  подтип: " + ((TypeArtikl) node.getUserObject()).id2 : "");
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        }
+        UGui.setSelectedRow(tab1);
+
+    }
+
+    public void selectionTab1(ListSelectionEvent event) {
+
+        UGui.stopCellEditing(tab2);
+        List.of(qArtdet).forEach(q -> q.execsql());
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qArtikl.get(index);
+
+            String name = (record.getInt(eArtikl.level1) > 4) ? "pan8" : (record.getInt(eArtikl.level1) > 1) ? "pan7" : "pan2";
+            ((CardLayout) pan6.getLayout()).show(pan6, name);
+
+            int id = record.getInt(eArtikl.id);
+            lab2.setText(" id: " + id);
+            qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
+            rsvArtikl.load();
+            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
+    }
+
+    public void setSelectionPath(Record artiklRec) {
+        DefaultMutableTreeNode node = nodeRoot;
+        node = node.getNextNode();
+        do {
+            TypeArtikl typeArt = (TypeArtikl) node.getUserObject();
+            if (typeArt.id1 == artiklRec.getInt(eArtikl.level1)
+                    && typeArt.id2 == artiklRec.getInt(eArtikl.level2)) {
+                TreePath path = new TreePath(node.getPath());
+                tree.setSelectionPath(path);
+                tree.scrollPathToVisible(path);
+            }
+            node = node.getNextNode();
+        } while (node != null);
+
+        for (int index = 0; index < qArtikl.size(); ++index) {
+            int id = qArtikl.getAs(index, eArtikl.id);
+            if (id == artiklRec.getInt(eArtikl.id)) {
+                UGui.setSelectedIndex(tab1, index);
+                UGui.scrollRectToRow(index, tab1);
+            }
+        }
+    }
+    
     public void listenerSet() {
 
         listenerSeries = (record) -> {
@@ -357,114 +465,6 @@ public class Artikles extends javax.swing.JFrame {
                 UGui.stopCellEditing(tab1, tab2);
             }
         };
-    }
-
-    public void loadingTree() {
-
-        nodeRoot = new DefaultMutableTreeNode(TypeArtikl.ROOT);
-        DefaultMutableTreeNode node = null;
-        for (TypeArtikl it : TypeArtikl.values()) {
-            if (it.id1 == 1 && it.id2 == 0) {
-                node = new DefaultMutableTreeNode(TypeArtikl.X100); //"Профили"
-
-            } else if (it.id1 == 2 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.X200); //"Аксессуары"
-
-            } else if (it.id1 == 3 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.X300); //"Погонаж"
-
-            } else if (it.id1 == 4 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.X400); //"Инструмент"
-
-            } else if (it.id1 == 5 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
-
-            } else if (it.id2 > 0) {   //остальное       
-                nodeRoot.add(node);
-                node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
-            }
-        }
-        nodeRoot.add(node);
-        tree.setModel(new DefaultTreeModel(nodeRoot));
-        scrTree.setViewportView(tree);
-        tree.setSelectionRow(0);
-    }
-
-    public void selectionTree() {
-
-        UGui.stopCellEditing(tab1, tab2);
-        List.of(qArtikl, qArtdet).forEach(q -> q.execsql());
-        rsvArtikl.clear();
-        UGui.clearTable(tab1, tab2);
-        UGui.stopCellEditing(tab1, tab2);
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (node != null) {
-            TypeArtikl e = (TypeArtikl) node.getUserObject();
-            String name = (e.id1 > 4) ? "pan8" : (e.id1 > 1) ? "pan7" : "pan2";
-            ((CardLayout) pan6.getLayout()).show(pan6, name);
-
-            if (e == TypeArtikl.ROOT) {
-                qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
-            } else if (node.isLeaf()) {
-                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-            } else {
-                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
-            }
-            DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
-            lab1.setText((node2 != null && node.getParent() != null) ? " Тип: " + ((TypeArtikl) node2.getUserObject()).id1
-                    + "  подтип: " + ((TypeArtikl) node.getUserObject()).id2 : "");
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        }
-        UGui.setSelectedRow(tab1);
-
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-
-        UGui.stopCellEditing(tab2);
-        List.of(qArtdet).forEach(q -> q.execsql());
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qArtikl.get(index);
-
-            String name = (record.getInt(eArtikl.level1) > 4) ? "pan8" : (record.getInt(eArtikl.level1) > 1) ? "pan7" : "pan2";
-            ((CardLayout) pan6.getLayout()).show(pan6, name);
-
-            int id = record.getInt(eArtikl.id);
-            lab2.setText(" id: " + id);
-            qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-            rsvArtikl.load();
-            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-        }
-    }
-
-    public void setSelectionPath(Record artiklRec) {
-        DefaultMutableTreeNode node = nodeRoot;
-        node = node.getNextNode();
-        do {
-            TypeArtikl typeArt = (TypeArtikl) node.getUserObject();
-            if (typeArt.id1 == artiklRec.getInt(eArtikl.level1)
-                    && typeArt.id2 == artiklRec.getInt(eArtikl.level2)) {
-                TreePath path = new TreePath(node.getPath());
-                tree.setSelectionPath(path);
-                tree.scrollPathToVisible(path);
-            }
-            node = node.getNextNode();
-        } while (node != null);
-
-        for (int index = 0; index < qArtikl.size(); ++index) {
-            int id = qArtikl.getAs(index, eArtikl.id);
-            if (id == artiklRec.getInt(eArtikl.id)) {
-                UGui.setSelectedIndex(tab1, index);
-                UGui.scrollRectToRow(index, tab1);
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")

@@ -248,6 +248,44 @@ public class Joinings extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
+    public void selectionTab1(ListSelectionEvent event) {
+        UGui.clearTable(tab2, tab3, tab4, tab5);
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qJoining.table(eJoining.up).get(index);
+            Integer id = record.getInt(eJoining.id);
+            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
+        }
+    }
+
+    public void selectionTab2(ListSelectionEvent event) {
+        UGui.clearTable(tab3, tab4, tab5);
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qJoinvar.table(eJoinvar.up).get(index);
+            Integer id = record.getInt(eJoinvar.id);
+            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
+            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab4);
+        }
+    }
+
+    public void selectionTab4(ListSelectionEvent event) {
+        int index = UGui.getIndexRec(tab4);
+        if (index != -1) {
+            Record record = qJoindet.table(eJoindet.up).get(index);
+            Integer id = record.getInt(eJoindet.id);
+            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab5);
+        }
+    }
+
     public void listenerAdd() {
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1);
@@ -435,44 +473,6 @@ public class Joinings extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab2, index);
         };
-    }
-
-    public void selectionTab1(ListSelectionEvent event) {
-        UGui.clearTable(tab2, tab3, tab4, tab5);
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            Record record = qJoining.table(eJoining.up).get(index);
-            Integer id = record.getInt(eJoining.id);
-            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
-        }
-    }
-
-    public void selectionTab2(ListSelectionEvent event) {
-        UGui.clearTable(tab3, tab4, tab5);
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record record = qJoinvar.table(eJoinvar.up).get(index);
-            Integer id = record.getInt(eJoinvar.id);
-            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
-            UGui.setSelectedRow(tab4);
-        }
-    }
-
-    public void selectionTab4(ListSelectionEvent event) {
-        int index = UGui.getIndexRec(tab4);
-        if (index != -1) {
-            Record record = qJoindet.table(eJoindet.up).get(index);
-            Integer id = record.getInt(eJoindet.id);
-            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab5);
-        }
     }
 
     public void deteilFind(int deteilID) {

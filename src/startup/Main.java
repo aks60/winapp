@@ -13,7 +13,7 @@ public class Main {
 
     //Конструктор
     public Main() {
-        Locale.setDefault(eProp.locale); 
+        Locale.setDefault(eProp.locale);
         LogoToDb frame = new LogoToDb(null);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
@@ -21,9 +21,8 @@ public class Main {
 
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
-        
-        //UCom.init();
 
+        //UCom.init();
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
                 eProp.profile = args[0];
@@ -38,7 +37,7 @@ public class Main {
                 eProp.locate = true;
             }
         }
-        
+
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
@@ -56,19 +55,16 @@ public class Main {
                 }
                 new Main();
                 //закрываю и сохраняю проперти
-                Thread thread = new Thread() {
-
+                Runtime.getRuntime().addShutdownHook(new Thread() {
+                    @Override
                     public void run() {
                         try {
                             eProp.save();
-                            //Main.this.getInputContext().selectInputMethod(eProp.locale);
-                            
                         } catch (Exception e) {
                             System.err.println(e);
                         }
                     }
-                };
-                Runtime.getRuntime().addShutdownHook(thread);
+                });
             }
         });
     }
@@ -196,7 +192,7 @@ public class Main {
         UIManager.put("FileChooser.saveInLabelText", "Сохранить в:");
         UIManager.put("FileChooser.upFolderAccessibleName", "Вверх");
         UIManager.put("FileChooser.upFolderToolTipText", "На один уровень вверх");
-        UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");        
+        UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");
         UIManager.put("MetalTitlePane.closeMnemonic", "67");
         UIManager.put("MetalTitlePane.closeTitle", "Закрыть");
         UIManager.put("MetalTitlePane.iconifyMnemonic", "69");
@@ -230,6 +226,6 @@ public class Main {
         UIManager.put("FileChooser.upFolderAccessibleName", "Вверх");
         UIManager.put("FileChooser.upFolderToolTipText", "Вверх на один уровень");
         UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");
-       */
+         */
     }
 }
