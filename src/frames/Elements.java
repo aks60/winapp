@@ -55,8 +55,7 @@ import report.HtmlOfTable;
 
 public class Elements extends javax.swing.JFrame {
 
-    private Query qGrMap = new Query(eGroups.values());
-    private Query qGrSeri = new Query(eGroups.values());
+    private Query qGroups = new Query(eGroups.values());
     private Query qGrCateg = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
@@ -106,9 +105,10 @@ public class Elements extends javax.swing.JFrame {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_ELEM.id);
-        qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGroups.SERI_ELEM.id,
+                ",", TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
+
         Record record = eGroups.up.newRecord(Query.SEL);
         record.setNo(eGroups.id, -1);
         record.setNo(eGroups.npp, 1);
@@ -140,7 +140,7 @@ public class Elements extends javax.swing.JFrame {
                     return List.of(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
                 } else if (val != null && columns[col] == eElement.groups1_id) {
-                    return qGrSeri.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
+                    return qGroups.find(val, eGroups.id).get(eGroups.name);
                 }
                 return val;
             }
@@ -161,10 +161,11 @@ public class Elements extends javax.swing.JFrame {
                             return UseColor.precision[1];
                         }
                         if (colorFk > 0) {
-                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                            return qColor.find(colorFk, eColor.id).get(eColor.name);
                         } else {
-                            return "# " + qGrMap.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                            return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
+                        
                     } else if (eElemdet.types == field) {
                         int types = Integer.valueOf(val.toString());
                         types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
@@ -179,12 +180,12 @@ public class Elements extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eElempar1.params_id == field) {
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;
@@ -196,12 +197,12 @@ public class Elements extends javax.swing.JFrame {
                 if (val != null) {
                     Field field = columns[col];
                     if (field == eElempar2.params_id) {
+
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
-                            Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                            return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                         } else {
-                            Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                            Enam en = ParamList.find(val);
+                            return Record.getDev(en.numb(), en.text());
                         }
                     }
                 }
@@ -1008,7 +1009,7 @@ public class Elements extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            if (UGui.getIndexRec(tab1) != -1)  {
+            if (UGui.getIndexRec(tab1) != -1) {
                 Record groupsRec = qGrCateg.get(UGui.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
                 if ((id == -1 || id == -5) == false) {

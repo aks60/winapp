@@ -122,7 +122,7 @@ public class Furniturs extends javax.swing.JFrame {
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
         int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
         if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
@@ -172,11 +172,10 @@ public class Furniturs extends javax.swing.JFrame {
                             return UseColor.precision[1];
                         }
                         if (colorFk > 0) {
-                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                            return qColor.find(colorFk, eColor.id).get(eColor.name);
                         } else {
-                            return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                            return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
-
                     } else if (val != null && eFurndet.types == field) {
                         int types = Integer.valueOf(val.toString());
                         types = types & 0x0000000f;
@@ -212,9 +211,9 @@ public class Furniturs extends javax.swing.JFrame {
                         return UseColor.precision[1];
                     }
                     if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        return qColor.find(colorFk, eColor.id).get(eColor.name);
                     } else {
-                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -251,9 +250,9 @@ public class Furniturs extends javax.swing.JFrame {
                         return UseColor.precision[1];
                     }
                     if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        return qColor.find(colorFk, eColor.id).get(eColor.name);
                     } else {
-                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -298,13 +297,13 @@ public class Furniturs extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eFurnpar1.params_id && val != null) {
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
-                    }
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
+                    }                    
                 }
                 return val;
             }
@@ -327,12 +326,12 @@ public class Furniturs extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eFurnpar2.params_id) {
+                    
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;

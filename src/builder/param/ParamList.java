@@ -20,12 +20,15 @@ public class ParamList {
         return ("ps3".equals(eSetting.find(2)) == true) ? Ps3.values() : Ps4.values();
     }
 
-    public static Enam find(int grup) {
-        if ("ps3".equals(eSetting.find(2)) == true) {
-            return Arrays.stream(Ps3.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
-        } else {
-            return Arrays.stream(Ps4.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
+    public static Enam find(Object grup) {
+        if (grup instanceof Integer) {
+            if ("ps3".equals(eSetting.find(2)) == true) {
+                return Arrays.stream(Ps3.values()).filter(en -> en.numb() == Integer.valueOf(grup.toString())).findFirst().orElse(null);
+            } else {
+                return Arrays.stream(Ps4.values()).filter(en -> en.numb() == Integer.valueOf(grup.toString())).findFirst().orElse(null);
+            }
         }
+        return null;
     }
 
     public static enum Ps3 implements Enam {
@@ -144,7 +147,7 @@ public class ParamList {
         P8075(8075, "Углы реза", dic_8075),
         P8081(8081, 0, "Ширина комплекта, мм", check_FLOAT),
         P8083(8083, 0, "Набрать_длину_с_нахлестом, мм", check_STRING),
-        P8097(8097, 0, "Трудозатраты по длине", check_STRING),        
+        P8097(8097, 0, "Трудозатраты по длине", check_STRING),
         P8098(8098, 0, "Бригада (участок)", dic_TEAM),
         P8099(8099, 0, "Трудозатраты, ч/ч.", check_FLOAT),
         P9050(9050, "Поправка длины, мм", check_FLOAT),
@@ -154,7 +157,7 @@ public class ParamList {
         P9070(9070, "Ширина, мм", check_FLOAT),
         P9081(9081, 0, "Если ширина комплекта, мм", check_STRING),
         P9083(9083, 0, "Набрать длину с нахлестом/Длина , мм", check_STRING),
-        P9097(9097, 0, "Трудозатраты по площади", check_FLOAT),        
+        P9097(9097, 0, "Трудозатраты по площади", check_FLOAT),
         P9098(9098, 0, "Бригада (участок)", dic_TEAM),
         P9099(9099, 0, "Трудозатраты, ч/ч.", check_FLOAT),
         P11001(11001, "Если величина состава Арт.1", check_STRING),
@@ -694,7 +697,7 @@ public class ParamList {
         P9071(9071, "Ширина, мм", check_FORMULA),
         P9081(9081, 0, "Если ширина комплекта, мм", check_STRING),
         P9083(9083, 0, "Набрать длину с нахлестом/Длина , мм", check_STRING),
-        P9097(9097, 0, "Трудозатраты по площади", check_FLOAT),        
+        P9097(9097, 0, "Трудозатраты по площади", check_FLOAT),
         P9098(9098, 0, "Бригада (участок)", dic_TEAM),
         P9099(9099, 0, "Трудозатраты, ч/ч.", check_FLOAT),
         P11000(11000, "Для технологического кода контейнера (1/2)", check_FLOAT_LIST2),
@@ -1213,7 +1216,7 @@ public class ParamList {
     public static Dictionary dic_OK_NO = () -> {
         return List.of("Да", "Нет");
     };
-    
+
     public static Dictionary dic_AUTO_OK_NO = () -> {
         return List.of("Авто", "Да", "Нет");
     };
@@ -1309,7 +1312,7 @@ public class ParamList {
     public static Dictionary dic_8075 = () -> {
         return List.of("90х90", "90х45", "45х90", "45х45");
     };
-    
+
     public static Dictionary dic_12075_34075_39075 = () -> {
         return List.of("по контейнерам", "по биссектрисам", "установить (90° x 90°)", "установить (90° x 45°)", "установить (45° x 45°)");
     };
@@ -1376,7 +1379,7 @@ public class ParamList {
 
         return true;
     };
-    
+
     public static Checkparam check_FORMULA = (c) -> {
 
         return true;

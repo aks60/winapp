@@ -95,9 +95,9 @@ public class Fillings extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGroups.COLOR_MAP.id, ",", TypeGroups.PARAM_USER.id, ")");
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
+        qParams.select(eParams.up);
         if (subsql == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
@@ -122,9 +122,9 @@ public class Fillings extends javax.swing.JFrame {
                             return UseColor.precision[1];
                         }
                         if (colorFk > 0) {
-                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                            return qColor.find(colorFk, eColor.id).get(eColor.name);
                         } else {
-                            return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                            return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
                     } else if (eGlasdet.types == field) {
                         int types = Integer.valueOf(val.toString());
@@ -140,12 +140,12 @@ public class Fillings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eGlaspar1.params_id == field) {
+                    
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;
@@ -156,12 +156,12 @@ public class Fillings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eGlaspar2.params_id) {
+                    
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;
@@ -210,7 +210,7 @@ public class Fillings extends javax.swing.JFrame {
 
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() 
+            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name()
                     + " from " + eArtikl.up.tname() + " where " + eArtikl.level1.name() + " = 5" + " order by " + eArtikl.depth.name());
             DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);
         });

@@ -87,20 +87,21 @@ import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
 import domain.eElement;
+import domain.eGroups;
+import enums.TypeGroups;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import report.ExecuteCmd;
-import report.HtmlOfTable;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
+    private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values());
@@ -147,6 +148,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public final void loadingData() {
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
         //Получим сохранённую systreeID при выходе из программы
         Record sysprodRec = null; //при открытии указывает на конструкцию
         if (this.systreeID == -1 && "-1".equals(eProp.sysprodID.read()) != true) {
@@ -245,15 +247,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
         new DefTableModel(tab4, qSyspar2, eSyspar1.params_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
+
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (eProp.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    }
+                    Record paramsRec = qParams.find(val, eParams.id);
+                    return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
                 return val;
             }
@@ -263,13 +261,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (eProp.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    }
+                    Record paramsRec = qParams.find(val, eParams.id);
+                    return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
                 return val;
             }
@@ -825,12 +818,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             //Установим курсор
             UGui.selectionPath(id, winTree);
-            
+
             //Перерисуем конструкцию
             scene.init(iwin);
             canvas.draw();
             scene.draw();
-            
+
             //Обновим поля форм
             selectionTree2();
 

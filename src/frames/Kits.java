@@ -40,6 +40,7 @@ import startup.App;
 
 public class Kits extends javax.swing.JFrame {
 
+    private Query qGroups = new Query(eGroups.values());
     private Query qCateg = new Query(eGroups.values());
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
@@ -58,6 +59,7 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingData() {
         eArtikl.query();
+        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
         qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.name);
         qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
@@ -70,10 +72,10 @@ public class Kits extends javax.swing.JFrame {
                 eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
             public Object getValueAt(int col, int row, Object val) {
-                
+
                 if (val != null && val.equals(0) && List.of(eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id).contains(columns[col])) {
                     return UseColor.automatic[1];
-                    
+
                 } else if (val != null && col == 0) {
                     return eArtikl.get((int) val).getStr(eArtikl.code);
 
@@ -104,12 +106,12 @@ public class Kits extends javax.swing.JFrame {
                 if (val != null) {
                     Field field = columns[col];
                     if (field == eKitpar2.params_id) {
+                        
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
-                            Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                            return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                         } else {
-                            Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                            Enam en = ParamList.find(val);
+                            return Record.getDev(en.numb(), en.text());
                         }
                     }
                 }
@@ -181,14 +183,14 @@ public class Kits extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 2);            
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 2);
             new DicColor(this, listenerColor2, colorSet, true, true);
         });
 
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab3));
             int artikl_id = record.getInt(eKitdet.artikl_id);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 3);           
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id, 3);
             new DicColor(this, listenerColor3, colorSet, true, false);
         });
 

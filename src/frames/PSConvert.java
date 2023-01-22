@@ -547,7 +547,7 @@ public class PSConvert {
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
-            executeSql("update groups set npp = 0");
+            executeSql("update groups set npp = 0 where grup != " + TypeGroups.CATEG_VST.id);
             String db = (numDb == 1) ? eProp.base1.read() : (numDb == 2) ? eProp.base2.read() : eProp.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 

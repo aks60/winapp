@@ -55,8 +55,24 @@ public class Record<E> extends ArrayList<E> {
     //При тестировании для разработчика
     public void setDev(Field field, String element) {
         if (eProp.dev == true) {
-            String val = element + "-" + super.get(1);
+            String val = element + " " + super.get(1);
             super.set(field.ordinal(), (E) val);
+        }
+    }
+
+    public static Object getDev(Object num, Object val) {
+        if (eProp.dev == true) {
+            return num + " " + val;
+        } else {
+            return val;
+        }
+    }
+
+    public Object getDev(Field field, Object val) {
+        if (eProp.dev == true) {
+            return val + " " + get(field.ordinal());
+        } else {
+            return get(field.ordinal());
         }
     }
 
