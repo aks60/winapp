@@ -16,13 +16,17 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import domain.eGroups;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
     private Frame parent = null;
     private ListenerRecord listener;
-    private Query qParams = new Query(eParams.values());
+    private Query qGroups = new Query(eGroups.values());
     private Field filter = null;
 
     public ParGrup2(Frame parent, ListenerRecord listener, Field filter, int... part) {
@@ -38,8 +42,11 @@ public class ParGrup2 extends javax.swing.JDialog {
     }
 
     public void loadingData() {
-        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        
+        Set<Integer> set = new HashSet();
+        Query qParams = new Query(eParams.values()).select(eParams.up, "where", filter.name(), "= 1");
+        qParams.forEach(rec -> set.add(rec.getInt(eParams.groups_id)));
+        String subsql = set.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        qGroups.select(eGroups.up, "where ", eGroups.id, "in " + subsql);
     }
 
     public void loadingModel(int... part) {
@@ -71,8 +78,9 @@ public class ParGrup2 extends javax.swing.JDialog {
         for (List record : recordList3) {
             dm3.addRow((Vector) record);
         }
-        tab2.setModel(new DefTableModel(tab2, qParams, eParams.id, eParams.id, eParams.text));
+        tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        
         UGui.setSelectedRow(tab1);
         UGui.setSelectedRow(tab2);
         UGui.setSelectedRow(tab3);
@@ -297,15 +305,15 @@ public class ParGrup2 extends javax.swing.JDialog {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "2", "3"},
-                {"1", "2", "3"}
+                {"2", "3"},
+                {"2", "3"}
             },
             new String [] {
-                "Группа", "Код", "Название "
+                "Код", "Название "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -321,9 +329,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -382,7 +388,7 @@ public class ParGrup2 extends javax.swing.JDialog {
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(UGui.getIndexRec(tab2)));
+            listener.action(qGroups.get(UGui.getIndexRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
@@ -391,7 +397,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         if (btnCard1.isSelected() == true) {
             listener.action(new Record(Arrays.asList(null, null)));
         } else {
-            listener.action(eParams.up.newRecord());
+            listener.action(eGroups.up.newRecord());
         }
         this.dispose();
     }//GEN-LAST:event_btnRemov
@@ -402,12 +408,12 @@ public class ParGrup2 extends javax.swing.JDialog {
             btnChoice.setEnabled(true);
             btnRemove.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card1");
-            
+
         } else if (btn == btnCard2) {
             btnChoice.setEnabled(true);
             btnRemove.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card2");
-            
+
         } else if (btn == btnCard3) {
             btnChoice.setEnabled(false);
             btnRemove.setEnabled(false);
