@@ -46,6 +46,7 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eElement;
 import domain.eFurniture;
+import domain.eGroups;
 import domain.eJoining;
 import domain.eJoinvar;
 import domain.eParams;
@@ -59,6 +60,7 @@ import domain.eSystree;
 import enums.Layout;
 import enums.LayoutHandle;
 import enums.PKjson;
+import enums.TypeGroups;
 import enums.TypeOpen1;
 import enums.UseSide;
 import frames.dialog.DicArtikl;
@@ -103,6 +105,7 @@ import startup.App;
 public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
+    private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qProjectAll = new Query(eProject.values());
@@ -138,6 +141,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }
 
     private void loadingData() {
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
         qParams.select(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
@@ -161,13 +165,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (eProp.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    }
+                    Record paramsRec = qParams.find(val, eParams.id);
+                    return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
                 return val;
             }

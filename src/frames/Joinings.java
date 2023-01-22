@@ -57,7 +57,6 @@ import report.HtmlOfTable;
 public class Joinings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
-    private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qJoining = new Query(eJoining.values());
@@ -122,8 +121,7 @@ public class Joinings extends javax.swing.JFrame {
     public void loadingData() {
 
         tab1.setToolTipText("");
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
-        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
@@ -159,12 +157,12 @@ public class Joinings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eJoinpar1.params_id == field) {
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;
@@ -188,7 +186,7 @@ public class Joinings extends javax.swing.JFrame {
 
                         if (UseColor.automatic[0].equals(colorFk)) {
                             return UseColor.automatic[1];
-                            
+
                         } else if (UseColor.precision[0].equals(colorFk)) {
                             return UseColor.precision[1];
                         }
@@ -218,12 +216,12 @@ public class Joinings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eJoinpar2.params_id == field) {
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
+                        Enam en = ParamList.find(val);
+                        return Record.getDev(en.numb(), en.text());
                     }
                 }
                 return val;

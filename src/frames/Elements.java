@@ -57,7 +57,6 @@ public class Elements extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qGrCateg = new Query(eGroups.values());
-    private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -104,7 +103,6 @@ public class Elements extends javax.swing.JFrame {
     public void loadingData() {
 
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
         qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGroups.SERI_ELEM.id,
                 ",", TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);

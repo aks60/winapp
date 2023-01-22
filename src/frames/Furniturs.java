@@ -65,7 +65,6 @@ public class Furniturs extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.groups_id, eColor.name);
-    private Query qParams = new Query(eParams.values());
     private Query qFurnall = new Query(eFurniture.values());
     private Query qFurniture = new Query(eFurniture.values());
     private Query qArtikl = new Query(eArtikl.values());
@@ -121,7 +120,6 @@ public class Furniturs extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
-        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
         int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
         if (subsql == null) {

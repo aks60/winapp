@@ -62,7 +62,6 @@ public class Kits extends javax.swing.JFrame {
         qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
         qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.name);
         qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
-        qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
     public void loadingModel() {
