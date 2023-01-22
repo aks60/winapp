@@ -781,19 +781,23 @@ public class UGui {
     }
 
     //Слушатель редактирование параметров
-    public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
+    public static void listenerParam(Record record, JTable table, Field id, Field text, JTable... tables) {
         UGui.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(UGui.getIndexRec(table));
 
         if (eParams.values().length == record.size()) {
-            record2.set(paramsID, record.getInt(eParams.id));
-            record2.set(text, ParamList.find(record.getInt(eParams.id)).def());
+            record2.set(id, record.getInt(eParams.id));
+            //record2.set(text, record.getStr(eParams.text));
+            
+        } else if (eGroups.values().length == record.size()) {
+            record2.set(id, record.getInt(eGroups.id));
+            //record2.set(text, record.getStr(eGroups.name));
 
         } else if (record.size() == 2) {
-            record2.set(paramsID, record.getInt(0));
-            record2.set(text, ParamList.find(record.getInt(0)).def());
+            record2.set(id, record.getInt(0));
+            //record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
             String val = record2.getStr(text);
