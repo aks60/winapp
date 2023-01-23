@@ -62,7 +62,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442;&#x44b;"/>
+                <Property name="text" type="java.lang.String" value="&#x426;&#x435;&#x43d;&#x43e;&#x432;&#x44b;&#x435; &#x43a;&#x43e;&#x44d;&#x444;..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnGroup1"/>
@@ -120,20 +120,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnColor"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mn24">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="frames.UGui.getFont(0,1)" type="code"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resource/img16/b055.gif"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x412;&#x430;&#x43b;&#x44e;&#x442;&#x430;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnCurrency"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mn23">
@@ -695,28 +681,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnColor"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn13">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c007.gif"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder>
-                  <Color PropertyName="color" blue="0" green="ff" red="0" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c001.gif"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnCurrency"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn11">

@@ -1,5 +1,6 @@
 package frames;
 
+import frames.dialog.DicCurrenc;
 import common.UCom;
 import common.eProp;
 import frames.dialog.DicColor;
@@ -2366,9 +2367,9 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, field);
-            Currenc frame = new Currenc(this, listener, id);
+            DicCurrenc frame = new DicCurrenc(this, listener, id);
         } else {
-            Currenc frame = new Currenc(this, listener);
+            DicCurrenc frame = new DicCurrenc(this, listener);
         }
     }//GEN-LAST:event_btn7
 

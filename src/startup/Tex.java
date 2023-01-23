@@ -101,7 +101,6 @@ public class Tex extends javax.swing.JFrame {
         tb1 = new javax.swing.JToolBar();
         btn14 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
-        btn13 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
         btn16 = new javax.swing.JButton();
         td5 = new javax.swing.JToolBar();
@@ -137,7 +136,6 @@ public class Tex extends javax.swing.JFrame {
         mn02 = new javax.swing.JMenu();
         mn26 = new javax.swing.JMenuItem();
         mn21 = new javax.swing.JMenuItem();
-        mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
         mn22 = new javax.swing.JMenuItem();
         mn09 = new javax.swing.JMenu();
@@ -267,18 +265,6 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         tb1.add(btn12);
-
-        btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c007.gif"))); // NOI18N
-        btn13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
-        btn13.setFocusable(false);
-        btn13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnCurrency(evt);
-            }
-        });
-        tb1.add(btn13);
 
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
         btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -600,7 +586,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn11.setFont(frames.UGui.getFont(0,1));
         mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn11.setText("Коэффициенты");
+        mn11.setText("Ценовые коэф...");
         mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnGroup1(evt);
@@ -643,16 +629,6 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn02.add(mn21);
-
-        mn24.setFont(frames.UGui.getFont(0,1));
-        mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
-        mn24.setText("Валюта");
-        mn24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnCurrency(evt);
-            }
-        });
-        mn02.add(mn24);
 
         mn23.setFont(frames.UGui.getFont(0,1));
         mn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
@@ -959,15 +935,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
     }//GEN-LAST:event_mHowTo
 
-    private void mnCurrency(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCurrency
-
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Currenc.createFrame(Tex.this);
-            }
-        });
-    }//GEN-LAST:event_mnCurrency
-
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1177,7 +1144,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JToggleButton btn1;
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
-    private javax.swing.JButton btn13;
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
     private javax.swing.JButton btn16;
@@ -1220,7 +1186,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenuItem mn21;
     private javax.swing.JMenuItem mn22;
     private javax.swing.JMenuItem mn23;
-    private javax.swing.JMenuItem mn24;
     private javax.swing.JMenuItem mn26;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;

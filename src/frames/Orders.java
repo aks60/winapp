@@ -1,5 +1,6 @@
 package frames;
 
+import frames.dialog.DicCurrenc;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.Wincalc;
@@ -3172,7 +3173,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_stateChanged
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        Currenc frame = new Currenc(this, (currencRec) -> {
+        DicCurrenc frame = new DicCurrenc(this, (currencRec) -> {
 
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {

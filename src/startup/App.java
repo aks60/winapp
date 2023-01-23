@@ -54,7 +54,7 @@ import domain.eSysuser;
 import frames.AboutBox;
 import frames.Artikles;
 import frames.Texture;
-import frames.Currenc;
+import frames.dialog.DicCurrenc;
 import frames.PSCompare;
 import frames.Elements;
 import frames.Fillings;
@@ -80,7 +80,7 @@ import javax.swing.JFrame;
 
 public enum App {
 
-    Top, Setting, Groups, Currenc, Color, Artikles, Joining, Element, Param,
+    Top, Setting, Groups, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
     Specification, Syssize, RuleCalc, PSFrame, PSCompare;
     public javax.swing.JFrame frame;
@@ -130,9 +130,6 @@ public enum App {
                     } else {
                         frame = new Joinings((Set) param[0], (int) param[1]);
                     }
-                    break;
-                case Currenc:
-                    frame = new Currenc();
                     break;
                 case Element:
                     if (param.length == 0) {
