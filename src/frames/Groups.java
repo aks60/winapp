@@ -2,6 +2,7 @@ package frames;
 
 import common.UCom;
 import dataset.Query;
+import domain.eCurrenc;
 import domain.eGroups;
 import domain.eSysprod;
 import enums.TypeGroups;
@@ -23,6 +24,7 @@ import report.HtmlOfTable;
 
 public class Groups extends javax.swing.JFrame {
 
+    private Query qCurrenc = new Query(eCurrenc.values());
     private Query qDecInc = new Query(eGroups.values());
     private Query qArtSeri = new Query(eGroups.values());
     private Query qArtIncr = new Query(eGroups.values());
@@ -44,6 +46,7 @@ public class Groups extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qColGrp.select(eGroups.up, "where", eGroups.grup, "= 2", "order by", eGroups.name);
         qColMap.select(eGroups.up, "where", eGroups.grup, "= 7", "order by", eGroups.name);
         qArtSeri.select(eGroups.up, "where", eGroups.grup, "= 3", "order by", eGroups.name);
@@ -60,7 +63,7 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab2, qArtDecr, eGroups.name, eGroups.val);
         new DefTableModel(tab3, qArtSeri, eGroups.name);
         new DefTableModel(tab4, qCategProf, eGroups.name);
-        new DefTableModel(tab5, qColGrp, eGroups.name, eGroups.val);        
+        new DefTableModel(tab5, qColGrp, eGroups.name, eGroups.val);
         new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
 
         List.of(tab1, tab2, tab5).forEach(tab -> tab.getColumnModel().getColumn(1).setCellEditor(new DefCellEditorNumb(3)));
@@ -129,6 +132,9 @@ public class Groups extends javax.swing.JFrame {
 
         centr = new javax.swing.JPanel();
         tabb = new javax.swing.JTabbedPane();
+        pan6 = new javax.swing.JPanel();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
         pan7 = new javax.swing.JPanel();
         scr7 = new javax.swing.JScrollPane();
         tab7 = new javax.swing.JTable();
@@ -175,6 +181,50 @@ public class Groups extends javax.swing.JFrame {
                 tabbStateChanged(evt);
             }
         });
+
+        pan6.setLayout(new java.awt.BorderLayout());
+
+        scr6.setBorder(null);
+
+        tab6.setFont(frames.UGui.getFont(0,0));
+        tab6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1111", "1", "1",  new Double(1.0), null},
+                {"222", "2", "2",  new Double(2.0), null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Название", "Ед. число", "Мн. число", "Курс", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab6.setFillsViewportHeight(true);
+        tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab6mouseClicked(evt);
+            }
+        });
+        scr6.setViewportView(tab6);
+
+        pan6.add(scr6, java.awt.BorderLayout.CENTER);
+
+        tabb.addTab("Курсы валют", pan6);
 
         pan7.setName("pan7"); // NOI18N
         pan7.setLayout(new java.awt.BorderLayout());
@@ -678,7 +728,11 @@ public class Groups extends javax.swing.JFrame {
             if (UGui.isDeleteRecord(tab5, this) == 0) {
                 UGui.deleteRecord(tab5);
             }
-        } 
+        } else if (tab6.getBorder() != null) {
+        if (UGui.isDeleteRecord(tab6, this) == 0) {
+            UGui.deleteRecord(tab6);
+        }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -714,6 +768,11 @@ public class Groups extends javax.swing.JFrame {
                 record.set(eGroups.val, 1);
                 record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
                 record.setDev(eGroups.name, "Коэф.групп.текстур");
+            });
+            
+        } else if (tab6.getBorder() != null) {
+            UGui.insertRecordEnd(tab6, eCurrenc.up, (record) -> {
+                record.setDev(eCurrenc.name, "Курс");
             });
 
         }
@@ -796,6 +855,12 @@ public class Groups extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnMove
 
+    private void tab6mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab6mouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab6mouseClicked
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -812,12 +877,14 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
+    private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr6;
     private javax.swing.JScrollPane scr7;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
@@ -825,6 +892,7 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTable tab6;
     private javax.swing.JTable tab7;
     private javax.swing.JTabbedPane tabb;
     // End of variables declaration//GEN-END:variables
@@ -838,7 +906,7 @@ public class Groups extends javax.swing.JFrame {
         TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2, tab3, tab4, tab5, tab7);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         List.of(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab7)));
     }
 }
