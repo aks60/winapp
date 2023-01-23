@@ -797,7 +797,7 @@ public class UGui {
 
         } else if (record.size() == 2) {
             record2.set(id, record.getInt(0));
-            //record2.set(text, ParamList.find(record.getInt(0)).def());
+            record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
             String val = record2.getStr(text);
