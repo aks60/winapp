@@ -382,12 +382,13 @@ public class ParGrup2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        if (btnCard1.isSelected() == true) {
+        if (btnCard1.isSelected() == true) {  //параметр системы
             Record record = new Record(2);
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 0));
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 1));
             listener.action(record);
-        } else {
+            
+        } else if (btnCard2.isSelected() == true) { //параметр пользователя
             listener.action(qGroups.get(UGui.getIndexRec(tab2)));
         }
         this.dispose();

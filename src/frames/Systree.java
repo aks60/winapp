@@ -599,13 +599,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+                UGui.cellParamEnum(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
             }, UseArtiklTo.values());
         });
 
         UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
             new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+                UGui.cellParamEnum(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
             }, UseSide.values());
         });
 
@@ -623,13 +623,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
+                UGui.cellParamEnum(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
             }, TypeOpen2.values());
         });
 
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
-                UGui.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
+                UGui.cellParamEnum(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
             }, LayoutHandle.values());
         });
 

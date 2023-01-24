@@ -401,7 +401,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerUnit = (record) -> {
-            UGui.listenerEnums(record, tab1, eArtikl.unit, tab1, tab2);
+            UGui.cellParamEnum(record, tab1, eArtikl.unit, tab1, tab2);
         };
 
         listenerCurrenc1 = (record) -> {

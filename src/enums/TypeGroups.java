@@ -4,7 +4,7 @@ import static enums.UseUnit.values;
 
 public enum TypeGroups implements Enam {
     PARAM_USER(1, "Параметры пользов."),
-    COLOR_GRP(2, "Группы цветов"),
+    COLOR_GRP(2, "Группы текстур"),
     SERI_ELEM(3, "Серии МЦ"),
     PRICE_INC(4, "Наценки МЦ"),
     PRICE_DEC(5, "Скидки МЦ"),

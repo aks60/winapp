@@ -256,7 +256,7 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab3, component, eGlaspar1.params_id);
+            return UGui.cellParamValue(tab3, component, eGlaspar1.params_id);
 
         }).addActionListener(event -> {
             int grup = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.params_id);
@@ -279,7 +279,7 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab4, component, eGlaspar2.params_id);
+            return UGui.cellParamValue(tab4, component, eGlaspar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qGlaspar2.get(UGui.getIndexRec(tab4));
@@ -324,7 +324,7 @@ public class Fillings extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
-            UGui.listenerColor(record, tab2, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamColor(record, tab2, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
@@ -382,11 +382,11 @@ public class Fillings extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            UGui.listenerParam(record, tab3, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamName(record, tab3, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            UGui.listenerParam(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamName(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

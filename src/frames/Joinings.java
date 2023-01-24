@@ -304,25 +304,25 @@ public class Joinings extends javax.swing.JFrame {
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParGrup2(this, (rec) -> {
 
-                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, joinVar * 100);
             }
         });
 
         UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab3, component, eJoinpar1.params_id);
+            return UGui.cellParamValue(tab3, component, eJoinpar1.params_id);
 
         }).addActionListener(event -> {
             Record record = qJoinpar1.get(UGui.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
                 new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });
@@ -344,7 +344,7 @@ public class Joinings extends javax.swing.JFrame {
             int artiklID = record.getInt(eJoindet.artikl_id);
             int colorID = record.getInt(eJoindet.color_fk, -1);
             new ParColor2(this, (rec) -> {
-                UGui.listenerColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
+                UGui.cellParamColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
             }, artiklID, colorID);
         });
 
@@ -375,25 +375,25 @@ public class Joinings extends javax.swing.JFrame {
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
                 new ParGrup2(this, (record) -> {
-                    UGui.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, part[level]);
             }
         });
 
         UGui.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab5, component, eJoinpar2.params_id);
+            return UGui.cellParamValue(tab5, component, eJoinpar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qJoinpar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
                 new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamName(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });

@@ -240,7 +240,7 @@ public class Tex extends javax.swing.JFrame {
         tb1.setRollover(true);
         tb1.setMaximumSize(new java.awt.Dimension(150, 28));
         tb1.setMinimumSize(new java.awt.Dimension(150, 28));
-        tb1.setPreferredSize(new java.awt.Dimension(146, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(120, 28));
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -343,7 +343,7 @@ public class Tex extends javax.swing.JFrame {
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(176, 28));
         tb2.setMinimumSize(new java.awt.Dimension(176, 28));
-        tb2.setPreferredSize(new java.awt.Dimension(200, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(198, 28));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
         btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));

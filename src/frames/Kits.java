@@ -208,25 +208,25 @@ public class Kits extends javax.swing.JFrame {
                     param = 9000;
                 }
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
-                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3);
+                    UGui.cellParamName(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3);
                 }, eParams.kits, param);
             }
         });
 
         UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab4, component, eKitpar2.params_id);
+            return UGui.cellParamValue(tab4, component, eKitpar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qKitpar2.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eKitpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, (rec) -> {
-                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.cellParamName(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, (rec) -> {
-                    UGui.listenerParam(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.cellParamName(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, list);
             }
         });

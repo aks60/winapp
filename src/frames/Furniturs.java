@@ -470,7 +470,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab4, component, eFurnpar1.params_id);
+            return UGui.cellParamValue(tab4, component, eFurnpar1.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar1.get(UGui.getIndexRec(tab4));
@@ -503,7 +503,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab6, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.listenerCell(tab6, component, eFurnpar2.params_id);
+            return UGui.cellParamValue(tab6, component, eFurnpar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar2.get(UGui.getIndexRec(tab6));
@@ -533,7 +533,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            UGui.listenerColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerColvar = (record) -> {
@@ -550,35 +550,35 @@ public class Furniturs extends javax.swing.JFrame {
         };
 
         listenerSide1 = (record) -> {
-            UGui.listenerEnums(record, tab3, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab3, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide2 = (record) -> {
-            UGui.listenerEnums(record, tab3, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab3, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide3 = (record) -> {
-            UGui.listenerEnums(record, tab5, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab5, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide4 = (record) -> {
-            UGui.listenerEnums(record, tab1, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab1, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerPar1 = (record) -> {
-            UGui.listenerParam(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamName(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerPar2 = (record) -> {
-            UGui.listenerParam(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamName(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerVariant1 = (record) -> {
-            UGui.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerVariant2 = (record) -> {
-            UGui.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamEnum(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 

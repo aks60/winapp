@@ -97,7 +97,7 @@ public class Rulecalc extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab2, 11).addActionListener(event -> {
-            new DicEnums(this, (record) -> UGui.listenerEnums(record, tab2, eRulecalc.form, tab2), TypeForm.values());
+            new DicEnums(this, (record) -> UGui.cellParamEnum(record, tab2, eRulecalc.form, tab2), TypeForm.values());
         });
 
         UGui.setSelectedRow(tab2);

@@ -749,8 +749,43 @@ public class UGui {
         return null;
     }
 
+    //Слушатель редактирование параметров
+    public static void cellParamName(Record record, JTable table, Field id, Field text, JTable... tables) {
+        UGui.stopCellEditing(tables);
+        int index = getIndexRec(table);
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        Record record2 = query.get(UGui.getIndexRec(table));
+
+        if (eParams.values().length == record.size()) {
+            record2.set(id, record.getInt(eParams.id));
+            record2.set(text, null);
+            
+        } else if (eGroups.values().length == record.size()) {
+            record2.set(id, record.getInt(eGroups.id));
+            record2.set(text, null);
+
+        } else if (record.size() == 2) {
+            record2.set(id, record.getInt(0));
+            record2.set(text, ParamList.find(record.getInt(0)).def());
+
+        } else if (record.size() == 1) {
+            String val = record2.getStr(text);
+
+            if (record.get(0) == null) {
+                record2.set(text, null);
+
+            } else if (val != null && val.isEmpty() == false) {
+                record2.set(text, val + ";" + record.getStr(0));
+
+            } else {
+                record2.set(text, record.getStr(0));
+            }
+        }
+        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
+    }
+
     //Редактирование типа данных и вида ячейки таблицы 
-    public static boolean listenerCell(JTable table, Object component, Field params_id) {
+    public static boolean cellParamValue(JTable table, Object component, Field params_id) {
         Query qParam = ((DefTableModel) table.getModel()).getQuery();
 
         if (component instanceof DefCellEditorBtn) { //установим вид и тип ячейки
@@ -779,44 +814,9 @@ public class UGui {
         }
         return true;
     }
-
-    //Слушатель редактирование параметров
-    public static void listenerParam(Record record, JTable table, Field id, Field text, JTable... tables) {
-        UGui.stopCellEditing(tables);
-        int index = getIndexRec(table);
-        Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record2 = query.get(UGui.getIndexRec(table));
-
-        if (eParams.values().length == record.size()) {
-            record2.set(id, record.getInt(eParams.id));
-            //record2.set(text, record.getStr(eParams.text));
-            
-        } else if (eGroups.values().length == record.size()) {
-            record2.set(id, record.getInt(eGroups.id));
-            //record2.set(text, record.getStr(eGroups.name));
-
-        } else if (record.size() == 2) {
-            record2.set(id, record.getInt(0));
-            record2.set(text, ParamList.find(record.getInt(0)).def());
-
-        } else if (record.size() == 1) {
-            String val = record2.getStr(text);
-
-            if (record.get(0) == null) {
-                record2.set(text, null);
-
-            } else if (val != null && val.isEmpty() == false) {
-                record2.set(text, val + ";" + record.getStr(0));
-
-            } else {
-                record2.set(text, record.getStr(0));
-            }
-        }
-        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
-    }
-
+    
     //Слушатель редактирование палитры
-    public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
+    public static void cellParamColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         UGui.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
@@ -836,7 +836,7 @@ public class UGui {
         UGui.setSelectedIndex(table, index);
     }
 
-    public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
+    public static void cellParamEnum(Record record, JTable table, Field field_fk, JTable... tables) {
         UGui.stopCellEditing(tables);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         int index = getIndexRec(table);
