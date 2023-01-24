@@ -756,18 +756,17 @@ public class UGui {
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(UGui.getIndexRec(table));
 
-        if (eParams.values().length == record.size()) {
-            record2.set(id, record.getInt(eParams.id));
-            record2.set(text, null);
-            
-        } else if (eGroups.values().length == record.size()) {
+        //Имя пользовательского параметра
+        if (eGroups.values().length == record.size()) {
             record2.set(id, record.getInt(eGroups.id));
             record2.set(text, null);
 
+            //Имя системного параметра из PalList
         } else if (record.size() == 2) {
             record2.set(id, record.getInt(0));
             record2.set(text, ParamList.find(record.getInt(0)).def());
 
+            //Значение параметра
         } else if (record.size() == 1) {
             String val = record2.getStr(text);
 
@@ -814,7 +813,7 @@ public class UGui {
         }
         return true;
     }
-    
+
     //Редактирование параметра текстуры
     public static void cellParamColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         UGui.stopCellEditing(tables);

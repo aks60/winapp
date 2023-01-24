@@ -337,7 +337,7 @@ public class Elements extends javax.swing.JFrame {
             }
         });
 
-        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки
             return UGui.cellParamTypeOrVid(tab4, component, eElempar1.params_id);
 
         }).addActionListener(event -> {
@@ -346,7 +346,7 @@ public class Elements extends javax.swing.JFrame {
             if (grup < 0) {
                 new ParUserVal(this, (val) -> {
                     UGui.cellParamNameOrValue(val, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
-                }, grup);
+                }, eParams.elem, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (val) -> {

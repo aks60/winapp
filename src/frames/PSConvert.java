@@ -378,7 +378,7 @@ public class PSConvert {
     public static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
-            //executeSql("delete from params where pnumb > 0");  //group > 0  
+            executeSql("delete from params where pnumb > 0");  //group > 0  
             deleteSql(eColmap.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            

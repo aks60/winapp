@@ -5,16 +5,28 @@ import frames.UGui;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
-import javax.swing.table.TableColumn;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
-import java.util.Arrays;
+import dataset.Field;
 
 public class ParUserVal extends javax.swing.JDialog {
 
     private int grup = -1;
-    private Query qParam2 = new Query(eParams.up.values());
+    private Field filter = null;
+    private Query qParams = new Query(eParams.up.values());
     private ListenerRecord listener;
+
+    public ParUserVal(java.awt.Frame parent, ListenerRecord listener, Field filter, int grup) {
+        super(parent, true);
+        initComponents();
+        this.filter = filter;
+        this.grup = grup;
+        initElements();
+        this.listener = listener;
+        loadingData();
+        loadingModel();
+        setVisible(true);
+    }
 
     public ParUserVal(java.awt.Frame parent, ListenerRecord listener, int grup) {
         super(parent, true);
@@ -28,11 +40,15 @@ public class ParUserVal extends javax.swing.JDialog {
     }
 
     public void loadingData() {
-        qParam2.select(eParams.up, "where", eParams.params_id, "=", grup, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
+        if (filter != null) {
+            qParams.select(eParams.up, "where", eParams.groups_id, "=", grup, "and", filter, "!= 0", "order by", eParams.text);
+        } else {
+            qParams.select(eParams.up, "where", eParams.groups_id, "=", grup, "order by", eParams.text);
+        }
     }
 
     public void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
+        tab1.setModel(new DefTableModel(tab1, qParams, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
     }
