@@ -2,38 +2,39 @@ package frames.dialog;
 
 import frames.FrameToFile;
 import frames.UGui;
+import dataset.Query;
 import dataset.Record;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
+import domain.eParams;
+import javax.swing.table.TableColumn;
+import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import java.util.Arrays;
 
-public class ParGrup2b extends javax.swing.JDialog {
+public class ParUserVal extends javax.swing.JDialog {
 
-    private List<String> list;
+    private int grup = -1;
+    private Query qParam2 = new Query(eParams.up.values());
     private ListenerRecord listener;
 
-    public ParGrup2b(java.awt.Frame parent, ListenerRecord listener, List list) {
+    public ParUserVal(java.awt.Frame parent, ListenerRecord listener, int grup) {
         super(parent, true);
         initComponents();
-        this.listener = listener;
-        this.list = list;
+        this.grup = grup;
         initElements();
+        this.listener = listener;
+        loadingData();
         loadingModel();
         setVisible(true);
     }
-    
+
+    public void loadingData() {
+        qParam2.select(eParams.up, "where", eParams.params_id, "=", grup, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
+    }
+
     public void loadingModel() {
-        Vector<Vector> vectorData = new Vector();
-        for (String str : list) {
-            Vector vector = new Vector();
-            vector.add(str);
-            vectorData.add(vector);
-        }
-        Vector column = new Vector();
-        column.add("Значения параметра");
-        ((DefaultTableModel) tab1.getModel()).setDataVector(vectorData, column);
+        tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,7 +51,7 @@ public class ParGrup2b extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Параметры системные");
+        setTitle("Параметры пользователя");
         setPreferredSize(new java.awt.Dimension(300, 450));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -84,7 +85,7 @@ public class ParGrup2b extends javax.swing.JDialog {
         btnChouce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnChouce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChouce(evt);
+                btnChoice(evt);
             }
         });
 
@@ -112,7 +113,7 @@ public class ParGrup2b extends javax.swing.JDialog {
                 .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -173,7 +174,7 @@ public class ParGrup2b extends javax.swing.JDialog {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 305, Short.MAX_VALUE)
+            .addGap(0, 331, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,12 +190,18 @@ public class ParGrup2b extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 0));
         listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnChouce
+    }//GEN-LAST:event_btnChoice
+
+    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab1MouseClicked
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         Record record = new Record(1);
@@ -202,13 +209,6 @@ public class ParGrup2b extends javax.swing.JDialog {
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemov
-
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChouce(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChouce;
@@ -220,9 +220,8 @@ public class ParGrup2b extends javax.swing.JDialog {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-    // </editor-fold> 
+// </editor-fold> 
     public void initElements() {
-
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }

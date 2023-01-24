@@ -21,9 +21,9 @@ import enums.UseColor;
 import enums.UseUnit;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
-import frames.dialog.ParGrup2;
-import frames.dialog.ParGrup2a;
-import frames.dialog.ParGrup2b;
+import frames.dialog.ParName;
+import frames.dialog.ParUserVal;
+import frames.dialog.ParSysVal;
 import frames.swing.DefCellRendererBool;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -207,7 +207,7 @@ public class Kits extends javax.swing.JFrame {
                 } else if (UseUnit.METR2.id == recordArt.getInt(eArtikl.unit)) {
                     param = 9000;
                 }
-                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+                ParName frame = new ParName(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3);
                 }, eParams.kits, param);
             }
@@ -220,12 +220,12 @@ public class Kits extends javax.swing.JFrame {
             Record record = qKitpar2.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eKitpar2.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, (rec) -> {
+                ParUserVal frame = new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, (rec) -> {
+                ParSysVal frame = new ParSysVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, list);
             }

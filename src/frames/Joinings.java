@@ -2,10 +2,10 @@ package frames;
 
 import builder.making.UColor;
 import builder.model.ElemJoining;
-import frames.dialog.ParGrup2;
-import frames.dialog.ParGrup2b;
-import frames.dialog.ParColor2;
-import frames.dialog.ParGrup2a;
+import frames.dialog.ParName;
+import frames.dialog.ParSysVal;
+import frames.dialog.ParColor;
+import frames.dialog.ParUserVal;
 import frames.dialog.DicArtikl;
 import dataset.Field;
 import dataset.Query;
@@ -302,7 +302,7 @@ public class Joinings extends javax.swing.JFrame {
             if (index != -1) {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
-                new ParGrup2(this, (rec) -> {
+                new ParName(this, (rec) -> {
 
                     UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, joinVar * 100);
@@ -316,12 +316,12 @@ public class Joinings extends javax.swing.JFrame {
             Record record = qJoinpar1.get(UGui.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
-                new ParGrup2a(this, (rec) -> {
+                new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                new ParGrup2b(this, (rec) -> {
+                new ParSysVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
@@ -343,7 +343,7 @@ public class Joinings extends javax.swing.JFrame {
             Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int artiklID = record.getInt(eJoindet.artikl_id);
             int colorID = record.getInt(eJoindet.color_fk, -1);
-            new ParColor2(this, (rec) -> {
+            new ParColor(this, (rec) -> {
                 UGui.cellParamColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
             }, artiklID, colorID);
         });
@@ -374,7 +374,7 @@ public class Joinings extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
-                new ParGrup2(this, (record) -> {
+                new ParName(this, (record) -> {
                     UGui.cellParamNameOrValue(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, part[level]);
             }
@@ -387,12 +387,12 @@ public class Joinings extends javax.swing.JFrame {
             Record record = qJoinpar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
-                new ParGrup2a(this, (rec) -> {
+                new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                new ParGrup2b(this, (rec) -> {
+                new ParSysVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }

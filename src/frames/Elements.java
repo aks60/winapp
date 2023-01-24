@@ -9,10 +9,10 @@ import dataset.Record;
 import frames.dialog.DicColvar;
 import frames.dialog.DicGroups;
 import frames.dialog.DicTypset;
-import frames.dialog.ParColor2;
-import frames.dialog.ParGrup2;
-import frames.dialog.ParGrup2b;
-import frames.dialog.ParGrup2a;
+import frames.dialog.ParColor;
+import frames.dialog.ParName;
+import frames.dialog.ParSysVal;
+import frames.dialog.ParUserVal;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eParams;
@@ -304,7 +304,7 @@ public class Elements extends javax.swing.JFrame {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int artikID = record.getInt(eElemdet.artikl_id);
             int colorID = record.getInt(eElemdet.color_fk, -1);
-            ParColor2 frame = new ParColor2(this, listenerColor, artikID, colorID);
+            ParColor frame = new ParColor(this, listenerColor, artikID, colorID);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
@@ -331,7 +331,7 @@ public class Elements extends javax.swing.JFrame {
                 Record record = qGrCateg.get(index);
                 int paramPart = record.getInt(eGroups.npp);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
-                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+                ParName frame = new ParName(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.elem, paramPart);
             }
@@ -344,12 +344,12 @@ public class Elements extends javax.swing.JFrame {
             Record record = qElempar1.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eElempar1.params_id);
             if (grup < 0) {
-                new ParGrup2a(this, (val) -> {
+                new ParUserVal(this, (val) -> {
                     UGui.cellParamNameOrValue(val, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                new ParGrup2b(this, (val) -> {
+                new ParSysVal(this, (val) -> {
                     UGui.cellParamNameOrValue(val, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
@@ -366,7 +366,7 @@ public class Elements extends javax.swing.JFrame {
                 Integer[] part1 = {0, 34000, 33000, 34000, 33000, 40000, 0};
                 Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
                 int grup = (levelGrp == 1) ? part1[level] : part2[level];
-                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+                ParName frame = new ParName(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.elem, grup);
             }
@@ -379,12 +379,12 @@ public class Elements extends javax.swing.JFrame {
             Record record = qElempar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eElempar2.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, (rec) -> {
+                ParUserVal frame = new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, (rec) -> {
+                ParSysVal frame = new ParSysVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
