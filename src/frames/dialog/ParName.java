@@ -94,7 +94,6 @@ public class ParName extends javax.swing.JDialog {
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
-        btnRemove = new javax.swing.JButton();
         btnCard1 = new javax.swing.JToggleButton();
         btnCard2 = new javax.swing.JToggleButton();
         btnCard3 = new javax.swing.JToggleButton();
@@ -148,21 +147,6 @@ public class ParName extends javax.swing.JDialog {
             }
         });
 
-        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c042.gif"))); // NOI18N
-        btnRemove.setToolTipText(bundle.getString("Очистить")); // NOI18N
-        btnRemove.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnRemove.setFocusable(false);
-        btnRemove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRemove.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemov(evt);
-            }
-        });
-
         buttonGroup1.add(btnCard1);
         btnCard1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard1.setSelected(true);
@@ -204,15 +188,13 @@ public class ParName extends javax.swing.JDialog {
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(111, 111, 111)
                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -227,9 +209,7 @@ public class ParName extends javax.swing.JDialog {
                                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -394,30 +374,18 @@ public class ParName extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        if (btnCard1.isSelected() == true) {
-            listener.action(new Record(Arrays.asList(null, null)));
-        } else {
-            listener.action(eGroups.up.newRecord());
-        }
-        this.dispose();
-    }//GEN-LAST:event_btnRemov
-
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();
         if (btn == btnCard1) {
             btnChoice.setEnabled(true);
-            btnRemove.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card1");
 
         } else if (btn == btnCard2) {
             btnChoice.setEnabled(true);
-            btnRemove.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card2");
 
         } else if (btn == btnCard3) {
             btnChoice.setEnabled(false);
-            btnRemove.setEnabled(false);
             ((CardLayout) centr.getLayout()).show(centr, "card3");
         }
     }//GEN-LAST:event_btnCard
@@ -435,7 +403,6 @@ public class ParName extends javax.swing.JDialog {
     private javax.swing.JToggleButton btnCard3;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnRemove;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;

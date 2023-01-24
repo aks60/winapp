@@ -298,31 +298,33 @@ public class Joinings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParName(this, (rec) -> {
 
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
                 }, eParams.joint, joinVar * 100);
             }
         });
 
-        UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab3, component, eJoinpar1.params_id);
+        UGui.buttonCellEditor(tab3, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab3, componentCell, eJoinpar1.params_id);
 
         }).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qJoinpar1.get(UGui.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
                 }, list);
             }
         });
@@ -367,6 +369,7 @@ public class Joinings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             if (index != -1) {
                 Record recordJoin = qJoindet.get(index);
@@ -375,25 +378,26 @@ public class Joinings extends javax.swing.JFrame {
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
                 new ParName(this, (record) -> {
-                    UGui.cellParamNameOrValue(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(record, tab5, eJoinpar2.params_id, eJoinpar2.text);
                 }, eParams.joint, part[level]);
             }
         });
 
-        UGui.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab5, component, eJoinpar2.params_id);
+        UGui.buttonCellEditor(tab5, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab5, componentCell, eJoinpar2.params_id);
 
         }).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qJoinpar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text);
                 }, list);
             }
         });

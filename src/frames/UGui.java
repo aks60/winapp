@@ -718,9 +718,9 @@ public class UGui {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
-    public static JButton buttonCellEditor(JTable table, int column, ListenerObject listener) {
+    public static JButton buttonCellEditor(JTable table, int column, ListenerObject listenerCell) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditorBtn(listener, btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditorBtn(listenerCell, btn));
         return btn;
     }
 
@@ -739,7 +739,7 @@ public class UGui {
         }
     }
 
-    //Получить аблицу которая переведена в режим редактирования
+    //Получить таблицу которая переведена в режим редактирования
     public static JTable getCellEditing(JTable... tableList) {
         for (JTable table : tableList) {
             if (table.isEditing()) {
@@ -749,67 +749,91 @@ public class UGui {
         return null;
     }
 
-    //Редактирование параметров ячейки
     public static void cellParamNameOrValue(Record record, JTable table, Field id, Field text, JTable... tables) {
         UGui.stopCellEditing(tables);
-        int index = getIndexRec(table);
-        Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record2 = query.get(UGui.getIndexRec(table));
+    }
 
-        //Имя пользовательского параметра
-        if (eGroups.values().length == record.size()) {
-            record2.set(id, record.getInt(eGroups.id));
-            record2.set(text, null);
+    //Редактирование параметров ячейки
+    public static void cellParamNameOrValue(Record record, JTable table, Field id, Field text) {
+        try {
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+            Record record2 = query.get(UGui.getIndexRec(table));
 
-            //Имя системного параметра из PalList
-        } else if (record.size() == 2) {
-            record2.set(id, record.getInt(0));
-            record2.set(text, ParamList.find(record.getInt(0)).def());
+            //Название пользовательского параметра
+            if (eGroups.values().length == record.size()) {
+                record2.set(id, record.getInt(eGroups.id));
+                record2.set(text, "");
 
-            //Значение параметра
-        } else if (record.size() == 1) {
-            String val = record2.getStr(text);
+                //Название системного параметра из PalList
+            } else if (record.size() == 2) {
+                record2.set(id, record.getInt(0));
+                record2.set(text, ParamList.find(record.getInt(0)).def());
 
-            if (record.get(0) == null) { //удаление данных в ячейке
-                record2.set(text, null);
+                //Запись значения в ячейку
+            } else if (record.size() == 1) {
+                String val = record2.getStr(text);
 
-            } else if (val != null && val.isEmpty() == false) { //добавление даннх в ячейке
-                record2.set(text, val + ";" + record.getStr(0));
+                //Удаление данных в ячейке
+                if (record.get(0) == null) {
+                    record2.set(text, "");
 
-            } else {
-                record2.set(text, record.getStr(0)); //???
+                    //Добавление данных в ячейке
+                } else if (val != null && val.isEmpty() == false) {
+                    record2.set(text, val + ";" + record.getStr(0));
+
+                } else {
+                    record2.set(text, record.getStr(0)); //???
+                }
             }
+            int index = getIndexRec(table);
+            ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGui.cellParamNameOrValue() " + e);
         }
-        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
     }
 
     //Редактирование типа данных и вида ячейки таблицы 
-    public static boolean cellParamTypeOrVid(JTable table, Object component, Field params_id) {
-        Query qParam = ((DefTableModel) table.getModel()).getQuery();
-
-        if (component instanceof DefCellEditorBtn) { //установим вид и тип ячейки
-            DefCellEditorBtn editor = (DefCellEditorBtn) component;
+    //componentCell - DefCellEditorBtn либо String см. класс DefCellEditorBtn
+    public static boolean cellParamTypeOrVid(JTable table, Object componentCell, Field params_id) {
+        try {
+            Query qParam = ((DefTableModel) table.getModel()).getQuery();
             int paramsID = qParam.getAs(getIndexRec(table), params_id);
 
-            if (paramsID < 0) { //пользовательский список параметров
-                editor.getButton().setVisible(true);
-                editor.getTextField().setEnabled(false);
-            } else {
-                Enam enam = ParamList.find(paramsID);
-                if (enam.dict() != null) { //системный список параметров
+            //Если компонент класс DefCellEditorBtn
+            //установим вид и тип ячейки
+            if (componentCell instanceof DefCellEditorBtn) {
+                DefCellEditorBtn editor = (DefCellEditorBtn) componentCell;
+
+                //Пользовательский список параметров
+                if (paramsID < 0) {
                     editor.getButton().setVisible(true);
                     editor.getTextField().setEnabled(false);
 
-                } else { //системные вводимые пользователем
-                    editor.getButton().setVisible(false);
-                    editor.getTextField().setEnabled(true);
-                    editor.getTextField().setEditable(true);
-                }
-            }
+                    //Системне параметры
+                } else {
+                    Enam enam = ParamList.find(paramsID);
 
-        } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
-            String txt = (String) component;
-            return ParamList.find(qParam.getAs(UGui.getIndexRec(table), params_id)).check(txt);
+                    //Системные, выбор из справочника
+                    if (enam.dict() != null) {
+                        editor.getButton().setVisible(true);
+                        editor.getTextField().setEnabled(false);
+
+                        //Системные вводимые пользователем
+                    } else {
+                        editor.getButton().setVisible(false);
+                        editor.getTextField().setEnabled(true);
+                        editor.getTextField().setEditable(true);
+                    }
+                }
+
+                //Если компонент просто текст, идёт проверка на коррекность ввода
+                //пользовательский параметр текстом бвть не может и не проверяется
+            } else if (paramsID > 0 && componentCell != null && componentCell instanceof String) {
+                String txt = (String) componentCell;
+                return ParamList.find(qParam.getAs(UGui.getIndexRec(table), params_id)).check(txt);
+            }
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGui.cellParamTypeOrVid() " + e);
         }
         return true;
     }

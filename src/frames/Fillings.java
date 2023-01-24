@@ -249,16 +249,18 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 ParName frame = new ParName(this, listenerPar1, eParams.elem, 13000);
             }
         });
 
-        UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab3, component, eGlaspar1.params_id);
+        UGui.buttonCellEditor(tab3, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab3, componentCell, eGlaspar1.params_id);
 
         }).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int grup = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.params_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, listenerPar1, grup);
@@ -269,6 +271,7 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 Record record = qGlasdet.table(eArtikl.up).get(index);
@@ -278,10 +281,11 @@ public class Fillings extends javax.swing.JFrame {
             }
         });
 
-        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab4, component, eGlaspar2.params_id);
+        UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eGlaspar2.params_id);
 
         }).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qGlaspar2.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
@@ -382,11 +386,11 @@ public class Fillings extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab3, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamNameOrValue(record, tab3, eElempar1.params_id, eElempar1.text);
         };
 
         listenerPar2 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamNameOrValue(record, tab4, eGlaspar2.params_id, eGlaspar2.text);
         };
     }
 

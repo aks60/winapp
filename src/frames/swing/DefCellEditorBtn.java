@@ -16,7 +16,8 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import common.listener.ListenerObject;
 import frames.UGui;
-import java.util.Date;
+import static javax.swing.BorderFactory.createEtchedBorder;
+import javax.swing.border.EtchedBorder;
 
 public class DefCellEditorBtn extends DefaultCellEditor {
 
@@ -31,9 +32,9 @@ public class DefCellEditorBtn extends DefaultCellEditor {
         this.getComponent().setLocale(eProp.locale);
     }
 
-    public DefCellEditorBtn(ListenerObject listener, JButton button) {
+    public DefCellEditorBtn(ListenerObject listenerCell, JButton button) {
         super(new JTextField());
-        this.listenerCell = listener;
+        this.listenerCell = listenerCell;
         init(false);
         button(button);
         filter();
@@ -56,7 +57,7 @@ public class DefCellEditorBtn extends DefaultCellEditor {
     private void button(JButton button) {
         setClickCountToStart(2);
         this.button = button;
-        button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        button.setBorder(createEtchedBorder(EtchedBorder.RAISED));
         button.setFocusable(false);
         button.setPreferredSize(new java.awt.Dimension(24, 18));
         panel.add(button, java.awt.BorderLayout.EAST);
@@ -88,9 +89,9 @@ public class DefCellEditorBtn extends DefaultCellEditor {
                         super.replace(fb, offset, length, string, attrs);
                     }
                 } else {
-                     if (string.length() > 1) {  //проверка на коррекность ввода
+                    if (string.length() > 1) {  //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
-                    }                   
+                    }
                 }
             }
         });
@@ -115,7 +116,7 @@ public class DefCellEditorBtn extends DefaultCellEditor {
     public boolean isCellEditable(EventObject anEvent) {
         if (anEvent instanceof MouseEvent == true) {
             if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
-                listenerCell.action(DefCellEditorBtn.this);
+                listenerCell.action(this);
             }
         }
         return delegate.isCellEditable(anEvent);

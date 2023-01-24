@@ -49,6 +49,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -163,7 +164,7 @@ public class Elements extends javax.swing.JFrame {
                         } else {
                             return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
-                        
+
                     } else if (eElemdet.types == field) {
                         int types = Integer.valueOf(val.toString());
                         types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
@@ -326,36 +327,37 @@ public class Elements extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            int index = UGui.getIndexRec(tab1);
-            if (index != -1) {
-                Record record = qGrCateg.get(index);
-                int paramPart = record.getInt(eGroups.npp);
-                paramPart = (paramPart == 1) ? 31000 : 37000;
-                ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
-                }, eParams.elem, paramPart);
-            }
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Record record = qGrCateg.get(UGui.getIndexRec(tab1));
+            int paramPart = record.getInt(eGroups.npp);
+            paramPart = (paramPart == 1) ? 31000 : 37000;
+            ParName frame = new ParName(this, (rec) -> {
+                UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
+            }, eParams.elem, paramPart);
         });
 
-        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки
-            return UGui.cellParamTypeOrVid(tab4, component, eElempar1.params_id);
+        UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //первый слушатель кнопки, редактирование типа данных и вида ячейки
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eElempar1.params_id);
 
-        }).addActionListener(event -> {
+        }).addActionListener(event -> { //второй слушатель кнопки, выбор из справочника значения
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qElempar1.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eElempar1.params_id);
+
             if (grup < 0) {
-                new ParUserVal(this, (val) -> {
-                    UGui.cellParamNameOrValue(val, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                new ParUserVal(this, (rec) -> {
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
                 }, eParams.elem, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                new ParSysVal(this, (val) -> {
-                    UGui.cellParamNameOrValue(val, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                new ParSysVal(this, (rec) -> {
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
                 }, list);
             }
         });
 
         UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab3);
             if (index != -1) {
                 int levelGrp = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
@@ -367,25 +369,26 @@ public class Elements extends javax.swing.JFrame {
                 Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
                 int grup = (levelGrp == 1) ? part1[level] : part2[level];
                 ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
                 }, eParams.elem, grup);
             }
         });
 
-        UGui.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab5, component, eElempar2.params_id);
+        UGui.buttonCellEditor(tab5, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab5, componentCell, eElempar2.params_id);
 
         }).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qElempar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eElempar2.params_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
                 }, list);
             }
         });
@@ -1107,7 +1110,6 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFindArtikl
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-
     }//GEN-LAST:event_btnTest
 
     private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree

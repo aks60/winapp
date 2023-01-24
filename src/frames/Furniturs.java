@@ -469,8 +469,8 @@ public class Furniturs extends javax.swing.JFrame {
             ParName frame = new ParName(this, listenerPar1, eParams.joint, 21000);
         });
 
-        UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab4, component, eFurnpar1.params_id);
+        UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eFurnpar1.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar1.get(UGui.getIndexRec(tab4));
@@ -502,8 +502,8 @@ public class Furniturs extends javax.swing.JFrame {
             }
         });
 
-        UGui.buttonCellEditor(tab6, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab6, component, eFurnpar2.params_id);
+        UGui.buttonCellEditor(tab6, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return UGui.cellParamTypeOrVid(tab6, componentCell, eFurnpar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar2.get(UGui.getIndexRec(tab6));
@@ -566,11 +566,13 @@ public class Furniturs extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamNameOrValue(record, tab4, eFurnpar1.params_id, eFurnpar1.text);
         };
 
         listenerPar2 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            UGui.cellParamNameOrValue(record, tab6, eFurnpar2.params_id, eFurnpar2.text);
         };
 
         listenerVariant1 = (record) -> {

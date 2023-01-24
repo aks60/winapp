@@ -532,7 +532,6 @@ public class ParamList {
 
         public Defparam defparam = def_Default;
         public Dictionary dictionary = null;
-        public Formatter formatter = ParamList.frm_Default;
         public Checkparam check = check_STRING;
 
         Ps3(int numb, String text, Object... obj) {
@@ -548,8 +547,6 @@ public class ParamList {
                     this.dictionary = (Dictionary) o;
                 } else if (o instanceof Checkparam) {
                     this.check = (Checkparam) o;
-                } else if (o instanceof Formatter) {
-                    this.formatter = (Formatter) o;
                 } else if (o instanceof Defparam) {
                     this.defparam = (Defparam) o;
                 }
@@ -578,10 +575,6 @@ public class ParamList {
             } else {
                 return null;
             }
-        }
-
-        public AbstractFormatterFactory format() {
-            return formatter.format();
         }
 
         public boolean check(String c) {
@@ -1096,7 +1089,6 @@ public class ParamList {
 
         public Defparam defparam = def_Default;
         public Dictionary dictionary = dic_DEFAULT;
-        public Formatter formatter = frm_Default;
         public Checkparam check = check_STRING;
 
         Ps4(int numb, String text, Object... obj) {
@@ -1112,8 +1104,6 @@ public class ParamList {
                     this.dictionary = (Dictionary) o;
                 } else if (o instanceof Checkparam) {
                     this.check = (Checkparam) o;
-                } else if (o instanceof Formatter) {
-                    this.formatter = (Formatter) o;
                 } else if (o instanceof Defparam) {
                     this.defparam = (Defparam) o;
                 }
@@ -1140,12 +1130,14 @@ public class ParamList {
             return dictionary.dict();
         }
 
-        public AbstractFormatterFactory format() {
-            return formatter.format();
-        }
-
         public boolean check(String c) {
-            return check.check(c);
+            if (c == null) {
+                return true;
+            } else if (c.isEmpty()) {
+                return true;
+            } else {
+                return check.check(c);
+            }
         }
     }
 
@@ -1428,41 +1420,6 @@ public class ParamList {
     //см. 34049
     public static Checkparam check_FLOAT_LIST2b = (c) -> {
         return ("0123456789,-/".indexOf(c) != -1);
-    };
-    // </editor-fold> 
-
-    //Formatter
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">   
-    private static AbstractFormatterFactory defaultFormatter = new DefaultFormatterFactory();
-    private static AbstractFormatterFactory numberFormatter = new DefaultFormatterFactory(new NumberFormatter());
-
-    public static AbstractFormatterFactory defaultFormatter() {
-        return defaultFormatter;
-    }
-
-    interface Formatter {
-
-        public AbstractFormatterFactory format();
-    }
-
-    public static Formatter frm_Default = () -> {
-        return numberFormatter;
-    };
-
-    public static Formatter frm_Number = () -> {
-        try {
-            return new DefaultFormatterFactory(new MaskFormatter("###"));
-        } catch (final ParseException e) {
-            return null;
-        }
-    };
-
-    public static Formatter frm_Mask = () -> {
-        try {
-            return new DefaultFormatterFactory(new MaskFormatter("###;###.###-##"));
-        } catch (final ParseException e) {
-            return null;
-        }
     };
     // </editor-fold>      
 }
