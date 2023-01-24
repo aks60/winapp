@@ -470,7 +470,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamValue(tab4, component, eFurnpar1.params_id);
+            return UGui.cellParamTypeOrVid(tab4, component, eFurnpar1.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar1.get(UGui.getIndexRec(tab4));
@@ -503,7 +503,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab6, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamValue(tab6, component, eFurnpar2.params_id);
+            return UGui.cellParamTypeOrVid(tab6, component, eFurnpar2.params_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar2.get(UGui.getIndexRec(tab6));
@@ -566,11 +566,11 @@ public class Furniturs extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            UGui.cellParamName(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamNameOrValue(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerPar2 = (record) -> {
-            UGui.cellParamName(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamNameOrValue(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerVariant1 = (record) -> {
