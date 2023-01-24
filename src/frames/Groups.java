@@ -816,6 +816,8 @@ public class Groups extends javax.swing.JFrame {
                 table = tab7;
                 btnIns.setEnabled(false);
                 btnDel.setEnabled(false);
+                btnMoveU.setEnabled(false);
+                btnMoveD.setEnabled(false);                
             } else if (tabb.getSelectedIndex() == 2) {
                 table = tab2;
             } else if (tabb.getSelectedIndex() == 3) {
