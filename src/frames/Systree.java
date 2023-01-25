@@ -89,6 +89,7 @@ import common.listener.ListenerReload;
 import domain.eElement;
 import domain.eGroups;
 import enums.TypeGroups;
+import frames.dialog.ParDef;
 import frames.swing.TableFieldFilter;
 import java.util.Collections;
 import java.util.List;
@@ -100,7 +101,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
-            listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
+            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
@@ -126,7 +127,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         scene = new Scene(canvas, spinner, this);
         initElements();
         loadingData();
-        loadingTree1();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -140,7 +140,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         this.writeNuni = false;
         initElements();
         loadingData();
-        loadingTree1();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -148,7 +147,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }
 
     public final void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
         //Получим сохранённую systreeID при выходе из программы
         Record sysprodRec = null; //при открытии указывает на конструкцию
         if (this.systreeID == -1 && "-1".equals(eProp.sysprodID.read()) != true) {
@@ -163,31 +161,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
             }
         }
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
 
-        Record recordRoot = eSystree.up.newRecord(Query.SEL);
-        recordRoot.set(eSystree.id, -1);
-        recordRoot.set(eSystree.parent_id, -1);
-        recordRoot.set(eSystree.name, "Дерево системы профилей");
-        DefMutableTreeNode rootTree = new DefMutableTreeNode(recordRoot);
-        ArrayList<DefMutableTreeNode> treeList = new ArrayList();
-
-        for (Record record : qSystree) {
-            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
-                DefMutableTreeNode node2 = new DefMutableTreeNode(record);
-                treeList.add(node2);
-                rootTree.add(node2);
-            }
-        }
-        ArrayList<DefMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
-        sysTree.setModel(new DefaultTreeModel(rootTree));
-        scr1.setViewportView(sysTree);
+        loadingTree1();
     }
 
     public final void loadingModel() {
@@ -250,8 +229,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.groups_id) {
-                    Record paramsRec = qParams.find(val, eParams.id);
-                    return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
+                    //Record paramsRec = qParams.find(val, eParams.id);
+                    return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                 }
                 return val;
             }
@@ -335,20 +314,24 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         recordRoot.set(eSystree.parent_id, -1);
         recordRoot.set(eSystree.name, "Дерево системы профилей");
         DefMutableTreeNode rootTree = new DefMutableTreeNode(recordRoot);
-        ArrayList<DefMutableTreeNode> treeList = new ArrayList();
+        ArrayList<DefMutableTreeNode> nodeList = new ArrayList();
 
-        for (Record record : qSystree) {
+        for (Record record : qSystree) { //первый уровень
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
-                DefMutableTreeNode node2 = new DefMutableTreeNode(record);
-                treeList.add(node2);
-                rootTree.add(node2);
+                DefMutableTreeNode node = new DefMutableTreeNode(record);
+                rootTree.add(node);
+                nodeList.add(node);
+                if (record.getInt(eSystree.id) == systreeID) {
+                    selectedPath = node.getPath(); //запомним path для nuni
+                }
             }
         }
-        ArrayList<DefMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
-        ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
+        ArrayList<DefMutableTreeNode> nodeList2 = addChild(nodeList);  //второй
+        ArrayList<DefMutableTreeNode> nodeList3 = addChild(nodeList2); //третий
+        ArrayList<DefMutableTreeNode> nodeList4 = addChild(nodeList3);
+        ArrayList<DefMutableTreeNode> nodeList5 = addChild(nodeList4);
+        ArrayList<DefMutableTreeNode> nodeList6 = addChild(nodeList5);
+
         sysTree.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(sysTree);
     }
@@ -644,23 +627,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParDefault frame = new ParDefault(this, listenerParam1);
+            ParDef frame = new ParDef(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.groups_id);
-            ParDefault frame = new ParDefault(this, listenerParam2, grup);
+            ParDef frame = new ParDef(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
             int fixed = syspar1Rec.getInt(eSyspar1.fixed);
-//            int id = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.id);
-//            Record re2 = eSyspar1.find2(id);
-//            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
             if (fixed == 0) {
-                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.groups_id);
-                ParDefault frame = new ParDefault(this, listenerParam3, grup);
+                int groupsID = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.groups_id);
+                new ParDef(this, listenerParam2, groupsID);
             } else {
                 JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
             }
@@ -737,21 +716,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerParam1 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.groups_id);
-            qSyspar2.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
+            int index2 = UGui.getIndexRec(tab5);
+            if (index2 != -1) {
+                systreeID = sysNode.rec().getInt(eSystree.id);
+                qSyspar2.set(systreeID, index, eSyspar1.systree_id);
+                qSyspar2.set(record.get(eParams.groups_id), index, eSyspar1.groups_id);
+                qSyspar2.set(record.get(eParams.text), index, eSyspar1.text);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(tab4, index);
+            }
         };
 
         listenerParam2 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
-        listenerParam3 = (record) -> {
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
             if (index != -1) {
@@ -768,20 +744,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
     }
 
-    public ArrayList<DefMutableTreeNode> addChild(
-            ArrayList<DefMutableTreeNode> nodeList1,
-            ArrayList<DefMutableTreeNode> nodeList2) {
+    public ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1) {
         try {
+            ArrayList<DefMutableTreeNode> nodeList2 = new ArrayList<DefMutableTreeNode>();
             for (DefMutableTreeNode node : nodeList1) {
-                String node2 = (String) node.getUserObject();
                 for (Record record : qSystree) {
                     if (record.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
                             && record.getInt(eSystree.parent_id) != record.getInt(eSystree.id)) {
-                        DefMutableTreeNode node3 = new DefMutableTreeNode(record);
-                        node.add(node3);
-                        nodeList2.add(node3);
+
+                        DefMutableTreeNode node2 = new DefMutableTreeNode(record);
+                        node.add(node2);
+                        nodeList2.add(node2);
                         if (record.getInt(eSystree.id) == systreeID) {
-                            selectedPath = node3.getPath(); //запомним path для nuni
+                            selectedPath = node2.getPath(); //запомним path для nuni
                         }
                     }
                 }
@@ -3524,15 +3499,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             } else if (tab5.getBorder() != null) {
                 if (sysNode != null && sysNode.isLeaf()) {
-                    testBimax();
+                    //testBimax();
 
-//                    FrameProgress.create(Systree.this, new ListenerFrame() {
-//                        public void actionRequest(Object obj) {
-//                            models = new Models(listenerModel);
-//                            FrameToFile.setFrameSize(models);
-//                            models.setVisible(true);
-//                        }
-//                    });
+                    FrameProgress.create(Systree.this, new ListenerFrame() {
+                        public void actionRequest(Object obj) {
+                            models = new Models(listenerModel);
+                            FrameToFile.setFrameSize(models);
+                            models.setVisible(true);
+                        }
+                    });
                 }
             }
         }
@@ -4080,9 +4055,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        Wincalc win = wincalc();
-        String json = win.rootGson.toJson();
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+//        Wincalc win = wincalc();
+//        String json = win.rootGson.toJson();
+//        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+        System.out.println(eProp.sysprodID.read());
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass

@@ -19,10 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import common.listener.ListenerRecord;
+import domain.eArtikl;
 import domain.eParams;
 import enums.UseColor;
 import frames.swing.TableFieldFilter;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -33,89 +35,70 @@ public class ParDef extends javax.swing.JDialog {
     private Query qGroups = new Query(eGroups.values());
     private Query qParamsAll = new Query(eParams.values());
     private Query qParams = new Query(eParams.id, eParams.text);
-    private boolean master = false;
+    private HashSet<Record> paramsSet = null;
+    private Integer groupsID = null;
 
-    public ParDef(Frame parent, ListenerRecord listener, boolean master) {
-        super(parent, true);
-        this.master = master;
-        initComponents();
-        qGroups.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        qParamsAll.select(eParams.up, "order by", eParams.text);
-        initElements();
-        this.listener = listener;
-        loadingModel();
-        setVisible(true);
-    }
-
-    public ParDef(Frame parent, ListenerRecord listener, HashSet<Record> colorSet, boolean auto) {
+    public ParDef(Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
-        qParamsAll.addAll(colorSet);
-        loadingData(colorSet, auto);
+        loadingData();
         loadingModel();
         setVisible(true);
     }
-    
-    private void loadingData(HashSet<Record> colorSet, boolean auto) {
-        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        
-        if (auto == true) {
-            Record autoRec = eGroups.up.newRecord();
-            autoRec.setNo(eGroups.id, -3);
-            autoRec.setNo(eGroups.grup, -3);
-            autoRec.setNo(eGroups.name, UseColor.automatic[1]);
-            colgrpList.add(autoRec);           
-            Record autoRec2 = eColor.up.newRecord();
-            autoRec2.set(eColor.id, 0);
-            autoRec2.set(eColor.groups_id, -3);
-            autoRec2.set(eColor.name, UseColor.automatic[1]);
-            colgrpList.add(autoRec2);            
+
+    //не тестировал!!!
+    public ParDef(Frame parent, ListenerRecord listener, HashSet<Record> paramsSet) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
+        this.paramsSet = paramsSet;
+        loadingData();
+        loadingModel();
+        setVisible(true);
+    }
+
+    public ParDef(Frame parent, ListenerRecord listener, int groupsID) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
+        this.groupsID = groupsID;
+        loadingData();
+        loadingModel();
+        setVisible(true);
+    }
+
+    private void loadingData() {
+        if (paramsSet != null) {
+            String subsql = (paramsSet != null) ? paramsSet.stream().map(rec -> rec.getStr(eParams.groups_id)).collect(Collectors.joining(",", "(", ")")) : null;
+            qGroups.select(eGroups.up, "where", eGroups.grup, "in", subsql, "order by", eGroups.name);
+            qParamsAll.addAll(paramsSet);
+        } else if (groupsID != null) {
+            qGroups.select(eGroups.up, "where", eGroups.id, "=", groupsID, "order by", eGroups.name);
+            qParamsAll.select(eParams.up, "where", eParams.groups_id, "=", groupsID, "order by", eParams.text);
+        } else {
+            qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "order by", eGroups.name);
+            qParamsAll.select(eParams.up, "order by", eParams.text);
         }
-        colgrpList.forEach(colgrpRec -> {
-            for (Record colorRec : colorSet) {
-                if (colorRec.getInt(eColor.groups_id) == colgrpRec.getInt(eGroups.id)) {
-                    qGroups.add(colgrpRec);
-                    break;
-                }
-            }
-        });
-        Collections.sort(qParamsAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));        
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qGroups, eGroups.name);
-        new DefTableModel(tab2, qParams, eColor.id, eColor.name);
-        tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                int rgb = qParams.getAs(row, eColor.rgb);
-                lab.setBackground(new java.awt.Color(rgb));
-                return lab;
-            }
-        });
+        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
+        new DefTableModel(tab2, qParams, eParams.text, eParams.id);
         UGui.setSelectedRow(tab1);
     }
 
     private void selectionTab1() {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            Record record = qGroups.get(index);
-            int colgrpId = record.getInt(eGroups.id);
+            Record groupsRec = qGroups.get(index);
+            int groupsId = groupsRec.getInt(eGroups.id);
             qParams.clear();
-            qParamsAll.forEach(rec -> {
-                if (rec.getInt(eColor.groups_id) == colgrpId) {
-                    qParams.add(rec);
-                }
-            });
+            qParams.addAll(qParamsAll.stream().filter(rec -> rec.getInt(eParams.groups_id) == groupsId).collect(Collectors.toList()));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (master == false) {
-                UGui.setSelectedRow(tab2); //блокируем выбор групп текстур
-                tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-                tab1.setBorder(null);
-            }
         }
     }
 
@@ -135,7 +118,7 @@ public class ParDef extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Справочник текстур");
+        setTitle("Параметры");
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -206,15 +189,15 @@ public class ParDef extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1"},
-                {"name2"}
+                {"name1", null},
+                {"name2", null}
             },
             new String [] {
-                "Группы текстур"
+                "Название", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -233,14 +216,18 @@ public class ParDef extends javax.swing.JDialog {
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(80);
+        }
 
         pan1.add(scr1, java.awt.BorderLayout.NORTH);
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "1111111"},
-                {null, "2222222"},
+                {"1111111", null},
+                {"2222222", null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -248,11 +235,11 @@ public class ParDef extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "Код текстуры", "Название текстуры"
+                "Значение", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -276,8 +263,8 @@ public class ParDef extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
@@ -300,21 +287,10 @@ public class ParDef extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-
-        if (tab1.getBorder() != null) {
-            int index = UGui.getIndexRec(tab1);
-            if (index != -1) {
-                listener.action(qGroups.get(index));
-                this.dispose();
-            }
-        } else if (tab2.getBorder() != null) {
-            int index = UGui.getIndexRec(tab2);
-            if (index != -1) {
-                listener.action(qParams.get(index));
-                this.dispose();
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Запись не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            listener.action(qParams.get(index));
+            this.dispose();
         }
     }//GEN-LAST:event_btnChoice
 
