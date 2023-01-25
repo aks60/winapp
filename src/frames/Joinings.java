@@ -146,7 +146,7 @@ public class Joinings extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name, eJoinvar.mirr);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.params_id, eJoinpar1.text) {
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.groups_id, eJoinpar1.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -156,7 +156,7 @@ public class Joinings extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar1.params_id == field) {
+                if (val != null && eJoinpar1.groups_id == field) {
 
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -205,7 +205,7 @@ public class Joinings extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.params_id, eJoinpar2.text) {
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.groups_id, eJoinpar2.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -215,7 +215,7 @@ public class Joinings extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar2.params_id == field) {
+                if (val != null && eJoinpar2.groups_id == field) {
 
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -305,26 +305,26 @@ public class Joinings extends javax.swing.JFrame {
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParName(this, (rec) -> {
 
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
                 }, eParams.joint, joinVar * 100);
             }
         });
 
         UGui.buttonCellEditor(tab3, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab3, componentCell, eJoinpar1.params_id);
+            return UGui.cellParamTypeOrVid(tab3, componentCell, eJoinpar1.groups_id);
 
         }).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qJoinpar1.get(UGui.getIndexRec(tab3));
-            int grup = record.getInt(eJoinpar1.params_id);
+            int grup = record.getInt(eJoinpar1.groups_id);
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.params_id, eJoinpar1.text);
+                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
                 }, list);
             }
         });
@@ -378,26 +378,26 @@ public class Joinings extends javax.swing.JFrame {
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
                 new ParName(this, (record) -> {
-                    UGui.cellParamNameOrValue(record, tab5, eJoinpar2.params_id, eJoinpar2.text);
+                    UGui.cellParamNameOrValue(record, tab5, eJoinpar2.groups_id, eJoinpar2.text);
                 }, eParams.joint, part[level]);
             }
         });
 
         UGui.buttonCellEditor(tab5, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab5, componentCell, eJoinpar2.params_id);
+            return UGui.cellParamTypeOrVid(tab5, componentCell, eJoinpar2.groups_id);
 
         }).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qJoinpar2.get(UGui.getIndexRec(tab5));
-            int grup = record.getInt(eJoinpar2.params_id);
+            int grup = record.getInt(eJoinpar2.groups_id);
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text);
+                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.groups_id, eJoinpar2.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.params_id, eJoinpar2.text);
+                    UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.groups_id, eJoinpar2.text);
                 }, list);
             }
         });

@@ -116,12 +116,12 @@ public class DicKits extends javax.swing.JDialog {
                 return val;
             }
         };
-        new DefTableModel(tab3, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
+        new DefTableModel(tab3, qKitpar2, eKitpar2.groups_id, eKitpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
                     Field field = columns[col];
-                    if (field == eKitpar2.params_id) {
+                    if (field == eKitpar2.groups_id) {
 
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);

@@ -16,7 +16,7 @@ public class ElementTest extends ParamTest {
 
     /**
      * select c.name, d.name, a.text from elempar1 a left join element c on c.id
-     * = a.element_id left join artikl d on c.artikl_id = d.id where a.params_id
+     * = a.element_id left join artikl d on c.artikl_id = d.id where a.groups_id
      * in (31017, 37017)
      */
     public void elementVar() {
@@ -172,7 +172,7 @@ public class ElementTest extends ParamTest {
     /**
      * select c.*, a.text from elempar2 a left join elemdet b on b.id =
      * a.elemdet_id left join element c on c.id = b.element_id left join artikl
-     * d on c.artikl_id = d.id where a.params_id in (31017, 37017)
+     * d on c.artikl_id = d.id where a.groups_id in (31017, 37017)
      */
     public void elementDet() {
         HashMap<Integer, String> mapParam = new HashMap();

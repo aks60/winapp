@@ -290,11 +290,11 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qFurnpar1, eFurnpar1.params_id, eFurnpar1.text) {
+        new DefTableModel(tab4, qFurnpar1, eFurnpar1.groups_id, eFurnpar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eFurnpar1.params_id && val != null) {
+                if (field == eFurnpar1.groups_id && val != null) {
 
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -319,11 +319,11 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab6, qFurnpar2, eFurnpar2.params_id, eFurnpar2.text) {
+        new DefTableModel(tab6, qFurnpar2, eFurnpar2.groups_id, eFurnpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eFurnpar2.params_id) {
+                if (val != null && field == eFurnpar2.groups_id) {
                     
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -470,11 +470,11 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab4, componentCell, eFurnpar1.params_id);
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eFurnpar1.groups_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar1.get(UGui.getIndexRec(tab4));
-            int grup = record.getInt(eFurnpar1.params_id);
+            int grup = record.getInt(eFurnpar1.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, listenerPar1, grup);
             } else {
@@ -503,11 +503,11 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab6, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab6, componentCell, eFurnpar2.params_id);
+            return UGui.cellParamTypeOrVid(tab6, componentCell, eFurnpar2.groups_id);
 
         }).addActionListener(event -> {
             Record record = qFurnpar2.get(UGui.getIndexRec(tab6));
-            int grup = record.getInt(eFurnpar2.params_id);
+            int grup = record.getInt(eFurnpar2.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, listenerPar2, grup);
             } else {
@@ -567,12 +567,12 @@ public class Furniturs extends javax.swing.JFrame {
 
         listenerPar1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            UGui.cellParamNameOrValue(record, tab4, eFurnpar1.params_id, eFurnpar1.text);
+            UGui.cellParamNameOrValue(record, tab4, eFurnpar1.groups_id, eFurnpar1.text);
         };
 
         listenerPar2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            UGui.cellParamNameOrValue(record, tab6, eFurnpar2.params_id, eFurnpar2.text);
+            UGui.cellParamNameOrValue(record, tab6, eFurnpar2.groups_id, eFurnpar2.text);
         };
 
         listenerVariant1 = (record) -> {

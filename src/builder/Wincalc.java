@@ -129,7 +129,7 @@ public class Wincalc {
             this.colorID1 = (rootGson.color1() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color1();
             this.colorID2 = (rootGson.color2() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color2();
             this.colorID3 = (rootGson.color3() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color3();
-            eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
+            eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.groups_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {

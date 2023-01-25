@@ -12,7 +12,7 @@ public class FillingTest extends ParamTest {
      * select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a left
      * join glasgrp b on b.id = a.glasgrp_id left join glasprof c on
      * c.glasgrp_id = b.id left join sysprof d on d.artikl_id = c.artikl_id left
-     * join systree e on e.id = d.systree_id where a.params_id = 13014
+     * join systree e on e.id = d.systree_id where a.groups_id = 13014
      */
     public void fillingVar() {
 
@@ -49,7 +49,7 @@ public class FillingTest extends ParamTest {
     /**
      * select c.name, d.name, a.text from glaspar2 a left join glasdet b on b.id
      * = a.glasdet_id left join glasgrp c on c.id = b.glasgrp_id left join
-     * artikl d on b.artikl_id = d.id where a.params_id in (14065, 15055)
+     * artikl d on b.artikl_id = d.id where a.groups_id in (14065, 15055)
      */
     public void fillingDet() {
         HashMap<Integer, String> mapParam = new HashMap();

@@ -21,7 +21,7 @@ public enum eParams implements Field {
     label("12", "32", "1", "Надпись на эскизе", "PMACR"),
     groups_id("4", "10", "1", "Название параметра", "groups_id");
     
-    //params_id("4", "10", "1", "Владелец", "params_id");   
+    //groups_id("4", "10", "1", "Владелец", "groups_id");   
     //prog("16", "5", "1", "Системные (вшитые в систему)", "VPROG"),
     //grup("4", "10", "1", "Группа", "PNUMB"), 
     //numb("4", "10", "1", "Нпп в группе", "ZNUMB"),    

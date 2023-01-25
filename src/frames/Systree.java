@@ -245,11 +245,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        new DefTableModel(tab4, qSyspar2, eSyspar1.params_id, eSyspar1.text, eSyspar1.fixed) {
+        new DefTableModel(tab4, qSyspar2, eSyspar1.groups_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
 
                 Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
+                if (val != null && field == eSyspar1.groups_id) {
                     Record paramsRec = qParams.find(val, eParams.id);
                     return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
@@ -257,10 +257,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
-        new DefTableModel(tab7, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+        new DefTableModel(tab7, qSyspar1, eSyspar1.groups_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
+                if (val != null && field == eSyspar1.groups_id) {
                     Record paramsRec = qParams.find(val, eParams.id);
                     return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
@@ -398,7 +398,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
-            Collections.sort(qSyspar2, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
+            Collections.sort(qSyspar2, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
 
             loadingTab5();
 
@@ -457,7 +457,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                     qSyspar1.clear();
                     winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
+                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
                     ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                     //Рама, импост...
@@ -648,7 +648,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
+            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.groups_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
@@ -659,7 +659,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 //            Record re2 = eSyspar1.find2(id);
 //            int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
             if (fixed == 0) {
-                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
+                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.groups_id);
                 ParDefault frame = new ParDefault(this, listenerParam3, grup);
             } else {
                 JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
@@ -737,7 +737,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerParam1 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.groups_id);
             qSyspar2.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);

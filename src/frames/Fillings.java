@@ -135,11 +135,11 @@ public class Fillings extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.params_id, eGlaspar1.text) {
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.groups_id, eGlaspar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eGlaspar1.params_id == field) {
+                if (val != null && eGlaspar1.groups_id == field) {
                     
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -151,11 +151,11 @@ public class Fillings extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.params_id, eGlaspar2.text) {
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.groups_id, eGlaspar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eGlaspar2.params_id) {
+                if (val != null && field == eGlaspar2.groups_id) {
                     
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                          return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -184,7 +184,7 @@ public class Fillings extends javax.swing.JFrame {
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id, "order by", eGlasdet.depth);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id, "order by", eArtikl.code);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.groups_id, "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -202,7 +202,7 @@ public class Fillings extends javax.swing.JFrame {
             UGui.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(index);
             Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.groups_id, "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab4);
         }
@@ -257,11 +257,11 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab3, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab3, componentCell, eGlaspar1.params_id);
+            return UGui.cellParamTypeOrVid(tab3, componentCell, eGlaspar1.groups_id);
 
         }).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int grup = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.params_id);
+            int grup = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, listenerPar1, grup);
             } else {
@@ -282,12 +282,12 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab4, componentCell, eGlaspar2.params_id);
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eGlaspar2.groups_id);
 
         }).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qGlaspar2.get(UGui.getIndexRec(tab4));
-            int grup = record.getInt(eGlaspar1.params_id);
+            int grup = record.getInt(eGlaspar1.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, listenerPar2, grup);
             } else {
@@ -386,11 +386,11 @@ public class Fillings extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab3, eElempar1.params_id, eElempar1.text);
+            UGui.cellParamNameOrValue(record, tab3, eElempar1.groups_id, eElempar1.text);
         };
 
         listenerPar2 = (record) -> {
-            UGui.cellParamNameOrValue(record, tab4, eGlaspar2.params_id, eGlaspar2.text);
+            UGui.cellParamNameOrValue(record, tab4, eGlaspar2.groups_id, eGlaspar2.text);
         };
     }
 

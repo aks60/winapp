@@ -99,12 +99,12 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
+        new DefTableModel(tab4, qKitpar2, eKitpar2.groups_id, eKitpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
                     Field field = columns[col];
-                    if (field == eKitpar2.params_id) {
+                    if (field == eKitpar2.groups_id) {
                         
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -208,25 +208,25 @@ public class Kits extends javax.swing.JFrame {
                     param = 9000;
                 }
                 ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab2, tab3);
+                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text, tab2, tab3);
                 }, eParams.kits, param);
             }
         });
 
         UGui.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab4, component, eKitpar2.params_id);
+            return UGui.cellParamTypeOrVid(tab4, component, eKitpar2.groups_id);
 
         }).addActionListener(event -> {
             Record record = qKitpar2.get(UGui.getIndexRec(tab4));
-            int grup = record.getInt(eKitpar2.params_id);
+            int grup = record.getInt(eKitpar2.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3, tab4);
+                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text, tab1, tab2, tab3, tab4);
                 }, list);
             }
         });

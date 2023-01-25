@@ -174,11 +174,11 @@ public class Elements extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qElempar1, eElempar1.params_id, eElempar1.text) {
+        new DefTableModel(tab4, qElempar1, eElempar1.groups_id, eElempar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eElempar1.params_id == field) {
+                if (val != null && eElempar1.groups_id == field) {
 
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -190,12 +190,12 @@ public class Elements extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qElempar2, eElempar2.params_id, eElempar2.text) {
+        new DefTableModel(tab5, qElempar2, eElempar2.groups_id, eElempar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
                     Field field = columns[col];
-                    if (field == eElempar2.params_id) {
+                    if (field == eElempar2.groups_id) {
 
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
@@ -249,7 +249,7 @@ public class Elements extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up).get(index);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.groups_id, "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab3);
@@ -264,7 +264,7 @@ public class Elements extends javax.swing.JFrame {
             List.of(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(index);
             Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.groups_id, "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab5);
         }
@@ -332,26 +332,26 @@ public class Elements extends javax.swing.JFrame {
             int paramPart = record.getInt(eGroups.npp);
             paramPart = (paramPart == 1) ? 31000 : 37000;
             ParName frame = new ParName(this, (rec) -> {
-                UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
+                UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
             }, eParams.elem, paramPart);
         });
 
         UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //первый слушатель кнопки, редактирование типа данных и вида ячейки
-            return UGui.cellParamTypeOrVid(tab4, componentCell, eElempar1.params_id);
+            return UGui.cellParamTypeOrVid(tab4, componentCell, eElempar1.groups_id);
 
         }).addActionListener(event -> { //второй слушатель кнопки, выбор из справочника значения
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qElempar1.get(UGui.getIndexRec(tab4));
-            int grup = record.getInt(eElempar1.params_id);
+            int grup = record.getInt(eElempar1.groups_id);
 
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
                 }, eParams.elem, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.params_id, eElempar1.text);
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
                 }, list);
             }
         });
@@ -369,26 +369,26 @@ public class Elements extends javax.swing.JFrame {
                 Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
                 int grup = (levelGrp == 1) ? part1[level] : part2[level];
                 ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
                 }, eParams.elem, grup);
             }
         });
 
         UGui.buttonCellEditor(tab5, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return UGui.cellParamTypeOrVid(tab5, componentCell, eElempar2.params_id);
+            return UGui.cellParamTypeOrVid(tab5, componentCell, eElempar2.groups_id);
 
         }).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record record = qElempar2.get(UGui.getIndexRec(tab5));
-            int grup = record.getInt(eElempar2.params_id);
+            int grup = record.getInt(eElempar2.groups_id);
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.params_id, eElempar2.text);
+                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
                 }, list);
             }
         });

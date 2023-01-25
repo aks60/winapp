@@ -48,7 +48,7 @@ public class FurnitureTest extends ParamTest {
      * Только первый уровень select distinct c.name, d.name, a.text from
      * furnpar2 a left join furndet b on b.id = a.furndet_id left join furniture
      * c on c.id = b.furndet_id left join artikl d on b.artikl_id = d.id where
-     * a.params_id in (24003)
+     * a.groups_id in (24003)
      */
     public void furnitureDet() {
         HashMap<Integer, String> mapParam = new HashMap();

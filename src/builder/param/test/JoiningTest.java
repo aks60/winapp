@@ -74,7 +74,7 @@ public class JoiningTest extends ParamTest {
     /**
      * select d.id, c.name, b.id, a.text from joinpar2 a left join joindet b on
      * b.id = a.joindet_id left join joinvar c on c.id = b.joinvar_id left join
-     * joining d on d.id = c.joining_id where a.params_id = 11009
+     * joining d on d.id = c.joining_id where a.groups_id = 11009
      */
     public void joiningDet() {
         HashMap<Integer, String> mapParam = new HashMap();

@@ -162,10 +162,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.num, ePrjprod.id);
-        new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+        new DefTableModel(tab3, qSyspar1, eSyspar1.groups_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
+                if (val != null && field == eSyspar1.groups_id) {
                     Record paramsRec = qParams.find(val, eParams.id);
                     return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
                 }
@@ -404,7 +404,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                     qSyspar1.clear();
                     winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
+                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
                     ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                     //Рама, импост...
@@ -549,7 +549,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             int id = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.id);
             int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
             if (fixed == 0) {
-                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);
+                Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.groups_id);
                 ParDefault frame = new ParDefault(this, record -> {
                     int index = UGui.getIndexRec(tab2);
                     int index2 = UGui.getIndexRec(tab3);

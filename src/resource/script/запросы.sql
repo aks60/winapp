@@ -16,14 +16,14 @@ left join systree j on k.parent_id = j.id
 order by c.id, k.name, e.name, d.name, b.code
 
 Используемые параметры
-select params_id, text from elempar1 where params_id in (4801,15010) union
-select params_id, text from elempar2 where params_id in (4801,15010) union
-select params_id, text from furnpar1 where params_id in (4801,15010) union
-select params_id, text from furnpar2 where params_id in (4801,15010) union
-select params_id, text from glaspar1 where params_id in (4801,15010) union
-select params_id, text from glaspar2 where params_id in (4801,15010) union
-select params_id, text from joinpar1 where params_id in (4801,15010) union
-select params_id, text from joinpar2 where params_id in (4801,15010) order by 1
+select groups_id, text from elempar1 where groups_id in (4801,15010) union
+select groups_id, text from elempar2 where groups_id in (4801,15010) union
+select groups_id, text from furnpar1 where groups_id in (4801,15010) union
+select groups_id, text from furnpar2 where groups_id in (4801,15010) union
+select groups_id, text from glaspar1 where groups_id in (4801,15010) union
+select groups_id, text from glaspar2 where groups_id in (4801,15010) union
+select groups_id, text from joinpar1 where groups_id in (4801,15010) union
+select groups_id, text from joinpar2 where groups_id in (4801,15010) order by 1
 
 Вставки по артикулу элемента спецификации
 select b.id, a.* from element a,  elemdet b
@@ -31,7 +31,7 @@ where  a.id = b.element_id and b.artikl_id = 2233
 
 Вставки по первому параметру
 select a.text, b.id, b.name, c.code, c.name from elempar1 a, element b, artikl c
-where a.element_id = b.id and b.artikl_id = c.id and a.params_id = 37010
+where a.element_id = b.id and b.artikl_id = c.id and a.groups_id = 37010
 
 Фурнитура по артикулу элемента спецификации
 select b.id, a.* from furniture a,  furndet b
