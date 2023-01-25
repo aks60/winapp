@@ -320,7 +320,7 @@ public class ParName extends javax.swing.JDialog {
         pan3.setPreferredSize(new java.awt.Dimension(350, 400));
         pan3.setLayout(new java.awt.BorderLayout());
 
-        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "В перспективе или устарели", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Перспектива или устарели", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -349,6 +349,7 @@ public class ParName extends javax.swing.JDialog {
         }
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
+        scr3.getAccessibleContext().setAccessibleName("Перспектива или устарели");
 
         centr.add(pan3, "card3");
 

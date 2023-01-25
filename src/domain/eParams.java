@@ -55,7 +55,7 @@ public enum eParams implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", params_id, ",", text);
+            query.select(up, "order by", groups_id, ",", text);
             Query.listOpenTable.add(query);
         }
         return query;
@@ -69,11 +69,11 @@ public enum eParams implements Field {
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
-    public static List<Record> find2(int _params_id) {
+    public static List<Record> find2(int _groups_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _params_id == rec.getInt(params_id)).collect(toList());
+            return query().stream().filter(rec -> _groups_id == rec.getInt(groups_id)).collect(toList());
         }
-        return new Query(values()).select(up, "where", params_id, "=", _params_id);
+        return new Query(values()).select(up, "where", groups_id, "=", _groups_id);
     }
 
     public static Record newRecord2() {
