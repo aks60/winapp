@@ -35,9 +35,9 @@ public class ParDefault extends javax.swing.JDialog {
     public void loadingModel(Integer grup) {
 
         if(grup == null) {
-          qParam.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
+          qParam.select(eParams.up, "where", eParams.id, "=", eParams.groups_id, "order by", eParams.text);
         } else {
-          qParam.select(eParams.up, "where", eParams.params_id, "=", grup, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);  
+          qParam.select(eParams.up, "where", eParams.groups_id, "=", grup, "and", eParams.id, "!=", eParams.groups_id, "order by", eParams.text);  
         }
         tab1.setModel(new DefTableModel(tab1, qParam, eParams.id, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();

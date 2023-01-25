@@ -326,11 +326,11 @@ public class UGui {
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
         int titleID1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
-                .findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+                .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
 
         for (int i = 0; i < jsonArr.size(); i++) {
             int grup = jsonArr.get(i).getAsInt();
-            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
             if (titleID1 == titleID2) {
                 jsonArr.remove(i);
             }
@@ -796,8 +796,8 @@ public class UGui {
     //componentCell - DefCellEditorBtn либо String см. класс DefCellEditorBtn
     public static boolean cellParamTypeOrVid(JTable table, Object componentCell, Field params_id) {
         try {
-            Query qParam = ((DefTableModel) table.getModel()).getQuery();
-            int paramsID = qParam.getAs(getIndexRec(table), params_id);
+            Query qXxxpar = ((DefTableModel) table.getModel()).getQuery();
+            int paramsID = qXxxpar.getAs(getIndexRec(table), params_id);
 
             //Если компонент класс DefCellEditorBtn
             //установим вид и тип ячейки
@@ -830,7 +830,7 @@ public class UGui {
                 //пользовательский параметр текстом бвть не может и не проверяется
             } else if (paramsID > 0 && componentCell != null && componentCell instanceof String) {
                 String txt = (String) componentCell;
-                return ParamList.find(qParam.getAs(UGui.getIndexRec(table), params_id)).check(txt);
+                return ParamList.find(qXxxpar.getAs(UGui.getIndexRec(table), params_id)).check(txt);
             }
         } catch (Exception e) {
             System.out.println("Ошибка:UGui.cellParamTypeOrVid() " + e);

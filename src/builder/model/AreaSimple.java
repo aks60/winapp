@@ -139,7 +139,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                     //Цикл по пааметрам менеджера
                     ioknaParamArr.forEach(grup -> {
                         Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера  
-                        Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.params_id));
+                        Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.groups_id));
                         if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
                             syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text)); //накладываем параметр менеджера
                         }
