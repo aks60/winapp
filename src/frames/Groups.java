@@ -776,11 +776,11 @@ public class Groups extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
-        List.of(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColGrp, qColMap, qCategVst, qCategKit, qDecInc).forEach(q -> q.execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_formWindowClosed
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
-        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab7);
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
         int index = UGui.getIndexRec(table);
         int index2 = index;
         if (index != -1 && table != null) {

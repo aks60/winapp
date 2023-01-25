@@ -2484,7 +2484,6 @@ public class Artikles extends javax.swing.JFrame {
                         artiklRec.setNo(eArtikl.level2, enam.id2);
                         ((DefTableModel) tab1.getModel()).getQuery().update(artiklRec);
                         selectionTree();
-                        UGui.setSelectedIndex(tab1, index);
                     }
                 }
             }

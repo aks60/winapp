@@ -7,11 +7,12 @@ import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import domain.eGroups;
 import java.util.Arrays;
 
 public class ParDefault extends javax.swing.JDialog {
 
-    private Query qParam = new Query(eParams.up.values());
+    private Query qGroups = new Query(eGroups.up.values());
     private ListenerRecord listener;
     
     public ParDefault(java.awt.Frame parent, ListenerRecord listener) {
@@ -35,11 +36,11 @@ public class ParDefault extends javax.swing.JDialog {
     public void loadingModel(Integer grup) {
 
         if(grup == null) {
-          qParam.select(eParams.up, "where", eParams.id, "=", eParams.groups_id, "order by", eParams.text);
+          qGroups.select(eGroups.up, "where", eGroups.grup, "= 1", "order by", eGroups.name);
         } else {
-          qParam.select(eParams.up, "where", eParams.groups_id, "=", grup, "and", eParams.id, "!=", eParams.groups_id, "order by", eParams.text);  
+          qGroups.select(eGroups.up, "where", eGroups.id, "=", grup, "order by", eGroups.npp, ",", eGroups.name);  
         }
-        tab1.setModel(new DefTableModel(tab1, qParam, eParams.id, eParams.text));
+        tab1.setModel(new DefTableModel(tab1, qGroups, eParams.id, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
     }
@@ -201,7 +202,7 @@ public class ParDefault extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
-        Record record = qParam.get(UGui.getIndexRec(tab1));
+        Record record = qGroups.get(UGui.getIndexRec(tab1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce
