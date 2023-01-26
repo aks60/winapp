@@ -208,7 +208,7 @@ public class UCom {
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
     //Если не диапазон, то точный поиск
-    public static boolean containsColorJust(String txt, int value) {
+    public static boolean containsColor(String txt, int value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
         }

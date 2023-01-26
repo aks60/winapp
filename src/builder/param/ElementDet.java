@@ -66,19 +66,19 @@ public class ElementDet extends Par5s {
                     break;
                 case 33005:  //Коды основной текстуры контейнера 
                 case 34005:  //Коды основной текстуры контейнера
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 33006:  //Коды внутр. текстуры контейнера
                 case 34006:  //Коды внутр. текстуры контейнера 
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 33007:  //Коды внешн. текстуры контейнера 
                 case 34007:  //Коды внешн. текстуры контейнера     
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                     break;
@@ -174,7 +174,7 @@ public class ElementDet extends Par5s {
                 case 38067:  //Коды основной текстуры изделия    
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
@@ -183,7 +183,7 @@ public class ElementDet extends Par5s {
                 case 38068:  //Коды внутр. текстуры изделия 
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
@@ -192,7 +192,7 @@ public class ElementDet extends Par5s {
                 case 38069:  //Коды внешн. текстуры изделия 
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069:  //Коды внешн. текстуры изделия  
-                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                     break;
