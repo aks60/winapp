@@ -44,42 +44,7 @@ public enum ePrjpart implements Field {
     desc3("8", "15", "1", "Скидка на уплотнение", "DESC3"),
     desc5("8", "15", "1", "Скидка на заполнение", "DESC5"),
     disc6("8", "15", "1", "Скидки по умолчанию", "CDESC");     
-    
-//    kunic("4", "10", "1", "null", "KUNIC"),
-//    krekl("4", "10", "1", "null", "KREKL"),
-//    pricl("4", "10", "1", "null", "PRICL"),
-//    knamf("12", "128", "1", "полное название контрагента", "KNAMF"),
-//    idnum("12", "32", "1", "null", "IDNUM"),
-//    tmark("12", "64", "1", "null", "TMARK"),
-//    krnam("12", "48", "1", "null", "KRNAM"),
-//    kkdol("12", "48", "1", "должность", "KKDOL"),
-//    kbase("12", "48", "1", "null", "KBASE"),
-//    kbnam("12", "48", "1", "null", "KBNAM"),
-//    kknam("12", "48", "1", "контактное лицо", "KKNAM"),
-//    kgrup("12", "96", "1", "null", "KGRUP"),
-//    kpasp("12", "32", "1", "паспорт частного лица", "KPASP"),
-//    kpasv("12", "128", "1", "паспорт выдан", "KPASV"),
-//    kdepa("5", "5", "1", "номер отдела", "KDEPA"),
-//    kprim("-4", "null", "1", "примечание", "KPRIM"),
-//    jcntr("5", "5", "1", "заметки", "JCNTR"),
-//    saldo("8", "15", "1", "сальдо", "SALDO"),
-//    kcred("8", "15", "1", "null", "KCRED"),
-//    kdate("93", "19", "1", "дата заведения", "KDATE"),
-//    dnumb("12", "32", "1", "null", "DNUMB"),
-//    face1("12", "48", "1", "null", "FACE1"),
-//    post1("12", "48", "1", "null", "POST1"),
-//    mail1("12", "48", "1", "null", "MAIL1"),
-//    tele1("12", "48", "1", "null", "TELE1"),
-//    face2("12", "48", "1", "null", "FACE2"),
-//    post2("12", "48", "1", "null", "POST2"),
-//    mail2("12", "48", "1", "null", "MAIL2"),
-//    tele2("12", "48", "1", "null", "TELE2"),
-//    face3("12", "48", "1", "null", "FACE3"),
-//    post3("12", "48", "1", "null", "POST3"),
-//    mail3("12", "48", "1", "null", "MAIL3"),
-//    tele3("12", "48", "1", "null", "TELE3"),
-//    gnumb("5", "5", "1", "null", "GNUMB"),
-//    cuser("4", "10", "1", "null", "CUSER");    
+   
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

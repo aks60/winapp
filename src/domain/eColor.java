@@ -21,17 +21,7 @@ public enum eColor implements Field {
     orient("5", "5", "1", "Ориентация", "CORIE"),
     pain("5", "5", "1", "Покраска", "CTYPE"),
     groups_id("5", "5", "1", "Группа", "groups_id");
-    
-    //suffix1("12", "8", "1", "Суффикс основной тестуры", "CMAIN"),
-    //suffix2("12", "8", "1", "Суффикс внутренний тестуры", "CINTO"),
-    //suffix3("12", "8", "1", "Суффикс внешний текстуры", "COUTS"),    
-    //numb("4", "10", "1", "id", "CNUMB"),
-    //cgrup("5", "5", "1", "группа", "CGRUP");    
-    //cpict("-4", "80", "1", "null", "CPICT"),
-    //xdepa("5", "5", "1", "null", "XDEPA"),
-    //nouse("5", "5", "1", "null", "NOUSE"),
-    //cprc1("8", "15", "1", "null", "CPRC1"),
-    //cprc2("8", "15", "1", "null", "CPRC2");
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
     private static HashMap<Integer, Record> map = new HashMap();

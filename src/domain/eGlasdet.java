@@ -16,10 +16,7 @@ public enum eGlasdet implements Field {
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
     glasgrp_id("4", "10", "0", "Группы", "glassgrp_id");
-    //gnumb("4", "10", "1", "GLASS_ID", "GNUMB"),
-    //gunic("4", "10", "1", "ID_GLASDET", "GUNIC"), 
-    //anumb("12", "32", "1", "Артикул", "ANUMB"), // ANUMB->ARTIKL.ANUMB
-    //clnum("4", "10", "1", "текстура 0-Авто_подб 100000-Точн.подбор 1-. -ХХХ-ручн.парам.", "CLNUM"), //CLNUM=>COLOT.CNUMB
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

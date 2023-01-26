@@ -9,22 +9,7 @@ public enum eKits implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Название комплекта", "KNAME"), //для пользователя    
     groups_id("4", "10", "0", "Категории", "groups_id");
-//    groups_id("12", "32", "1", "Категория", "categ"); //Категория - туфта    
-//    quant("8", "15", "1", "Количество", "AQTYK"),
-//    hide("5", "5", "1", "Флаг скрыт", "KHIDE"), //Устанавливается для запрета использования комплекта
-//    artikl_id("4", "10", "0", "Артикул", "id"),
-//    color_id("4", "10", "1", "Текстура", "id");
-//    anumb("12", "32", "1", "Aртикул, получаемый в случае использования  скатки  или ламинации", "ANUMB"),
-//    clnum("4", "10", "1", "Текстура скатанного или ламинированного артикула", "CLNUM"),    
-//    kpict("12", "64", "1", "null", "KPICT"),
-//    kgrup("12", "96", "1", "null", "KGRUP");
-//    xdepa("5", "5", "1", "null", "XDEPA"),
-//    kdiff("8", "15", "1", "null", "KDIFF"),
-//    pnump("5", "5", "1", "null", "PNUMP"),
-//    gnumb("5", "5", "1", "null", "GNUMB"),
-//    ksize("12", "96", "1", "null", "KSIZE");
-//    kunic("4", "10", "1", "ID комплекта", "KUNIC"),
-//    kblob("-4", "null", "1", "Примечания BLOB", "KBLOB"),    
+   
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

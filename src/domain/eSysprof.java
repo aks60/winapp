@@ -22,10 +22,7 @@ public enum eSysprof implements Field {
     use_side("5", "5", "1", "Сторона использования", "ASETS"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id"),
     systree_id("4", "10", "0", "Система", "systree_id");
-    //aunic("4", "10", "1", "ИД компонента", "AUNIC"),
-    //nuni("4", "10", "1", "ID  серии профилей", "NUNI"),    
-    //anumb("12", "32", "1", "артикул", "ANUMB"),
-    //cflag("5", "5", "1", "Свои текстуры", "CFLAG");
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

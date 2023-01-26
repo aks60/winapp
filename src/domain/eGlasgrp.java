@@ -12,9 +12,7 @@ public enum eGlasgrp implements Field {
     name("12", "96", "1", "Название группы", "GNAME"),
     gap("8", "15", "1", "Зазор", "GZAZO"),
     depth("12", "128", "1", "Доступные толщины", "BFRIC");
-    //gnumb("4", "10", "1", "id группы", "GNUMB"),    
-    //gdiff("8", "15", "1", "null", "GDIFF"),
-    //pnump("5", "5", "1", "null", "PNUMP");
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

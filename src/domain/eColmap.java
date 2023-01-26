@@ -19,9 +19,6 @@ public enum eColmap implements Field {
     groups_id("4", "10", "1", "Группа соответствия цветов", "PNUMB"),
     color_id1("4", "10", "1", "Текстура профиля", "color_id1"),
     color_id2("4", "10", "1", "Цвет элемента", "color_id2");
-    //text("12", "64", "1", "Значения параметра", "PTEXT"),
-    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

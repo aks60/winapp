@@ -13,10 +13,6 @@ public enum eJoining implements Field {
     analog("12", "32", "1", "Аналоги", "CEQUV"),
     artikl_id1("4", "10", "1", "Артикул", "artikl_id1"),
     artikl_id2("4", "10", "1", "Артикул", "artikl_id2");
-    //anum1("12", "32", "1", "Артикул 1", "ANUM1"),
-    //anum2("12", "32", "1", "Артикул 2", "ANUM2"),    
-    //cconn("4", "10", "1", "ID соединения", "CCONN"),
-    //cpref("12", "32", "1", "Категория", "CPREF"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
