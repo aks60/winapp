@@ -117,19 +117,19 @@ public class FillingDet extends Par5s {
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
+                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
+                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
+                    if (UCom.containsColorJust(rec.getStr(TEXT), elem5e.winc().colorID3) == false) {
                         return false;
                     }
                     break;
