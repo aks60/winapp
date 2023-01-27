@@ -46,26 +46,6 @@ public enum eArtikl implements Field {
     groups3_id("4", "10", "1", "Категория профилей", "groups3_id"),
     analog_id("4", "10", "1", "Аналог профиля", "analog_id"),
     groups4_id("4", "10", "1", "Серия профиля", "groups4_id");
-    //group2("12", "32", "1", "Категория", "APREF")
-    //series("12", "32", "1", "Серия", "ASERI"),
-    //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
-    //cut_perim2("8", "15", "1", "null", "APER1"),
-    //cut_perim3("8", "15", "1", "null", "APER2"),       
-    //mom_iner1("8", "15", "1", "момент инерции", "AJXXX"),
-    //mom_iner2("8", "15", "1", "момент инерции", "AJYYY"),    
-    //picture("12", "64", "1", "чертеж артикула", "APICT"),    
-    //kant("8", "15", "1", "null", "AKANT"),
-    //kname("12", "64", "1", "Поставщик из CLIENT", "KNAME"),
-    //work("5", "5", "1", "исполнения", "AWORK"),    
-    //group3("12", "196", "1", "группа печати", "AGRUP"),
-    //nunic("4", "10", "1", "ИД компоненета", "NUNIC"),            
-    //xdepa("5", "5", "1", "null", "XDEPA"),
-    //sunic("4", "10", "1", "null", "SUNIC"),
-    //aspec("5", "5", "1", "null", "ASPEC"),
-    //vruch("12", "196", "1", "null", "VRUCH"),
-    //imain("5", "5", "1", "null", "IMAIN"),
-    //acomp("5", "5", "1", "null", "ACOMP"),
-    //abits("4", "10", "1", "null", "ABITS"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

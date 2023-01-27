@@ -15,10 +15,7 @@ public enum eSyspar1 implements Field {
     groups_id("4", "10", "0", "Название параметра", "PNUMB"),
     systree_id("4", "10", "0", "Система", "systree_id"),
     fixed("16", "5", "1", "Закреплено", "PFIXX");
-
-    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    //PNUMB("4", "10", "0", "Ссылка", "PNUMB"),
-    //ZNUMB("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
+  
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

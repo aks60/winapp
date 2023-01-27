@@ -22,13 +22,6 @@ public enum eFurniture implements Field {
     view_open("5", "5", "1", "Вид открывания", "view_open"), //(поворотная, раздвижная, фрамуга)
     pars("12", "96", "1", "Использ. параметры", "FPARS"),
     coord_lim("12", "128", "1", "Координаты ограничений", "FORML");
-    //hand_set("5", "5", "1", "По сеоедине, Константная, Вариационная", "THAND"),
-    //fview("12", "16", "1", "Вид открывания", "FVIEW"), //(поворотная, раздвижная, фрамуга)
-    //funic("4", "10", "1", "ID фурнитуры / фурнитурного набора", "FUNIC"),
-    //xdepa("5", "5", "1", "null", "XDEPA"),
-    //fdiff("8", "15", "1", "null", "FDIFF"),
-    //sunic("4", "10", "1", "тип комплекта фурнитуры: 0 - все, 15 - ROTO OK,", "SUNIC");
-    //fprim("-4", "512", "1", "null", "FPRIM"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

@@ -22,9 +22,7 @@ public enum eRulecalc implements Field {
     incr("8", "15", "1", "Надбавка", "RPRIC"),
     sebes("5", "5", "1", "Флаг себестоимости", "RSEBE"),
     calk("5", "5", "1", "Калькуляция", "RCALK"),
-    artikl_id("4", "10", "1", "Артикул", "artikl_id");
-    //numb("4", "10", "1", "Номер", "RNUMB"),
-    //unic("4", "10", "1", "Идентификатор 2", "RUNIC"),    
+    artikl_id("4", "10", "1", "Артикул", "artikl_id");   
     
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

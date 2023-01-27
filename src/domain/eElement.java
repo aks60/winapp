@@ -20,18 +20,7 @@ public enum eElement implements Field {
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     groups1_id("4", "10", "1", "Серия", "groups1_id"),
     groups2_id("4", "10", "0", "Категории", "groups2_id");
-    //series("12", "32", "1", "Для серии", "VLETS"),
-    //vsets("5", "5", "1", "Установка обязательности", "VSETS"), //0 -умолчание нет, обязательно нет 1 -умолчание да, обязательно да, 2 -умолчание да, обязательно нет"
-    //vtype("12", "16", "1", "Тип состава (1 - внутренний, 5 - состав_С/П)", "VTYPE"),
-    //anumb("12", "32", "1", "артикул", "ANUMB"),    
-    //atypm("5", "5", "1", "тип артикула  1 - профили  5 - заполнение", "ATYPM"),    
-    //vnumb("4", "10", "0", "ID", "VNUMB"),
-    //vpict("12", "64", "1", "чертеж состава", "VPICT"),
-    //vgrup("12", "32", "1", "группа", "VGRUP")    
-    //xdepa("5", "5", "1", "null", "XDEPA"),
-    //vdiff("8", "15", "1", "null", "VDIFF"),
-    //pnump("5", "5", "1", "null", "PNUMP"),
-    //vcomp("5", "5", "1", "null", "VCOMP");
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

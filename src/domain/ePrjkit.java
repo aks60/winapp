@@ -27,9 +27,6 @@ public enum ePrjkit implements Field {
     prjprod_id("4", "10", "1", "Изделие", "prjprod_id"),
     project_id("4", "10", "0", "Проект", "project_id");
 
-    //name("12", "64", "1", "Название комплекта", "name"),
-    //type("5", "5", "1", "Флаг", "type"),
-    //categ("5", "5", "1", "Флаг", "categ"),
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

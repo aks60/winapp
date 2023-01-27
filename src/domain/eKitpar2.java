@@ -17,10 +17,6 @@ public enum eKitpar2 implements Field {
     text("12", "64", "1", "Значения параметра", "PTEXT"),
     groups_id("4", "10", "0", "Название параметра", "PNUMB"),
     kitdet_id("4", "10", "0", "Комплекты", "kitdet_id");
-    
-    //grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
-    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
-    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

@@ -17,10 +17,7 @@ public enum eGlasprof implements Field {
     outside("16", "5", "1", "Внншнее заполнение", "toout"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     glasgrp_id("4", "10", "0", "Группа", "glasgrp_id");
-    //gtype("5", "5", "1", "Привязка к размеру", "GTYPE"), //1-внут.да, внеш.нет ; 2- внутр.нет, внешн.да: 3- внеш.да, внут.да
-    //zunic("4", "10", "1", "null", "ZUNIC"),
-    //anumb("12", "32", "1", "Артикул", "ANUMB"),
-    //gnumb("4", "10", "1", "ID группы", "GNUMB"),
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

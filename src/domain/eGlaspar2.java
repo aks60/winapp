@@ -13,9 +13,7 @@ public enum eGlaspar2 implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     text("12", "64", "1", "Значения параметра", "PTEXT"),
     groups_id("4", "10", "0", "Название параметра", "PNUMB"),
-    glasdet_id("4", "10", "0", "Детализация", "glasdet_id");
-    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
+    glasdet_id("4", "10", "0", "Детализация", "glasdet_id");  
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

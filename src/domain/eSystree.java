@@ -24,17 +24,7 @@ public enum eSystree implements Field {
     types("5", "5", "1", "Тип конструкции", "TYPEW"), //1-окно; 4,5-двери
     note("12", "256", "1", "Примечание", "NPRIM"), 
     parent_id("4", "10", "1", "Родитель", "parent_id");
-    //nlev("5", "5", "1", "Номер ступеньки в дереве", "NLEV"),
-    //npar("4", "10", "1", "ID материнского профиля (SYSPROF.NUNI)", "NPAR"),
-    //tcalk("5", "5", "1", "Спецификация профилей и пакетов для сборки", "TCALK"),
-    //tview("5", "5", "1", "Примечание", "TVIEW"),
-    //tdrit("5", "5", "1", "Режим проволоки в системе (0 - запрещен, 1 - разрешен)", "TDRIT"),
-    //nprim("-4", "512", "1", "null", "NPRIM"),
-    //ngrup("12", "96", "1", "Система доступная для групп пользователя", "NGRUP"),
-    //npref("12", "32", "1", "Замена / код", "NPREF"),
-    //pnump("5", "5", "1", "null", "PNUMP"),
-    //pnumn("5", "5", "1", "null", "PNUMN"),
-    //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

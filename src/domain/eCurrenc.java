@@ -16,7 +16,7 @@ public enum eCurrenc implements Field {
     cross_cour("8", "15", "1", "Кросс курс", "CKURS"),
     check1("5", "5", "1", "Основная ", "CSETS"),
     check2("5", "5", "1", "Внутренняя ", "CINTO");
-    //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
+
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

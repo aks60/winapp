@@ -307,9 +307,9 @@ public class Tariffic extends Cal5e {
                     && (spcRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null)) {
 
                 if ((spcRec.artiklRec.getInt(eArtikl.level1) * 100 + spcRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
-                    if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), spcRec.colorID1) == true
-                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color2), spcRec.colorID2) == true
-                            && UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color3), spcRec.colorID3) == true) {
+                    if (UCom.containsColor(rulecalcRec.getStr(eRulecalc.color1), spcRec.colorID1) == true
+                            && UCom.containsColor(rulecalcRec.getStr(eRulecalc.color2), spcRec.colorID2) == true
+                            && UCom.containsColor(rulecalcRec.getStr(eRulecalc.color3), spcRec.colorID3) == true) {
 
                         if (rulecalcRec.getInt(eRulecalc.common) == 0) {
                             if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.quant), spcRec.quant2) == true) {

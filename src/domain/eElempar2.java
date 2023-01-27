@@ -14,8 +14,6 @@ public enum eElempar2 implements Field {
     text("12", "64", "1", "Значения параметра", "PTEXT"),
     groups_id("4", "10", "0", "Название параметра", "PNUMB"),
     elemdet_id("4", "10", "0", "Спецификацмя", "element_id");
-    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

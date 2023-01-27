@@ -208,6 +208,46 @@ public class UCom {
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
     //Если не диапазон, то точный поиск
+    public static boolean containsColor(String txt, int value) {
+        if (txt == null || txt.isEmpty() || txt.equals("*")) {
+            return true;
+        }
+        ArrayList<Integer> arrList = new ArrayList();
+        txt = txt.replace(",", ".");
+        String[] arr = txt.split(";");
+        if (arr.length == 1) {
+            arr = arr[0].split("-");
+            if (arr.length == 1) { //если не диапазон, то точный поиск
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[0]));
+            } else {
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[1]));
+            }
+        } else {
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[1]));
+                }
+            }
+        }
+        for (int index = 0; index < arrList.size(); ++index) {
+            int v1 = arrList.get(index);
+            int v2 = arrList.get(++index);
+            int v3 = value;
+            if (v1 <= v3 && v3 <= v2) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
+    //Если не диапазон, то точный поиск
     public static boolean containsNumbJust(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;

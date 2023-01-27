@@ -124,25 +124,25 @@ public class JoiningDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11066:  //Если текстура профиля Арт.1 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.colorID1()) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), elemJoin.elem1.colorID1()) == false) {
                         return false;
                     }
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID1) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), winc.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID2) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), winc.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID3) == false) {
+                    if (UCom.containsColor(rec.getStr(TEXT), winc.colorID3) == false) {
                         return false;
                     }
                     break;

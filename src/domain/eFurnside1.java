@@ -14,8 +14,7 @@ public enum eFurnside1 implements Field {
     side_num("5", "5", "1", "Сторона", "FNUMB"),
     side_use("4", "10", "0", "Назначение", "side_use"), //1-сторона, 2-ось поворота, 3-крепление петель
     furniture_id("4", "10", "0", "Фурнитура", "furniture_id");
-    //funic("4", "10", "1", "null", "FUNIC"),
-    //fincr("4", "10", "1", "null", "FINCR"),    
+   
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

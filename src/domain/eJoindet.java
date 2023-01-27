@@ -16,10 +16,7 @@ public enum eJoindet implements Field {
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     joinvar_id("4", "10", "0", "Варианты соед.", "joinvar_id");
-    //clnum("4", "10", "1", "текстура 0-Авто_подб 100000-Точн.подбор 1-. -ХХХ-ручн.парам.", "CLNUM"), //CLNUM=>COLOT.CNUMB
-    //anumb("12", "32", "1", "Артикул", "ANUMB"). // ANUMB->ARTIKL.ANUMB  
-    //cunic("4", "10", "1", "10_JOINING", "CUNIC"),
-    //aunic("4", "10", "1", "ID_JOINDET", "AUNIC"),    
+   
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

@@ -14,10 +14,7 @@ public enum eElemdet implements Field {
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     element_id("4", "10", "0", "Вставка", "element_id");
-    //clnum("4", "10", "1", "текстура 0-Авто_подб 100000-Точн.подбор 1-. -ХХХ-ручн.парам.", "CLNUM"); //CLNUM=>COLOT.CNUMB
-    //anumb("12", "32", "1", "Артикул", "ANUMB"). // ANUMB->ARTIKL.ANUMB  
-    //vnumb("4", "10", "1", "ELEMENT_ID", "VNUMB"),
-    //aunic("4", "10", "1", "ID_ELEMDET", "AUNIC"),   
+ 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
