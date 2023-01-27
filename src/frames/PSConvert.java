@@ -565,7 +565,8 @@ public class PSConvert {
             alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
             alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
             alterTable("color", "fk_color1", "groups_id", "groups");
-            alterTable("alter table color add constraint ung1_color unique (name)");
+            alterTable("alter table color add constraint ung1_color unique (code)");
+            alterTable("alter table color add constraint ung2_color unique (name)");
             alterTable("colmap", "fk_colmap_1", "groups_id", "groups");
             alterTable("colmap", "fk_colmap_2", "color_id1", "color");
             alterTable("colmap", "fk_colmap_3", "color_id2", "color");

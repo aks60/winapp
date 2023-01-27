@@ -17,14 +17,18 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
+import dataset.Conn;
+import dataset.Field;
 import dataset.Query;
+import domain.eColor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * <p>
@@ -1091,7 +1095,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             public void actionRequest(Object obj) {
                 App.PSCompare.createFrame(Tex.this);
             }
-        });
+        });  
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1103,12 +1107,12 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_formWindowActivated
 
     private void mnPartn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartn
-                                                                                          
+
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Partner.createFrame(Tex.this);
             }
-        });          
+        });
     }//GEN-LAST:event_mnPartn
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder

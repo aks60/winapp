@@ -17,6 +17,7 @@ import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 public class Test {
 
@@ -66,7 +67,7 @@ public class Test {
 
         eProp.dev = true;
         try {
-            PSConvert.exec();
+            //PSConvert.exec();
             //wincalc();
             //param();
             //query();
@@ -74,7 +75,7 @@ public class Test {
             //json();
             //uid();
             //script();
-
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -172,6 +173,18 @@ public class Test {
         } catch (Exception e) {
             System.out.println("main.Test.query()");
         }
+        //Пересчёт
+//        try {
+//            Statement statement = statement = Conn.connection().createStatement();
+//            Query q = new Query(eColor.values()).select(eColor.up, "order by id");
+//            int id = 0;
+//            for (Record rec : q) {
+//                String ID = rec.getStr(eColor.id);
+//                statement.executeUpdate("update color set id = " + String.valueOf(++id) + " where id = " + ID);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Query.update() " + e);
+//        }        
     }
 
     private static void json() {
@@ -233,6 +246,7 @@ public class Test {
         int uid = str.hashCode();
         String filterStr = "" + uid;
         str = filterStr.replaceAll("-", "");
+        
         System.out.println(Integer.parseInt(str));
     }
 

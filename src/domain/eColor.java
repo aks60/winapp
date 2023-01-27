@@ -11,6 +11,7 @@ import static java.util.stream.Collectors.toList;
 public enum eColor implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
     id("4", "10", "0", "Идентификатор", "CCODE"),
+    code("4", "10", "0", "Код", "CCODE"),
     name("12", "32", "1", "Название", "CNAME"),
     name2("12", "32", "1", "Название у поставщика", "CNAMP"),
     rgb("4", "10", "1", "Цвет отображения", "CVIEW"),

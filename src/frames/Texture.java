@@ -1,14 +1,11 @@
 package frames;
 
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
-import domain.eColmap;
 import domain.eGroups;
-import domain.eParams;
 import enums.TypeGroups;
-import frames.dialog.DicColor;
+import frames.swing.DefCellEditorBtn;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,22 +13,22 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
 import java.awt.Component;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
-import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.DefaultCellEditor;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
 public class Texture extends javax.swing.JFrame {
 
     private Query qColall = new Query(eColor.values());
-    private Query qGroup1 = new Query(eGroups.values());
+    private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.values());
 
     public Texture() {
@@ -44,17 +41,17 @@ public class Texture extends javax.swing.JFrame {
 
     public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
-        qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
     }
 
     public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab1, tab2);
-        List.of(qGroup1, qColor).forEach(q -> q.execsql());
+        List.of(qGroups, qColor).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
 
-            Record record = qGroup1.table(eGroups.up).get(index);
+            Record record = qGroups.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
             qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -64,8 +61,8 @@ public class Texture extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qGroup1, eGroups.name, eGroups.val);
-        new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
+        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.val);
+        new DefTableModel(tab2, qColor, eColor.code, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
 
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -95,6 +92,7 @@ public class Texture extends javax.swing.JFrame {
                 qColor.execsql();
             }
         });
+        ((DefCellEditorBtn) tab2.getColumnModel().getColumn(0).getCellEditor()).getTextField().setEditable(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -348,13 +346,13 @@ public class Texture extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(320);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(5).setMaxWidth(120);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
@@ -410,14 +408,26 @@ public class Texture extends javax.swing.JFrame {
                 record.setDev(eGroups.name, "Группа");
                 record.set(eGroups.val, 1);
             });
+
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
-                Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
+                Integer max = (qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000).count() > 0)
+                        ? qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000)
+                                .mapToInt(rec -> Integer.valueOf(rec.getStr(eColor.code)
+                                .substring(rec.getStr(eColor.code).length() - 3))).max().getAsInt() : 0;
+                int groupArr[] = qGroups.stream().mapToInt(rec -> rec.getInt(eGroups.id)).sorted().toArray();
+                int groupID = qGroups.get(UGui.getIndexRec(tab1)).getInt(eGroups.id);
+                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupID);
+
+                Record groupRec = qGroups.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
+                record.setNo(eColor.code, (1 + index) * 1000 + max + 1);
                 record.setDev(eColor.name, "Цвет");
+                record.setNo(eColor.rgb, 0xCCCCCC);
                 record.setNo(eColor.coef1, 1);
                 record.setNo(eColor.coef2, 1);
                 record.setNo(eColor.coef3, 1);
+                
                 qColall.add(record);
             });
         }
