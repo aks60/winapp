@@ -3197,7 +3197,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 if (arr2.length != 0) {
                     for (Record rec : eColor.query()) {
                         for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                            if (rec.getInt(eColor.code) >= arr2[i] && rec.getInt(eColor.code) <= arr2[i + 1]) {
                                 colorSet.add(rec);
                             }
                         }

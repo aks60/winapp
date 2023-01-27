@@ -124,9 +124,9 @@ public class Artikles extends javax.swing.JFrame {
                     Integer color_fk = Integer.valueOf(val.toString());
 
                     if (color_fk >= 0) {
-                        Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+                        Record colorRec = qColor.find(color_fk, eColor.id);
                         if (col == 0) {
-                            Record colgrpRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == colorRec.getInt(eColor.groups_id)).findFirst().orElse(eGroups.up.newRecord());
+                            Record colgrpRec = qGroups.find(colorRec.getInt(eColor.groups_id), eGroups.id);
                             return colgrpRec.getStr(eGroups.name);
                         } else {
                             return colorRec.getStr(eColor.name);
@@ -350,7 +350,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public void listenerSet() {
 
         listenerSeries = (record) -> {

@@ -1,15 +1,12 @@
 package common;
 
-import builder.ICom5t;
 import dataset.Field;
 import dataset.Query;
-import enums.Type;
+import domain.eColor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class UCom {
 
@@ -212,6 +209,7 @@ public class UCom {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
         }
+        int code = eColor.get(value).getInt(eColor.code);
         ArrayList<Integer> arrList = new ArrayList();
         txt = txt.replace(",", ".");
         String[] arr = txt.split(";");
@@ -239,13 +237,13 @@ public class UCom {
         for (int index = 0; index < arrList.size(); ++index) {
             int v1 = arrList.get(index);
             int v2 = arrList.get(++index);
-            int v3 = value;
-            if (v1 <= v3 && v3 <= v2) {
+            if (v1 <= code && code <= v2) {
                 return true;
             }
         }
         return false;
     }
+    
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
     //Если не диапазон, то точный поиск
     public static boolean containsNumbJust(String txt, Number value) {

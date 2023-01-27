@@ -2,6 +2,7 @@ package frames;
 
 import dataset.Query;
 import dataset.Record;
+import domain.eArtdet;
 import domain.eColor;
 import domain.eGroups;
 import enums.TypeGroups;
@@ -21,9 +22,10 @@ import frames.swing.TableFieldFilter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.swing.DefaultCellEditor;
+import javax.swing.JOptionPane;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
+import startup.App;
 
 public class Texture extends javax.swing.JFrame {
 
@@ -53,7 +55,7 @@ public class Texture extends javax.swing.JFrame {
 
             Record record = qGroups.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
-            qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup);
+            qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup, "order by", eColor.code);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab2);
         }
@@ -393,7 +395,15 @@ public class Texture extends javax.swing.JFrame {
             }
         } else if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(tab2, this) == 0) {
-                UGui.deleteRecord(tab2);
+                Query.listOpenTable.clear();
+                int id = qColor.get(UGui.getIndexRec(tab2)).getInt(eColor.id);
+                if (eArtdet.query().stream().filter(rec -> id == rec.getInt(eArtdet.color_fk)).findFirst().isEmpty() == false) {
+                    JOptionPane.showMessageDialog(App.active, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } else {
+                    UGui.deleteRecord(tab2);  
+                }
+
             }
 
         }
@@ -427,7 +437,7 @@ public class Texture extends javax.swing.JFrame {
                 record.setNo(eColor.coef1, 1);
                 record.setNo(eColor.coef2, 1);
                 record.setNo(eColor.coef3, 1);
-                
+
                 qColall.add(record);
             });
         }
