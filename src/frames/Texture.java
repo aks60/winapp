@@ -415,7 +415,7 @@ public class Texture extends javax.swing.JFrame {
                 mes[2] = "см. форму Артикулы";
             }
             if (mes[2].isEmpty() == false) {
-                JOptionPane.showMessageDialog(App.active, mes[0] + mes[2], mes[1], JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, mes[0] + mes[2], mes[1], JOptionPane.INFORMATION_MESSAGE);
             } else if (UGui.isDeleteRecord(tab2, this) == 0) {
                 UGui.deleteRecord(tab2);
             }

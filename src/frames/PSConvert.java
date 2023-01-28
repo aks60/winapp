@@ -199,6 +199,11 @@ public class PSConvert {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
             }
+            executeSql("GRANT SELECT ON " + eSetting.up.tname() + " TO MANAGER_RO");
+            executeSql("GRANT ALL ON " + eSetting.up.tname() + " TO MANAGER_RW");
+            executeSql("GRANT SELECT ON " + eSetting.up.tname() + " TO TEXNOLOG_RO");
+            executeSql("GRANT ALL ON " + eSetting.up.tname() + " TO TEXNOLOG_RW");
+            
             if (eProp.dev == true) { //при этом в firebird такие логины должны быть созданы
                 executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
                 executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
@@ -431,7 +436,7 @@ public class PSConvert {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             loadGroups("Функция loadGroups()");
-            executeSql("3", "update setting set val = 'ps3' where id = 2");
+            executeSql("3", "update " + eSetting.up.tname() + " set val = 'ps3' where id = 2");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_ELEM.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
