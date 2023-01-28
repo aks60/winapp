@@ -386,7 +386,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 37030:  //Ограничение площади, кв.м.                                      
-                    if ("ps3".equals(versionDb)) { //Минимальная площадь, кв.м.
+                    if ("ps3".equals(versionPs)) { //Минимальная площадь, кв.м.
                         if (rec.getFloat(TEXT) > elem5e.root().width() / 1000 * elem5e.root().height() / 1000) {
                             return false;
                         }
@@ -397,14 +397,14 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 37031:  //Максимальная площадь 
-                    if ("ps3".equals(versionDb)) {
+                    if ("ps3".equals(versionPs)) {
                         if (rec.getFloat(TEXT) < elem5e.width() / 1000 * elem5e.height() / 1000) {
                             return false;
                         }
                     }
                     break;
                 case 37042:  //Допустимое соотношение габаритов б/м
-                    if ("ps3".equals(versionDb)) { //Мин. соотношение габаритов (б/м)
+                    if ("ps3".equals(versionPs)) { //Мин. соотношение габаритов (б/м)
                         float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                         float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
                         if (rec.getFloat(TEXT) > max / min) {

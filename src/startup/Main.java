@@ -10,7 +10,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main {
-
+    
+    ///////////////////////////////////////////
+    public final static String versionApp = "2.0";
+    ///////////////////////////////////////////
+    
     //Конструктор
     public Main() {
         Locale.setDefault(eProp.locale);

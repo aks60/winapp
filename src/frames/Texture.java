@@ -4,7 +4,12 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eColor;
+import domain.eElemdet;
+import domain.eFurndet;
+import domain.eGlasdet;
 import domain.eGroups;
+import domain.eJoindet;
+import domain.eKitdet;
 import enums.TypeGroups;
 import frames.swing.DefCellEditorBtn;
 import javax.swing.JTable;
@@ -394,18 +399,26 @@ public class Texture extends javax.swing.JFrame {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab2, this) == 0) {
-                Query.listOpenTable.clear();
-                int id = qColor.get(UGui.getIndexRec(tab2)).getInt(eColor.id);
-                if (eArtdet.query().stream().filter(rec -> id == rec.getInt(eArtdet.color_fk)).findFirst().isEmpty() == false) {
-                    JOptionPane.showMessageDialog(App.active, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                } else {
-                    UGui.deleteRecord(tab2);  
-                }
-
+            int colorID = qColor.get(UGui.getIndexRec(tab2)).getInt(eColor.id);
+            String mes[] = {"Нельзя удалить запись на которую имеются ссылки из других форм, ", "SQL предупреждение", ""};
+            if (!new Query(eKitdet.id).select(eKitdet.up, "where", eKitdet.color1_id, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Коиплекты";
+            } else if (!new Query(eJoindet.id).select(eJoindet.up, "where", eJoindet.color_fk, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Соединения";
+            } else if (!new Query(eElemdet.id).select(eElemdet.up, "where", eElemdet.color_fk, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Составы";
+            } else if (!new Query(eGlasdet.id).select(eGlasdet.up, "where", eGlasdet.color_fk, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Заполнения";
+            } else if (!new Query(eFurndet.id).select(eFurndet.up, "where", eFurndet.color_fk, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Фурнитура";
+            } else if (!new Query(eArtdet.id).select(eArtdet.up, "where", eArtdet.color_fk, "=", colorID).isEmpty()) {
+                mes[2] = "см. форму Артикулы";
             }
-
+            if (mes[2].isEmpty() == false) {
+                JOptionPane.showMessageDialog(App.active, mes[0] + mes[2], mes[1], JOptionPane.INFORMATION_MESSAGE);
+            } else if (UGui.isDeleteRecord(tab2, this) == 0) {
+                UGui.deleteRecord(tab2);
+            }
         }
     }//GEN-LAST:event_btnDelete
 

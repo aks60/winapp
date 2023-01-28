@@ -3,7 +3,7 @@ package frames;
 import frames.UGui;
 
 public class AboutBox extends javax.swing.JFrame {
-
+    
     public AboutBox() {
         initComponents();
 
@@ -19,7 +19,7 @@ public class AboutBox extends javax.swing.JFrame {
         north = new javax.swing.JPanel();
         labTitle = new javax.swing.JLabel();
         pan2 = new javax.swing.JPanel();
-        labProjectVersion = new javax.swing.JLabel();
+        labApp = new javax.swing.JLabel();
         labBase = new javax.swing.JLabel();
         labConfig = new javax.swing.JLabel();
         labImage = new javax.swing.JLabel();
@@ -57,8 +57,8 @@ public class AboutBox extends javax.swing.JFrame {
         pan2.setBackground(new java.awt.Color(255, 255, 255));
         pan2.setPreferredSize(new java.awt.Dimension(200, 60));
 
-        labProjectVersion.setFont(frames.UGui.getFont(0, 1));
-        labProjectVersion.setText("Верия программы - 1.0");
+        labApp.setFont(frames.UGui.getFont(0, 1));
+        labApp.setText("Верия программы - 1.0");
 
         labBase.setFont(frames.UGui.getFont(0, 1));
         labBase.setText("Версия базы данных - 1.0");
@@ -84,14 +84,14 @@ public class AboutBox extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                    .addComponent(labProjectVersion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
-                .addComponent(labProjectVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labApp, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(labBase, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -219,10 +219,10 @@ public class AboutBox extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel labApp;
     private javax.swing.JLabel labBase;
     private javax.swing.JLabel labConfig;
     private javax.swing.JLabel labImage;
-    private javax.swing.JLabel labProjectVersion;
     private javax.swing.JLabel labTitle;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;

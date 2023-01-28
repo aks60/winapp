@@ -246,7 +246,7 @@ public class FurnitureDet extends Par5s {
                             return false;
                         }
                     }
-                    if ("ps3".equals(versionDb)) { //Минимальная высота ручки, мм
+                    if ("ps3".equals(versionPs)) { //Минимальная высота ручки, мм
                         float handl_min = UCom.getFloat(rec.getStr(TEXT));
                         if (handl_min > elemStv.handleHeight()) {
                             return false;

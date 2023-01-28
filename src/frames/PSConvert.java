@@ -734,7 +734,7 @@ public class PSConvert {
     }
 
     public static void loadSetting(String mes) {
-        println(Color.BLACK, mes);
+/*        println(Color.BLACK, mes);
         try {
             println(Color.BLACK, "updateSetting()");
             Query q = new Query(eSetting.values());
@@ -746,12 +746,12 @@ public class PSConvert {
             record = eSetting.up.newRecord(Query.INS);
             record.setNo(eSetting.id, 2);
             record.setNo(eSetting.name, "Версия базы данных");
-            record.setNo(eSetting.val, "2.0");
+            record.setNo(eSetting.val, versionPs);
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {
             println(Color.RED, "Ошибка: modifySetting().  " + e);
-        }
+        }*/
     }
 
     public static void loadGroups(String mes) {

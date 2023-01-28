@@ -90,7 +90,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="labConfig" alignment="1" max="32767" attributes="0"/>
                           <Component id="labBase" alignment="1" pref="214" max="32767" attributes="0"/>
-                          <Component id="labProjectVersion" alignment="1" max="32767" attributes="0"/>
+                          <Component id="labApp" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -100,7 +100,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labImage" alignment="1" min="-2" pref="70" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="labProjectVersion" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="labApp" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="labBase" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -110,7 +110,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labProjectVersion">
+            <Component class="javax.swing.JLabel" name="labApp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.UGui.getFont(0, 1)" type="code"/>
