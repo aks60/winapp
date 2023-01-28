@@ -476,7 +476,7 @@ public class PSCompare extends javax.swing.JFrame {
         System.out.println("Prj=" + winc.rootGson.project());
         Float iwinTotal = 0f, jarTotal = 0f;
         String path = "src\\resource\\xls\\ps4\\p" + winc.rootGson.project() + ".xls";
-        if ("ps3".equals(eSetting.find(2)) == true) {
+        if ("ps3".equals(eSetting.val(2)) == true) {
             path = "src\\resource\\xls\\ps3\\p" + winc.rootGson.project() + ".xls";
         }
         //Specification.sort(spcList);
@@ -492,7 +492,7 @@ public class PSCompare extends javax.swing.JFrame {
         }
         try {
             Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
-            if ("ps3".equals(eSetting.find(2)) == true) {
+            if ("ps3".equals(eSetting.val(2)) == true) {
                 for (int i = 2; i < sheet.getRows(); i++) {
 
                     String art = sheet.getCell(0, i).getContents().trim();

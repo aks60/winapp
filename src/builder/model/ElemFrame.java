@@ -256,7 +256,7 @@ public class ElemFrame extends ElemSimple {
                         spcAdd.width += y2 - y1;
                     }
                 }
-                if ("ps3".equals(eSetting.find(2))) {
+                if ("ps3".equals(eSetting.val(2))) {
                     if ("Да".equals(spcAdd.getParam(null, 34010))) {
                         Double dw1 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
                         Double dw2 = artiklRec().getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));

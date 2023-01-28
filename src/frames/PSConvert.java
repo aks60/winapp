@@ -430,8 +430,8 @@ public class PSConvert {
     public static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            loadSetting("Функция loadSetting()");
             loadGroups("Функция loadGroups()");
+            executeSql("3", "update setting set val = 'ps3' where id = 2");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_ELEM.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
@@ -731,27 +731,6 @@ public class PSConvert {
         } catch (Exception e) {
             println(Color.RED, "Ошибка: modifyModels.  " + e);
         }
-    }
-
-    public static void loadSetting(String mes) {
-/*        println(Color.BLACK, mes);
-        try {
-            println(Color.BLACK, "updateSetting()");
-            Query q = new Query(eSetting.values());
-            Record record = eSetting.up.newRecord(Query.INS);
-            record.setNo(eSetting.id, 1);
-            record.setNo(eSetting.name, "Версия программы");
-            record.setNo(eSetting.val, "2.0");
-            q.insert(record);
-            record = eSetting.up.newRecord(Query.INS);
-            record.setNo(eSetting.id, 2);
-            record.setNo(eSetting.name, "Версия базы данных");
-            record.setNo(eSetting.val, versionPs);
-            q.insert(record);
-            cn2.commit();
-        } catch (Exception e) {
-            println(Color.RED, "Ошибка: modifySetting().  " + e);
-        }*/
     }
 
     public static void loadGroups(String mes) {

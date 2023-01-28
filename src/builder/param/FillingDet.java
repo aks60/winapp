@@ -99,7 +99,7 @@ public class FillingDet extends Par5s {
                     break;
                 case 14065:  //Ограничение угла, ° или Точный угол 
                 case 15055:  //Ограничение угла, ° или Точный угол  
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
@@ -109,7 +109,7 @@ public class FillingDet extends Par5s {
                     break;
                 case 14066: //Исключить угол, °
                 case 15056:
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }

@@ -177,7 +177,7 @@ public class UPar {
 
     //Задать Угол_реза_1/Угол_реза_2, °
     public static void to_34077_39077(Specific spcAdd) {
-        if ("ps3".equals(eSetting.find(2))) {
+        if ("ps3".equals(eSetting.val(2))) {
             if (spcAdd.getParam("-361", 34077).equals("-361") == false) {
                 spcAdd.anglCut1 = UCom.getFloat(spcAdd.getParam("-1", 34077));
             }

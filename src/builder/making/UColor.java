@@ -87,7 +87,7 @@ public class UColor {
                         spc.setColor(side, artdetColorFK);
 
                     } else { //тут наступает коллизия, фифти-фифти
-                        if ("ps3".equals(eSetting.find(2))) {
+                        if ("ps3".equals(eSetting.val(2))) {
                             return false;
                         }
                         if (spc.artiklRec.getInt(eArtikl.level1) == 2 && (spc.artiklRec.getInt(eArtikl.level2) == 11 || spc.artiklRec.getInt(eArtikl.level2) == 13)) {
@@ -359,7 +359,7 @@ public class UColor {
                 case 0:
                     return spc.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //Профиль
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         return spc.elem5e.colorID1(); //по основе текстуры профиля
                     } else {
                         if (side == 1) {

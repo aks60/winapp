@@ -28,7 +28,7 @@ public class Joining extends Cal5e {
     private JoiningDet joiningDet = null;
     private ElementDet elementDet = null;
     private HashMap<ElemJoining, Integer> mapJoinvar = new HashMap();
-    private boolean ps3 = "ps3".equals(eSetting.find(2));
+    private boolean ps3 = "ps3".equals(eSetting.val(2));
 
     public Joining(Wincalc winc) {
         super(winc);

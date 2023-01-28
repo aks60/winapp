@@ -58,7 +58,7 @@ public class JoiningVar extends Par5s {
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 4005: //Контейнер имеет тип Артикула1/Артикула2
-                    if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
+                    if ("ps3".equals(eSetting.val(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
@@ -76,7 +76,7 @@ public class JoiningVar extends Par5s {
                 case 2006:  //Контейнер Артикула 2 имеет тип
                 case 3006:  //Контейнер Артикула 2 имеет тип
                 case 4006:  //Контейнер Артикула 2 имеет тип
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
@@ -161,7 +161,7 @@ public class JoiningVar extends Par5s {
                 }
                 break;
                 case 1014:  //Только горизонтальная ориентация
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout() != Layout.HORIZ && elemJoin.elem1.layout() != Layout.BOTT && elemJoin.elem1.layout() != Layout.TOP) {
                             return false;
                         } else if ("Нет".equals(rec.getStr(TEXT)) && (elemJoin.elem1.layout() == Layout.HORIZ || elemJoin.elem1.layout() == Layout.BOTT || elemJoin.elem1.layout() == Layout.TOP)) {
@@ -170,7 +170,7 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1015:  //Только вертикальная ориентация
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout() != Layout.VERT && elemJoin.elem1.layout() != Layout.RIGHT && elemJoin.elem1.layout() != Layout.LEFT) {
                             return false;
                         } else if ("Нет".equals(rec.getStr(TEXT)) && (elemJoin.elem1.layout() == Layout.VERT || elemJoin.elem1.layout() == Layout.RIGHT || elemJoin.elem1.layout() == Layout.LEFT)) {
@@ -179,7 +179,7 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1020:  //Ограничение угла к горизонту, °
-                    if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный
+                    if ("ps3".equals(eSetting.val(2))) { //Угол к горизонту минимальный
                         if (elemJoin.elem1.anglHoriz() < rec.getFloat(TEXT)) {
                             return false;
                         }
@@ -188,21 +188,21 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1030:  //Угол к горизонту максимальный
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (elemJoin.elem1.anglHoriz() > rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1031:  //Точный угол к горизонту
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1032:  //Исключить угол к горизонту, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
                             return false;
                         }
@@ -316,7 +316,7 @@ public class JoiningVar extends Par5s {
                 case 2010:  //Угол минимальный, °
                 case 3010:  //Угол минимальный, °
                 case 4020:  //Ограничение угла, °
-                    if ("ps3".equals(eSetting.find(2))) { //Угол минимальный, °
+                    if ("ps3".equals(eSetting.val(2))) { //Угол минимальный, °
                         if (rec.getFloat(TEXT) < elemJoin.angl) {
                             return false;
                         }
@@ -351,7 +351,7 @@ public class JoiningVar extends Par5s {
                 case 2015:  //Ориентация Артикула1/Артикула2, ° 
                 case 3015:  //Ориентация Артикула1/Артикула2, °
                 case 4015:  //Ориентация Артикула1/Артикула2, °
-                    if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 1
+                    if ("ps3".equals(eSetting.val(2))) { //Ориентация Артикула 1
                         List<String> list = ParamList.find(grup).dict();
                         if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem1.anglHoriz() == 0 || elemJoin.elem1.anglHoriz() == 180) == false) { //горизонтально
                             return false;
@@ -367,7 +367,7 @@ public class JoiningVar extends Par5s {
                 case 2016:
                 case 3016:
                 case 4016:
-                    if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 2 
+                    if ("ps3".equals(eSetting.val(2))) { //Ориентация Артикула 2 
                         List<String> list = ParamList.find(grup).dict();
                         if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz() == 0 || elemJoin.elem2.anglHoriz() == 180) == false) { //горизонтально
                             return false;
@@ -385,7 +385,7 @@ public class JoiningVar extends Par5s {
                 case 2021: //Точный угол, °
                 case 3021: //Точный угол, °
                 case 4031: //Точный угол, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) != elemJoin.angl) {
                             return false;
                         }
@@ -394,7 +394,7 @@ public class JoiningVar extends Par5s {
                 case 2022: //Исключить угол, °
                 case 3022: //Исключить угол, °
                 case 4032: //Исключить угол, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) == elemJoin.angl) {
                             return false;
                         }
@@ -404,7 +404,7 @@ public class JoiningVar extends Par5s {
                 case 3050:  //Припуск Артикула1/Артикула2, мм  
                 case 4050:
                     listenerList.add(() -> {
-                        if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Припуск Артикула 1, мм
                             elemJoin.elem1.spcRec().width += rec.getFloat(TEXT);
                         } else {
                             String strTxt = rec.getStr(TEXT);
@@ -421,7 +421,7 @@ public class JoiningVar extends Par5s {
                 case 2040:
                 case 3060:
                     listenerList.add(() -> {
-                        if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Припуск Артикула 2, мм
                             elemJoin.elem2.spcRec().width += rec.getFloat(TEXT);
                         }
                     });
@@ -465,7 +465,7 @@ public class JoiningVar extends Par5s {
                 case 3030:  //Усечение Артикула1/Артикула2, мм
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     listenerList.add(() -> {
-                        if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Усечение Артикула 1, мм
                             IElem5e el9 = winc.listElem.find(5.4f);
                             elemJoin.elem1.spcRec().width -= rec.getFloat(TEXT);
 
@@ -478,7 +478,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 3040:
                     listenerList.add(() -> {
-                        if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Усечение Артикула 2, мм
                             elemJoin.elem2.spcRec().width -= rec.getFloat(TEXT);
                         }
                     });
@@ -508,7 +508,7 @@ public class JoiningVar extends Par5s {
                 }
                 break;
                 case 4030:  //Угол максимальный, °                      
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (elemJoin.angl > rec.getFloat(TEXT)) {
                             return false;
                         }

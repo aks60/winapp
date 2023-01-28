@@ -127,7 +127,7 @@ public class ElementVar extends Par5s {
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS) {
-                        if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec().getFloat(eArtikl.depth),
                                     glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
@@ -196,7 +196,7 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec().mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31020:  //Ограничение угла к горизонту, °
-                    if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный, °
+                    if ("ps3".equals(eSetting.val(2))) { //Угол к горизонту минимальный, °
                         if (elem5e.anglHoriz() < rec.getFloat(TEXT)) {
                             return false;
                         }
@@ -207,21 +207,21 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31030:  //Угол к горизонту максимальный, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) < elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31031:  //Точный угол к горизонту
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31032:  //Исключить угол к горизонту, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }

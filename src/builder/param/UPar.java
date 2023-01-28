@@ -61,7 +61,7 @@ class UPar {
 
     //Контейнер типа
     static boolean is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, IElem5e elem5e) {
-        if ("ps3".equals(eSetting.find(2))) {
+        if ("ps3".equals(eSetting.val(2))) {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
             for (int i = 0; i < arr.length; i++) {

@@ -93,7 +93,7 @@ public class ElementDet extends Par5s {
                 case 34011: //Толщина внешнего/внутреннего заполнения, мм
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS) {
-                        if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
+                        if ("ps3".equals(eSetting.val(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec().getFloat(eArtikl.depth),
                                     glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {

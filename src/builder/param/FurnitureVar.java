@@ -129,14 +129,14 @@ public class FurnitureVar extends Par5s {
                 }
                 break;
                 case 21039:  //Минимальный угол, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (elem5e.anglHoriz() < rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 21040:  //Ограничение угла, ° или Угол максимальный, ° для ps3 
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) > elem5e.anglHoriz()) {
                             return false;
                         }
@@ -145,14 +145,14 @@ public class FurnitureVar extends Par5s {
                     }
                     break;
                 case 21044:  //Точный угол 
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 21045: //Исключить угол, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.val(2))) {
                         if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }

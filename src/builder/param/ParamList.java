@@ -17,12 +17,12 @@ import java.util.ArrayList;
 public class ParamList {
 
     public static Enam[] values() {
-        return ("ps3".equals(eSetting.find(2)) == true) ? Ps3.values() : Ps4.values();
+        return ("ps3".equals(eSetting.val(2)) == true) ? Ps3.values() : Ps4.values();
     }
 
     public static Enam find(Object grup) {
         if (grup instanceof Integer) {
-            if ("ps3".equals(eSetting.find(2)) == true) {
+            if ("ps3".equals(eSetting.val(2)) == true) {
                 return Arrays.stream(Ps3.values()).filter(en -> en.numb() == Integer.valueOf(grup.toString())).findFirst().orElse(null);
             } else {
                 return Arrays.stream(Ps4.values()).filter(en -> en.numb() == Integer.valueOf(grup.toString())).findFirst().orElse(null);
