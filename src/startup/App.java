@@ -53,7 +53,7 @@ import domain.eSystree;
 import domain.eSysuser;
 import frames.AboutBox;
 import frames.Artikles;
-import frames.Texture;
+import frames.Colors;
 import frames.dialog.DicCurrenc;
 import frames.PSCompare;
 import frames.Elements;
@@ -80,7 +80,7 @@ import javax.swing.JFrame;
 
 public enum App {
 
-    Top, Setting, Groups, Color, Artikles, Joining, Element, Param,
+    Top, Setting, Groups, Colors, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
     Specification, Syssize, RuleCalc, PSFrame, PSCompare;
     public javax.swing.JFrame frame;
@@ -115,8 +115,8 @@ public enum App {
                 case Groups:
                     frame = new Groups((int) param[0]);
                     break;
-                case Color:
-                    frame = new Texture();
+                case Colors:
+                    frame = new Colors();
                     break;
                 case Joining:
                     if (param.length == 0) {

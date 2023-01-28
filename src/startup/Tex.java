@@ -889,7 +889,7 @@ public class Tex extends javax.swing.JFrame {
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Color.createFrame(Tex.this);
+                App.Colors.createFrame(Tex.this);
             }
         });
 }//GEN-LAST:event_mnColor
