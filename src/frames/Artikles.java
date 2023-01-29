@@ -954,7 +954,7 @@ public class Artikles extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(220);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(26);
@@ -2331,6 +2331,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
+            
             if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
                         + "\n соединениях, вставках, заполнениях, фурнитуре, \n то записи этого артикула "
