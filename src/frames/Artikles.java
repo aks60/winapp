@@ -2331,6 +2331,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
+            
             if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
                         + "\n соединениях, вставках, заполнениях, фурнитуре, \n то записи этого артикула "
