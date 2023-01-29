@@ -954,7 +954,7 @@ public class Artikles extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(220);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(26);
