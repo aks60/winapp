@@ -44,7 +44,6 @@ import frames.swing.TableFieldFilter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import report.ExecuteCmd;
@@ -429,9 +428,7 @@ public class Artikles extends javax.swing.JFrame {
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
-                if (artiklRec.getInt(eArtikl.size_falz) == -1) {
-                    artiklRec.set(eArtikl.size_falz, record.get(eSyssize.falz));
-                }
+                artiklRec.set(eArtikl.size_falz, record.get(eSyssize.falz));
                 rsvArtikl.load();
                 UGui.stopCellEditing(tab1, tab2);
             }

@@ -10,7 +10,6 @@ import dataset.Record;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicName;
-import frames.dialog.ParDefault;
 import domain.eArtikl;
 import domain.eFurniture;
 import domain.eParams;
@@ -3477,7 +3476,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (tab2.getBorder() != null) {
                 UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
-                    record.set(eSysprof.npp, record.get(1));
+                    int max =  qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
+                    record.set(eSysprof.npp, ++max);
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
                 });
@@ -4055,10 +4055,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-//        Wincalc win = wincalc();
-//        String json = win.rootGson.toJson();
-//        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
-        System.out.println(eProp.sysprodID.read());
+        Wincalc win = wincalc();
+        String json = win.rootGson.toJson();
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass

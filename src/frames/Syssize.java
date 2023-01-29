@@ -362,6 +362,7 @@ public class Syssize extends javax.swing.JFrame {
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(eSyssize.up.newRecord());
+        this.dispose();
     }//GEN-LAST:event_btnRemoveert
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
