@@ -3792,6 +3792,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             //Список доступных толщин в ветке системы например 4;5;8
             String depth = sysNode.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
+                depth = depth.replace(";;;", ";").replace(";;", ";");
                 depth = depth.replace(";", ",");
                 if (depth.charAt(depth.length() - 1) == ',') {
                     depth = depth.substring(0, depth.length() - 1);

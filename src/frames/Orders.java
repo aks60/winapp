@@ -3516,6 +3516,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Record systreeRec = eSystree.find(systreeID);
             String depth = systreeRec.getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
+                depth = depth.replace(";;;", ";").replace(";;", ";");
                 depth = depth.replace(";", ",");
                 if (depth.charAt(depth.length() - 1) == ',') {
                     depth = depth.substring(0, depth.length() - 1);
