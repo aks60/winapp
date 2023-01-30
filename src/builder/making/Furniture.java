@@ -58,27 +58,26 @@ public class Furniture extends Cal5e {
                 IStvorka stv = (IStvorka) areaStv;
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(winc.nuni()); //список фурнитур в системе профилей
-                if (sysfurnList.isEmpty()) {
-                    continue;
-                }
-                Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
+                if (sysfurnList.isEmpty() == false) {
+                    Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
 
-                //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == stv.sysfurnRec().getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
-                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
+                    //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
+                    sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == stv.sysfurnRec().getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
+                    Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
-                //Проверка на max высоту, ширину
-                float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
-                float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
-                boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.max_p2) < (s.width() * 2 + s.height() * 2) / 2);
-                if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
-                    if (max_size_message == true) {
-                        JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
+                    //Проверка на max высоту, ширину
+                    float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
+                    float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
+                    boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.max_p2) < (s.width() * 2 + s.height() * 2) / 2);
+                    if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
+                        if (max_size_message == true) {
+                            JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
+                        }
+                        max_size_message = false;
                     }
-                    max_size_message = false;
-                }
 
-                variant(areaStv, furnityreRec, 1); //основная фурнитура
+                    variant(areaStv, furnityreRec, 1); //основная фурнитура
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Furniture.calc() " + e);
