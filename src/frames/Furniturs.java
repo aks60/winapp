@@ -155,11 +155,14 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
+        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types
+                , eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
                 Field field = columns[col];
+                
+                //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
 
@@ -174,18 +177,23 @@ public class Furniturs extends javax.swing.JFrame {
                     } else {
                         return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
+                    
+                    //Подбор текстуры
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
-                    if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
-                        int index = tab2a.convertRowIndexToModel(row);
+                    int index = tab2a.convertRowIndexToModel(row);
+                    
+                    //Набор
+                    if (qFurndet2a.get(index, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2a.getAs(index, eFurndet.furniture_id2);
                          String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
 
+                        //Артикул
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
                         Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
@@ -1103,18 +1111,18 @@ public class Furniturs extends javax.swing.JFrame {
         tab2a.setFont(frames.UGui.getFont(0,0));
         tab2a.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11", "xxxxxxxxx", "11", "11", null},
-                {"22", "vvvvvvvvv", "22", "22", null}
+                {"11", "xxxxxxxxx", "11", "11", null, null, null},
+                {"22", "vvvvvvvvv", "22", "22", null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор", "ID"
+                "Артикул", "Название", "Текстура", "Подбор", "ID1", "ID2", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, false
+                true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1137,8 +1145,8 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab2a.getColumnModel().getColumnCount() > 0) {
             tab2a.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2a.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab2a.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
+            tab2a.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2a.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         tabb1.addTab("Детализация (1 уровень)", scr2a);
