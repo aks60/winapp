@@ -183,7 +183,7 @@ public class Furniturs extends javax.swing.JFrame {
                     if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
                         int index = tab2a.convertRowIndexToModel(row);
                         int furniture_id2 = qFurndet2a.getAs(index, eFurndet.furniture_id2);
-                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                         String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
 
                     } else if (val != null) {
@@ -223,7 +223,7 @@ public class Furniturs extends javax.swing.JFrame {
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2b.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2b.getAs(row, eFurndet.furniture_id2);
-                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
@@ -262,7 +262,7 @@ public class Furniturs extends javax.swing.JFrame {
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2c.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2c.getAs(row, eFurndet.furniture_id2);
-                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
