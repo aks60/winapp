@@ -14,13 +14,13 @@ public class UCom {
 
     public static boolean check(String val, int pattern) {
         try {
-            if (val != null && pattern == 2 && "0123456789,;".indexOf(val) != -1) {//3
+            if (val != null && pattern == 2 && "0123456789,;".indexOf(val) != -1) {
                 return true;
-            } else if (val != null && pattern == 3 && "0123456789,".indexOf(val) != -1) {//3
+            } else if (val != null && pattern == 3 && "0123456789,".indexOf(val) != -1) {
                 return true;
             } else if (val != null && pattern == 4 && "0123456789;".indexOf(val) != -1) {
                 return true;
-            } else if (val != null && pattern == 5 && "0123456789-;".indexOf(val) != -1) { //1
+            } else if (val != null && pattern == 5 && "0123456789-;".indexOf(val) != -1) { 
                 return true;
             } else if (val != null && pattern == 6 && "0123456789,-;".indexOf(val) != -1) {
                 return true;

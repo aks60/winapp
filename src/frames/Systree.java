@@ -2924,7 +2924,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         txt2.setFont(frames.UGui.getFont(0,0));
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt2.setName("{5}"); // NOI18N
+        txt2.setName("{4}"); // NOI18N
         txt2.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt3.setFont(frames.UGui.getFont(0,0));
@@ -3476,7 +3476,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             } else if (tab2.getBorder() != null) {
                 UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
-                    int max =  qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
+                    int max = qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
                     record.set(eSysprof.npp, ++max);
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
@@ -3668,17 +3668,20 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             float selectID = winNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
             //Все текстуры артикула элемента конструкции
+            Field field = (evt.getSource() == btn18) ? eArtdet.mark_c1 : (evt.getSource() == btn19) ? eArtdet.mark_c2 : eArtdet.mark_c3;
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec().getInt(eArtikl.id));
             artdetList.forEach(rec -> {
-
-                if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk
-                    eColor.query().forEach(rec2 -> {
-                        if (rec2.getInt(eColor.groups_id) == rec.getInt(eArtdet.color_fk)) {
-                            colorSet.add(rec2);
-                        }
-                    });
-                } else { //текстура color_fk 
-                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                if (rec.getInt(field) == 1) {
+                    
+                    if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk                       
+                        eColor.query().forEach(rec2 -> {
+                            if (rec2.getInt(eColor.groups_id) == rec.getInt(eArtdet.color_fk)) {
+                                colorSet.add(rec2);
+                            }
+                        });
+                    } else { //текстура color_fk 
+                        colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                    }
                 }
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
@@ -3751,7 +3754,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (colorArr.length != 0) {
                 for (Record rec : eColor.query()) {
                     for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
-                        if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
+                        if (rec.getInt(eColor.code) >= colorArr[i] && rec.getInt(eColor.code) <= colorArr[i + 1]) {
                             colorSet.add(rec);
                         }
                     }
