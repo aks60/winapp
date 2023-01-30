@@ -58,6 +58,9 @@ public class Furniture extends Cal5e {
                 IStvorka stv = (IStvorka) areaStv;
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(winc.nuni()); //список фурнитур в системе профилей
+                if (sysfurnList.isEmpty()) {
+                    continue;
+                }
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
 
                 //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
