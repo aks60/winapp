@@ -35,7 +35,7 @@ public class PSFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-            sql1.setText("select * from FURNSPC where FUNIC = 233");
+            sql1.setText("select * from furnlst order by fname");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -54,8 +54,8 @@ public class PSFrame extends javax.swing.JFrame {
             tab1.setModel(new DefaultTableModel(data, column));
 
             UGui.setSelectedRow(tab1);
-            ((DefaultTableModel) tab2.getModel()).setRowCount(0);
-            ((DefaultTableModel) tab3.getModel()).setRowCount(0);
+            //((DefaultTableModel) tab2.getModel()).setRowCount(0);
+            //((DefaultTableModel) tab3.getModel()).setRowCount(0);
 
 //            TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
 //            tab1.getColumnModel().getColumn(1).setHeaderRenderer(headerRenderer);
@@ -73,8 +73,9 @@ public class PSFrame extends javax.swing.JFrame {
         try {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                Object id = tab1.getValueAt(row, 2);
-                sql2.setText("select a.* from SPECPAU a where a.PUNIC = " + id + " order by a.anumb");
+                Object id = tab1.getValueAt(row, 1);
+                sql2.setText("select a.* from FURNSPC a where a.FUNIC = " + id);
+                sql2.setText("select a.*, b.aname from FURNSPC a left join artikls b on b.anumb = a.anumb  where a.FUNIC = " + id + " order by a.anumb");
                 ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
 

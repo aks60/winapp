@@ -158,37 +158,38 @@ public class Furniturs extends javax.swing.JFrame {
         new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
-                if (val != null) {
-                    Field field = columns[col];
-                    if (val != null && eFurndet.color_fk == field) {
-                        int colorFk = Integer.valueOf(val.toString());
 
-                        if (UseColor.automatic[0].equals(colorFk)) {
-                            return UseColor.automatic[1];
+                Field field = columns[col];
+                if (val != null && eFurndet.color_fk == field) {
+                    int colorFk = Integer.valueOf(val.toString());
 
-                        } else if (UseColor.precision[0].equals(colorFk)) {
-                            return UseColor.precision[1];
-                        }
-                        if (colorFk > 0) {
-                            return qColor.find(colorFk, eColor.id).get(eColor.name);
-                        } else {
-                            return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
-                        }
-                    } else if (val != null && eFurndet.types == field) {
-                        int types = Integer.valueOf(val.toString());
-                        types = types & 0x0000000f;
-                        return UseColor.MANUAL.find(types).text();
+                    if (UseColor.automatic[0].equals(colorFk)) {
+                        return UseColor.automatic[1];
 
-                    } else if (eFurndet.artikl_id == field) {
-                        if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
-                            int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
-                            String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
-                            return (col == 0) ? "Набор" : name;
-                        } else if (val != null) {
-                            int artikl_id = Integer.valueOf(val.toString());
-                            Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
-                            return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
-                        }
+                    } else if (UseColor.precision[0].equals(colorFk)) {
+                        return UseColor.precision[1];
+                    }
+                    if (colorFk > 0) {
+                        return qColor.find(colorFk, eColor.id).get(eColor.name);
+                    } else {
+                        return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
+                    }
+                } else if (val != null && eFurndet.types == field) {
+                    int types = Integer.valueOf(val.toString());
+                    types = types & 0x0000000f;
+                    return UseColor.MANUAL.find(types).text();
+
+                } else if (eFurndet.artikl_id == field) {
+                    if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
+                        int index = tab2a.convertRowIndexToModel(row);
+                        int furniture_id2 = qFurndet2a.getAs(index, eFurndet.furniture_id2);
+                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        return (col == 0) ? "Набор" : name;
+
+                    } else if (val != null) {
+                        int artikl_id = Integer.valueOf(val.toString());
+                        Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
+                        return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
                 return val;
@@ -301,7 +302,7 @@ public class Furniturs extends javax.swing.JFrame {
                     } else {
                         Enam en = ParamList.find(val);
                         return Record.getDev(en.numb(), en.text());
-                    }                    
+                    }
                 }
                 return val;
             }
@@ -324,7 +325,7 @@ public class Furniturs extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eFurnpar2.groups_id) {
-                    
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
@@ -1559,7 +1560,8 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInser2
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        List.of(qFurniture, qFurndet2a, qFurndet2b, qFurndet2c, qFurnside1, qFurnside2, qFurnpar1, qFurnpar2).forEach(q -> q.execsql());
+        int index2 = UGui.getIndexRec(tab2a);
+        System.out.println(qFurndet2a.get(index2, eFurndet.furniture_id2));
     }//GEN-LAST:event_btnTest
 
     private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree
