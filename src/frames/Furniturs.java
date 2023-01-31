@@ -79,6 +79,7 @@ public class Furniturs extends javax.swing.JFrame {
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
     private JTable tab2 = null; //активная таблица спецификации
+    private int indexTab1 = 0;
 
     public Furniturs() {
         this.subsql = null;
@@ -155,19 +156,19 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types
-                , eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
+        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types,
+                eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                
+
                 //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    
+
                     if (UseColor.automatic[0].equals(colorFk)) {
                         return UseColor.automatic[1];
-                        
+
                     } else if (UseColor.precision[0].equals(colorFk)) {
                         return UseColor.precision[1];
                     }
@@ -184,13 +185,13 @@ public class Furniturs extends javax.swing.JFrame {
                     return UseColor.MANUAL.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
-                    
+
                     //Набор
                     if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
                         String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
-                        
+
                         //Артикул
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
@@ -357,6 +358,7 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
+            indexTab1 = (tbtn1.isSelected()) ? index : indexTab1;
             Record record = qFurniture.table(eFurniture.up).get(index);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
@@ -1517,7 +1519,11 @@ public class Furniturs extends javax.swing.JFrame {
 
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        if (tbtn1.isSelected()) {
+            UGui.setSelectedIndex(tab1, indexTab1);
+        } else {
+            UGui.setSelectedRow(tab1);
+        }
 
         //Если переход на набор, сразу ищем его
         if (furnitureId != null && tbtn3.isSelected()) {
@@ -1793,7 +1799,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        TableFieldFilter filterTable = new TableFieldFilter(0, tab1);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2a, tab2b, tab2c);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
