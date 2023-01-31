@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,7 +46,7 @@ public class ParName extends javax.swing.JDialog {
         Query qParams = new Query(eParams.values()).select(eParams.up, "where", filter.name(), "= 1");
         qParams.forEach(rec -> set.add(rec.getInt(eParams.groups_id)));
         String subsql = set.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        qGroups.select(eGroups.up, "where ", eGroups.id, "in " + subsql);
+        qGroups.select(eGroups.up, "where ", eGroups.id, "in " + subsql, "order by", eGroups.name);
     }
 
     public void loadingModel(int... part) {
@@ -72,6 +72,8 @@ public class ParName extends javax.swing.JDialog {
                 }
             }
         }
+        Collections.sort(recordList1, (o1, o2) -> o1.get(1).toString().compareTo(o2.get(1).toString()));
+        Collections.sort(recordList3, (o1, o2) -> o1.get(1).toString().compareTo(o2.get(1).toString()));
         for (List record : recordList1) {
             dm1.addRow((Vector) record);
         }
