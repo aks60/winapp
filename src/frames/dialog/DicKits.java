@@ -108,8 +108,7 @@ public class DicKits extends javax.swing.JDialog {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
-                    int index = tab2.convertRowIndexToModel(row);
-                    int id = qKitdet.getAs(index, eKitdet.artikl_id);
+                    int id = qKitdet.getAs(row, eKitdet.artikl_id);
                     Record record = eArtikl.get(id);
                     return UseUnit.getName(record.getInt(eArtikl.unit));
                 }

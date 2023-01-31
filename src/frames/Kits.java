@@ -91,8 +91,7 @@ public class Kits extends javax.swing.JFrame {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
-                    int index = tab3.convertRowIndexToModel(row);
-                    int id = qKitdet.getAs(index, eKitdet.artikl_id);
+                    int id = qKitdet.getAs(row, eKitdet.artikl_id);
                     Record record = eArtikl.get(id);
                     return UseUnit.getName(record.getInt(eArtikl.unit));
                 }
@@ -105,7 +104,7 @@ public class Kits extends javax.swing.JFrame {
                 if (val != null) {
                     Field field = columns[col];
                     if (field == eKitpar2.groups_id) {
-                        
+
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                         } else {
@@ -141,7 +140,8 @@ public class Kits extends javax.swing.JFrame {
         if (index != -1) {
             Record record = qKits.get(index);
             Integer id = record.getInt(eKits.id);
-            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
+            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.id);
+//            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab3);
         }

@@ -84,7 +84,7 @@ public class ParColor extends javax.swing.JDialog {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 if (col == 0) {
-                    Record colorRec = qColor.get(tab1.convertRowIndexToModel(row));
+                    Record colorRec = qColor.get(row);
                     Record groupRec = qGroupsGrp.find(colorRec.get(eColor.groups_id), eGroups.id);
                     return groupRec.get(eGroups.name);
                 }

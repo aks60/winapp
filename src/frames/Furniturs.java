@@ -159,25 +159,24 @@ public class Furniturs extends javax.swing.JFrame {
                 , eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
-
                 Field field = columns[col];
                 
                 //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-
+                    
                     if (UseColor.automatic[0].equals(colorFk)) {
                         return UseColor.automatic[1];
-
+                        
                     } else if (UseColor.precision[0].equals(colorFk)) {
                         return UseColor.precision[1];
                     }
                     if (colorFk > 0) {
-                        return qColor.find(colorFk, eColor.id).get(eColor.name);
+                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
+                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
-                    
+
                     //Подбор текстуры
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
@@ -185,14 +184,13 @@ public class Furniturs extends javax.swing.JFrame {
                     return UseColor.MANUAL.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
-                    int index = tab2a.convertRowIndexToModel(row);
                     
                     //Набор
-                    if (qFurndet2a.get(index, eFurndet.furniture_id2) != null) {
-                        int furniture_id2 = qFurndet2a.getAs(index, eFurndet.furniture_id2);
-                         String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
+                    if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
+                        int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
+                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
-
+                        
                         //Артикул
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
