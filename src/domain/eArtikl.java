@@ -25,7 +25,6 @@ public enum eArtikl implements Field {
     len_unit("8", "15", "1", "Длина ед. поставки", "ALENG"),
     height("8", "15", "1", "Ширина", "AHEIG"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
-    syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
     unit("5", "5", "1", "Ед. измерения", "ATYPI"),
     density("8", "15", "1", "Удельный вес", "AMASS"),
     section("8", "15", "1", "Сечение", "ASECH"),
@@ -41,11 +40,13 @@ public enum eArtikl implements Field {
     coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
     groups1_id("4", "10", "1", "Группы наценок", "groups1_id"),
     groups2_id("4", "10", "1", "Группы скидок", "groups2_id"),
+    groups3_id("4", "10", "1", "Категория профилей", "groups3_id"),
+    groups4_id("4", "10", "1", "Серия профиля", "groups4_id"),
+    syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
     currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
     currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT"),
-    groups3_id("4", "10", "1", "Категория профилей", "groups3_id"),
-    analog_id("4", "10", "1", "Аналог профиля", "analog_id"),
-    groups4_id("4", "10", "1", "Серия профиля", "groups4_id");
+    analog_id("4", "10", "1", "Аналог профиля", "analog_id");
+    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

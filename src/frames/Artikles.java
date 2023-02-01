@@ -703,7 +703,8 @@ public class Artikles extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(960, 600));
+        setPreferredSize(new java.awt.Dimension(860, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Artikles.this.windowClosed(evt);
@@ -712,7 +713,7 @@ public class Artikles extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(800, 29));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
@@ -883,7 +884,7 @@ public class Artikles extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         center.setMinimumSize(new java.awt.Dimension(0, 0));
-        center.setPreferredSize(new java.awt.Dimension(800, 550));
+        center.setPreferredSize(new java.awt.Dimension(900, 550));
         center.setLayout(new java.awt.BorderLayout());
 
         pan4.setPreferredSize(new java.awt.Dimension(200, 500));
@@ -2179,7 +2180,7 @@ public class Artikles extends javax.swing.JFrame {
 
         center.add(pan6, java.awt.BorderLayout.EAST);
 
-        pan3.setPreferredSize(new java.awt.Dimension(600, 130));
+        pan3.setPreferredSize(new java.awt.Dimension(800, 130));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Текстуры артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -2246,7 +2247,7 @@ public class Artikles extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(800, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2315,11 +2316,11 @@ public class Artikles extends javax.swing.JFrame {
                     Record artiklRec = qArtikl.get(index);
                     record.setNo(eArtdet.id, Conn.genId(eArtdet.up));
                     record.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
-                    double v = (eProp.dev == false) ? 0 : 100;
-                    record.setNo(eArtdet.cost_c1, v);
-                    record.setNo(eArtdet.cost_c2, v);
-                    record.setNo(eArtdet.cost_c3, v);
-                    record.setNo(eArtdet.cost_c4, v);
+                    //double v = (eProp.dev == false) ? 0 : 100;
+                    record.setNo(eArtdet.cost_c1, 100);
+                    record.setNo(eArtdet.cost_c2, 0);
+                    record.setNo(eArtdet.cost_c3, 0);
+                    record.setNo(eArtdet.cost_c4, 0);
                     record.setNo(eArtdet.coef, 1);
                 });
             }
@@ -2328,7 +2329,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            
+
             if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 if (JOptionPane.showConfirmDialog(owner, "ВНИМАНИЕ!\n  Если артикул используется в комплектах, "
                         + "\n соединениях, вставках, заполнениях, фурнитуре, \n то записи этого артикула "
@@ -2497,6 +2498,20 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn37
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
+        Query q = ((DefTableModel) tab1.getModel()).getQuery();
+        Record record = (Record) q.get(UGui.getIndexRec(tab1)).clone();
+        String nameCols = "", nameVals = "";
+        for (int k = 1; k < q.fields().size(); k++) {
+            Field field = q.fields().get(k);
+            if (field.meta().type() != Field.TYPE.OBJ) {
+                nameCols = nameCols + field.name() + ",";
+                nameVals = nameVals + q.wrapper(record, field) + ",";
+            }
+        }
+        nameCols = nameCols.substring(0, nameCols.length() - 1);
+        nameVals = nameVals.substring(0, nameVals.length() - 1);
+        String sql = "insert into " + q.fields().get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+        JOptionPane.showInputDialog("Номер проекта", sql);
 
     }//GEN-LAST:event_btnTest
 

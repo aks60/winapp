@@ -567,19 +567,19 @@ public class PSConvert {
     public static void metaPart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
-            alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
-            alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
             alterTable("color", "fk_color1", "groups_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (code)");
             alterTable("alter table color add constraint ung2_color unique (name)");
             alterTable("colmap", "fk_colmap_1", "groups_id", "groups");
             alterTable("colmap", "fk_colmap_2", "color_id1", "color");
-            alterTable("colmap", "fk_colmap_3", "color_id2", "color");
+            alterTable("colmap", "fk_colmap_3", "color_id2", "color");             
             alterTable("artikl", "fk_artikl1", "groups1_id", "groups");
-            alterTable("artikl", "fk_artikl2", "groups2_id", " groups");
+            alterTable("artikl", "fk_artikl2", "groups2_id", "groups");
             alterTable("artikl", "fk_artikl3", "groups3_id", "groups");
             alterTable("artikl", "fk_artikl4", "groups4_id", "groups");
-            alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
+            alterTable("artikl", "fk_artikl6", "syssize_id", "syssize");
+            alterTable("artikl", "fk_artikl7", "currenc1_id", "currenc");
+            alterTable("artikl", "fk_artikl8", "currenc2_id", "currenc");             
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
