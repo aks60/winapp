@@ -1385,7 +1385,7 @@ public class Artikles extends javax.swing.JFrame {
         pan94.add(filler9);
 
         lab34.setFont(frames.UGui.getFont(0,0));
-        lab34.setText("Категория");
+        lab34.setText("Группа");
         lab34.setToolTipText("");
         lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab34.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1723,7 +1723,7 @@ public class Artikles extends javax.swing.JFrame {
         pan13.add(filler29);
 
         lab40.setFont(frames.UGui.getFont(0,0));
-        lab40.setText("Категория");
+        lab40.setText("Группа");
         lab40.setToolTipText("");
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2087,7 +2087,7 @@ public class Artikles extends javax.swing.JFrame {
         pan24.add(filler39);
 
         lab47.setFont(frames.UGui.getFont(0,0));
-        lab47.setText("Категория");
+        lab47.setText("Группа");
         lab47.setToolTipText("");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab47.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2300,6 +2300,8 @@ public class Artikles extends javax.swing.JFrame {
                         record.setNo(eArtikl.unit, UseUnit.METR.id);
                     } else if (typeArtikl.id1 == 5) {
                         record.setNo(eArtikl.unit, UseUnit.METR2.id);
+                    } else {
+                        record.setNo(eArtikl.unit, UseUnit.PIE.id);
                     }
                 });
                 rsvArtikl.clear();
@@ -2346,8 +2348,9 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Record record = qArtikl.get(UGui.getIndexRec(tab1));
         loadingData();
-        selectionTree();
+        setSelectionPath(record);
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport

@@ -29,6 +29,7 @@ public class DicGroups extends javax.swing.JDialog {
     private Query qGroups = new Query(eGroups.values());
     private int ID = -1;
 
+    //NODO Точка вместо запятой
     public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int id, boolean del) {
         super(parent, true);
         this.grup = grup;
@@ -417,7 +418,7 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
         tab4.setFillsViewportHeight(true);
-        tab4.setName("tab1"); // NOI18N
+        tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -564,5 +565,6 @@ public class DicGroups extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
     }
 }

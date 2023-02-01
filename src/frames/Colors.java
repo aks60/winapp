@@ -48,7 +48,7 @@ public class Colors extends javax.swing.JFrame {
 
     public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
     }
 
     public void selectionTab1(ListSelectionEvent event) {

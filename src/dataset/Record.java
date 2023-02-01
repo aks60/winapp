@@ -57,7 +57,10 @@ public class Record<E> extends ArrayList<E> {
         if (eProp.dev == true) {
             String val = element + " #" + super.get(1);
             super.set(field.ordinal(), (E) val);
+        } else {
+            super.set(field.ordinal(), (E) element);
         }
+        
     }
 
     public static Object getDev(Object num, Object val) {

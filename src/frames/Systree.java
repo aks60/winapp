@@ -3378,7 +3378,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             sysTree.getCellEditor().stopCellEditing();
         }
         sysTree.setBorder(null);
-        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

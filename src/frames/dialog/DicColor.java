@@ -38,7 +38,7 @@ public class DicColor extends javax.swing.JDialog {
         super(parent, true);
         this.master = master;
         initComponents();
-        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
         qColorAll.select(eColor.up, "order by", eColor.name);
         initElements();
         this.listener = listener;
@@ -58,21 +58,21 @@ public class DicColor extends javax.swing.JDialog {
         btnRemove.setVisible(remove);
         setVisible(true);
     }
-    
+
     private void loadingData(HashSet<Record> colorSet, boolean auto) {
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
-        
+
         if (auto == true) {
             Record autoRec = eGroups.up.newRecord();
             autoRec.setNo(eGroups.id, -3);
             autoRec.setNo(eGroups.grup, -3);
             autoRec.setNo(eGroups.name, UseColor.automatic[1]);
-            colgrpList.add(autoRec);           
+            colgrpList.add(autoRec);
             Record autoRec2 = eColor.up.newRecord();
             autoRec2.set(eColor.id, 0);
             autoRec2.set(eColor.groups_id, -3);
             autoRec2.set(eColor.name, UseColor.automatic[1]);
-            colgrpList.add(autoRec2);            
+            colgrpList.add(autoRec2);
         }
         colgrpList.forEach(colgrpRec -> {
             for (Record colorRec : colorSet) {
@@ -82,7 +82,7 @@ public class DicColor extends javax.swing.JDialog {
                 }
             }
         });
-        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));        
+        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
     }
 
     private void loadingModel() {

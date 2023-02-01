@@ -492,7 +492,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("     Категории МЦ    ", pan4);
+        tabb.addTab("     Группы  МЦ    ", pan4);
 
         centr.add(tabb, java.awt.BorderLayout.CENTER);
 

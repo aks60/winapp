@@ -23,7 +23,26 @@ public class DefCellEditorNumb extends DefaultCellEditor {
     public DefCellEditorNumb(int scale) {
         super(new JTextField());
         this.scale = scale;
+        this.patt = 3;
         init();
+        JTextComponent editorField = (JTextComponent) editorComponent;
+        PlainDocument doc = (PlainDocument) editorField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if (string != null && string.length() > 1 || UCom.check(string, patt)) { //проверка на коррекность ввода
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if (string != null && string.length() > 1 || UCom.check(string, patt)) {  //проверка на коррекность ввода
+                    super.replace(fb, offset, length, string, attrs);
+                }
+            }
+        });        
     }
 
     public DefCellEditorNumb(String pattern) {
@@ -67,15 +86,13 @@ public class DefCellEditorNumb extends DefaultCellEditor {
             boolean isSelected, int row, int column) {
         try {
             Field field = ((DefTableModel) table.getModel()).columns[column];
+            Object val = value;
             if (value instanceof Float || value instanceof Double) {
-                String val = (df != null) ? df.format(value) : UCom.format(value, scale);
-                return super.getTableCellEditorComponent(table, val, isSelected, row, column);
-
+                 val = (df != null) ? df.format(value) : UCom.format(value, scale);
             } else if (field.meta().type() == Field.TYPE.DATE) {
-                String val = UGui.DateToStr(value);
-                return super.getTableCellEditorComponent(table, val, isSelected, row, column);
+                 val = UGui.DateToStr(value);
             }
-            return super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            return super.getTableCellEditorComponent(table, val, isSelected, row, column);
 
         } catch (Exception e) {
             System.err.println("Ошибка:DefCellEditor.getTableCellEditorComponent() " + e);
