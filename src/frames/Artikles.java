@@ -2575,8 +2575,13 @@ public class Artikles extends javax.swing.JFrame {
             index = 6;
         }
         TableColumn column = tab1.getColumnModel().getColumn(index);
-        column.setMaxWidth(180);
-        column.setPreferredWidth(80);
+        if (column.getMaxWidth() == 0) {
+            column.setMaxWidth(180);
+            column.setPreferredWidth(80);
+        } else {
+            column.setMaxWidth(0);
+            column.setPreferredWidth(0);
+        }
     }//GEN-LAST:event_ppmClick
 
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
