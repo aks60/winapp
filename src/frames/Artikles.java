@@ -41,11 +41,14 @@ import javax.swing.tree.TreePath;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -97,18 +100,27 @@ public class Artikles extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.groups4_id, eArtikl.groups3_id) {
+        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.groups1_id,
+                eArtikl.groups2_id, eArtikl.groups3_id, eArtikl.groups4_id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eArtikl.groups4_id) {
+
+                if (field == eArtikl.groups1_id) {
                     Record artiklRec = qArtikl.get(row);
-                    Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.groups4_id))).findFirst().orElse(eGroups.up.newRecord());
-                    return groupRec.get(eGroups.name);
+                    return qGroups.find(artiklRec.get(eArtikl.groups1_id), eGroups.id).get(eGroups.name);
+
+                } else if (field == eArtikl.groups2_id) {
+                    Record artiklRec = qArtikl.get(row);
+                    return qGroups.find(artiklRec.get(eArtikl.groups2_id), eGroups.id).get(eGroups.name);
+
                 } else if (field == eArtikl.groups3_id) {
                     Record artiklRec = qArtikl.get(row);
-                    Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.groups3_id))).findFirst().orElse(eGroups.up.newRecord());
-                    return groupRec.get(eGroups.name);
+                    return qGroups.find(artiklRec.get(eArtikl.groups3_id), eGroups.id).get(eGroups.name);
+
+                } else if (field == eArtikl.groups4_id) {
+                    Record artiklRec = qArtikl.get(row);
+                    return qGroups.find(artiklRec.get(eArtikl.groups4_id), eGroups.id).get(eGroups.name);
                 }
                 return val;
             }
@@ -469,9 +481,11 @@ public class Artikles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ppmReport = new javax.swing.JPopupMenu();
-        itReport1 = new javax.swing.JMenuItem();
-        itReport2 = new javax.swing.JMenuItem();
+        ppmGrid = new javax.swing.JPopupMenu();
+        groups1_id = new javax.swing.JMenuItem();
+        groups2_id = new javax.swing.JMenuItem();
+        groups3_id = new javax.swing.JMenuItem();
+        groups4_id = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -684,21 +698,41 @@ public class Artikles extends javax.swing.JFrame {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
 
-        itReport1.setText("Артикулы");
-        itReport1.addActionListener(new java.awt.event.ActionListener() {
+        groups1_id.setFont(frames.UGui.getFont(1,0));
+        groups1_id.setText("Наценки");
+        groups1_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itReport1ppmCategAction(evt);
+                ppmClick(evt);
             }
         });
-        ppmReport.add(itReport1);
+        ppmGrid.add(groups1_id);
 
-        itReport2.setText("xxx");
-        itReport2.addActionListener(new java.awt.event.ActionListener() {
+        groups2_id.setFont(frames.UGui.getFont(1,0));
+        groups2_id.setText("Скидки");
+        groups2_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itReport2ppmCategAction(evt);
+                ppmClick(evt);
             }
         });
-        ppmReport.add(itReport2);
+        ppmGrid.add(groups2_id);
+
+        groups3_id.setFont(frames.UGui.getFont(1,0));
+        groups3_id.setText("Группы");
+        groups3_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmClick(evt);
+            }
+        });
+        ppmGrid.add(groups3_id);
+
+        groups4_id.setFont(frames.UGui.getFont(1,0));
+        groups4_id.setText("Серии");
+        groups4_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmClick(evt);
+            }
+        });
+        ppmGrid.add(groups4_id);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -853,7 +887,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 634, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 806, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -918,18 +952,18 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null, null, null, null},
-                {"2", "222", null, null, null, null, null}
+                {"1", "111", null, null, null, null, null, null},
+                {"2", "222", null, null, null, null, null, null}
             },
             new String [] {
-                "Актикул", "Название", "Отход %", "Коэф. ценовой", "id", "id", "ID"
+                "Актикул", "Название", "Отход %", "Наценки", "Скидки", "Группы", "Серии", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false
+                true, true, true, false, false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -945,6 +979,9 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab1MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Artikles.this.mousePressed(evt);
             }
@@ -955,12 +992,20 @@ public class Artikles extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(26);
-            tab1.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab1.getColumnModel().getColumn(3).setMinWidth(0);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(4).setMinWidth(0);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(0);
             tab1.getColumnModel().getColumn(4).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(5).setMinWidth(0);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(0);
             tab1.getColumnModel().getColumn(5).setMaxWidth(0);
-            tab1.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(6).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(6).setMinWidth(0);
+            tab1.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
@@ -2295,7 +2340,6 @@ public class Artikles extends javax.swing.JFrame {
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                     record.setNo(eArtikl.otx_norm, 0);
-                    record.setNo(eArtikl.coeff, 1);
                     if (typeArtikl.id1 == 1 || typeArtikl.id1 == 3) {
                         record.setNo(eArtikl.unit, UseUnit.METR.id);
                     } else if (typeArtikl.id1 == 5) {
@@ -2518,13 +2562,22 @@ public class Artikles extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnTest
 
-    private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
-        HtmlOfTable.load("Артикулы", qArtikl, eArtikl.values());
-        ExecuteCmd.documentType(this);
-    }//GEN-LAST:event_itReport1ppmCategAction
-
-    private void itReport2ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport2ppmCategAction
-    }//GEN-LAST:event_itReport2ppmCategAction
+    private void ppmClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmClick
+        JMenuItem ppm = (JMenuItem) evt.getSource();
+        int index = 0;
+        if (ppm == groups1_id) {
+            index = 3;
+        } else if (ppm == groups2_id) {
+            index = 4;
+        } else if (ppm == groups3_id) {
+            index = 5;
+        } else if (ppm == groups4_id) {
+            index = 6;
+        }
+        TableColumn column = tab1.getColumnModel().getColumn(index);
+        column.setMaxWidth(180);
+        column.setPreferredWidth(80);
+    }//GEN-LAST:event_ppmClick
 
     private void btnClone(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClone
         int index = UGui.getIndexRec(tab1);
@@ -2555,6 +2608,12 @@ public class Artikles extends javax.swing.JFrame {
             UGui.setSelectedRow(tab2);
         }
     }//GEN-LAST:event_btnClone
+
+    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            ppmGrid.show(tab1, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tab1MouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2643,8 +2702,10 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
-    private javax.swing.JMenuItem itReport1;
-    private javax.swing.JMenuItem itReport2;
+    private javax.swing.JMenuItem groups1_id;
+    private javax.swing.JMenuItem groups2_id;
+    private javax.swing.JMenuItem groups3_id;
+    private javax.swing.JMenuItem groups4_id;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -2723,7 +2784,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan97;
     private javax.swing.JPanel pan98;
     private javax.swing.JPanel pan99;
-    private javax.swing.JPopupMenu ppmReport;
+    private javax.swing.JPopupMenu ppmGrid;
     private javax.swing.JPanel pqn109;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;

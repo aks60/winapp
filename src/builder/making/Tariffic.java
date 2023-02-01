@@ -220,7 +220,6 @@ public class Tariffic extends Cal5e {
 
             float artdetPrice = 0;
             boolean artdetUsed = false;
-            float k0 = specificRec.artiklRec.getFloat(eArtikl.coeff); //Ценовой коэффициент артикула
 
             //Если тариф двухсторонней текстуры не равен 0, и если
             //текстура1 равна текстура2 и заданный тариф применим
@@ -232,7 +231,7 @@ public class Tariffic extends Cal5e {
                 float k2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
                 float k3 = color3Rec.getFloat(eColor.coef3); //ценовой коэф.внешний текстуры
                 float k5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс            
-                artdetPrice += (k0 * k1 * Math.max(k2, k3) / k5);
+                artdetPrice += (k1 * Math.max(k2, k3) / k5);
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
                     float m1 = artdetRec.getFloat(eArtdet.cost_unit); //тариф единица измерения
@@ -245,7 +244,7 @@ public class Tariffic extends Cal5e {
                         float z2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текст.
                         float z3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                         float z5 = kursBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                        artdetPrice += (k0 * z1 * z2 * z3 * z5) / z5;
+                        artdetPrice += (z1 * z2 * z3 * z5) / z5;
                     }
                 }
                 artdetUsed = true;
@@ -259,7 +258,7 @@ public class Tariffic extends Cal5e {
                     float k2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текстуры
                     float k3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float k5 = kursBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetPrice += (k0 * k1 * k2 * k3) / k5;
+                    artdetPrice += (k1 * k2 * k3) / k5;
                     artdetUsed = true;
                 }
                 //Подбираем тариф внутренней текстуры
@@ -269,7 +268,7 @@ public class Tariffic extends Cal5e {
                     float d2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
                     float d3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float d5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetPrice += (k0 * d1 * d2 * d3) / d5;
+                    artdetPrice += ( d1 * d2 * d3) / d5;
                     artdetUsed = true;
                 }
                 //Подбираем тариф внешней текстуры
@@ -279,7 +278,7 @@ public class Tariffic extends Cal5e {
                     float w2 = color3Rec.getFloat(eColor.coef3); //Ценовой коэф.внешний текстуры
                     float w3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float w5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetPrice += (k0 * w1 * w2 * w3) / w5;
+                    artdetPrice += (w1 * w2 * w3) / w5;
                     artdetUsed = true;
                 }
             }
