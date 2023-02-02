@@ -50,7 +50,7 @@ public class DicCurrenc extends javax.swing.JDialog {
     }
     
     public void loadingData() {
-        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.npp, ",", eCurrenc.name);
     }
 
     public void loadingModel() {

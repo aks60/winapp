@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 public enum ePrjpart implements Field {
     up("0", "0", "0", "Контрагент", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    npp("4", "10", "1", "Ном.п.п", "npp"),
+    npp("4", "10", "1", "Номер п/п", "npp"),
     partner("12", "120", "1", "Контрагент (Физ.лицо/Организация)", "KNAME"),
     login("12", "32", "1", "Менеджер (login)", "PNAME"), //Фильтр по login user
     category("12", "32", "1", "Категория", "KPREF"), //Заказчик, поставщик, офис, дилер, специальный   

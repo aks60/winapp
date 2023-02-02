@@ -8,6 +8,7 @@ import dataset.Record;
 public enum eCurrenc implements Field {
     up("0", "0", "0", "Валюта", "CORRENC"),
     id("4", "10", "0", "Идентификатор", "cnumb"),
+    npp("4", "10", "0", "Номер п/п", "npp"),
     name("12", "32", "1", "Название валюты", "CNAME"),
     par_case1("12", "32", "1", "Родит.падеж ед.ч.", "CRODE"),
     par_case2("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),

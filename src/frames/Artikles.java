@@ -181,13 +181,13 @@ public class Artikles extends javax.swing.JFrame {
             public void load(Integer index) {
                 super.load(index);
                 Record artiklRec = qArtikl.get(UGui.getIndexRec(tab1));
-                Record seriesRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.groups4_id)).findFirst().orElse(eGroups.up.newRecord());
-                Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
-                Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(eCurrenc.up.newRecord());
-                Record artgrp1Rec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.groups1_id))).findFirst().orElse(eGroups.up.newRecord());
-                Record artgrp2Rec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.groups2_id))).findFirst().orElse(eGroups.up.newRecord());
-                Record artgrp3Rec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.groups3_id))).findFirst().orElse(eGroups.up.newRecord());
-                Record syssizeRec = qSyssize.stream().filter(rec -> rec.getInt(eSyssize.id) == artiklRec.getInt(eArtikl.syssize_id)).findFirst().orElse(eSyssize.up.newRecord());
+                Record seriesRec = qGroups.find(artiklRec.getInt(eArtikl.groups4_id), eGroups.id);
+                Record currenc1Rec = qCurrenc.find(artiklRec.get(eArtikl.currenc1_id), eCurrenc.id);
+                Record currenc2Rec = qCurrenc.find(artiklRec.get(eArtikl.currenc2_id), eCurrenc.id);
+                Record artgrp1Rec = qGroups.find(artiklRec.get(eArtikl.groups1_id), eGroups.id);
+                Record artgrp2Rec = qGroups.find(artiklRec.get(eArtikl.groups2_id), eGroups.id);
+                Record artgrp3Rec = qGroups.find(artiklRec.get(eArtikl.groups3_id), eGroups.id);
+                Record syssizeRec = qSyssize.find(artiklRec.getInt(eArtikl.syssize_id), eSyssize.id);
 
                 setText(txt5, UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
                 setText(txt7, currenc1Rec.getStr(eCurrenc.name));
@@ -200,7 +200,7 @@ public class Artikles extends javax.swing.JFrame {
                 setText(txt40, UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
 
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
-                    Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(eArtikl.up.newRecord());
+                    Record analogRec = qArtikl.find(artiklRec.get(eArtikl.analog_id), eArtikl.id);
                     setText(txt11, analogRec.getStr(eArtikl.code));
                 } else {
                     setText(txt11, null);

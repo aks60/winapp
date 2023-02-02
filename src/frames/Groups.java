@@ -48,16 +48,16 @@ public class Groups extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
-        qColGrp.select(eGroups.up, "where", eGroups.grup, "= 2", "order by", eGroups.name);
-        qColMap.select(eGroups.up, "where", eGroups.grup, "= 7", "order by", eGroups.name);
-        qArtSeri.select(eGroups.up, "where", eGroups.grup, "= 3", "order by", eGroups.name);
-        qArtIncr.select(eGroups.up, "where", eGroups.grup, "= 4", "order by", eGroups.name);
-        qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
-        qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
-        qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.name);
-        qCategKit.select(eGroups.up, "where", eGroups.grup, "= 10", "order by", eGroups.name);
-        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2101, 2104, 2073)", "order by", eGroups.name);
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.npp, ",", eCurrenc.name);
+        qColGrp.select(eGroups.up, "where", eGroups.grup, "= 2", "order by", eGroups.npp, ",", eGroups.name);
+        qColMap.select(eGroups.up, "where", eGroups.grup, "= 7", "order by", eGroups.npp, ",", eGroups.name);
+        qArtSeri.select(eGroups.up, "where", eGroups.grup, "= 3", "order by", eGroups.npp, ",", eGroups.name);
+        qArtIncr.select(eGroups.up, "where", eGroups.grup, "= 4", "order by", eGroups.npp, ",", eGroups.name);
+        qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.npp, ",", eGroups.name);
+        qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.npp, ",", eGroups.name);
+        qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.npp, ",", eGroups.name);
+        qCategKit.select(eGroups.up, "where", eGroups.grup, "= 10", "order by", eGroups.npp, ",", eGroups.name);
+        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2101, 2104, 2073)", "order by", eGroups.npp, ",", eGroups.name);
     }
 
     public void loadingModel() {
@@ -805,19 +805,15 @@ public class Groups extends javax.swing.JFrame {
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
-        List.of(btnIns, btnDel, btnMoveU, btnMoveD).forEach(q -> q.setEnabled(true));
+        List.of(btnIns, btnDel).forEach(q -> q.setEnabled(true));
         JTable table = null;
         if (mode == 0) {
             if (tabb.getSelectedIndex() == 0) {
                 table = tab6;
-                btnMoveU.setEnabled(false);
-                btnMoveD.setEnabled(false);
             } else if (tabb.getSelectedIndex() == 1) {
                 table = tab7;
                 btnIns.setEnabled(false);
-                btnDel.setEnabled(false);
-                btnMoveU.setEnabled(false);
-                btnMoveD.setEnabled(false);                
+                btnDel.setEnabled(false);               
             } else if (tabb.getSelectedIndex() == 2) {
                 table = tab2;
             } else if (tabb.getSelectedIndex() == 3) {

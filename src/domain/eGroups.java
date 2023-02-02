@@ -8,6 +8,7 @@ import dataset.Record;
 public enum eGroups implements Field {
     up("0", "0", "0", "Справочники", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
+    npp("4", "10", "1", "Номер п/п", "npp"),
     grup("5", "5", "0", ""
             + "1-Параметры пользов. \n"
             + "2-Группы текстур \n"
@@ -19,7 +20,6 @@ public enum eGroups implements Field {
             + "8-Категории вставок \n"
             + "9-Расчётные данные \n"
             + "10-Категории комплектов", "grup"),
-    npp("4", "10", "1", "Ном.п.п", "npp"),
     name("12", "96", "1", "Название группы", "name"),
     val("8", "15", "1", "Значение", "coeff");
     private MetaField meta = new MetaField(this);

@@ -60,7 +60,7 @@ public class DicColor extends javax.swing.JDialog {
     }
 
     private void loadingData(HashSet<Record> colorSet, boolean auto) {
-        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.name);
+        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
 
         if (auto == true) {
             Record autoRec = eGroups.up.newRecord();

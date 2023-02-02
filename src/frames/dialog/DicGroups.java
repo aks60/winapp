@@ -44,7 +44,7 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     public void loadingData() {
-        qGroups.select(eGroups.up, "where grup =", grup.numb(), "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where grup =", grup.numb(), "order by", eGroups.npp, ",", eGroups.name);
     }
 
     public void loadingModel() {
