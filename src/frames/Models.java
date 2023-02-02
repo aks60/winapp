@@ -553,9 +553,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
@@ -597,9 +594,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -643,9 +637,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
@@ -686,9 +677,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -951,13 +939,10 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         }
     }//GEN-LAST:event_btnToggl
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
-    }//GEN-LAST:event_tabMousePressed
-
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        if (evt.getClickCount() == 2) {
+        //JTable table = (JTable) evt.getSource();
+        //UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
+        if (listenet != null && evt.getClickCount() == 2) {
             btnChoice(null);
         }
     }//GEN-LAST:event_tabMouseClicked
