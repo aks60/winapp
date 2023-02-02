@@ -439,12 +439,12 @@ public class Furniturs extends javax.swing.JFrame {
 
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             UGui.buttonCellEditor(tab, 0).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 6);
             });
         }
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             UGui.buttonCellEditor(tab, 1).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 6);
             });
         }
 
@@ -534,6 +534,9 @@ public class Furniturs extends javax.swing.JFrame {
             Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
             if (tab.getBorder() != null) {
                 int index = UGui.getIndexRec(tab);
+//                if (record.getInt(eArtikl.level1) == 6) {
+//                    query.set(-1 * record.getInt(eArtikl.id), UGui.getIndexRec(tab), eFurndet.id);
+//                }
                 query.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab), eFurndet.artikl_id);
                 ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab, index);

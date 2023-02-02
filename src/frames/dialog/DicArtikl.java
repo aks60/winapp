@@ -76,6 +76,8 @@ public class DicArtikl extends javax.swing.JDialog {
                         return "Инст..." + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
                     } else if (record.getInt(eArtikl.level1) == 5) {
                         return "Зап... " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    } else if (record.getInt(eArtikl.level1) == 6) {
+                        return "Наб... " + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
                     } else {
                         return "";
                     }

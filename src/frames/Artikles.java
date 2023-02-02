@@ -284,6 +284,10 @@ public class Artikles extends javax.swing.JFrame {
                 nodeRoot.add(node);
                 node = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
 
+            } else if (it.id1 == 6 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X600); //"Наборы"
+                
             } else if (it.id2 > 0) {   //остальное       
                 nodeRoot.add(node);
                 node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
