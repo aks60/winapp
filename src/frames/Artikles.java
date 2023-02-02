@@ -100,8 +100,8 @@ public class Artikles extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.groups1_id,
-                eArtikl.groups2_id, eArtikl.groups3_id, eArtikl.groups4_id) {
+        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.groups1_id,
+                eArtikl.groups2_id, eArtikl.groups3_id, eArtikl.groups4_id, eArtikl.otx_norm) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -155,9 +155,9 @@ public class Artikles extends javax.swing.JFrame {
                 return val;
             }
         };
-
-        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditorNumb(3));
-        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
+   
+        //tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
+        tab1.getColumnModel().getColumn(6).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
@@ -946,14 +946,14 @@ public class Artikles extends javax.swing.JFrame {
                 {"2", "222", null, null, null, null, null, null}
             },
             new String [] {
-                "Актикул", "Название", "Отход %", "Наценки", "Скидки", "Группы", "Серии", "ID"
+                "Актикул", "Название", "Наценки", "Скидки", "Группы", "Серии", "Отход %", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, false, true, true, false
+                true, true, false, false, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -980,8 +980,9 @@ public class Artikles extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(120);
+            tab1.getColumnModel().getColumn(2).setMinWidth(0);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(0);
             tab1.getColumnModel().getColumn(3).setMinWidth(0);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(0);
             tab1.getColumnModel().getColumn(3).setMaxWidth(0);
@@ -991,9 +992,8 @@ public class Artikles extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(5).setMinWidth(0);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(0);
             tab1.getColumnModel().getColumn(5).setMaxWidth(0);
-            tab1.getColumnModel().getColumn(6).setMinWidth(0);
-            tab1.getColumnModel().getColumn(6).setPreferredWidth(0);
-            tab1.getColumnModel().getColumn(6).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(6).setPreferredWidth(26);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(120);
             tab1.getColumnModel().getColumn(7).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(7).setMaxWidth(60);
         }
@@ -2486,13 +2486,13 @@ public class Artikles extends javax.swing.JFrame {
         JMenuItem ppm = (JMenuItem) evt.getSource();
         int index = 0;
         if (ppm == groups1_id) {
-            index = 3;
+            index = 2;
         } else if (ppm == groups2_id) {
-            index = 4;
+            index = 3;
         } else if (ppm == groups3_id) {
-            index = 5;
+            index = 4;
         } else if (ppm == groups4_id) {
-            index = 6;
+            index = 5;
         }
         TableColumn column = tab1.getColumnModel().getColumn(index);
         if (column.getMaxWidth() == 0) {
