@@ -711,7 +711,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             selectionTree();
 
             //Установим курсор
-            UGui.selectionPath(id, winTree);
+            UGui.selectionPathWin(id, winTree);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Order.updateScript() " + e);
@@ -3071,7 +3071,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         UGui.setSelectedIndex(tab1, index1);
         UGui.setSelectedIndex(tab2, index2);
-        UGui.selectionPath(id, winTree);
+        UGui.selectionPathWin(id, winTree);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

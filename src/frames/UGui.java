@@ -285,7 +285,21 @@ public class UGui {
         }
     }
 
-    public static void selectionPath(float id, JTree tree) {
+    public static void selectionPathSys(float id, JTree tree) {
+        if (id != -1) {
+            DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
+            do {
+                if (id == ((DefMutableTreeNode) curNode).rec().getFloat(eSystree.id)) {
+                    TreePath path = new TreePath(curNode.getPath());
+                    tree.setSelectionPath(path);
+                    tree.scrollPathToVisible(path);
+                }
+                curNode = curNode.getNextNode();
+            } while (curNode != null);
+        }
+    }
+
+    public static void selectionPathWin(float id, JTree tree) {
         if (id != -1) {
             DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
             do {

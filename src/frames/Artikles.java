@@ -70,7 +70,7 @@ public class Artikles extends javax.swing.JFrame {
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
     private ListenerRecord listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
-            listenerCurrenc2, listenerAnalog, listenerSyssize, listenerArtincr, listenerArtdecr, listenerSeriesFilter, listenerCategFilter;
+            listenerCurrenc2, listenerAnalog, listenerSyssize, listenerArtincr, listenerArtdecr;
 
     public Artikles() {
         initComponents();
@@ -218,6 +218,12 @@ public class Artikles extends javax.swing.JFrame {
                 setText(txt35, artgrp2Rec.getStr(eGroups.val).replace('.', ','));
                 setText(txt37, artgrp3Rec.getStr(eGroups.name));
                 setText(txt38, seriesRec.getStr(eGroups.name));
+                setText(txt49, artgrp1Rec.getStr(eGroups.name));
+                setText(txt50, artgrp2Rec.getStr(eGroups.name));
+                setText(txt51, artgrp1Rec.getStr(eGroups.name));
+                setText(txt52, artgrp2Rec.getStr(eGroups.name));
+                setText(txt53, artgrp1Rec.getStr(eGroups.name));
+                setText(txt54, artgrp2Rec.getStr(eGroups.name));
             }
 
             @Override
@@ -372,20 +378,6 @@ public class Artikles extends javax.swing.JFrame {
                 rsvArtikl.load();
             }
             UGui.stopCellEditing(tab1, tab2);
-        };
-
-        listenerSeriesFilter = (record) -> {
-            tab1.setColumnSelectionInterval(4, 4);
-            filterTable.getLab().setText("Серия профилей");
-            filterTable.getTxt().setName("tab1");
-            filterTable.getTxt().setText(record.getStr(eGroups.name));
-        };
-
-        listenerCategFilter = (record) -> {
-            tab1.setColumnSelectionInterval(5, 5);
-            filterTable.getLab().setText("Категоря профилей");
-            filterTable.getTxt().setName("tab1");
-            filterTable.getTxt().setText(record.getStr(eGroups.name));
         };
 
         listenerAnalog = (record) -> {
@@ -546,13 +538,31 @@ public class Artikles extends javax.swing.JFrame {
         filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab27 = new javax.swing.JLabel();
         checkBox1 = new javax.swing.JCheckBox();
-        filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(26, 0), new java.awt.Dimension(12, 32767));
+        filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(22, 0), new java.awt.Dimension(12, 32767));
         lab20 = new javax.swing.JLabel();
         txt21 = new javax.swing.JTextField();
         pan101 = new javax.swing.JPanel();
         filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab24 = new javax.swing.JLabel();
         txt12 = new javax.swing.JTextField();
+        filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab26 = new javax.swing.JLabel();
+        txt14 = new javax.swing.JTextField();
+        pan96 = new javax.swing.JPanel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab23 = new javax.swing.JLabel();
+        txt11 = new javax.swing.JTextField();
+        btn11 = new javax.swing.JButton();
+        pan94 = new javax.swing.JPanel();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab34 = new javax.swing.JLabel();
+        txt22 = new javax.swing.JTextField();
+        btn22 = new javax.swing.JButton();
+        pan95 = new javax.swing.JPanel();
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab22 = new javax.swing.JLabel();
+        txt10 = new javax.swing.JTextField();
+        btn37 = new javax.swing.JButton();
         pan92 = new javax.swing.JPanel();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab19 = new javax.swing.JLabel();
@@ -565,82 +575,62 @@ public class Artikles extends javax.swing.JFrame {
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab31 = new javax.swing.JLabel();
         txt19 = new javax.swing.JTextField();
+        txt49 = new javax.swing.JTextField();
         btn19 = new javax.swing.JButton();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(12, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(12, 32767));
+        pan110 = new javax.swing.JPanel();
+        filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab32 = new javax.swing.JLabel();
         txt20 = new javax.swing.JTextField();
+        txt50 = new javax.swing.JTextField();
         btn20 = new javax.swing.JButton();
-        pan105 = new javax.swing.JPanel();
-        filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        pan94 = new javax.swing.JPanel();
-        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab34 = new javax.swing.JLabel();
-        txt22 = new javax.swing.JTextField();
-        btn13 = new javax.swing.JButton();
-        btn22 = new javax.swing.JButton();
-        pan95 = new javax.swing.JPanel();
-        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab22 = new javax.swing.JLabel();
-        txt10 = new javax.swing.JTextField();
-        btn8 = new javax.swing.JButton();
-        btn37 = new javax.swing.JButton();
-        pan96 = new javax.swing.JPanel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab23 = new javax.swing.JLabel();
-        txt11 = new javax.swing.JTextField();
-        btn11 = new javax.swing.JButton();
-        pan97 = new javax.swing.JPanel();
-        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab26 = new javax.swing.JLabel();
-        txt14 = new javax.swing.JTextField();
         pan7 = new javax.swing.JPanel();
         pan107 = new javax.swing.JPanel();
+        pan18 = new javax.swing.JPanel();
+        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab18 = new javax.swing.JLabel();
+        txt6 = new javax.swing.JTextField();
+        filler38 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(32, 0), new java.awt.Dimension(12, 32767));
+        lab42 = new javax.swing.JLabel();
+        txt31 = new javax.swing.JTextField();
+        btn6 = new javax.swing.JButton();
+        pan13 = new javax.swing.JPanel();
+        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab40 = new javax.swing.JLabel();
+        txt29 = new javax.swing.JTextField();
+        btn25 = new javax.swing.JButton();
+        pan17 = new javax.swing.JPanel();
+        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab41 = new javax.swing.JLabel();
+        txt30 = new javax.swing.JTextField();
+        btn10 = new javax.swing.JButton();
         pan11 = new javax.swing.JPanel();
         filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab36 = new javax.swing.JLabel();
         txt25 = new javax.swing.JTextField();
         btn9 = new javax.swing.JButton();
-        filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
+        filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(7, 0), new java.awt.Dimension(12, 32767));
         txt24 = new javax.swing.JTextField();
         btn21 = new javax.swing.JButton();
         pan12 = new javax.swing.JPanel();
         filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab37 = new javax.swing.JLabel();
         txt26 = new javax.swing.JTextField();
+        txt51 = new javax.swing.JTextField();
         btn23 = new javax.swing.JButton();
-        filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
-        lab38 = new javax.swing.JLabel();
-        txt27 = new javax.swing.JTextField();
-        btn24 = new javax.swing.JButton();
-        pan18 = new javax.swing.JPanel();
-        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab18 = new javax.swing.JLabel();
-        txt6 = new javax.swing.JTextField();
-        filler38 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(12, 32767));
-        lab42 = new javax.swing.JLabel();
-        txt31 = new javax.swing.JTextField();
-        btn6 = new javax.swing.JButton();
         pan109 = new javax.swing.JPanel();
         filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        pan13 = new javax.swing.JPanel();
-        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab40 = new javax.swing.JLabel();
-        txt29 = new javax.swing.JTextField();
-        btn14 = new javax.swing.JButton();
-        btn25 = new javax.swing.JButton();
-        pan17 = new javax.swing.JPanel();
-        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab41 = new javax.swing.JLabel();
-        txt30 = new javax.swing.JTextField();
-        btn12 = new javax.swing.JButton();
-        btn10 = new javax.swing.JButton();
+        lab38 = new javax.swing.JLabel();
+        txt27 = new javax.swing.JTextField();
+        txt52 = new javax.swing.JTextField();
+        btn24 = new javax.swing.JButton();
         pan8 = new javax.swing.JPanel();
         pan108 = new javax.swing.JPanel();
         pan20 = new javax.swing.JPanel();
         filler35 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab54 = new javax.swing.JLabel();
         txt48 = new javax.swing.JTextField();
-        filler44 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(28, 0), new java.awt.Dimension(12, 32767));
+        filler44 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(32, 0), new java.awt.Dimension(12, 32767));
         lab55 = new javax.swing.JLabel();
         txt45 = new javax.swing.JTextField();
         filler45 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
@@ -648,9 +638,27 @@ public class Artikles extends javax.swing.JFrame {
         filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab56 = new javax.swing.JLabel();
         txt46 = new javax.swing.JTextField();
-        filler49 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(28, 0), new java.awt.Dimension(12, 32767));
+        filler49 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(32, 0), new java.awt.Dimension(12, 32767));
         lab49 = new javax.swing.JLabel();
         txt39 = new javax.swing.JTextField();
+        pan26 = new javax.swing.JPanel();
+        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab50 = new javax.swing.JLabel();
+        txt40 = new javax.swing.JTextField();
+        btn33 = new javax.swing.JButton();
+        filler48 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
+        lab35 = new javax.swing.JLabel();
+        txt23 = new javax.swing.JTextField();
+        pan24 = new javax.swing.JPanel();
+        filler39 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab47 = new javax.swing.JLabel();
+        txt37 = new javax.swing.JTextField();
+        btn30 = new javax.swing.JButton();
+        pan25 = new javax.swing.JPanel();
+        filler40 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab48 = new javax.swing.JLabel();
+        txt38 = new javax.swing.JTextField();
+        btn32 = new javax.swing.JButton();
         pan21 = new javax.swing.JPanel();
         filler36 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab43 = new javax.swing.JLabel();
@@ -663,32 +671,14 @@ public class Artikles extends javax.swing.JFrame {
         filler37 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab44 = new javax.swing.JLabel();
         txt34 = new javax.swing.JTextField();
+        txt53 = new javax.swing.JTextField();
         btn27 = new javax.swing.JButton();
-        filler47 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
+        pqn109 = new javax.swing.JPanel();
+        filler42 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab45 = new javax.swing.JLabel();
         txt35 = new javax.swing.JTextField();
+        txt54 = new javax.swing.JTextField();
         btn28 = new javax.swing.JButton();
-        pan26 = new javax.swing.JPanel();
-        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab50 = new javax.swing.JLabel();
-        txt40 = new javax.swing.JTextField();
-        btn33 = new javax.swing.JButton();
-        filler48 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
-        lab35 = new javax.swing.JLabel();
-        txt23 = new javax.swing.JTextField();
-        pqn109 = new javax.swing.JPanel();
-        pan24 = new javax.swing.JPanel();
-        filler39 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab47 = new javax.swing.JLabel();
-        txt37 = new javax.swing.JTextField();
-        btn29 = new javax.swing.JButton();
-        btn30 = new javax.swing.JButton();
-        pan25 = new javax.swing.JPanel();
-        filler40 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab48 = new javax.swing.JLabel();
-        txt38 = new javax.swing.JTextField();
-        btn31 = new javax.swing.JButton();
-        btn32 = new javax.swing.JButton();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -887,7 +877,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 806, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 627, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -989,7 +979,7 @@ public class Artikles extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(260);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(300);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setMinWidth(0);
@@ -1135,7 +1125,7 @@ public class Artikles extends javax.swing.JFrame {
         txt15.setFont(frames.UGui.getFont(0,0));
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt15.setName("{3}"); // NOI18N
-        txt15.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt15.setPreferredSize(new java.awt.Dimension(40, 18));
         pan99.add(txt15);
         pan99.add(filler16);
 
@@ -1145,7 +1135,7 @@ public class Artikles extends javax.swing.JFrame {
         lab21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab21.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab21.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab21.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab21.setPreferredSize(new java.awt.Dimension(104, 18));
         pan99.add(lab21);
 
         txt9.setFont(frames.UGui.getFont(0,0));
@@ -1172,7 +1162,7 @@ public class Artikles extends javax.swing.JFrame {
         txt16.setFont(frames.UGui.getFont(0,0));
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setName("{3}"); // NOI18N
-        txt16.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt16.setPreferredSize(new java.awt.Dimension(40, 18));
         pan100.add(txt16);
         pan100.add(filler23);
 
@@ -1182,6 +1172,7 @@ public class Artikles extends javax.swing.JFrame {
         lab33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab33.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab33.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab33.setPreferredSize(new java.awt.Dimension(104, 18));
         pan100.add(lab33);
 
         txt8.setFont(frames.UGui.getFont(0,0));
@@ -1207,7 +1198,7 @@ public class Artikles extends javax.swing.JFrame {
         txt4.setFont(frames.UGui.getFont(0,0));
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt4.setName("{3}"); // NOI18N
-        txt4.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt4.setPreferredSize(new java.awt.Dimension(40, 18));
         pan102.add(txt4);
         pan102.add(filler24);
 
@@ -1216,7 +1207,7 @@ public class Artikles extends javax.swing.JFrame {
         labl17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labl17.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labl17.setMinimumSize(new java.awt.Dimension(34, 14));
-        labl17.setPreferredSize(new java.awt.Dimension(98, 18));
+        labl17.setPreferredSize(new java.awt.Dimension(104, 18));
         pan102.add(labl17);
 
         txt5.setEditable(false);
@@ -1270,7 +1261,7 @@ public class Artikles extends javax.swing.JFrame {
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab20.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab20.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab20.setPreferredSize(new java.awt.Dimension(104, 18));
         pan103.add(lab20);
 
         txt21.setFont(frames.UGui.getFont(0,0));
@@ -1297,10 +1288,126 @@ public class Artikles extends javax.swing.JFrame {
         txt12.setFont(frames.UGui.getFont(0,0));
         txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt12.setName("{3}"); // NOI18N
-        txt12.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt12.setPreferredSize(new java.awt.Dimension(40, 18));
         pan101.add(txt12);
+        pan101.add(filler33);
+
+        lab26.setFont(frames.UGui.getFont(0,0));
+        lab26.setText("Техн-ий код");
+        lab26.setToolTipText("");
+        lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab26.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab26.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab26.setPreferredSize(new java.awt.Dimension(104, 18));
+        pan101.add(lab26);
+
+        txt14.setFont(frames.UGui.getFont(0,0));
+        txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt14.setPreferredSize(new java.awt.Dimension(68, 18));
+        pan101.add(txt14);
 
         pan2.add(pan101);
+
+        pan96.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan96.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan96.add(filler11);
+
+        lab23.setFont(frames.UGui.getFont(0,0));
+        lab23.setText("Аналог профиля");
+        lab23.setToolTipText("");
+        lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab23.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab23.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab23.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan96.add(lab23);
+
+        txt11.setEditable(false);
+        txt11.setFont(frames.UGui.getFont(0,0));
+        txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt11.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan96.add(txt11);
+
+        btn11.setText("...");
+        btn11.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn11.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn11.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn11(evt);
+            }
+        });
+        pan96.add(btn11);
+
+        pan2.add(pan96);
+
+        pan94.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan94.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan94.add(filler9);
+
+        lab34.setFont(frames.UGui.getFont(0,0));
+        lab34.setText("Группа");
+        lab34.setToolTipText("");
+        lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab34.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab34.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab34.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan94.add(lab34);
+
+        txt22.setEditable(false);
+        txt22.setFont(frames.UGui.getFont(0,0));
+        txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt22.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan94.add(txt22);
+
+        btn22.setText("...");
+        btn22.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn22.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn22.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn22.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn22(evt);
+            }
+        });
+        pan94.add(btn22);
+
+        pan2.add(pan94);
+
+        pan95.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan95.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan95.add(filler10);
+
+        lab22.setFont(frames.UGui.getFont(0,0));
+        lab22.setText("Серия");
+        lab22.setToolTipText("");
+        lab22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab22.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab22.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab22.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan95.add(lab22);
+
+        txt10.setEditable(false);
+        txt10.setFont(frames.UGui.getFont(0,0));
+        txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt10.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan95.add(txt10);
+
+        btn37.setText("...");
+        btn37.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn37.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn37.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn37.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn37(evt);
+            }
+        });
+        pan95.add(btn37);
+
+        pan2.add(pan95);
 
         pan92.setPreferredSize(new java.awt.Dimension(360, 24));
         pan92.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
@@ -1363,7 +1470,7 @@ public class Artikles extends javax.swing.JFrame {
         pan93.add(filler7);
 
         lab31.setFont(frames.UGui.getFont(0,0));
-        lab31.setText("Наценки (коэф)");
+        lab31.setText("Наценка (коэф)");
         lab31.setToolTipText("");
         lab31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab31.setMinimumSize(new java.awt.Dimension(34, 14));
@@ -1373,8 +1480,14 @@ public class Artikles extends javax.swing.JFrame {
         txt19.setEditable(false);
         txt19.setFont(frames.UGui.getFont(0,0));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt19.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt19.setPreferredSize(new java.awt.Dimension(40, 18));
         pan93.add(txt19);
+
+        txt49.setEditable(false);
+        txt49.setFont(frames.UGui.getFont(0,0));
+        txt49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt49.setPreferredSize(new java.awt.Dimension(159, 18));
+        pan93.add(txt49);
 
         btn19.setText("...");
         btn19.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -1390,19 +1503,31 @@ public class Artikles extends javax.swing.JFrame {
         pan93.add(btn19);
         pan93.add(filler8);
 
+        pan2.add(pan93);
+
+        pan110.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan110.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan110.add(filler32);
+
         lab32.setFont(frames.UGui.getFont(0,0));
         lab32.setText("Скидка (%)");
         lab32.setToolTipText("");
         lab32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab32.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab32.setPreferredSize(new java.awt.Dimension(72, 18));
-        pan93.add(lab32);
+        lab32.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan110.add(lab32);
 
         txt20.setEditable(false);
         txt20.setFont(frames.UGui.getFont(0,0));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(40, 18));
-        pan93.add(txt20);
+        pan110.add(txt20);
+
+        txt50.setEditable(false);
+        txt50.setFont(frames.UGui.getFont(0,0));
+        txt50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt50.setPreferredSize(new java.awt.Dimension(159, 18));
+        pan110.add(txt50);
 
         btn20.setText("...");
         btn20.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -1415,162 +1540,9 @@ public class Artikles extends javax.swing.JFrame {
                 btn20(evt);
             }
         });
-        pan93.add(btn20);
+        pan110.add(btn20);
 
-        pan2.add(pan93);
-
-        pan105.setPreferredSize(new java.awt.Dimension(360, 12));
-        pan105.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan105.add(filler20);
-
-        pan2.add(pan105);
-
-        pan94.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan94.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan94.add(filler9);
-
-        lab34.setFont(frames.UGui.getFont(0,0));
-        lab34.setText("Группа");
-        lab34.setToolTipText("");
-        lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab34.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab34.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab34.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan94.add(lab34);
-
-        txt22.setEditable(false);
-        txt22.setFont(frames.UGui.getFont(0,0));
-        txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt22.setPreferredSize(new java.awt.Dimension(177, 18));
-        pan94.add(txt22);
-
-        btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn13.setToolTipText(bundle.getString("Фильтр")); // NOI18N
-        btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn13.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn13.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn13.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn13(evt);
-            }
-        });
-        pan94.add(btn13);
-
-        btn22.setText("...");
-        btn22.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn22.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn22.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn22.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn22(evt);
-            }
-        });
-        pan94.add(btn22);
-
-        pan2.add(pan94);
-
-        pan95.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan95.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan95.add(filler10);
-
-        lab22.setFont(frames.UGui.getFont(0,0));
-        lab22.setText("Серия");
-        lab22.setToolTipText("");
-        lab22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab22.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab22.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab22.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan95.add(lab22);
-
-        txt10.setEditable(false);
-        txt10.setFont(frames.UGui.getFont(0,0));
-        txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt10.setPreferredSize(new java.awt.Dimension(177, 18));
-        pan95.add(txt10);
-
-        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn8.setToolTipText(bundle.getString("Фильтр")); // NOI18N
-        btn8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn8.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn8.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn8.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn8(evt);
-            }
-        });
-        pan95.add(btn8);
-
-        btn37.setText("...");
-        btn37.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn37.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn37.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn37.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn37(evt);
-            }
-        });
-        pan95.add(btn37);
-
-        pan2.add(pan95);
-
-        pan96.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan96.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan96.add(filler11);
-
-        lab23.setFont(frames.UGui.getFont(0,0));
-        lab23.setText("Аналог профиля");
-        lab23.setToolTipText("");
-        lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab23.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab23.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab23.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan96.add(lab23);
-
-        txt11.setEditable(false);
-        txt11.setFont(frames.UGui.getFont(0,0));
-        txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt11.setPreferredSize(new java.awt.Dimension(204, 18));
-        pan96.add(txt11);
-
-        btn11.setText("...");
-        btn11.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn11.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn11.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn11(evt);
-            }
-        });
-        pan96.add(btn11);
-
-        pan2.add(pan96);
-
-        pan97.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan97.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan97.add(filler12);
-
-        lab26.setFont(frames.UGui.getFont(0,0));
-        lab26.setText("Техн-ий код");
-        lab26.setToolTipText("");
-        lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab26.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab26.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab26.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan97.add(lab26);
-
-        txt14.setFont(frames.UGui.getFont(0,0));
-        txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt14.setPreferredSize(new java.awt.Dimension(204, 18));
-        pan97.add(txt14);
-
-        pan2.add(pan97);
+        pan2.add(pan110);
 
         pan6.add(pan2, "pan2");
 
@@ -1591,6 +1563,122 @@ public class Artikles extends javax.swing.JFrame {
         );
 
         pan7.add(pan107);
+
+        pan18.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan18.add(filler31);
+
+        lab18.setFont(frames.UGui.getFont(0,0));
+        lab18.setText("Уд.вес кг/ед");
+        lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab18.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab18.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab18.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan18.add(lab18);
+
+        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt6.setName("{3}"); // NOI18N
+        txt6.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan18.add(txt6);
+        pan18.add(filler38);
+
+        lab42.setFont(frames.UGui.getFont(0,0));
+        lab42.setText("Ед.изм.");
+        lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab42.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab42.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab42.setPreferredSize(new java.awt.Dimension(68, 18));
+        pan18.add(lab42);
+
+        txt31.setEditable(false);
+        txt31.setFont(frames.UGui.getFont(0,0));
+        txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt31.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt31.setRequestFocusEnabled(false);
+        pan18.add(txt31);
+
+        btn6.setText("...");
+        btn6.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn6.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn6.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn6.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5(evt);
+            }
+        });
+        pan18.add(btn6);
+
+        pan7.add(pan18);
+
+        pan13.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan13.add(filler29);
+
+        lab40.setFont(frames.UGui.getFont(0,0));
+        lab40.setText("Группа");
+        lab40.setToolTipText("");
+        lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab40.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab40.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab40.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan13.add(lab40);
+
+        txt29.setEditable(false);
+        txt29.setFont(frames.UGui.getFont(0,0));
+        txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt29.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan13.add(txt29);
+
+        btn25.setText("...");
+        btn25.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn25.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn25.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn25.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn22(evt);
+            }
+        });
+        pan13.add(btn25);
+
+        pan7.add(pan13);
+
+        pan17.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan17.add(filler30);
+
+        lab41.setFont(frames.UGui.getFont(0,0));
+        lab41.setText("Серия");
+        lab41.setToolTipText("");
+        lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab41.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab41.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab41.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan17.add(lab41);
+
+        txt30.setEditable(false);
+        txt30.setFont(frames.UGui.getFont(0,0));
+        txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt30.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan17.add(txt30);
+
+        btn10.setText("...");
+        btn10.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn10.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn10.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn10.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn37(evt);
+            }
+        });
+        pan17.add(btn10);
+
+        pan7.add(pan17);
 
         pan11.setPreferredSize(new java.awt.Dimension(360, 24));
         pan11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
@@ -1653,7 +1741,7 @@ public class Artikles extends javax.swing.JFrame {
         pan12.add(filler27);
 
         lab37.setFont(frames.UGui.getFont(0,0));
-        lab37.setText("Наценки (коэф)");
+        lab37.setText("Наценка (коэф)");
         lab37.setToolTipText("");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab37.setMinimumSize(new java.awt.Dimension(34, 14));
@@ -1663,8 +1751,14 @@ public class Artikles extends javax.swing.JFrame {
         txt26.setEditable(false);
         txt26.setFont(frames.UGui.getFont(0,0));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt26.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt26.setPreferredSize(new java.awt.Dimension(40, 18));
         pan12.add(txt26);
+
+        txt51.setEditable(false);
+        txt51.setFont(frames.UGui.getFont(0,0));
+        txt51.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt51.setPreferredSize(new java.awt.Dimension(159, 18));
+        pan12.add(txt51);
 
         btn23.setText("...");
         btn23.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -1678,21 +1772,32 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
         pan12.add(btn23);
-        pan12.add(filler33);
+
+        pan7.add(pan12);
+
+        pan109.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan109.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan109.add(filler28);
 
         lab38.setFont(frames.UGui.getFont(0,0));
         lab38.setText("Скидка (%)");
         lab38.setToolTipText("");
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab38.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab38.setPreferredSize(new java.awt.Dimension(68, 18));
-        pan12.add(lab38);
+        lab38.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan109.add(lab38);
 
         txt27.setEditable(false);
         txt27.setFont(frames.UGui.getFont(0,0));
         txt27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt27.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan12.add(txt27);
+        txt27.setPreferredSize(new java.awt.Dimension(40, 18));
+        pan109.add(txt27);
+
+        txt52.setEditable(false);
+        txt52.setFont(frames.UGui.getFont(0,0));
+        txt52.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt52.setPreferredSize(new java.awt.Dimension(159, 18));
+        pan109.add(txt52);
 
         btn24.setText("...");
         btn24.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -1705,155 +1810,9 @@ public class Artikles extends javax.swing.JFrame {
                 btn20(evt);
             }
         });
-        pan12.add(btn24);
-
-        pan7.add(pan12);
-
-        pan18.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan18.add(filler31);
-
-        lab18.setFont(frames.UGui.getFont(0,0));
-        lab18.setText("Уд.вес кг/ед");
-        lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab18.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab18.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab18.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan18.add(lab18);
-
-        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt6.setName("{3}"); // NOI18N
-        txt6.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan18.add(txt6);
-        pan18.add(filler38);
-
-        lab42.setFont(frames.UGui.getFont(0,0));
-        lab42.setText("Ед.изм.");
-        lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab42.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab42.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab42.setPreferredSize(new java.awt.Dimension(68, 18));
-        pan18.add(lab42);
-
-        txt31.setEditable(false);
-        txt31.setFont(frames.UGui.getFont(0,0));
-        txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt31.setPreferredSize(new java.awt.Dimension(44, 18));
-        txt31.setRequestFocusEnabled(false);
-        pan18.add(txt31);
-
-        btn6.setText("...");
-        btn6.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn6.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn6.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn6.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5(evt);
-            }
-        });
-        pan18.add(btn6);
-
-        pan7.add(pan18);
-
-        pan109.setPreferredSize(new java.awt.Dimension(360, 12));
-        pan109.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan109.add(filler28);
+        pan109.add(btn24);
 
         pan7.add(pan109);
-
-        pan13.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan13.add(filler29);
-
-        lab40.setFont(frames.UGui.getFont(0,0));
-        lab40.setText("Группа");
-        lab40.setToolTipText("");
-        lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab40.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab40.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab40.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan13.add(lab40);
-
-        txt29.setEditable(false);
-        txt29.setFont(frames.UGui.getFont(0,0));
-        txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt29.setPreferredSize(new java.awt.Dimension(180, 18));
-        pan13.add(txt29);
-
-        btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn14.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn14.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn14.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn13(evt);
-            }
-        });
-        pan13.add(btn14);
-
-        btn25.setText("...");
-        btn25.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn25.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn25.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn25.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn22(evt);
-            }
-        });
-        pan13.add(btn25);
-
-        pan7.add(pan13);
-
-        pan17.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan17.add(filler30);
-
-        lab41.setFont(frames.UGui.getFont(0,0));
-        lab41.setText("Серия");
-        lab41.setToolTipText("");
-        lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab41.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab41.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab41.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan17.add(lab41);
-
-        txt30.setEditable(false);
-        txt30.setFont(frames.UGui.getFont(0,0));
-        txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt30.setPreferredSize(new java.awt.Dimension(180, 18));
-        pan17.add(txt30);
-
-        btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn12.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn12.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn12.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn8(evt);
-            }
-        });
-        pan17.add(btn12);
-
-        btn10.setText("...");
-        btn10.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn10.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn10.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn10.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn37(evt);
-            }
-        });
-        pan17.add(btn10);
-
-        pan7.add(pan17);
 
         pan6.add(pan7, "pan7");
 
@@ -1946,6 +1905,122 @@ public class Artikles extends javax.swing.JFrame {
 
         pan8.add(pan28);
 
+        pan26.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan26.add(filler41);
+
+        lab50.setFont(frames.UGui.getFont(0,0));
+        lab50.setText("Ед.измерения");
+        lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab50.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab50.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan26.add(lab50);
+
+        txt40.setEditable(false);
+        txt40.setFont(frames.UGui.getFont(0,0));
+        txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt40.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan26.add(txt40);
+
+        btn33.setText("...");
+        btn33.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn33.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn33.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn33.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5(evt);
+            }
+        });
+        pan26.add(btn33);
+        pan26.add(filler48);
+
+        lab35.setFont(frames.UGui.getFont(0,0));
+        lab35.setText("Толщина фрезы");
+        lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab35.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab35.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan26.add(lab35);
+
+        txt23.setFont(frames.UGui.getFont(0,0));
+        txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt23.setName("{3}"); // NOI18N
+        txt23.setPreferredSize(new java.awt.Dimension(40, 18));
+        pan26.add(txt23);
+
+        pan8.add(pan26);
+
+        pan24.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan24.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan24.add(filler39);
+
+        lab47.setFont(frames.UGui.getFont(0,0));
+        lab47.setText("Группа");
+        lab47.setToolTipText("");
+        lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab47.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab47.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab47.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan24.add(lab47);
+
+        txt37.setEditable(false);
+        txt37.setFont(frames.UGui.getFont(0,0));
+        txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt37.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan24.add(txt37);
+
+        btn30.setText("...");
+        btn30.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn30.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn30.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn30.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn22(evt);
+            }
+        });
+        pan24.add(btn30);
+
+        pan8.add(pan24);
+
+        pan25.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan25.add(filler40);
+
+        lab48.setFont(frames.UGui.getFont(0,0));
+        lab48.setText("Серия");
+        lab48.setToolTipText("");
+        lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab48.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab48.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab48.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan25.add(lab48);
+
+        txt38.setEditable(false);
+        txt38.setFont(frames.UGui.getFont(0,0));
+        txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt38.setPreferredSize(new java.awt.Dimension(204, 18));
+        pan25.add(txt38);
+
+        btn32.setText("...");
+        btn32.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btn32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn32.setMaximumSize(new java.awt.Dimension(21, 20));
+        btn32.setMinimumSize(new java.awt.Dimension(21, 20));
+        btn32.setPreferredSize(new java.awt.Dimension(21, 20));
+        btn32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn37(evt);
+            }
+        });
+        pan25.add(btn32);
+
+        pan8.add(pan25);
+
         pan21.setPreferredSize(new java.awt.Dimension(360, 24));
         pan21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan21.add(filler36);
@@ -2007,7 +2082,7 @@ public class Artikles extends javax.swing.JFrame {
         pan22.add(filler37);
 
         lab44.setFont(frames.UGui.getFont(0,0));
-        lab44.setText("Наценки (коэф)");
+        lab44.setText("Наценка (коэф)");
         lab44.setToolTipText("");
         lab44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab44.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2018,8 +2093,14 @@ public class Artikles extends javax.swing.JFrame {
         txt34.setEditable(false);
         txt34.setFont(frames.UGui.getFont(0,0));
         txt34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt34.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt34.setPreferredSize(new java.awt.Dimension(40, 18));
         pan22.add(txt34);
+
+        txt53.setEditable(false);
+        txt53.setFont(frames.UGui.getFont(0,0));
+        txt53.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt53.setPreferredSize(new java.awt.Dimension(159, 18));
+        pan22.add(txt53);
 
         btn27.setText("...");
         btn27.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2033,21 +2114,32 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
         pan22.add(btn27);
-        pan22.add(filler47);
+
+        pan8.add(pan22);
+
+        pqn109.setPreferredSize(new java.awt.Dimension(360, 24));
+        pqn109.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pqn109.add(filler42);
 
         lab45.setFont(frames.UGui.getFont(0,0));
         lab45.setText("Скидка (%)");
         lab45.setToolTipText("");
         lab45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab45.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab45.setPreferredSize(new java.awt.Dimension(74, 18));
-        pan22.add(lab45);
+        lab45.setPreferredSize(new java.awt.Dimension(98, 18));
+        pqn109.add(lab45);
 
         txt35.setEditable(false);
         txt35.setFont(frames.UGui.getFont(0,0));
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt35.setPreferredSize(new java.awt.Dimension(38, 18));
-        pan22.add(txt35);
+        txt35.setPreferredSize(new java.awt.Dimension(40, 18));
+        pqn109.add(txt35);
+
+        txt54.setEditable(false);
+        txt54.setFont(frames.UGui.getFont(0,0));
+        txt54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt54.setPreferredSize(new java.awt.Dimension(159, 18));
+        pqn109.add(txt54);
 
         btn28.setText("...");
         btn28.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -2060,166 +2152,9 @@ public class Artikles extends javax.swing.JFrame {
                 btn20(evt);
             }
         });
-        pan22.add(btn28);
-
-        pan8.add(pan22);
-
-        pan26.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan26.add(filler41);
-
-        lab50.setFont(frames.UGui.getFont(0,0));
-        lab50.setText("Ед.измерения");
-        lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab50.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab50.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan26.add(lab50);
-
-        txt40.setEditable(false);
-        txt40.setFont(frames.UGui.getFont(0,0));
-        txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt40.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan26.add(txt40);
-
-        btn33.setText("...");
-        btn33.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn33.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn33.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn33.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5(evt);
-            }
-        });
-        pan26.add(btn33);
-        pan26.add(filler48);
-
-        lab35.setFont(frames.UGui.getFont(0,0));
-        lab35.setText("Толщина фрезы");
-        lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab35.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab35.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan26.add(lab35);
-
-        txt23.setFont(frames.UGui.getFont(0,0));
-        txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt23.setName("{3}"); // NOI18N
-        txt23.setPreferredSize(new java.awt.Dimension(40, 18));
-        pan26.add(txt23);
-
-        pan8.add(pan26);
-
-        pqn109.setPreferredSize(new java.awt.Dimension(360, 12));
-
-        javax.swing.GroupLayout pqn109Layout = new javax.swing.GroupLayout(pqn109);
-        pqn109.setLayout(pqn109Layout);
-        pqn109Layout.setHorizontalGroup(
-            pqn109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-        );
-        pqn109Layout.setVerticalGroup(
-            pqn109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
-        );
+        pqn109.add(btn28);
 
         pan8.add(pqn109);
-
-        pan24.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan24.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan24.add(filler39);
-
-        lab47.setFont(frames.UGui.getFont(0,0));
-        lab47.setText("Группа");
-        lab47.setToolTipText("");
-        lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab47.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab47.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab47.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan24.add(lab47);
-
-        txt37.setEditable(false);
-        txt37.setFont(frames.UGui.getFont(0,0));
-        txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt37.setPreferredSize(new java.awt.Dimension(180, 18));
-        pan24.add(txt37);
-
-        btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn29.setToolTipText(bundle.getString("Фильтр")); // NOI18N
-        btn29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn29.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn29.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn29.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn13(evt);
-            }
-        });
-        pan24.add(btn29);
-
-        btn30.setText("...");
-        btn30.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn30.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn30.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn30.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn22(evt);
-            }
-        });
-        pan24.add(btn30);
-
-        pan8.add(pan24);
-
-        pan25.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan25.add(filler40);
-
-        lab48.setFont(frames.UGui.getFont(0,0));
-        lab48.setText("Серия");
-        lab48.setToolTipText("");
-        lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab48.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab48.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab48.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan25.add(lab48);
-
-        txt38.setEditable(false);
-        txt38.setFont(frames.UGui.getFont(0,0));
-        txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt38.setPreferredSize(new java.awt.Dimension(180, 18));
-        pan25.add(txt38);
-
-        btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn31.setToolTipText(bundle.getString("Фильтр")); // NOI18N
-        btn31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn31.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn31.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn31.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn8(evt);
-            }
-        });
-        pan25.add(btn31);
-
-        btn32.setText("...");
-        btn32.setToolTipText(bundle.getString("Выбрать")); // NOI18N
-        btn32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn32.setMaximumSize(new java.awt.Dimension(21, 20));
-        btn32.setMinimumSize(new java.awt.Dimension(21, 20));
-        btn32.setPreferredSize(new java.awt.Dimension(21, 20));
-        btn32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn37(evt);
-            }
-        });
-        pan25.add(btn32);
-
-        pan8.add(pan25);
 
         pan6.add(pan8, "pan8");
 
@@ -2393,8 +2328,9 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Record record = qArtikl.get(UGui.getIndexRec(tab1));
+        TreePath[] node = tree.getSelectionPaths(); //запомним path для nuni
         loadingData();
-        setSelectionPath(record);
+        tree.setSelectionPaths(node);
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -2427,14 +2363,6 @@ public class Artikles extends javax.swing.JFrame {
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
         DicArtikl artikl = new DicArtikl(this, listenerAnalog, 1);
     }//GEN-LAST:event_btn11
-
-    private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_ELEM, id, false);
-        }
-    }//GEN-LAST:event_btn8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action
         int index = UGui.getIndexRec(tab1);
@@ -2494,14 +2422,6 @@ public class Artikles extends javax.swing.JFrame {
             new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id, true);
         }
     }//GEN-LAST:event_btn20
-
-    private void btn13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13
-        int index = UGui.getIndexRec(tab1);
-        if (index != -1) {
-            int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_ELEM, id, false);
-        }
-    }//GEN-LAST:event_btn13
 
     private void btn22(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22
         int index = UGui.getIndexRec(tab1);
@@ -2624,9 +2544,6 @@ public class Artikles extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
     private javax.swing.JButton btn11;
-    private javax.swing.JButton btn12;
-    private javax.swing.JButton btn13;
-    private javax.swing.JButton btn14;
     private javax.swing.JButton btn16;
     private javax.swing.JButton btn17;
     private javax.swing.JButton btn18;
@@ -2640,16 +2557,13 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn28;
-    private javax.swing.JButton btn29;
     private javax.swing.JButton btn30;
-    private javax.swing.JButton btn31;
     private javax.swing.JButton btn32;
     private javax.swing.JButton btn33;
     private javax.swing.JButton btn37;
     private javax.swing.JButton btn5;
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn7;
-    private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnClone;
     private javax.swing.JButton btnClose;
@@ -2664,7 +2578,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
-    private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler13;
     private javax.swing.Box.Filler filler14;
     private javax.swing.Box.Filler filler15;
@@ -2672,7 +2585,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler18;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
@@ -2685,6 +2597,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler30;
     private javax.swing.Box.Filler filler31;
+    private javax.swing.Box.Filler filler32;
     private javax.swing.Box.Filler filler33;
     private javax.swing.Box.Filler filler34;
     private javax.swing.Box.Filler filler35;
@@ -2695,11 +2608,11 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler40;
     private javax.swing.Box.Filler filler41;
+    private javax.swing.Box.Filler filler42;
     private javax.swing.Box.Filler filler43;
     private javax.swing.Box.Filler filler44;
     private javax.swing.Box.Filler filler45;
     private javax.swing.Box.Filler filler46;
-    private javax.swing.Box.Filler filler47;
     private javax.swing.Box.Filler filler48;
     private javax.swing.Box.Filler filler49;
     private javax.swing.Box.Filler filler5;
@@ -2756,12 +2669,12 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan101;
     private javax.swing.JPanel pan102;
     private javax.swing.JPanel pan103;
-    private javax.swing.JPanel pan105;
     private javax.swing.JPanel pan106;
     private javax.swing.JPanel pan107;
     private javax.swing.JPanel pan108;
     private javax.swing.JPanel pan109;
     private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan110;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan13;
     private javax.swing.JPanel pan17;
@@ -2786,7 +2699,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan94;
     private javax.swing.JPanel pan95;
     private javax.swing.JPanel pan96;
-    private javax.swing.JPanel pan97;
     private javax.swing.JPanel pan98;
     private javax.swing.JPanel pan99;
     private javax.swing.JPopupMenu ppmGrid;
@@ -2833,7 +2745,13 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txt45;
     private javax.swing.JTextField txt46;
     private javax.swing.JTextField txt48;
+    private javax.swing.JTextField txt49;
     private javax.swing.JTextField txt5;
+    private javax.swing.JTextField txt50;
+    private javax.swing.JTextField txt51;
+    private javax.swing.JTextField txt52;
+    private javax.swing.JTextField txt53;
+    private javax.swing.JTextField txt54;
     private javax.swing.JTextField txt6;
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;

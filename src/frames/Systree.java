@@ -791,7 +791,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             loadingTree2(iwin);
 
             //Установим курсор
-            UGui.selectionPath(id, winTree);
+            UGui.selectionPathWin(id, winTree);
 
             //Перерисуем конструкцию
             scene.init(iwin);
@@ -3555,17 +3555,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-        float id = (selectNode != null) ? selectNode.com5t().id() : -1;
-
+        DefMutableTreeNode selectNodeSys = (DefMutableTreeNode) sysTree.getLastSelectedPathComponent();
+        float id1 = selectNodeSys.rec().getFloat(eSystree.id);       
+        DefMutableTreeNode selectNodeWin = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+        float id2 = (selectNodeWin != null) ? selectNodeWin.com5t().id() : -1;
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
         List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         loadingData();
         selectionTree1();
-
-        UGui.selectionPath(id, winTree); //установим курсор выделения 
+        UGui.selectionPathSys(id1, sysTree); //установим курсор выделения          
+        UGui.selectionPathWin(id2, winTree); //установим курсор выделения          
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
