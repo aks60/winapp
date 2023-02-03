@@ -121,8 +121,7 @@ public class Param extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record colmapRec = qColmap.get(index);
-            colmapRec.set(eColmap.color_id1, record.get(eColor.id));
-            qColmap.update(colmapRec);
+            colmapRec.setNo(eColmap.color_id1, record.get(eColor.id));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -131,8 +130,7 @@ public class Param extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record colmapRec = qColmap.get(index);
-            colmapRec.set(eColmap.color_id2, record.get(eColor.id));
-            qColmap.update(colmapRec);
+            colmapRec.setNo(eColmap.color_id2, record.get(eColor.id));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -424,6 +422,13 @@ public class Param extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(120);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(96);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(8).setMaxWidth(60);
         }

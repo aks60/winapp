@@ -156,8 +156,7 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us,
-                eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
+        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -826,6 +825,7 @@ public class Furniturs extends javax.swing.JFrame {
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
         btnSet.setToolTipText(bundle.getString("Выбрать список")); // NOI18N
         btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSet.setEnabled(false);
         btnSet.setPreferredSize(new java.awt.Dimension(16, 25));
         btnSet.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnSet.addActionListener(new java.awt.event.ActionListener() {
@@ -863,6 +863,7 @@ public class Furniturs extends javax.swing.JFrame {
         btnClone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c065.gif"))); // NOI18N
         btnClone.setToolTipText(bundle.getString("Клонировать запись")); // NOI18N
         btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClone.setEnabled(false);
         btnClone.setFocusable(false);
         btnClone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClone.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -1029,6 +1030,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
+        pan5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
         pan5.setLayout(new javax.swing.BoxLayout(pan5, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -1066,6 +1068,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan5.add(scr3);
 
+        scr4.setBorder(null);
         scr4.setPreferredSize(new java.awt.Dimension(452, 100));
 
         tab4.setFont(frames.UGui.getFont(0,0));
@@ -1114,18 +1117,18 @@ public class Furniturs extends javax.swing.JFrame {
         tab2a.setFont(frames.UGui.getFont(0,0));
         tab2a.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11", "xxxxxxxxx", "11", "11", null, null, null},
-                {"22", "vvvvvvvvv", "22", "22", null, null, null}
+                {"11", "xxxxxxxxx", "11", "11", null},
+                {"22", "vvvvvvvvv", "22", "22", null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор", "ID1", "ID2", "ID"
+                "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false
+                true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1148,8 +1151,8 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab2a.getColumnModel().getColumnCount() > 0) {
             tab2a.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2a.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab2a.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2a.getColumnModel().getColumn(6).setMaxWidth(60);
+            tab2a.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         tabb1.addTab("Детализация (1 уровень)", scr2a);
@@ -1247,6 +1250,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
+        pan10.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         pan10.setPreferredSize(new java.awt.Dimension(300, 300));
         pan10.setLayout(new javax.swing.BoxLayout(pan10, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -1292,6 +1296,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan10.add(scr5);
 
+        scr6.setBorder(null);
         scr6.setPreferredSize(new java.awt.Dimension(300, 200));
 
         tab6.setFont(frames.UGui.getFont(0,0));
@@ -1481,16 +1486,24 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        JTable table = (JTable) evt.getSource();
+        JTable table = (JTable) evt.getSource();        
         UGui.updateBorderAndSql(table, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-        if (table == tab2a) {
+        btnClone.setEnabled(false);
+        btnSet.setEnabled(false);
+        
+        if(table == tab1) {
+            btnClone.setEnabled(true);
+        } else if (table == tab2a) {
             tab2 = tab2a;
+            btnSet.setEnabled(true);
             selectionTab2a(null);
         } else if (table == tab2b) {
             tab2 = tab2b;
+            btnSet.setEnabled(true);
             selectionTab2b(null);
         } else if (table == tab2c) {
             tab2 = tab2c;
+            btnSet.setEnabled(true);
             selectionTab2c(null);
         }
     }//GEN-LAST:event_mousePressed
