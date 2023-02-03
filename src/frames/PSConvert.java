@@ -472,8 +472,8 @@ public class PSConvert {
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             executeSql("update elemdet set color_fk = (select id from groups a where a.grup = 7 and a.npp = elemdet.color_fk) where elemdet.color_fk < 0");
-            executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
-                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
+            executeSql("3", "update elemdet set color_us = (CASE  WHEN (color_us = 11) THEN 3003 WHEN (color_us = 21) THEN 4095 "
+                    + "WHEN (color_us = 31) THEN 273 WHEN (color_us = 32) THEN 546 WHEN (color_us = 33) THEN 819 WHEN (color_us = 41) THEN 1638 WHEN (color_us = 42) THEN 1911 WHEN (color_us = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
             executeSql("update elempar1 b set b.groups_id = (select id from groups a where a.grup = 1 and b.groups_id = a.npp) where b.groups_id < 0");
@@ -486,8 +486,8 @@ public class PSConvert {
             executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
             executeSql("update joindet set color_fk = (select id from groups a where a.grup = 7 and a.npp = joindet.color_fk) where joindet.color_fk < 0");
-            executeSql("3", "update joindet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
-                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
+            executeSql("3", "update joindet set color_us = (CASE  WHEN (color_us = 11) THEN 3003 WHEN (color_us = 21) THEN 4095 "
+                    + "WHEN (color_us = 31) THEN 273 WHEN (color_us = 32) THEN 546 WHEN (color_us = 33) THEN 819 WHEN (color_us = 41) THEN 1638 WHEN (color_us = 42) THEN 1911 WHEN (color_us = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
             executeSql("update joinpar1 b set b.groups_id = (select id from groups a where a.grup = 1 and b.groups_id = a.npp) where b.groups_id < 0");
@@ -500,8 +500,8 @@ public class PSConvert {
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             executeSql("update glasdet set color_fk = (select id from groups a where a.grup = 7 and a.npp = glasdet.color_fk) where glasdet.color_fk < 0");
-            executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
-                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
+            executeSql("3", "update glasdet set color_us = (CASE  WHEN (color_us = 11) THEN 3003 WHEN (color_us = 21) THEN 4095 "
+                    + "WHEN (color_us = 31) THEN 273 WHEN (color_us = 32) THEN 546 WHEN (color_us = 33) THEN 819 WHEN (color_us = 41) THEN 1638 WHEN (color_us = 42) THEN 1911 WHEN (color_us = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
             executeSql("update glaspar1 b set b.groups_id = (select id from groups a where a.grup = 1 and b.groups_id = a.npp) where b.groups_id < 0");
@@ -519,8 +519,8 @@ public class PSConvert {
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
             executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
             executeSql("update furndet set color_fk = (select id from groups a where a.grup = 7 and a.npp = furndet.color_fk) where furndet.color_fk < 0");
-            executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
-                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
+            executeSql("3", "update furndet set color_us = (CASE  WHEN (color_us = 11) THEN 3003 WHEN (color_us = 21) THEN 4095 "
+                    + "WHEN (color_us = 31) THEN 273 WHEN (color_us = 32) THEN 546 WHEN (color_us = 33) THEN 819 WHEN (color_us = 41) THEN 1638 WHEN (color_us = 42) THEN 1911 WHEN (color_us = 43) THEN 2184  ELSE  (0) END )");
             executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
             executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");

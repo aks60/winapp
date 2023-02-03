@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.toList;
 public enum eJoindet implements Field {
     up("0", "0", "0", "Спецификация вар.соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
+    color_us("5", "5", "1", "Подбор текстуры", "CTYPE"),
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     joinvar_id("4", "10", "0", "Варианты соед.", "joinvar_id");

@@ -46,10 +46,10 @@ select * from GLASART where anumb = 'Самор.3,9х25 с/св'
 select * from FURNSPC where anumb = 'Самор.3,9х25 с/св'
 
 Подбор текстуры (кажется)
-select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from elemdet  union
-select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from glasdet  union
-select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from joindet  union
-select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from furndet
+select  id, bin_shr(bin_and(solor_us, 3840), 8), bin_shr(bin_and(solor_us, 240), 4), bin_and(solor_us, 15) from elemdet  union
+select  id, bin_shr(bin_and(solor_us, 3840), 8), bin_shr(bin_and(solor_us, 240), 4), bin_and(solor_us, 15) from glasdet  union
+select  id, bin_shr(bin_and(solor_us, 3840), 8), bin_shr(bin_and(solor_us, 240), 4), bin_and(solor_us, 15) from joindet  union
+select  id, bin_shr(bin_and(solor_us, 3840), 8), bin_shr(bin_and(solor_us, 240), 4), bin_and(solor_us, 15) from furndet
 
 SELECT u.RDB$USER, u.RDB$RELATION_NAME
 FROM RDB$USER_PRIVILEGES u

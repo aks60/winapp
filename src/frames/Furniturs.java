@@ -156,7 +156,7 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types,
+        new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us,
                 eFurndet.furniture_id1, eFurndet.furniture_id2, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -179,7 +179,7 @@ public class Furniturs extends javax.swing.JFrame {
                     }
 
                     //Подбор текстуры
-                } else if (val != null && eFurndet.types == field) {
+                } else if (val != null && eFurndet.color_us == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
@@ -202,7 +202,7 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2b, qFurndet2b, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
+        new DefTableModel(tab2b, qFurndet2b, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -222,7 +222,7 @@ public class Furniturs extends javax.swing.JFrame {
                         return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
-                } else if (val != null && eFurndet.types == field) {
+                } else if (val != null && eFurndet.color_us == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
@@ -241,7 +241,7 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2c, qFurndet2c, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
+        new DefTableModel(tab2c, qFurndet2c, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -261,7 +261,7 @@ public class Furniturs extends javax.swing.JFrame {
                         return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
-                } else if (val != null && eFurndet.types == field) {
+                } else if (val != null && eFurndet.color_us == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
@@ -545,7 +545,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            UGui.cellParamColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            UGui.cellParamColor(record, tab, eFurndet.color_fk, eFurndet.color_us, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerColvar = (record) -> {
@@ -554,9 +554,9 @@ public class Furniturs extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             int index = UGui.getIndexRec(tab);
             Record furndetRec = query.get(UGui.getIndexRec(tab));
-            int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
+            int types = (furndetRec.getInt(eFurndet.color_us) == -1) ? 0 : furndetRec.getInt(eFurndet.color_us);
             types = (types & 0xfffffff0) + record.getInt(0);
-            furndetRec.set(eFurndet.types, types);
+            furndetRec.set(eFurndet.color_us, types);
             ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab, index);
         };
@@ -1563,7 +1563,7 @@ public class Furniturs extends javax.swing.JFrame {
                                 record.set(eFurndet.furniture_id2, record2.getInt(eFurniture.id));
                                 record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
                                 record.set(eFurndet.color_fk, 0);
-                                record.set(eFurndet.types, 1);
+                                record.set(eFurndet.color_us, 1);
                             });
                         }
                     }

@@ -853,7 +853,7 @@ public class UGui {
     }
 
     //Редактирование параметра текстуры
-    public static void cellParamColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
+    public static void cellParamColor(Record record, JTable table, Field color_fk, Field color_us, JTable... tables) {
         UGui.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
@@ -862,12 +862,12 @@ public class UGui {
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
-            elemdetRec.set(types, val);
+            elemdetRec.set(color_us, val);
         } else if (group > 0) {
-            elemdetRec.set(types, 0);
+            elemdetRec.set(color_us, 0);
         } else {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
-            elemdetRec.set(types, val);
+            elemdetRec.set(color_us, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
         UGui.setSelectedIndex(table, index);

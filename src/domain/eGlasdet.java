@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Специф.групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
+    color_us("5", "5", "1", "Подбор текстуры", "CTYPE"),
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     depth("8", "15", "1", "Толщина", "AFRIC"),

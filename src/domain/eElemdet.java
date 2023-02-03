@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 public enum eElemdet implements Field {
     up("0", "0", "0", "Спецификация составов", "VSTASPC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"), // 0 - указана вручную 11 - профиль 31 - основная
+    color_us("5", "5", "1", "Подбор текстуры", "CTYPE"), // 0 - указана вручную 11 - профиль 31 - основная
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикул", "artikl_id"),
     element_id("4", "10", "0", "Вставка", "element_id");

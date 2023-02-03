@@ -107,7 +107,7 @@ public class Fillings extends javax.swing.JFrame {
 
     public void loadingModel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.depth);
-        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types, eGlasdet.types, eGlasdet.types) {
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.color_us, eGlasdet.color_us, eGlasdet.color_us) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
@@ -126,7 +126,7 @@ public class Fillings extends javax.swing.JFrame {
                         } else {
                             return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
-                    } else if (eGlasdet.types == field) {
+                    } else if (eGlasdet.color_us == field) {
                         int types = Integer.valueOf(val.toString());
                         types = (col == 4) ? types & 0x0000000f : (col == 5) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
                         return UseColor.MANUAL.find(types).text();
@@ -328,16 +328,16 @@ public class Fillings extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
-            UGui.cellParamColor(record, tab2, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamColor(record, tab2, eGlasdet.color_fk, eGlasdet.color_us, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
             Record glasdetRec = qGlasdet.get(UGui.getIndexRec(tab2));
-            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            int types = (glasdetRec.getInt(eGlasdet.color_us) == -1) ? 0 : glasdetRec.getInt(eGlasdet.color_us);
             types = (types & 0xfffffff0) + record.getInt(0);
-            glasdetRec.set(eGlasdet.types, types);
+            glasdetRec.set(eGlasdet.color_us, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab2, index);
         };
@@ -346,9 +346,9 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
             Record glasdetRec = qGlasdet.get(UGui.getIndexRec(tab2));
-            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            int types = (glasdetRec.getInt(eGlasdet.color_us) == -1) ? 0 : glasdetRec.getInt(eGlasdet.color_us);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
-            glasdetRec.set(eGlasdet.types, types);
+            glasdetRec.set(eGlasdet.color_us, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab2, index);
         };
@@ -357,9 +357,9 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
             Record glasdetRec = qGlasdet.get(UGui.getIndexRec(tab2));
-            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            int types = (glasdetRec.getInt(eGlasdet.color_us) == -1) ? 0 : glasdetRec.getInt(eGlasdet.color_us);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
-            glasdetRec.set(eGlasdet.types, types);
+            glasdetRec.set(eGlasdet.color_us, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab2, index);
         };

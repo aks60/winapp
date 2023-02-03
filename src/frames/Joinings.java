@@ -168,7 +168,7 @@ public class Joinings extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types, eJoindet.types, eJoindet.types) {
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.color_us, eJoindet.color_us, eJoindet.color_us) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
@@ -195,7 +195,7 @@ public class Joinings extends javax.swing.JFrame {
                         } else {
                             return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                         }
-                    } else if (eJoindet.types == field) {
+                    } else if (eJoindet.color_us == field) {
                         int types = Integer.valueOf(val.toString());
                         types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
                         return UseColor.MANUAL.find(types).text();
@@ -346,7 +346,7 @@ public class Joinings extends javax.swing.JFrame {
             int artiklID = record.getInt(eJoindet.artikl_id);
             int colorID = record.getInt(eJoindet.color_fk, -1);
             new ParColor(this, (rec) -> {
-                UGui.cellParamColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
+                UGui.cellParamColor(rec, tab4, eJoindet.color_fk, eJoindet.color_us, tab1, tab2, tab3, tab4, tab5);
             }, artiklID, colorID);
         });
 
@@ -430,9 +430,9 @@ public class Joinings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
-            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            int types = (joindetRec.getInt(eJoindet.color_us) == -1) ? 0 : joindetRec.getInt(eJoindet.color_us);
             types = (types & 0xfffffff0) + record.getInt(0);
-            joindetRec.set(eJoindet.types, types);
+            joindetRec.set(eJoindet.color_us, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -441,9 +441,9 @@ public class Joinings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
-            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            int types = (joindetRec.getInt(eJoindet.color_us) == -1) ? 0 : joindetRec.getInt(eJoindet.color_us);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
-            joindetRec.set(eJoindet.types, types);
+            joindetRec.set(eJoindet.color_us, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -452,9 +452,9 @@ public class Joinings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
-            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            int types = (joindetRec.getInt(eJoindet.color_us) == -1) ? 0 : joindetRec.getInt(eJoindet.color_us);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
-            joindetRec.set(eJoindet.types, types);
+            joindetRec.set(eJoindet.color_us, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };

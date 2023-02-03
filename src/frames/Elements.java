@@ -144,7 +144,7 @@ public class Elements extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types, eElemdet.types, eElemdet.types) {
+        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.color_us, eElemdet.color_us, eElemdet.color_us) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -165,7 +165,7 @@ public class Elements extends javax.swing.JFrame {
                             return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                         }
 
-                    } else if (eElemdet.types == field) {
+                    } else if (eElemdet.color_us == field) {
                         int types = Integer.valueOf(val.toString());
                         types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
                         return UseColor.MANUAL.find(types).text();
@@ -430,33 +430,33 @@ public class Elements extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
-            UGui.cellParamColor(record, tab3, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
+            UGui.cellParamColor(record, tab3, eElemdet.color_fk, eElemdet.color_us, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            int types = (elemdetRec.getInt(eElemdet.color_us) == -1) ? 0 : elemdetRec.getInt(eElemdet.color_us);
             types = (types & 0xfffffff0) + record.getInt(0);
-            elemdetRec.set(eElemdet.types, types);
+            elemdetRec.set(eElemdet.color_us, types);
             UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColvar2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            int types = (elemdetRec.getInt(eElemdet.color_us) == -1) ? 0 : elemdetRec.getInt(eElemdet.color_us);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
-            elemdetRec.set(eElemdet.types, types);
+            elemdetRec.set(eElemdet.color_us, types);
             UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColvar3 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            int types = (elemdetRec.getInt(eElemdet.color_us) == -1) ? 0 : elemdetRec.getInt(eElemdet.color_us);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
-            elemdetRec.set(eElemdet.types, types);
+            elemdetRec.set(eElemdet.color_us, types);
             UGui.fireTableRowUpdated(tab3);
         };
     }
