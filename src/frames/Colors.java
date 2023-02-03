@@ -68,9 +68,21 @@ public class Colors extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.val);
+        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id, eGroups.val);
         new DefTableModel(tab2, qColor, eColor.code, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
 
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                if (col == 1) {
+                    int groupArr[] = qGroups.stream().mapToInt(rec -> rec.getInt(eGroups.id)).sorted().toArray();
+                    int groupID = Integer.parseInt(value.toString());
+                    int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupID);
+                    return super.getTableCellRendererComponent(table, ++index * 1000, isSelected, hasFocus, row, col);
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+            }
+        });
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -268,26 +280,26 @@ public class Colors extends javax.swing.JFrame {
         centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 500));
-        pan1.setLayout(new java.awt.BorderLayout());
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(300, 584));
+        scr1.setPreferredSize(new java.awt.Dimension(280, 584));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111111",  new Double(1.0), null},
-                {"222222",  new Double(3.0), null}
+                {"1111111", null,  new Double(1.0), null},
+                {"222222", null,  new Double(3.0), null}
             },
             new String [] {
-                "Название групп", "Коэффициент", "ID"
+                "Название групп", "Код группы", "Коэффициент", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                true, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -307,16 +319,19 @@ public class Colors extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(280);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
-        pan1.add(scr1, java.awt.BorderLayout.WEST);
+        pan1.add(scr1);
 
         scr2.setBorder(null);
         scr2.setAutoscrolls(true);
+        scr2.setPreferredSize(new java.awt.Dimension(520, 400));
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -365,7 +380,7 @@ public class Colors extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr2);
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
@@ -444,7 +459,7 @@ public class Colors extends javax.swing.JFrame {
 
                 Record groupRec = qGroups.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
-                record.setNo(eColor.code, (1 + index) * 1000 + max + 1);
+                record.setNo(eColor.code, ++index * 1000 + max + 1);
                 record.setDev(eColor.name, "Цвет");
                 record.setNo(eColor.rgb, 0xCCCCCC);
                 record.setNo(eColor.coef1, 1);

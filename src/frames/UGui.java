@@ -858,7 +858,7 @@ public class UGui {
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(index);
-        int group = (eGroups.values().length == record.size()) ? (-1 * record.getInt(eGroups.id)) : record.getInt(0);
+        int group = (eGroups.values().length == record.size()) ? record.getInt(eGroups.id) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
