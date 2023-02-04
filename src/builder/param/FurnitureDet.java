@@ -176,7 +176,6 @@ public class FurnitureDet extends Par5s {
                     if (rec.getStr(TEXT).equals("Да")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, IElem5e> entry : areaStv.frames().entrySet()) {
-                            Object obj = entry.getValue().joinElem(2);
                             if (entry.getValue().joinElem(2).type() == Type.SHTULP) {
                                 ret = true;
                             }
@@ -207,7 +206,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
                 case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
-                    //Тут полные непонятки. Возможно сторона проверки назначается для всего набора
+                    //TODO Тут полные непонятки. Возможно сторона проверки назначается для всего набора
                     mapParamTmp.put(grup, rec.getStr(TEXT));
                     //message(rec.getInt(GRUP));
                     break;

@@ -320,7 +320,7 @@ public class Colors extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(280);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(50);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);

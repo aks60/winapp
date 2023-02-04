@@ -576,8 +576,8 @@ public class Kits extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(480);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
         centr.add(scr4, java.awt.BorderLayout.SOUTH);

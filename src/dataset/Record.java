@@ -54,35 +54,34 @@ public class Record<E> extends ArrayList<E> {
 
     //При тестировании для разработчика
     public void setDev(Field field, String element) {
-        if (eProp.dev == true) {
-            String val = element + " " + super.get(1);            
-//            String val = element + " #" + super.get(1);
-            super.set(field.ordinal(), (E) val);
-        } else {
+//        if (eProp.dev == true) {
+//            String val = element + " " + super.get(1);            
+////            String val = element + " #" + super.get(1);
+//            super.set(field.ordinal(), (E) val);
+//        } else {
             super.set(field.ordinal(), (E) element);
-        }
+//        }
         
     }
 
-    public static Object getDev(Object num, Object val) {
-        if (eProp.dev == true) {
-            return num + " " + val;
-            //String v = (Integer.parseInt(num.toString()) < 0) ? num.toString() : " #" + num;
-            //return val + " " + v;
-        } else {
-            return val;
-        }
-    }
-
     public Object getDev(Field field, Object val) {
-        if (eProp.dev == true) {
-            return val + " " + get(field.ordinal());
-            //return val + " " + get(field.ordinal()) + " #" + val;
-        } else {
+//        if (eProp.dev == true) {
+//            return val + " " + get(field.ordinal());
+//            //return val + " " + get(field.ordinal()) + " #" + val;
+//        } else {
             return get(field.ordinal());
-        }
+//        }
     }
 
+    public static Object getDev(Object num, Object val) {
+//        if (eProp.dev == true) {
+//            return num + " " + val;
+//            //String v = (Integer.parseInt(num.toString()) < 0) ? num.toString() : " #" + num;
+//            //return val + " " + v;
+//        } else {
+            return val;
+//        }
+    }
     public Object get(Field field) {
         return super.get(field.ordinal());
     }

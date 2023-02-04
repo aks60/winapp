@@ -679,8 +679,8 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab3.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan1.add(scr3, java.awt.BorderLayout.EAST);
@@ -766,8 +766,8 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan4.add(scr4, java.awt.BorderLayout.EAST);

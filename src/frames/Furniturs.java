@@ -172,9 +172,9 @@ public class Furniturs extends javax.swing.JFrame {
                         return UseColor.precision[1];
                     }
                     if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        return qColor.find(colorFk, eColor.id).get(eColor.name);
                     } else {
-                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
                     //Подбор текстуры
@@ -188,13 +188,13 @@ public class Furniturs extends javax.swing.JFrame {
                     //Набор
                     if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
-                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
 
                         //Артикул
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
-                        Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
+                        Record recordArt = qArtikl.find(artikl_id, eArtikl.id);
                         return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
@@ -204,8 +204,9 @@ public class Furniturs extends javax.swing.JFrame {
         new DefTableModel(tab2b, qFurndet2b, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
-
                 Field field = columns[col];
+
+                //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
 
@@ -221,19 +222,24 @@ public class Furniturs extends javax.swing.JFrame {
                         return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
+                    //Подбор текстуры
                 } else if (val != null && eFurndet.color_us == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
+
+                    //Набор
                     if (qFurndet2b.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2b.getAs(row, eFurndet.furniture_id2);
                         String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
+
+                        //Артикул    
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
-                        Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
+                        Record recordArt = qArtikl.find(artikl_id, eArtikl.id);
                         return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
@@ -243,8 +249,9 @@ public class Furniturs extends javax.swing.JFrame {
         new DefTableModel(tab2c, qFurndet2c, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.color_us, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
-
                 Field field = columns[col];
+                
+                //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
 
@@ -260,19 +267,24 @@ public class Furniturs extends javax.swing.JFrame {
                         return "# " + qGroups.find(colorFk, eGroups.id).get(eGroups.name);
                     }
 
+                    //Подбор текстуры
                 } else if (val != null && eFurndet.color_us == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
 
+                    
+                    //Набор
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2c.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2c.getAs(row, eFurndet.furniture_id2);
                         String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
+                        
+                        //Артикул 
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
-                        Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
+                        Record recordArt = qArtikl.find(artikl_id, eArtikl.id);
                         return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
@@ -896,7 +908,7 @@ public class Furniturs extends javax.swing.JFrame {
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 723, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1093,7 +1105,6 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan5.add(scr4);
@@ -1321,7 +1332,6 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab6.getColumnModel().getColumnCount() > 0) {
             tab6.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab6.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab6.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan10.add(scr6);
@@ -1486,12 +1496,12 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        JTable table = (JTable) evt.getSource();        
+        JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         btnClone.setEnabled(false);
         btnSet.setEnabled(false);
-        
-        if(table == tab1) {
+
+        if (table == tab1) {
             btnClone.setEnabled(true);
         } else if (table == tab2a) {
             tab2 = tab2a;
