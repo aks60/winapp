@@ -474,6 +474,9 @@ public class Artikles extends javax.swing.JFrame {
     private void initComponents() {
 
         ppmGrid = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         groups1_id = new javax.swing.JMenuItem();
         groups2_id = new javax.swing.JMenuItem();
         groups3_id = new javax.swing.JMenuItem();
@@ -688,7 +691,29 @@ public class Artikles extends javax.swing.JFrame {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
 
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmGrid.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmGrid.add(mDelit);
+        ppmGrid.add(jSeparator1);
+
         groups1_id.setFont(frames.UGui.getFont(1,0));
+        groups1_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         groups1_id.setText("Наценки");
         groups1_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -698,6 +723,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups1_id);
 
         groups2_id.setFont(frames.UGui.getFont(1,0));
+        groups2_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         groups2_id.setText("Скидки");
         groups2_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -707,6 +733,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups2_id);
 
         groups3_id.setFont(frames.UGui.getFont(1,0));
+        groups3_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         groups3_id.setText("Группы");
         groups3_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -716,6 +743,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups3_id);
 
         groups4_id.setFont(frames.UGui.getFont(1,0));
+        groups4_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         groups4_id.setText("Серии");
         groups4_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -970,7 +998,7 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
+                tabMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Artikles.this.mousePressed(evt);
@@ -2194,6 +2222,9 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Artikles.this.mousePressed(evt);
             }
@@ -2270,8 +2301,8 @@ public class Artikles extends javax.swing.JFrame {
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
                 UGui.insertRecordEnd(tab1, eArtikl.up, (record) -> {
-                    record.setDev(eArtikl.code, typeArtikl.name.substring(0, 1));
-                    record.setDev(eArtikl.name, typeArtikl.name);
+                    //record.setDev(eArtikl.code, typeArtikl.name.substring(0, 1));
+                    //record.setDev(eArtikl.name, typeArtikl.name);
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                     record.setNo(eArtikl.otx_norm, 0);
@@ -2534,11 +2565,26 @@ public class Artikles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClone
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+//        if (evt.getButton() == MouseEvent.BUTTON3) {
+//            ppmGrid.show(tab1, evt.getX(), evt.getY());
+//        }
+        
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            ppmGrid.show(tab1, evt.getX(), evt.getY());
+            JTable table = List.of(tab1, tab2).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmGrid.show(table, evt.getX(), evt.getY());
+        }        
+    }//GEN-LAST:event_tabMouseClicked
+
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
         }
-    }//GEN-LAST:event_tab1MouseClicked
+    }//GEN-LAST:event_ppmActionItems
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2624,6 +2670,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JMenuItem groups2_id;
     private javax.swing.JMenuItem groups3_id;
     private javax.swing.JMenuItem groups4_id;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -2664,6 +2711,8 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel lab55;
     private javax.swing.JLabel lab56;
     private javax.swing.JLabel labl17;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan100;
     private javax.swing.JPanel pan101;

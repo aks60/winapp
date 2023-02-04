@@ -52,6 +52,7 @@ import domain.eSystree;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -250,7 +251,7 @@ public class Furniturs extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                
+
                 //Текстура
                 if (val != null && eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
@@ -273,14 +274,13 @@ public class Furniturs extends javax.swing.JFrame {
                     types = types & 0x0000000f;
                     return UseColor.MANUAL.find(types).text();
 
-                    
                     //Набор
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2c.get(row, eFurndet.furniture_id2) != null) {
                         int furniture_id2 = qFurndet2c.getAs(row, eFurndet.furniture_id2);
                         String name = qFurnall.find(furniture_id2, eFurniture.id).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
-                        
+
                         //Артикул 
                     } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
@@ -605,6 +605,14 @@ public class Furniturs extends javax.swing.JFrame {
         listenerVariant2 = (record) -> {
             UGui.cellParamEnum(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
+
+//        listenerPpmCrud = (evt) -> {
+//            if (evt.getSource() == mInsert) {
+//                btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+//            } else if (evt.getSource() == mDelit) {
+//                btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+//            }
+//        };
     }
 
     public void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {
@@ -680,6 +688,9 @@ public class Furniturs extends javax.swing.JFrame {
     private void initComponents() {
 
         group1 = new javax.swing.ButtonGroup();
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -723,6 +734,26 @@ public class Furniturs extends javax.swing.JFrame {
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
@@ -979,6 +1010,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1069,6 +1103,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1097,6 +1134,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1154,6 +1194,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab2a.setName("tab2a"); // NOI18N
         tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2a.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1197,6 +1240,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab2c.setName("tab2c"); // NOI18N
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2c.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1245,6 +1291,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab2b.setName("tab2b"); // NOI18N
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2b.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1296,6 +1345,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1324,6 +1376,9 @@ public class Furniturs extends javax.swing.JFrame {
         tab6.setName("tab6"); // NOI18N
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Furniturs.this.mousePressed(evt);
             }
@@ -1763,6 +1818,23 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClone
 
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            JTable table = List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmCrud.show(table, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tabMouseClicked
+
     private void findPathSystree(Record record, StringBuffer path) {
         for (Record rec : eSystree.query()) {
             if (record.getInt(eSystree.parent_id) == rec.getInt(eSystree.id)) {
@@ -1789,6 +1861,8 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.ButtonGroup group1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
@@ -1798,6 +1872,7 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan9;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2a;
     private javax.swing.JScrollPane scr2b;
@@ -1891,6 +1966,7 @@ public class Furniturs extends javax.swing.JFrame {
                 }
             }
         });
+
         if ("Nimbus".equals(eProp.lookandfeel.read())) {
             lab1.setPreferredSize(new java.awt.Dimension(200, 34));
         }

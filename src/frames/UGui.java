@@ -457,7 +457,7 @@ public class UGui {
         List<Component> comps = getAllComponents(c);
         for (Component comp : comps) {
             if (comp instanceof JPanel) {
-                ((JPanel) comp).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
+                ((JPanel) comp).setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
             }
         }
     }
