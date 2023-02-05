@@ -63,7 +63,7 @@
                   <Component id="btnCard1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCard2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="80" max="32767" attributes="0"/>
+                  <EmptySpace pref="78" max="32767" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -198,7 +198,7 @@
               </Border>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[25, 25]"/>
+              <Dimension value="[30, 25]"/>
             </Property>
           </Properties>
           <Events>
@@ -220,7 +220,7 @@
               </Border>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[25, 25]"/>
+              <Dimension value="[30, 25]"/>
             </Property>
           </Properties>
           <Events>

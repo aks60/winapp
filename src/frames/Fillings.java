@@ -39,6 +39,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import frames.dialog.DicArtikl2;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
@@ -140,7 +141,7 @@ public class Fillings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eGlaspar1.groups_id == field) {
-                    
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
@@ -156,9 +157,9 @@ public class Fillings extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eGlaspar2.groups_id) {
-                    
+
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                         return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
+                        return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                     } else {
                         Enam en = ParamList.find(val);
                         return Record.getDev(en.numb(), en.text());
@@ -252,7 +253,12 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
-                ParName frame = new ParName(this, listenerPar1, eParams.elem, 13000);
+                if (qGlaspar1.get(UGui.getIndexRec(tab3), eGlaspar1.groups_id) == null) {
+                    new ParName(this, listenerPar1, eParams.elem, 13000);
+                } else {
+                    int groupsID = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.groups_id);
+                    new ParName(this, groupsID, listenerPar1, eParams.elem, 13000);
+                }
             }
         });
 
@@ -277,7 +283,13 @@ public class Fillings extends javax.swing.JFrame {
                 Record record = qGlasdet.table(eArtikl.up).get(index);
                 int paramPart = record.getInt(eArtikl.level1);
                 paramPart = (paramPart == 1 || paramPart == 4) ? 15000 : 14000;
-                ParName frame = new ParName(this, listenerPar2, eParams.elem, paramPart);
+                
+                if (qGlaspar2.get(UGui.getIndexRec(tab4), eGlaspar2.groups_id) == null) {
+                    new ParName(this, listenerPar2, eParams.elem, paramPart);
+                } else {
+                    int groupsID = qGlaspar2.getAs(UGui.getIndexRec(tab4), eGlaspar2.groups_id);
+                    new ParName(this, groupsID, listenerPar2, eParams.elem, paramPart);
+                }
             }
         });
 
@@ -925,7 +937,7 @@ public class Fillings extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGlasgrp.up, (record) -> {
                 record.set(eGlasgrp.gap, 0);
-                record.setDev(eGlasgrp.name, "Наименование");
+                //record.setDev(eGlasgrp.name, "Наименование");
             });
 
         } else if (tab2.getBorder() != null) {
@@ -941,12 +953,16 @@ public class Fillings extends javax.swing.JFrame {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlaspar1.glasgrp_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab3.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
 
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordCur(tab4, eGlaspar2.up, (record) -> {
                 int id = qGlasdet.getAs(UGui.getIndexRec(tab2), eGlasdet.id);
                 record.set(eGlaspar2.glasdet_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab4.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
 
         } else if (tab5.getBorder() != null) {
             UGui.insertRecordCur(tab5, eGlasprof.up, (record) -> {
@@ -1009,8 +1025,8 @@ public class Fillings extends javax.swing.JFrame {
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            JTable table = List.of(tab2, tab3, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
-            List.of(tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
+            JTable table = List.of(tab1, tab2, tab3, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
             table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmCrud.show(table, evt.getX(), evt.getY());
         }

@@ -11,6 +11,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eGroups;
+import domain.eJoinpar2;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
@@ -24,6 +25,7 @@ import frames.dialog.DicColor;
 import frames.dialog.ParName;
 import frames.dialog.ParUserVal;
 import frames.dialog.ParSysVal;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellRendererBool;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -209,9 +211,17 @@ public class Kits extends javax.swing.JFrame {
                 } else if (UseUnit.METR2.id == recordArt.getInt(eArtikl.unit)) {
                     param = 9000;
                 }
-                ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text);
-                }, eParams.kits, param);
+
+                if (qKitpar2.get(UGui.getIndexRec(tab4), eKitpar2.groups_id) == null) {
+                    ParName frame = new ParName(this, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text);
+                    }, eParams.kits, param);
+                } else {
+                    int groupsID = qKitpar2.getAs(UGui.getIndexRec(tab4), eJoinpar2.groups_id);
+                    ParName frame = new ParName(this, groupsID, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text);
+                    }, eParams.kits, param);
+                }
             }
         });
 
@@ -714,6 +724,8 @@ public class Kits extends javax.swing.JFrame {
             UGui.insertRecordCur(tab4, eKitpar2.up, (record) -> {
                 record.set(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab4.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
         }
     }//GEN-LAST:event_btnInsert
 

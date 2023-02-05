@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import dataset.Field;
 import domain.eGroups;
-import frames.dialog.DicArtikl;
 import frames.dialog.DicColvar;
 import frames.dialog.DicEnums;
 import frames.dialog.ParColor;
@@ -50,6 +49,7 @@ import dataset.Conn;
 import domain.eSysfurn;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
@@ -450,7 +450,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
-            UGui.buttonCellEditor(tab, 0).addActionListener(event -> {                
+            UGui.buttonCellEditor(tab, 0).addActionListener(event -> {
                 new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
             });
         }
@@ -474,7 +474,7 @@ public class Furniturs extends javax.swing.JFrame {
             UGui.buttonCellEditor(tab, 3).addActionListener(event -> {
                 Record record = query.get(UGui.getIndexRec(tab));
                 int colorFk = record.getInt(eFurndet.color_fk);
-                DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+                new DicColvar(this, listenerColvar, colorFk);
             });
         }
 
@@ -487,7 +487,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParName frame = new ParName(this, listenerPar1, eParams.joint, 21000);
+            new ParName(this, listenerPar1, eParams.joint, 21000);
         });
 
         UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
@@ -519,7 +519,13 @@ public class Furniturs extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParName frame = new ParName(this, listenerPar2, eParams.furn, part[level]);
+                
+                if (qFurnpar2.get(UGui.getIndexRec(tab6), eFurnpar2.groups_id) == null) {
+                    new ParName(this, listenerPar2, eParams.furn, part[level]);
+                } else {
+                    int groupsID = qFurnpar2.getAs(UGui.getIndexRec(tab6), eFurnpar2.groups_id);
+                    new ParName(this, groupsID, listenerPar2, eParams.furn, part[level]);
+                }
             }
         });
 
@@ -1517,6 +1523,8 @@ public class Furniturs extends javax.swing.JFrame {
                 int id = qFurnside1.getAs(UGui.getIndexRec(tab3), eFurnside1.id);
                 record.set(eFurnpar1.furnside_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab4.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);            
 
         } else if (tab5.getBorder() != null) {
             JTable table = (UGui.getIndexRec(tab2c) != -1) ? tab2c
@@ -1529,7 +1537,6 @@ public class Furniturs extends javax.swing.JFrame {
                 });
             }
         } else if (tab6.getBorder() != null) {
-            //JTable tab2 = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Object name = tab2.getName();
             Query query = ((DefTableModel) tab2.getModel()).getQuery();
             if (UGui.getIndexRec(tab2) != -1) {
@@ -1538,6 +1545,9 @@ public class Furniturs extends javax.swing.JFrame {
                     record.set(eFurnpar2.furndet_id, id);
                 });
             }
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab6.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null); 
+            
         }
     }//GEN-LAST:event_btnInsert
 

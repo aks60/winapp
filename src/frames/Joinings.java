@@ -42,8 +42,10 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
+import domain.eGlaspar2;
 import domain.ePrjkit;
 import frames.dialog.DicArtikl2;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -304,10 +306,17 @@ public class Joinings extends javax.swing.JFrame {
             if (index != -1) {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
-                new ParName(this, (rec) -> {
 
-                    UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
-                }, eParams.joint, joinVar * 100);
+                if (qJoinpar1.get(UGui.getIndexRec(tab3), eJoinpar1.groups_id) == null) {
+                    new ParName(this, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
+                    }, eParams.joint, joinVar * 100);
+                } else {
+                    int groupsID = qJoinpar1.getAs(UGui.getIndexRec(tab3), eJoinpar1.groups_id);
+                    new ParName(this, groupsID, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
+                    }, eParams.joint, joinVar * 100);
+                }
             }
         });
 
@@ -378,9 +387,17 @@ public class Joinings extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
-                new ParName(this, (record) -> {
-                    UGui.cellParamNameOrValue(record, tab5, eJoinpar2.groups_id, eJoinpar2.text);
-                }, eParams.joint, part[level]);
+
+                if (qJoinpar2.get(UGui.getIndexRec(tab5), eJoinpar2.groups_id) == null) {
+                    new ParName(this, (record) -> {
+                        UGui.cellParamNameOrValue(record, tab5, eJoinpar2.groups_id, eJoinpar2.text);
+                    }, eParams.joint, part[level]);
+                } else {
+                    int groupsID = qJoinpar2.getAs(UGui.getIndexRec(tab5), eJoinpar2.groups_id);
+                    new ParName(this, groupsID, (record) -> {
+                        UGui.cellParamNameOrValue(record, tab5, eJoinpar2.groups_id, eJoinpar2.text);
+                    }, eParams.joint, part[level]);
+                }
             }
         });
 
@@ -1049,6 +1066,8 @@ public class Joinings extends javax.swing.JFrame {
                 int id = qJoinvar.getAs(UGui.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoinpar1.joinvar_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab3.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
 
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordCur(tab4, eJoindet.up, (record) -> {
@@ -1061,6 +1080,8 @@ public class Joinings extends javax.swing.JFrame {
                 int id = qJoindet.getAs(UGui.getIndexRec(tab4), eJoindet.id);
                 record.set(eJoinpar2.joindet_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab5.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
         }
     }//GEN-LAST:event_btnInsert
 

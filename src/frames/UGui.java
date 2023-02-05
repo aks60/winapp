@@ -588,7 +588,19 @@ public class UGui {
             }
         }
     }
-
+    
+    public static int getIndexKeyValue(JTable table, Object val, Field field) {
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        if(val != null) {
+            for (int i = 0; i < query.size(); i++) {
+                if(val.equals(query.get(i, field))) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    
     //Получить convertRowIndexToModel
     public static int getIndexRec(JTable table) {
         if (table.getSelectedRow() != -1) {

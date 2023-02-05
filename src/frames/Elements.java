@@ -44,6 +44,7 @@ import common.listener.ListenerFrame;
 import domain.eSysprof;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
+import frames.swing.DefCellEditorBtn;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -332,9 +333,16 @@ public class Elements extends javax.swing.JFrame {
             Record record = qGrCateg.get(UGui.getIndexRec(tab1));
             int paramPart = record.getInt(eGroups.npp);
             paramPart = (paramPart == 1) ? 31000 : 37000;
-            ParName frame = new ParName(this, (rec) -> {
-                UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
-            }, eParams.elem, paramPart);
+            if (qElempar1.get(UGui.getIndexRec(tab4), eElempar1.groups_id) == null) {
+                new ParName(this, (rec) -> {
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
+                }, eParams.elem, paramPart);
+            } else {
+                int groupsID = qElempar1.getAs(UGui.getIndexRec(tab4), eElempar1.groups_id);
+                new ParName(this, groupsID, (rec) -> {
+                    UGui.cellParamNameOrValue(rec, tab4, eElempar1.groups_id, eElempar1.text);
+                }, eParams.elem, paramPart);
+            }
         });
 
         UGui.buttonCellEditor(tab4, 1, (componentCell) -> { //первый слушатель кнопки, редактирование типа данных и вида ячейки
@@ -369,9 +377,16 @@ public class Elements extends javax.swing.JFrame {
                 Integer[] part1 = {0, 34000, 33000, 34000, 33000, 40000, 0};
                 Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
                 int grup = (levelGrp == 1) ? part1[level] : part2[level];
-                ParName frame = new ParName(this, (rec) -> {
-                    UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
-                }, eParams.elem, grup);
+                if (qElempar2.get(UGui.getIndexRec(tab5), eElempar2.groups_id) == null) {
+                    new ParName(this, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
+                    }, eParams.elem, grup);
+                } else {
+                    int groupsID = qElempar2.getAs(UGui.getIndexRec(tab5), eElempar2.groups_id);
+                    new ParName(this, groupsID, (rec) -> {
+                        UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
+                    }, eParams.elem, grup);
+                }
             }
         });
 
@@ -1070,12 +1085,16 @@ public class Elements extends javax.swing.JFrame {
                 int id = qElement.getAs(UGui.getIndexRec(tab2), eElement.id);
                 record.set(eElempar1.element_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab4.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
 
         } else if (tab5.getBorder() != null) {
             UGui.insertRecordCur(tab5, eElempar2.up, (record) -> {
                 int id = qElemdet.getAs(UGui.getIndexRec(tab3), eElemdet.id);
                 record.set(eElempar2.elemdet_id, id);
             });
+            DefCellEditorBtn defCellEditorBtn = (DefCellEditorBtn) tab5.getColumnModel().getColumn(0).getCellEditor();
+            defCellEditorBtn.getButton().getActionListeners()[0].actionPerformed(null);
         }
     }//GEN-LAST:event_btnInsert
 

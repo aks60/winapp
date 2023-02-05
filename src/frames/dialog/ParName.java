@@ -17,10 +17,12 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
+import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.swing.JTable;
 
 public class ParName extends javax.swing.JDialog {
 
@@ -28,6 +30,7 @@ public class ParName extends javax.swing.JDialog {
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
     private Field filter = null;
+    private Integer paramID = null;
 
     public ParName(Frame parent, ListenerRecord listener, Field filter, int... part) {
         super(parent, true);
@@ -36,6 +39,19 @@ public class ParName extends javax.swing.JDialog {
         this.parent = parent;
         this.listener = listener;
         this.filter = filter;
+        loadingData();
+        loadingModel(part);
+        setVisible(true);
+    }
+
+    public ParName(Frame parent, int paramID, ListenerRecord listener, Field filter, int... part) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.parent = parent;
+        this.listener = listener;
+        this.filter = filter;
+        this.paramID = paramID;
         loadingData();
         loadingModel(part);
         setVisible(true);
@@ -82,10 +98,24 @@ public class ParName extends javax.swing.JDialog {
         }
         tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        
+
         UGui.setSelectedRow(tab1);
         UGui.setSelectedRow(tab2);
         UGui.setSelectedRow(tab3);
+
+        if (paramID != null) {
+            if (paramID > 0) {
+                btnCard(new ActionEvent(btnCard1, -1, ""));
+                for (int index = 0; index < recordList1.size(); index++) {
+                    if(paramID.equals(recordList1.get(index).get(0))) {
+                        UGui.setSelectedIndex(tab1, index);
+                    }
+                }
+            } else {
+                btnCard(new ActionEvent(btnCard2, -1, ""));
+                UGui.setSelectedKey(tab2, paramID);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -99,7 +129,6 @@ public class ParName extends javax.swing.JDialog {
         btnCard1 = new javax.swing.JToggleButton();
         btnCard2 = new javax.swing.JToggleButton();
         btnCard3 = new javax.swing.JToggleButton();
-        south = new javax.swing.JPanel();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -110,6 +139,7 @@ public class ParName extends javax.swing.JDialog {
         pan3 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Группы параметров");
@@ -154,7 +184,7 @@ public class ParName extends javax.swing.JDialog {
         btnCard1.setSelected(true);
         btnCard1.setText("1");
         btnCard1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard1.setPreferredSize(new java.awt.Dimension(30, 25));
         btnCard1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
@@ -165,7 +195,7 @@ public class ParName extends javax.swing.JDialog {
         btnCard2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard2.setText("2");
         btnCard2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard2.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard2.setPreferredSize(new java.awt.Dimension(30, 25));
         btnCard2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
@@ -176,7 +206,7 @@ public class ParName extends javax.swing.JDialog {
         btnCard3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard3.setText("3");
         btnCard3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard3.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard3.setPreferredSize(new java.awt.Dimension(30, 25));
         btnCard3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
@@ -190,13 +220,13 @@ public class ParName extends javax.swing.JDialog {
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
+                .addGap(80, 80, 80)
                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -217,23 +247,6 @@ public class ParName extends javax.swing.JDialog {
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
-
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(350, 20));
-
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         centr.setLayout(new java.awt.CardLayout());
 
@@ -351,11 +364,27 @@ public class ParName extends javax.swing.JDialog {
         }
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
-        scr3.getAccessibleContext().setAccessibleName("Перспектива или устарели");
 
         centr.add(pan3, "card3");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(350, 20));
+
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 332, Short.MAX_VALUE)
+        );
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -370,7 +399,7 @@ public class ParName extends javax.swing.JDialog {
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 0));
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 1));
             listener.action(record);
-            
+
         } else if (btnCard2.isSelected() == true) { //параметр пользователя
             listener.action(qGroups.get(UGui.getIndexRec(tab2)));
         }
@@ -380,14 +409,17 @@ public class ParName extends javax.swing.JDialog {
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();
         if (btn == btnCard1) {
+            btnCard1.setSelected(true);
             btnChoice.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card1");
 
         } else if (btn == btnCard2) {
+            btnCard2.setSelected(true);
             btnChoice.setEnabled(true);
             ((CardLayout) centr.getLayout()).show(centr, "card2");
 
         } else if (btn == btnCard3) {
+            btnCard3.setSelected(true);
             btnChoice.setEnabled(false);
             ((CardLayout) centr.getLayout()).show(centr, "card3");
         }

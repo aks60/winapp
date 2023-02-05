@@ -189,7 +189,7 @@ public class ParColor extends javax.swing.JDialog {
         btnCard1.setSelected(true);
         btnCard1.setText("1");
         btnCard1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard1.setPreferredSize(new java.awt.Dimension(30, 25));
         btnCard1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
@@ -200,7 +200,7 @@ public class ParColor extends javax.swing.JDialog {
         btnCard2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard2.setText("2");
         btnCard2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard2.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard2.setPreferredSize(new java.awt.Dimension(30, 25));
         btnCard2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
@@ -220,7 +220,7 @@ public class ParColor extends javax.swing.JDialog {
                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
