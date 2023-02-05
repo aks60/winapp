@@ -626,7 +626,7 @@ public class UGui {
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
         record.setNo(field.fields()[1], Conn.genId(field));
-        if (++index < table.getRowCount()) {
+        if (++index <= table.getRowCount()) {
             query.add(index, record);
         } else {
             query.add(--index, record);
@@ -634,6 +634,7 @@ public class UGui {
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);
         UGui.setSelectedIndex(table, index);
+        UGui.scrollRectToIndex(index, table);
     }
 
     //Вставить запись
@@ -674,7 +675,7 @@ public class UGui {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+            JOptionPane.showMessageDialog(null, "Ни одна из записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
         }
     }
 

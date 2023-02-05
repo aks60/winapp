@@ -43,6 +43,7 @@ import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import domain.eSysprof;
 import domain.eSystree;
+import frames.dialog.DicArtikl2;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -50,7 +51,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import javax.swing.JButton;
 import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -274,12 +274,12 @@ public class Elements extends javax.swing.JFrame {
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+            new DicArtikl(this, listenerArtikl, level);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+            new DicArtikl(this, listenerArtikl, level);
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
@@ -295,11 +295,11 @@ public class Elements extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {

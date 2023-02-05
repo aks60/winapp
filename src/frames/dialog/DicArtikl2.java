@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
 import frames.swing.TableFieldFilter;
+import javax.swing.JOptionPane;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
@@ -304,24 +305,21 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        Record record = eArtikl.up.newRecord();
+        Record record;
         UGui.stopCellEditing(tab1);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            Record record2 = qArtikl.get(index);
-            record.set(eArtikl.id, record2.get(eArtikl.id));
-            record.set(eArtikl.level1, record2.get(eArtikl.level1));
-            record.set(eArtikl.level2, record2.get(eArtikl.level2));
-            record.set(eArtikl.code, record2.get(eArtikl.code));
-            record.set(eArtikl.name, record2.get(eArtikl.name));
-
+            record = qArtikl.get(index);
         } else {
-            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-            if (selectedNode.getUserObject() instanceof TypeArtikl == true) {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                record.set(eArtikl.level1, e.id1);
-                record.set(eArtikl.level2, e.id2);
-            }
+            JOptionPane.showMessageDialog(null, "Ни одна из записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+            return;
+//            record = eArtikl.up.newRecord();
+//            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+//            if (selectedNode.getUserObject() instanceof TypeArtikl == true) {
+//                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+//                record.set(eArtikl.level1, e.id1);
+//                record.set(eArtikl.level2, e.id2);
+//            }
         }
         listener.action(record);
         this.dispose();

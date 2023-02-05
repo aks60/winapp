@@ -28,7 +28,6 @@ import domain.eGroups;
 import domain.eParams;
 import enums.Enam;
 import builder.param.ParamList;
-import common.eProp;
 import enums.TypeGroups;
 import enums.UseColor;
 import frames.dialog.DicName;
@@ -39,7 +38,7 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
-import domain.eJoindet;
+import frames.dialog.DicArtikl2;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
@@ -217,11 +216,11 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
@@ -298,11 +297,11 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
 
         UGui.buttonCellEditor(tab5, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
     }
 

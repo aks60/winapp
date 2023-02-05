@@ -166,11 +166,11 @@ public class Kits extends javax.swing.JFrame {
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+            new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
@@ -682,14 +682,18 @@ public class Kits extends javax.swing.JFrame {
                 groupsRec.setNo(eGroups.name, result);
                 qCateg.insert(groupsRec);
                 loadingData();
-                for (int i = 0; i < qCateg.size(); ++i) {
-                    if (qCateg.get(i).getInt(eGroups.id) == id) {
-                        UGui.setSelectedIndex(tab1, i - 1);
-                        ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
-                        UGui.scrollRectToRow(i, tab1);
+                int index;
+                for (index = 0; index < qCateg.size(); ++index) {
+                    if (qCateg.get(index).getInt(eGroups.id) == id) {
+                        UGui.setSelectedIndex(tab1, index - 1);
+                        ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index - 1, index - 1);
+                        UGui.scrollRectToRow(index, tab1);
                         break;
                     }
                 }
+                ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(index, index);
+                UGui.setSelectedIndex(tab1, index);
+                UGui.scrollRectToIndex(index, tab1);
             }
         } else if (tab2.getBorder() != null) {
             int index = UGui.getIndexRec(tab1);

@@ -49,6 +49,7 @@ import common.listener.ListenerFrame;
 import dataset.Conn;
 import domain.eSysfurn;
 import domain.eSystree;
+import frames.dialog.DicArtikl2;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
@@ -449,13 +450,13 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
-            UGui.buttonCellEditor(tab, 0).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 6);
+            UGui.buttonCellEditor(tab, 0).addActionListener(event -> {                
+                new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
             });
         }
         for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             UGui.buttonCellEditor(tab, 1).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 6);
+                new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 6);
             });
         }
 

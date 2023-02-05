@@ -2392,7 +2392,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
-        DicArtikl artikl = new DicArtikl(this, listenerAnalog, 1);
+        new DicArtikl(this, listenerAnalog, 1);
     }//GEN-LAST:event_btn11
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action

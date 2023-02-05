@@ -593,11 +593,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
 
         UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
@@ -618,12 +618,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
         UGui.buttonCellEditor(tab3, 5).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
+            new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
         });
 
         UGui.buttonCellEditor(tab3, 6).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
+            new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
