@@ -12,6 +12,7 @@ import frames.swing.DefCellRendererNumb;
 import frames.swing.DefTableModel;
 import frames.swing.TableFieldFilter;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
@@ -135,6 +136,9 @@ public class Groups extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         centr = new javax.swing.JPanel();
         tabb = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
@@ -168,6 +172,26 @@ public class Groups extends javax.swing.JFrame {
         btnMoveU = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Группы");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -184,6 +208,11 @@ public class Groups extends javax.swing.JFrame {
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 tabbStateChanged(evt);
+            }
+        });
+        tabb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
             }
         });
 
@@ -220,6 +249,11 @@ public class Groups extends javax.swing.JFrame {
         });
         tab6.setFillsViewportHeight(true);
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr6.setViewportView(tab6);
 
         pan6.add(scr6, java.awt.BorderLayout.CENTER);
@@ -304,6 +338,11 @@ public class Groups extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
@@ -349,6 +388,11 @@ public class Groups extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
@@ -395,6 +439,11 @@ public class Groups extends javax.swing.JFrame {
         });
         tab5.setFillsViewportHeight(true);
         tab5.setName("tab5"); // NOI18N
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(60);
@@ -439,6 +488,11 @@ public class Groups extends javax.swing.JFrame {
         });
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -484,6 +538,11 @@ public class Groups extends javax.swing.JFrame {
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -708,40 +767,40 @@ public class Groups extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.val, 0);
                 record.setDev(eGroups.name, "Наценка.групп.МЦ");
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecordEnd(tab2, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab2, eGroups.up, (record) -> {
                 record.set(eGroups.val, 0);
                 record.setDev(eGroups.name, "Скидка.групп.МЦ");
                 record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.SERI_ELEM.id);
                 record.setDev(eGroups.name, "Серия.МЦ");
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab4, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.CATEG_ELEM.id);
                 record.setDev(eGroups.name, "Категория.МЦ");
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecordEnd(tab5, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab5, eGroups.up, (record) -> {
                 record.set(eGroups.val, 1);
                 record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
                 record.setDev(eGroups.name, "Коэф.групп.текстур");
             });
 
         } else if (tab6.getBorder() != null) {
-            UGui.insertRecordEnd(tab6, eCurrenc.up, (record) -> {
+            UGui.insertRecordCur(tab6, eCurrenc.up, (record) -> {
                 record.setDev(eCurrenc.name, "Курс");
             });
 
@@ -831,6 +890,23 @@ public class Groups extends javax.swing.JFrame {
         UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
     }//GEN-LAST:event_tabbStateChanged
 
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            JTable table = List.of(tab1, tab2, tab3, tab4, tab5, tab6).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmCrud.show(table, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tabMouseClicked
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -841,6 +917,8 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -849,6 +927,7 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

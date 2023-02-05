@@ -90,6 +90,7 @@ import domain.eGroups;
 import enums.TypeGroups;
 import frames.dialog.ParDef;
 import frames.swing.TableFieldFilter;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -863,6 +864,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         tool = new javax.swing.JPanel();
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -1062,6 +1066,26 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
@@ -3171,6 +3195,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Systree.this.mousePressed(evt);
             }
@@ -3227,6 +3254,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Systree.this.mousePressed(evt);
             }
@@ -3273,6 +3303,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Systree.this.mousePressed(evt);
             }
@@ -3473,7 +3506,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
 
             } else if (tab2.getBorder() != null) {
-                UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
+                UGui.insertRecordCur(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
                     int max = qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
                     record.set(eSysprof.npp, ++max);
@@ -3482,7 +3515,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 });
 
             } else if (tab3.getBorder() != null) {
-                UGui.insertRecordEnd(tab3, eSysfurn.up, (record) -> {
+                UGui.insertRecordCur(tab3, eSysfurn.up, (record) -> {
                     record.set(eSysfurn.systree_id, systreeID);
                     record.setNo(eSysfurn.npp, record.get(1));
                     record.setNo(eSysfurn.replac, 0);
@@ -3492,7 +3525,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     qSysfurn.table(eFurniture.up).add(record2);;
                 });
             } else if (tab4.getBorder() != null) {
-                UGui.insertRecordEnd(tab4, eSyspar1.up, (record) -> {
+                UGui.insertRecordCur(tab4, eSyspar1.up, (record) -> {
                     record.set(eSyspar1.systree_id, systreeID);
                 });
 
@@ -4297,6 +4330,23 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_mosqToColor
 
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            JTable table = List.of(tab2, tab3, tab4, tab5).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmCrud.show(table, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tabMouseClicked
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -4400,6 +4450,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab68;
     private javax.swing.JLabel lab69;
     private javax.swing.JLabel lab70;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
@@ -4422,6 +4474,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panSspinner;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

@@ -469,7 +469,7 @@ public class Colors extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Группа");
@@ -477,7 +477,7 @@ public class Colors extends javax.swing.JFrame {
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
+            UGui.insertRecordCur(tab2, eColor.up, (record) -> {
                 Integer max = (qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000).count() > 0)
                         ? qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000)
                                 .mapToInt(rec -> Integer.valueOf(rec.getStr(eColor.code)

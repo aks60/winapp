@@ -619,6 +619,24 @@ public class UGui {
     }
 
     //Вставить запись
+    public static void insertRecordCur(JTable table, Field field, ListenerRecord listener) {
+
+        int index = UGui.getIndexRec(table);
+        index = (index == -1) ? 0 : index;
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        Record record = field.newRecord(Query.INS);
+        record.setNo(field.fields()[1], Conn.genId(field));
+        if (++index < table.getRowCount()) {
+            query.add(index, record);
+        } else {
+            query.add(--index, record);
+        }
+        listener.action(record);
+        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);
+        UGui.setSelectedIndex(table, index);
+    }
+
+    //Вставить запись
     public static void insertRecordEnd(JTable table, Field field, ListenerRecord listener) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
@@ -629,20 +647,6 @@ public class UGui {
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         UGui.setSelectedIndex(table, query.size() - 1);
         UGui.scrollRectToIndex(query.size() - 1, table);
-    }
-
-    //Вставить запись
-    public static void insertRecordCur(JTable table, Field field, ListenerRecord listener) {
-
-        int index = UGui.getIndexRec(table);
-        index = (index == -1) ? 0 : index;
-        Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record = field.newRecord(Query.INS);
-        record.setNo(field.fields()[1], Conn.genId(field));
-        query.add(index, record);
-        listener.action(record);
-        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);
-        UGui.setSelectedIndex(table, index);
     }
 
     //Изменить запись
@@ -764,7 +768,7 @@ public class UGui {
     }
 
     public static void cellParamNameOrValue(Record record, JTable table, Field id, Field text, JTable... tables) {
-        UGui.stopCellEditing(tables);
+        JOptionPane.showMessageDialog(table, "Не использую!!!");
     }
 
     //Редактирование параметров ячейки

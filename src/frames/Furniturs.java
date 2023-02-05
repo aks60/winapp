@@ -1461,7 +1461,7 @@ public class Furniturs extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eFurniture.up, (record) -> {
+            UGui.insertRecordCur(tab1, eFurniture.up, (record) -> {
                 int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
                 record.setDev(eFurniture.name, (tbtn1.isSelected()) ? "Осн.фурнитура" : (tbtn2.isSelected()) ? "Доп.фурнитура" : "Набор для фурнитуры");
                 record.set(eFurniture.types, types);
@@ -1472,7 +1472,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         } else if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             if (UGui.getIndexRec(tab1) != -1) {
-                UGui.insertRecordEnd(tab2a, eFurndet.up, (record) -> {
+                UGui.insertRecordCur(tab2a, eFurndet.up, (record) -> {
                     int id = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
                     record.set(eFurndet.furniture_id1, id);
                     record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
@@ -1483,7 +1483,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         } else if (tab2b.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             if (UGui.getIndexRec(tab1) != -1 && UGui.getIndexRec(tab2a) != -1) {
-                UGui.insertRecordEnd(tab2b, eFurndet.up, (record) -> {
+                UGui.insertRecordCur(tab2b, eFurndet.up, (record) -> {
                     int id1 = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
                     int id2 = qFurndet2a.getAs(UGui.getIndexRec(tab2a), eFurndet.id);
                     record.set(eFurndet.furniture_id1, id1);
@@ -1495,7 +1495,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         } else if (tab2c.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             if (UGui.getIndexRec(tab1) != -1 && UGui.getIndexRec(tab2b) != -1) {
-                UGui.insertRecordEnd(tab2c, eFurndet.up, (record) -> {
+                UGui.insertRecordCur(tab2c, eFurndet.up, (record) -> {
                     int id1 = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
                     int id2 = qFurndet2b.getAs(UGui.getIndexRec(tab2b), eFurndet.id);
                     record.set(eFurndet.furniture_id1, id1);
@@ -1506,13 +1506,13 @@ public class Furniturs extends javax.swing.JFrame {
             }
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecordEnd(tab3, eFurnside1.up, (record) -> {
+            UGui.insertRecordCur(tab3, eFurnside1.up, (record) -> {
                 int id = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
                 record.set(eFurnside1.furniture_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eFurnpar1.up, (record) -> {
+            UGui.insertRecordCur(tab4, eFurnpar1.up, (record) -> {
                 int id = qFurnside1.getAs(UGui.getIndexRec(tab3), eFurnside1.id);
                 record.set(eFurnpar1.furnside_id, id);
             });
@@ -1522,7 +1522,7 @@ public class Furniturs extends javax.swing.JFrame {
                     : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
             Query query = ((DefTableModel) table.getModel()).getQuery();
             if (UGui.getIndexRec(table) != -1) {
-                UGui.insertRecordEnd(tab5, eFurnside2.up, (record) -> {
+                UGui.insertRecordCur(tab5, eFurnside2.up, (record) -> {
                     int id = query.getAs(UGui.getIndexRec(table), eFurndet.id);
                     record.set(eFurnside2.furndet_id, id);
                 });
@@ -1532,7 +1532,7 @@ public class Furniturs extends javax.swing.JFrame {
             Object name = tab2.getName();
             Query query = ((DefTableModel) tab2.getModel()).getQuery();
             if (UGui.getIndexRec(tab2) != -1) {
-                UGui.insertRecordEnd(tab6, eFurnpar2.up, (record) -> {
+                UGui.insertRecordCur(tab6, eFurnpar2.up, (record) -> {
                     int id = query.getAs(UGui.getIndexRec(tab2), eFurndet.id);
                     record.set(eFurnpar2.furndet_id, id);
                 });
@@ -1635,7 +1635,7 @@ public class Furniturs extends javax.swing.JFrame {
                     for (Record record2 : qFurnall) {
                         if (result.equals(record2.get(eFurniture.name))) {
 
-                            UGui.insertRecordEnd(tab2a, eFurndet.up, (record) -> {
+                            UGui.insertRecordCur(tab2a, eFurndet.up, (record) -> {
                                 int id = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
                                 record.set(eFurndet.furniture_id1, id);
                                 record.set(eFurndet.furniture_id2, record2.getInt(eFurniture.id));

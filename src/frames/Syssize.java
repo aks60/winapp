@@ -11,6 +11,7 @@ import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.table.TableColumn;
 import report.ExecuteCmd;
@@ -64,6 +65,9 @@ public class Syssize extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -76,6 +80,26 @@ public class Syssize extends javax.swing.JFrame {
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системные константы");
@@ -292,7 +316,7 @@ public class Syssize extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                museClicked(evt);
+                tabMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Syssize.this.mousePressed(evt);
@@ -335,7 +359,7 @@ public class Syssize extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eSyssize.up, (record) -> {
+            UGui.insertRecordCur(tab1, eSyssize.up, (record) -> {
                 record.setDev(eSyssize.name, "Сист.конст");
                 record.set(eSyssize.falz, 0);
                 record.set(eSyssize.naxl, 0);
@@ -375,11 +399,26 @@ public class Syssize extends javax.swing.JFrame {
         ExecuteCmd.documentType(this);
     }//GEN-LAST:event_btnReport
 
-    private void museClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_museClicked
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
+        } else {
+            if (evt.getButton() == MouseEvent.BUTTON3) {
+                JTable table = List.of(tab1).stream().filter(it -> it == evt.getSource()).findFirst().get();
+                List.of(tab1).forEach(tab -> tab.setBorder(null));
+                table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+                ppmCrud.show(table, evt.getX(), evt.getY());
+            }
         }
-    }//GEN-LAST:event_museClicked
+    }//GEN-LAST:event_tabMouseClicked
+
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -391,7 +430,10 @@ public class Syssize extends javax.swing.JFrame {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;

@@ -18,6 +18,7 @@ import domain.eGroups;
 import enums.TypeGroups;
 import frames.dialog.DicColor;
 import frames.swing.TableFieldFilter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -154,6 +155,9 @@ public class Param extends javax.swing.JFrame {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -178,6 +182,26 @@ public class Param extends javax.swing.JFrame {
         jSplitPane1.setDividerLocation(400);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setPreferredSize(new java.awt.Dimension(454, 563));
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры");
@@ -369,6 +393,9 @@ public class Param extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Param.this.mousePressed(evt);
             }
@@ -414,6 +441,9 @@ public class Param extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Param.this.mousePressed(evt);
             }
@@ -574,25 +604,25 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PARAM_USER.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Параметр");
             });
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
+            UGui.insertRecordCur(tab2, eParams.up, (record) -> {
                 Record groupRec = qGroups1.get(UGui.getIndexRec(tab1));
                 record.setDev(eParams.text, "val");
                 record.setNo(eParams.groups_id, groupRec.getInt(eGroups.id));
             });
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
+            UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Парам.соотв.");
             });
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eColmap.up, (record) -> {
+            UGui.insertRecordCur(tab4, eColmap.up, (record) -> {
                 Record groupRec = qGroups2.get(UGui.getIndexRec(tab3));
                 record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
             });
@@ -655,6 +685,23 @@ public class Param extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClone
 
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            JTable table = List.of(tab1, tab2).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmCrud.show(table, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tabMouseClicked
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClone;
@@ -665,9 +712,12 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

@@ -1049,7 +1049,7 @@ public class Elements extends javax.swing.JFrame {
                 Record groupsRec = qGrCateg.get(UGui.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
                 if ((id == -1 || id == -5) == false) {
-                    UGui.insertRecordEnd(tab2, eElement.up, (record) -> {
+                    UGui.insertRecordCur(tab2, eElement.up, (record) -> {
                         record.set(eElement.groups2_id, id);
                         record.setDev(eElement.name, "Наименование");
                         Record record2 = eArtikl.up.newRecord();
@@ -1059,20 +1059,20 @@ public class Elements extends javax.swing.JFrame {
             }
         } else if (tab3.getBorder() != null) {
             if (UGui.getIndexRec(tab2) != -1) {
-                UGui.insertRecordEnd(tab3, eElemdet.up, (record) -> {
+                UGui.insertRecordCur(tab3, eElemdet.up, (record) -> {
                     record.set(eElemdet.element_id, qElement.get(UGui.getIndexRec(tab2), eElement.id));
                     Record record2 = eArtikl.up.newRecord();
                     qElemdet.table(eArtikl.up).add(record2);
                 });
             }
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eElempar1.up, (record) -> {
+            UGui.insertRecordCur(tab4, eElempar1.up, (record) -> {
                 int id = qElement.getAs(UGui.getIndexRec(tab2), eElement.id);
                 record.set(eElempar1.element_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecordEnd(tab5, eElempar2.up, (record) -> {
+            UGui.insertRecordCur(tab5, eElempar2.up, (record) -> {
                 int id = qElemdet.getAs(UGui.getIndexRec(tab3), eElemdet.id);
                 record.set(eElempar2.elemdet_id, id);
             });

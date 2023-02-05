@@ -81,6 +81,7 @@ import frames.swing.TableFieldFilter;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -768,6 +769,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         menuItem16 = new javax.swing.JMenuItem();
         sep3 = new javax.swing.JPopupMenu.Separator();
         menuItem17 = new javax.swing.JMenuItem();
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
@@ -1010,6 +1014,26 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             }
         });
         ppReport.add(menuItem17);
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -1334,6 +1358,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Orders.this.mousePressed(evt);
             }
@@ -3020,6 +3047,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4.setFillsViewportHeight(true);
         tab4.setPreferredSize(new java.awt.Dimension(700, 32));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(0).setPreferredWidth(240);
@@ -3097,14 +3129,14 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eProject.up, (projectRec) -> {
+            UGui.insertRecordCur(tab1, eProject.up, (projectRec) -> {
                 projectRec.set(eProject.manager, eProfile.user);
                 projectRec.set(eProject.date4, UGui.getDateCur());
             });
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
-                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
+                UGui.insertRecordCur(tab2, eProject.up, (record2) -> {
                     record2.set(ePrjprod.id, Conn.genId(ePrjprod.up));
                     record2.set(ePrjprod.name, record.getStr(eSysprod.name));
                     record2.set(ePrjprod.num, 1);
@@ -3127,7 +3159,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             int index2 = UGui.getIndexRec(tab2);
             if (index != -1) {
                 if (((JButton) evt.getSource()) == btnIns) {
-                    UGui.insertRecordEnd(tab4, ePrjkit.up, (prjkitRec) -> {
+                    UGui.insertRecordCur(tab4, ePrjkit.up, (prjkitRec) -> {
                         if (index2 != -1) {
                             prjkitRec.set(ePrjkit.prjprod_id, qPrjprod.get(index2, ePrjprod.id));
                         }
@@ -3934,6 +3966,23 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         }
     }//GEN-LAST:event_mosqToElements
 
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            JTable table = List.of(tab1, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab4).forEach(tab -> tab.setBorder(null));
+            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+            ppmCrud.show(table, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tabMouseClicked
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -4019,6 +4068,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab69;
     private javax.swing.JLabel lab7;
     private javax.swing.JLabel lab8;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JMenuItem menuItem11;
     private javax.swing.JMenuItem menuItem12;
     private javax.swing.JMenuItem menuItem13;
@@ -4051,6 +4102,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panSpinner;
     private javax.swing.JPopupMenu ppReport;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

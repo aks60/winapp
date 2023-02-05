@@ -924,13 +924,13 @@ public class Fillings extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, eGlasgrp.up, (record) -> {
+            UGui.insertRecordCur(tab1, eGlasgrp.up, (record) -> {
                 record.set(eGlasgrp.gap, 0);
                 record.setDev(eGlasgrp.name, "Наименование");
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecordEnd(tab2, eGlasdet.up, (record) -> {
+            UGui.insertRecordCur(tab2, eGlasdet.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasdet.depth, 0);
                 record.set(eGlasdet.glasgrp_id, id);
@@ -938,19 +938,19 @@ public class Fillings extends javax.swing.JFrame {
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecordEnd(tab3, eGlaspar1.up, (record) -> {
+            UGui.insertRecordCur(tab3, eGlaspar1.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlaspar1.glasgrp_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordEnd(tab4, eGlaspar2.up, (record) -> {
+            UGui.insertRecordCur(tab4, eGlaspar2.up, (record) -> {
                 int id = qGlasdet.getAs(UGui.getIndexRec(tab2), eGlasdet.id);
                 record.set(eGlaspar2.glasdet_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecordEnd(tab5, eGlasprof.up, (record) -> {
+            UGui.insertRecordCur(tab5, eGlasprof.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasprof.glasgrp_id, id);
                 record.set(eGlasprof.gsize, .0);
@@ -1010,8 +1010,8 @@ public class Fillings extends javax.swing.JFrame {
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            JTable table = List.of(tab1, tab2, tab3, tab4, tab5).stream().filter(it -> it == evt.getSource()).findFirst().get();
-            List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+            JTable table = List.of(tab2, tab3, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
             table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmCrud.show(table, evt.getX(), evt.getY());
         }

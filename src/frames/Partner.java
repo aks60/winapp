@@ -20,12 +20,14 @@ import domain.eSysprof;
 import domain.eSysuser;
 import frames.swing.DefCellRendererBool;
 import frames.swing.TableFieldFilter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
 public class Partner extends javax.swing.JFrame {
@@ -138,6 +140,9 @@ public class Partner extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmCrud = new javax.swing.JPopupMenu();
+        mInsert = new javax.swing.JMenuItem();
+        mDelit = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -203,6 +208,26 @@ public class Partner extends javax.swing.JFrame {
         lab44 = new javax.swing.JLabel();
         txt7 = new javax.swing.JTextField();
         south = new javax.swing.JPanel();
+
+        mInsert.setFont(frames.UGui.getFont(1,0));
+        mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        mInsert.setText("Добавить");
+        mInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mInsert);
+
+        mDelit.setFont(frames.UGui.getFont(1,0));
+        mDelit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        mDelit.setText("Удалить");
+        mDelit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmActionItems(evt);
+            }
+        });
+        ppmCrud.add(mDelit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Контрагенты");
@@ -1072,6 +1097,13 @@ public class Partner extends javax.swing.JFrame {
     private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
+        } else {
+            if (evt.getButton() == MouseEvent.BUTTON3) {
+                JTable table = List.of(tab1).stream().filter(it -> it == evt.getSource()).findFirst().get();
+                List.of(tab1).forEach(tab -> tab.setBorder(null));
+                table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+                ppmCrud.show(table, evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_mouseClicked
 
@@ -1094,6 +1126,14 @@ public class Partner extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnMove
+
+    private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
+        if (evt.getSource() == mInsert) {
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
+        } else if (evt.getSource() == mDelit) {
+            btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
+        }
+    }//GEN-LAST:event_ppmActionItems
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1128,6 +1168,8 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JLabel lab55;
     private javax.swing.JLabel lab56;
     private javax.swing.JLabel lab57;
+    private javax.swing.JMenuItem mDelit;
+    private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -1136,6 +1178,7 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
+    private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;

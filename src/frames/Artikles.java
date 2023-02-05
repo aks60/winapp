@@ -2300,7 +2300,7 @@ public class Artikles extends javax.swing.JFrame {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
-                UGui.insertRecordEnd(tab1, eArtikl.up, (record) -> {
+                UGui.insertRecordCur(tab1, eArtikl.up, (record) -> {
                     //record.setDev(eArtikl.code, typeArtikl.name.substring(0, 1));
                     //record.setDev(eArtikl.name, typeArtikl.name);
                     record.setNo(eArtikl.level1, typeArtikl.id1);
@@ -2324,7 +2324,7 @@ public class Artikles extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
 
-                UGui.insertRecordEnd(tab2, eArtikl.up, (record) -> {
+                UGui.insertRecordCur(tab2, eArtikl.up, (record) -> {
                     Record artiklRec = qArtikl.get(index);
                     record.setNo(eArtdet.id, Conn.genId(eArtdet.up));
                     record.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
