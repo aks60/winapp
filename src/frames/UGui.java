@@ -638,6 +638,9 @@ public class UGui {
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
         record.setNo(field.fields()[1], Conn.genId(field));
+//        if(index == 0) {
+//            query.add(index, record);
+//        } else 
         if (++index <= table.getRowCount()) {
             query.add(index, record);
         } else {

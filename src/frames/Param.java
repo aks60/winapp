@@ -612,7 +612,7 @@ public class Param extends javax.swing.JFrame {
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordCur(tab2, eParams.up, (record) -> {
                 Record groupRec = qGroups1.get(UGui.getIndexRec(tab1));
-                record.setDev(eParams.text, "val");
+                //record.setDev(eParams.text, "val");
                 record.setNo(eParams.groups_id, groupRec.getInt(eGroups.id));
             });
         } else if (tab3.getBorder() != null) {

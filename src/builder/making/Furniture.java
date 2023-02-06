@@ -167,19 +167,19 @@ public class Furniture extends Cal5e {
                         side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
                     }
                 }
-                if (side == 1) {
+                if (side == 1) {// || side == -2) {
                     el = areaStv.frames().get(Layout.BOTT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 2) {
+                } else if (side == 2) {// || side == -1) {
                     el = areaStv.frames().get(Layout.RIGHT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 3) {
+                } else if (side == 3) {// || side == -2) {
                     el = areaStv.frames().get(Layout.TOP);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 4) {
+                } else if (side == 4) {// || side == -1) {
                     el = areaStv.frames().get(Layout.LEFT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
