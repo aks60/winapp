@@ -45,6 +45,8 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
@@ -155,7 +157,7 @@ public class Artikles extends javax.swing.JFrame {
                 return val;
             }
         };
-   
+
         //tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
         tab1.getColumnModel().getColumn(6).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
@@ -283,7 +285,11 @@ public class Artikles extends javax.swing.JFrame {
             } else if (it.id1 == 5 && it.id2 == 0) {
                 nodeRoot.add(node);
                 node = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
-                
+
+            } else if (it.id1 == 6 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.X600); //"Наборы"                
+
             } else if (it.id2 > 0) {   //остальное       
                 nodeRoot.add(node);
                 node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
@@ -2301,11 +2307,15 @@ public class Artikles extends javax.swing.JFrame {
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
                 UGui.insertRecordCur(tab1, eArtikl.up, (record) -> {
-                    //record.setDev(eArtikl.code, typeArtikl.name.substring(0, 1));
-                    //record.setDev(eArtikl.name, typeArtikl.name);
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                     record.setNo(eArtikl.otx_norm, 0);
+                    if (typeArtikl.id1 == 6) {
+                        record.set(eArtikl.id, -1 * record.getInt(eArtikl.id));
+                        int groupArr[] = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.level1) == 6).mapToInt(rec -> rec.getInt(eArtikl.id)).sorted().toArray();
+                        int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(record.getInt(eArtikl.id));
+                        record.set(eArtikl.code, "НАБОР-" + (++index));
+                    }
                     if (typeArtikl.id1 == 1 || typeArtikl.id1 == 3) {
                         record.setNo(eArtikl.unit, UseUnit.METR.id);
                     } else if (typeArtikl.id1 == 5) {
@@ -2569,13 +2579,13 @@ public class Artikles extends javax.swing.JFrame {
 //        if (evt.getButton() == MouseEvent.BUTTON3) {
 //            ppmGrid.show(tab1, evt.getX(), evt.getY());
 //        }
-        
+
         if (evt.getButton() == MouseEvent.BUTTON3) {
             JTable table = List.of(tab1, tab2).stream().filter(it -> it == evt.getSource()).findFirst().get();
             List.of(tab1, tab2).forEach(tab -> tab.setBorder(null));
             table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmGrid.show(table, evt.getX(), evt.getY());
-        }        
+        }
     }//GEN-LAST:event_tabMouseClicked
 
     private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
