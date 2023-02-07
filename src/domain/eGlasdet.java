@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Не менять индекс поля, см. UColor
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Специф.групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),

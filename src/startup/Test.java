@@ -66,8 +66,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            //PSConvert.exec();
-            wincalc();
+            PSConvert.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -84,7 +84,7 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
             winc.build(GsonScript.testJson(601001));

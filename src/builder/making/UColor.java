@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 //TODO При авторасчёте подбора цветов необходимо учитывать галочку в табл. artdet.
 public class UColor {
 
-    private static final int TYPES = 2;
+    private static final int COLOR_US = 2;
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
 
@@ -68,7 +68,7 @@ public class UColor {
     public static boolean colorFromProduct(Specific spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
         int colorFk = spc.detailRec.getInt(COLOR_FK);
-        int types = spc.detailRec.getInt(TYPES);
+        int types = spc.detailRec.getInt(COLOR_US);
         if (colorFk == -1) {
             JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикуда  " + spc.artikl + " не определена текстура.", "ВНИМАНИЕ!", 1);
             return false; //нет данных для поиска, коллизия
