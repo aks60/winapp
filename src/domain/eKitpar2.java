@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Не менять индекс поля
 public enum eKitpar2 implements Field {
     up("0", "0", "0", "Парметры комплектов", "PARKOMP"),
     id("4", "10", "0", "Идентификатор", "id"),
