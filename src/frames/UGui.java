@@ -5,7 +5,6 @@ import builder.model.Com5t;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.IElem5e;
-import builder.IStvorka;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,6 +67,7 @@ import enums.Layout;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.DefMutableTreeNode;
+import java.awt.Color;
 import java.util.HashSet;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -452,6 +452,15 @@ public class UGui {
         }
     }
 
+    public static void setBorders(JTable master, JTable... tables) {
+        
+        List.of(tables).forEach(tab -> tab.setBorder(null));
+        List.of(tables).forEach(tab -> tab.setSelectionBackground(new Color(200, 200, 200)));
+        
+        master.setSelectionBackground(new Color(211, 211, 211));
+        master.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }
+
     //Установить пустой бордер
     public static void createEmptyBorder(final Container c) {
         List<Component> comps = getAllComponents(c);
@@ -588,19 +597,19 @@ public class UGui {
             }
         }
     }
-    
+
     public static int getIndexKeyValue(JTable table, Object val, Field field) {
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        if(val != null) {
+        if (val != null) {
             for (int i = 0; i < query.size(); i++) {
-                if(val.equals(query.get(i, field))) {
+                if (val.equals(query.get(i, field))) {
                     return i;
                 }
             }
         }
         return -1;
     }
-    
+
     //Получить convertRowIndexToModel
     public static int getIndexRec(JTable table) {
         if (table.getSelectedRow() != -1) {
@@ -621,13 +630,6 @@ public class UGui {
     public static Record findRecordModel(Query q, JTable table, int row) {
         int id = (int) table.getValueAt(row, table.getColumnCount() - 1);
         return q.stream().filter(rec -> rec.getInt(1) == 1).findFirst().orElse(null);
-    }
-
-    //Отменить сортировку
-    public static void stopSorting(JTable... table) {
-        for (JTable tab : table) {
-            tab.getRowSorter().setSortKeys(null);
-        }
     }
 
     //Вставить запись
@@ -731,7 +733,7 @@ public class UGui {
         table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
 
-    //Очистить таблицу
+    //Очистить таблицы
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
             if (table.getModel() instanceof DefTableModel) {
@@ -771,20 +773,6 @@ public class UGui {
                 }
             }
         }
-    }
-
-    //Получить таблицу которая переведена в режим редактирования
-    public static JTable getCellEditing(JTable... tableList) {
-        for (JTable table : tableList) {
-            if (table.isEditing()) {
-                return table;
-            }
-        }
-        return null;
-    }
-
-    public static void cellParamNameOrValue(Record record, JTable table, Field id, Field text, JTable... tables) {
-        JOptionPane.showMessageDialog(table, "Не использую!!!");
     }
 
     //Редактирование параметров ячейки

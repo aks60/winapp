@@ -53,6 +53,7 @@ import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -326,13 +327,13 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max, eFurnside2.id) {
+        new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
-                    if (v > 0 && v < 5) {
+                    if (v > -3 && v < 5) {
                         return Stream.of(LayoutFurn3.values()).filter(en -> en.id == v).findFirst().get().name;  //orElse(null).name;
                     }
                 }
@@ -1333,15 +1334,15 @@ public class Furniturs extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", null, null, null, null, null},
-                {"zzzzzzzzz", null, null, null, null, null}
+                {"xxxxxxxx", null, null, null, null},
+                {"zzzzzzzzz", null, null, null, null}
             },
             new String [] {
-                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол", "ids"
+                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1687,8 +1688,9 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInser2
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int index2 = UGui.getIndexRec(tab2a);
-        System.out.println(qFurndet2a.get(index2, eFurndet.furniture_id2));
+        tab1.setSelectionBackground(new java.awt.Color(211, 211, 211));
+        //tab1.setSelectionBackground(new java.awt.Color(212, 212, 212));
+        //tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }//GEN-LAST:event_btnTest
 
     private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree
