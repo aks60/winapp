@@ -326,13 +326,13 @@ public class Furniturs extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max) {
+        new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max, eFurnside2.id) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
-                    if (v > -3 && v < 5) {
+                    if (v > 0 && v < 5) {
                         return Stream.of(LayoutFurn3.values()).filter(en -> en.id == v).findFirst().get().name;  //orElse(null).name;
                     }
                 }
@@ -1333,15 +1333,15 @@ public class Furniturs extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", null, null, null, null},
-                {"zzzzzzzzz", null, null, null, null}
+                {"xxxxxxxx", null, null, null, null, null},
+                {"zzzzzzzzz", null, null, null, null, null}
             },
             new String [] {
-                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
+                "Сторона", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол", "ids"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
