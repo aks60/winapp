@@ -61,8 +61,9 @@ public class Test {
     }
 
     // </editor-fold>     
-    //
-    public static void main(String[] args) throws Exception { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
+    
+    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
+    public static void main(String[] args) throws Exception { 
 
         eProp.dev = true;
         try {

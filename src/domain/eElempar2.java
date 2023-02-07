@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
+//Не менять индекс поля
 public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры специф.составов", "PARVSTS"),
     id("4", "10", "0", "Идентификатор", "id"),   

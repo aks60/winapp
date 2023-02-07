@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Не менять индекс поля
 public enum eElempar1 implements Field {
     up("0", "0", "0", "Параметры составов", "PARVSTM"),
     id("4", "10", "0", "Группа", "id"), //см. eEnum параметры

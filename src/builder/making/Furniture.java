@@ -89,7 +89,7 @@ public class Furniture extends Cal5e {
     protected void variant(IArea5e areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList1 = eFurndet.find(furnitureRec.getInt(eFurniture.id));
-            List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_id)).collect(toList());
+            List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_pk)).collect(toList());
             List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
 
             //Цикл по описанию сторон фурнитуры
@@ -105,17 +105,17 @@ public class Furniture extends Cal5e {
 
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList1) {
-                if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
+                if (furndetRec1.getInt(eFurndet.furndet_pk) == furndetRec1.getInt(eFurndet.id)) {
                     if (detail(areaStv, furndetRec1, count) == true) {
 
                         //Цикл по детализации (уровень 2)
                         for (Record furndetRec2 : furndetList2) {
-                            if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
+                            if (furndetRec2.getInt(eFurndet.furndet_pk) == furndetRec1.getInt(eFurndet.pk)) {
                                 if (detail(areaStv, furndetRec2, count) == true) {
 
                                     //Цикл по детализации (уровень 3)
                                     for (Record furndetRec3 : furndetList2) {
-                                        if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)) {
+                                        if (furndetRec3.getInt(eFurndet.furndet_pk) == furndetRec2.getInt(eFurndet.pk)) {
                                             detail(areaStv, furndetRec3, count);
                                         }
                                     }
@@ -137,7 +137,7 @@ public class Furniture extends Cal5e {
 
             //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
             if (shortPass == true) {
-                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
+                if (furndetRec.getInt(eFurndet.furndet_pk) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2 || (artiklRec.getInt(eArtikl.level1) == 2
                             && list.contains(artiklRec.getInt(eArtikl.level2)) == false)) { //т.к. ручки, подвеса, замка на этом уровне нет
                         return false;
@@ -167,19 +167,19 @@ public class Furniture extends Cal5e {
                         side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
                     }
                 }
-                if (side == 1) {
+                if (side == 1) {// || side == -2) {
                     el = areaStv.frames().get(Layout.BOTT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 2) {
+                } else if (side == 2) {// || side == -1) {
                     el = areaStv.frames().get(Layout.RIGHT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 3) {
+                } else if (side == 3) {// || side == -2) {
                     el = areaStv.frames().get(Layout.TOP);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
-                } else if (side == 4) {
+                } else if (side == 4) {// || side == -1) {
                     el = areaStv.frames().get(Layout.LEFT);
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;

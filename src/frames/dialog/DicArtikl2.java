@@ -88,6 +88,10 @@ public class DicArtikl2 extends javax.swing.JDialog {
                 treeNode1.add(treeNode2);
                 treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
 
+            } else if (it.id1 == 6 && it.id2 == 0) {
+                treeNode1.add(treeNode2);
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X600); //"Наборы"                  
+
             } else if (it.id2 > 0) {   //остальное       
                 treeNode1.add(treeNode2);
                 DefaultMutableTreeNode defaultMutableTreeNode = new javax.swing.tree.DefaultMutableTreeNode(it);

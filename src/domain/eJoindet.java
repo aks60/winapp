@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
+//Не менять индекс поля, см. UColor
 public enum eJoindet implements Field {
     up("0", "0", "0", "Спецификация вар.соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),

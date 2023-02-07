@@ -12,7 +12,9 @@ public enum LayoutFurn1 implements Enam {
     BOTT(1, "Нижняя"),
     RICH(2, "Правая"),
     TOP(3, "Верхняя"),
-    LEFT(4, "Левая");
+    LEFT(4, "Левая"),
+    VERT(-1, "Вертикальная"),
+    HOR(-2, "Горизонтальная");
 
     public int id;
     public String name;

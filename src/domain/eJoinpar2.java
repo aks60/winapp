@@ -7,6 +7,7 @@ import dataset.Record;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
+//Не менять индекс поля
 public enum eJoinpar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций вариантов", "PARCONS"),
     id("4", "10", "0", "Идентификатор", "id"),

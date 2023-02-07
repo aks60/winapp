@@ -483,9 +483,7 @@ public class Colors extends javax.swing.JFrame {
                                 .mapToInt(rec -> Integer.valueOf(rec.getStr(eColor.code)
                                 .substring(rec.getStr(eColor.code).length() - 3))).max().getAsInt() : 0;
                 int groupArr[] = qGroups.stream().mapToInt(rec -> rec.getInt(eGroups.id)).sorted().toArray();
-                int groupID = qGroups.get(UGui.getIndexRec(tab1)).getInt(eGroups.id);
-                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupID);
-
+                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(record.getInt(eGroups.id));
                 Record groupRec = qGroups.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
                 record.setNo(eColor.code, ++index * 1000 + max + 1);
