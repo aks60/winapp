@@ -110,12 +110,12 @@ public class Furniture extends Cal5e {
 
                         //Цикл по детализации (уровень 2)
                         for (Record furndetRec2 : furndetList2) {
-                            if (furndetRec2.getInt(eFurndet.furndet_pk) == furndetRec1.getInt(eFurndet.id)) {
+                            if (furndetRec2.getInt(eFurndet.furndet_pk) == furndetRec1.getInt(eFurndet.pk)) {
                                 if (detail(areaStv, furndetRec2, count) == true) {
 
                                     //Цикл по детализации (уровень 3)
                                     for (Record furndetRec3 : furndetList2) {
-                                        if (furndetRec3.getInt(eFurndet.furndet_pk) == furndetRec2.getInt(eFurndet.id)) {
+                                        if (furndetRec3.getInt(eFurndet.furndet_pk) == furndetRec2.getInt(eFurndet.pk)) {
                                             detail(areaStv, furndetRec3, count);
                                         }
                                     }
