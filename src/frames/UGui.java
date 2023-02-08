@@ -67,7 +67,6 @@ import enums.Layout;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.DefMutableTreeNode;
-import java.awt.Color;
 import java.util.HashSet;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -452,13 +451,9 @@ public class UGui {
         }
     }
 
-    public static void setBorders(JTable master, JTable... tables) {
-        
-        List.of(tables).forEach(tab -> tab.setBorder(null));
-        List.of(tables).forEach(tab -> tab.setSelectionBackground(new Color(200, 200, 200)));
-        
-        master.setSelectionBackground(new Color(211, 211, 211));
-        master.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    public static void setSelectionBackground(JTable master, JTable... tables) {
+        List.of(tables).forEach(tab -> tab.setSelectionBackground(DefTableModel.selectBackgroundDef));
+        master.setSelectionBackground(DefTableModel.selectBackgroundAct);
     }
 
     //Установить пустой бордер

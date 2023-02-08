@@ -19,9 +19,14 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.App;
 import common.listener.ListenerFrame;
+import java.awt.Color;
 import java.util.List;
+import javax.swing.UIManager;
 
 public class DefTableModel extends DefaultTableModel implements ListenerFrame {
+
+    public static Color selectBackgroundDef;
+    public static Color selectBackgroundAct;
 
     private JTable table = null;
     private DefaultTableModel model;
@@ -34,6 +39,20 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
         this.table = table;
         this.model = (DefaultTableModel) table.getModel();
         this.query = query;
+
+        selectBackgroundDef = table.getSelectionBackground();
+        selectBackgroundAct = table.getSelectionBackground();
+        if ("CDE/Motif".equals(eProp.lookandfeel.read())) {
+            selectBackgroundAct = new Color(selectBackgroundDef.getRed() + 80, selectBackgroundDef.getGreen() + 80, selectBackgroundDef.getBlue() + 200);
+            System.out.println("frames.swing.DefTableModel.<init>()");
+        } else if ("Metal".equals(eProp.lookandfeel.read())) {
+            selectBackgroundAct = new Color(selectBackgroundDef.getRed(), selectBackgroundDef.getGreen(), selectBackgroundDef.getBlue() - 20);
+        } else if ("Nimbus".equals(eProp.lookandfeel.read())) {
+            selectBackgroundAct = new Color(selectBackgroundDef.getRed(), selectBackgroundDef.getGreen(), selectBackgroundDef.getBlue() + 80);
+        } else {
+            selectBackgroundAct = new Color(selectBackgroundDef.getRed(), selectBackgroundDef.getGreen(), selectBackgroundDef.getBlue() + 80);
+        } //System.out.println(selectBackgroundDef.getRed() + " " + selectBackgroundDef.getGreen() + " " + selectBackgroundDef.getBlue());
+        table.setSelectionBackground(selectBackgroundDef);
 
         ((DefaultCellEditor) table.getDefaultEditor(Object.class)).getComponent().setFont(table.getFont());
         Field[] newArray = Arrays.copyOf(columns, columns.length + 1);
@@ -54,7 +73,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
             resizableList.add(columnModel.getColumn(index).getResizable());
             prefWidthList.add(columnModel.getColumn(index).getPreferredWidth());
             maxWidthList.add(columnModel.getColumn(index).getMaxWidth());
-            minWidthList.add(columnModel.getColumn(index).getMinWidth());            
+            minWidthList.add(columnModel.getColumn(index).getMinWidth());
         }
         table.setModel(this);
         sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());

@@ -2506,20 +2506,22 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn37
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        Query q = ((DefTableModel) tab1.getModel()).getQuery();
-        Record record = (Record) q.get(UGui.getIndexRec(tab1)).clone();
-        String nameCols = "", nameVals = "";
-        for (int k = 1; k < q.fields().size(); k++) {
-            Field field = q.fields().get(k);
-            if (field.meta().type() != Field.TYPE.OBJ) {
-                nameCols = nameCols + field.name() + ",";
-                nameVals = nameVals + q.wrapper(record, field) + ",";
-            }
-        }
-        nameCols = nameCols.substring(0, nameCols.length() - 1);
-        nameVals = nameVals.substring(0, nameVals.length() - 1);
-        String sql = "insert into " + q.fields().get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-        JOptionPane.showInputDialog("Номер проекта", sql);
+        tab1.setSelectionBackground(tab1.getSelectionBackground());
+
+//        Query q = ((DefTableModel) tab1.getModel()).getQuery();
+//        Record record = (Record) q.get(UGui.getIndexRec(tab1)).clone();
+//        String nameCols = "", nameVals = "";
+//        for (int k = 1; k < q.fields().size(); k++) {
+//            Field field = q.fields().get(k);
+//            if (field.meta().type() != Field.TYPE.OBJ) {
+//                nameCols = nameCols + field.name() + ",";
+//                nameVals = nameVals + q.wrapper(record, field) + ",";
+//            }
+//        }
+//        nameCols = nameCols.substring(0, nameCols.length() - 1);
+//        nameVals = nameVals.substring(0, nameVals.length() - 1);
+//        String sql = "insert into " + q.fields().get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+//        JOptionPane.showInputDialog("Номер проекта", sql);
 
     }//GEN-LAST:event_btnTest
 
