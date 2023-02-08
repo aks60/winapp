@@ -1622,6 +1622,8 @@ public class Furniturs extends javax.swing.JFrame {
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         if (tbtn1.isSelected()) {
             UGui.setSelectedIndex(tab1, indexTab1);
+            Rectangle cellRect = tab1.getCellRect(indexTab1, 0, false);
+            tab1.scrollRectToVisible(cellRect);
         } else {
             UGui.setSelectedRow(tab1);
         }
@@ -1663,7 +1665,7 @@ public class Furniturs extends javax.swing.JFrame {
                                 record.set(eFurndet.color_fk, null);
                                 record.set(eFurndet.color_us, null);
                             });
-                            
+
                         } else if (tab2b.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
                             UGui.insertRecordCur(tab2b, eFurndet.up, (record) -> {
                                 int furnitureID = qFurniture.getAs(UGui.getIndexRec(tab1), eFurniture.id);
