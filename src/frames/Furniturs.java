@@ -82,7 +82,8 @@ public class Furniturs extends javax.swing.JFrame {
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
     private JTable tab2act = null; //активная таблица спецификации
-    private int indexTab1 = 0;
+    private int indexT1 = 0;
+    private int indexT2 = 0;
 
     public Furniturs() {
         this.subsql = null;
@@ -371,15 +372,20 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            indexTab1 = (tbtn1.isSelected()) ? index : indexTab1;
+            indexT1 = (tbtn1.isSelected()) ? index : indexT1;
             Record record = qFurniture.table(eFurniture.up).get(index);
             Integer id = record.getInt(eFurniture.id);
+
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
             qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_pk, "=", eFurndet.id);
+
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab2a, indexT2);
+            Rectangle cellRect = tab2a.getCellRect(indexT2, 0, false);
+            tab2a.scrollRectToVisible(cellRect);
+
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab3);
-            UGui.setSelectedRow(tab2a);
         }
     }
 
@@ -387,6 +393,7 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.clearTable(tab2b, tab2c, tab5, tab6);
         int index = UGui.getIndexRec(tab2a);
         if (index != -1) {
+            indexT2 = (tbtn1.isSelected()) ? index : indexT2;
             Record record = qFurndet2a.get(index);
             int pk = record.getInt(eFurndet.pk);
             qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_pk, "=", pk, "and", eFurndet.id, "!=", eFurndet.furndet_pk);
@@ -521,11 +528,16 @@ public class Furniturs extends javax.swing.JFrame {
                 int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0, 0};
 
-                if (qFurnpar2.get(UGui.getIndexRec(tab6), eFurnpar2.groups_id) == null) {
-                    new ParName(this, listenerPar2, eParams.furn, part[level]);
+                //Record furnpar2Rec = qFurnpar2.get(UGui.getIndexRec(tab6));
+                if (furndetRec.get(eFurndet.furniture_id2) != null || furndetRec.getInt(eFurndet.pk) < 0) {
+                    new ParName(this, listenerPar2, eParams.furn, 24000);
                 } else {
-                    int groupsID = qFurnpar2.getAs(UGui.getIndexRec(tab6), eFurnpar2.groups_id);
-                    new ParName(this, groupsID, listenerPar2, eParams.furn, part[level]);
+                    if (qFurnpar2.get(UGui.getIndexRec(tab6), eFurnpar2.groups_id) == null) {
+                        new ParName(this, listenerPar2, eParams.furn, part[level]);
+                    } else {
+                        int groupsID = qFurnpar2.getAs(UGui.getIndexRec(tab6), eFurnpar2.groups_id);
+                        new ParName(this, groupsID, listenerPar2, eParams.furn, part[level]);
+                    }
                 }
             }
         });
@@ -1621,8 +1633,8 @@ public class Furniturs extends javax.swing.JFrame {
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         if (tbtn1.isSelected()) {
-            UGui.setSelectedIndex(tab1, indexTab1);
-            Rectangle cellRect = tab1.getCellRect(indexTab1, 0, false);
+            UGui.setSelectedIndex(tab1, indexT1);
+            Rectangle cellRect = tab1.getCellRect(indexT1, 0, false);
             tab1.scrollRectToVisible(cellRect);
         } else {
             UGui.setSelectedRow(tab1);
