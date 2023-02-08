@@ -81,9 +81,8 @@ public class Furniturs extends javax.swing.JFrame {
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
-    private JTable tab2act = null; //активная таблица спецификации
+    private JTable tab2X = null; //активная таблица спецификации
     private int indexT1 = 0;
-    private int indexT2 = 0;
 
     public Furniturs() {
         this.subsql = null;
@@ -121,12 +120,12 @@ public class Furniturs extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        tab2act = tab2a;
+        tab2X = tab2a;
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
-        int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
+        int types = (btnTab1.isSelected()) ? 0 : (btnTab2.isSelected()) ? 1 : -1;
         if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
         } else {
@@ -372,7 +371,7 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            indexT1 = (tbtn1.isSelected()) ? index : indexT1;
+            indexT1 = (btnTab1.isSelected()) ? index : indexT1;
             Record record = qFurniture.table(eFurniture.up).get(index);
             Integer id = record.getInt(eFurniture.id);
 
@@ -382,9 +381,14 @@ public class Furniturs extends javax.swing.JFrame {
 
             qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_pk, "=", eFurndet.id);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab2a, indexT2);
-            Rectangle cellRect = tab2a.getCellRect(indexT2, 0, false);
-            tab2a.scrollRectToVisible(cellRect);
+
+//            if (btnTab1.isSelected()) {
+//                UGui.setSelectedIndex(tab2a, indexT2);
+//                Rectangle cellRect = tab2a.getCellRect(indexT2, 0, false);
+//                tab2a.scrollRectToVisible(cellRect);
+//            } else {
+            UGui.setSelectedRow(tab2a);
+//            }
         }
     }
 
@@ -392,15 +396,13 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.clearTable(tab2b, tab2c, tab5, tab6);
         int index = UGui.getIndexRec(tab2a);
         if (index != -1) {
-            indexT2 = (tbtn1.isSelected()) ? index : indexT2;
+            //indexT2 = (btnTab1.isSelected()) ? index : indexT2;
             Record record = qFurndet2a.get(index);
             int pk = record.getInt(eFurndet.pk);
 
             qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_pk, "=", pk, "and", eFurndet.id, "!=", eFurndet.furndet_pk);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2b);
 
-            //((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             int id = record.getInt(eFurndet.id);
             qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -421,7 +423,6 @@ public class Furniturs extends javax.swing.JFrame {
 
             qFurndet2c.select(eFurndet.up, "where", eFurndet.furndet_pk, "=", pk);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2c);
 
             Integer id = record.getInt(eFurndet.id);
             qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
@@ -536,9 +537,9 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab6, 0).addActionListener(event -> {
-            int index2 = UGui.getIndexRec(tab2act);
+            int index2 = UGui.getIndexRec(tab2X);
             if (index2 != -1) {
-                Query query = ((DefTableModel) tab2act.getModel()).getQuery();
+                Query query = ((DefTableModel) tab2X.getModel()).getQuery();
                 Record furndetRec = query.get(index2);
                 int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
@@ -656,11 +657,11 @@ public class Furniturs extends javax.swing.JFrame {
     public void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {
 
         if (qFurn.get(iFurn).getInt(eFurniture.types) == 0) {
-            tbtn1.setSelected(true);
+            btnTab1.setSelected(true);
         } else if (qFurn.get(iFurn).getInt(eFurniture.types) == 1) {
-            tbtn2.setSelected(true);
+            btnTab2.setSelected(true);
         } else {
-            tbtn3.setSelected(true);
+            btnTab3.setSelected(true);
         }
         tbtnAction(null);
 
@@ -745,9 +746,9 @@ public class Furniturs extends javax.swing.JFrame {
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan12 = new javax.swing.JPanel();
-        tbtn1 = new javax.swing.JToggleButton();
-        tbtn2 = new javax.swing.JToggleButton();
-        tbtn3 = new javax.swing.JToggleButton();
+        btnTab1 = new javax.swing.JToggleButton();
+        btnTab2 = new javax.swing.JToggleButton();
+        btnTab3 = new javax.swing.JToggleButton();
         btnSet = new javax.swing.JButton();
         pan5 = new javax.swing.JPanel();
         lab2 = new javax.swing.JLabel();
@@ -1051,48 +1052,48 @@ public class Furniturs extends javax.swing.JFrame {
         pan12.setPreferredSize(new java.awt.Dimension(556, 26));
         pan12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0));
 
-        group1.add(tbtn1);
-        tbtn1.setFont(frames.UGui.getFont(0,0));
-        tbtn1.setSelected(true);
-        tbtn1.setText("Основная фурнитура");
-        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn1.setMaximumSize(new java.awt.Dimension(180, 26));
-        tbtn1.setMinimumSize(new java.awt.Dimension(180, 26));
-        tbtn1.setPreferredSize(new java.awt.Dimension(180, 26));
-        tbtn1.addActionListener(new java.awt.event.ActionListener() {
+        group1.add(btnTab1);
+        btnTab1.setFont(frames.UGui.getFont(0,0));
+        btnTab1.setSelected(true);
+        btnTab1.setText("Основная фурнитура");
+        btnTab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab1.setMaximumSize(new java.awt.Dimension(180, 26));
+        btnTab1.setMinimumSize(new java.awt.Dimension(180, 26));
+        btnTab1.setPreferredSize(new java.awt.Dimension(180, 26));
+        btnTab1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        pan12.add(tbtn1);
+        pan12.add(btnTab1);
 
-        group1.add(tbtn2);
-        tbtn2.setFont(frames.UGui.getFont(0,0));
-        tbtn2.setText("Дополнительная фурнитура");
-        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn2.setMaximumSize(new java.awt.Dimension(180, 26));
-        tbtn2.setMinimumSize(new java.awt.Dimension(180, 26));
-        tbtn2.setPreferredSize(new java.awt.Dimension(180, 26));
-        tbtn2.addActionListener(new java.awt.event.ActionListener() {
+        group1.add(btnTab2);
+        btnTab2.setFont(frames.UGui.getFont(0,0));
+        btnTab2.setText("Дополнительная фурнитура");
+        btnTab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab2.setMaximumSize(new java.awt.Dimension(180, 26));
+        btnTab2.setMinimumSize(new java.awt.Dimension(180, 26));
+        btnTab2.setPreferredSize(new java.awt.Dimension(180, 26));
+        btnTab2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        pan12.add(tbtn2);
+        pan12.add(btnTab2);
 
-        group1.add(tbtn3);
-        tbtn3.setFont(frames.UGui.getFont(0,0));
-        tbtn3.setText("Список наборов");
-        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tbtn3.setMaximumSize(new java.awt.Dimension(180, 26));
-        tbtn3.setMinimumSize(new java.awt.Dimension(180, 26));
-        tbtn3.setPreferredSize(new java.awt.Dimension(180, 26));
-        tbtn3.addActionListener(new java.awt.event.ActionListener() {
+        group1.add(btnTab3);
+        btnTab3.setFont(frames.UGui.getFont(0,0));
+        btnTab3.setText("Список наборов");
+        btnTab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab3.setMaximumSize(new java.awt.Dimension(180, 26));
+        btnTab3.setMinimumSize(new java.awt.Dimension(180, 26));
+        btnTab3.setPreferredSize(new java.awt.Dimension(180, 26));
+        btnTab3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbtnAction(evt);
             }
         });
-        pan12.add(tbtn3);
+        pan12.add(btnTab3);
 
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         btnSet.setToolTipText(bundle.getString("Выбрать список")); // NOI18N
@@ -1448,7 +1449,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2act, tab3, tab4, tab5, tab6);
+        UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int indexTab1 = UGui.getIndexRec(tab1);
         int indexTab2a = UGui.getIndexRec(tab2a);
@@ -1500,8 +1501,8 @@ public class Furniturs extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eFurniture.up, (record) -> {
-                int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
-                record.setDev(eFurniture.name, (tbtn1.isSelected()) ? "Осн.фурнитура" : (tbtn2.isSelected()) ? "Доп.фурнитура" : "Набор для фурнитуры");
+                int types = (btnTab1.isSelected()) ? 0 : (btnTab2.isSelected()) ? 1 : -1;
+                record.setDev(eFurniture.name, (btnTab1.isSelected()) ? "Осн.фурнитура" : (btnTab2.isSelected()) ? "Доп.фурнитура" : "Набор для фурнитуры");
                 record.set(eFurniture.types, types);
                 List.of(eFurniture.max_height, eFurniture.max_width, eFurniture.max_p2).forEach(field -> record.set(field, 3000));
                 record.set(eFurniture.max_weight, 300);
@@ -1571,11 +1572,11 @@ public class Furniturs extends javax.swing.JFrame {
                 });
             }
         } else if (tab6.getBorder() != null) {
-            Object name = tab2act.getName();
-            Query query = ((DefTableModel) tab2act.getModel()).getQuery();
-            if (UGui.getIndexRec(tab2act) != -1) {
+            Object name = tab2X.getName();
+            Query query = ((DefTableModel) tab2X.getModel()).getQuery();
+            if (UGui.getIndexRec(tab2X) != -1) {
                 UGui.insertRecordCur(tab6, eFurnpar2.up, (record) -> {
-                    int id = query.getAs(UGui.getIndexRec(tab2act), eFurndet.id);
+                    int id = query.getAs(UGui.getIndexRec(tab2X), eFurndet.id);
                     record.set(eFurnpar2.furndet_id, id);
                 });
             }
@@ -1597,23 +1598,23 @@ public class Furniturs extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.setSelectionBackground(table, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        UGui.updateBorderAndSql(table, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)); 
+        //UGui.setSelectionBackground(table, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         btnClone.setEnabled(false);
         btnSet.setEnabled(false);
         if (table == tab1) {
             btnClone.setEnabled(true);
         } else if (table == tab2a) {
             btnClone.setEnabled(true);
-            tab2act = tab2a;
+            tab2X = tab2a;
             btnSet.setEnabled(true);
             selectionTab2a(null);
         } else if (table == tab2b) {
-            tab2act = tab2b;
+            tab2X = tab2b;
             btnSet.setEnabled(true);
             selectionTab2b(null);
         } else if (table == tab2c) {
-            tab2act = tab2c;
+            tab2X = tab2c;
             btnSet.setEnabled(true);
             selectionTab2c(null);
         }
@@ -1632,7 +1633,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
-
+        System.out.println("frames.Furniturs.tbtnAction()");
         JTable table = null;
         if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             table = tab2a;
@@ -1648,7 +1649,7 @@ public class Furniturs extends javax.swing.JFrame {
         loadingData();
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        if (tbtn1.isSelected()) {
+        if (btnTab1.isSelected()) {
             UGui.setSelectedIndex(tab1, indexT1);
             Rectangle cellRect = tab1.getCellRect(indexT1, 0, false);
             tab1.scrollRectToVisible(cellRect);
@@ -1657,7 +1658,8 @@ public class Furniturs extends javax.swing.JFrame {
         }
 
         //Если переход на набор, сразу ищем его
-        if (furnitureId != null && tbtn3.isSelected()) {
+        if (btnTab3.isSelected() && furnitureId != null) {
+
             for (int index2 = 0; index2 < qFurniture.size(); ++index2) {
                 Record record = qFurniture.get(index2);
                 if (record.getInt(eFurniture.id) == furnitureId) {
@@ -1931,6 +1933,9 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSet;
+    private javax.swing.JToggleButton btnTab1;
+    private javax.swing.JToggleButton btnTab2;
+    private javax.swing.JToggleButton btnTab3;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
     private javax.swing.ButtonGroup group1;
@@ -1966,9 +1971,6 @@ public class Furniturs extends javax.swing.JFrame {
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab6;
     private javax.swing.JTabbedPane tabb1;
-    private javax.swing.JToggleButton tbtn1;
-    private javax.swing.JToggleButton tbtn2;
-    private javax.swing.JToggleButton tbtn3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
@@ -2026,18 +2028,14 @@ public class Furniturs extends javax.swing.JFrame {
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-
+                List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
                 if (tabb1.getSelectedIndex() == 0) {
-                    UGui.updateBorderAndSql(tab2a, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-                    selectionTab2a(null);
-
-                } else if (tabb1.getSelectedIndex() == 1) {
-                    UGui.updateBorderAndSql(tab2b, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-                    selectionTab2b(null);
-
-                } else if (tabb1.getSelectedIndex() == 2) {
-                    UGui.updateBorderAndSql(tab2c, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-                    selectionTab2c(null);
+                    
+                    if (qFurndet2b.isEmpty()) {
+                        selectionTab2a(null); 
+                    } else {
+                        selectionTab2b(null);
+                    }
                 }
             }
         });

@@ -451,11 +451,6 @@ public class UGui {
         }
     }
 
-    public static void setSelectionBackground(JTable master, JTable... tables) {
-        List.of(tables).forEach(tab -> tab.setSelectionBackground(DefTableModel.selectBackgroundDef));
-        master.setSelectionBackground(DefTableModel.selectBackgroundAct);
-    }
-
     //Установить пустой бордер
     public static void createEmptyBorder(final Container c) {
         List<Component> comps = getAllComponents(c);
