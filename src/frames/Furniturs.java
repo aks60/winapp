@@ -1502,7 +1502,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eFurniture.up, (record) -> {
                 int types = (btnTab1.isSelected()) ? 0 : (btnTab2.isSelected()) ? 1 : -1;
-                record.setDev(eFurniture.name, (btnTab1.isSelected()) ? "Осн.фурнитура" : (btnTab2.isSelected()) ? "Доп.фурнитура" : "Набор для фурнитуры");
+                record.setDev(eFurniture.name, (btnTab1.isSelected()) ? "Осн. фурн." : (btnTab2.isSelected()) ? "Доп. фурн." : "Набор фурн.");
                 record.set(eFurniture.types, types);
                 List.of(eFurniture.max_height, eFurniture.max_width, eFurniture.max_p2).forEach(field -> record.set(field, 3000));
                 record.set(eFurniture.max_weight, 300);
@@ -1743,13 +1743,13 @@ public class Furniturs extends javax.swing.JFrame {
                 bufferPath.delete(0, bufferPath.length());
             }
         }
+        Object[] pathArr = pathList.stream().sorted().toArray();
         if (pathList.size() != 0) {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
             Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в ветках систем профилей", "Ветки систем профилей",
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/resource/img24/c066.gif")),
-                    pathList.toArray(), pathList.toArray()[0]);
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/resource/img24/c066.gif")), pathArr, pathArr[0]);
 
             if (result != null || result instanceof Integer) {
                 for (int i = 0; i < pathList.size(); ++i) {
@@ -2022,20 +2022,6 @@ public class Furniturs extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab3(event);
-                }
-            }
-        });
-        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-                List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-                if (tabb1.getSelectedIndex() == 0) {
-                    
-                    if (qFurndet2b.isEmpty()) {
-                        selectionTab2a(null); 
-                    } else {
-                        selectionTab2b(null);
-                    }
                 }
             }
         });

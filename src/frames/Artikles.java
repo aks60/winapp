@@ -719,7 +719,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(jSeparator1);
 
         groups1_id.setFont(frames.UGui.getFont(1,0));
-        groups1_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        groups1_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c085.gif"))); // NOI18N
         groups1_id.setText("Наценки");
         groups1_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -729,7 +729,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups1_id);
 
         groups2_id.setFont(frames.UGui.getFont(1,0));
-        groups2_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        groups2_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c085.gif"))); // NOI18N
         groups2_id.setText("Скидки");
         groups2_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -739,7 +739,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups2_id);
 
         groups3_id.setFont(frames.UGui.getFont(1,0));
-        groups3_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        groups3_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c085.gif"))); // NOI18N
         groups3_id.setText("Группы");
         groups3_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -749,7 +749,7 @@ public class Artikles extends javax.swing.JFrame {
         ppmGrid.add(groups3_id);
 
         groups4_id.setFont(frames.UGui.getFont(1,0));
-        groups4_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        groups4_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c085.gif"))); // NOI18N
         groups4_id.setText("Серии");
         groups4_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

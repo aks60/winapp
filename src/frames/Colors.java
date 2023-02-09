@@ -28,6 +28,7 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 import javax.swing.JOptionPane;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
@@ -478,13 +479,13 @@ public class Colors extends javax.swing.JFrame {
 
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordCur(tab2, eColor.up, (record) -> {
+                Record groupRec = qGroups.get(UGui.getIndexRec(tab1));
                 Integer max = (qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000).count() > 0)
                         ? qColor.stream().filter(rec -> rec.getInt(eColor.code) > 1000)
                                 .mapToInt(rec -> Integer.valueOf(rec.getStr(eColor.code)
                                 .substring(rec.getStr(eColor.code).length() - 3))).max().getAsInt() : 0;
                 int groupArr[] = qGroups.stream().mapToInt(rec -> rec.getInt(eGroups.id)).sorted().toArray();
-                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(record.getInt(eGroups.id));
-                Record groupRec = qGroups.get(UGui.getIndexRec(tab1));
+                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupRec.getInt(eGroups.id));                
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
                 record.setNo(eColor.code, ++index * 1000 + max + 1);
                 record.setDev(eColor.name, "Цвет");

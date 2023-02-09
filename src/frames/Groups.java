@@ -768,7 +768,7 @@ public class Groups extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
-                record.set(eGroups.val, 0);
+                record.set(eGroups.val, 1);
                 record.setDev(eGroups.name, "Наценка.групп.МЦ");
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });

@@ -42,7 +42,7 @@ public class ParColor extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
-    
+
     public ParColor(java.awt.Frame parent, ListenerRecord listener, int artiklID, int colorID) {
         super(parent, true);
         initComponents();
@@ -60,14 +60,14 @@ public class ParColor extends javax.swing.JDialog {
         qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id);
 
         Record color1 = eColor.up.newRecord();
-        color1.set(eColor.groups_id, UseColor.automatic[0]);
-        color1.set(eColor.id, UseColor.automatic[0]);
-        color1.set(eColor.name, UseColor.automatic[1]);
+        color1.setNo(eColor.groups_id, UseColor.automatic[0]);
+        color1.setNo(eColor.code, UseColor.automatic[0]);
+        color1.setNo(eColor.name, UseColor.automatic[1]);
         qColor.add(color1);
         Record color2 = eColor.up.newRecord();
-        color2.set(eColor.groups_id, UseColor.precision[0]);
-        color2.set(eColor.id, UseColor.precision[0]);
-        color2.set(eColor.name, UseColor.precision[1]);
+        color2.setNo(eColor.groups_id, UseColor.precision[0]);
+        color2.setNo(eColor.code, UseColor.precision[0]);
+        color2.setNo(eColor.name, UseColor.precision[1]);
         qColor.add(color2);
 
         for (Record record : qArtdet) {
@@ -80,11 +80,14 @@ public class ParColor extends javax.swing.JDialog {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qColor, eColor.groups_id, eColor.id, eColor.name) {
+        new DefTableModel(tab1, qColor, eColor.groups_id, eColor.code, eColor.name, eColor.id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 if (col == 0) {
                     Record colorRec = qColor.get(row);
+                    if (colorRec.getInt(eColor.groups_id) == 0 || colorRec.getInt(eColor.groups_id) == 100000) {
+                        return "Автоподбор";
+                    }
                     Record groupRec = qGroupsGrp.find(colorRec.get(eColor.groups_id), eGroups.id);
                     return groupRec.get(eGroups.name);
                 }
@@ -102,11 +105,11 @@ public class ParColor extends javax.swing.JDialog {
             }
         });
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        if(colorID > 0) {
+        if (colorID > 0) {
             UGui.setSelectedKey(tab1, colorID);
         } else {
             UGui.setSelectedRow(tab1);
-        }        
+        }
         UGui.setSelectedRow(tab2);
     }
 
@@ -253,16 +256,16 @@ public class ParColor extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11", "111", "111111111"},
-                {"22", "222", "222222222"},
-                {"33", "333", "333333333"}
+                {"11", "111", "111111111", null},
+                {"22", "222", "222222222", null},
+                {"33", "333", "333333333", null}
             },
             new String [] {
-                "Группа", "Код", "Название"
+                "Группа", "Код", "Название", "id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -281,6 +284,8 @@ public class ParColor extends javax.swing.JDialog {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tab1.getColumnModel().getColumn(3).setResizable(false);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(0);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -355,9 +360,9 @@ public class ParColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        if (btnCard1.isSelected() == true) {          
+        if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 3));
             record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 2));
             listener.action(record);
         } else {
