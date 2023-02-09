@@ -33,7 +33,7 @@ public class DicArtikl extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, int... level) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, boolean del, int... level) {
         super(parent, true);
         initComponents();
         initElements();
@@ -41,11 +41,11 @@ public class DicArtikl extends javax.swing.JDialog {
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
         loadingModel();
-        btnRemove.setVisible(false);
+        btnRemove.setVisible(del);
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, int furnId, int level1, int level2) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, boolean del, int furnId, int level1, int level2) {
         super(parent, true);
         initComponents();
         initElements();
@@ -55,7 +55,7 @@ public class DicArtikl extends javax.swing.JDialog {
         qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);
         this.listener = listenet;
         loadingModel();
-        btnRemove.setVisible(false);
+        btnRemove.setVisible(del);
         setVisible(true);
     }
 

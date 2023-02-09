@@ -275,12 +275,12 @@ public class Elements extends javax.swing.JFrame {
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-            new DicArtikl(this, listenerArtikl, level);
+            new DicArtikl(this, listenerArtikl, false, level);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-            new DicArtikl(this, listenerArtikl, level);
+            new DicArtikl(this, listenerArtikl, false, level);
         });
 
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {

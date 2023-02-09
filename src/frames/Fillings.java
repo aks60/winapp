@@ -309,11 +309,11 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, false, 1);
         });
 
         UGui.buttonCellEditor(tab5, 1).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, false, 1);
         });
     }
 

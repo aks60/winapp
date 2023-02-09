@@ -555,13 +555,13 @@ public class Artikles extends javax.swing.JFrame {
         lab24 = new javax.swing.JLabel();
         txt12 = new javax.swing.JTextField();
         filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab26 = new javax.swing.JLabel();
-        txt14 = new javax.swing.JTextField();
-        pan96 = new javax.swing.JPanel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab23 = new javax.swing.JLabel();
         txt11 = new javax.swing.JTextField();
         btn11 = new javax.swing.JButton();
+        pan96 = new javax.swing.JPanel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab26 = new javax.swing.JLabel();
+        txt14 = new javax.swing.JTextField();
         pan94 = new javax.swing.JPanel();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab34 = new javax.swing.JLabel();
@@ -1326,40 +1326,19 @@ public class Artikles extends javax.swing.JFrame {
         pan101.add(txt12);
         pan101.add(filler33);
 
-        lab26.setFont(frames.UGui.getFont(0,0));
-        lab26.setText("Техн-ий код");
-        lab26.setToolTipText("");
-        lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab26.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab26.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab26.setPreferredSize(new java.awt.Dimension(104, 18));
-        pan101.add(lab26);
-
-        txt14.setFont(frames.UGui.getFont(0,0));
-        txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt14.setPreferredSize(new java.awt.Dimension(68, 18));
-        pan101.add(txt14);
-
-        pan2.add(pan101);
-
-        pan96.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan96.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan96.add(filler11);
-
         lab23.setFont(frames.UGui.getFont(0,0));
         lab23.setText("Аналог профиля");
         lab23.setToolTipText("");
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab23.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab23.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab23.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan96.add(lab23);
+        lab23.setPreferredSize(new java.awt.Dimension(84, 18));
+        pan101.add(lab23);
 
         txt11.setEditable(false);
         txt11.setFont(frames.UGui.getFont(0,0));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt11.setPreferredSize(new java.awt.Dimension(204, 18));
-        pan96.add(txt11);
+        pan101.add(txt11);
 
         btn11.setText("...");
         btn11.setToolTipText(bundle.getString("Выбрать")); // NOI18N
@@ -1371,7 +1350,27 @@ public class Artikles extends javax.swing.JFrame {
                 btn11(evt);
             }
         });
-        pan96.add(btn11);
+        pan101.add(btn11);
+
+        pan2.add(pan101);
+
+        pan96.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan96.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan96.add(filler11);
+
+        lab26.setFont(frames.UGui.getFont(0,0));
+        lab26.setText("Техн-ий код");
+        lab26.setToolTipText("");
+        lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab26.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab26.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab26.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan96.add(lab26);
+
+        txt14.setFont(frames.UGui.getFont(0,0));
+        txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt14.setPreferredSize(new java.awt.Dimension(230, 18));
+        pan96.add(txt14);
 
         pan2.add(pan96);
 
@@ -2368,10 +2367,10 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Record record = qArtikl.get(UGui.getIndexRec(tab1));
         TreePath[] node = tree.getSelectionPaths(); //запомним path для nuni
         loadingData();
         tree.setSelectionPaths(node);
+        rsvArtikl.load();
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -2402,7 +2401,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
-        new DicArtikl(this, listenerAnalog, 1);
+        new DicArtikl(this, listenerAnalog, true, 1);
     }//GEN-LAST:event_btn11
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action

@@ -289,11 +289,11 @@ public class Joinings extends javax.swing.JFrame {
 
     public void listenerAdd() {
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, false, 1);
         });
 
         UGui.buttonCellEditor(tab1, 1).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, false, 1);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
