@@ -497,6 +497,7 @@ public class Artikles extends javax.swing.JFrame {
         btnTest = new javax.swing.JButton();
         btnClone = new javax.swing.JButton();
         center = new javax.swing.JPanel();
+        pan9 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -911,7 +912,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 627, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 705, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -943,7 +944,12 @@ public class Artikles extends javax.swing.JFrame {
 
         center.setMinimumSize(new java.awt.Dimension(0, 0));
         center.setPreferredSize(new java.awt.Dimension(900, 550));
-        center.setLayout(new java.awt.BorderLayout());
+        center.setLayout(new javax.swing.BoxLayout(center, javax.swing.BoxLayout.PAGE_AXIS));
+
+        pan9.setMaximumSize(new java.awt.Dimension(2147483647, 900));
+        pan9.setMinimumSize(new java.awt.Dimension(800, 34));
+        pan9.setPreferredSize(new java.awt.Dimension(800, 900));
+        pan9.setLayout(new java.awt.BorderLayout());
 
         pan4.setPreferredSize(new java.awt.Dimension(200, 500));
         pan4.setLayout(new java.awt.BorderLayout());
@@ -966,7 +972,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan4.add(scrTree, java.awt.BorderLayout.CENTER);
 
-        center.add(pan4, java.awt.BorderLayout.WEST);
+        pan9.add(pan4, java.awt.BorderLayout.WEST);
 
         pan5.setPreferredSize(new java.awt.Dimension(280, 500));
         pan5.setLayout(new java.awt.BorderLayout());
@@ -1034,7 +1040,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
 
-        center.add(pan5, java.awt.BorderLayout.CENTER);
+        pan9.add(pan5, java.awt.BorderLayout.CENTER);
 
         pan6.setPreferredSize(new java.awt.Dimension(360, 500));
         pan6.setLayout(new java.awt.CardLayout());
@@ -1332,12 +1338,14 @@ public class Artikles extends javax.swing.JFrame {
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab23.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab23.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab23.setPreferredSize(new java.awt.Dimension(84, 18));
+        lab23.setPreferredSize(new java.awt.Dimension(104, 18));
         pan101.add(lab23);
 
         txt11.setEditable(false);
         txt11.setFont(frames.UGui.getFont(0,0));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt11.setMinimumSize(new java.awt.Dimension(63, 18));
+        txt11.setPreferredSize(new java.awt.Dimension(44, 18));
         pan101.add(txt11);
 
         btn11.setText("...");
@@ -2191,9 +2199,12 @@ public class Artikles extends javax.swing.JFrame {
 
         pan6.add(pan8, "pan8");
 
-        center.add(pan6, java.awt.BorderLayout.EAST);
+        pan9.add(pan6, java.awt.BorderLayout.EAST);
 
-        pan3.setPreferredSize(new java.awt.Dimension(800, 130));
+        center.add(pan9);
+
+        pan3.setMaximumSize(new java.awt.Dimension(2147483647, 300));
+        pan3.setPreferredSize(new java.awt.Dimension(800, 300));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Текстуры артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -2257,7 +2268,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        center.add(pan3, java.awt.BorderLayout.SOUTH);
+        center.add(pan3);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
@@ -2753,6 +2764,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
+    private javax.swing.JPanel pan9;
     private javax.swing.JPanel pan91;
     private javax.swing.JPanel pan92;
     private javax.swing.JPanel pan93;
