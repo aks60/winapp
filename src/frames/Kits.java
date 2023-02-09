@@ -298,10 +298,10 @@ public class Kits extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
         west = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         centr = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -458,8 +458,44 @@ public class Kits extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         west.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        west.setPreferredSize(new java.awt.Dimension(420, 10));
+        west.setPreferredSize(new java.awt.Dimension(440, 10));
         west.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " ", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr1.setPreferredSize(new java.awt.Dimension(140, 404));
+
+        tab1.setFont(frames.UGui.getFont(0,0));
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"wwwwwww"},
+                {"ddddddddd"}
+            },
+            new String [] {
+                "Категория"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Kits.this.mousePressed(evt);
+            }
+        });
+        scr1.setViewportView(tab1);
+
+        west.add(scr1, java.awt.BorderLayout.WEST);
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список комплектов", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
 
@@ -506,42 +542,6 @@ public class Kits extends javax.swing.JFrame {
         }
 
         west.add(scr2, java.awt.BorderLayout.CENTER);
-
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " ", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr1.setPreferredSize(new java.awt.Dimension(120, 404));
-
-        tab1.setFont(frames.UGui.getFont(0,0));
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"wwwwwww"},
-                {"ddddddddd"}
-            },
-            new String [] {
-                "Категория"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setName("tab1"); // NOI18N
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Kits.this.mousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tab1);
-
-        west.add(scr1, java.awt.BorderLayout.WEST);
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 

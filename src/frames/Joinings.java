@@ -541,6 +541,7 @@ public class Joinings extends javax.swing.JFrame {
         btnTest = new javax.swing.JButton();
         btnClone = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -550,7 +551,7 @@ public class Joinings extends javax.swing.JFrame {
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         pan5 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        pan3 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         scr5 = new javax.swing.JScrollPane();
@@ -728,7 +729,7 @@ public class Joinings extends javax.swing.JFrame {
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 536, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 511, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -759,8 +760,13 @@ public class Joinings extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         centr.setPreferredSize(new java.awt.Dimension(800, 500));
-        centr.setLayout(new java.awt.BorderLayout());
+        centr.setLayout(new javax.swing.BoxLayout(centr, javax.swing.BoxLayout.PAGE_AXIS));
 
+        pan2.setMaximumSize(new java.awt.Dimension(2000, 800));
+        pan2.setPreferredSize(new java.awt.Dimension(800, 400));
+        pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.LINE_AXIS));
+
+        pan4.setMaximumSize(new java.awt.Dimension(2000, 800));
         pan4.setPreferredSize(new java.awt.Dimension(600, 300));
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -816,9 +822,10 @@ public class Joinings extends javax.swing.JFrame {
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan4, java.awt.BorderLayout.CENTER);
+        pan2.add(pan4);
 
-        pan1.setPreferredSize(new java.awt.Dimension(300, 330));
+        pan1.setMaximumSize(new java.awt.Dimension(600, 800));
+        pan1.setPreferredSize(new java.awt.Dimension(260, 300));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Варианты соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -903,16 +910,20 @@ public class Joinings extends javax.swing.JFrame {
 
         pan1.add(scr3);
 
-        centr.add(pan1, java.awt.BorderLayout.EAST);
+        pan2.add(pan1);
 
+        centr.add(pan2);
+
+        pan5.setMaximumSize(new java.awt.Dimension(2000, 300));
         pan5.setPreferredSize(new java.awt.Dimension(800, 200));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(654, 234));
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        pan3.setPreferredSize(new java.awt.Dimension(654, 234));
+        pan3.setLayout(new javax.swing.BoxLayout(pan3, javax.swing.BoxLayout.LINE_AXIS));
 
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr4.setPreferredSize(new java.awt.Dimension(454, 234));
+        scr4.setMaximumSize(new java.awt.Dimension(2000, 800));
+        scr4.setPreferredSize(new java.awt.Dimension(600, 300));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -962,10 +973,11 @@ public class Joinings extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
-        jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
+        pan3.add(scr4);
 
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr5.setPreferredSize(new java.awt.Dimension(300, 234));
+        scr5.setMaximumSize(new java.awt.Dimension(600, 800));
+        scr5.setPreferredSize(new java.awt.Dimension(260, 300));
 
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
@@ -994,11 +1006,11 @@ public class Joinings extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
-        jPanel3.add(scr5, java.awt.BorderLayout.EAST);
+        pan3.add(scr5);
 
-        pan5.add(jPanel3, java.awt.BorderLayout.CENTER);
+        pan5.add(pan3, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan5, java.awt.BorderLayout.SOUTH);
+        centr.add(pan5);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -1212,11 +1224,12 @@ public class Joinings extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem mDelit;
     private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPopupMenu ppmCrud;

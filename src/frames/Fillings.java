@@ -637,13 +637,15 @@ public class Fillings extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         centr.setPreferredSize(new java.awt.Dimension(900, 500));
-        centr.setLayout(new java.awt.BorderLayout());
+        centr.setLayout(new javax.swing.BoxLayout(centr, javax.swing.BoxLayout.PAGE_AXIS));
 
+        pan1.setMaximumSize(new java.awt.Dimension(32767, 32767));
         pan1.setPreferredSize(new java.awt.Dimension(1000, 200));
-        pan1.setLayout(new java.awt.BorderLayout());
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
+        scr1.setMaximumSize(new java.awt.Dimension(2000, 32767));
+        scr1.setPreferredSize(new java.awt.Dimension(600, 200));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -692,10 +694,11 @@ public class Fillings extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
-        pan1.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1);
 
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr3.setPreferredSize(new java.awt.Dimension(300, 200));
+        scr3.setMaximumSize(new java.awt.Dimension(600, 32767));
+        scr3.setPreferredSize(new java.awt.Dimension(260, 200));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -724,18 +727,20 @@ public class Fillings extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        pan1.add(scr3, java.awt.BorderLayout.EAST);
+        pan1.add(scr3);
 
-        centr.add(pan1, java.awt.BorderLayout.CENTER);
+        centr.add(pan1);
 
         tabb1.setToolTipText("");
         tabb1.setFont(frames.UGui.getFont(1,0));
-        tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
+        tabb1.setPreferredSize(new java.awt.Dimension(900, 300));
 
-        pan4.setLayout(new java.awt.BorderLayout());
+        pan4.setPreferredSize(new java.awt.Dimension(850, 300));
+        pan4.setLayout(new javax.swing.BoxLayout(pan4, javax.swing.BoxLayout.LINE_AXIS));
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr2.setPreferredSize(new java.awt.Dimension(500, 300));
+        scr2.setMaximumSize(new java.awt.Dimension(2000, 32767));
+        scr2.setPreferredSize(new java.awt.Dimension(600, 300));
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -785,10 +790,11 @@ public class Fillings extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
-        pan4.add(scr2, java.awt.BorderLayout.CENTER);
+        pan4.add(scr2);
 
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr4.setPreferredSize(new java.awt.Dimension(300, 300));
+        scr4.setMaximumSize(new java.awt.Dimension(600, 32767));
+        scr4.setPreferredSize(new java.awt.Dimension(260, 300));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -817,11 +823,11 @@ public class Fillings extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        pan4.add(scr4, java.awt.BorderLayout.EAST);
+        pan4.add(scr4);
 
         tabb1.addTab("Детализация", pan4);
 
-        pan3.setPreferredSize(new java.awt.Dimension(454, 304));
+        pan3.setPreferredSize(new java.awt.Dimension(860, 304));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Профили в группе заполнения", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -881,7 +887,7 @@ public class Fillings extends javax.swing.JFrame {
 
         tabb1.addTab("Профили в группе", pan3);
 
-        centr.add(tabb1, java.awt.BorderLayout.SOUTH);
+        centr.add(tabb1);
         tabb1.getAccessibleContext().setAccessibleName("");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);

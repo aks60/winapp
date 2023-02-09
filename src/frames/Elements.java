@@ -516,17 +516,19 @@ public class Elements extends javax.swing.JFrame {
         btnMove = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
-        scr4 = new javax.swing.JScrollPane();
-        tab4 = new javax.swing.JTable();
+        pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        pan5 = new javax.swing.JPanel();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         itCateg1.setText("ПРОФИЛИ");
@@ -787,8 +789,45 @@ public class Elements extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(758, 460));
         centr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(847, 320));
-        pan1.setLayout(new java.awt.BorderLayout());
+        pan1.setPreferredSize(new java.awt.Dimension(800, 360));
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
+
+        pan4.setMaximumSize(new java.awt.Dimension(2000, 800));
+        pan4.setPreferredSize(new java.awt.Dimension(500, 400));
+        pan4.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " "));
+        scr1.setPreferredSize(new java.awt.Dimension(120, 404));
+
+        tab1.setFont(frames.UGui.getFont(0,0));
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"wwwwwww"},
+                {"ddddddddd"}
+            },
+            new String [] {
+                "Категория"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Elements.this.mousePressed(evt);
+            }
+        });
+        scr1.setViewportView(tab1);
+
+        pan4.add(scr1, java.awt.BorderLayout.WEST);
 
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
@@ -847,7 +886,13 @@ public class Elements extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(9).setMaxWidth(60);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
+        pan4.add(scr2, java.awt.BorderLayout.CENTER);
+
+        pan1.add(pan4);
+
+        pan5.setMaximumSize(new java.awt.Dimension(600, 800));
+        pan5.setPreferredSize(new java.awt.Dimension(240, 400));
+        pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
         scr4.setPreferredSize(new java.awt.Dimension(260, 320));
@@ -879,81 +924,18 @@ public class Elements extends javax.swing.JFrame {
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        pan1.add(scr4, java.awt.BorderLayout.EAST);
+        pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), " "));
-        scr1.setPreferredSize(new java.awt.Dimension(120, 404));
-
-        tab1.setFont(frames.UGui.getFont(0,0));
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"wwwwwww"},
-                {"ddddddddd"}
-            },
-            new String [] {
-                "Категория"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setName("tab1"); // NOI18N
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Elements.this.mousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tab1);
-
-        pan1.add(scr1, java.awt.BorderLayout.WEST);
+        pan1.add(pan5);
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
-        pan2.setLayout(new java.awt.BorderLayout());
-
-        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr5.setPreferredSize(new java.awt.Dimension(260, 204));
-
-        tab5.setFont(frames.UGui.getFont(0,0));
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1111", "111"},
-                {"2222", "222"}
-            },
-            new String [] {
-                "Параметр", "Значение"
-            }
-        ));
-        tab5.setFillsViewportHeight(true);
-        tab5.setMinimumSize(new java.awt.Dimension(6, 64));
-        tab5.setName("tab5"); // NOI18N
-        tab5.setPreferredSize(new java.awt.Dimension(0, 64));
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Elements.this.mousePressed(evt);
-            }
-        });
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(220);
-            tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
-        }
-
-        pan2.add(scr5, java.awt.BorderLayout.EAST);
+        pan2.setPreferredSize(new java.awt.Dimension(800, 200));
+        pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.LINE_AXIS));
 
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Детализация вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
-        scr3.setPreferredSize(new java.awt.Dimension(454, 204));
+        scr3.setMaximumSize(new java.awt.Dimension(2000, 800));
+        scr3.setPreferredSize(new java.awt.Dimension(500, 2044));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -1003,7 +985,42 @@ public class Elements extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
-        pan2.add(scr3, java.awt.BorderLayout.CENTER);
+        pan2.add(scr3);
+
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr5.setMaximumSize(new java.awt.Dimension(600, 800));
+        scr5.setPreferredSize(new java.awt.Dimension(240, 200));
+
+        tab5.setFont(frames.UGui.getFont(0,0));
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1111", "111"},
+                {"2222", "222"}
+            },
+            new String [] {
+                "Параметр", "Значение"
+            }
+        ));
+        tab5.setFillsViewportHeight(true);
+        tab5.setMinimumSize(new java.awt.Dimension(6, 64));
+        tab5.setName("tab5"); // NOI18N
+        tab5.setPreferredSize(new java.awt.Dimension(0, 64));
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Elements.this.mousePressed(evt);
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
+        }
+
+        pan2.add(scr5);
 
         centr.add(pan2, java.awt.BorderLayout.SOUTH);
 
@@ -1332,6 +1349,8 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
     private javax.swing.JPopupMenu ppmCateg;
     private javax.swing.JPopupMenu ppmCrud;
     private javax.swing.JScrollPane scr1;
