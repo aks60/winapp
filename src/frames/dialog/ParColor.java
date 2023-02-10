@@ -61,11 +61,13 @@ public class ParColor extends javax.swing.JDialog {
 
         Record color1 = eColor.up.newRecord();
         color1.setNo(eColor.groups_id, UseColor.automatic[0]);
+        color1.setNo(eColor.id, UseColor.automatic[0]);
         color1.setNo(eColor.code, UseColor.automatic[0]);
         color1.setNo(eColor.name, UseColor.automatic[1]);
         qColor.add(color1);
         Record color2 = eColor.up.newRecord();
         color2.setNo(eColor.groups_id, UseColor.precision[0]);
+        color2.setNo(eColor.id, UseColor.precision[0]);
         color2.setNo(eColor.code, UseColor.precision[0]);
         color2.setNo(eColor.name, UseColor.precision[1]);
         qColor.add(color2);
@@ -361,10 +363,9 @@ public class ParColor extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
-            Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 3));
-            record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 2));
-            listener.action(record);
+            int index = UGui.getIndexRec(tab1);
+            Record record = qColor.get(index);
+            listener.action(qColor.get(index));
         } else {
             Record record = qGroupsMap.get(UGui.getIndexRec(tab2));
             listener.action(record);

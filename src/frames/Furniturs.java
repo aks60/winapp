@@ -181,9 +181,9 @@ public class Furniturs extends javax.swing.JFrame {
                     }
 
                     //Подбор текстуры
-                } else if (val != null && eFurndet.color_us == field) {
+                } else if (val != null && eFurndet.color_us == field) {                    
                     int types = Integer.valueOf(val.toString());
-                    types = types & 0x0000000f;
+                    types = types & 0x0000000f;                    
                     return UseColor.MANUAL.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
@@ -381,14 +381,7 @@ public class Furniturs extends javax.swing.JFrame {
 
             qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_pk, "=", eFurndet.id);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
-
-//            if (btnTab1.isSelected()) {
-//                UGui.setSelectedIndex(tab2a, indexT2);
-//                Rectangle cellRect = tab2a.getCellRect(indexT2, 0, false);
-//                tab2a.scrollRectToVisible(cellRect);
-//            } else {
             UGui.setSelectedRow(tab2a);
-//            }
         }
     }
 

@@ -855,17 +855,20 @@ public class UGui {
         UGui.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record elemdetRec = query.get(index);
-        int group = (eGroups.values().length == record.size()) ? record.getInt(eGroups.id) : record.getInt(0);
-        elemdetRec.set(color_fk, group);
-        if (group == 0 || group == 100000) {
+        Record detailRec = query.get(index);
+        int group = (eGroups.values().length == record.size()) ? record.getInt(eGroups.id) : record.getInt(eColor.id);
+        detailRec.set(color_fk, group);
+        
+        if (group == 0 || group == 100000) { //автополбор/точн.подбор
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
-            elemdetRec.set(color_us, val);
-        } else if (group > 0) {
-            elemdetRec.set(color_us, 0);
-        } else {
+            detailRec.set(color_us, val);
+            
+        } else if (group > 0) { //выбраны в ручную
+            detailRec.set(color_us, 0);
+            
+        } else { //параметры соответствия
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
-            elemdetRec.set(color_us, val);
+            detailRec.set(color_us, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
         UGui.setSelectedIndex(table, index);
