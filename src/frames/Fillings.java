@@ -639,8 +639,8 @@ public class Fillings extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(900, 500));
         centr.setLayout(new javax.swing.BoxLayout(centr, javax.swing.BoxLayout.PAGE_AXIS));
 
-        pan1.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        pan1.setPreferredSize(new java.awt.Dimension(1000, 200));
+        pan1.setMaximumSize(new java.awt.Dimension(2000, 800));
+        pan1.setPreferredSize(new java.awt.Dimension(1000, 300));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Список групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -733,6 +733,7 @@ public class Fillings extends javax.swing.JFrame {
 
         tabb1.setToolTipText("");
         tabb1.setFont(frames.UGui.getFont(1,0));
+        tabb1.setMaximumSize(new java.awt.Dimension(2000, 800));
         tabb1.setPreferredSize(new java.awt.Dimension(900, 300));
 
         pan4.setPreferredSize(new java.awt.Dimension(850, 300));

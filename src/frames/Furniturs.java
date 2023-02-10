@@ -1190,7 +1190,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         center.add(pan1);
 
-        pan2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        pan2.setMaximumSize(new java.awt.Dimension(2600, 800));
         pan2.setPreferredSize(new java.awt.Dimension(800, 300));
         pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.LINE_AXIS));
 

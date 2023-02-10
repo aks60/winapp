@@ -2571,7 +2571,7 @@ public class Artikles extends javax.swing.JFrame {
             artiklClon.setNo(eArtikl.id, artiklID);
             artiklClon.setNo(eArtikl.code, artiklClon.getStr(eArtikl.code) + "-клон");
             artiklClon.setNo(eArtikl.name, artiklClon.getStr(eArtikl.name) + "-клон");
-            qArtikl.add(index, artiklClon);
+            qArtikl.add(++index, artiklClon);
             qArtikl.insert(artiklClon);
             for (Record artdetRec : artdetList) {
                 artdetRec.setNo(eArtdet.up, Query.INS);

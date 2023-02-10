@@ -1355,7 +1355,7 @@ public class ParamList {
 
     public static Dictionary dic_ARTIKL_CODE = () -> {
         List list = new ArrayList();
-        new Query(eArtikl.code).select(eArtikl.up, "where", eArtikl.level1, "= 1", "order by", eArtikl.level2).forEach(rec -> list.add(rec.getStr(eArtikl.code)));
+        new Query(eArtikl.code).select(eArtikl.up, "where", eArtikl.level1, "= 1", "and", eArtikl.level2, "= 2 order by", eArtikl.level2).forEach(rec -> list.add(rec.getStr(eArtikl.code)));
         return list;
     };
     // </editor-fold>
