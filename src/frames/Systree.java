@@ -380,7 +380,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
-            Collections.sort(qSyspar2, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
+            Collections.sort(qSyspar2, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
+                    .compareTo(qGroups.find(o2.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)));
 
             loadingTab5();
 
@@ -398,7 +399,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 for (int i = 0; i < qSysprod.size(); ++i) {
                     if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
                         index = i;
-                        //tabb1.setSelectedIndex(4);
                         UGui.scrollRectToIndex(index, tab5);
                     }
                 }
@@ -439,7 +439,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                     qSyspar1.clear();
                     winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
+                    Collections.sort(qSyspar1, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
+                            .compareTo(qGroups.find(o2.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)));
                     ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                     //Рама, импост...
@@ -3410,6 +3411,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             sysTree.getCellEditor().stopCellEditing();
         }
         sysTree.setBorder(null);
+        if (table == tab4) {
+            UGui.setSelectedIndex(tab7, UGui.getIndexRec(tab4));
+        } else if (table == tab7) {
+            UGui.setSelectedIndex(tab4, UGui.getIndexRec(tab7));
+        }
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -3588,7 +3594,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         DefMutableTreeNode selectNodeSys = (DefMutableTreeNode) sysTree.getLastSelectedPathComponent();
-        float id1 = selectNodeSys.rec().getFloat(eSystree.id);       
+        float id1 = selectNodeSys.rec().getFloat(eSystree.id);
         DefMutableTreeNode selectNodeWin = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         float id2 = (selectNodeWin != null) ? selectNodeWin.com5t().id() : -1;
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
@@ -3704,7 +3710,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec().getInt(eArtikl.id));
             artdetList.forEach(rec -> {
                 if (rec.getInt(field) == 1) {
-                    
+
                     if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk                       
                         eColor.query().forEach(rec2 -> {
                             if (rec2.getInt(eColor.groups_id) == rec.getInt(eArtdet.color_fk)) {
