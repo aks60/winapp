@@ -64,6 +64,7 @@ import javax.swing.table.DefaultTableColumnModel;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
+//TODO Протестировать параметр соответствия текстур
 public class Furniturs extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
