@@ -88,6 +88,7 @@ public class Artikles extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.listener = listener;
+        btnChoice.setVisible(true);
         listenerSet();
         loadingData();
         loadingModel();
@@ -2879,6 +2880,7 @@ public class Artikles extends javax.swing.JFrame {
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
+        btnChoice.setVisible(false);
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));

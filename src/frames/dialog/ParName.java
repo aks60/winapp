@@ -8,6 +8,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import builder.param.ParamList;
+import common.listener.ListenerFrame;
 import java.awt.CardLayout;
 import java.awt.Frame;
 import java.util.List;
@@ -17,12 +18,13 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
+import frames.FrameProgress;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.swing.JTable;
+import startup.App;
 
 public class ParName extends javax.swing.JDialog {
 
@@ -107,7 +109,7 @@ public class ParName extends javax.swing.JDialog {
             if (paramID > 0) {
                 btnCard(new ActionEvent(btnCard1, -1, ""));
                 for (int index = 0; index < recordList1.size(); index++) {
-                    if(paramID.equals(recordList1.get(index).get(0))) {
+                    if (paramID.equals(recordList1.get(index).get(0))) {
                         UGui.setSelectedIndex(tab1, index);
                     }
                 }
@@ -129,6 +131,7 @@ public class ParName extends javax.swing.JDialog {
         btnCard1 = new javax.swing.JToggleButton();
         btnCard2 = new javax.swing.JToggleButton();
         btnCard3 = new javax.swing.JToggleButton();
+        btnParam = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -213,6 +216,18 @@ public class ParName extends javax.swing.JDialog {
             }
         });
 
+        btnParam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btnParam.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnParam.setFocusable(false);
+        btnParam.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnParam.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnParam.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnParam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnParametr(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -226,7 +241,9 @@ public class ParName extends javax.swing.JDialog {
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnParam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -241,7 +258,8 @@ public class ParName extends javax.swing.JDialog {
                                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnParam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -408,6 +426,7 @@ public class ParName extends javax.swing.JDialog {
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();
+        btnParam.setVisible(false);
         if (btn == btnCard1) {
             btnCard1.setSelected(true);
             btnChoice.setEnabled(true);
@@ -416,6 +435,7 @@ public class ParName extends javax.swing.JDialog {
         } else if (btn == btnCard2) {
             btnCard2.setSelected(true);
             btnChoice.setEnabled(true);
+            btnParam.setVisible(true);
             ((CardLayout) centr.getLayout()).show(centr, "card2");
 
         } else if (btn == btnCard3) {
@@ -431,6 +451,15 @@ public class ParName extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tabMouseClicked
 
+    private void btnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametr
+        dispose();
+        FrameProgress.create(ParName.this.getOwner(), new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Param.createFrame(ParName.this.getOwner(), listener);
+            }
+        });
+    }//GEN-LAST:event_btnParametr
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCard1;
@@ -438,6 +467,7 @@ public class ParName extends javax.swing.JDialog {
     private javax.swing.JToggleButton btnCard3;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnParam;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
@@ -456,5 +486,6 @@ public class ParName extends javax.swing.JDialog {
     public void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        btnParam.setVisible(false);
     }
 }

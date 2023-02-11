@@ -146,7 +146,11 @@ public enum App {
                     }
                     break;
                 case Param:
-                    frame = new Param();
+                    if (param.length == 0) {
+                        frame = new Param();
+                    } else {
+                        frame = new Param(parent, (ListenerRecord) param[0]);
+                    }
                     break;
                 case Filling:
                     if (param.length == 0) {
