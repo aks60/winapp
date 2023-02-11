@@ -425,7 +425,9 @@ public class Joinings extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-
+            if(qArtikl.find(record.get(eArtikl.id), eArtikl.id).get(eArtikl.id) == null) {
+               qArtikl.select(eArtikl.up);
+            }
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(UGui.getIndexRec(tab1));
                 if (tab1.getSelectedColumn() == 0) {
