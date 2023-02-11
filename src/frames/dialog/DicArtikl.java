@@ -1,5 +1,6 @@
 package frames.dialog;
 
+import common.listener.ListenerFrame;
 import frames.FrameToFile;
 import frames.UGui;
 import dataset.Field;
@@ -13,7 +14,10 @@ import frames.swing.DefTableModel;
 import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
+import frames.Artikles;
+import frames.FrameProgress;
 import frames.swing.TableFieldFilter;
+import startup.App;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
@@ -94,6 +98,7 @@ public class DicArtikl extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btn51 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -152,6 +157,19 @@ public class DicArtikl extends javax.swing.JDialog {
             }
         });
 
+        btn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btn51.setToolTipText("Артикулы");
+        btn51.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn51.setFocusable(false);
+        btn51.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn51.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn51.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn51mn94(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -161,7 +179,9 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btn51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 410, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -171,9 +191,11 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn51, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -256,8 +278,18 @@ public class DicArtikl extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mouseClicked
 
+    private void btn51mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn51mn94
+        dispose();
+        FrameProgress.create(DicArtikl.this.getOwner(), new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Artikles.createFrame(DicArtikl.this.getOwner(), listener);
+            }
+        });
+    }//GEN-LAST:event_btn51mn94
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn51;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;

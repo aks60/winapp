@@ -4,6 +4,7 @@ import builder.Wincalc;
 import builder.model.ElemJoining;
 import frames.FrameToFile;
 import common.eProfile;
+import common.listener.ListenerRecord;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Record;
@@ -107,7 +108,11 @@ public enum App {
                     break;
                 case Artikles:
                     if (param.length == 1) {
-                        frame = new Artikles(parent, (Record) param[0]);
+                        if (param[0] instanceof Record) {
+                            frame = new Artikles(parent, (Record) param[0]);
+                        } else if (param[0] instanceof ListenerRecord) {
+                            frame = new Artikles(parent, (ListenerRecord) param[0]);
+                        }
                     } else {
                         frame = new Artikles();
                     }

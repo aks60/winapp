@@ -59,6 +59,7 @@ import report.HtmlOfTable;
  */
 public class Artikles extends javax.swing.JFrame {
 
+    private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());
     private Query qSyssize = new Query(eSyssize.values());
     private Query qColor = new Query(eColor.values());
@@ -83,6 +84,16 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
     }
 
+    public Artikles(java.awt.Window owner, ListenerRecord listener) {
+        initComponents();
+        initElements();
+        this.listener = listener;
+        listenerSet();
+        loadingData();
+        loadingModel();
+        loadingTree();
+    }
+
     public Artikles(java.awt.Window owner, Record artiklRec) {
         initComponents();
         initElements();
@@ -92,6 +103,7 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
         setSelectionPath(artiklRec);
     }
+
 
     public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
@@ -496,6 +508,7 @@ public class Artikles extends javax.swing.JFrame {
         btnMove = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
         btnClone = new javax.swing.JButton();
+        btnChoice = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
@@ -763,7 +776,6 @@ public class Artikles extends javax.swing.JFrame {
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(960, 600));
-        setPreferredSize(new java.awt.Dimension(860, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Artikles.this.windowClosed(evt);
@@ -897,6 +909,21 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
+        btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
+        btnChoice.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnChoice.setFocusable(false);
+        btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChoice(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -912,7 +939,9 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 705, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 662, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -933,9 +962,11 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(btnMove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2608,6 +2639,15 @@ public class Artikles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ppmActionItems
 
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+        int index = UGui.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qArtikl.get(index);
+            listener.action(record);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnChoice
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -2633,6 +2673,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn9;
+    private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClone;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;

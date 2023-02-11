@@ -573,6 +573,9 @@ public class Furniturs extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            if(qArtikl.find(record.get(eArtikl.id), eArtikl.id).get(eArtikl.id) == null) {
+               qArtikl.select(eArtikl.up);
+            }
             JTable tab2x = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
             if (tab2x.getBorder() != null) {
@@ -1720,7 +1723,11 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInser2
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+        FrameProgress.create(Furniturs.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Artikles.createFrame(Furniturs.this, listenerColor);
+            }
+        });
     }//GEN-LAST:event_btnTest
 
     private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree

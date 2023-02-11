@@ -579,6 +579,7 @@ public class PSConvert {
             alterTable("artikl", "fk_artikl4", "groups4_id", "groups");
             alterTable("artikl", "fk_artikl6", "syssize_id", "syssize");
             alterTable("artikl", "fk_artikl7", "currenc1_id", "currenc");
+            executeSql("alter table artikl add constraint unq1_artikl unique (code)");
             alterTable("artikl", "fk_artikl8", "currenc2_id", "currenc");             
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
