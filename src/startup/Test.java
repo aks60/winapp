@@ -75,8 +75,6 @@ public class Test {
             //uid();
             //script();
             //lookAndFeel();
-            int val = 2;
-            List.of(1, 2, 3, 5).stream().filter(v -> v == val).findFirst().ifPresent(m -> System.out.println("+++"));
              
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
