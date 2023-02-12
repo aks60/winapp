@@ -12,10 +12,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.PSCompare;
-import frames.PSConvert;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class Test {
@@ -61,9 +61,8 @@ public class Test {
     }
 
     // </editor-fold>     
-    
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
-    public static void main(String[] args) throws Exception { 
+    public static void main(String[] args) throws Exception {
 
         eProp.dev = true;
         try {
@@ -76,7 +75,9 @@ public class Test {
             //uid();
             //script();
             //lookAndFeel();
-            
+            int val = 2;
+            List.of(1, 2, 3, 5).stream().filter(v -> v == val).findFirst().ifPresent(m -> System.out.println("+++"));
+             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -247,7 +248,7 @@ public class Test {
         int uid = str.hashCode();
         String filterStr = "" + uid;
         str = filterStr.replaceAll("-", "");
-        
+
         System.out.println(Integer.parseInt(str));
     }
 
