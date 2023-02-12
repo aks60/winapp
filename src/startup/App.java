@@ -118,7 +118,11 @@ public enum App {
                     }
                     break;
                 case Groups:
-                    frame = new Groups((int) param[0]);
+                    if (param.length == 2) {
+                        frame = new Groups((int) param[0], (ListenerRecord) param[1]);
+                    } else {
+                        frame = new Groups((int) param[0]);
+                    }
                     break;
                 case Colors:
                     frame = new Colors();

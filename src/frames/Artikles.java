@@ -73,7 +73,7 @@ public class Artikles extends javax.swing.JFrame {
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
     private ListenerRecord listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
-            listenerCurrenc2, listenerAnalog, listenerSyssize, listenerArtincr, listenerArtdecr;
+            listenerCurrenc2, listenerAnalog, listenerSyssize, listenerMarkup, listenerDiscount;
 
     public Artikles() {
         initComponents();
@@ -108,7 +108,7 @@ public class Artikles extends javax.swing.JFrame {
 
     public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
-        qGroups.select(eGroups.up, "order by", eGroups.name);
+        qGroups.select(eGroups.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qColor.select(eColor.up, "order by", eColor.name);
     }
@@ -346,7 +346,7 @@ public class Artikles extends javax.swing.JFrame {
     public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab2);
-        List.of(qArtdet).forEach(q -> q.execsql());
+        List.of(qArtikl, qArtdet).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qArtikl.get(index);
@@ -387,10 +387,14 @@ public class Artikles extends javax.swing.JFrame {
         }
     }
 
+    //TODO Многократное повторение кода. Переписать на замену null в Java 8 stream. qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id).select(eGroups.up);
     public void listenerSet() {
 
         listenerSeries = (record) -> {
             int rowQuery = UGui.getIndexRec(tab1);
+            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
+               qGroups.select(eGroups.up);
+            }             
             if (rowQuery != -1) {
                 Record artiklRec = qArtikl.get(rowQuery);
                 artiklRec.set(eArtikl.groups4_id, record.get(eGroups.id));
@@ -457,33 +461,42 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        listenerArtincr = (record) -> {
+        listenerMarkup = (record) -> {
+            UGui.stopCellEditing(tab1, tab2);
+            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
+               qGroups.select(eGroups.up);
+            }             
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.groups1_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                UGui.stopCellEditing(tab1, tab2);
             }
         };
 
-        listenerArtdecr = (record) -> {
+        listenerDiscount = (record) -> {
+            UGui.stopCellEditing(tab1, tab2);
+            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
+               qGroups.select(eGroups.up);
+            }             
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.groups2_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                UGui.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerCateg = (record) -> {
+            UGui.stopCellEditing(tab1, tab2);
+            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
+               qGroups.select(eGroups.up);
+            }               
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.groups3_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                UGui.stopCellEditing(tab1, tab2);
             }
         };
     }
@@ -2494,7 +2507,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups1_id);
-            new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id, true);
+            new DicGroups(this, listenerMarkup, TypeGroups.PRICE_INC, id, true);
         }
     }//GEN-LAST:event_btn19
 
@@ -2502,7 +2515,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups2_id);
-            new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id, true);
+            new DicGroups(this, listenerDiscount, TypeGroups.PRICE_DEC, id, true);
         }
     }//GEN-LAST:event_btn20
 
@@ -2620,10 +2633,6 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClone
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-//        if (evt.getButton() == MouseEvent.BUTTON3) {
-//            ppmGrid.show(tab1, evt.getX(), evt.getY());
-//        }
-
         if (evt.getButton() == MouseEvent.BUTTON3) {
             JTable table = List.of(tab1, tab2).stream().filter(it -> it == evt.getSource()).findFirst().get();
             List.of(tab1, tab2).forEach(tab -> tab.setBorder(null));

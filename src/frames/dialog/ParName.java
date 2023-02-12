@@ -217,6 +217,7 @@ public class ParName extends javax.swing.JDialog {
         });
 
         btnParam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btnParam.setToolTipText("Параметры");
         btnParam.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnParam.setFocusable(false);
         btnParam.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

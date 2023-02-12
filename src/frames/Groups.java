@@ -1,7 +1,9 @@
 package frames;
 
 import common.UCom;
+import common.listener.ListenerRecord;
 import dataset.Query;
+import dataset.Record;
 import domain.eCurrenc;
 import domain.eGroups;
 import enums.TypeGroups;
@@ -17,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import report.ExecuteCmd;
@@ -25,6 +26,7 @@ import report.HtmlOfTable;
 
 public class Groups extends javax.swing.JFrame {
 
+    private ListenerRecord listener = null;
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qDecInc = new Query(eGroups.values());
     private Query qArtSeri = new Query(eGroups.values());
@@ -41,6 +43,20 @@ public class Groups extends javax.swing.JFrame {
         this.mode = mode;
         initComponents();
         initElements();
+        btnChoice.setVisible(false);
+        loadingData();
+        loadingModel();
+        List<Component> list = (mode == 1) ? List.of(pan1, pan2, pan5, pan6, pan7) : List.of(pan3, pan4);
+        list.forEach(comp -> tabb.remove(comp));
+        setTitle((mode == 1) ? "Справочники" : "Коэффициенты");
+    }
+    
+    public Groups(int mode, ListenerRecord listener) {
+        this.mode = mode;
+        initComponents();
+        initElements();
+        this.listener = listener;
+        btnChoice.setVisible(true);
         loadingData();
         loadingModel();
         List<Component> list = (mode == 1) ? List.of(pan1, pan2, pan5, pan6, pan7) : List.of(pan3, pan4);
@@ -139,6 +155,15 @@ public class Groups extends javax.swing.JFrame {
         ppmCrud = new javax.swing.JPopupMenu();
         mInsert = new javax.swing.JMenuItem();
         mDelit = new javax.swing.JMenuItem();
+        north = new javax.swing.JPanel();
+        btnClose = new javax.swing.JButton();
+        btnRef = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        btnIns = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
+        btnMoveD = new javax.swing.JButton();
+        btnMoveU = new javax.swing.JButton();
+        btnChoice = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         tabb = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
@@ -162,14 +187,6 @@ public class Groups extends javax.swing.JFrame {
         pan4 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        north = new javax.swing.JPanel();
-        btnClose = new javax.swing.JButton();
-        btnRef = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
-        btnMoveD = new javax.swing.JButton();
-        btnMoveU = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
         mInsert.setFont(frames.UGui.getFont(1,0));
@@ -199,6 +216,182 @@ public class Groups extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
+
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(10, 29));
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
+        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
+        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClose(evt);
+            }
+        });
+
+        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
+        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRef.setFocusable(false);
+        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefresh(evt);
+            }
+        });
+
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
+        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnDel.setFocusable(false);
+        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelete(evt);
+            }
+        });
+
+        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnIns.setFocusable(false);
+        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsert(evt);
+            }
+        });
+
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport.setFocusable(false);
+        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReport(evt);
+            }
+        });
+
+        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
+        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
+        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveD.setFocusable(false);
+        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
+        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
+        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
+        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMoveU.setFocusable(false);
+        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
+        btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
+        btnChoice.setToolTipText(bundle.getString("Выбрать")); // NOI18N
+        btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnChoice.setFocusable(false);
+        btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChoice(evt);
+            }
+        });
+
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 688, Short.MAX_VALUE)
+                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         centr.setPreferredSize(new java.awt.Dimension(600, 459));
         centr.setLayout(new java.awt.BorderLayout());
@@ -557,164 +750,6 @@ public class Groups extends javax.swing.JFrame {
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(10, 29));
-
-        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
-        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
-        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnClose.setFocusable(false);
-        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClose(evt);
-            }
-        });
-
-        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnRef.setFocusable(false);
-        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefresh(evt);
-            }
-        });
-
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
-        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
-        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setFocusable(false);
-        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelete(evt);
-            }
-        });
-
-        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setFocusable(false);
-        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert(evt);
-            }
-        });
-
-        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
-        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnReport.setFocusable(false);
-        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnReport.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReport(evt);
-            }
-        });
-
-        btnMoveD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
-        btnMoveD.setToolTipText(bundle.getString("Переместить вниз")); // NOI18N
-        btnMoveD.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnMoveD.setFocusable(false);
-        btnMoveD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMoveD.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnMoveD.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnMoveD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnMoveD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMove(evt);
-            }
-        });
-
-        btnMoveU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c051.gif"))); // NOI18N
-        btnMoveU.setToolTipText(bundle.getString("Переместить вверх")); // NOI18N
-        btnMoveU.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnMoveU.setFocusable(false);
-        btnMoveU.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMoveU.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnMoveU.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnMoveU.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnMoveU.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMove(evt);
-            }
-        });
-
-        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
-        north.setLayout(northLayout);
-        northLayout.setHorizontalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 731, Short.MAX_VALUE)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        northLayout.setVerticalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        getContentPane().add(north, java.awt.BorderLayout.NORTH);
-
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(10, 20));
@@ -737,30 +772,9 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab1, this) == 0) {
-                UGui.deleteRecord(tab1);
-            }
-        } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab2, this) == 0) {
-                UGui.deleteRecord(tab2);
-            }
-        } else if (tab3.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab3, this) == 0) {
-                UGui.deleteRecord(tab3);
-            }
-        } else if (tab4.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab4, this) == 0) {
-                UGui.deleteRecord(tab4);
-            }
-        } else if (tab5.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab5, this) == 0) {
-                UGui.deleteRecord(tab5);
-            }
-        } else if (tab6.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab6, this) == 0) {
-                UGui.deleteRecord(tab6);
-            }
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab4, tab6, tab7);
+        if (UGui.isDeleteRecord(table, this) == 0) {
+            UGui.deleteRecord(table);
         }
     }//GEN-LAST:event_btnDelete
 
@@ -805,27 +819,13 @@ public class Groups extends javax.swing.JFrame {
             });
 
         }
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         eGroups.query().clear();
         eGroups.query();
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        JTable table = null;
-        if (tab1.getBorder() != null) {
-            table = tab1;
-        } else if (tab2.getBorder() != null) {
-            table = tab2;
-        } else if (tab3.getBorder() != null) {
-            table = tab3;
-        } else if (tab4.getBorder() != null) {
-            table = tab4;
-        } else if (tab5.getBorder() != null) {
-            table = tab5;
-        } else if (tab6.getBorder() != null) {
-            table = tab6;
-        } else if (tab7.getBorder() != null) {
-            table = tab7;
-        }
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab4, tab6, tab7);
         if (table != null) {
             String title = tabb.getTitleAt(tabb.getSelectedIndex());
             HtmlOfTable.load(title, table);
@@ -872,7 +872,7 @@ public class Groups extends javax.swing.JFrame {
             } else if (tabb.getSelectedIndex() == 1) {
                 table = tab7;
                 btnIns.setEnabled(false);
-                btnDel.setEnabled(false);               
+                btnDel.setEnabled(false);
             } else if (tabb.getSelectedIndex() == 2) {
                 table = tab2;
             } else if (tabb.getSelectedIndex() == 3) {
@@ -907,8 +907,19 @@ public class Groups extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabMouseClicked
 
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+        JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab4, tab6, tab7);
+        int index = UGui.getIndexRec(table);
+        if (index != -1) {
+            Record record = ((DefTableModel) table.getModel()).getQuery().get(index);
+            listener.action(record);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnChoice
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;

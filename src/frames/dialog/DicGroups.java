@@ -1,5 +1,6 @@
 package frames.dialog;
 
+import common.listener.ListenerFrame;
 import frames.FrameToFile;
 import frames.UGui;
 import dataset.Query;
@@ -17,10 +18,12 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import common.listener.ListenerRecord;
-import domain.eSysprod;
+import frames.FrameProgress;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
+import startup.App;
+import startup.Tex;
 
 public class DicGroups extends javax.swing.JDialog {
 
@@ -92,6 +95,7 @@ public class DicGroups extends javax.swing.JDialog {
         btnRemove = new javax.swing.JButton();
         btnMoveU = new javax.swing.JButton();
         btnMoveD = new javax.swing.JButton();
+        btnGroups = new javax.swing.JButton();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -197,6 +201,18 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
 
+        btnGroups.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c060.gif"))); // NOI18N
+        btnGroups.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        btnGroups.setFocusable(false);
+        btnGroups.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGroups.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnGroups.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroups(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -210,7 +226,9 @@ public class DicGroups extends javax.swing.JDialog {
                 .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGroups)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -225,7 +243,8 @@ public class DicGroups extends javax.swing.JDialog {
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnMoveU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -533,10 +552,21 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnMoveDbtnMove
 
+    private void btnGroups(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroups
+        dispose();
+        FrameProgress.create(DicGroups.this.getOwner(), new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Groups.createFrame(DicGroups.this.getOwner(), 0, listener);
+            }
+        });
+        
+    }//GEN-LAST:event_btnGroups
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnGroups;
     private javax.swing.JButton btnMoveD;
     private javax.swing.JButton btnMoveU;
     private javax.swing.JButton btnRemove;
