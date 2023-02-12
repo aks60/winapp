@@ -105,7 +105,6 @@ public class Artikles extends javax.swing.JFrame {
         setSelectionPath(artiklRec);
     }
 
-
     public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up);
@@ -387,14 +386,13 @@ public class Artikles extends javax.swing.JFrame {
         }
     }
 
-    //TODO Многократное повторение кода. Переписать на замену null в Java 8 stream. qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id).select(eGroups.up);
     public void listenerSet() {
 
         listenerSeries = (record) -> {
             int rowQuery = UGui.getIndexRec(tab1);
-            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
-               qGroups.select(eGroups.up);
-            }             
+            if (qGroups.stream().noneMatch(rec -> rec.getInt(eGroups.id) == record.getInt(eGroups.id))) {
+                qGroups.select(eGroups.up);
+            }
             if (rowQuery != -1) {
                 Record artiklRec = qArtikl.get(rowQuery);
                 artiklRec.set(eArtikl.groups4_id, record.get(eGroups.id));
@@ -463,9 +461,9 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerMarkup = (record) -> {
             UGui.stopCellEditing(tab1, tab2);
-            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
-               qGroups.select(eGroups.up);
-            }             
+            if (qGroups.stream().noneMatch(rec -> rec.getInt(eGroups.id) == record.getInt(eGroups.id))) {
+                qGroups.select(eGroups.up);
+            }
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
@@ -476,9 +474,9 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerDiscount = (record) -> {
             UGui.stopCellEditing(tab1, tab2);
-            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
-               qGroups.select(eGroups.up);
-            }             
+            if (qGroups.stream().noneMatch(rec -> rec.getInt(eGroups.id) == record.getInt(eGroups.id))) {
+                qGroups.select(eGroups.up);
+            }
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
@@ -489,9 +487,9 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerCateg = (record) -> {
             UGui.stopCellEditing(tab1, tab2);
-            if(qGroups.find(record.get(eGroups.id), eGroups.id).get(eGroups.id) == null) {
-               qGroups.select(eGroups.up);
-            }               
+            if (qGroups.stream().noneMatch(rec -> rec.getInt(eGroups.id) == record.getInt(eGroups.id))) {
+                qGroups.select(eGroups.up);
+            }
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
