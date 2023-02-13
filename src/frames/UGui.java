@@ -723,6 +723,11 @@ public class UGui {
         table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
 
+    //Получить Query из таблицы
+    public static Query getQuery(JTable table) {
+        return ((DefTableModel) table.getModel()).getQuery();
+    }
+    
     //Очистить таблицы
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {

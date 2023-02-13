@@ -216,7 +216,7 @@ public class Tariffic extends Cal5e {
         Record kursNoBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc2_id));  // кросс-курс валюты для неосновных текстур (внутренняя, внешняя, двухсторонняя)
 
         //Цикл по тарификационной таблице ARTDET мат. ценностей
-        for (Record artdetRec : eArtdet.find(specificRec.artiklRec.getInt(eArtikl.id))) {
+        for (Record artdetRec : eArtdet.filter(specificRec.artiklRec.getInt(eArtikl.id))) {
 
             float artdetPrice = 0;
             boolean artdetUsed = false;

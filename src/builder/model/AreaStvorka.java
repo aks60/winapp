@@ -147,7 +147,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             handleColor = param.get(PKjson.colorHandl).getAsInt();
             paramCheck[2] = false;
         } else {
-            int colorFK = eArtdet.find2(handleRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
+            int colorFK = eArtdet.find(handleRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
             handleColor = eColor.find3(colorFK).getInt(eColor.id);
             paramCheck[2] = true;
         }

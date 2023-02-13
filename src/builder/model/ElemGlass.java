@@ -60,7 +60,7 @@ public class ElemGlass extends ElemSimple {
         if (isJson(param, PKjson.colorGlass)) {
             colorID1 = param.get(PKjson.colorGlass).getAsInt();
         } else {
-            Record artdetRec = eArtdet.find2(artiklRec().getInt(eArtikl.id));
+            Record artdetRec = eArtdet.find(artiklRec().getInt(eArtikl.id));
             Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
             colorID1 = colorRec.getInt(eColor.id);
             colorID2 = colorRec.getInt(eColor.id);
@@ -74,7 +74,7 @@ public class ElemGlass extends ElemSimple {
             if (isJson(param, PKjson.colorRascl)) {
                 rasclColor = eColor.get(param.get(PKjson.colorRascl).getAsInt()).getInt(eColor.id);
             } else {
-                rasclColor = eArtdet.find2(rasclRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk); //цвет по умолчанию
+                rasclColor = eArtdet.find(rasclRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk); //цвет по умолчанию
             }
             //Проёмы
             if (isJson(param, PKjson.rasclHor)) {

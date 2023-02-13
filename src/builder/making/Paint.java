@@ -170,7 +170,7 @@ public class Paint {
 
     //Первая в списке запись цвета
     private static int colorFromFirst(Specific spc) {
-        Record artdetRec = eArtdet.find2(spc.detailRec.getInt(ARTIKL_ID));
+        Record artdetRec = eArtdet.find(spc.detailRec.getInt(ARTIKL_ID));
         if (artdetRec != null) {
             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
             if (colorFK2 > 0) { //если это не группа цветов                               
@@ -189,7 +189,7 @@ public class Paint {
 
     //Первая в списке запись цвета (Не в группе)
     private static int colorFromFirst2(Specific spc) {
-        List<Record> artdetList = eArtdet.find(spc.artiklRec.getInt(ARTIKL_ID));
+        List<Record> artdetList = eArtdet.filter(spc.artiklRec.getInt(ARTIKL_ID));
         for (Record record : artdetList) {
             if (record.getInt(eArtdet.color_fk) >= 0) {
                 return record.getInt(eArtdet.color_fk);
@@ -229,7 +229,7 @@ public class Paint {
     //Поиск текстуры в артикуле
     public static int colorFromArtikl(int artiklID, int side, int elemColorID) {
         try {
-            List<Record> artdetList = eArtdet.find(artiklID);
+            List<Record> artdetList = eArtdet.filter(artiklID);
             //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 //Сторона подлежит рассмотрению?
@@ -267,7 +267,7 @@ public class Paint {
     private static int colorFromArtiklParam(int artiklID, int side, int elemColorID, int paramFk) {
         try {
             List<Record> colmapList = eColmap.find3(elemColorID, paramFk);
-            List<Record> artdetList = eArtdet.find(artiklID);
+            List<Record> artdetList = eArtdet.filter(artiklID);
 
             //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
@@ -357,7 +357,7 @@ public class Paint {
     //Текстура профиля или текстура заполнения изделия (неокрашенные)
     public static int colorFromArtikl(int artiklId) {
         try {
-            List<Record> artdetList = eArtdet.find(artiklId);
+            List<Record> artdetList = eArtdet.filter(artiklId);
             //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 if (artdetRec.getInt(eArtdet.color_fk) >= 0) {

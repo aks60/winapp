@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import domain.eArtdet;
 import frames.dialog.DicArtikl2;
 import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
@@ -323,9 +324,18 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2);
-                qGlasdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eGlasdet.artikl_id);
+                int artiklID = record.getInt(eArtikl.id);
+                qGlasdet.set(artiklID, UGui.getIndexRec(tab2), eGlasdet.artikl_id);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);               
+                if (eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {
+                    
+                    Record artdetRec = eArtdet.find(artiklID);
+                    if (artdetRec.getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                        listenerColor.action(colorRec);
+                    }
+                }                
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2, index);
 
@@ -908,10 +918,17 @@ public class Fillings extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> UGui.getQuery(tab).execsql());
+        int indexTab1 = UGui.getIndexRec(tab1);
+        int indexTab2 = UGui.getIndexRec(tab2);
+        int indexTab5 = UGui.getIndexRec(tab5);
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab1, indexTab1);
+        UGui.setSelectedIndex(tab2, indexTab2);        
+        UGui.setSelectedIndex(tab5, indexTab5);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -944,7 +961,6 @@ public class Fillings extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGlasgrp.up, (record) -> {
                 record.set(eGlasgrp.gap, 0);
-                //record.setDev(eGlasgrp.name, "Наименование");
             });
 
         } else if (tab2.getBorder() != null) {

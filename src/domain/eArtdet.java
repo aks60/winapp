@@ -58,14 +58,14 @@ public enum eArtdet implements Field {
         return values();
     }
 
-    public static List<Record> find(int _artikl_id) {
+    public static List<Record> filter(int _artikl_id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).collect(toList());
         }
         return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "order by", id);
     }
 
-    public static Record find2(int _artikl_id) {
+    public static Record find(int _artikl_id) {
         if (_artikl_id == -3) {
             return record();
         }

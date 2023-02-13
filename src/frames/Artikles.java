@@ -2391,7 +2391,11 @@ public class Artikles extends javax.swing.JFrame {
                     Record artiklRec = qArtikl.get(index);
                     record.setNo(eArtdet.id, Conn.genId(eArtdet.up));
                     record.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
-                    //double v = (eProp.dev == false) ? 0 : 100;
+                    record.setNo(eArtdet.mark_c1, 1);
+                    if(artiklRec.getInt(eArtikl.level1) == 1 && List.of(1, 2, 3, 4, 5).contains(artiklRec.getInt(eArtikl.level2))) {
+                      record.setNo(eArtdet.mark_c2, 1);  
+                      record.setNo(eArtdet.mark_c3, 1);  
+                    }
                     record.setNo(eArtdet.cost_c1, 100);
                     record.setNo(eArtdet.cost_c2, 0);
                     record.setNo(eArtdet.cost_c3, 0);

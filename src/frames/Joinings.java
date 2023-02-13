@@ -42,6 +42,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
+import domain.eArtdet;
 import domain.eGlaspar2;
 import domain.ePrjkit;
 import frames.dialog.DicArtikl2;
@@ -68,7 +69,7 @@ public class Joinings extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
-    private ListenerRecord listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
+    private ListenerRecord listenerArtikl, listenerJoinvar, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
 
     //Запуск из Tex (главное меню)
     public Joinings() {
@@ -355,9 +356,7 @@ public class Joinings extends javax.swing.JFrame {
             Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int artiklID = record.getInt(eJoindet.artikl_id);
             int colorID = record.getInt(eJoindet.color_fk, -1);
-            new ParColor(this, (rec) -> {
-                UGui.cellParamColor(rec, tab4, eJoindet.color_fk, eJoindet.color_us, tab1, tab2, tab3, tab4, tab5);
-            }, artiklID, colorID);
+            new ParColor(this, listenerColor, artiklID, colorID);
         });
 
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
@@ -425,8 +424,8 @@ public class Joinings extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            if(qArtikl.find(record.get(eArtikl.id), eArtikl.id).get(eArtikl.id) == null) {
-               qArtikl.select(eArtikl.up);
+            if (qArtikl.find(record.get(eArtikl.id), eArtikl.id).get(eArtikl.id) == null) {
+                qArtikl.select(eArtikl.up);
             }
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(UGui.getIndexRec(tab1));
@@ -441,9 +440,22 @@ public class Joinings extends javax.swing.JFrame {
                 Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
+                int artiklID = record.getInt(eArtikl.id);
+                if (eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {
+                    
+                    Record artdetRec = eArtdet.find(artiklID);
+                    if (artdetRec.getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                        listenerColor.action(colorRec);
+                    }
+                }
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab4, index);
             }
+        };
+        
+        listenerColor = (record) -> {
+            UGui.cellParamColor(record, tab4, eJoindet.color_fk, eJoindet.color_us, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
@@ -1031,10 +1043,17 @@ public class Joinings extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> UGui.getQuery(tab).execsql());
+        int indexTab1 = UGui.getIndexRec(tab1);
+        int indexTab2 = UGui.getIndexRec(tab2);
+        int indexTab4 = UGui.getIndexRec(tab4);
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab1, indexTab1);
+        UGui.setSelectedIndex(tab2, indexTab2);
+        UGui.setSelectedIndex(tab4, indexTab4);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1066,7 +1085,7 @@ public class Joinings extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eJoining.up, (record) -> {
-                record.setDev(eJoining.name, "Соединение-");
+                //record.setDev(eJoining.name, "Соединение-");
             });
 
         } else if (tab2.getBorder() != null) {

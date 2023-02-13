@@ -46,6 +46,7 @@ import javax.swing.JOptionPane;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
+import domain.eArtdet;
 import domain.eSysfurn;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
@@ -53,7 +54,6 @@ import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;
 import frames.swing.TableFieldFilter;
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -580,11 +580,20 @@ public class Furniturs extends javax.swing.JFrame {
             Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
             if (tab2x.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2x);
+                int artiklID = record.getInt(eArtikl.id);
+                
                 if (record.getInt(eArtikl.level1) == 6) {
-                    query.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2x), eFurndet.pk);
-                    query.filter(query.get(index).getInt(eFurndet.pk), eFurndet.furndet_pk).forEach(rec -> rec.set(eFurndet.furndet_pk, record.getInt(eArtikl.id)));
+                    query.set(artiklID, UGui.getIndexRec(tab2x), eFurndet.pk);
+                    query.filter(query.get(index).getInt(eFurndet.pk), eFurndet.furndet_pk).forEach(rec -> rec.set(eFurndet.furndet_pk, artiklID));
                 }
-                query.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2x), eFurndet.artikl_id);
+                if(eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID  && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {                    
+                    Record artdetRec = eArtdet.find(artiklID);
+                    if(artdetRec.getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                        listenerColor.action(colorRec);
+                    }
+                }
+                query.set(artiklID, UGui.getIndexRec(tab2x), eFurndet.artikl_id);
                 ((DefaultTableModel) tab2x.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2x, index);
             }
@@ -1453,7 +1462,7 @@ public class Furniturs extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> UGui.getQuery(tab).execsql());
         int indexTab1 = UGui.getIndexRec(tab1);
         int indexTab2a = UGui.getIndexRec(tab2a);
         loadingData();

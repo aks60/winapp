@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import domain.eArtdet;
 import domain.eSysprof;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
@@ -432,6 +433,15 @@ public class Elements extends javax.swing.JFrame {
                 qElemdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eElemdet.artikl_id);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
+                int artiklID = record.getInt(eArtikl.id);
+                if (eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {
+                    
+                    Record artdetRec = eArtdet.find(artiklID);
+                    if (artdetRec.getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                        listenerColor.action(colorRec);
+                    }
+                }
                 UGui.fireTableRowUpdated(tab3);
             }
         };
@@ -1041,10 +1051,17 @@ public class Elements extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> UGui.getQuery(tab).execsql());
+        int indexTab1 = UGui.getIndexRec(tab1);
+        int indexTab2 = UGui.getIndexRec(tab2);
+        int indexTab3 = UGui.getIndexRec(tab3);
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab1, indexTab1);
+        UGui.setSelectedIndex(tab2, indexTab2);
+        UGui.setSelectedIndex(tab3, indexTab3);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1083,7 +1100,6 @@ public class Elements extends javax.swing.JFrame {
                 if ((id == -1 || id == -5) == false) {
                     UGui.insertRecordCur(tab2, eElement.up, (record) -> {
                         record.set(eElement.groups2_id, id);
-                        record.setDev(eElement.name, "Наименование");
                         Record record2 = eArtikl.up.newRecord();
                         qElement.table(eArtikl.up).add(record2);
                     });
