@@ -357,7 +357,7 @@ public class Artikles extends javax.swing.JFrame {
             lab2.setText(" id: " + id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
-            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
+            checkBox1.setSelected((record.getInt(eArtikl.with_seal) == 1));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab2);
         }
@@ -416,9 +416,20 @@ public class Artikles extends javax.swing.JFrame {
                 if (eGroups.values().length == record.size()) {
                     qArtdet.set(record.getInt(eGroups.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
                     qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.mark_c1);
+                    qArtdet.set(1, UGui.getIndexRec(tab2), eArtdet.mark_c2);
+                    qArtdet.set(1, UGui.getIndexRec(tab2), eArtdet.mark_c3);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.cost_c1);
+                    qArtdet.set(100, UGui.getIndexRec(tab2), eArtdet.cost_c2);
+                    qArtdet.set(100, UGui.getIndexRec(tab2), eArtdet.cost_c3);
 
                 } else if (eColor.values().length == record.size()) {
                     qArtdet.set(record.getInt(eColor.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(1, UGui.getIndexRec(tab2), eArtdet.mark_c1);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.mark_c2);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.mark_c3);                    
+                    qArtdet.set(100, UGui.getIndexRec(tab2), eArtdet.cost_c1);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.cost_c2);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.cost_c3);                    
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.stopCellEditing(tab1, tab2);
