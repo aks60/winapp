@@ -307,7 +307,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(110);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(160);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(260);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

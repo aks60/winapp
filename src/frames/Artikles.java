@@ -415,6 +415,7 @@ public class Artikles extends javax.swing.JFrame {
             if (tab2.getBorder() != null) {
                 if (eGroups.values().length == record.size()) {
                     qArtdet.set(record.getInt(eGroups.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(0, UGui.getIndexRec(tab2), eArtdet.mark_c1);
 
                 } else if (eColor.values().length == record.size()) {
                     qArtdet.set(record.getInt(eColor.id), UGui.getIndexRec(tab2), eArtdet.color_fk);
