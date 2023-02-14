@@ -58,7 +58,7 @@ public class DicGroups extends javax.swing.JDialog {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab1, ID);
             tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-            
+
         } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
@@ -66,7 +66,7 @@ public class DicGroups extends javax.swing.JDialog {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab2, ID);
             tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-            
+
         } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
@@ -74,7 +74,7 @@ public class DicGroups extends javax.swing.JDialog {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedKey(tab3, ID);
             tab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-            
+
         } else if (grup.numb() == TypeGroups.CATEG_ELEM.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
@@ -554,12 +554,16 @@ public class DicGroups extends javax.swing.JDialog {
 
     private void btnGroups(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroups
         dispose();
+
         ProgressBar.create(DicGroups.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Groups.createFrame(DicGroups.this.getOwner(), 0, listener);
+                if (grup == TypeGroups.SERI_ELEM || grup == TypeGroups.CATEG_ELEM) {
+                    App.Groups.createFrame(DicGroups.this.getOwner(), 1, listener);
+                } else {
+                    App.Groups.createFrame(DicGroups.this.getOwner(), 0, listener);
+                }
             }
         });
-        
     }//GEN-LAST:event_btnGroups
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

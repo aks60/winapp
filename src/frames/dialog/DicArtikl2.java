@@ -306,8 +306,10 @@ public class DicArtikl2 extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(110);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(260);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(800);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(240);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(1600);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

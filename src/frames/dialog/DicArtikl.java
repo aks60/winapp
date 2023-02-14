@@ -236,9 +236,12 @@ public class DicArtikl extends javax.swing.JDialog {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(20);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(160);
             tab2.getColumnModel().getColumn(1).setMinWidth(20);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(300);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(800);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);

@@ -696,10 +696,12 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(700);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(1600);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(1).setMaxWidth(160);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(160);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(340);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
         }
@@ -792,11 +794,19 @@ public class Fillings extends javax.swing.JFrame {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(180);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(600);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(1600);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(300);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(300);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(300);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(300);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
@@ -847,15 +857,15 @@ public class Fillings extends javax.swing.JFrame {
         tab5.setFont(frames.UGui.getFont(0,0));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", null, null, null},
-                {"rrrrrrrrrrr", "pppppppppp", "77", null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, false
@@ -882,16 +892,18 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(160);
+            tab5.getColumnModel().getColumn(0).setMaxWidth(400);
             tab5.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tab5.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tab5.getColumnModel().getColumn(2).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(1).setMaxWidth(1600);
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(180);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
             tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(4).setMaxWidth(120);
             tab5.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab5.getColumnModel().getColumn(5).setMaxWidth(60);
+            tab5.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         pan3.add(scr5, java.awt.BorderLayout.CENTER);
@@ -1048,7 +1060,7 @@ public class Fillings extends javax.swing.JFrame {
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            JTable table = List.of(tab1, tab2, tab3, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            JTable table = List.of(tab1, tab2, tab3, tab4, tab5).stream().filter(it -> it == evt.getSource()).findFirst().get();
             List.of(tab1, tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
             table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmCrud.show(table, evt.getX(), evt.getY());

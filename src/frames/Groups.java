@@ -783,21 +783,21 @@ public class Groups extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.val, 1);
-                record.setDev(eGroups.name, "Наценка");
+                //record.setDev(eGroups.name, "Наценка");
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });
 
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordCur(tab2, eGroups.up, (record) -> {
                 record.set(eGroups.val, 0);
-                record.setDev(eGroups.name, "Скидка");
+                //record.setDev(eGroups.name, "Скидка");
                 record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
             });
 
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.SERI_ELEM.id);
-                record.setDev(eGroups.name, "Серия");
+                //record.setDev(eGroups.name, "Серия");
             });
 
         } else if (tab4.getBorder() != null) {
@@ -810,12 +810,12 @@ public class Groups extends javax.swing.JFrame {
             UGui.insertRecordCur(tab5, eGroups.up, (record) -> {
                 record.set(eGroups.val, 1);
                 record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
-                record.setDev(eGroups.name, "Коэф.");
+                //record.setDev(eGroups.name, "Коэф.");
             });
 
         } else if (tab6.getBorder() != null) {
             UGui.insertRecordCur(tab6, eCurrenc.up, (record) -> {
-                record.setDev(eCurrenc.name, "Курс");
+                //record.setDev(eCurrenc.name, "Курс");
             });
 
         }
