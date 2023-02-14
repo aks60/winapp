@@ -310,11 +310,11 @@ public class Fillings extends javax.swing.JFrame {
         });
 
         UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, false, 1);
+            new DicArtikl(this, listenerArtikl, true, 1);
         });
 
         UGui.buttonCellEditor(tab5, 1).addActionListener(event -> {
-            new DicArtikl(this, listenerArtikl, false, 1);
+            new DicArtikl(this, listenerArtikl, true, 1);
         });
     }
 
@@ -400,8 +400,8 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2);
-                String name = record.getStr(eArtikl.name);
-                qGlasdet.set(name, UGui.getIndexRec(tab2), eGlasdet.depth);
+                String depth = record.getStr(eArtikl.depth);
+                qGlasdet.set(depth, UGui.getIndexRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2, index);
             }
@@ -793,7 +793,7 @@ public class Fillings extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(0).setMaxWidth(180);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(1).setMaxWidth(600);
