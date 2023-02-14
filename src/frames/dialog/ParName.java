@@ -76,13 +76,13 @@ public class ParName extends javax.swing.JDialog {
         List<List> recordList3 = new Vector();
         for (Enam el : ParamList.values()) {
             for (int it : part) {
-                if (el.pass() == 1 && el.numb() >= it && el.numb() < it + 1000) {
+                if (el.pass() == 1 && el.numb() >= it && el.numb() < it + 100) {
                     List record = new Vector();
                     record.add(el.numb());
                     record.add(el.text());
                     recordList1.add(record);
 
-                } else if (el.pass() == 0 && el.numb() >= it && el.numb() < it + 1000) {
+                } else if (el.pass() == 0 && el.numb() >= it && el.numb() < it + 100) {
                     List record = new Vector();
                     record.add(el.numb());
                     record.add(el.text());

@@ -306,17 +306,17 @@ public class Joinings extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 Record record = qJoinvar.get(index);
-                int joinVar = record.getInt(eJoinvar.types);
+                int joinVar = record.getInt(eJoinvar.types) / 10;
 
                 if (qJoinpar1.get(UGui.getIndexRec(tab3), eJoinpar1.groups_id) == null) {
                     new ParName(this, (rec) -> {
                         UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
-                    }, eParams.joint, joinVar * 100);
+                    }, eParams.joint, joinVar * 1000);
                 } else {
                     int groupsID = qJoinpar1.getAs(UGui.getIndexRec(tab3), eJoinpar1.groups_id);
                     new ParName(this, groupsID, (rec) -> {
                         UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
-                    }, eParams.joint, joinVar * 100);
+                    }, eParams.joint, joinVar * 1000);
                 }
             }
         });
@@ -441,11 +441,13 @@ public class Joinings extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 int artiklID = record.getInt(eArtikl.id);
-                if (eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {
-                    
-                    Record artdetRec = eArtdet.find(artiklID);
-                    if (artdetRec.getInt(eArtdet.color_fk) > 0) {
-                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                
+                List<Record> artdetList = eArtdet.query().stream().filter(rec
+                        -> artiklID == rec.getInt(eArtdet.artikl_id)
+                        && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
+                if (artdetList.size() == 1) {
+                    if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));
                         listenerColor.action(colorRec);
                     }
                 }
@@ -1120,11 +1122,7 @@ public class Joinings extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-//        if (owner != null) {
-//            owner.setEnabled(true);
-//            owner = null;
-//        }
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> UGui.getQuery(tab).execsql());
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
