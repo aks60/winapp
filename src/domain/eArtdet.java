@@ -6,6 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 public enum eArtdet implements Field {
@@ -25,7 +26,7 @@ public enum eArtdet implements Field {
     artikl2("12", "32", "1", "Артикул 1С", "ASKL2"),
     color_fk("4", "10", "1", "Текстура на id_Группы или id_Текстуры", "color_fk"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id");
- 
+
     //000-0 - нет галочек (по всем текстурам этот цвет не основной для материала), 
     //001-1 - галочка на внутренней текстуре, 
     //010-2 - галочка на внешней текстуре, 
@@ -34,7 +35,6 @@ public enum eArtdet implements Field {
     //101-5 - галочки на основной и внутреней текстурах, 
     //110-6 - галочки на основной и внешней текстурах, 
     //111-7 - галочки на всех текстурах (по всем текстурам основной цвет).       
-
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
@@ -57,23 +57,31 @@ public enum eArtdet implements Field {
     public Field[] fields() {
         return values();
     }
-
-    public static List<Record> filter(int _artikl_id) {
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).collect(toList());
-        }
-        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "order by", id);
-    }
-
-    public static Record find(int _artikl_id) {
-        if (_artikl_id == -3) {
+    
+    public static Record find(int artiklID) {
+        if (artiklID == -3) {
             return record();
         }
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(record());
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == artiklID).findFirst().orElse(record());
         }
-        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _artikl_id);
+        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + artiklID);
         return (record.size() == 0) ? record() : record.get(0);
+    }
+
+    
+    public static List<Record> filter(int artiklID) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == artiklID).collect(toList());
+        }
+        return new Query(values()).select(up, "where", artikl_id, "=", artiklID, "order by", id);
+    }
+    
+    public static List<Record> filter2(int artiklID) {
+
+        return eArtdet.query().stream().filter(rec
+                -> artiklID == rec.getInt(eArtdet.artikl_id)
+                && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
     }
 
     public static Record record() {

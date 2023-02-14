@@ -441,10 +441,8 @@ public class Joinings extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 int artiklID = record.getInt(eArtikl.id);
+                List<Record> artdetList = eArtdet.filter2(artiklID);
                 
-                List<Record> artdetList = eArtdet.query().stream().filter(rec
-                        -> artiklID == rec.getInt(eArtdet.artikl_id)
-                        && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
                 if (artdetList.size() == 1) {
                     if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
                         Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));

@@ -327,11 +327,9 @@ public class Fillings extends javax.swing.JFrame {
                 int artiklID = record.getInt(eArtikl.id);
                 qGlasdet.set(artiklID, UGui.getIndexRec(tab2), eGlasdet.artikl_id);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);  
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);                 
+                List<Record> artdetList = eArtdet.filter2(artiklID);
                 
-                List<Record> artdetList = eArtdet.query().stream().filter(rec
-                        -> artiklID == rec.getInt(eArtdet.artikl_id)
-                        && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
                 if (artdetList.size() == 1) {
                     if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
                         Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));

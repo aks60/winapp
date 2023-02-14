@@ -434,10 +434,8 @@ public class Elements extends javax.swing.JFrame {
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
                 int artiklID = record.getInt(eArtikl.id);
-
-                List<Record> artdetList = eArtdet.query().stream().filter(rec
-                        -> artiklID == rec.getInt(eArtdet.artikl_id)
-                        && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
+                List<Record> artdetList = eArtdet.filter2(artiklID);
+                
                 if (artdetList.size() == 1) {
                     if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
                         Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));
