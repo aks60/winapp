@@ -3538,7 +3538,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (sysNode != null && sysNode.isLeaf()) {
                     //testBimax();
 
-                    FrameProgress.create(Systree.this, new ListenerFrame() {
+                    ProgressBar.create(Systree.this, new ListenerFrame() {
                         public void actionRequest(Object obj) {
                             models = new Models(listenerModel);
                             FrameToFile.setFrameSize(models);
@@ -3611,7 +3611,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (tab2.getBorder() != null) {
             Record record = qSysprof.get(UGui.getIndexRec(tab2));
             Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
-            FrameProgress.create(this, new ListenerFrame() {
+            ProgressBar.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     App.Artikles.createFrame(Systree.this, record2);
                 }
@@ -4248,7 +4248,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 //            });
         } else if (tab3.getBorder() != null) {
             Record sysfurnRec = qSysfurn.get(UGui.getIndexRec(tab3));
-            FrameProgress.create(this, new ListenerFrame() {
+            ProgressBar.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     App.Furniture.createFrame(Systree.this, Set.of(sysfurnRec.get(eSysfurn.furniture_id)));
                 }

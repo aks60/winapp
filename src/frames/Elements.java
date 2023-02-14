@@ -1180,7 +1180,7 @@ public class Elements extends javax.swing.JFrame {
             Record record = ((DefTableModel) tab2.getModel()).getQuery().get(UGui.getIndexRec(tab2));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(eElement.artikl_id), false);
-                FrameProgress.create(this, new ListenerFrame() {
+                ProgressBar.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Artikles.createFrame(Elements.this, record2);
                     }
@@ -1190,7 +1190,7 @@ public class Elements extends javax.swing.JFrame {
             Record record = ((DefTableModel) tab3.getModel()).getQuery().get(UGui.getIndexRec(tab3));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
-                FrameProgress.create(this, new ListenerFrame() {
+                ProgressBar.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Artikles.createFrame(Elements.this, record2);
                     }
@@ -1229,7 +1229,7 @@ public class Elements extends javax.swing.JFrame {
                 for (int i = 0; i < pathList.size(); ++i) {
                     if (result.equals(pathList.get(i))) {
                         Object id = keyList.get(i);
-                        FrameProgress.create(Elements.this, new ListenerFrame() {
+                        ProgressBar.create(Elements.this, new ListenerFrame() {
                             public void actionRequest(Object obj) {
                                 App.Systree.createFrame(Elements.this, id, 1);
                             }

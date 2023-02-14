@@ -428,7 +428,7 @@ public class Rulecalc extends javax.swing.JFrame {
                 Integer v = rulecalcRec.getInt(eRulecalc.artikl_id);
                 if (v != null) {
                     Record artiklRec = eArtikl.get(v);
-                    FrameProgress.create(this, new ListenerFrame() {
+                    ProgressBar.create(this, new ListenerFrame() {
                         public void actionRequest(Object obj) {
                             App.Artikles.createFrame(Rulecalc.this, artiklRec);
                         }

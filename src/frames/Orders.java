@@ -3578,7 +3578,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void btnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalc
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 try {
                     Record projectRec = qProject.get(UGui.getIndexRec(tab1));
@@ -3767,7 +3767,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         if (tab1.getBorder() != null) {
             Record record = ((DefTableModel) tab1.getModel()).getQuery().get(UGui.getIndexRec(tab1));
             if (record != null) {
-                FrameProgress.create(this, new ListenerFrame() {
+                ProgressBar.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Partner.createFrame(Orders.this, record.getInt(eProject.prjpart_id));
                     }
@@ -3777,7 +3777,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(ePrjkit.artikl_id), false);
-                FrameProgress.create(this, new ListenerFrame() {
+                ProgressBar.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Artikles.createFrame(Orders.this, record2);
                     }
@@ -3813,7 +3813,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_btnReport
 
     private void menuItem11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem11
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 //Отчёт
                 HtmlOfMaterial.material(qProject.get(UGui.getIndexRec(tab1, 0)));
@@ -3822,7 +3822,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem11
 
     private void menuItem12(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem12
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 //Отчёт
                 HtmlOfSpecific.specific(qProject.get(UGui.getIndexRec(tab1, 0)));
@@ -3831,7 +3831,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem12
 
     private void menuItem13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem13
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             @Override
             public void actionRequest(Object obj) {
                 //Отчёт
@@ -3841,7 +3841,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem13
 
     private void menuItem14(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem14
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             @Override
             public void actionRequest(Object obj) {
                 //Отчёт
@@ -3851,7 +3851,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem14
 
     private void menuItem15(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem15
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             @Override
             public void actionRequest(Object obj) {
                 //Отчёт
@@ -3861,7 +3861,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem15
 
     private void menuItem16(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem16
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             @Override
             public void actionRequest(Object obj) {
                 //Отчёт
@@ -3871,7 +3871,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_menuItem16
 
     private void menuItem17(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem17
-        FrameProgress.create(Orders.this, new ListenerFrame() {
+        ProgressBar.create(Orders.this, new ListenerFrame() {
             @Override
             public void actionRequest(Object obj) {
                 //Отчёт

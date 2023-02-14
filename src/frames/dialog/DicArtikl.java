@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
 import frames.Artikles;
-import frames.FrameProgress;
+import frames.ProgressBar;
 import frames.swing.TableFieldFilter;
 import startup.App;
 
@@ -280,7 +280,7 @@ public class DicArtikl extends javax.swing.JDialog {
 
     private void btn51mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn51mn94
         dispose();
-        FrameProgress.create(DicArtikl.this.getOwner(), new ListenerFrame() {
+        ProgressBar.create(DicArtikl.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(DicArtikl.this.getOwner(), listener);
             }

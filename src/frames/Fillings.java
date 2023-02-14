@@ -1015,7 +1015,7 @@ public class Fillings extends javax.swing.JFrame {
         if (tab2.getBorder() != null) {
             Record record = ((DefTableModel) tab2.getModel()).getQuery().get(UGui.getIndexRec(tab2));
             Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
-            FrameProgress.create(this, new ListenerFrame() {
+            ProgressBar.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     App.Artikles.createFrame(Fillings.this, record2);
                 }
@@ -1023,7 +1023,7 @@ public class Fillings extends javax.swing.JFrame {
         } else if (tab5.getBorder() != null) {
             Record record = ((DefTableModel) tab5.getModel()).getQuery().get(UGui.getIndexRec(tab5));
             Record record2 = eArtikl.find(record.getInt(eGlasprof.artikl_id), false);
-            FrameProgress.create(this, new ListenerFrame() {
+            ProgressBar.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     App.Artikles.createFrame(Fillings.this, record2);
                 }

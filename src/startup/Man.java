@@ -1,7 +1,7 @@
 package startup;
 
 import builder.Wincalc;
-import frames.FrameProgress;
+import frames.ProgressBar;
 import frames.FrameToFile;
 import frames.UGui;
 import java.awt.Frame;
@@ -486,7 +486,7 @@ public class Man extends javax.swing.JFrame {
 
     private void btn5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5
 
-        FrameProgress.create(Man.this, new ListenerFrame() {
+        ProgressBar.create(Man.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Partner.createFrame(Man.this);
             }
@@ -494,7 +494,7 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_btn5
 
     private void btn6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6
-        FrameProgress.create(Man.this, new ListenerFrame() {
+        ProgressBar.create(Man.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Order.createFrame(Man.this);
             }
@@ -502,7 +502,7 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_btn6
 
     private void btn7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7
-    FrameProgress.create(Man.this, new ListenerFrame() {
+    ProgressBar.create(Man.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Specification.createFrame(Man.this);
         }

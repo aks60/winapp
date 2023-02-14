@@ -8,12 +8,12 @@ import javax.swing.SwingWorker;
 import startup.App;
 import startup.Tex;
 
-public class FrameProgress extends javax.swing.JDialog {
+public class ProgressBar extends javax.swing.JDialog {
 
-    public static FrameProgress progress = null;
+    public static ProgressBar progress = null;
     private static ListenerFrame listener = null;
 
-    public FrameProgress(java.awt.Window owner, ListenerFrame listener) {
+    public ProgressBar(java.awt.Window owner, ListenerFrame listener) {
         super(owner, ModalityType.DOCUMENT_MODAL);
         this.listener = listener;
         initComponents();
@@ -25,7 +25,7 @@ public class FrameProgress extends javax.swing.JDialog {
     }
 
     public static void create(java.awt.Window owner, ListenerFrame listener) {
-        progress = new FrameProgress(owner, listener);
+        progress = new ProgressBar(owner, listener);
         progress.setVisible(true);
     }
 

@@ -1640,7 +1640,7 @@ public class Furniturs extends javax.swing.JFrame {
                 : (UGui.getIndexRec(tab2b) != -1) ? tab2b : tab2a; //ВАЖНО! Поиск выделения строки снизу вверх.
         Record record = ((DefTableModel) table.getModel()).getQuery().get(UGui.getIndexRec(table));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
-        FrameProgress.create(this, new ListenerFrame() {
+        ProgressBar.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Furniturs.this, record2);
             }
@@ -1735,7 +1735,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInser2
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Furniturs.this, new ListenerFrame() {
+        ProgressBar.create(Furniturs.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Furniturs.this, listenerColor);
             }
@@ -1774,7 +1774,7 @@ public class Furniturs extends javax.swing.JFrame {
                 for (int i = 0; i < pathList.size(); ++i) {
                     if (result.equals(pathList.get(i))) {
                         Object id = keyList.get(i);
-                        FrameProgress.create(Furniturs.this, new ListenerFrame() {
+                        ProgressBar.create(Furniturs.this, new ListenerFrame() {
                             public void actionRequest(Object obj) {
                                 App.Systree.createFrame(Furniturs.this, id, 2);
                             }

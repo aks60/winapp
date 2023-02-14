@@ -444,7 +444,7 @@ public class Specifics extends javax.swing.JFrame {
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         Specific recordSpc = winc.listSpec.find(id);
-        FrameProgress.create(this, new ListenerFrame() {
+        ProgressBar.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Specifics.this, recordSpc.artiklRec);
             }
@@ -457,7 +457,7 @@ public class Specifics extends javax.swing.JFrame {
         Specific specificRec = winc.listSpec.find(id);
         Record detailRec = specificRec.detailRec;
         if (detailRec != null) {
-            FrameProgress.create(Specifics.this, new ListenerFrame() {
+            ProgressBar.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
                         App.Element.createFrame(Specifics.this, winc.calcElements.setVariant, detailRec.getInt(eElemdet.id));
@@ -474,7 +474,7 @@ public class Specifics extends javax.swing.JFrame {
                 }
             });
         } else {
-            FrameProgress.create(Specifics.this, new ListenerFrame() {
+            ProgressBar.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ") || str.equals("ЗАП")) {
                         App.Systree.createFrame(Specifics.this);
@@ -525,7 +525,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxGroupBy
 
     private void cbxCalcType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCalcType
-        FrameProgress.create(this, new ListenerFrame() {
+        ProgressBar.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 createIwin();
                 loadingTab1(winc.listSpec);
@@ -536,7 +536,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxCalcType
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Specifics.this, new ListenerFrame() {
+        ProgressBar.create(Specifics.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.PSCompare.createFrame(Specifics.this, winc);
             }

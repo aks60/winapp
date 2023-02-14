@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
-import frames.FrameProgress;
+import frames.ProgressBar;
 import frames.swing.TableFieldFilter;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreeNode;
@@ -367,7 +367,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void btn51mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn51mn94
         dispose();
-        FrameProgress.create(DicArtikl2.this.getOwner(), new ListenerFrame() {
+        ProgressBar.create(DicArtikl2.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(DicArtikl2.this.getOwner(), listener);
             }

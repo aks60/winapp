@@ -742,7 +742,7 @@ public class Kits extends javax.swing.JFrame {
             Record record = ((DefTableModel) tab3.getModel()).getQuery().get(UGui.getIndexRec(tab3));
             if (record != null) {
                 Record record2 = eArtikl.find(record.getInt(eKitdet.artikl_id), false);
-                FrameProgress.create(this, new ListenerFrame() {
+                ProgressBar.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Artikles.createFrame(Kits.this, record2);
                     }

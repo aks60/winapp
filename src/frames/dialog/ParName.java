@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
-import frames.FrameProgress;
+import frames.ProgressBar;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.HashSet;
@@ -454,7 +454,7 @@ public class ParName extends javax.swing.JDialog {
 
     private void btnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametr
         dispose();
-        FrameProgress.create(ParName.this.getOwner(), new ListenerFrame() {
+        ProgressBar.create(ParName.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Param.createFrame(ParName.this.getOwner(), listener);
             }

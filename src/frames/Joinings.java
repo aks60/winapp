@@ -1141,7 +1141,7 @@ public class Joinings extends javax.swing.JFrame {
         if (tab4.getBorder() != null) {
             Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
             Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
-            FrameProgress.create(this, new ListenerFrame() {
+            ProgressBar.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     App.Artikles.createFrame(Joinings.this, record2);
                 }

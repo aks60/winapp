@@ -18,7 +18,7 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import common.listener.ListenerRecord;
-import frames.FrameProgress;
+import frames.ProgressBar;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
@@ -554,7 +554,7 @@ public class DicGroups extends javax.swing.JDialog {
 
     private void btnGroups(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroups
         dispose();
-        FrameProgress.create(DicGroups.this.getOwner(), new ListenerFrame() {
+        ProgressBar.create(DicGroups.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Groups.createFrame(DicGroups.this.getOwner(), 0, listener);
             }
