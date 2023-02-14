@@ -212,9 +212,9 @@ public class Fillings extends javax.swing.JFrame {
 
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name()
+            Query query = new Query(eArtikl.depth).select("select distinct " + eArtikl.depth.name()
                     + " from " + eArtikl.up.tname() + " where " + eArtikl.level1.name() + " = 5" + " order by " + eArtikl.depth.name());
-            DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);
+            DicName frame = new DicName(this, listenerThicknes, query, eArtikl.depth);
         });
 
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
@@ -400,7 +400,7 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2);
-                String depth = record.getStr(eArtikl.depth);
+                Object depth = record.get(eArtikl.depth);
                 qGlasdet.set(depth, UGui.getIndexRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2, index);

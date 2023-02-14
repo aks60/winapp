@@ -9,6 +9,7 @@ import dataset.Record;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import domain.eArtikl;
 import frames.ProgressBar;
 import java.util.Arrays;
 import startup.App;
@@ -28,7 +29,6 @@ public class DicName extends javax.swing.JDialog {
         this.listener = listenet;
         this.set = set;
         loadingModel();
-        btnIns.setVisible(false);
         setVisible(true);
     }
 
@@ -40,7 +40,6 @@ public class DicName extends javax.swing.JDialog {
         this.field = field;
         this.query = query;
         loadingModel();
-        btnIns.setVisible(false);
         setVisible(true);
     }
 
@@ -74,7 +73,6 @@ public class DicName extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
         btnArt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -185,22 +183,7 @@ public class DicName extends javax.swing.JDialog {
             }
         });
 
-        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setFocusable(false);
-        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert(evt);
-            }
-        });
-
-        btnArt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btnArt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif"))); // NOI18N
         btnArt.setToolTipText("Артикулы");
         btnArt.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArt.setFocusable(false);
@@ -219,14 +202,12 @@ public class DicName extends javax.swing.JDialog {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnArt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -235,7 +216,6 @@ public class DicName extends javax.swing.JDialog {
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,11 +258,6 @@ public class DicName extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 
-    private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
-        dtm.addRow(new String[]{});
-    }//GEN-LAST:event_btnInsert
-
     private void btnArtmn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtmn94
         dispose();
         ProgressBar.create(DicName.this.getOwner(), new ListenerFrame() {
@@ -297,7 +272,6 @@ public class DicName extends javax.swing.JDialog {
     private javax.swing.JButton btnArt;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
