@@ -586,10 +586,13 @@ public class Furniturs extends javax.swing.JFrame {
                     query.set(artiklID, UGui.getIndexRec(tab2x), eFurndet.pk);
                     query.filter(query.get(index).getInt(eFurndet.pk), eFurndet.furndet_pk).forEach(rec -> rec.set(eFurndet.furndet_pk, artiklID));
                 }
-                if(eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == artiklID  && rec.getInt(eArtdet.color_fk) > 0).count() == 1) {                    
-                    Record artdetRec = eArtdet.find(artiklID);
-                    if(artdetRec.getInt(eArtdet.color_fk) > 0) {
-                        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
+                
+                List<Record> artdetList = eArtdet.query().stream().filter(rec
+                        -> artiklID == rec.getInt(eArtdet.artikl_id)
+                        && rec.getInt(eArtdet.color_fk) > 0).collect(Collectors.toList());
+                if (artdetList.size() == 1) {
+                    if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
+                        Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));
                         listenerColor.action(colorRec);
                     }
                 }
