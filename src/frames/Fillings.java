@@ -803,11 +803,11 @@ public class Fillings extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(2).setMaxWidth(1600);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(4).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(5).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(6).setMaxWidth(300);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
