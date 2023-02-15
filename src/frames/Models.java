@@ -256,6 +256,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         setTitle("Модели конструкций");
         setFont(frames.UGui.getFont(0,1));
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Models.this.windowClosed(evt);
