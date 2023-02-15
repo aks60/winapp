@@ -589,8 +589,9 @@ public class UGui {
         }
     }
 
-    public static int getIndexKeyValue(JTable table, Object val, Field field) {
-        Query query = ((DefTableModel) table.getModel()).getQuery();
+    public static int getIndexKeyValue(JTable table, Record record, Field field) {
+        Object val = record.get(field);
+        Query query = getQuery(table);
         if (val != null) {
             for (int i = 0; i < query.size(); i++) {
                 if (val.equals(query.get(i, field))) {

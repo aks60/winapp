@@ -1102,8 +1102,8 @@ public class Elements extends javax.swing.JFrame {
                 if ((id == -1 || id == -5) == false) {
                     UGui.insertRecordCur(tab2, eElement.up, (record) -> {
                         record.set(eElement.groups2_id, id);
-                        Record record2 = eArtikl.up.newRecord();
-                        qElement.table(eArtikl.up).add(record2);
+                        int index = UGui.getIndexKeyValue(tab2, record, eElement.id);
+                        qElement.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                     });
                 }
             }
@@ -1111,8 +1111,8 @@ public class Elements extends javax.swing.JFrame {
             if (UGui.getIndexRec(tab2) != -1) {
                 UGui.insertRecordCur(tab3, eElemdet.up, (record) -> {
                     record.set(eElemdet.element_id, qElement.get(UGui.getIndexRec(tab2), eElement.id));
-                    Record record2 = eArtikl.up.newRecord();
-                    qElemdet.table(eArtikl.up).add(record2);
+                    int index = UGui.getIndexKeyValue(tab3, record, eElemdet.id);
+                    qElemdet.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                 });
             }
         } else if (tab4.getBorder() != null) {

@@ -797,7 +797,7 @@ public class Fillings extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(0).setMaxWidth(180);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(130);
             tab2.getColumnModel().getColumn(1).setMaxWidth(600);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
             tab2.getColumnModel().getColumn(2).setMaxWidth(1600);
@@ -982,7 +982,8 @@ public class Fillings extends javax.swing.JFrame {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasdet.depth, 0);
                 record.set(eGlasdet.glasgrp_id, id);
-                qGlasdet.table(eArtikl.up).add(eArtikl.up.newRecord());
+                int index = UGui.getIndexKeyValue(tab2, record, eGlasdet.id);
+                qGlasdet.table(eArtikl.up).add(index, eArtikl.up.newRecord());
             });
 
         } else if (tab3.getBorder() != null) {
@@ -1008,7 +1009,8 @@ public class Fillings extends javax.swing.JFrame {
                 record.set(eGlasprof.gsize, .0);
                 record.set(eGlasprof.inside, 1);
                 record.set(eGlasprof.outside, 1);
-                qGlasprof.table(eArtikl.up).add(eArtikl.up.newRecord());
+                int index = UGui.getIndexKeyValue(tab2, record, eGlasprof.id);
+                qGlasprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());
             });
         }
     }//GEN-LAST:event_btnInsert

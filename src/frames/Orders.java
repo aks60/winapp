@@ -47,6 +47,7 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eElement;
 import domain.eFurniture;
+import domain.eGlasprof;
 import domain.eGroups;
 import domain.eJoining;
 import domain.eJoinvar;
@@ -3161,13 +3162,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             int index2 = UGui.getIndexRec(tab2);
             if (index != -1) {
                 if (((JButton) evt.getSource()) == btnIns) {
-                    UGui.insertRecordCur(tab4, ePrjkit.up, (prjkitRec) -> {
+                    UGui.insertRecordCur(tab4, ePrjkit.up, (record) -> {
                         if (index2 != -1) {
-                            prjkitRec.set(ePrjkit.prjprod_id, qPrjprod.get(index2, ePrjprod.id));
+                            record.set(ePrjkit.prjprod_id, qPrjprod.get(index2, ePrjprod.id));
                         }
-                        prjkitRec.set(ePrjkit.project_id, qProject.get(index, eProject.id));
-                        Record record3 = eArtikl.up.newRecord();
-                        qPrjkit.table(eArtikl.up).add(record3);
+                        record.set(ePrjkit.project_id, qProject.get(index, eProject.id));
+                        int index3 = UGui.getIndexKeyValue(tab2, record, ePrjkit.id);
+                        qPrjkit.table(eArtikl.up).add(index3, eArtikl.up.newRecord());
                     });
                 } else if (((JButton) evt.getSource()) == btnSet) {
                     DicKits frame = new DicKits(Orders.this, (q) -> {
