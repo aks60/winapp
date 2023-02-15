@@ -37,9 +37,6 @@ public class Main {
             } else if (index == 0 && args[0].equals("man")) {
                 eProp.profile = args[0];
             }
-            if (index == 1 && args[1].equals("loc")) {
-                eProp.locate = true;
-            }
         }
 
         SwingUtilities.invokeLater(new Runnable() {
