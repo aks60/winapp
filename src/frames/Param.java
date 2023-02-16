@@ -61,7 +61,7 @@ public class Param extends javax.swing.JFrame {
     public void loadingModel() {
 
         new DefTableModel(tab1, qGroups1, eGroups.name);
-        new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
+        new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color, eParams.label);
 
         new DefTableModel(tab3, qGroups2, eGroups.name);
         new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
@@ -92,7 +92,7 @@ public class Param extends javax.swing.JFrame {
         };
 
         DefCellRendererBool br = new DefCellRendererBool();
-        List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
         List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
@@ -449,18 +449,18 @@ public class Param extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111", null, null, null, null, null, null, null, null},
-                {"2222", null, null, null, null, null, null, null, null}
+                {"1111", null, null, null, null, null, null, null, null, null},
+                {"2222", null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Надпись", "ID"
+                "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Текстуры", "Надпись", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, false
+                true, true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -491,9 +491,9 @@ public class Param extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(96);
-            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(96);
+            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(9).setMaxWidth(60);
         }
 
         pan1.add(scr2);
