@@ -1090,6 +1090,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Systree.this.windowClosed(evt);
@@ -1190,7 +1192,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        btnFind1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFind1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
         btnFind1.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFind1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFind1.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -1244,7 +1246,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         });
 
-        btnFind2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
+        btnFind2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c089.gif"))); // NOI18N
         btnFind2.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFind2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFind2.setFocusable(false);
@@ -1266,9 +1268,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             .addGroup(toolLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFind1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1278,9 +1280,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnMoveU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMoveD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(panSspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3515,8 +3517,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     record.set(eSysprof.systree_id, systreeID);
                     int max = qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
                     record.set(eSysprof.npp, ++max);
-                    Record record2 = eArtikl.up.newRecord();
-                    qSysprof.table(eArtikl.up).add(record2);;
+                    int index = UGui.getIndexKeyValue(tab2, record, eSysprof.id);
+                    qSysprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());;
                 });
 
             } else if (tab3.getBorder() != null) {
@@ -3526,8 +3528,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     record.setNo(eSysfurn.replac, 0);
                     record.setNo(eSysfurn.side_open, TypeOpen2.QUE.id);
                     record.setNo(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
-                    Record record2 = eFurniture.up.newRecord();
-                    qSysfurn.table(eFurniture.up).add(record2);;
+                    int index = UGui.getIndexKeyValue(tab2, record, eSysfurn.id);
+                    qSysfurn.table(eFurniture.up).add(index, eFurniture.up.newRecord());;
                 });
             } else if (tab4.getBorder() != null) {
                 UGui.insertRecordCur(tab4, eSyspar1.up, (record) -> {

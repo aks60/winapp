@@ -250,7 +250,6 @@ public class Test {
         System.out.println(Integer.parseInt(str));
     }
 
-    //https://spec-zone.ru/RU/Java/Docs/7/technotes/guides/scripting/programmer_guide/index.html#top
     private static void script() throws Exception {
 
 //        ScriptEngineManager factory = new ScriptEngineManager();

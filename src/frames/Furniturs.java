@@ -806,7 +806,9 @@ public class Furniturs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(900, 640));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Furniturs.this.windowClosed(evt);
@@ -897,7 +899,7 @@ public class Furniturs extends javax.swing.JFrame {
             }
         });
 
-        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConstructiv.setFocusable(false);
@@ -924,7 +926,7 @@ public class Furniturs extends javax.swing.JFrame {
             }
         });
 
-        btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
+        btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c089.gif"))); // NOI18N
         btnFindSystree.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFindSystree.setFocusable(false);

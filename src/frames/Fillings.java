@@ -487,6 +487,8 @@ public class Fillings extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Fillings.this.windowClosed(evt);
@@ -561,7 +563,7 @@ public class Fillings extends javax.swing.JFrame {
             }
         });
 
-        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConstructiv.setFocusable(false);
@@ -795,17 +797,17 @@ public class Fillings extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(0).setMaxWidth(180);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(130);
             tab2.getColumnModel().getColumn(1).setMaxWidth(600);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
             tab2.getColumnModel().getColumn(2).setMaxWidth(1600);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(4).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(5).setMaxWidth(300);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(110);
             tab2.getColumnModel().getColumn(6).setMaxWidth(300);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
@@ -980,7 +982,8 @@ public class Fillings extends javax.swing.JFrame {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasdet.depth, 0);
                 record.set(eGlasdet.glasgrp_id, id);
-                qGlasdet.table(eArtikl.up).add(eArtikl.up.newRecord());
+                int index = UGui.getIndexKeyValue(tab2, record, eGlasdet.id);
+                qGlasdet.table(eArtikl.up).add(index, eArtikl.up.newRecord());
             });
 
         } else if (tab3.getBorder() != null) {
@@ -1006,7 +1009,8 @@ public class Fillings extends javax.swing.JFrame {
                 record.set(eGlasprof.gsize, .0);
                 record.set(eGlasprof.inside, 1);
                 record.set(eGlasprof.outside, 1);
-                qGlasprof.table(eArtikl.up).add(eArtikl.up.newRecord());
+                int index = UGui.getIndexKeyValue(tab2, record, eGlasprof.id);
+                qGlasprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());
             });
         }
     }//GEN-LAST:event_btnInsert

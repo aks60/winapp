@@ -580,6 +580,8 @@ public class Elements extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Вставки");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Elements.this.windowClosed(evt);
@@ -670,7 +672,7 @@ public class Elements extends javax.swing.JFrame {
             }
         });
 
-        btnFindArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFindArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
         btnFindArtikl.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFindArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFindArtikl.setFocusable(false);
@@ -697,7 +699,7 @@ public class Elements extends javax.swing.JFrame {
             }
         });
 
-        btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
+        btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c089.gif"))); // NOI18N
         btnFindSystree.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFindSystree.setFocusable(false);
@@ -1100,8 +1102,8 @@ public class Elements extends javax.swing.JFrame {
                 if ((id == -1 || id == -5) == false) {
                     UGui.insertRecordCur(tab2, eElement.up, (record) -> {
                         record.set(eElement.groups2_id, id);
-                        Record record2 = eArtikl.up.newRecord();
-                        qElement.table(eArtikl.up).add(record2);
+                        int index = UGui.getIndexKeyValue(tab2, record, eElement.id);
+                        qElement.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                     });
                 }
             }
@@ -1109,8 +1111,8 @@ public class Elements extends javax.swing.JFrame {
             if (UGui.getIndexRec(tab2) != -1) {
                 UGui.insertRecordCur(tab3, eElemdet.up, (record) -> {
                     record.set(eElemdet.element_id, qElement.get(UGui.getIndexRec(tab2), eElement.id));
-                    Record record2 = eArtikl.up.newRecord();
-                    qElemdet.table(eArtikl.up).add(record2);
+                    int index = UGui.getIndexKeyValue(tab3, record, eElemdet.id);
+                    qElemdet.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                 });
             }
         } else if (tab4.getBorder() != null) {

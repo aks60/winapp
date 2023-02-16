@@ -141,6 +141,7 @@ public class Tex extends javax.swing.JFrame {
         mn26 = new javax.swing.JMenuItem();
         mn21 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
+        mn24 = new javax.swing.JPopupMenu.Separator();
         mn22 = new javax.swing.JMenuItem();
         mn09 = new javax.swing.JMenu();
         mn91 = new javax.swing.JMenuItem();
@@ -643,6 +644,7 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn02.add(mn23);
+        mn02.add(mn24);
 
         mn22.setFont(frames.UGui.getFont(0,1));
         mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
@@ -1190,6 +1192,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenuItem mn21;
     private javax.swing.JMenuItem mn22;
     private javax.swing.JMenuItem mn23;
+    private javax.swing.JPopupMenu.Separator mn24;
     private javax.swing.JMenuItem mn26;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;

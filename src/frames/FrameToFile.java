@@ -45,12 +45,12 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
     }
 
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-   
+
         Dimension frameSize = frame.getSize();
         try {
             btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif")));
             String dy = String.valueOf(frame.getSize().height);
-            String dx = String.valueOf(frame.getSize().width);            
+            String dx = String.valueOf(frame.getSize().width);
             eProp.load().setProperty(frame.getClass().getName() + "_height", dy);
             eProp.load().setProperty(frame.getClass().getName() + "_width", dx);
             eProp.save();
@@ -63,18 +63,19 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
      * Устанавливаем размеры и координаты window
      */
     public static void setFrameSize(Window frame) {
-        
+
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = frame.getSize();
         frameUp = frame;
         String dy = eProp.load().getProperty(frame.getClass().getName() + "_height", "nul");
         String dx = eProp.load().getProperty(frame.getClass().getName() + "_width", "nul");
-        
+
         if (!dy.equals("nul") && !dx.equals("nul")) {
-            if ((eProp.dev == true && eProp.locate == true) || eProp.dev == false) {
+//            if ((eProp.dev == true && eProp.locate == true) || eProp.dev == false) {
+            if (eProp.locate == true) {
                 frameSize.height = Integer.valueOf(dy); //размеры окна
                 frameSize.width = Integer.valueOf(dx);  //размеры окна
-            }            
+            }
         }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;
