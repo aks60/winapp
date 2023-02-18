@@ -1032,7 +1032,7 @@ public class Artikles extends javax.swing.JFrame {
         pan9.setPreferredSize(new java.awt.Dimension(800, 900));
         pan9.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(200, 500));
+        pan4.setPreferredSize(new java.awt.Dimension(220, 500));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
@@ -1048,7 +1048,6 @@ public class Artikles extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setMaximumSize(new java.awt.Dimension(200, 400));
         scrTree.setViewportView(tree);
 
         pan4.add(scrTree, java.awt.BorderLayout.CENTER);

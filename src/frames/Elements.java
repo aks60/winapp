@@ -890,11 +890,8 @@ public class Elements extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(80);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(80);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(80);
             tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(9).setMaxWidth(60);
         }
@@ -1416,9 +1413,9 @@ public class Elements extends javax.swing.JFrame {
                 }
             }
         });
-        for (int i : List.of(3, 6, 7)) {
-            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMinWidth(0);
-            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMaxWidth(0);
-        }
+//        for (int i : List.of(3, 6, 7)) {
+//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMinWidth(0);
+//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMaxWidth(0);
+//        }
     }
 }

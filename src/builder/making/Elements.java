@@ -107,9 +107,9 @@ public class Elements extends Cal5e {
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102,
                                         TypeArtikl.X103, TypeArtikl.X104, TypeArtikl.X105)) {
                                     elem5e.spcRec().setArtikl(spcAdd.artiklRec); //подмена артикула в основной спецификации
-                                        elem5e.spcRec().setColor(1, spcAdd.colorID1);
-                                        elem5e.spcRec().setColor(2, spcAdd.colorID2);
-                                        elem5e.spcRec().setColor(3, spcAdd.colorID3);                                    
+                                    elem5e.spcRec().setColor(1, spcAdd.colorID1);
+                                    elem5e.spcRec().setColor(2, spcAdd.colorID2);
+                                    elem5e.spcRec().setColor(3, spcAdd.colorID3);
                                     elem5e.addSpecific(elem5e.spcRec());
 
                                     //Контейнер маскитка не учавствует в цикле сторон
