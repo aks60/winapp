@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import frames.UGui;
 import dataset.Record;
 import enums.Enam;

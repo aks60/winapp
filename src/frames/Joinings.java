@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import builder.making.UColor;
 import builder.model.ElemJoining;
 import frames.dialog.ParName;

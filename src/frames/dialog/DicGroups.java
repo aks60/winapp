@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import common.listener.ListenerFrame;
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import frames.UGui;
 import dataset.Query;
 import dataset.Record;

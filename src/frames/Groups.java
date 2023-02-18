@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import common.UCom;
 import common.listener.ListenerRecord;
 import dataset.Query;

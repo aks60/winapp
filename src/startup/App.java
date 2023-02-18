@@ -2,7 +2,7 @@ package startup;
 
 import builder.Wincalc;
 import builder.model.ElemJoining;
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import common.eProfile;
 import common.listener.ListenerRecord;
 import dataset.Conn;

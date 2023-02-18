@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;

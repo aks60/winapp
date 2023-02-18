@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import frames.dialog.DicCurrenc;
 import builder.IArea5e;
 import builder.ICom5t;

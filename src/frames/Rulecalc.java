@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import common.listener.ListenerFrame;
 import dataset.Conn;
 import dataset.Field;

@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;

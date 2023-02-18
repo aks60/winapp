@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import dataset.Record;
 import domain.eFurniture;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import common.listener.ListenerRecord;
 import dataset.Conn;
 import dataset.Query;
@@ -61,7 +62,7 @@ public class Param extends javax.swing.JFrame {
     public void loadingModel() {
 
         new DefTableModel(tab1, qGroups1, eGroups.name);
-        new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color, eParams.label);
+        new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         new DefTableModel(tab3, qGroups2, eGroups.name);
         new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
@@ -92,7 +93,7 @@ public class Param extends javax.swing.JFrame {
         };
 
         DefCellRendererBool br = new DefCellRendererBool();
-        List.of(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
         List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
@@ -165,7 +166,6 @@ public class Param extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
         ppmCrud = new javax.swing.JPopupMenu();
         mInsert = new javax.swing.JMenuItem();
         mDelit = new javax.swing.JMenuItem();
@@ -190,10 +190,6 @@ public class Param extends javax.swing.JFrame {
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-
-        jSplitPane1.setDividerLocation(400);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(454, 563));
 
         mInsert.setFont(frames.UGui.getFont(1,0));
         mInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
@@ -357,7 +353,7 @@ public class Param extends javax.swing.JFrame {
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 691, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 600, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,11 +388,11 @@ public class Param extends javax.swing.JFrame {
             }
         });
 
-        pan1.setPreferredSize(new java.awt.Dimension(454, 304));
         pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(160, 304));
+        scr1.setMaximumSize(new java.awt.Dimension(600, 32767));
+        scr1.setPreferredSize(new java.awt.Dimension(250, 400));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -442,25 +438,25 @@ public class Param extends javax.swing.JFrame {
         pan1.add(scr1);
 
         scr2.setBorder(null);
-        scr2.setMinimumSize(new java.awt.Dimension(450, 400));
-        scr2.setPreferredSize(new java.awt.Dimension(450, 400));
+        scr2.setMaximumSize(new java.awt.Dimension(1800, 32767));
+        scr2.setPreferredSize(new java.awt.Dimension(550, 400));
 
         tab2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 4, 0, 0));
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111", null, null, null, null, null, null, null, null, null},
-                {"2222", null, null, null, null, null, null, null, null, null}
+                {"1111", null, null, null, null, null, null, null, null},
+                {"2222", null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Текстуры", "Надпись", "ID"
+                "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Надпись", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, true, false
+                true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -491,9 +487,9 @@ public class Param extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(8).setPreferredWidth(96);
-            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(9).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(100);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(60);
         }
 
         pan1.add(scr2);
@@ -501,11 +497,11 @@ public class Param extends javax.swing.JFrame {
 
         tabbPan.addTab(" Параметры элементов конструкций", pan1);
 
-        pan2.setPreferredSize(new java.awt.Dimension(454, 204));
         pan2.setLayout(new javax.swing.BoxLayout(pan2, javax.swing.BoxLayout.LINE_AXIS));
 
         scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(160, 304));
+        scr3.setMaximumSize(new java.awt.Dimension(600, 32767));
+        scr3.setPreferredSize(new java.awt.Dimension(250, 400));
 
         tab3.setFont(frames.UGui.getFont(0,0));
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -535,6 +531,9 @@ public class Param extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Param.this.mousePressed(evt);
             }
@@ -549,7 +548,8 @@ public class Param extends javax.swing.JFrame {
 
         scr4.setBorder(null);
         scr4.setAutoscrolls(true);
-        scr4.setMinimumSize(new java.awt.Dimension(450, 400));
+        scr4.setMaximumSize(new java.awt.Dimension(1800, 32767));
+        scr4.setPreferredSize(new java.awt.Dimension(550, 400));
 
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
@@ -558,7 +558,7 @@ public class Param extends javax.swing.JFrame {
                 {null, "zzzzzzz", null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Текстура профиля", "Группа", "Текстура элемента", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты", "ID"
+                "Группа", "Значение параметра (текстура)", "Группа", "Текстура элемента", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -571,18 +571,38 @@ public class Param extends javax.swing.JFrame {
         });
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
+        tab4.setPreferredSize(new java.awt.Dimension(960, 40));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Param.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tab4.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(0).setMaxWidth(140);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(400);
+            tab4.getColumnModel().getColumn(1).setMaxWidth(1600);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(2).setMaxWidth(140);
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(300);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(400);
+            tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(4).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(5).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(6).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(7).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(7).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(8).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(8).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(9).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(9).setMaxWidth(120);
             tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
         }
 
@@ -595,7 +615,6 @@ public class Param extends javax.swing.JFrame {
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
@@ -640,19 +659,18 @@ public class Param extends javax.swing.JFrame {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PARAM_USER.id);
                 record.set(eGroups.name, "");
-                record.setDev(eGroups.name, "Параметр");
+                record.setDev(eGroups.name, "Пар...");
             });
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordCur(tab2, eParams.up, (record) -> {
                 Record groupRec = qGroups1.get(UGui.getIndexRec(tab1));
-                //record.setDev(eParams.text, "val");
                 record.setNo(eParams.groups_id, groupRec.getInt(eGroups.id));
             });
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
                 record.set(eGroups.name, "");
-                record.setDev(eGroups.name, "Парам.соотв.");
+                record.setDev(eGroups.name, "Пар.соотв...");
             });
         } else if (tab4.getBorder() != null) {
             UGui.insertRecordCur(tab4, eColmap.up, (record) -> {
@@ -728,8 +746,8 @@ public class Param extends javax.swing.JFrame {
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            JTable table = List.of(tab1, tab2).stream().filter(it -> it == evt.getSource()).findFirst().get();
-            List.of(tab1, tab2).forEach(tab -> tab.setBorder(null));
+            JTable table = List.of(tab1, tab2, tab3, tab4).stream().filter(it -> it == evt.getSource()).findFirst().get();
+            List.of(tab1, tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
             table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmCrud.show(table, evt.getX(), evt.getY());
         }
@@ -754,7 +772,6 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem mDelit;
     private javax.swing.JMenuItem mInsert;
     private javax.swing.JPanel north;

@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import builder.param.ParamList;
 import common.eProp;
 import common.listener.ListenerFrame;

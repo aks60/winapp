@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import builder.Wincalc;
 import builder.making.Specific;
 import common.UCom;

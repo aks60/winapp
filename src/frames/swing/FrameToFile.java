@@ -1,4 +1,4 @@
-package frames;
+package frames.swing;
 
 import common.eProp;
 import java.awt.Dimension;
@@ -67,15 +67,12 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = frame.getSize();
         frameUp = frame;
-        String dy = eProp.load().getProperty(frame.getClass().getName() + "_height", "nul");
-        String dx = eProp.load().getProperty(frame.getClass().getName() + "_width", "nul");
+        String dy = eProp.load().getProperty(frame.getClass().getName() + "_height", null);
+        String dx = eProp.load().getProperty(frame.getClass().getName() + "_width", null);
 
-        if (!dy.equals("nul") && !dx.equals("nul")) {
-//            if ((eProp.dev == true && eProp.locate == true) || eProp.dev == false) {
-            if (eProp.locate == true) {
-                frameSize.height = Integer.valueOf(dy); //размеры окна
-                frameSize.width = Integer.valueOf(dx);  //размеры окна
-            }
+        if (eProp.locate == true) {
+            frameSize.height = (dy == null) ? frameSize.height : Integer.parseInt(dy); //размеры окна
+            frameSize.width = (dx == null) ? frameSize.width : Integer.parseInt(dx);  //размеры окна
         }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;

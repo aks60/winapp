@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.FrameToFile;
 import common.eProp;
 import java.awt.GraphicsEnvironment;
 import java.io.File;

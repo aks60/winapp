@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

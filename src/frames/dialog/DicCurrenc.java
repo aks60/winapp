@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import frames.UGui;
 import frames.swing.DefCellEditorNumb;
 import frames.swing.DefCellRendererNumb;

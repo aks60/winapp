@@ -3,7 +3,7 @@ package frames.dialog;
 import builder.making.UColor;
 import common.eProp;
 import dataset.Query;
-import frames.FrameToFile;
+import frames.swing.FrameToFile;
 import frames.UGui;
 import dataset.Record;
 import domain.eJoinvar;
