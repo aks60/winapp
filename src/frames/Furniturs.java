@@ -1648,7 +1648,6 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
-        System.out.println("frames.Furniturs.tbtnAction()");
         JTable table = null;
         if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             table = tab2a;

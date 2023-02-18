@@ -126,7 +126,7 @@ public class Furniture extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:Furniture.middle() " + e);
+            System.err.println("Ошибка:Furniture.variant() " + e);
         }
     }
 
@@ -159,7 +159,8 @@ public class Furniture extends Cal5e {
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
 
                 if (side < 0) {
-                    String txt = (furnitureDet.mapParamTmp.get(24038) == null) ? furnitureDet.mapParamTmp.get(25038) : furnitureDet.mapParamTmp.get(24038);
+                    String txt = (furnitureDet.mapParamTmp.getOrDefault(24038, null) == null) 
+                            ? furnitureDet.mapParamTmp.getOrDefault(25038, "*/*") : furnitureDet.mapParamTmp.getOrDefault(24038, "*/*");
                     String[] par = txt.split("/");
                     if (side == -1) {
                         side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
@@ -216,11 +217,8 @@ public class Furniture extends Cal5e {
             } else {
                 int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
-                try {
-                    variant(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
-                } catch (Exception e) {
-                    System.err.println("Ошибка:Furniture.middle() " + e);
-                }
+                
+                variant(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
             }
             return true;
         } catch (Exception e) {

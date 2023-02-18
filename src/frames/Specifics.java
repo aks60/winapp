@@ -71,7 +71,6 @@ public class Specifics extends javax.swing.JFrame {
             Record sysprodRec = eSysprod.find(sysprodID);
             if (sysprodRec == null) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
-                this.dispose();
             } else {
                 String script = sysprodRec.getStr(eSysprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
@@ -86,7 +85,6 @@ public class Specifics extends javax.swing.JFrame {
             Record prjprodRec = ePrjprod.find(prjprodID);
             if (prjprodRec == null) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в списке заказов", "Предупреждение", JOptionPane.OK_OPTION);
-                this.dispose();
             } else {
                 String script = prjprodRec.getStr(ePrjprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
