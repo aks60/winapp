@@ -70,7 +70,17 @@ public class UColor {
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(COLOR_US);
         if (colorFk == -1) {
-            JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикуда  " + spc.artikl + " не определена текстура.", "ВНИМАНИЕ!", 1);
+            String place = "---";
+            if("ВСТ".equals(spc.place)) {
+               place = "Вставки"; 
+            } else if("СОЕД".equals(spc.place)) {
+               place = "Соединения"; 
+            } else if("ФУРН".equals(spc.place)) {
+               place = "Фурнитура"; 
+            } else if("КОМП".equals(spc.place)) {
+               place = "Комплекты"; 
+            } 
+            JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикуда  '" + spc.artikl + "' не определена текстура. \nСмотри форму 'Составы => " + place + "'.", "ВНИМАНИЕ!", 1);
             return false; //нет данных для поиска, коллизия
         }
         try {

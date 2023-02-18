@@ -168,8 +168,7 @@ public class Tariffic extends Cal5e {
                 for (Record prjkitRec : prjkitList) {
                     Record artiklRec = eArtikl.find(prjkitRec.getInt(ePrjkit.artikl_id), true);
                     if (artiklRec != null) {
-                        Specific spc = new Specific(winc.genId(), prjkitRec, artiklRec, null);
-                        spc.place = "КОМП";
+                        Specific spc = new Specific("КОМП", winc.genId(), prjkitRec, artiklRec, null);
                         spc.width = prjkitRec.getFloat(ePrjkit.width);
                         spc.height = prjkitRec.getFloat(ePrjkit.height);
                         spc.count = prjkitRec.getFloat(ePrjkit.numb);

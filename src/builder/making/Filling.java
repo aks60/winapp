@@ -114,13 +114,12 @@ public class Filling extends Cal5e {
                 if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
                     setVariant.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                     Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                    Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
+                    Specific spcAdd = new Specific("ЗАП", glasdetRec, artiklRec, elemGlass, mapParam);
 
                     if (UColor.colorFromProduct(spcAdd, 1)
                             && UColor.colorFromProduct(spcAdd, 2)
                             && UColor.colorFromProduct(spcAdd, 3)) {
 
-                        spcAdd.place = "ЗАП";
                         elemGlass.addSpecific(spcAdd);
                     }
                 }

@@ -95,13 +95,11 @@ public class Elements extends Cal5e {
                         if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
-                            Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
+                            Specific spcAdd = new Specific("ВСТ", elemdetRec, artiklRec, elem5e, mapParam);
 
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
                                     && UColor.colorFromProduct(spcAdd, 3)) {
-
-                                spcAdd.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль с префиксом @ в осн. специф.

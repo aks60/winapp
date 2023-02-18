@@ -193,7 +193,7 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1) {
                     IElem5e sideStv = determOfSide(mapParam, areaStv);
-                    Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
+                    Specific spcAdd = new Specific("ФУРН", furndetRec, artiklRec, sideStv, mapParam);
 
                     //Ловим ручку, подвес, замок
                     if (propertyStv(areaStv, spcAdd) == false) {
@@ -208,7 +208,6 @@ public class Furniture extends Cal5e {
                     if (shortPass == false) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
-                        spcAdd.place = "ФУРН";
                         sideStv.addSpecific(spcAdd);
                     }
                 }
