@@ -55,12 +55,13 @@ public class Elements extends Cal5e {
                     }
                 } else {
                     //По artikl_id - артикула профилей
-                    List<Record> elementList3 = eElement.find2(elem5e.artiklRecAn().getInt(eArtikl.id));
+                    int artiklID = elem5e.artiklRecAn().getInt(eArtikl.id);
+                    List<Record> elementList3 = eElement.find2(artiklID);
                     detail(elementList3, elem5e);
 
                     //По groups1_id - серии профилей
-                    int series_id = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
-                    List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
+                    int seriesID = elem5e.artiklRecAn().getInt(eArtikl.groups4_id);
+                    List<Record> elementList2 = eElement.find(seriesID); //список элементов в серии
                     detail(elementList2, elem5e);
                 }
             }

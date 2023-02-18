@@ -852,7 +852,7 @@ public class Elements extends javax.swing.JFrame {
                 {null, null, "hhhhhhhhhhhhhh", "222", null, null, null, null,  new Double(0.0), null}
             },
             new String [] {
-                "Артикул", "Название", "Наименование вставок", "Тип состава", "Признак состава", "Серия", "Умолчание", "Обязательно", "Наценка%", "ID"
+                "Артикул", "Название", "Наименование вставок", "Тип состава", "Признак состава", "Серия", "Вкл. в рассчёт", "Обязательно", "Наценка%", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -1100,6 +1100,7 @@ public class Elements extends javax.swing.JFrame {
                 if ((id == -1 || id == -5) == false) {
                     UGui.insertRecordCur(tab2, eElement.up, (record) -> {
                         record.set(eElement.groups2_id, id);
+                        record.set(eElement.todef, 1);
                         int index = UGui.getIndexKeyValue(tab2, record, eElement.id);
                         qElement.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                     });

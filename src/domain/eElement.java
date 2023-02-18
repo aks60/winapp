@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.up;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +44,14 @@ public enum eElement implements Field {
         return query;
     }
 
-    public static List<Record> find(int series2_id) {
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> series2_id == rec.getInt(groups1_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
+    public static List<Record> find(int seriesID) {
+        if(seriesID == -1) {
+            return new ArrayList<Record>();
         }
-        return new Query(values()).select(up, "where", groups1_id, "=", series2_id, "and", todef, "> 0");
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> seriesID == rec.getInt(groups1_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
+        }
+        return new Query(values()).select(up, "where", groups1_id, "=", seriesID, "and", todef, "> 0");
     }
 
     public static List<Record> find2(int artikl2_id) {
