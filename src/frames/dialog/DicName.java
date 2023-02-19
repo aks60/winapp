@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import domain.eArtikl;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import java.util.Arrays;
 import startup.App;
 

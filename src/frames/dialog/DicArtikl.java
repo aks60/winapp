@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import common.listener.ListenerRecord;
 import frames.Artikles;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import frames.swing.TableFieldFilter;
 import startup.App;
 

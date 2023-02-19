@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
 import domain.eGroups;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.HashSet;

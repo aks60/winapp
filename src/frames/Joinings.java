@@ -1,5 +1,6 @@
 package frames;
 
+import frames.swing.ProgressBar;
 import frames.swing.FrameToFile;
 import builder.making.UColor;
 import builder.model.ElemJoining;

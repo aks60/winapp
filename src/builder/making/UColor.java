@@ -47,25 +47,11 @@ public class UColor {
         }
     }
 
-    public static void colorFromParam(IElem5e slem5e) {  //см. http://help.profsegment.ru/?id=1107        
-
-        String ruleOfColor = slem5e.spcRec().getParam(-1, 31019);
-        if ("-1".equals(ruleOfColor) == false) {
-            if ("внутренняя по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
-            } else if ("внешняя по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
-            } else if ("внутрення по внешней".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID3;
-            } else if ("внешняя по внутренней".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID2;
-            } else if ("2 стороны по основной".equalsIgnoreCase(ruleOfColor)) {
-                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
-                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
-            }
-        }
-    }
-
+    /**
+     * Подбор текстуры
+     * @param spc - спецификацм элемента
+     * @param side - строна элемента по которой ведётся подбор текстуры
+     */
     public static boolean colorFromProduct(Specific spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
         int colorFk = spc.detailRec.getInt(COLOR_FK);
@@ -179,6 +165,7 @@ public class UColor {
         return true;
     }
 
+    //Сообщение неудачи
     public static void colorFromMes(Specific spc) {  //см. http://help.profsegment.ru/?id=1107        
         String place = "---";
         if ("ВСТ".equals(spc.place)) {
@@ -261,6 +248,25 @@ public class UColor {
         return -1;
     }
 
+    public static void colorRuleFromParam(IElem5e slem5e) {  //см. http://help.profsegment.ru/?id=1107        
+
+        String ruleOfColor = slem5e.spcRec().getParam(-1, 31019);
+        if ("-1".equals(ruleOfColor) == false) {
+            if ("внутренняя по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
+            } else if ("внешняя по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
+            } else if ("внутрення по внешней".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID3;
+            } else if ("внешняя по внутренней".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID2;
+            } else if ("2 стороны по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec().colorID2 = slem5e.spcRec().colorID1;
+                slem5e.spcRec().colorID3 = slem5e.spcRec().colorID1;
+            }
+        }
+    }
+    
     //Поиск текстуры в артикуле
     private static int colorFromArtikl(int artiklID, int side, int elemColorID) {
         try {
@@ -412,6 +418,7 @@ public class UColor {
         }
     }
 
+    //Иконка типа соединения
     public static ImageIcon iconFromTypeJoin(int typeJoin) {
         for (int i = 0; i < 6; i++) {
             if (typeJoin == indexIcon[i]) {
@@ -421,6 +428,7 @@ public class UColor {
         return null;
     }
 
+    //Иконка типа соединения
     public static ImageIcon iconFromTypeJoin2(int typeJoin) {
         for (int i = 0; i < 6; i++) {
             if (typeJoin == indexIcon[i]) {

@@ -85,7 +85,7 @@ public class Elements extends Cal5e {
 
                     setVariant.add(elementRec.getInt(eElement.id)); //сделано для фильтрации профилей вне конструктива
 
-                    UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
+                    UColor.colorRuleFromParam(elem5e); //правило подбора текстур по параметру
                     List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElement.id)); //список элем. детализации
 
                     //Цикл по детализации

@@ -4,7 +4,7 @@ import frames.PathToDb;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import frames.UGui;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import frames.swing.FrameToFile;
 import common.eProp;
 import dataset.Record;

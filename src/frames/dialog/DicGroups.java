@@ -18,7 +18,7 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import common.listener.ListenerRecord;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;

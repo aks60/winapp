@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.listener.ListenerRecord;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import frames.swing.TableFieldFilter;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreeNode;

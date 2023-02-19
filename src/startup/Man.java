@@ -1,7 +1,7 @@
 package startup;
 
 import builder.Wincalc;
-import frames.ProgressBar;
+import frames.swing.ProgressBar;
 import frames.swing.FrameToFile;
 import frames.UGui;
 import java.awt.Frame;
