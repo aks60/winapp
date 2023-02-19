@@ -249,18 +249,16 @@ public class Elements extends javax.swing.JFrame {
 
     public void selectionTab2(ListSelectionEvent event) {
         UGui.clearTable(tab3, tab4, tab5);
-        int index2 = UGui.getIndexRec(tab2);
-        int index3 = UGui.getIndexRec(tab3);
-        int index4 = UGui.getIndexRec(tab4);
-        if (index2 != -1) {
-            Record record = qElement.table(eElement.up).get(index2);
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qElement.table(eElement.up).get(index);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.groups_id, "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index3);
-            UGui.setSelectedIndex(tab4, index4);
+            UGui.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab4);
         }
     }
 
@@ -765,11 +763,11 @@ public class Elements extends javax.swing.JFrame {
                 .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 526, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
