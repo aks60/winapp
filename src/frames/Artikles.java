@@ -171,8 +171,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        //tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditorNumb(3));
-        tab1.getColumnModel().getColumn(6).setCellEditor(new DefCellEditorNumb(3));
+        tab1.getColumnModel().getColumn(8).setCellEditor(new DefCellEditorNumb(3));
         tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellRendererBool());
         tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellRendererBool());
@@ -1070,10 +1069,10 @@ public class Artikles extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, false, true, true, true, false
+                true, true, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {

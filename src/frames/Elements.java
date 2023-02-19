@@ -249,16 +249,18 @@ public class Elements extends javax.swing.JFrame {
 
     public void selectionTab2(ListSelectionEvent event) {
         UGui.clearTable(tab3, tab4, tab5);
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record record = qElement.table(eElement.up).get(index);
+        int index2 = UGui.getIndexRec(tab2);
+        int index3 = UGui.getIndexRec(tab3);
+        int index4 = UGui.getIndexRec(tab4);
+        if (index2 != -1) {
+            Record record = qElement.table(eElement.up).get(index2);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.groups_id, "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3);
-            UGui.setSelectedRow(tab4);
+            UGui.setSelectedIndex(tab3, index3);
+            UGui.setSelectedIndex(tab4, index4);
         }
     }
 
@@ -425,7 +427,7 @@ public class Elements extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            if (tab2.getBorder() != null) {
+            if (tab2.getBorder() != null) {               
                 qElement.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
@@ -437,7 +439,7 @@ public class Elements extends javax.swing.JFrame {
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
                 int artiklID = record.getInt(eArtikl.id);
                 List<Record> artdetList = eArtdet.filter2(artiklID);
-                
+
                 if (artdetList.size() == 1) {
                     if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
                         Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));
