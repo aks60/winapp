@@ -383,7 +383,7 @@ public class PSConvert {
     public static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
-            executeSql("delete from params where pnumb > 0");  //group > 0  
+            executeSql("delete from params where pnumb > 0 or color = 1");  //group > 0  
             deleteSql(eColmap.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
@@ -750,7 +750,7 @@ public class PSConvert {
                 st2.executeUpdate(sql);
             }
             //Список параметров
-            rs = st1.executeQuery("select * from PARLIST where ZNUMB = 0");
+            rs = st1.executeQuery("select * from PARLIST where PCOLL != 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
                         + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
