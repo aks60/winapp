@@ -55,7 +55,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.ImageIcon;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
@@ -1224,7 +1224,8 @@ public class Elements extends javax.swing.JFrame {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            Object result = JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            Object result = JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, 
+                    new ImageIcon(getClass().getResource("/resource/img24/c066.gif")), pathList.toArray(), pathList.toArray()[0]);
             if (result != null || result instanceof Integer) {
                 for (int i = 0; i < pathList.size(); ++i) {
                     if (result.equals(pathList.get(i))) {

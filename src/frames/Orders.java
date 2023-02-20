@@ -1213,7 +1213,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         lab2.setMaximumSize(new java.awt.Dimension(120, 24));
         lab2.setPreferredSize(new java.awt.Dimension(120, 24));
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c090.gif"))); // NOI18N
         btnFind.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
         btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFind.setFocusable(false);
