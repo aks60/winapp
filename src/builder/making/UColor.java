@@ -66,7 +66,7 @@ public class UColor {
             int elemColorUS = (side == 1) ? typesUS & 0x0000000f : (side == 2) ? (typesUS & 0x000000f0) >> 4 : (typesUS & 0x00000f00) >> 8; //тип подбора                
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
             int profColorID = getColorProfile(spcAdd, elemColorUS, side); //цвет из варианта подбора 
-            
+
             //=== УКАЗАНА ВРУЧНУЮ ===//
             if (spcColorFk > 0 && spcColorFk != 100000) {
                 if (elemColorUS == UseColor.MANUAL.id) { //явное указание текстуры
@@ -169,19 +169,25 @@ public class UColor {
 
     //Поиск по текстуре профиля или заполнения
     private static int scanFromProfile(int elemArtiklID, int side, int profColorID) {
+
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
         Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
-        if (side == 1) {
-            for (Record artdetRec : artdetList) {
+        //Цикл по ARTDET определённого артикула
+        for (Record artdetRec : artdetList) {
+
+            if (side == 1) {
                 if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profColorID) {
                     return profColorID;
                 }
-            }
-        } else {
-            for (Record artdetRec : artdetList) {
-                if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profColorID
-                        || artdetRec.getInt(field) == 1 && artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                    return profColorID;
+            } else {
+                if (artdetRec.getInt(field) == 1) {
+                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
+                        return profColorID;
+                    }
+                } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
+                        return profColorID;
+                    }
                 }
             }
         }
@@ -196,8 +202,8 @@ public class UColor {
             for (Record artdetRec : artdetList) {
                 //Сторона подлежит рассмотрению?
                 if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
-                        || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
-                        || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
+                        || (side == 2 && (artdetRec.getInt(eArtdet.mark_c2) == 1 || (artdetRec.getInt(eArtdet.mark_c2) != 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)))
+                        || (side == 3 && (artdetRec.getInt(eArtdet.mark_c3) == 1 || (artdetRec.getInt(eArtdet.mark_c3) != 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)))) {
 
                     //Группа текстур
                     if (artdetRec.getInt(eArtdet.color_fk) < 0) {
@@ -321,7 +327,7 @@ public class UColor {
         JOptionPane.showMessageDialog(null, "Для артикуда  " + spc.artikl + " не определена цена.", "ВНИМАНИЕ!", 1);
         return 1; //такого случая не должно быть
     }
-    
+
     //Выдает цвет профиля в соответствии с заданным вариантом подбора текстуры   
     private static int getColorProfile(Specific spcAdd, int elemColorUS, int side) {
         try {
@@ -330,9 +336,14 @@ public class UColor {
                     return spcAdd.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //По текстуре профиля
                 case 15: //По текстуре заполнения
+                    int artiklID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.id);
+//                    return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1 
+//                            && rec.getInt(eArtdet.color_fk) > 0 && rec.getInt(eArtdet.artikl_id) == artiklID)
+//                            .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);                    
                     return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1
                             && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 3
-                            && rec.getInt(eArtdet.color_fk) > 0).findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);
+                            && rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0)
+                            .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);
                 case 1: //По основе изделия
                     return spcAdd.elem5e.winc().colorID1;
                 case 2: //По внутр.изделия
