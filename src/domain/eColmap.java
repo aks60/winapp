@@ -17,8 +17,8 @@ public enum eColmap implements Field {
     otkos("16", "5", "1", "Параметр откосов", "otkos"),
     komp("16", "5", "1", "Параметр комплектов", "PKOMP"),
     groups_id("4", "10", "1", "Группа соответствия цветов", "PNUMB"),
-    color_id1("4", "10", "1", "Текстура профиля", "color_id1"),
-    color_id2("4", "10", "1", "Цвет элемента", "color_id2");
+    color_id1("4", "10", "1", "Текстура параметра", "color_id1"),
+    color_id2("4", "10", "1", "Текстура соответствия", "color_id2");
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

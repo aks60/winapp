@@ -80,7 +80,7 @@ public class ParDef extends javax.swing.JDialog {
             qGroups.select(eGroups.up, "where", eGroups.id, "=", groupsID, "order by", eGroups.name);
             qParamsAll.select(eParams.up, "where", eParams.groups_id, "=", groupsID, "order by", eParams.text);
         } else {
-            qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "order by", eGroups.name);
+            qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id, "order by", eGroups.name);
             qParamsAll.select(eParams.up, "order by", eParams.text);
         }
     }

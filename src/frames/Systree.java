@@ -163,7 +163,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
             }
         }
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
