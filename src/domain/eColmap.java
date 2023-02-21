@@ -7,6 +7,7 @@ import dataset.Record;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
+//TODO COMMENT ON COLUMN PARCOLS.PSSS IS 'ссылка на текстуру COLSLST.PNUMB'
 public enum eColmap implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
     id("4", "10", "0", "Идентификатор", "id"),    
@@ -16,8 +17,8 @@ public enum eColmap implements Field {
     furn("16", "5", "1", "Параметр фурнитуры", "furn"),
     otkos("16", "5", "1", "Параметр откосов", "otkos"),
     komp("16", "5", "1", "Параметр комплектов", "PKOMP"),
-    groups_id("4", "10", "1", "Группа соответствия цветов", "PNUMB"),
-    color_id1("4", "10", "1", "Текстура параметра", "color_id1"),
+    groups_id("4", "10", "1", "Название параметра", "groups_id"),
+    color_id1("4", "10", "1", "Значение параметра", "color_id1"),
     color_id2("4", "10", "1", "Текстура соответствия", "color_id2");
 
     private MetaField meta = new MetaField(this);

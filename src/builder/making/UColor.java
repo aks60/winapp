@@ -118,8 +118,8 @@ public class UColor {
                     }
                     //Подбор по серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    int seriesID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.groups4_id);
-                    elemColorFK = scanFromProfSeries(seriesID, side, profColorID);
+                    //int seriesID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.groups4_id);
+                    elemColorFK = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID);
                     if (elemColorFK == -1 && spcColorFk == 0) {
                         elemColorFK = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
