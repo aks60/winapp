@@ -7,44 +7,62 @@ import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import domain.eColmap;
+import domain.eColor;
 import domain.eGroups;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
-public class ParDefault extends javax.swing.JDialog {
+public class ParDefVal extends javax.swing.JDialog {
 
-    private Query qGroups = new Query(eGroups.up.values());
+    private Query qGroups = new Query(eGroups.values());
+    private Query qParams = new Query(eParams.values());
+    private Query qColmap = new Query(eColmap.values());
     private ListenerRecord listener;
-    
-    public ParDefault(java.awt.Frame parent, ListenerRecord listener) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listener;
-        loadingModel(null);
-        setVisible(true);        
-    }
-    
-    public ParDefault(java.awt.Frame parent, ListenerRecord listener, int grup) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listener;
-        loadingModel(grup);
-        setVisible(true);       
-    }
-    
-    public void loadingModel(Integer grup) {
+    private int grup = -1;
 
-        if(grup == null) {
-          qGroups.select(eGroups.up, "where", eGroups.grup, "= 1", "order by", eGroups.name);
+    public ParDefVal(java.awt.Frame parent, ListenerRecord listener, int groupsID) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
+        loadingModel(groupsID);
+        setVisible(true);
+    }
+
+    public void loadingModel(Integer groupsID) {
+        List<Vector> vectorList = new Vector();
+        grup = eGroups.find(groupsID).getInt(eGroups.grup);
+        if (grup == 1) {
+            qParams.select(eParams.up, "where", eParams.groups_id, "=", groupsID);
+            for (Record paramRec : qParams) {
+                Vector vector = new Vector();
+                vector.add(paramRec.getStr(eParams.text));
+                vector.add(paramRec.getInt(eParams.id));
+                vectorList.add(vector);
+            }
         } else {
-          qGroups.select(eGroups.up, "where", eGroups.id, "=", grup, "order by", eGroups.npp, ",", eGroups.name);  
+            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=", groupsID);
+            for (Record paramRec : qColmap) {
+                Record colorRec = eColor.find(paramRec.getInt(eColmap.color_id2));
+                Vector vector = new Vector();
+                vector.add(colorRec.getStr(eColor.name));
+                vector.add(paramRec.getInt(eColmap.id));
+                vectorList.add(vector);
+            }
         }
-        tab1.setModel(new DefTableModel(tab1, qGroups, eParams.id, eParams.text));
-        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        Collections.sort(vectorList, (o1, o2) -> o1.get(1).toString().compareTo(o2.get(1).toString()));
+        DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
+        dm.getDataVector().clear();
+        for (Vector vector : vectorList) {
+            dm.addRow(vector);
+        }
         UGui.setSelectedRow(tab1);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,16 +163,23 @@ public class ParDefault extends javax.swing.JDialog {
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "name1"},
-                {null, "name2"}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Код", "Наименование"
+                "Наименование", "ID"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -169,8 +194,8 @@ public class ParDefault extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(400);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -202,7 +227,9 @@ public class ParDefault extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
-        Record record = qGroups.get(UGui.getIndexRec(tab1));
+        Record record = new Record();
+        record.add(tab1.getValueAt(tab1.getSelectedRow(), 1));
+        record.add(tab1.getValueAt(tab1.getSelectedRow(), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce
@@ -230,7 +257,7 @@ public class ParDefault extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     public void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

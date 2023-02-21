@@ -77,7 +77,7 @@ import frames.dialog.DicName;
 import frames.dialog.DicPrjprod;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
-import frames.dialog.ParDefault;
+import frames.dialog.ParDefVal;
 import frames.swing.draw.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.TableFieldFilter;
@@ -555,7 +555,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
             if (fixed == 0) {
                 Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.groups_id);
-                ParDefault frame = new ParDefault(this, record -> {
+                ParDefVal frame = new ParDefVal(this, record -> {
                     int index = UGui.getIndexRec(tab2);
                     int index2 = UGui.getIndexRec(tab3);
                     if (index != -1) {

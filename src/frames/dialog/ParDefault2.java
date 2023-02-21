@@ -29,7 +29,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
-public class ParDef extends javax.swing.JDialog {
+public class ParDefault2 extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
@@ -38,7 +38,7 @@ public class ParDef extends javax.swing.JDialog {
     private HashSet<Record> paramsSet = null;
     private Integer groupsID = null;
 
-    public ParDef(Frame parent, ListenerRecord listener) {
+    public ParDefault2(Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
         initElements();
@@ -59,7 +59,7 @@ public class ParDef extends javax.swing.JDialog {
 //        loadingModel();
 //        setVisible(true);
 //    }
-    public ParDef(Frame parent, ListenerRecord listener, int groupsID) {
+    public ParDefault2(Frame parent, ListenerRecord listener, int groupsID) {
         super(parent, true);
         initComponents();
         initElements();

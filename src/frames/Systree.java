@@ -90,7 +90,8 @@ import common.listener.ListenerReload;
 import domain.eElement;
 import domain.eGroups;
 import enums.TypeGroups;
-import frames.dialog.ParDef;
+import frames.dialog.ParDefVal;
+import frames.dialog.ParDefault2;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
@@ -629,19 +630,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParDef frame = new ParDef(this, listenerParam1);
+            new ParDefault2(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            ParDef frame = new ParDef(this, listenerParam1);
+            new ParDefault2(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
-            int fixed = syspar1Rec.getInt(eSyspar1.fixed);
-            if (fixed == 0) {
-                int groupsID = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.groups_id);
-                new ParDef(this, listenerParam2, groupsID);
+            
+            if (syspar1Rec.getInt(eSyspar1.fixed) == 0) {
+                int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
+                new ParDefVal(this, listenerParam2, groupsID);
             } else {
                 JOptionPane.showMessageDialog(Systree.this, "Неизменяемый параметр в системе", "ВНИМАНИЕ!", 1);
             }

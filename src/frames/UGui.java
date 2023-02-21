@@ -344,7 +344,8 @@ public class UGui {
 
         for (int i = 0; i < jsonArr.size(); i++) {
             int grup = jsonArr.get(i).getAsInt();
-            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
+            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id)))
+                    .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
             if (titleID1 == titleID2) {
                 jsonArr.remove(i);
             }
