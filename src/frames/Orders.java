@@ -146,7 +146,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
         qParams.select(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
@@ -170,8 +170,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.groups_id) {
-                    Record paramsRec = qParams.find(val, eParams.id);
-                    return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
+                    //Record paramsRec = qParams.find(val, eParams.id);
+                    //return qGroups.find(paramsRec.get(eParams.groups_id), eGroups.id).getDev(eGroups.name, val);
+                    return qGroups.find(val, eGroups.id).getDev(eGroups.name, val);
                 }
                 return val;
             }

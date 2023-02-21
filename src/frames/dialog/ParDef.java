@@ -49,17 +49,16 @@ public class ParDef extends javax.swing.JDialog {
     }
 
     //не тестировал!!!
-    public ParDef(Frame parent, ListenerRecord listener, HashSet<Record> paramsSet) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listener;
-        this.paramsSet = paramsSet;
-        loadingData();
-        loadingModel();
-        setVisible(true);
-    }
-
+//    public ParDef(Frame parent, ListenerRecord listener, HashSet<Record> paramsSet) {
+//        super(parent, true);
+//        initComponents();
+//        initElements();
+//        this.listener = listener;
+//        this.paramsSet = paramsSet;
+//        loadingData();
+//        loadingModel();
+//        setVisible(true);
+//    }
     public ParDef(Frame parent, ListenerRecord listener, int groupsID) {
         super(parent, true);
         initComponents();
@@ -72,11 +71,12 @@ public class ParDef extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        if (paramsSet != null) {
-            String subsql = (paramsSet != null) ? paramsSet.stream().map(rec -> rec.getStr(eParams.groups_id)).collect(Collectors.joining(",", "(", ")")) : null;
-            qGroups.select(eGroups.up, "where", eGroups.grup, "in", subsql, "order by", eGroups.name);
-            qParamsAll.addAll(paramsSet);
-        } else if (groupsID != null) {
+//        if (paramsSet != null) {
+//            String subsql = (paramsSet != null) ? paramsSet.stream().map(rec -> rec.getStr(eParams.groups_id)).collect(Collectors.joining(",", "(", ")")) : null;
+//            qGroups.select(eGroups.up, "where", eGroups.grup, "in", subsql, "order by", eGroups.name);
+//            qParamsAll.addAll(paramsSet);
+//        } else 
+        if (groupsID != null) {
             qGroups.select(eGroups.up, "where", eGroups.id, "=", groupsID, "order by", eGroups.name);
             qParamsAll.select(eParams.up, "where", eParams.groups_id, "=", groupsID, "order by", eParams.text);
         } else {
