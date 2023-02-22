@@ -4,27 +4,16 @@ import frames.swing.FrameToFile;
 import frames.UGui;
 import dataset.Query;
 import dataset.Record;
-import domain.eColor;
 import domain.eGroups;
-import enums.TypeGrup;
 import java.awt.Frame;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import frames.swing.DefTableModel;
-import java.awt.Component;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableCellRenderer;
 import common.listener.ListenerRecord;
-import domain.eArtikl;
+import domain.eColmap;
 import domain.eParams;
-import enums.UseColor;
 import frames.swing.TableFieldFilter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -33,9 +22,9 @@ public class ParDefa2 extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
-    private Query qParamsAll = new Query(eParams.values());
+    private Query qColmap = new Query(eColmap.values());
     private Query qParams = new Query(eParams.id, eParams.text);
-    private HashSet<Record> paramsSet = null;
+    private List<Vector> parList = new ArrayList();
 
     public ParDefa2(Frame parent, ListenerRecord listener) {
         super(parent, true);
@@ -47,9 +36,13 @@ public class ParDefa2 extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);       
-        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
-        UGui.setSelectedRow(tab1);
+        
+        qParams.select(eParams.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eParams.id)))));
+        qColmap.select(eColmap.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eColmap.id)))));
+        
+//        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);       
+//        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
+//        UGui.setSelectedRow(tab1);
     }
 
     private void selectionTab1() {
@@ -58,9 +51,9 @@ public class ParDefa2 extends javax.swing.JDialog {
             Record groupsRec = qGroups.get(index);
             int groupsId = groupsRec.getInt(eGroups.id);
             
-            qParams.clear();
-            qParams.addAll(qParamsAll.stream().filter(rec -> rec.getInt(eParams.groups_id) == groupsId).collect(Collectors.toList()));
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            qParams.clear();
+//            qParams.addAll(qParamsAll.stream().filter(rec -> rec.getInt(eParams.groups_id) == groupsId).collect(Collectors.toList()));
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
     }
 
