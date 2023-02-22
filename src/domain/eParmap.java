@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.up;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -52,20 +53,21 @@ public enum eParmap implements Field {
         return new Query(values()).select(up, "where", color_id1, "=", colorID);
     }
     
-    public static List<Record> find2(int colgrpID) {
+    public static Record find2(int colorID, int groupsID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(groups_id) == colgrpID).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == groupsID).findFirst().orElse(up.newRecord());
         }
-        return new Query(values()).select(up, "where", groups_id, "=", colgrpID);
+        Query recordList =  new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", groupsID);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
-    public static List<Record> find3(int colorID, int colgrpID) {
+    public static List<Record> find3(int colorID, int groupsID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == colgrpID).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == groupsID).collect(toList());
         }
-        return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", colgrpID);
+        return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", groupsID);
     }
 
     public String toString() {

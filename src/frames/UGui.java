@@ -332,19 +332,20 @@ public class UGui {
             tree.collapsePath(path);
         }
     }
-
-    public static String paramdefAdd(String script, int paramDef, Query qParams) {
+     
+    //TODO Переписать!!!
+    public static String paramdefAdd(String script, int paramDef) {
         Gson gson = new GsonBuilder().create();
         GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
-        int titleID1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
+        int titleID1 = eParams.query().stream().filter(rec -> paramDef == rec.getInt(eParams.id))
                 .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
 
         for (int i = 0; i < jsonArr.size(); i++) {
             int grup = jsonArr.get(i).getAsInt();
-            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id)))
+            int titleID2 = eParams.query().stream().filter(rec -> (grup == rec.getInt(eParams.id)))
                     .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
             if (titleID1 == titleID2) {
                 jsonArr.remove(i);

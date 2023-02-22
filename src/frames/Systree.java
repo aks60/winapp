@@ -723,8 +723,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (index2 != -1) {
                 systreeID = sysNode.rec().getInt(eSystree.id);
                 qSyspar2.set(systreeID, index, eSyspar1.systree_id);
-                qSyspar2.set(record.get(eParams.groups_id), index, eSyspar1.groups_id);
-                qSyspar2.set(record.get(eParams.text), index, eSyspar1.text);
+                qSyspar2.set(record.get(0), index, eSyspar1.text);
+                qSyspar2.set(record.get(2), index, eSyspar1.groups_id);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab4, index);
             }
@@ -736,7 +736,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (index != -1) {
                 Record sysprodRec = qSysprod.get(index);
                 String script = sysprodRec.getStr(eSysprod.script);
-                String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                String script2 = UGui.paramdefAdd(script, record.getInt(1));
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
                 wincalc().build(script2);

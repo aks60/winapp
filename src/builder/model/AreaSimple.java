@@ -23,6 +23,7 @@ import builder.script.GsonRoot;
 import common.LinkedList2;
 import common.UCom;
 import common.eProp;
+import domain.eParmap;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -138,7 +139,13 @@ public class AreaSimple extends Com5t implements IArea5e {
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
                     //Цикл по пааметрам менеджера
                     ioknaParamArr.forEach(grup -> {
-                        Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера  
+                        Record paramsRec; //параметр менеджера  
+                        if (grup.getAsInt() < 0) {
+                            paramsRec = eParams.find(grup.getAsInt());
+                        } else {
+                            paramsRec = eParams.find(grup.getAsInt());
+                            //paramsRec = eParmap.find(grup.getAsInt());
+                        }
                         Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.groups_id));
                         if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
                             syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text)); //накладываем параметр менеджера
@@ -386,7 +393,7 @@ public class AreaSimple extends Com5t implements IArea5e {
             //Прорисовка раскладок
             LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
             glassList.stream().forEach(el -> el.rascladkaPaint());
-            
+
             //Прорисовка москиток
             LinkedList<IElem5e> mosqList = winc.listElem.filter(Type.MOSKITKA);
             mosqList.stream().forEach(el -> el.paint());

@@ -255,8 +255,9 @@ public class ParDefa2 extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        record.add(tab2.getValueAt(tab2.getSelectedRow(), 0));
-        record.add(tab2.getValueAt(tab2.getSelectedRow(), 2));
+        record.add(tab2.getValueAt(tab2.getSelectedRow(), 0)); //text
+        record.add(tab2.getValueAt(tab2.getSelectedRow(), 1)); //id
+        record.add(tab2.getValueAt(tab2.getSelectedRow(), 2)); //groups_id
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
