@@ -561,7 +561,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     if (index != -1) {
                         Record prjprodRec = qPrjprod.get(index);
                         String script = prjprodRec.getStr(ePrjprod.script);
-                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id));
                         prjprodRec.set(ePrjprod.script, script2);
                         qPrjprod.execsql();
                         winc().build(script2);
