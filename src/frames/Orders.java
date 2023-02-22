@@ -556,12 +556,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             if (fixed == 0) {
                 Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.groups_id);
                 ParDefVal frame = new ParDefVal(this, record -> {
+                    
                     int index = UGui.getIndexRec(tab2);
                     int index2 = UGui.getIndexRec(tab3);
                     if (index != -1) {
                         Record prjprodRec = qPrjprod.get(index);
                         String script = prjprodRec.getStr(ePrjprod.script);
-                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id));
+                        String script2 = UGui.paramdefAdd(script, record.getInt(1));
                         prjprodRec.set(ePrjprod.script, script2);
                         qPrjprod.execsql();
                         winc().build(script2);
