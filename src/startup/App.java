@@ -10,7 +10,7 @@ import dataset.Field;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eElemdet;
@@ -289,7 +289,7 @@ public enum App {
         eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
         eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
         eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-        eColmap.up, eColor.up,
+        eParmap.up, eColor.up,
         ePrjkit.up, ePrjprod.up, eProject.up, ePrjpart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,

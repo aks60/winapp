@@ -8,7 +8,7 @@ import domain.eGroups;
 import java.awt.Frame;
 import javax.swing.JTable;
 import common.listener.ListenerRecord;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eParams;
 import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class ParDefa2 extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
-    private Query qColmap = new Query(eColmap.values());
+    private Query qParmap = new Query(eParmap.values());
     private Query qParams = new Query(eParams.id, eParams.text);
     private List<Vector> parList = new ArrayList();
 
@@ -38,7 +38,7 @@ public class ParDefa2 extends javax.swing.JDialog {
     private void loadingModel() {
         
         qParams.select(eParams.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eParams.id)))));
-        qColmap.select(eColmap.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eColmap.id)))));
+        qParmap.select(eParmap.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eParmap.id)))));
         
 //        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);       
 //        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);

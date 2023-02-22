@@ -10,7 +10,7 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eJoining;
@@ -383,7 +383,7 @@ public class PSConvert {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов) и удаления записей в зависимых таблицах");
             executeSql("delete from params where pnumb > 0");  //group > 0  
-            deleteSql(eColmap.up, "psss", eColor.up, "cnumb"); //color_id1 
+            deleteSql(eParmap.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
             deleteSql(eElement.up, "anumb", eArtikl.up, "code");//artikl_id  
@@ -440,8 +440,8 @@ public class PSConvert {
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
-            executeSql("update colmap a set a.color_id1 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
-            updateSql(eColmap.up, eColmap.color_id2, "psss", eColor.up, "cnumb");
+            executeSql("update parmap a set a.color_id1 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
+            updateSql(eParmap.up, eParmap.color_id2, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("delete from params a where a.znumb = 0 or a.pcoll = 1");
@@ -450,7 +450,7 @@ public class PSConvert {
             executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.npp and a.grup = 5)");
             executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = 6)");
             executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = 2)");
-            executeSql("update colmap set groups_id = (select a.id from groups a where pnumb = a.npp and a.grup = 7)");
+            executeSql("update parmap set groups_id = (select a.id from groups a where pnumb = a.npp and a.grup = 7)");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
             executeSql("update artdet set color_fk = (select id from groups a where a.grup = 2 and a.npp = (-1 * artdet.clnum)) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -569,9 +569,9 @@ public class PSConvert {
             alterTable("color", "fk_color1", "groups_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (code)");
             alterTable("alter table color add constraint ung2_color unique (name)");
-            alterTable("colmap", "fk_colmap_1", "groups_id", "groups");
-            alterTable("colmap", "fk_colmap_2", "color_id1", "color");
-            alterTable("colmap", "fk_colmap_3", "color_id2", "color");             
+            alterTable("parmap", "fk_parmap_1", "groups_id", "groups");
+            alterTable("parmap", "fk_parmap_2", "color_id1", "color");
+            alterTable("parmap", "fk_parmap_3", "color_id2", "color");             
             alterTable("artikl", "fk_artikl1", "groups1_id", "groups");
             alterTable("artikl", "fk_artikl2", "groups2_id", "groups");
             alterTable("artikl", "fk_artikl3", "groups3_id", "groups");
@@ -1392,7 +1392,7 @@ public class PSConvert {
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
-            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
+            executeSql("update parmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
             updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -1402,7 +1402,7 @@ public class PSConvert {
             executeSql("update artikl set groups2_id = (select a.id from groups a where udesc = a.npp and a.grup = 5)");
             executeSql("update artikl set groups3_id = (select a.id from groups a where apref = a.name and a.grup = 6)");
             executeSql("update color set groups_id = (select a.id from groups a where cgrup = a.npp and a.grup = 2)");
-            executeSql("update colmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = 7)");
+            executeSql("update parmap set groups_id = (select a.id from groups a where groups_id = a.npp and a.grup = 7)");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
             executeSql("update artdet set color_fk = (select id from groups a where a.grup = 2 and a.npp = (-1 * artdet.clnum)) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -1520,9 +1520,9 @@ public class PSConvert {
             alterTable("color", "fk_color1", "groups_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (code)");
             alterTable("alter table color add constraint ung2_color unique (name)");
-            alterTable("colmap", "fk_colmap_1", "groups_id", "groups");
-            alterTable("colmap", "fk_colmap_2", "color_id1", "color");
-            alterTable("colmap", "fk_colmap_3", "color_id2", "color");
+            alterTable("parmap", "fk_parmap_1", "groups_id", "groups");
+            alterTable("parmap", "fk_parmap_2", "color_id1", "color");
+            alterTable("parmap", "fk_parmap_3", "color_id2", "color");
             alterTable("artikl", "fk_artikl1", "groups1_id", "groups");
             alterTable("artikl", "fk_artikl2", "groups2_id", "groups");
             alterTable("artikl", "fk_artikl3", "groups3_id", "groups");

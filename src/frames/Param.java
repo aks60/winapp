@@ -14,7 +14,7 @@ import frames.swing.DefCellRendererBool;
 import frames.swing.DefTableModel;
 import dataset.Field;
 import domain.eArtdet;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eGroups;
 import enums.TypeGrup;
 import frames.dialog.DicColor;
@@ -31,7 +31,7 @@ public class Param extends javax.swing.JFrame {
     private Query qGroups2 = new Query(eGroups.values());
     private Query qGroups3 = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
-    private Query qColmap = new Query(eColmap.values());
+    private Query qParmap = new Query(eParmap.values());
     private Query qColor = new Query(eColor.values());
 
     public Param() {
@@ -65,12 +65,12 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         new DefTableModel(tab3, qGroups2, eGroups.name);
-        new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
-                eColmap.joint, eColmap.elem, eColmap.glas, eColmap.furn, eColmap.komp, eColmap.komp) {
+        new DefTableModel(tab4, qParmap, eParmap.color_id1, eParmap.color_id1, eParmap.color_id2, eParmap.color_id2,
+                eParmap.joint, eParmap.elem, eParmap.glas, eParmap.furn, eParmap.komp, eParmap.komp) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eColmap.color_id1) {
+                if (field == eParmap.color_id1) {
                     Record record = qColor.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 0) {
                         Record record2 = qGroups3.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
@@ -78,7 +78,7 @@ public class Param extends javax.swing.JFrame {
                     } else if (col == 1) {
                         return record.getStr(eColor.name);
                     }
-                } else if (field == eColmap.color_id2) {
+                } else if (field == eParmap.color_id2) {
                     Record record = qColor.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 2) {
                         Record record2 = qGroups3.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
@@ -104,7 +104,7 @@ public class Param extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+            List.of(qGroups1, qGroups2, qParams, qParmap).forEach(q -> q.execsql());
             UGui.clearTable(tab2);
             Record groupsRec = qGroups1.get(index);
             Integer id = groupsRec.getInt(eGroups.id);
@@ -118,11 +118,11 @@ public class Param extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+            List.of(qGroups1, qGroups2, qParams, qParmap).forEach(q -> q.execsql());
             UGui.clearTable(tab4);
             Record groupsRec = qGroups2.get(index);
             Integer id = groupsRec.getInt(eGroups.id);
-            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=", id);
+            qParmap.select(eParmap.up, "where", eParmap.groups_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab4);
         }
@@ -133,8 +133,8 @@ public class Param extends javax.swing.JFrame {
         ListenerRecord listenerColor1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
-            Record colmapRec = qColmap.get(index);
-            colmapRec.setNo(eColmap.color_id1, record.get(eColor.id));
+            Record parmapRec = qParmap.get(index);
+            parmapRec.setNo(eParmap.color_id1, record.get(eColor.id));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -142,8 +142,8 @@ public class Param extends javax.swing.JFrame {
         ListenerRecord listenerColor2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
-            Record colmapRec = qColmap.get(index);
-            colmapRec.setNo(eColmap.color_id2, record.get(eColor.id));
+            Record parmapRec = qParmap.get(index);
+            parmapRec.setNo(eParmap.color_id2, record.get(eColor.id));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -628,7 +628,7 @@ public class Param extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+        List.of(qGroups1, qGroups2, qParams, qParmap).forEach(q -> q.execsql());
         loadData();
         List.of(tab1, tab2).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
@@ -673,16 +673,16 @@ public class Param extends javax.swing.JFrame {
                 record.setDev(eGroups.name, "Пар.соотв...");
             });
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecordCur(tab4, eColmap.up, (record) -> {
+            UGui.insertRecordCur(tab4, eParmap.up, (record) -> {
                 Record groupRec = qGroups2.get(UGui.getIndexRec(tab3));
-                record.setNo(eColmap.groups_id, groupRec.getInt(eGroups.id));
+                record.setNo(eParmap.groups_id, groupRec.getInt(eGroups.id));
             });
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        List.of(qGroups1, qGroups2, qParams, qColmap).forEach(q -> q.execsql());
+        List.of(qGroups1, qGroups2, qParams, qParmap).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -723,12 +723,12 @@ public class Param extends javax.swing.JFrame {
             if (index != -1 && JOptionPane.showConfirmDialog(this, "Вы действительно хотите клонировать текущую запись?",
                     "Подтверждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 
-                Record colmapClon = (Record) qColmap.get(index).clone();
-                colmapClon.setNo(eColmap.up, Query.INS);
-                int colmapID = Conn.genId(eColmap.up);
-                colmapClon.setNo(eColmap.id, colmapID);
-                qColmap.add(index, colmapClon);
-                qColmap.insert(colmapClon);
+                Record parmapClon = (Record) qParmap.get(index).clone();
+                parmapClon.setNo(eParmap.up, Query.INS);
+                int parmapID = Conn.genId(eParmap.up);
+                parmapClon.setNo(eParmap.id, parmapID);
+                qParmap.add(index, parmapClon);
+                qParmap.insert(parmapClon);
                 ((DefaultTableModel) tab4.getModel()).fireTableRowsInserted(index, index);
                 UGui.setSelectedIndex(tab4, index);
                 UGui.scrollRectToIndex(index, tab4);

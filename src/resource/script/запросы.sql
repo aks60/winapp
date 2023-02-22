@@ -67,7 +67,7 @@ delete from furniture;
 delete from project;
 delete from prjpart;
 delete from rulecalc;
-delete from colmap; 
+delete from parmap; 
 delete from params;  
 delete from color;    
 delete from syssize; 

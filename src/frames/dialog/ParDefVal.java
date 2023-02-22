@@ -7,7 +7,7 @@ import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eColor;
 import domain.eGroups;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ public class ParDefVal extends javax.swing.JDialog {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
-    private Query qColmap = new Query(eColmap.values());
+    private Query qParmap = new Query(eParmap.values());
     private ListenerRecord listener;
     private int grup = -1;
 
@@ -45,12 +45,12 @@ public class ParDefVal extends javax.swing.JDialog {
                 vectorList.add(vector);
             }
         } else {
-            qColmap.select(eColmap.up, "where", eColmap.groups_id, "=", groupsID);
-            for (Record paramRec : qColmap) {
-                Record colorRec = eColor.find(paramRec.getInt(eColmap.color_id2));
+            qParmap.select(eParmap.up, "where", eParmap.groups_id, "=", groupsID);
+            for (Record paramRec : qParmap) {
+                Record colorRec = eColor.find(paramRec.getInt(eParmap.color_id2));
                 Vector vector = new Vector();
                 vector.add(colorRec.getStr(eColor.name));
-                vector.add(paramRec.getInt(eColmap.id));
+                vector.add(paramRec.getInt(eParmap.id));
                 vectorList.add(vector);
             }
         }

@@ -6,7 +6,7 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eColmap;
+import domain.eParmap;
 import domain.eSetting;
 import enums.UseColor;
 import java.util.List;
@@ -265,7 +265,7 @@ public class UColor {
     //Поиск текстуры по параметру.
     private static int scanFromParamSide(int artiklID, int side, int profColorID, int paramFk) {
         try {
-            List<Record> colmapList = eColmap.find3(profColorID, paramFk);
+            List<Record> parmapList = eParmap.find3(profColorID, paramFk);
             List<Record> artdetList = eArtdet.filter(artiklID);
 
             //Цикл по ARTDET определённого артикула
@@ -281,14 +281,14 @@ public class UColor {
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
-                            List<Record> colmapList2 = eColmap.find(colorRec.getInt(eColor.id));
+                            List<Record> parmapList2 = eParmap.find(colorRec.getInt(eColor.id));
 
-                            for (Record colmapRec : colmapList) {
-                                for (Record colmapRec2 : colmapList2) {
-                                    if (colmapRec.getInt(eColmap.groups_id) == colmapRec2.getInt(eColmap.groups_id)
-                                            && colmapRec.getInt(eColmap.color_id1) == colmapRec2.getInt(eColmap.color_id1)) {
+                            for (Record parmapRec : parmapList) {
+                                for (Record parmapRec2 : parmapList2) {
+                                    if (parmapRec.getInt(eParmap.groups_id) == parmapRec2.getInt(eParmap.groups_id)
+                                            && parmapRec.getInt(eParmap.color_id1) == parmapRec2.getInt(eParmap.color_id1)) {
 
-                                        return colmapRec2.getInt(eColmap.color_id2);
+                                        return parmapRec2.getInt(eParmap.color_id2);
                                     }
                                 }
                             }
@@ -296,9 +296,9 @@ public class UColor {
 
                         //Одна текстура
                     } else {
-                        for (Record colmapRec : colmapList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == colmapRec.getInt(eColmap.color_id1)) {
-                                return colmapRec.getInt(eColmap.color_id2);
+                        for (Record parmapRec : parmapList) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
+                                return parmapRec.getInt(eParmap.color_id2);
                             }
                         }
                     }

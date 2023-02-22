@@ -8,7 +8,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 //TODO COMMENT ON COLUMN PARCOLS.PSSS IS 'ссылка на текстуру COLSLST.PNUMB'
-public enum eColmap implements Field {
+public enum eParmap implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
     id("4", "10", "0", "Идентификатор", "id"),    
     joint("16", "5", "1", "Параметр соединений", "joint"),
@@ -24,7 +24,7 @@ public enum eColmap implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    eColmap(Object... p) {
+    eParmap(Object... p) {
         meta.init(p);
     }
 
