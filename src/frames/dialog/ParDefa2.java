@@ -8,23 +8,30 @@ import domain.eGroups;
 import java.awt.Frame;
 import javax.swing.JTable;
 import common.listener.ListenerRecord;
+import domain.eColor;
 import domain.eParmap;
 import domain.eParams;
+import enums.TypeGrup;
+import frames.swing.DefTableModel;
 import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 //Текстура артикулов
 public class ParDefa2 extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
-    private Query qParmap = new Query(eParmap.values());
-    private Query qParams = new Query(eParams.id, eParams.text);
+    private Query qParmap = new Query(eParmap.color_id1, eParmap.color_id1, eParmap.groups_id).select(eParmap.up);
+    private Query qParams = new Query(eParams.text, eParams.id, eParams.groups_id).select(eParams.up);
     private List<Vector> parList = new ArrayList();
+    private DefaultTableModel dm = null;
 
     public ParDefa2(Frame parent, ListenerRecord listener) {
         super(parent, true);
@@ -36,24 +43,35 @@ public class ParDefa2 extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        
-        qParams.select(eParams.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eParams.id)))));
-        qParmap.select(eParmap.up).forEach(rec -> parList.add(new Vector(List.of(rec.getStr(eParams.text), rec.getInt(eParmap.id)))));
-        
-//        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);       
-//        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
-//        UGui.setSelectedRow(tab1);
+        dm = (DefaultTableModel) tab2.getModel();
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);
+        for (Record rec : qParams) {
+            parList.add(new Vector(List.of(rec.get(eParams.text), rec.get(eParams.id), rec.get(eParams.groups_id))));
+        }
+        Set set = new HashSet();
+        for (Record rec : qParmap) {
+            if (set.add(rec.getStr(eParmap.color_id1) + rec.getStr(eParmap.groups_id))) {
+                Object param_name = eColor.find(rec.getInt(eParmap.color_id1)).getStr(eColor.name);
+                parList.add(new Vector(List.of(param_name, rec.get(eParmap.color_id1), rec.get(eParmap.groups_id))));
+            }
+        }
+        new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
+        UGui.setSelectedRow(tab1);
     }
 
     private void selectionTab1() {
+        dm.getDataVector().clear();
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record groupsRec = qGroups.get(index);
-            int groupsId = groupsRec.getInt(eGroups.id);
-            
-//            qParams.clear();
-//            qParams.addAll(qParamsAll.stream().filter(rec -> rec.getInt(eParams.groups_id) == groupsId).collect(Collectors.toList()));
-//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Integer groupsId = groupsRec.getInt(eGroups.id);
+            for (Vector vector : parList) {
+                if (groupsId.equals(vector.get(2))) {
+                    dm.addRow(vector); 
+                }
+            }
+            dm.fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
         }
     }
 
@@ -65,7 +83,6 @@ public class ParDefa2 extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
-        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         scr2 = new javax.swing.JScrollPane();
@@ -134,12 +151,11 @@ public class ParDefa2 extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(412, 560));
-        centr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(400, 560));
+        centr.setLayout(new javax.swing.BoxLayout(centr, javax.swing.BoxLayout.PAGE_AXIS));
 
-        pan1.setLayout(new java.awt.BorderLayout());
-
-        scr1.setPreferredSize(new java.awt.Dimension(412, 160));
+        scr1.setMaximumSize(new java.awt.Dimension(32767, 600));
+        scr1.setPreferredSize(new java.awt.Dimension(400, 300));
 
         tab1.setFont(frames.UGui.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -163,46 +179,40 @@ public class ParDefa2 extends javax.swing.JDialog {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
-        pan1.add(scr1, java.awt.BorderLayout.NORTH);
+        centr.add(scr1);
+
+        scr2.setMaximumSize(new java.awt.Dimension(32767, 600));
+        scr2.setPreferredSize(new java.awt.Dimension(400, 300));
 
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1111111", null},
-                {"2222222", null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1111111", null, null},
+                {"2222222", null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Значение", "ID"
+                "Значение", "ID", "GRUP"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -218,13 +228,15 @@ public class ParDefa2 extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(2).setMinWidth(0);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
-
-        centr.add(pan1, java.awt.BorderLayout.CENTER);
+        centr.add(scr2);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -242,18 +254,12 @@ public class ParDefa2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            listener.action(qParams.get(index));
-            this.dispose();
-        }
+        Record record = new Record();
+        record.add(tab2.getValueAt(tab2.getSelectedRow(), 0));
+        record.add(tab2.getValueAt(tab2.getSelectedRow(), 2));
+        listener.action(record);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
-
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
@@ -269,7 +275,6 @@ public class ParDefa2 extends javax.swing.JDialog {
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
-    private javax.swing.JPanel pan1;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;

@@ -441,6 +441,8 @@ public class PSConvert {
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             executeSql("update parmap a set a.color_id1 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
+            executeSql("delete from params where groups_id is null");
+            executeSql("delete from parmap where color_id1 is null");
             updateSql(eParmap.up, eParmap.color_id2, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.groups4_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -737,83 +739,7 @@ public class PSConvert {
             println(Color.RED, "Ошибка: modifyModels.  " + e);
         }
     }
-    
-    public static void loadGroups2(String mes) {
-        println(Color.BLACK, mes);
-        try {
-            //Расчётные данные
-            ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL) values ("
-                        + rs.getInt("SUNIC") + "," + TypeGrup.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
-                st2.executeUpdate(sql);
-            }
-            //Список параметров
-            rs = st1.executeQuery("select * from PARLIST where ZNUMB = 0");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
-                st2.executeUpdate(sql);
-            }
-            //Группы цветов
-            rs = st1.executeQuery("select * from GRUPCOL");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
-                        + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
-                st2.executeUpdate(sql);
-            }
-            //МЦ группы наценокй
-            rs = st1.executeQuery("select * from GRUPART");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
-                        + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
-                st2.executeUpdate(sql);
-            }
-            //МЦ группы скидок
-            rs = st1.executeQuery("select * from DESCLST");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
-                        + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
-                st2.executeUpdate(sql);
-            }
-            //Категогии профилей
-            rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
-                st2.executeUpdate(sql);
-            }
-            //Параметры соотв. цветов
-            rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
-                st2.executeUpdate(sql);
-            }
-            //Категории вставок
-            rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
-                st2.executeUpdate(sql);
-            }
-            //Категории комплектов
-            rs = st1.executeQuery("select distinct KPREF from KOMPLST order by KPREF");
-            while (rs.next()) {
-                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
-                st2.executeUpdate(sql);
-            }
-            cn2.commit();
 
-        } catch (SQLException e) {
-            println(Color.RED, "Ошибка: modifyGroups().  " + e);
-        }
-    }
-    
     public static void loadGroups(String mes) {
         println(Color.BLACK, mes);
         try {
