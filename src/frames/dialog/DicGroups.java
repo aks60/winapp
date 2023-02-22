@@ -7,7 +7,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eGroups;
 import enums.Enam;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -51,7 +51,7 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     public void loadingModel() {
-        if (grup.numb() == TypeGroups.SERI_ELEM.id) {
+        if (grup.numb() == TypeGrup.SERI_ELEM.id) {
             setTitle("Серии");
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
@@ -59,7 +59,7 @@ public class DicGroups extends javax.swing.JDialog {
             UGui.setSelectedKey(tab1, ID);
             tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
 
-        } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
+        } else if (grup.numb() == TypeGrup.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
@@ -67,7 +67,7 @@ public class DicGroups extends javax.swing.JDialog {
             UGui.setSelectedKey(tab2, ID);
             tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
 
-        } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
+        } else if (grup.numb() == TypeGrup.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
@@ -75,7 +75,7 @@ public class DicGroups extends javax.swing.JDialog {
             UGui.setSelectedKey(tab3, ID);
             tab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
 
-        } else if (grup.numb() == TypeGroups.CATEG_ELEM.id) {
+        } else if (grup.numb() == TypeGrup.CATEG_ELEM.id) {
             setTitle("Категории");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
@@ -559,7 +559,7 @@ public class DicGroups extends javax.swing.JDialog {
 
         ProgressBar.create(DicGroups.this.getOwner(), new ListenerFrame() {
             public void actionRequest(Object obj) {
-                if (grup == TypeGroups.SERI_ELEM || grup == TypeGroups.CATEG_ELEM) {
+                if (grup == TypeGrup.SERI_ELEM || grup == TypeGrup.CATEG_ELEM) {
                     App.Groups.createFrame(DicGroups.this.getOwner(), 1, listener);
                 } else {
                     App.Groups.createFrame(DicGroups.this.getOwner(), 0, listener);

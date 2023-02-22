@@ -42,7 +42,7 @@ import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -436,7 +436,7 @@ public class PSConvert {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             loadGroups("Функция loadGroups()");
             executeSql("3", "update " + eSetting.up.tname() + " set val = 'ps3' where id = 2");
-            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_ELEM.id + ", aseri from artikl");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGrup.SERI_ELEM.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
@@ -551,7 +551,7 @@ public class PSConvert {
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
-            executeSql("update groups set npp = 0 where grup != " + TypeGroups.CATEG_VST.id);
+            executeSql("update groups set npp = 0 where grup != " + TypeGrup.CATEG_VST.id);
             String db = (numDb == 1) ? eProp.base1.read() : (numDb == 2) ? eProp.base2.read() : eProp.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
@@ -745,21 +745,21 @@ public class PSConvert {
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL) values ("
-                        + rs.getInt("SUNIC") + "," + TypeGroups.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
+                        + rs.getInt("SUNIC") + "," + TypeGrup.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
                 st2.executeUpdate(sql);
             }
             //Список параметров
             rs = st1.executeQuery("select * from PARLIST where ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             //Группы цветов
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
                         + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
@@ -767,7 +767,7 @@ public class PSConvert {
             rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
@@ -775,7 +775,7 @@ public class PSConvert {
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
@@ -783,28 +783,28 @@ public class PSConvert {
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             //Параметры соотв. цветов
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             //Категории вставок
             rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
                 st2.executeUpdate(sql);
             }
             //Категории комплектов
             rs = st1.executeQuery("select distinct KPREF from KOMPLST order by KPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
                 st2.executeUpdate(sql);
             }
             cn2.commit();
@@ -821,21 +821,21 @@ public class PSConvert {
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL) values ("
-                        + rs.getInt("SUNIC") + "," + TypeGroups.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
+                        + rs.getInt("SUNIC") + "," + TypeGrup.SYS_DATA.id + ",'" + rs.getString("SNAME") + "'," + rs.getString("SFLOT") + ")";
                 st2.executeUpdate(sql);
             }
             //Список параметров
             rs = st1.executeQuery("select * from PARLIST where PCOLL != 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PARAM_USER.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             //Группы цветов
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_GRP.id + ",'" + rs.getString("GNAME") + "',"
                         + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
@@ -843,7 +843,7 @@ public class PSConvert {
             rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
@@ -851,7 +851,7 @@ public class PSConvert {
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
@@ -859,28 +859,28 @@ public class PSConvert {
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_ELEM.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             //Параметры соотв. цветов
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.COLOR_MAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             //Категории вставок
             rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
                 st2.executeUpdate(sql);
             }
             //Категории комплектов
             rs = st1.executeQuery("select distinct KPREF from KOMPLST order by KPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.genId(eGroups.up) + "," + TypeGroups.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
+                        + Conn.genId(eGroups.up) + "," + TypeGrup.CATEG_KIT.id + ",'" + rs.getString("KPREF") + "', 0)";
                 st2.executeUpdate(sql);
             }
             cn2.commit();

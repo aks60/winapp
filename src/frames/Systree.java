@@ -89,9 +89,9 @@ import frames.swing.draw.Scene;
 import common.listener.ListenerReload;
 import domain.eElement;
 import domain.eGroups;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import frames.dialog.ParDefVal;
-import frames.dialog.ParDefault2;
+import frames.dialog.ParDefa2;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
@@ -164,7 +164,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 this.systreeID = sysprodRec.getInt(eSysprod.systree_id);
             }
         }
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
         qSystree.select(eSystree.up, "order by id");
         qParams.select(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
@@ -630,11 +630,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            new ParDefault2(this, listenerParam1);
+            new ParDefa2(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            new ParDefault2(this, listenerParam1);
+            new ParDefa2(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {

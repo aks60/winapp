@@ -12,7 +12,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import domain.eGroups;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseColor;
 import common.listener.ListenerRecord;
 import java.awt.Component;
@@ -56,8 +56,8 @@ public class ParColor extends javax.swing.JDialog {
 
     public void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
-        qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id);
+        qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
+        qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id);
 
         Record color1 = eColor.up.newRecord();
         color1.setNo(eColor.groups_id, UseColor.automatic[0]);

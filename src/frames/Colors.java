@@ -11,7 +11,7 @@ import domain.eGlasdet;
 import domain.eGroups;
 import domain.eJoindet;
 import domain.eKitdet;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import frames.swing.DefCellEditorBtn;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -50,7 +50,7 @@ public class Colors extends javax.swing.JFrame {
 
     public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
     }
 
     public void selectionTab1(ListSelectionEvent event) {
@@ -474,7 +474,7 @@ public class Colors extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.COLOR_GRP.id);
+                record.set(eGroups.grup, TypeGrup.COLOR_GRP.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Группа");
                 record.set(eGroups.val, 1);

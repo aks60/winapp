@@ -2,7 +2,7 @@ package enums;
 
 import static enums.UseUnit.values;
 
-public enum TypeGroups implements Enam {
+public enum TypeGrup implements Enam {
     PARAM_USER(1, "Параметры пользов."),
     COLOR_GRP(2, "Группы текстур"),
     SERI_ELEM(3, "Серии МЦ"),
@@ -17,7 +17,7 @@ public enum TypeGroups implements Enam {
     public int id = 0;
     public String name = "";
 
-    TypeGroups(int id, String name) {
+    TypeGrup(int id, String name) {
         this.id = id;
         this.name = name;
     }

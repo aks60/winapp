@@ -64,7 +64,7 @@ import domain.eSystree;
 import enums.Layout;
 import enums.LayoutHandle;
 import enums.PKjson;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.TypeOpen1;
 import enums.UseSide;
 import frames.dialog.DicArtikl;
@@ -146,7 +146,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
         qParams.select(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);

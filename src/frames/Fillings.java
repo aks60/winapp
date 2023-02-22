@@ -30,7 +30,7 @@ import domain.eGroups;
 import domain.eParams;
 import enums.Enam;
 import builder.param.ParamList;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseColor;
 import frames.dialog.DicName;
 import java.util.List;
@@ -99,7 +99,7 @@ public class Fillings extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGroups.COLOR_MAP.id, ",", TypeGroups.PARAM_USER.id, ")");
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGrup.COLOR_MAP.id, ",", TypeGrup.PARAM_USER.id, ")");
         qColor.select(eColor.up);
         qParams.select(eParams.up);
         if (subsql == null) {

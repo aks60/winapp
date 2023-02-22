@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import frames.swing.DefCellRendererBool;
 import frames.dialog.DicColvar;
 import enums.UseColor;
@@ -127,7 +127,7 @@ public class Joinings extends javax.swing.JFrame {
     public void loadingData() {
 
         tab1.setToolTipText("");
-        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGrup.PARAM_USER.id, ",", TypeGrup.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {

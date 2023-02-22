@@ -16,7 +16,7 @@ import dataset.Field;
 import domain.eArtdet;
 import domain.eColmap;
 import domain.eGroups;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import frames.dialog.DicColor;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
@@ -54,9 +54,9 @@ public class Param extends javax.swing.JFrame {
 
     public void loadData() {
         qColor.select(eColor.up, "order by", eColor.name);
-        qGroups1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "order by", eGroups.npp, ",", eGroups.name);
-        qGroups2.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_MAP.id, "order by", eGroups.npp, ",", eGroups.name);
-        qGroups3.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups1.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups2.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups3.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
     }
 
     public void loadingModel() {
@@ -657,7 +657,7 @@ public class Param extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.PARAM_USER.id);
+                record.set(eGroups.grup, TypeGrup.PARAM_USER.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Пар...");
             });
@@ -668,7 +668,7 @@ public class Param extends javax.swing.JFrame {
             });
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGroups.COLOR_MAP.id);
+                record.set(eGroups.grup, TypeGrup.COLOR_MAP.id);
                 record.set(eGroups.name, "");
                 record.setDev(eGroups.name, "Пар.соотв...");
             });

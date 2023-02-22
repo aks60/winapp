@@ -21,7 +21,7 @@ import frames.swing.DefTableModel;
 import frames.swing.TableFieldFormat;
 import domain.eGroups;
 import domain.eSyssize;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseUnit;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
@@ -2553,7 +2553,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups1_id);
-            new DicGroups(this, listenerMarkup, TypeGroups.PRICE_INC, id, true);
+            new DicGroups(this, listenerMarkup, TypeGrup.PRICE_INC, id, true);
         }
     }//GEN-LAST:event_btn19
 
@@ -2561,7 +2561,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups2_id);
-            new DicGroups(this, listenerDiscount, TypeGroups.PRICE_DEC, id, true);
+            new DicGroups(this, listenerDiscount, TypeGrup.PRICE_DEC, id, true);
         }
     }//GEN-LAST:event_btn20
 
@@ -2569,7 +2569,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups3_id);
-            new DicGroups(this, listenerCateg, TypeGroups.CATEG_ELEM, id, true);
+            new DicGroups(this, listenerCateg, TypeGrup.CATEG_ELEM, id, true);
         }
     }//GEN-LAST:event_btn22
 
@@ -2602,7 +2602,7 @@ public class Artikles extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.groups4_id);
-            new DicGroups(this, listenerSeries, TypeGroups.SERI_ELEM, id, true);
+            new DicGroups(this, listenerSeries, TypeGrup.SERI_ELEM, id, true);
         }
     }//GEN-LAST:event_btn37
 

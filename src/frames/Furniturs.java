@@ -32,7 +32,7 @@ import common.eProp;
 import enums.LayoutFurn1;
 import enums.UseFurn3;
 import enums.LayoutFurn3;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
@@ -127,7 +127,7 @@ public class Furniturs extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
-        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
+        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGrup.PARAM_USER.id, ",", TypeGrup.COLOR_MAP.id + ")");
         int types = (btnTab1.isSelected()) ? 0 : (btnTab2.isSelected()) ? 1 : -1;
         if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);

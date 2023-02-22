@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eColor;
 import domain.eGroups;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,65 +29,26 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
-public class ParDefault2 extends javax.swing.JDialog {
+public class ParDefa2 extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
     private Query qParamsAll = new Query(eParams.values());
     private Query qParams = new Query(eParams.id, eParams.text);
     private HashSet<Record> paramsSet = null;
-    private Integer groupsID = null;
 
-    public ParDefault2(Frame parent, ListenerRecord listener) {
+    public ParDefa2(Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
-        loadingData();
         loadingModel();
         setVisible(true);
-    }
-
-    //не тестировал!!!
-//    public ParDef(Frame parent, ListenerRecord listener, HashSet<Record> paramsSet) {
-//        super(parent, true);
-//        initComponents();
-//        initElements();
-//        this.listener = listener;
-//        this.paramsSet = paramsSet;
-//        loadingData();
-//        loadingModel();
-//        setVisible(true);
-//    }
-    public ParDefault2(Frame parent, ListenerRecord listener, int groupsID) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listener;
-        this.groupsID = groupsID;
-        loadingData();
-        loadingModel();
-        setVisible(true);
-    }
-
-    private void loadingData() {
-//        if (paramsSet != null) {
-//            String subsql = (paramsSet != null) ? paramsSet.stream().map(rec -> rec.getStr(eParams.groups_id)).collect(Collectors.joining(",", "(", ")")) : null;
-//            qGroups.select(eGroups.up, "where", eGroups.grup, "in", subsql, "order by", eGroups.name);
-//            qParamsAll.addAll(paramsSet);
-//        } else 
-        if (groupsID != null) {
-            qGroups.select(eGroups.up, "where", eGroups.id, "=", groupsID, "order by", eGroups.name);
-            qParamsAll.select(eParams.up, "where", eParams.groups_id, "=", groupsID, "order by", eParams.text);
-        } else {
-            qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.PARAM_USER.id, "or", eGroups.grup, "=", TypeGroups.COLOR_MAP.id, "order by", eGroups.name);
-            qParamsAll.select(eParams.up, "order by", eParams.text);
-        }
     }
 
     private void loadingModel() {
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.PARAM_USER.id, "or", eGroups.grup, "=", TypeGrup.COLOR_MAP.id, "order by", eGroups.name);       
         new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
-        new DefTableModel(tab2, qParams, eParams.text, eParams.id);
         UGui.setSelectedRow(tab1);
     }
 
@@ -96,6 +57,7 @@ public class ParDefault2 extends javax.swing.JDialog {
         if (index != -1) {
             Record groupsRec = qGroups.get(index);
             int groupsId = groupsRec.getInt(eGroups.id);
+            
             qParams.clear();
             qParams.addAll(qParamsAll.stream().filter(rec -> rec.getInt(eParams.groups_id) == groupsId).collect(Collectors.toList()));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

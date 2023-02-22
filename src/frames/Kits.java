@@ -19,7 +19,7 @@ import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
 import enums.Enam;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseColor;
 import enums.UseUnit;
 import frames.dialog.DicArtikl2;
@@ -64,8 +64,8 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingData() {
         eArtikl.query();
-        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id + ")");
-        qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_KIT.id, "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, " in (" + TypeGrup.PARAM_USER.id, ",", TypeGrup.COLOR_MAP.id + ")");
+        qCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.CATEG_KIT.id, "order by", eGroups.name);
         qKits.select(eKits.up, "order by", eKits.groups_id, ",", eKits.name);
     }
 
@@ -690,7 +690,7 @@ public class Kits extends javax.swing.JFrame {
                 Record groupsRec = eGroups.up.newRecord(Query.INS);
                 int id = Conn.genId(eGroups.up);
                 groupsRec.setNo(eGroups.id, id);
-                groupsRec.setNo(eGroups.grup, TypeGroups.CATEG_KIT.id);
+                groupsRec.setNo(eGroups.grup, TypeGrup.CATEG_KIT.id);
                 groupsRec.setNo(eGroups.name, result);
                 qCateg.insert(groupsRec);
                 loadingData();

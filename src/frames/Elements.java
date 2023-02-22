@@ -26,7 +26,7 @@ import domain.eGroups;
 import domain.eJoindet;
 import builder.param.ParamList;
 import common.eProp;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.TypeSet;
 import enums.UseColor;
 import java.util.List;
@@ -109,9 +109,9 @@ public class Elements extends javax.swing.JFrame {
     public void loadingData() {
 
         qColor.select(eColor.up);
-        qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
-        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGroups.SERI_ELEM.id,
-                ",", TypeGroups.PARAM_USER.id, ",", TypeGroups.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
+        qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in (", TypeGrup.SERI_ELEM.id,
+                ",", TypeGrup.PARAM_USER.id, ",", TypeGrup.COLOR_MAP.id, ") order by", eGroups.npp, ",", eGroups.name);
 
         Record record = eGroups.up.newRecord(Query.SEL);
         record.setNo(eGroups.id, -1);
@@ -294,7 +294,7 @@ public class Elements extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 int id = qElement.getAs(index, eElement.groups1_id);
-                new DicGroups(this, listenerSeries, TypeGroups.SERI_ELEM, id, true);
+                new DicGroups(this, listenerSeries, TypeGrup.SERI_ELEM, id, true);
             }
         });
 
@@ -1150,7 +1150,7 @@ public class Elements extends javax.swing.JFrame {
         if (result.isEmpty() == false) {
             Record elemgrpRec = eGroups.up.newRecord(Query.INS);
             elemgrpRec.setNo(eGroups.id, id);
-            elemgrpRec.setNo(eGroups.grup, TypeGroups.CATEG_VST.id);
+            elemgrpRec.setNo(eGroups.grup, TypeGrup.CATEG_VST.id);
             elemgrpRec.setNo(eGroups.npp, level1); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
             elemgrpRec.setNo(eGroups.name, result);
             qGrCateg.insert(elemgrpRec);

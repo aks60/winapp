@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eColor;
 import domain.eGroups;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +38,7 @@ public class DicColor extends javax.swing.JDialog {
         super(parent, true);
         this.master = master;
         initComponents();
-        qColgrp.select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
+        qColgrp.select(eGroups.up, "where grup=", TypeGrup.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
         qColorAll.select(eColor.up, "order by", eColor.name);
         initElements();
         this.listener = listener;
@@ -60,7 +60,7 @@ public class DicColor extends javax.swing.JDialog {
     }
 
     private void loadingData(HashSet<Record> colorSet, boolean auto) {
-        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
+        Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGrup.COLOR_GRP.id, "order by", eGroups.npp, ",", eGroups.name);
 
         if (auto == true) {
             Record autoRec = eGroups.up.newRecord();

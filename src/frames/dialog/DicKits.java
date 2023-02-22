@@ -28,7 +28,7 @@ import domain.eKits;
 import domain.eParams;
 import domain.ePrjkit;
 import enums.Enam;
-import enums.TypeGroups;
+import enums.TypeGrup;
 import enums.UseColor;
 import enums.UseUnit;
 import java.util.HashMap;
@@ -73,7 +73,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGroups.COLOR_MAP.id, ",", TypeGroups.PARAM_USER.id, ")");
+        qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGrup.COLOR_MAP.id, ",", TypeGrup.PARAM_USER.id, ")");
         qCateg.select(eGroups.up, "where", eGroups.grup, "= 10");
         new DefTableModel(tab1, qKits, eKits.groups_id, eKits.name) {
 
