@@ -340,6 +340,7 @@ public class UGui {
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
+        
         int titleID1 = eParams.query().stream().filter(rec -> paramDef == rec.getInt(eParams.id))
                 .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
 

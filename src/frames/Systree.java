@@ -731,6 +731,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
 
         listenerParam2 = (record) -> {
+            //UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
             if (index != -1) {
