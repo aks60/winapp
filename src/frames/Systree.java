@@ -640,7 +640,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
             
-            if (syspar1Rec.getInt(eSyspar1.fixed) == 0) {
+            if (syspar1Rec.getInt(eSyspar1.fixed) != 1) {
                 int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
                 new ParDefVal(this, listenerParam2, groupsID);
             } else {

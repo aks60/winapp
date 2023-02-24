@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 public class Param extends javax.swing.JFrame {
 
     private ListenerRecord listener = null;
+    ListenerRecord listenerColor1, listenerColor2;
     private Query qGroups1 = new Query(eGroups.values());
     private Query qGroups2 = new Query(eGroups.values());
     private Query qGroups3 = new Query(eGroups.values());
@@ -130,24 +131,6 @@ public class Param extends javax.swing.JFrame {
 
     public void listenerAdd() {
 
-        ListenerRecord listenerColor1 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab4);
-            Record parmapRec = qParmap.get(index);
-            parmapRec.setNo(eParmap.color_id1, record.get(eColor.id));
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
-        ListenerRecord listenerColor2 = (record) -> {
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = UGui.getIndexRec(tab4);
-            Record parmapRec = qParmap.get(index);
-            parmapRec.setNo(eParmap.color_id2, record.get(eColor.id));
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             new DicColor(this, listenerColor1, false, false);
         });
@@ -162,6 +145,28 @@ public class Param extends javax.swing.JFrame {
         });
     }
 
+    public void listenerSet() {
+
+        ListenerRecord listenerColor1 = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
+            Record parmapRec = qParmap.get(index);
+            parmapRec.set(eParmap.color_id1, record.get(eColor.id));
+            qParmap.update(parmapRec);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        ListenerRecord listenerColor2 = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
+            Record parmapRec = qParmap.get(index);
+            parmapRec.set(eParmap.color_id2, record.get(eColor.id));
+            qParmap.update(parmapRec);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
