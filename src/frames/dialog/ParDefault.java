@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 //Текстура артикулов
-public class ParDefa2 extends javax.swing.JDialog {
+public class ParDefault extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
@@ -33,7 +33,7 @@ public class ParDefa2 extends javax.swing.JDialog {
     private List<Vector> parList = new ArrayList();
     private DefaultTableModel dm = null;
 
-    public ParDefa2(Frame parent, ListenerRecord listener) {
+    public ParDefault(Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
         initElements();

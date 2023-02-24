@@ -62,13 +62,13 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eFurndet;
+import domain.eParmap;
 import domain.ePrjprod;
 import enums.Layout;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.DefMutableTreeNode;
 import java.util.HashSet;
-import java.util.stream.Collectors;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -332,27 +332,32 @@ public class UGui {
             tree.collapsePath(path);
         }
     }
-     
-    //TODO Переписать!!!
-    public static String paramdefAdd(String script, int paramDef) {
+
+    public static String ioknaParamUpdate(String script, int ioknaID) {
         Gson gson = new GsonBuilder().create();
         GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
-        
-        int titleID1 = eParams.query().stream().filter(rec -> paramDef == rec.getInt(eParams.id))
-                .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
 
+        int titleID, titleID2;
+        if (ioknaID < 0) {
+            titleID = eParams.find(ioknaID).getInt(eParams.groups_id);
+        } else {
+            titleID = eParmap.find(ioknaID).getInt(eParmap.groups_id);
+        }
         for (int i = 0; i < jsonArr.size(); i++) {
-            int grup = jsonArr.get(i).getAsInt();
-            int titleID2 = eParams.query().stream().filter(rec -> (grup == rec.getInt(eParams.id)))
-                    .findFirst().orElse(eParams.newRecord2()).getInt(eParams.groups_id);
-            if (titleID1 == titleID2) {
+            int ioknaID2 = jsonArr.get(i).getAsInt();
+            if (ioknaID < 0) {
+                titleID2 = eParams.find(ioknaID2).getInt(eParams.groups_id);
+            } else {
+                titleID2 = eParmap.find(ioknaID2).getInt(eParmap.groups_id);
+            }
+            if (titleID == titleID2) {
                 jsonArr.remove(i);
             }
         }
-        jsonArr.add(paramDef);
+        jsonArr.add(ioknaID);
         jsonObj.add(PKjson.ioknaParam, jsonArr);
         gsonRoot.param(jsonObj);
         return gsonRoot.toJson();
@@ -732,7 +737,7 @@ public class UGui {
     public static Query getQuery(JTable table) {
         return ((DefTableModel) table.getModel()).getQuery();
     }
-    
+
     //Очистить таблицы
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
@@ -868,14 +873,14 @@ public class UGui {
         Record detailRec = query.get(index);
         int group = (eGroups.values().length == record.size()) ? record.getInt(eGroups.id) : record.getInt(eColor.id);
         detailRec.set(color_fk, group);
-        
+
         if (group == 0 || group == 100000) { //автополбор/точн.подбор
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
             detailRec.set(color_us, val);
-            
+
         } else if (group > 0) { //выбраны в ручную
             detailRec.set(color_us, 0);
-            
+
         } else { //параметры соответствия
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
             detailRec.set(color_us, val);
@@ -995,5 +1000,5 @@ public class UGui {
             });
         }
     }
-    
+
 }

@@ -23,6 +23,7 @@ import builder.script.GsonRoot;
 import common.LinkedList2;
 import common.UCom;
 import common.eProp;
+import domain.eColor;
 import domain.eParmap;
 import enums.Form;
 import enums.PKjson;
@@ -138,17 +139,22 @@ public class AreaSimple extends Com5t implements IArea5e {
                 JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
                     //Цикл по пааметрам менеджера
-                    ioknaParamArr.forEach(grup -> {
-                        Record paramsRec; //параметр менеджера  
-                        if (grup.getAsInt() < 0) {
-                            paramsRec = eParams.find(grup.getAsInt());
+                    ioknaParamArr.forEach(ioknaID -> {
+
+                        //Record paramsRec, syspar1Rec;   
+                        if (ioknaID.getAsInt() < 0) {
+                            Record paramsRec = eParams.find(ioknaID.getAsInt()); //параметр менеджера
+                            Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.groups_id));
+                            if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
+                                syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text)); //накладываем параметр менеджера
+                            }
                         } else {
-                            paramsRec = eParams.find(grup.getAsInt());
-                            //paramsRec = eParmap.find(grup.getAsInt());
-                        }
-                        Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParams.groups_id));
-                        if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
-                            syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text)); //накладываем параметр менеджера
+                            Record paramsRec = eParmap.find(ioknaID.getAsInt()); //параметр менеджера
+                            Record syspar1Rec = winc.mapPardef().get(paramsRec.getInt(eParmap.groups_id));
+                            if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
+                                String text = eColor.find(paramsRec.getInt(eParmap.color_id1)).getStr(eColor.name);
+                                syspar1Rec.setNo(eParams.text, text); //накладываем параметр менеджера
+                            }
                         }
                     });
                 }

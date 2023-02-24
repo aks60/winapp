@@ -281,7 +281,7 @@ public class UColor {
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
-                            List<Record> parmapList2 = eParmap.find(colorRec.getInt(eColor.id));
+                            List<Record> parmapList2 = eParmap.find2(colorRec.getInt(eColor.id));
 
                             for (Record parmapRec : parmapList) {
                                 for (Record parmapRec2 : parmapList2) {

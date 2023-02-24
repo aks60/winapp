@@ -45,21 +45,21 @@ public enum eParmap implements Field {
         return query;
     }
 
-    public static List<Record> find(int colorID) {
+    public static Record find(int parmapID) {
+
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == parmapID).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", parmapID);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);        
+    }
+    
+    public static List<Record> find2(int colorID) {
 
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(color_id1) == colorID).collect(toList());
         }
         return new Query(values()).select(up, "where", color_id1, "=", colorID);
-    }
-    
-    public static Record find2(int colorID, int groupsID) {
-
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == groupsID).findFirst().orElse(up.newRecord());
-        }
-        Query recordList =  new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", groupsID);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public static List<Record> find3(int colorID, int groupsID) {

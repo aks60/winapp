@@ -553,16 +553,16 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
             int id = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.id);
             int fixed = eSyspar1.find2(id).getInt(eSyspar1.fixed);
-            if (fixed == 0) {
+            if (fixed != 1) {
                 Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.groups_id);
-                ParDefVal frame = new ParDefVal(this, record -> {
+                new ParDefVal(this, record -> {
                     
                     int index = UGui.getIndexRec(tab2);
                     int index2 = UGui.getIndexRec(tab3);
                     if (index != -1) {
                         Record prjprodRec = qPrjprod.get(index);
                         String script = prjprodRec.getStr(ePrjprod.script);
-                        String script2 = UGui.paramdefAdd(script, record.getInt(1));
+                        String script2 = UGui.ioknaParamUpdate(script, record.getInt(0));
                         prjprodRec.set(ePrjprod.script, script2);
                         qPrjprod.execsql();
                         winc().build(script2);

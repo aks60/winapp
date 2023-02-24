@@ -91,7 +91,7 @@ import domain.eElement;
 import domain.eGroups;
 import enums.TypeGrup;
 import frames.dialog.ParDefVal;
-import frames.dialog.ParDefa2;
+import frames.dialog.ParDefault;
 import frames.swing.TableFieldFilter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
@@ -630,11 +630,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            new ParDefa2(this, listenerParam1);
+            new ParDefault(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            new ParDefa2(this, listenerParam1);
+            new ParDefault(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
@@ -731,17 +731,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
 
         listenerParam2 = (record) -> {
-            //UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
             if (index != -1) {
                 Record sysprodRec = qSysprod.get(index);
                 String script = sysprodRec.getStr(eSysprod.script);
-                String script2 = UGui.paramdefAdd(script, record.getInt(1));
+                String script2 = UGui.ioknaParamUpdate(script, record.getInt(0));
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
                 wincalc().build(script2);
-                UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionTree2();
                 UGui.setSelectedIndex(tab7, index2);
             }

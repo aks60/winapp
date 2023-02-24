@@ -47,7 +47,7 @@ public class ParDefVal extends javax.swing.JDialog {
         } else {
             qParmap.select(eParmap.up, "where", eParmap.groups_id, "=", groupsID);
             for (Record paramRec : qParmap) {
-                Record colorRec = eColor.find(paramRec.getInt(eParmap.color_id2));
+                Record colorRec = eColor.find(paramRec.getInt(eParmap.color_id1));
                 Vector vector = new Vector();
                 vector.add(colorRec.getStr(eColor.name));
                 vector.add(paramRec.getInt(eParmap.id));

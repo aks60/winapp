@@ -41,6 +41,7 @@ public class Param extends javax.swing.JFrame {
         loadData();
         loadingModel();
         listenerAdd();
+        listenerSet();
     }
 
     public Param(java.awt.Window owner, ListenerRecord listener) {
@@ -51,6 +52,7 @@ public class Param extends javax.swing.JFrame {
         loadData();
         loadingModel();
         listenerAdd();
+        listenerSet();
     }
 
     public void loadData() {
@@ -147,26 +149,27 @@ public class Param extends javax.swing.JFrame {
 
     public void listenerSet() {
 
-        ListenerRecord listenerColor1 = (record) -> {
+        listenerColor1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record parmapRec = qParmap.get(index);
             parmapRec.set(eParmap.color_id1, record.get(eColor.id));
-            qParmap.update(parmapRec);
+            qParmap.execsql();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
 
-        ListenerRecord listenerColor2 = (record) -> {
+        listenerColor2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
             Record parmapRec = qParmap.get(index);
             parmapRec.set(eParmap.color_id2, record.get(eColor.id));
-            qParmap.update(parmapRec);
+            qParmap.execsql();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -559,7 +562,7 @@ public class Param extends javax.swing.JFrame {
         tab4.setFont(frames.UGui.getFont(0,0));
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "xxxxxx", null, null, null, null, null, null, null, null, null},
+                {null, "xxxxxxx", null, null, null, null, null, null, null, null, null},
                 {null, "zzzzzzz", null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -662,19 +665,19 @@ public class Param extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordCur(tab1, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGrup.PARAM_USER.id);
-                record.set(eGroups.name, "");
+                record.setNo(eGroups.grup, TypeGrup.PARAM_USER.id);
+                record.setNo(eGroups.name, "");
                 record.setDev(eGroups.name, "Пар...");
             });
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordCur(tab2, eParams.up, (record) -> {
                 Record groupRec = qGroups1.get(UGui.getIndexRec(tab1));
-                record.setNo(eParams.groups_id, groupRec.getInt(eGroups.id));
+                record.set(eParams.groups_id, groupRec.getInt(eGroups.id));
             });
         } else if (tab3.getBorder() != null) {
             UGui.insertRecordCur(tab3, eGroups.up, (record) -> {
-                record.set(eGroups.grup, TypeGrup.COLOR_MAP.id);
-                record.set(eGroups.name, "");
+                record.setNo(eGroups.grup, TypeGrup.COLOR_MAP.id);
+                record.setNo(eGroups.name, "");
                 record.setDev(eGroups.name, "Пар.соотв...");
             });
         } else if (tab4.getBorder() != null) {
