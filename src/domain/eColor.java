@@ -44,7 +44,7 @@ public enum eColor implements Field {
             query.select(up, "order by", id);
             Query.listOpenTable.add(query);
             map.clear();
-            query.stream().forEach(rec -> map.put(rec.getInt(id), rec));            
+            query.stream().forEach(rec -> map.put(rec.getInt(id), rec));
         }
         return query;
     }
@@ -57,7 +57,7 @@ public enum eColor implements Field {
         Record rec = map.get(id);
         return (rec == null) ? virtualRec() : rec;
     }
-    
+
     public static Record find(int _id) {
         if (_id == -3) {
             return virtualRec();
@@ -89,9 +89,11 @@ public enum eColor implements Field {
             }
         }
         if (_color_fk < 0) {
-            return new Query(values()).select("select first 1 * from " + up.tname() + " where " + groups_id.name() + " = " + (_color_fk * -1)).get(0);
+            Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where " + groups_id.name() + " = " + (_color_fk * -1));
+            return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
         } else {
-            return new Query(values()).select(up, "where", id, "=", _color_fk).get(0);
+            Query recordList = new Query(values()).select(up, "where", id, "=", _color_fk);
+            return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
         }
     }
 

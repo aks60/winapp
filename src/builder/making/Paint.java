@@ -183,7 +183,7 @@ public class Paint {
                 }
             }
         }
-        JOptionPane.showMessageDialog(null, "Для артикуда  " + spc.artikl + " не определена цена.", "ВНИМАНИЕ!", 1);
+        JOptionPane.showMessageDialog(null, "Для артикула  " + spc.artikl + " не определена цена.", "ВНИМАНИЕ!", 1);
         return 1; //такого случая не должно быть
     }
 

@@ -8,8 +8,12 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eParmap;
 import domain.eSetting;
+import enums.Layout;
+import static enums.PKjson.artiklID;
 import enums.UseColor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -101,7 +105,7 @@ public class UColor {
                 }
 
                 //=== АВТОПОДБОР ===//
-            } else if (spcColorFk == 0 || spcColorFk == 100000) { 
+            } else if (spcColorFk == 0 || spcColorFk == 100000) {
                 //Для spcColorFk == 100000 если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
 
                 //Подбор по текстуре профиля и заполн.
@@ -132,11 +136,11 @@ public class UColor {
                 //Подбор по текстуре профиля и заполн.
                 if (elemColorUS == UseColor.PROF.id || elemColorUS == UseColor.GLAS.id) {
                     elemColorFK = scanFromParams(elemArtID, side, profColorID, spcColorFk);
-                    
+
                     //Подбор по текстуре сторон профиля
-                } else if(List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
+                } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
                     elemColorFK = scanFromParamSide(elemArtID, side, profColorID, spcColorFk);
-                    
+
                     //Подбор по серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     elemColorFK = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID, spcColorFk);
@@ -234,7 +238,7 @@ public class UColor {
         return -1;
     }
 
-        //Поиск по текстуре профиля или заполнения
+    //Поиск по текстуре профиля или заполнения
     private static int scanFromParams(int elemArtiklID, int side, int profColorID, int paramFk) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
@@ -261,7 +265,7 @@ public class UColor {
         }
         return -1;
     }
-    
+
     //Поиск текстуры по параметру.
     private static int scanFromParamSide(int artiklID, int side, int profColorID, int paramFk) {
         try {
@@ -331,17 +335,18 @@ public class UColor {
         Record artdetRec = eArtdet.find(spc.detailRec.getInt(ARTIKL_ID));
         if (artdetRec != null) {
             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
-            if (colorFK2 > 0) { //если это не группа цветов                               
-                return colorFK2;
-
-            } else if (colorFK2 < 0 && colorFK2 != -1) { //это группа
-                List<Record> colorList = eColor.find2(colorFK2 * -1);
+            
+            if (colorFK2 < 0 && colorFK2 != -1) { //это группа
+                List<Record> colorList = eColor.find2(colorFK2);
                 if (colorList.isEmpty() == false) {
                     return colorList.get(0).getInt(eColor.id);
                 }
+            } else { //если это не группа цветов                               
+                return colorFK2;
+
             }
         }
-        JOptionPane.showMessageDialog(null, "Для артикуда  " + spc.artikl + " не определена цена.", "ВНИМАНИЕ!", 1);
+        JOptionPane.showMessageDialog(null, "Для артикула  " + spc.artikl + " не определена цена.", "ВНИМАНИЕ!", 1);
         return 1; //такого случая не должно быть
     }
 
@@ -353,12 +358,10 @@ public class UColor {
                     return spcAdd.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //По текстуре профиля
                 case 15: //По текстуре заполнения
-                    int artiklID = spcAdd.elem5e.root().artiklRecAn().getInt(eArtikl.id);
-//                    return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1 
-//                            && rec.getInt(eArtdet.color_fk) > 0 && rec.getInt(eArtdet.artikl_id) == artiklID)
-//                            .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);                    
+                    HashMap.Entry<Layout, IElem5e> firstEntry =  (Entry<Layout, IElem5e>) spcAdd.elem5e.root().frames().entrySet().iterator().next();
+                    int artiklID = firstEntry.getValue().artiklRec().getInt(eArtikl.id);
                     return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1
-                            && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 3
+                            && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 1
                             && rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0)
                             .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);
                 case 1: //По основе изделия
@@ -377,7 +380,7 @@ public class UColor {
                     return -1;
             }
         } catch (Exception e) {
-            System.err.println("Ошибка: Color.colorFromTypes() " + e);
+            System.err.println("Ошибка:Color.colorFromTypes() " + e);
             return -1;
         }
     }
@@ -394,7 +397,7 @@ public class UColor {
         } else if ("КОМП".equals(spc.place)) {
             place = "Комплекты";
         }
-        JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикуда  '" + spc.artikl + "' не определена текстура. \nСмотри форму 'Составы => " + place + "'.", "ВНИМАНИЕ!", 1);
+        JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикула  '" + spc.artikl + "' не определена текстура. \nСмотри форму 'Составы => " + place + "'.", "ВНИМАНИЕ!", 1);
     }
 
     //Текстура профиля или текстура заполнения изделия (неокрашенные)
