@@ -15,6 +15,7 @@ import enums.TypeGrup;
 import frames.swing.DefTableModel;
 import frames.swing.TableFieldFilter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class ParDefault extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listener;
-        loadingModel();        
+        loadingModel();
         setVisible(true);
     }
 
@@ -65,6 +66,7 @@ public class ParDefault extends javax.swing.JDialog {
                 parList.add(new Vector(List.of(param_name, rec.get(eParmap.id), rec.get(eParmap.groups_id))));
             }
         }
+        Collections.sort(parList, (o1, o2) -> String.valueOf(o1.get(0)).compareTo(String.valueOf(o2.get(0))));
         new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);
         UGui.setSelectedRow(tab1);
     }
@@ -77,7 +79,7 @@ public class ParDefault extends javax.swing.JDialog {
             Integer groupsId = groupsRec.getInt(eGroups.id);
             for (Vector vector : parList) {
                 if (groupsId.equals(vector.get(2))) {
-                    dm.addRow(vector); 
+                    dm.addRow(vector);
                 }
             }
             dm.fireTableDataChanged();

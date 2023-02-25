@@ -245,6 +245,7 @@ public class UColor {
         //Цикл по ARTDET определённого артикула
         for (Record artdetRec : artdetList) {
 
+            //String pardef = spcAdd.elem5e.winc().mapPardef().get(spcColorFk);
             if (side == 1) {
                 if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
                     //&& artdetRec.getInt(eArtdet.color_fk) == profColorID+

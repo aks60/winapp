@@ -289,10 +289,10 @@ public enum App {
         eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
         eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
         eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-        eParmap.up, eColor.up,
+        eParmap.up, eParams.up, eColor.up,
         ePrjkit.up, ePrjprod.up, eProject.up, ePrjpart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,
-        eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up, eParams.up
+        eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up
     };
 }

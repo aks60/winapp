@@ -310,25 +310,25 @@ public class Elements extends javax.swing.JFrame {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int artikID = record.getInt(eElemdet.artikl_id);
             int colorID = record.getInt(eElemdet.color_fk, -1);
-            ParColor frame = new ParColor(this, listenerColor, artikID, colorID);
+            new ParColor(this, listenerColor, artikID, colorID);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
+            new DicColvar(this, listenerColvar1, colorFk);
         });
 
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
+            new DicColvar(this, listenerColvar2, colorFk);
         });
 
         UGui.buttonCellEditor(tab3, 5).addActionListener(event -> {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
+            new DicColvar(this, listenerColvar3, colorFk);
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {

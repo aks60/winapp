@@ -579,7 +579,6 @@ public class Param extends javax.swing.JFrame {
         });
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
-        tab4.setPreferredSize(new java.awt.Dimension(960, 40));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
