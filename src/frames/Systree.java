@@ -634,12 +634,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            new ParDefault(this, listenerParam1);
+            Record syspar1Rec = qSyspar2.get(UGui.getIndexRec(tab4));
+            int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
+            if (groupsID == -1) {
+                new ParDefault(this, listenerParam1);
+            } else {
+                new ParDefVal(this, listenerParam1, groupsID);
+            }
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
-            
             if (syspar1Rec.getInt(eSyspar1.fixed) != 1) {
                 int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
                 new ParDefVal(this, listenerParam2, groupsID);
@@ -717,7 +722,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
 
         listenerParam1 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             int index2 = UGui.getIndexRec(tab5);
             if (index2 != -1) {
@@ -725,6 +729,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 qSyspar2.set(systreeID, index, eSyspar1.systree_id);
                 qSyspar2.set(record.get(0), index, eSyspar1.text);
                 qSyspar2.set(record.get(2), index, eSyspar1.groups_id);
+                UGui.stopCellEditing(tab2, tab3, tab4, tab5);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab4, index);
             }
