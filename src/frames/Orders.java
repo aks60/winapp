@@ -409,7 +409,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                     qSyspar1.clear();
                     winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                    Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.groups_id) - o1.getInt(eSyspar1.groups_id));
+                    Collections.sort(qSyspar1, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
+                            .compareTo(qGroups.find(o2.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)));                    
                     ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                     //Рама, импост...
@@ -567,7 +568,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         prjprodRec.set(ePrjprod.script, script2);
                         qPrjprod.execsql();
                         winc().build(script2);
-                        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                         selectionTree();
                         UGui.setSelectedIndex(tab3, index2);
                     }
