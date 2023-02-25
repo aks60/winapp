@@ -84,7 +84,7 @@ public class UColor {
                         }
                         elemColorFK = scanFromColorFirst(spcAdd); //первая в списке
                     }
-                    //Подбор по текстуре профиля и текстуре артикула профиля
+                    //Подбор по текстуре профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
                     elemColorFK = scanFromProfSide(elemArtID, side, profColorID);
                     if (elemColorFK == -1) {
@@ -93,7 +93,7 @@ public class UColor {
                             elemColorFK = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                         }
                     }
-                    //Подбор по серии артикулов текстур профиля
+                    //Подбор по текстуре и серии профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     elemColorFK = scanFromProfSeries(elemArtID, side, profColorID);
                     if (elemColorFK == -1) {
@@ -120,7 +120,7 @@ public class UColor {
                     if (elemColorFK == -1 && spcColorFk == 0) {
                         elemColorFK = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
-                    //Подбор по серии сторон профиля
+                    //Подбор по текстуре и серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     //int seriesID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.groups4_id);
                     elemColorFK = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID);
@@ -141,10 +141,9 @@ public class UColor {
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
                     elemColorFK = scanFromParamSide(elemArtID, side, profColorID, spcColorFk);
 
-                    //Подбор по серии сторон профиля
+                    //Подбор по текстуре и серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     elemColorFK = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID, spcColorFk);
-
                 }
             }
             if (elemColorFK != -1) {
