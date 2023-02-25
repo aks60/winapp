@@ -28,7 +28,7 @@ public class ParDefault extends javax.swing.JDialog {
 
     private ListenerRecord listener;
     private Query qGroups = new Query(eGroups.values());
-    private Query qParmap = new Query(eParmap.color_id1, eParmap.color_id1, eParmap.groups_id).select(eParmap.up);
+    private Query qParmap = new Query(eParmap.color_id1, eParmap.id, eParmap.groups_id).select(eParmap.up);
     private Query qParams = new Query(eParams.text, eParams.id, eParams.groups_id).select(eParams.up);
     private List<Vector> parList = new ArrayList();
     private DefaultTableModel dm = null;
@@ -38,7 +38,17 @@ public class ParDefault extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listener;
+        loadingModel();        
+        setVisible(true);
+    }
+
+    public ParDefault(Frame parent, ListenerRecord listener, int groupsID) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
         loadingModel();
+        UGui.setSelectedKey(tab1, groupsID);
         setVisible(true);
     }
 
@@ -52,7 +62,7 @@ public class ParDefault extends javax.swing.JDialog {
         for (Record rec : qParmap) {
             if (set.add(rec.getStr(eParmap.color_id1) + rec.getStr(eParmap.groups_id))) {
                 Object param_name = eColor.find(rec.getInt(eParmap.color_id1)).getStr(eColor.name);
-                parList.add(new Vector(List.of(param_name, rec.get(eParmap.color_id1), rec.get(eParmap.groups_id))));
+                parList.add(new Vector(List.of(param_name, rec.get(eParmap.id), rec.get(eParmap.groups_id))));
             }
         }
         new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id);

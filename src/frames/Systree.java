@@ -112,8 +112,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Query qSysprod = new Query(eSysprod.values());
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
-    private Query qSyspar1 = new Query(eSyspar1.values());
-    private Query qSyspar2 = new Query(eSyspar1.values());
+    private Query qSyspar1b = new Query(eSyspar1.values());
+    private Query qSyspar1a = new Query(eSyspar1.values());
     private int systreeID = -1; //выбранная система (nuni)
     private int elementID = -1; //выбранная система (nuni)
     private boolean writeNuni = true;
@@ -227,7 +227,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        new DefTableModel(tab4, qSyspar2, eSyspar1.groups_id, eSyspar1.text, eSyspar1.fixed) {
+        new DefTableModel(tab4, qSyspar1a, eSyspar1.groups_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
 
                 Field field = columns[col];
@@ -239,7 +239,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
-        new DefTableModel(tab7, qSyspar1, eSyspar1.groups_id, eSyspar1.text) {
+        new DefTableModel(tab7, qSyspar1b, eSyspar1.groups_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.groups_id) {
@@ -380,10 +380,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.npp);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
+            qSyspar1a.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
-            Collections.sort(qSyspar2, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
+            Collections.sort(qSyspar1a, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
                     .compareTo(qGroups.find(o2.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)));
 
             loadingTab5();
@@ -440,9 +440,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     //Параметры
                 } else if (winNode.com5t().type() == enums.Type.PARAM) {
                     ((CardLayout) pan7.getLayout()).show(pan7, "card11");
-                    qSyspar1.clear();
-                    winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
-                    Collections.sort(qSyspar1, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
+                    qSyspar1b.clear();
+                    winc.mapPardef().forEach((pk, syspar1Rec) -> qSyspar1b.add(syspar1Rec));
+                    Collections.sort(qSyspar1b, (o1, o2) -> qGroups.find(o1.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)
                             .compareTo(qGroups.find(o2.getInt(eSyspar1.groups_id), eGroups.id).getStr(eGroups.name)));
                     ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
@@ -634,17 +634,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Record syspar1Rec = qSyspar2.get(UGui.getIndexRec(tab4));
+            Record syspar1Rec = qSyspar1a.get(UGui.getIndexRec(tab4));
             int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
             if (groupsID == -1) {
                 new ParDefault(this, listenerParam1);
             } else {
-                new ParDefVal(this, listenerParam1, groupsID);
+                new ParDefault(this, listenerParam1, groupsID);
             }
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Record syspar1Rec = qSyspar1.get(UGui.getIndexRec(tab7));
+            Record syspar1Rec = qSyspar1b.get(UGui.getIndexRec(tab7));
             if (syspar1Rec.getInt(eSyspar1.fixed) != 1) {
                 int groupsID = syspar1Rec.getInt(eSyspar1.groups_id);
                 new ParDefVal(this, listenerParam2, groupsID);
@@ -722,16 +722,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         };
 
         listenerParam1 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
             int index2 = UGui.getIndexRec(tab5);
             if (index2 != -1) {
                 systreeID = sysNode.rec().getInt(eSystree.id);
-                qSyspar2.set(systreeID, index, eSyspar1.systree_id);
-                qSyspar2.set(record.get(0), index, eSyspar1.text);
-                qSyspar2.set(record.get(2), index, eSyspar1.groups_id);
-                UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+                qSyspar1a.set(systreeID, index, eSyspar1.systree_id);
+                qSyspar1a.set(record.get(0), index, eSyspar1.text);
+                qSyspar1a.set(record.get(2), index, eSyspar1.groups_id);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab4, index);
+                UGui.setSelectedIndex(tab4, index);                
             }
         };
 
@@ -744,7 +744,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 String script = sysprodRec.getStr(eSysprod.script);
                 String script2 = UGui.ioknaParamUpdate(script, record.getInt(0));
                 sysprodRec.set(eSysprod.script, script2);
-                qSysprod.execsql();
                 wincalc().build(script2);
                 selectionTree2();
                 UGui.setSelectedIndex(tab7, index2);
@@ -3630,7 +3629,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        selectionTree2();
+        qSyspar1a.execsql();
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

@@ -59,6 +59,7 @@ public class Query extends Table {
         return root.mapQuery.get(field.tname());
     }
 
+    //TODO См. класс Scanner.
     public Query select(Object... s) {
 
         String sql = String.valueOf(s[0]);
