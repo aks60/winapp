@@ -801,7 +801,7 @@ public class Param extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab3);
+        TableFieldFilter filterTable = new TableFieldFilter(0, tab1, tab2, tab3, tab4);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         btnChoice.setVisible(false);

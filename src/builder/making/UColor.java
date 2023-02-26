@@ -17,6 +17,16 @@ import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+/**
+ * Как правило текстуры элементов зависят от текстуры профиля на котором они
+ * крепятся. К примеру цвет штапика зависит от текстуры внутренней стороны
+ * профиля створки, в свою очередь текстура створки зависит от текстуры рамы
+ * профиля. Или цвет отлива зависит от текстуры внешней стороны профиля.
+ * Текстура профиля рамы может быть: 1. Цвет самого профиля см.
+ * 'Мат.ценности->Текстуры артикулов' запись с выбранным цветом профиля и вкл.
+ * галочками основная, внутренняя и внешняя.
+ *
+ */
 public class UColor {
 
     private static final int COLOR_US = 2;
@@ -68,7 +78,7 @@ public class UColor {
         try {
             int elemColorUS = (side == 1) ? typesUS & 0x0000000f : (side == 2) ? (typesUS & 0x000000f0) >> 4 : (typesUS & 0x00000f00) >> 8; //тип подбора                
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
-            int profSideColorID = getColorProfile(spcAdd, elemColorUS, side); //цвет из варианта подбора 
+            int profSideColorID = getColorProfile(spcAdd, elemColorUS); //цвет из варианта подбора 
 
             //=== ВРУЧНУЮ ===//
             if (elemColorFk > 0 && elemColorFk != 100000) {
@@ -85,7 +95,7 @@ public class UColor {
                         }
                         resultColorID = scanFromColorFirst(spcAdd); //первая в списке
                     }
-                    
+
                     //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
@@ -95,7 +105,7 @@ public class UColor {
                             resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                         }
                     }
-                    
+
                     //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     resultColorID = scanFromProfSeries(elemArtID, profSideColorID, side);
@@ -351,7 +361,7 @@ public class UColor {
     }
 
     //Выдает цвет профиля в соответствии с заданным вариантом подбора текстуры   
-    private static int getColorProfile(Specific spcAdd, int elemColorUS, int side) {
+    private static int getColorProfile(Specific spcAdd, int elemColorUS) {
         try {
             switch (elemColorUS) {
                 case 0:
@@ -364,17 +374,17 @@ public class UColor {
                             && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 1
                             && rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0)
                             .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);
-                case 1: //По основе изделия
+                case 1: //По основе профиля
                     return spcAdd.elem5e.winc().colorID1;
-                case 2: //По внутр.изделия
+                case 2: //По внутр.профиля
                     return spcAdd.elem5e.winc().colorID2;
-                case 3: //По внешн.изделия
+                case 3: //По внешн.профиля
                     return spcAdd.elem5e.winc().colorID3;
-                case 6: //По основе в серии
+                case 6: //По основе профиля в серии
                     return spcAdd.elem5e.winc().colorID1;
-                case 7: //По внутр. в серии
+                case 7: //По внутр.профиля в серии
                     return spcAdd.elem5e.winc().colorID2;
-                case 8: //По внешн. в серии
+                case 8: //По внешн.профиля в серии
                     return spcAdd.elem5e.winc().colorID3;
                 default:
                     return -1;
