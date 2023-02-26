@@ -58,96 +58,95 @@ public class UColor {
      */
     public static boolean colorFromProduct(Specific spcAdd, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
-        int spcColorFk = spcAdd.detailRec.getInt(COLOR_FK);
+        int elemColorFk = spcAdd.detailRec.getInt(COLOR_FK);
         int typesUS = spcAdd.detailRec.getInt(COLOR_US);
-        if (spcColorFk == -1) {
+        if (elemColorFk == -1) {
             colorFromMes(spcAdd);
             return false; //нет данных для поиска
         }
         int resultColorID = -1;
-        int elemColorFK = -1;
         try {
             int elemColorUS = (side == 1) ? typesUS & 0x0000000f : (side == 2) ? (typesUS & 0x000000f0) >> 4 : (typesUS & 0x00000f00) >> 8; //тип подбора                
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
             int profColorID = getColorProfile(spcAdd, elemColorUS, side); //цвет из варианта подбора 
 
             //=== ВРУЧНУЮ ===//
-            if (spcColorFk > 0 && spcColorFk != 100000) {
+            if (elemColorFk > 0 && elemColorFk != 100000) {
                 if (elemColorUS == UseColor.MANUAL.id) { //явное указание текстуры
-                    elemColorFK = scanFromProfSide(elemArtID, side, spcColorFk);
-                    if (elemColorFK == -1) { //тут наступает коллизия, фифти-фифти
+                    resultColorID = scanFromProfSide(elemArtID, side, elemColorFk);
+                    if (resultColorID == -1) { //тут наступает коллизия, фифти-фифти
                         if ("ps3".equals(eSetting.val(2))) {
                             return false;
                         }
                         if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2 && (spcAdd.artiklRec.getInt(eArtikl.level2) == 11 || spcAdd.artiklRec.getInt(eArtikl.level2) == 13)) {
                             return false;
                         }
-                        elemColorFK = scanFromColorFirst(spcAdd); //первая в списке
+                        resultColorID = scanFromColorFirst(spcAdd); //первая в списке
                     }
                     //Подбор по текстуре профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    elemColorFK = scanFromProfSide(elemArtID, side, profColorID);
-                    if (elemColorFK == -1) {
-                        elemColorFK = scanFromProfSide(elemArtID, side, spcColorFk);
-                        if (elemColorFK == -1) {
-                            elemColorFK = scanFromColorFirst(spcAdd); //первая в списке запись цвета
+                    resultColorID = scanFromProfSide(elemArtID, side, profColorID);
+                    if (resultColorID == -1) {
+                        resultColorID = scanFromProfSide(elemArtID, side, elemColorFk);
+                        if (resultColorID == -1) {
+                            resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                         }
                     }
                     //Подбор по текстуре и серии профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    elemColorFK = scanFromProfSeries(elemArtID, side, profColorID);
-                    if (elemColorFK == -1) {
-                        elemColorFK = scanFromProfSide(elemArtID, side, spcColorFk);
-                        if (elemColorFK == -1) {
-                            elemColorFK = scanFromColorFirst(spcAdd); //первая в списке запись цвета
+                    resultColorID = scanFromProfSeries(elemArtID, side, profColorID);
+                    if (resultColorID == -1) {
+                        resultColorID = scanFromProfSide(elemArtID, side, elemColorFk);
+                        if (resultColorID == -1) {
+                            resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                         }
                     }
                 }
 
                 //=== АВТОПОДБОР ===//
-            } else if (spcColorFk == 0 || spcColorFk == 100000) {
+            } else if (elemColorFk == 0 || elemColorFk == 100000) {
                 //Для spcColorFk == 100000 если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
 
                 //Подбор по текстуре профиля и заполн.
                 if (List.of(UseColor.PROF.id, UseColor.GLAS.id).contains(elemColorUS)) {
-                    elemColorFK = scanFromProfile(elemArtID, side, profColorID);
-                    if (elemColorFK == -1 && spcColorFk == 0) {
-                        elemColorFK = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                    resultColorID = scanFromProfile(elemArtID, side, profColorID);
+                    if (resultColorID == -1 && elemColorFk == 0) {
+                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
                     //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    elemColorFK = scanFromProfSide(elemArtID, side, profColorID);
-                    if (elemColorFK == -1 && spcColorFk == 0) {
-                        elemColorFK = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                    resultColorID = scanFromProfSide(elemArtID, side, profColorID);
+                    if (resultColorID == -1 && elemColorFk == 0) {
+                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
                     //Подбор по текстуре и серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
                     //int seriesID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.groups4_id);
-                    elemColorFK = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID);
-                    if (elemColorFK == -1 && spcColorFk == 0) {
-                        elemColorFK = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                    resultColorID = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID);
+                    if (resultColorID == -1 && elemColorFk == 0) {
+                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
                 }
 
                 //=== ПАРАМЕТР ===//
-            } else if (spcColorFk < 0) {  //если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
+            } else if (elemColorFk < 0) {  //если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
 
                 //String pardef = spcAdd.elem5e.winc().mapPardef().get(spcColorFk);
                 //Подбор по текстуре профиля и заполн.
                 if (elemColorUS == UseColor.PROF.id || elemColorUS == UseColor.GLAS.id) {
-                    elemColorFK = scanFromParams(elemArtID, side, profColorID, spcColorFk);
+                    resultColorID = scanFromParams(elemArtID, side, profColorID, elemColorFk);
 
                     //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    elemColorFK = scanFromParamSide(elemArtID, side, profColorID, spcColorFk);
+                    resultColorID = scanFromParamSide(elemArtID, side, profColorID, elemColorFk);
 
                     //Подбор по текстуре и серии сторон профиля
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    elemColorFK = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID, spcColorFk);
+                    resultColorID = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), side, profColorID, elemColorFk);
                 }
             }
-            if (elemColorFK != -1) {
-                spcAdd.setColor(side, elemColorFK);
+            if (resultColorID != -1) {
+                spcAdd.setColor(side, resultColorID);
 
             } else { //в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                 return false;

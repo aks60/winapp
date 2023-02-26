@@ -98,6 +98,7 @@ public class Elements extends Cal5e {
                             Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
                             Specific spcAdd = new Specific("ВСТ", elemdetRec, artiklRec, elem5e, mapParam);
 
+                            //Подбор текстуры
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
                                     && UColor.colorFromProduct(spcAdd, 3)) {
