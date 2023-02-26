@@ -4,7 +4,10 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.up;
+import static domain.eArtdet.artikl_id;
+import static domain.eArtdet.record;
+import static domain.eArtdet.up;
+import static enums.PKjson.artiklID;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -70,6 +73,14 @@ public enum eParmap implements Field {
         return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", groupsID);
     }
 
+    public static List<Record> filter(int groupsID) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(groups_id) == groupsID).collect(toList());
+        }
+        List<Record> list = new Query(values()).select(up, "where", groups_id, "=", groupsID);
+        return (list.size() == 0) ? up.newRecord() : list;        
+    }
+    
     public String toString() {
         return meta.descr();
     }

@@ -8,8 +8,8 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eParmap;
 import domain.eSetting;
+import domain.eSyspar1;
 import enums.Layout;
-import static enums.PKjson.artiklID;
 import enums.UseColor;
 import java.util.HashMap;
 import java.util.List;
@@ -68,11 +68,13 @@ public class UColor {
         try {
             int elemColorUS = (side == 1) ? typesUS & 0x0000000f : (side == 2) ? (typesUS & 0x000000f0) >> 4 : (typesUS & 0x00000f00) >> 8; //тип подбора                
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
-            int profColorID = getColorProfile(spcAdd, elemColorUS, side); //цвет из варианта подбора 
+            int profSideColorID = getColorProfile(spcAdd, elemColorUS, side); //цвет из варианта подбора 
 
             //=== ВРУЧНУЮ ===//
             if (elemColorFk > 0 && elemColorFk != 100000) {
-                if (elemColorUS == UseColor.MANUAL.id) { //явное указание текстуры
+
+                //Явное указание текстуры
+                if (elemColorUS == UseColor.MANUAL.id) {
                     resultColorID = scanFromProfSide(elemArtID, elemColorFk, side);
                     if (resultColorID == -1) { //тут наступает коллизия, фифти-фифти
                         if ("ps3".equals(eSetting.val(2))) {
@@ -83,18 +85,20 @@ public class UColor {
                         }
                         resultColorID = scanFromColorFirst(spcAdd); //первая в списке
                     }
-                    //Подбор по текстуре профиля
+                    
+                    //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    resultColorID = scanFromProfSide(elemArtID, profColorID, side);
+                    resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1) {
                         resultColorID = scanFromProfSide(elemArtID, elemColorFk, side);
                         if (resultColorID == -1) {
                             resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                         }
                     }
-                    //Подбор по текстуре и серии профиля
+                    
+                    //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    resultColorID = scanFromProfSeries(elemArtID, profColorID, side);
+                    resultColorID = scanFromProfSeries(elemArtID, profSideColorID, side);
                     if (resultColorID == -1) {
                         resultColorID = scanFromProfSide(elemArtID, elemColorFk, side);
                         if (resultColorID == -1) {
@@ -109,20 +113,19 @@ public class UColor {
 
                 //Подбор по текстуре профиля и заполн.
                 if (List.of(UseColor.PROF.id, UseColor.GLAS.id).contains(elemColorUS)) {
-                    resultColorID = scanFromProfile(elemArtID, profColorID, side);
+                    resultColorID = scanFromProfile(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
                     //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    resultColorID = scanFromProfSide(elemArtID, profColorID, side);
+                    resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
-                    //Подбор по текстуре и серии сторон профиля
+                    //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    //int seriesID = spcAdd.elem5e.winc().rootArea.artiklRecAn().getInt(eArtikl.groups4_id);
-                    resultColorID = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), profColorID, side);
+                    resultColorID = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
@@ -130,19 +133,19 @@ public class UColor {
 
                 //=== ПАРАМЕТР ===//
             } else if (elemColorFk < 0) {  //если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
+                Record syspar1Rec = spcAdd.elem5e.winc().mapPardef().get(elemColorFk);
 
-                //String pardef = spcAdd.elem5e.winc().mapPardef().get(spcColorFk);
                 //Подбор по текстуре профиля и заполн.
                 if (elemColorUS == UseColor.PROF.id || elemColorUS == UseColor.GLAS.id) {
-                    resultColorID = scanFromParams(elemArtID, profColorID, elemColorFk, side);
+                    resultColorID = scanFromParams(elemArtID, syspar1Rec, profSideColorID, side);
 
                     //Подбор по текстуре сторон профиля
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
-                    resultColorID = scanFromParamSide(elemArtID, profColorID, elemColorFk, side);
+                    resultColorID = scanFromParamSide(elemArtID, syspar1Rec, profSideColorID, side);
 
-                    //Подбор по текстуре и серии сторон профиля
+                    //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    resultColorID = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), profColorID, elemColorFk, side);
+                    resultColorID = scanFromParamSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), syspar1Rec, profSideColorID, side);
                 }
             }
             if (resultColorID != -1) {
@@ -159,7 +162,7 @@ public class UColor {
     }
 
     //Поиск по текстуре профиля или заполнения
-    private static int scanFromProfile(int elemArtiklID, int profColorID, int side) {
+    private static int scanFromProfile(int elemArtiklID, int profFullColorID, int side) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
         Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
@@ -167,17 +170,17 @@ public class UColor {
         for (Record artdetRec : artdetList) {
 
             if (side == 1) {
-                if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                    return profColorID;
+                if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                    return profFullColorID;
                 }
             } else {
                 if (artdetRec.getInt(field) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                        return profColorID;
+                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                        return profFullColorID;
                     }
                 } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                        return profColorID;
+                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                        return profFullColorID;
                     }
                 }
             }
@@ -186,7 +189,7 @@ public class UColor {
     }
 
     //Поиск по текстуре сторон профиля
-    private static int scanFromProfSide(int elemArtiklID, int profColorID, int side) {
+    private static int scanFromProfSide(int elemArtiklID, int profSideColorID, int side) {
         try {
             List<Record> artdetList = eArtdet.filter(elemArtiklID);
             //Цикл по ARTDET определённого артикула
@@ -201,15 +204,15 @@ public class UColor {
                         List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk)); //фильтр списка определённой группы
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
-                            if (colorRec.getInt(eColor.id) == profColorID) {
-                                return profColorID;
+                            if (colorRec.getInt(eColor.id) == profSideColorID) {
+                                return profSideColorID;
                             }
                         }
 
                         //Одна текстура
                     } else {
-                        if (artdetRec.getInt(eArtdet.color_fk) == profColorID) { //если есть такая текстура в ARTDET
-                            return profColorID;
+                        if (artdetRec.getInt(eArtdet.color_fk) == profSideColorID) { //если есть такая текстура в ARTDET
+                            return profSideColorID;
                         }
                     }
                 }
@@ -222,13 +225,13 @@ public class UColor {
         }
     }
 
-    //Поиск текстуры сторон в серии
-    private static int scanFromProfSeries(int seriesID, int profColorID, int side) {
+    //Поиск по текстуре сторон профиля в серии
+    private static int scanFromProfSeries(int elemSeriesID, int profSideColorID, int side) {
 
-        List<Record> artseriList = eArtikl.find3(seriesID);
+        List<Record> artseriList = eArtikl.find3(elemSeriesID);
         for (Record artseriRec : artseriList) {
 
-            int color_id1 = scanFromProfSide(artseriRec.getInt(eArtikl.id), side, profColorID);
+            int color_id1 = scanFromProfSide(artseriRec.getInt(eArtikl.id), side, profSideColorID);
             if (color_id1 != -1) {
                 return color_id1;
             }
@@ -236,28 +239,33 @@ public class UColor {
         return -1;
     }
 
-    //Поиск по текстуре профиля или заполнения
-    private static int scanFromParams(int elemArtiklID, int profColorID, int paramFk, int side) {
+    //Поиск по текстуре профиля или заполнения по параметру
+    private static int scanFromParams(int elemArtiklID, Record syspar1Rec, int profFullColorID, int side) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
+        List<Record> parmapList = eParmap.filter(syspar1Rec.getInt(eParmap.groups_id));
         Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
-        //Цикл по ARTDET определённого артикула
-        for (Record artdetRec : artdetList) {
 
-            //String pardef = spcAdd.elem5e.winc().mapPardef().get(spcColorFk);
-            if (side == 1) {
-                if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                    //&& artdetRec.getInt(eArtdet.color_fk) == profColorID+
-                    return profColorID;
-                }
-            } else {
-                if (artdetRec.getInt(field) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                        return profColorID;
-                    }
-                } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profColorID) {
-                        return profColorID;
+        for (Record parmapRec : parmapList) {
+            if (parmapRec.getInt(eParmap.color_id1) == profFullColorID) {
+                for (Record artdetRec : artdetList) {
+
+                    if (side == 1) {
+                        if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                return parmapRec.getInt(eParmap.color_id2);
+                            }
+                        }
+                    } else {
+                        if (artdetRec.getInt(field) == 1) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                return parmapRec.getInt(eParmap.color_id2);
+                            }
+                        } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                return parmapRec.getInt(eParmap.color_id2);
+                            }
+                        }
                     }
                 }
             }
@@ -265,43 +273,36 @@ public class UColor {
         return -1;
     }
 
-    //Поиск текстуры по параметру.
-    private static int scanFromParamSide(int artiklID, int profColorID, int paramFk, int side) {
+    //Поиск по текстуре сторон профиля по параметру.
+    private static int scanFromParamSide(int elemArtiklID, Record syspar1Rec, int profSideColorID, int side) {
         try {
-            List<Record> parmapList = eParmap.find3(profColorID, paramFk);
-            List<Record> artdetList = eArtdet.filter(artiklID);
+            List<Record> artdetList = eArtdet.filter(elemArtiklID);
+            List<Record> parmapList = eParmap.filter(syspar1Rec.getInt(eParmap.groups_id));
+            Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
 
-            //Цикл по ARTDET определённого артикула
-            for (Record artdetRec : artdetList) {
-                //Сторона подлежит рассмотрению?
-                if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
-                        || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
-                        || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
+            for (Record parmapRec : parmapList) {
+                if (parmapRec.getInt(eParmap.color_id1) == profSideColorID) {
+                    for (Record artdetRec : artdetList) {
+                        if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
+                            if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1))) //cторона подлежит рассмотрению?
+                                    || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                                    || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
 
-                    //Группа текстур
-                    if (artdetRec.getInt(eArtdet.color_fk) < 0) {
-                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk)); //фильтр списка определённой группы
-                        //Цикл по COLOR определённой группы
-                        for (Record colorRec : colorList) {
-
-                            List<Record> parmapList2 = eParmap.find2(colorRec.getInt(eColor.id));
-
-                            for (Record parmapRec : parmapList) {
-                                for (Record parmapRec2 : parmapList2) {
-                                    if (parmapRec.getInt(eParmap.groups_id) == parmapRec2.getInt(eParmap.groups_id)
-                                            && parmapRec.getInt(eParmap.color_id1) == parmapRec2.getInt(eParmap.color_id1)) {
-
-                                        return parmapRec2.getInt(eParmap.color_id2);
+                                if (side == 1) {
+                                    if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                        return parmapRec.getInt(eParmap.color_id2);
+                                    }
+                                } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                                    if (artdetRec.getInt(field) == 1) {
+                                        if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                            return parmapRec.getInt(eParmap.color_id2);
+                                        }
+                                    } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                                        if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id2)) {
+                                            return parmapRec.getInt(eParmap.color_id2);
+                                        }
                                     }
                                 }
-                            }
-                        }
-
-                        //Одна текстура
-                    } else {
-                        for (Record parmapRec : parmapList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
-                                return parmapRec.getInt(eParmap.color_id2);
                             }
                         }
                     }
@@ -315,13 +316,13 @@ public class UColor {
         }
     }
 
-    //Поиск текстуры по параметру в серии
-    private static int scanFromParamSeries(int seriesID, int profColorID, int colorFk, int side) {
+    //Поиск по текстуре сторон профиля в серии по параметру
+    private static int scanFromParamSeries(int elemSeriesID, Record syspar1Rec, int profSideColorID, int side) {
 
-        List<Record> artseriList = eArtikl.find3(seriesID);
+        List<Record> artseriList = eArtikl.find3(elemSeriesID);
         for (Record artseriRec : artseriList) {
 
-            int color_id1 = scanFromParamSide(artseriRec.getInt(eArtikl.id), profColorID, colorFk, side);
+            int color_id1 = scanFromParamSide(artseriRec.getInt(eArtikl.id), syspar1Rec, profSideColorID, side);
             if (color_id1 != -1) {
                 return color_id1;
             }
@@ -334,7 +335,7 @@ public class UColor {
         Record artdetRec = eArtdet.find(spc.detailRec.getInt(ARTIKL_ID));
         if (artdetRec != null) {
             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
-            
+
             if (colorFK2 < 0 && colorFK2 != -1) { //это группа
                 List<Record> colorList = eColor.find2(colorFK2);
                 if (colorList.isEmpty() == false) {
@@ -357,7 +358,7 @@ public class UColor {
                     return spcAdd.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //По текстуре профиля
                 case 15: //По текстуре заполнения
-                    HashMap.Entry<Layout, IElem5e> firstEntry =  (Entry<Layout, IElem5e>) spcAdd.elem5e.root().frames().entrySet().iterator().next();
+                    HashMap.Entry<Layout, IElem5e> firstEntry = (Entry<Layout, IElem5e>) spcAdd.elem5e.root().frames().entrySet().iterator().next();
                     int artiklID = firstEntry.getValue().artiklRec().getInt(eArtikl.id);
                     return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1
                             && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 1
