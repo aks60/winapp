@@ -1420,19 +1420,19 @@ public class Artikles extends javax.swing.JFrame {
         pan101.add(filler33);
 
         lab23.setFont(frames.UGui.getFont(0,0));
-        lab23.setText("Аналог профиля");
+        lab23.setText("Аналог");
         lab23.setToolTipText("");
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab23.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab23.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab23.setPreferredSize(new java.awt.Dimension(104, 18));
+        lab23.setPreferredSize(new java.awt.Dimension(60, 18));
         pan101.add(lab23);
 
         txt11.setEditable(false);
         txt11.setFont(frames.UGui.getFont(0,0));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt11.setMinimumSize(new java.awt.Dimension(63, 18));
-        txt11.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt11.setMinimumSize(new java.awt.Dimension(88, 18));
+        txt11.setPreferredSize(new java.awt.Dimension(88, 18));
         pan101.add(txt11);
 
         btn11.setText("...");
