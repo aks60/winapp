@@ -3629,7 +3629,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        qSyspar1a.execsql();
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(tab4, 5);   
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

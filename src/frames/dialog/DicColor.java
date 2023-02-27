@@ -248,10 +248,7 @@ public class DicColor extends javax.swing.JDialog {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                tabMouseClicked(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -292,8 +289,8 @@ public class DicColor extends javax.swing.JDialog {
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -345,19 +342,13 @@ public class DicColor extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemov
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
-
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2));
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_tabMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -374,7 +365,7 @@ public class DicColor extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-
+    
     private void initElements() {
 
         FrameToFile.setFrameSize(this);

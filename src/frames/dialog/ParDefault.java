@@ -190,11 +190,6 @@ public class ParDefault extends javax.swing.JDialog {
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(300);
@@ -234,8 +229,8 @@ public class ParDefault extends javax.swing.JDialog {
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -274,13 +269,13 @@ public class ParDefault extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, List.of(tab1, tab2));
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_tabMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
