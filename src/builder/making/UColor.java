@@ -61,7 +61,7 @@ public class UColor {
     }
 
     /**
-     * Подбор текстуры
+     * Подбор в текстуре сторон элемента (серии) МЦ
      *
      * @param spcAdd - спецификацм элемента
      * @param side - строна элемента по которой ведётся подбор текстуры
@@ -163,7 +163,6 @@ public class UColor {
 
             } else { //в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                 return false;
-
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Color.setting() " + e);
@@ -171,7 +170,12 @@ public class UColor {
         return true;
     }
 
-    //Поиск по текстуре профиля или заполнения
+    /**
+     * Подбор по текстуре профиля или заполнения в элементе МЦ
+     * @param elemArtiklID - артикул элемента детализации состава
+     * @param profFullColorID - текстура профиля
+     * @param side - сторона элемента детализации состава
+     */
     private static int scanFromProfile(int elemArtiklID, int profFullColorID, int side) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
@@ -198,7 +202,12 @@ public class UColor {
         return -1;
     }
 
-    //Поиск по текстуре сторон профиля
+    /**
+     * Подбор по текстуре сторон профиля в элементе МЦ
+     * @param elemArtiklID - артикул элемента детализации состава
+     * @param profSideColorID - текстура стороны профиля
+     * @param side - сторона элемента детализации состава
+     */
     private static int scanFromProfSide(int elemArtiklID, int profSideColorID, int side) {
         try {
             List<Record> artdetList = eArtdet.filter(elemArtiklID);
@@ -235,7 +244,12 @@ public class UColor {
         }
     }
 
-    //Поиск по текстуре сторон профиля в серии
+    /**
+     * Подбор по текстуре сторон профиля в серии элементе МЦ
+     * @param elemSeriesID - артикул элемента детализации состава
+     * @param profSideColorID - текстура стороны профиля
+     * @param side - сторона элемента детализации состава
+     */
     private static int scanFromProfSeries(int elemSeriesID, int profSideColorID, int side) {
 
         List<Record> artseriList = eArtikl.find3(elemSeriesID);
@@ -249,7 +263,13 @@ public class UColor {
         return -1;
     }
 
-    //Поиск по текстуре профиля или заполнения по параметру
+    /**
+     * Подбор по параметру текстур профиля или заполнения в элементе МЦ
+     * @param elemArtiklID - артикул элемента детализации состава
+     * @param syspar1Rec - параметр подбора
+     * @param profFullColorID - текстура профиля
+     * @param side - сторона элемента детализации состава
+     */
     private static int scanFromParams(int elemArtiklID, Record syspar1Rec, int profFullColorID, int side) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
@@ -283,7 +303,13 @@ public class UColor {
         return -1;
     }
 
-    //Поиск по текстуре сторон профиля по параметру.
+    /**
+     * Подбор по параметру текстур сторон профиля в элементе МЦ
+     * @param elemArtiklID - артикул элемента детализации состава
+     * @param syspar1Rec - параметр подбора
+     * @param profSideColorID - текстура стороны профиля
+     * @param side - сторона элемента детализации состава 
+     */
     private static int scanFromParamSide(int elemArtiklID, Record syspar1Rec, int profSideColorID, int side) {
         try {
             List<Record> artdetList = eArtdet.filter(elemArtiklID);
@@ -326,7 +352,13 @@ public class UColor {
         }
     }
 
-    //Поиск по текстуре сторон профиля в серии по параметру
+    /**
+     * Подбор по параметру текстур сторон профиля в серии элементе МЦ
+     * @param elemSeriesID - идентификатор серии
+     * @param syspar1Rec - параметр подбора
+     * @param profSideColorID - текстура стороны профиля
+     * @param side - сторона элемента детализации состава 
+     */
     private static int scanFromParamSeries(int elemSeriesID, Record syspar1Rec, int profSideColorID, int side) {
 
         List<Record> artseriList = eArtikl.find3(elemSeriesID);
@@ -360,7 +392,7 @@ public class UColor {
         return 1; //такого случая не должно быть
     }
 
-    //Выдает цвет профиля в соответствии с заданным вариантом подбора текстуры   
+    //Выдает цвет проф. в соответствии с заданным вариантом подбора текстуры   
     private static int getColorProfile(Specific spcAdd, int elemColorUS) {
         try {
             switch (elemColorUS) {
