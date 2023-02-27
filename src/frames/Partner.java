@@ -1122,7 +1122,7 @@ public class Partner extends javax.swing.JFrame {
                 Collections.swap(qPrjpart, index, --index2);
                 Collections.swap(qPrjpart.table(eSysuser.up), index, index2);
             }
-            IntStream.range(0, qPrjpart.size() - 1).forEach(i -> qPrjpart.set(i + 1, i, ePrjpart.npp));
+            IntStream.range(0, qPrjpart.size()).forEach(i -> qPrjpart.set(i + 1, i, ePrjpart.npp));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab1, index2);
             qPrjpart.execsql();

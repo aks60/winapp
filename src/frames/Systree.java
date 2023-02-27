@@ -4146,7 +4146,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     Collections.swap(qSysprof, index, --index2);
                     Collections.swap(qSysprof.table(eArtikl.up), index, index2);
                 }
-                IntStream.range(0, qSysprof.size() - 1).forEach(i -> qSysprof.set(i + 1, i, eSysprof.npp));
+                IntStream.range(0, qSysprof.size()).forEach(i -> qSysprof.set(i + 1, i, eSysprof.npp));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2, index2);
                 qSysprof.execsql();
@@ -4161,7 +4161,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         Collections.swap(qSysfurn, index, --index2);
                         Collections.swap(qSysfurn.table(eFurniture.up), index, index2);
                     }
-                    IntStream.range(0, qSysfurn.size() - 1).forEach(i -> qSysfurn.set(i + 1, i, eSysfurn.npp));
+                    IntStream.range(0, qSysfurn.size()).forEach(i -> qSysfurn.set(i + 1, i, eSysfurn.npp));
                     ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                     UGui.setSelectedIndex(tab3, index2);
                 }
@@ -4175,7 +4175,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     } else if (btn == btnMoveU && tab5.getSelectedRow() > 0) {
                         Collections.swap(qSysprod, index, --index2);
                     }
-                    IntStream.range(0, qSysprod.size() - 1).forEach(i -> qSysprod.set(i + 1, i, eSysprod.npp));
+                    IntStream.range(0, qSysprod.size()).forEach(i -> qSysprod.set(i + 1, i, eSysprod.npp));
                     ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
                     UGui.setSelectedIndex(tab5, index2);
                 }

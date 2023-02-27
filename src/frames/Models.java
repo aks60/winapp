@@ -962,7 +962,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                 } else if (btn == btnMoveU && table.getSelectedRow() > 0) {
                     Collections.swap(qSysmodel, index, --index2);
                 }
-                IntStream.range(0, qSysmodel.size() - 1).forEach(i -> qSysmodel.set(i + 1, i, eSysmodel.npp));
+                IntStream.range(0, qSysmodel.size()).forEach(i -> qSysmodel.set(i + 1, i, eSysmodel.npp));
                 ((DefaultTableModel) table.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(table, index2);
                 qSysmodel.execsql();
