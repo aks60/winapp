@@ -99,6 +99,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
 
@@ -3414,17 +3416,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
-        if (sysTree.isEditing()) {
-            sysTree.getCellEditor().stopCellEditing();
-        }
-        sysTree.setBorder(null);
-        if (table == tab4) {
-            UGui.setSelectedIndex(tab7, UGui.getIndexRec(tab4));
-        } else if (table == tab7) {
-            UGui.setSelectedIndex(tab4, UGui.getIndexRec(tab7));
-        }
+//        JTable table = (JTable) evt.getSource();
+//        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
+//        if (sysTree.isEditing()) {
+//            sysTree.getCellEditor().stopCellEditing();
+//        }
+//        sysTree.setBorder(null);
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -3525,7 +3522,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     int max = qSysprof.stream().mapToInt(rec -> rec.getInt(eSysprof.npp)).max().orElse(0); //.getAsInt();
                     record.set(eSysprof.npp, ++max);
                     int index = UGui.getIndexKeyValue(tab2, record, eSysprof.id);
-                    qSysprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());;
+                    qSysprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());
                 });
 
             } else if (tab3.getBorder() != null) {
@@ -3535,8 +3532,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     record.setNo(eSysfurn.replac, 0);
                     record.setNo(eSysfurn.side_open, TypeOpen2.QUE.id);
                     record.setNo(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
-                    int index = UGui.getIndexKeyValue(tab2, record, eSysfurn.id);
-                    qSysfurn.table(eFurniture.up).add(index, eFurniture.up.newRecord());;
+                    int index = UGui.getIndexKeyValue(tab3, record, eSysfurn.id);
+                    qSysfurn.table(eFurniture.up).add(index, eFurniture.up.newRecord());
                 });
             } else if (tab4.getBorder() != null) {
                 UGui.insertRecordCur(tab4, eSyspar1.up, (record) -> {
@@ -4354,10 +4351,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_ppmActionItems
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        JTable table = (JTable) evt.getSource();
+        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
+        sysTree.setBorder(null);
+        if (sysTree.isEditing()) {
+            sysTree.getCellEditor().stopCellEditing();
+        }
         if (evt.getButton() == MouseEvent.BUTTON3) {
-            JTable table = List.of(tab2, tab3, tab4, tab5).stream().filter(it -> it == evt.getSource()).findFirst().get();
-            List.of(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-            table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
             ppmCrud.show(table, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tabMouseClicked
@@ -4590,8 +4590,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree1());
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());
-        tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());       
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                  UGui.setSelectedIndex(tab7, UGui.getIndexRec(tab4));
+                }
+            }
+        });
+        tab7.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                  UGui.setSelectedIndex(tab4, UGui.getIndexRec(tab7));
+                }
+            }
+        });
+        tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());         
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();

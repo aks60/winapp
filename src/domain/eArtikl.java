@@ -115,11 +115,14 @@ public enum eArtikl implements Field {
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
-    public static List<Record> find3(int _series_id) {
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _series_id == rec.getInt(groups4_id)).collect(Collectors.toList());
+    public static List<Record> find3(int seriesID) {
+        if(seriesID == -1) {
+            return List.of();
         }
-        return new Query(values()).select(up, "where", groups4_id, "=", _series_id, "");
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> seriesID == rec.getInt(groups4_id)).collect(Collectors.toList());
+        }
+        return new Query(values()).select(up, "where", groups4_id, "=", seriesID, "");
     }
 
     public static Record virtualRec() {
