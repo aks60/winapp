@@ -98,7 +98,7 @@ public class UColor {
 
                     //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    resultColorID = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), profSideColorID, side);
+                    resultColorID = scanFromProfSeries(spcAdd, profSideColorID, side);
                     if (resultColorID == -1) {
                             resultColorID = elemColorFk;
                     }
@@ -122,7 +122,7 @@ public class UColor {
                     }
                     //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
-                    resultColorID = scanFromProfSeries(spcAdd.artiklRec.getInt(eArtikl.groups4_id), profSideColorID, side);
+                    resultColorID = scanFromProfSeries(spcAdd, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
                     }
@@ -147,6 +147,7 @@ public class UColor {
             }
             if (resultColorID != -1) {
                 spcAdd.setColor(side, resultColorID);
+                //return true;
 
             } else { //в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                 return false;
@@ -237,13 +238,16 @@ public class UColor {
      * @param profSideColorID - текстура стороны профиля
      * @param side - сторона элемента детализации состава
      */
-    private static int scanFromProfSeries(int elemSeriesID, int profSideColorID, int side) {
+    private static int scanFromProfSeries(Specific spcAdd, int profSideColorID, int side) {
 
+        int elemSeriesID = spcAdd.artiklRec.getInt(eArtikl.groups4_id);
         List<Record> artseriList = eArtikl.find3(elemSeriesID);
         for (Record artseriRec : artseriList) {
 
             int color_id1 = scanFromProfSide(artseriRec.getInt(eArtikl.id), side, profSideColorID);
             if (color_id1 != -1) {
+                spcAdd.setArtikl(artseriRec);
+                spcAdd.setColor(side, color_id1);
                 return color_id1;
             }
         }
