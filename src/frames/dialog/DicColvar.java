@@ -39,9 +39,10 @@ public class DicColvar extends javax.swing.JDialog {
 
                 //Выбран вручную
             } else if (colorFk > 0) {
-                rows = new Object[][]{{UseColor.MANUAL.name, UseColor.MANUAL.id},
+                rows = new Object[][]{{UseColor.MANUAL.name, UseColor.MANUAL.id}, {UseColor.PROF.name, UseColor.PROF.id}, {UseColor.GLAS.name, UseColor.GLAS.id},
+                {UseColor.COL1.name, UseColor.COL1.id}, {UseColor.COL2.name, UseColor.COL2.id}, {UseColor.COL3.name, UseColor.COL3.id},
                 {UseColor.C1SER.name, UseColor.C1SER.id}, {UseColor.C2SER.name, UseColor.C2SER.id}, {UseColor.C3SER.name, UseColor.C3SER.id}};
-
+                
                 //Параметр
             } else if (colorFk < 0) {
                 rows = new Object[][]{{UseColor.PROF.name, UseColor.PROF.id}, {UseColor.GLAS.name, UseColor.GLAS.id},
