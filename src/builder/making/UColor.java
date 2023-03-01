@@ -69,10 +69,10 @@ public class UColor {
     public static boolean colorFromProduct(Specific spcAdd) {  //см. http://help.profsegment.ru/?id=1107 
 
         Object o1 = UColor.colorFromProduct(spcAdd, 2);
-
-        int typesUS = spcAdd.detailRec.getInt(eElemdet.color_us);
+        
+        int typesUS = spcAdd.detailRec.getInt(COLOR_US);
         if (UseColor.isSeries(typesUS)) { //если серия
-            
+
             List<Record> artseriList = eArtikl.find3(spcAdd.artiklRec.getInt(eArtikl.groups4_id));
             for (Record artseriRec : artseriList) {
                 spcAdd.setArtikl(artseriRec);
@@ -125,12 +125,10 @@ public class UColor {
                     //Подбор по текстуре профиля и текстуре сторон профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id,
                         UseColor.COL3.id, UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
+                    
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1) {
-                        resultColorID = scanFromProfSide(elemArtID, elemColorFk, side); //???
-                        if (resultColorID == -1) {
-                            resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
-                        }
+                        resultColorID =  elemColorFk;
                     }
                 }
 
@@ -138,18 +136,15 @@ public class UColor {
             } else if (elemColorFk == 0 || elemColorFk == 100000) {
                 //Для spcColorFk == 100000 если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
 
-                //Подбор по текстуре профиля и заполн.
-                if (List.of(UseColor.PROF.id, UseColor.GLAS.id).contains(elemColorUS)) {
-                    resultColorID = scanFromProfile(elemArtID, profSideColorID, side);
-                    if (resultColorID == -1 && elemColorFk == 0) {
-                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
-                    }
-                    //Подбор по текстуре сторон профиля
-                } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id,
+                //Подбор по текстуре профиля и текстуре сторон профиля
+                if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id, 
                         UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
+                    
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                    } else {
+                        return false;
                     }
                 }
 
@@ -177,39 +172,6 @@ public class UColor {
             System.err.println("Ошибка:Color.setting() " + e);
         }
         return true;
-    }
-
-    /**
-     * Подбор по текстуре профиля или заполнения в элементе МЦ
-     *
-     * @param elemArtiklID - артикул элемента детализации состава
-     * @param profFullColorID - текстура профиля
-     * @param side - сторона элемента детализации состава
-     */
-    private static int scanFromProfile(int elemArtiklID, int profFullColorID, int side) {
-
-        List<Record> artdetList = eArtdet.filter(elemArtiklID);
-        Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
-        //Цикл по ARTDET определённого артикула
-        for (Record artdetRec : artdetList) {
-
-            if (side == 1) {
-                if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
-                    return profFullColorID;
-                }
-            } else {
-                if (artdetRec.getInt(field) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
-                        return profFullColorID;
-                    }
-                } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
-                        return profFullColorID;
-                    }
-                }
-            }
-        }
-        return -1;
     }
 
     /**
@@ -255,28 +217,6 @@ public class UColor {
         }
     }
 
-    /**
-     * Подбор по текстуре сторон профиля в серии элементе МЦ
-     *
-     * @param elemSeriesID - артикул элемента детализации состава
-     * @param profSideColorID - текстура стороны профиля
-     * @param side - сторона элемента детализации состава
-     */
-//    private static int scanFromProfSeries(Specific spcAdd, int profSideColorID, int side) {
-//
-//        int elemSeriesID = spcAdd.artiklRec.getInt(eArtikl.groups4_id);
-//        List<Record> artseriList = eArtikl.find3(elemSeriesID);
-//        for (Record artseriRec : artseriList) {
-//
-//            int color_id = scanFromProfSide(artseriRec.getInt(eArtikl.id), profSideColorID, side);
-//            if (color_id != -1) {
-//                spcAdd.setArtikl(artseriRec);
-//                //spcAdd.setColor(side, color_id);
-//                return color_id;
-//            }
-//        }
-//        return -1;
-//    }
     /**
      * Подбор по параметру текстур профиля или заполнения в элементе МЦ
      *
@@ -368,26 +308,6 @@ public class UColor {
         }
     }
 
-    /**
-     * Подбор по параметру текстур сторон профиля в серии элементе МЦ
-     *
-     * @param elemSeriesID - идентификатор серии
-     * @param syspar1Rec - параметр подбора
-     * @param profSideColorID - текстура стороны профиля
-     * @param side - сторона элемента детализации состава
-     */
-//    private static int scanFromParamSeries(int elemSeriesID, Record syspar1Rec, int profSideColorID, int side) {
-//
-//        List<Record> artseriList = eArtikl.find3(elemSeriesID);
-//        for (Record artseriRec : artseriList) {
-//
-//            int color_id1 = scanFromParamSide(artseriRec.getInt(eArtikl.id), syspar1Rec, profSideColorID, side);
-//            if (color_id1 != -1) {
-//                return color_id1;
-//            }
-//        }
-//        return -1;
-//    }
     //Первая в списке запись цвета элемента
     private static int scanFromColorFirst(Specific spc) {
         Record artdetRec = eArtdet.find(spc.detailRec.getInt(ARTIKL_ID));
@@ -415,13 +335,15 @@ public class UColor {
                 case 0:
                     return spcAdd.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //По текстуре профиля
-                case 15: //По текстуре заполнения
                     HashMap.Entry<Layout, IElem5e> firstEntry = (Entry<Layout, IElem5e>) spcAdd.elem5e.root().frames().entrySet().iterator().next();
                     int artiklID = firstEntry.getValue().artiklRec().getInt(eArtikl.id);
                     return eArtdet.query().stream().filter(rec -> rec.getInt(eArtdet.mark_c1) == 1
                             && rec.getInt(eArtdet.mark_c2) == 1 && rec.getInt(eArtdet.mark_c3) == 1
                             && rec.getInt(eArtdet.artikl_id) == artiklID && rec.getInt(eArtdet.color_fk) > 0)
                             .findFirst().orElse(eArtdet.record()).getInt(eArtdet.color_fk);
+                case 15: //По текстуре заполнения
+                    //System.out.println("builder.making.UColor.getColorProfile()");
+                    return -1;
                 case 1: //По основе профиля
                     return spcAdd.elem5e.winc().colorID1;
                 case 2: //По внутр.профиля
