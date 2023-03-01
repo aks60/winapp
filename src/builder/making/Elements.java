@@ -19,6 +19,7 @@ import common.UCom;
 import dataset.Query;
 import domain.eSysprof;
 import enums.Type;
+import enums.UseColor;
 
 /**
  * Составы.
@@ -98,13 +99,8 @@ public class Elements extends Cal5e {
                             Record artiklRec = eArtikl.get(elemdetRec.getInt(eElemdet.artikl_id));
                             Specific spcAdd = new Specific("ВСТ", elemdetRec, artiklRec, elem5e, mapParam);
 
-                            Object o1 = UColor.colorFromProduct(spcAdd, 1);
-                            Object o2 = UColor.colorFromProduct(spcAdd, 2);
-                            Object o3 = UColor.colorFromProduct(spcAdd, 3);
                             //Подбор текстуры
-                            if (UColor.colorFromProduct(spcAdd, 1)
-                                    && UColor.colorFromProduct(spcAdd, 2)
-                                    && UColor.colorFromProduct(spcAdd, 3)) {
+                            if (UColor.colorFromProduct(spcAdd)) {
 
                                 //Если (контейнер) в списке детализации, 
                                 //например профиль с префиксом @ в осн. специф.

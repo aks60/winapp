@@ -1,7 +1,7 @@
 package enums;
 
 //Варианты рассчёта текстуры
-import static enums.UseFurn1.values;
+import java.util.List;
 
 public enum UseColor implements Enam {
 
@@ -41,6 +41,15 @@ public enum UseColor implements Enam {
 
     public Enam[] fields() {
         return values();
+    }
+
+    public static boolean isSeries(int typesUS) {
+        if (List.of(C1SER.id, C2SER.id, C3SER.id).contains(typesUS & 0x0000000f)
+                || List.of(C1SER.id, C2SER.id, C3SER.id).contains(typesUS & 0x000000f0)
+                || List.of(C1SER.id, C2SER.id, C3SER.id).contains(typesUS & 0x00000f00)) {
+            return true;
+        }
+        return false;
     }
 
     public static Object[] precision = {100000, "Точн.подбор"};
