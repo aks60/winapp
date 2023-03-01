@@ -95,6 +95,17 @@ public class UColor {
                         }
                         resultColorID = scanFromColorFirst(spcAdd); //первая в списке
                     }
+                    
+                    //Подбор по текстуре сторон профиля
+                    //Случай когда выбрана серия, а серии нет
+                } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id).contains(elemColorUS)) {
+                    resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
+                    if (resultColorID == -1) {
+                        resultColorID = scanFromProfSide(elemArtID, elemColorFk, side);
+                        if (resultColorID == -1) {
+                            resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
+                        }
+                    }
 
                     //Подбор по текстуре сторон профиля в серии
                 } else if (elemColorUS == UseColor.C1SER.id || elemColorUS == UseColor.C2SER.id || elemColorUS == UseColor.C3SER.id) {
