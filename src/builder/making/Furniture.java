@@ -159,7 +159,7 @@ public class Furniture extends Cal5e {
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
 
                 if (side < 0) {
-                    String txt = (furnitureDet.mapParamTmp.getOrDefault(24038, null) == null) 
+                    String txt = (furnitureDet.mapParamTmp.getOrDefault(24038, null) == null)
                             ? furnitureDet.mapParamTmp.getOrDefault(25038, "*/*") : furnitureDet.mapParamTmp.getOrDefault(24038, "*/*");
                     String[] par = txt.split("/");
                     if (side == -1) {
@@ -197,19 +197,16 @@ public class Furniture extends Cal5e {
                     Specific spcAdd = new Specific("ФУРН", furndetRec, artiklRec, sideStv, mapParam);
 
                     //Ловим ручку, подвес, замок
-                    if (propertyStv(areaStv, spcAdd) == false) {
-                        return false; //выход из цикла поиска ручки (для убыстрения поиска)
-                    }
-                    //Если цвет не подходит
-                    if (UColor.colorFromProduct(spcAdd, 1) == false) {
-                        return false; //выход из цикла поиска (для убыстрения поиска)
-                    }
+                    if (propertyStv(areaStv, spcAdd)) {
+                        if (UColor.colorFromProduct(spcAdd)) { //подбор по цвету
 
-                    //Добавим спецификацию в элемент
-                    if (shortPass == false) {
-                        spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
-                        spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
-                        sideStv.addSpecific(spcAdd);
+                            //Добавим спецификацию в элемент
+                            if (shortPass == false) {
+                                spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
+                                spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
+                                sideStv.addSpecific(spcAdd);
+                            }
+                        }
                     }
                 }
 
@@ -217,7 +214,7 @@ public class Furniture extends Cal5e {
             } else {
                 int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
-                
+
                 variant(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
             }
             return true;
@@ -233,7 +230,7 @@ public class Furniture extends Cal5e {
             boolean add_specific = true;
             //Ручка
             if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
-                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                if (UColor.colorFromProduct(spcAdd) == true) { //подбор по цвету
 
                     if (stv.handleRec().getInt(eArtikl.id) == -3) {
                         stv.handleRec(spcAdd.artiklRec);
@@ -249,7 +246,7 @@ public class Furniture extends Cal5e {
 
                 //Подвес
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
-                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                if (UColor.colorFromProduct(spcAdd) == true) { //подбор по цвету
 
                     if (stv.loopRec().getInt(eArtikl.id) == -3) {
                         stv.loopRec(spcAdd.artiklRec);
@@ -265,7 +262,7 @@ public class Furniture extends Cal5e {
 
                 //Замок  
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
-                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                if (UColor.colorFromProduct(spcAdd) == true) { //подбор по цвету
 
                     if (stv.lockRec().getInt(eArtikl.id) == -3) {
                         stv.lockRec(spcAdd.artiklRec);

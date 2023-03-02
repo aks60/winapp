@@ -117,10 +117,7 @@ public class Filling extends Cal5e {
                     Specific spcAdd = new Specific("ЗАП", glasdetRec, artiklRec, elemGlass, mapParam);
 
                     //Подбор текстуры
-                    if (UColor.colorFromProduct(spcAdd, 1)
-                            && UColor.colorFromProduct(spcAdd, 2)
-                            && UColor.colorFromProduct(spcAdd, 3)) {
-
+                    if (UColor.colorFromProduct(spcAdd)) {
                         elemGlass.addSpecific(spcAdd);
                     }
                 }

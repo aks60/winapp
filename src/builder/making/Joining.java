@@ -145,10 +145,7 @@ public class Joining extends Cal5e {
                     Specific spcAdd = new Specific("СОЕД", joindetRec, artiklRec, elemJoin.elem1, mapParam);
                     
                     //Подбор текстуры
-                    if (UColor.colorFromProduct(spcAdd, 1)
-                            && UColor.colorFromProduct(spcAdd, 2)
-                            && UColor.colorFromProduct(spcAdd, 3)) {
-
+                    if (UColor.colorFromProduct(spcAdd)) {
                         elemJoin.addSpecific(spcAdd);
                     }
                 }

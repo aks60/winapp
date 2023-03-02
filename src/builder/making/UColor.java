@@ -68,8 +68,6 @@ public class UColor {
      */
     public static boolean colorFromProduct(Specific spcAdd) {  //см. http://help.profsegment.ru/?id=1107 
 
-        //Object o1 = UColor.colorFromProduct(spcAdd, 2);
-        
         Specific spcClon = new Specific().clon(spcAdd);
         int typesUS = spcClon.detailRec.getInt(COLOR_US);
         if (UseColor.isSeries(typesUS)) { //если серия
@@ -77,9 +75,9 @@ public class UColor {
             List<Record> artseriList = eArtikl.find3(spcClon.artiklRec.getInt(eArtikl.groups4_id));
             for (Record artseriRec : artseriList) {
                 spcClon.setArtikl(artseriRec);
-                if (UColor.colorFromProduct(spcClon, 1)
-                        && UColor.colorFromProduct(spcClon, 2)
-                        && UColor.colorFromProduct(spcClon, 3)) {
+                if (UColor.colorFromProduct(spcClon, 1, true)
+                        && UColor.colorFromProduct(spcClon, 2, true)
+                        && UColor.colorFromProduct(spcClon, 3, true)) {
                     spcAdd.clon(spcClon);
                     return true;
                 }
@@ -89,20 +87,19 @@ public class UColor {
             spcClon.setColor(3, getColorFromProfile(spcClon, (typesUS & 0x00000f00) >> 8));
             
         } else {
-            if (UColor.colorFromProduct(spcAdd, 1)
-                    && UColor.colorFromProduct(spcAdd, 2)
-                    && UColor.colorFromProduct(spcAdd, 3)) {
+            if (UColor.colorFromProduct(spcAdd, 1, false)
+                    && UColor.colorFromProduct(spcAdd, 2, false)
+                    && UColor.colorFromProduct(spcAdd, 3, false)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean colorFromProduct(Specific spcAdd, int side) {  //см. http://help.profsegment.ru/?id=1107        
+    public static boolean colorFromProduct(Specific spcAdd, int side, boolean seri) {  //см. http://help.profsegment.ru/?id=1107        
         
         int elemColorFk = spcAdd.detailRec.getInt(COLOR_FK);
         int typesUS = spcAdd.detailRec.getInt(COLOR_US);
-        boolean seri = UseColor.isSeries(typesUS);
         
         if (elemColorFk == -1) {
             colorFromMes(spcAdd);
