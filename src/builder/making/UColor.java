@@ -85,7 +85,7 @@ public class UColor {
             spcClon.setColor(1, getColorFromProfile(spcClon, typesUS & 0x0000000f));
             spcClon.setColor(2, getColorFromProfile(spcClon, (typesUS & 0x000000f0) >> 4));
             spcClon.setColor(3, getColorFromProfile(spcClon, (typesUS & 0x00000f00) >> 8));
-            
+
         } else {
             if (UColor.colorFromProduct(spcAdd, 1, false)
                     && UColor.colorFromProduct(spcAdd, 2, false)
@@ -96,11 +96,11 @@ public class UColor {
         return false;
     }
 
-    public static boolean colorFromProduct(Specific spcAdd, int side, boolean seri) {  //см. http://help.profsegment.ru/?id=1107        
-        
+    private static boolean colorFromProduct(Specific spcAdd, int side, boolean seri) {  //см. http://help.profsegment.ru/?id=1107        
+
         int elemColorFk = spcAdd.detailRec.getInt(COLOR_FK);
         int typesUS = spcAdd.detailRec.getInt(COLOR_US);
-        
+
         if (elemColorFk == -1) {
             colorFromMes(spcAdd);
             return false; //нет данных для поиска
@@ -111,33 +111,38 @@ public class UColor {
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
             int profSideColorID = getColorFromProfile(spcAdd, elemColorUS); //цвет из варианта подбора 
 
-            //=== ВРУЧНУЮ ===//
+            ////= ВРУЧНУЮ =////
             if (elemColorFk > 0 && elemColorFk != 100000) {
 
                 //Явное указание текстуры
                 if (elemColorUS == UseColor.MANUAL.id) {
-                    resultColorID = scanFromProfSide(elemArtID, elemColorFk, side);
-                    if (resultColorID == -1) { //тут наступает коллизия, фифти-фифти
-                        if ("ps3".equals(eSetting.val(2))) {
-                            return false;
+                    if (seri == true) {
+                        resultColorID = -1; //нельзя назначать на серию
+                    } else {
+                        resultColorID = scanFromProfSide(elemArtID, elemColorFk, side); //теоритически это должно железно работать!!!
+                        if (resultColorID == -1) {
+                            //System.err.println("Коллизия определения явного указания цвета");
+                            if ("ps3".equals(eSetting.val(2))) {
+                                return false;
+                            }
+                            if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2 && (spcAdd.artiklRec.getInt(eArtikl.level2) == 11 || spcAdd.artiklRec.getInt(eArtikl.level2) == 13)) {
+                                return false;
+                            }
+                            resultColorID = scanFromColorFirst(spcAdd); //первая в списке и это неправильно
                         }
-                        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2 && (spcAdd.artiklRec.getInt(eArtikl.level2) == 11 || spcAdd.artiklRec.getInt(eArtikl.level2) == 13)) {
-                            return false;
-                        }
-                        resultColorID = scanFromColorFirst(spcAdd); //первая в списке
                     }
 
                     //Подбор по текстуре профиля и текстуре сторон профиля
                 } else if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id,
                         UseColor.COL3.id, UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
-                    
+
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && seri == false) {
-                        resultColorID =  elemColorFk;
+                        resultColorID = elemColorFk;
                     }
                 }
 
-                //=== АВТОПОДБОР ===//
+                ////= АВТОПОДБОР =////
             } else if (elemColorFk == 0 || elemColorFk == 100000) {
                 //Для spcColorFk == 100000 если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
 
@@ -156,7 +161,7 @@ public class UColor {
                     }
                 }
 
-                //=== ПАРАМЕТР ===//
+                ////= ПАРАМЕТР =////
             } else if (elemColorFk < 0) {  //если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                 Record syspar1Rec = spcAdd.elem5e.winc().mapPardef().get(elemColorFk);
 
@@ -214,7 +219,7 @@ public class UColor {
         }
         return -1;
     }
-    
+
     /**
      * Подбор по текстуре сторон профиля в элементе МЦ
      *
@@ -419,29 +424,6 @@ public class UColor {
             place = "Комплекты";
         }
         JOptionPane.showMessageDialog(null, "Проблема с заполнением базы данных.\nДля артикула  '" + spc.artikl + "' не определена текстура. \nСмотри форму 'Составы => " + place + "'.", "ВНИМАНИЕ!", 1);
-    }
-
-    //Текстура профиля или текстура заполнения изделия (неокрашенные)
-    public static int colorFromArtikl(int artiklId) {
-        try {
-            List<Record> artdetList = eArtdet.filter(artiklId);
-            //Цикл по ARTDET определённого артикула
-            for (Record artdetRec : artdetList) {
-                if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
-                    if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))
-                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
-                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) {
-
-                        return artdetRec.getInt(eArtdet.color_fk);
-                    }
-                }
-            }
-            return -1;
-
-        } catch (Exception e) {
-            System.err.println("Ошибна Color.colorFromArt() " + e);
-            return -1;
-        }
     }
 
     public static void colorRuleFromParam(IElem5e slem5e) {  //см. http://help.profsegment.ru/?id=1107        

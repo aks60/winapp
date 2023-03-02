@@ -2371,8 +2371,8 @@ public class Artikles extends javax.swing.JFrame {
         lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab1.setText("___");
         lab1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        lab1.setMaximumSize(new java.awt.Dimension(100, 14));
-        lab1.setPreferredSize(new java.awt.Dimension(100, 14));
+        lab1.setMaximumSize(new java.awt.Dimension(110, 14));
+        lab1.setPreferredSize(new java.awt.Dimension(110, 14));
         lab1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab1);
 
@@ -2383,8 +2383,8 @@ public class Artikles extends javax.swing.JFrame {
         lab2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab2.setText("___");
         lab2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        lab2.setMaximumSize(new java.awt.Dimension(60, 14));
-        lab2.setPreferredSize(new java.awt.Dimension(60, 14));
+        lab2.setMaximumSize(new java.awt.Dimension(80, 14));
+        lab2.setPreferredSize(new java.awt.Dimension(80, 14));
         lab2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab2);
 
@@ -2607,7 +2607,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn37
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        tab1.setSelectionBackground(tab1.getSelectionBackground());
+        rsvArtikl.load();
 
 //        Query q = ((DefTableModel) tab1.getModel()).getQuery();
 //        Record record = (Record) q.get(UGui.getIndexRec(tab1)).clone();

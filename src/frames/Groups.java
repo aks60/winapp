@@ -911,6 +911,7 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMouseClicked
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> UGui.getQuery(tab).execsql()); //если добавил и сразу выбрал
         JTable table = UGui.tableFromBorder(tab1, tab2, tab3, tab4, tab4, tab6, tab7);
         int index = UGui.getIndexRec(table);
         if (index != -1) {
