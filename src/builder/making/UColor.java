@@ -136,15 +136,18 @@ public class UColor {
             } else if (elemColorFk == 0 || elemColorFk == 100000) {
                 //Для spcColorFk == 100000 если artdetColorFK == -1 в спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
 
-                //Подбор по текстуре профиля и текстуре сторон профиля
-                if (List.of(UseColor.PROF.id, UseColor.GLAS.id, UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id, 
+                //Подбор по текстуре профиля и заполн.
+                if (List.of(UseColor.PROF.id, UseColor.GLAS.id).contains(elemColorUS)) {
+                    resultColorID = scanFromProfile(elemArtID, profSideColorID, side);
+                    if (resultColorID == -1 && elemColorFk == 0) {
+                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                    }
+                    //Подбор по текстуре сторон профиля
+                } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id,
                         UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
-                    
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
                         resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
-                    } else {
-                        return false;
                     }
                 }
 
@@ -174,6 +177,39 @@ public class UColor {
         return true;
     }
 
+    /**
+     * Подбор по текстуре профиля или заполнения в элементе МЦ
+     *
+     * @param elemArtiklID - артикул элемента детализации состава
+     * @param profFullColorID - текстура профиля
+     * @param side - сторона элемента детализации состава
+     */
+    private static int scanFromProfile(int elemArtiklID, int profFullColorID, int side) {
+
+        List<Record> artdetList = eArtdet.filter(elemArtiklID);
+        Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
+        //Цикл по ARTDET определённого артикула
+        for (Record artdetRec : artdetList) {
+
+            if (side == 1) {
+                if (artdetRec.getInt(eArtdet.mark_c1) == 1 && artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                    return profFullColorID;
+                }
+            } else {
+                if (artdetRec.getInt(field) == 1) {
+                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                        return profFullColorID;
+                    }
+                } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                    if (artdetRec.getInt(eArtdet.color_fk) == profFullColorID) {
+                        return profFullColorID;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+    
     /**
      * Подбор по текстуре сторон профиля в элементе МЦ
      *
