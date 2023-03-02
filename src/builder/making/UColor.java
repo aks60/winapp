@@ -157,7 +157,7 @@ public class UColor {
                         UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                     if (resultColorID == -1 && elemColorFk == 0) {
-                        resultColorID = scanFromColorFirst(spcAdd); //если неудача подбора то первая в списке запись цвета
+                        resultColorID = scanFromColorFirst(spcAdd); //первая в списке запись цвета
                     }
                 }
 
@@ -182,7 +182,7 @@ public class UColor {
                 return false;
             }
         } catch (Exception e) {
-            System.err.println("Ошибка:Color.setting() " + e);
+            System.err.println("Ошибка:UColor.colorFromProduct() " + e);
         }
         return true;
     }
