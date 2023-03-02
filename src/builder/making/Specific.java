@@ -84,7 +84,7 @@ public class Specific {
         setAnglCut();
     }
     
-    public Specific(Specific spec) {
+    public Specific clon(Specific spec) {
         this.id = spec.id;
         this.place = spec.place;
         this.artikl = spec.artikl;
@@ -111,6 +111,7 @@ public class Specific {
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
+        return this;
     }
 
     public Vector getVector(int npp) {

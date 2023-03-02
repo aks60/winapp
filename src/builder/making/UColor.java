@@ -68,20 +68,26 @@ public class UColor {
      */
     public static boolean colorFromProduct(Specific spcAdd) {  //см. http://help.profsegment.ru/?id=1107 
 
-        Object o1 = UColor.colorFromProduct(spcAdd, 2);
+        //Object o1 = UColor.colorFromProduct(spcAdd, 2);
         
-        int typesUS = spcAdd.detailRec.getInt(COLOR_US);
+        Specific spcClon = new Specific().clon(spcAdd);
+        int typesUS = spcClon.detailRec.getInt(COLOR_US);
         if (UseColor.isSeries(typesUS)) { //если серия
 
-            List<Record> artseriList = eArtikl.find3(spcAdd.artiklRec.getInt(eArtikl.groups4_id));
+            List<Record> artseriList = eArtikl.find3(spcClon.artiklRec.getInt(eArtikl.groups4_id));
             for (Record artseriRec : artseriList) {
-                spcAdd.setArtikl(artseriRec);
-                if (UColor.colorFromProduct(spcAdd, 1)
-                        && UColor.colorFromProduct(spcAdd, 2)
-                        && UColor.colorFromProduct(spcAdd, 3)) {
+                spcClon.setArtikl(artseriRec);
+                if (UColor.colorFromProduct(spcClon, 1)
+                        && UColor.colorFromProduct(spcClon, 2)
+                        && UColor.colorFromProduct(spcClon, 3)) {
+                    spcAdd.clon(spcClon);
                     return true;
                 }
             }
+            spcClon.setColor(1, getColorFromProfile(spcClon, typesUS & 0x0000000f));
+            spcClon.setColor(2, getColorFromProfile(spcClon, (typesUS & 0x000000f0) >> 4));
+            spcClon.setColor(3, getColorFromProfile(spcClon, (typesUS & 0x00000f00) >> 8));
+            
         } else {
             if (UColor.colorFromProduct(spcAdd, 1)
                     && UColor.colorFromProduct(spcAdd, 2)
@@ -93,9 +99,11 @@ public class UColor {
     }
 
     public static boolean colorFromProduct(Specific spcAdd, int side) {  //см. http://help.profsegment.ru/?id=1107        
-
+        
         int elemColorFk = spcAdd.detailRec.getInt(COLOR_FK);
         int typesUS = spcAdd.detailRec.getInt(COLOR_US);
+        boolean seri = UseColor.isSeries(typesUS);
+        
         if (elemColorFk == -1) {
             colorFromMes(spcAdd);
             return false; //нет данных для поиска
@@ -104,7 +112,7 @@ public class UColor {
         try {
             int elemColorUS = (side == 1) ? typesUS & 0x0000000f : (side == 2) ? (typesUS & 0x000000f0) >> 4 : (typesUS & 0x00000f00) >> 8; //тип подбора                
             int elemArtID = spcAdd.artiklRec.getInt(eArtikl.id);
-            int profSideColorID = getColorProfile(spcAdd, elemColorUS); //цвет из варианта подбора 
+            int profSideColorID = getColorFromProfile(spcAdd, elemColorUS); //цвет из варианта подбора 
 
             //=== ВРУЧНУЮ ===//
             if (elemColorFk > 0 && elemColorFk != 100000) {
@@ -127,7 +135,7 @@ public class UColor {
                         UseColor.COL3.id, UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
                     
                     resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
-                    if (resultColorID == -1) {
+                    if (resultColorID == -1 && seri == false) {
                         resultColorID =  elemColorFk;
                     }
                 }
@@ -365,7 +373,7 @@ public class UColor {
     }
 
     //Выдает цвет проф. в соответствии с заданным вариантом подбора текстуры   
-    private static int getColorProfile(Specific spcAdd, int elemColorUS) {
+    private static int getColorFromProfile(Specific spcAdd, int elemColorUS) {
         try {
             switch (elemColorUS) {
                 case 0:
