@@ -19,10 +19,13 @@ import domain.eGroups;
 import enums.TypeGrup;
 import frames.dialog.DicColor;
 import frames.swing.TableFieldFilter;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Param extends javax.swing.JFrame {
 
@@ -94,6 +97,27 @@ public class Param extends javax.swing.JFrame {
                 return val;
             }
         };
+
+        tab4.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                int index = table.convertRowIndexToModel(row);
+                int rgb = qColor.getAs(index, eColor.rgb);
+                lab.setBackground(new java.awt.Color(rgb));
+                return lab;
+            }
+        });
+        tab4.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                int index = table.convertRowIndexToModel(row);
+                int rgb = qColor.getAs(index, eColor.rgb);
+                lab.setBackground(new java.awt.Color(rgb));
+                return lab;
+            }
+        });
 
         DefCellRendererBool br = new DefCellRendererBool();
         List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
