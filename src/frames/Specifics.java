@@ -462,16 +462,16 @@ public class Specifics extends javax.swing.JFrame {
             ProgressBar.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Element.createFrame(Specifics.this, winc.calcElements.setVariant, detailRec.getInt(eElemdet.id));
+                        App.Element.createFrame(Specifics.this, detailRec.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        App.Joining.createFrame(Specifics.this, winc.calcJoining.setVariant, detailRec.getInt(eJoindet.id));
+                        App.Joining.createFrame(Specifics.this, detailRec.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Filling.createFrame(Specifics.this, winc.calcFilling.setVariant, detailRec.getInt(eGlasdet.id));
+                        App.Filling.createFrame(Specifics.this, detailRec.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        App.Furniture.createFrame(Specifics.this, winc.calcFurniture.setVariant, detailRec.getInt(eFurndet.id));
+                        App.Furniture.createFrame(Specifics.this, detailRec.getInt(eFurndet.id));
                     }
                 }
             });

@@ -99,11 +99,6 @@ public class Joining extends Cal5e {
                             //Накопление данных для запуска детализации
                             mapJoinvar.put(elemJoin, joinvarRec.getInt(eJoinvar.id));
 
-                            setVariant.add(joiningRec1.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
-                            if (joiningRec2 != null) {
-                                setVariant.add(joiningRec2.getInt(eJoining.id)); //если нашол в аналоге
-                            }
-
                             //Сохраним подхоящий вариант соединения из таблиц bd                           
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types));
                             elemJoin.joiningRec = joiningRec1;

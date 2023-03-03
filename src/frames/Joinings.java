@@ -100,21 +100,8 @@ public class Joinings extends javax.swing.JFrame {
         }
     }
 
-    public Joinings(Set<Object> keys) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
-        initComponents();
-        initElements();
-        loadingData();
-        loadingModel();
-        listenerSet();
-        listenerAdd();
-    }
-
     //Запуск из Systree
-    public Joinings(Set<Object> keys, int deteilID) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+    public Joinings(int deteilID) {
         initComponents();
         initElements();
         loadingData();

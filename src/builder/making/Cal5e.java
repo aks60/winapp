@@ -11,7 +11,6 @@ import enums.TypeArtikl;
 public abstract class Cal5e {
 
     public Wincalc winc = null;
-    public Set setVariant = new HashSet();
     public String conf = Query.conf;
     public boolean shortPass = false;
 
@@ -22,7 +21,6 @@ public abstract class Cal5e {
     public void calc() {
         conf = Query.conf;
         Query.conf = "calc";
-        setVariant.clear();
     }
 
     public IArea5e rootArea() {

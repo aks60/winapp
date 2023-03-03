@@ -61,10 +61,8 @@ public class Fillings extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values());
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
-    private String subsql = "(-1)";
 
     public Fillings() {
-        this.subsql = null;
         initComponents();
         initElements();
         listenerSet();
@@ -73,22 +71,7 @@ public class Fillings extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Fillings(Set<Object> keys) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
-        initComponents();
-        initElements();
-        listenerSet();
-        loadingData();
-        loadingModel();
-        listenerAdd();
-    }
-
-    public Fillings(Set<Object> keys, int deteilID) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
+    public Fillings(int deteilID) {
         initComponents();
         initElements();
         loadingData();
@@ -102,11 +85,8 @@ public class Fillings extends javax.swing.JFrame {
         qGroups.select(eGroups.up, "where", eGroups.grup, "in(", TypeGrup.COLOR_MAP.id, ",", TypeGrup.PARAM_USER.id, ")");
         qColor.select(eColor.up);
         qParams.select(eParams.up);
-        if (subsql == null) {
-            qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
-        } else {
-            qGlasgrp.select(eGlasgrp.up, "where", eGlasgrp.id, " in ", subsql);
-        }
+        qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
+
     }
 
     public void loadingModel() {
@@ -286,7 +266,7 @@ public class Fillings extends javax.swing.JFrame {
                 Record record = qGlasdet.table(eArtikl.up).get(index);
                 int paramPart = record.getInt(eArtikl.level1);
                 paramPart = (paramPart == 1 || paramPart == 4) ? 15000 : 14000;
-                
+
                 if (qGlaspar2.get(UGui.getIndexRec(tab4), eGlaspar2.groups_id) == null) {
                     new ParName(this, listenerPar2, eParams.elem, paramPart);
                 } else {
@@ -329,15 +309,15 @@ public class Fillings extends javax.swing.JFrame {
                 int artiklID = record.getInt(eArtikl.id);
                 qGlasdet.set(artiklID, UGui.getIndexRec(tab2), eGlasdet.artikl_id);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);                 
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 List<Record> artdetList = eArtdet.filter2(artiklID);
-                
+
                 if (artdetList.size() == 1) {
                     if (artdetList.get(0).getInt(eArtdet.color_fk) > 0) {
                         Record colorRec = eColor.find(artdetList.get(0).getInt(eArtdet.color_fk));
                         listenerColor.action(colorRec);
                     }
-                }               
+                }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 UGui.setSelectedIndex(tab2, index);
 
@@ -943,7 +923,7 @@ public class Fillings extends javax.swing.JFrame {
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
         UGui.setSelectedIndex(tab1, indexTab1);
-        UGui.setSelectedIndex(tab2, indexTab2);        
+        UGui.setSelectedIndex(tab2, indexTab2);
         UGui.setSelectedIndex(tab5, indexTab5);
     }//GEN-LAST:event_btnRefresh
 

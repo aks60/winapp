@@ -134,19 +134,15 @@ public enum App {
                         if (param[0] instanceof ElemJoining) {
                             frame = new Joinings((ElemJoining) param[0]);
                         } else {
-                            frame = new Joinings((Set) param[0]);
+                            frame = new Joinings((int) param[1]);
                         }
-                    } else {
-                        frame = new Joinings((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Element:
                     if (param.length == 0) {
                         frame = new Elements();
                     } else if (param.length == 1) {
-                        frame = new Elements((Set) param[0]);
-                    } else {
-                        frame = new Elements((Set) param[0], (int) param[1]);
+                        frame = new Elements((int) param[0]);
                     }
                     break;
                 case Param:
@@ -160,18 +156,14 @@ public enum App {
                     if (param.length == 0) {
                         frame = new Fillings();
                     } else if (param.length == 1) {
-                        frame = new Fillings((Set) param[0]);
-                    } else {
-                        frame = new Fillings((Set) param[0], (int) param[1]);
+                        frame = new Fillings((int) param[0]);
                     }
                     break;
                 case Furniture:
                     if (param.length == 0) {
                         frame = new Furniturs();
                     } else if (param.length == 1) {
-                        frame = new Furniturs((Set) param[0]);
-                    } else {
-                        frame = new Furniturs((Set) param[0], (int) param[1]);
+                        frame = new Furniturs((int) param[0]);
                     }
                     break;
                 case Kits:

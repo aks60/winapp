@@ -69,10 +69,8 @@ public class Elements extends javax.swing.JFrame {
     private Query qElempar1 = new Query(eElempar1.values());
     private Query qElempar2 = new Query(eElempar2.values());
     private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
-    private String subsql = "(-1)";
 
     public Elements() {
-        this.subsql = null;
         initComponents();
         initElements();
         listenerSet();
@@ -81,22 +79,7 @@ public class Elements extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Elements(Set<Object> keys) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
-        initComponents();
-        initElements();
-        listenerSet();
-        loadingData();
-        loadingModel();
-        listenerAdd();
-    }
-
-    public Elements(Set<Object> keys, int deteilID) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
+    public Elements(int deteilID) {
         initComponents();
         initElements();
         listenerSet();
@@ -224,23 +207,14 @@ public class Elements extends javax.swing.JFrame {
             Record record = qGrCateg.get(index);
             Integer id = record.getInt(eGroups.id);
             if (id == -1 || id == -5) {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id,
-                            "where", eGroups.npp, "=", Math.abs(id), "order by", eElement.name);
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id,
-                            "where", eGroups.npp, "=", Math.abs(id), "and", eElement.id, "in " + subsql, "order by", eElement.name);
-                }
+                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                        "left join", eGroups.up, "on", eGroups.id, "=", eElement.groups2_id,
+                        "where", eGroups.npp, "=", Math.abs(id), "order by", eElement.name);
+
             } else {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.groups2_id, "=", id, "order by", eElement.name);
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.groups2_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
-                }
+                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                        "where", eElement.groups2_id, "=", id, "order by", eElement.name);
+
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab2);
@@ -425,7 +399,7 @@ public class Elements extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            if (tab2.getBorder() != null) {               
+            if (tab2.getBorder() != null) {
                 qElement.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
@@ -1224,7 +1198,7 @@ public class Elements extends javax.swing.JFrame {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            Object result = JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, 
+            Object result = JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE,
                     new ImageIcon(getClass().getResource("/resource/img24/c066.gif")), pathList.toArray(), pathList.toArray()[0]);
             if (result != null || result instanceof Integer) {
                 for (int i = 0; i < pathList.size(); ++i) {

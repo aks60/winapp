@@ -112,7 +112,6 @@ public class Filling extends Cal5e {
 
                 //ФИЛЬТР детализации, параметры накапливаются в mapParam
                 if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
-                    setVariant.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                     Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                     Specific spcAdd = new Specific("ЗАП", glasdetRec, artiklRec, elemGlass, mapParam);
 

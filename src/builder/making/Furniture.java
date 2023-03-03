@@ -100,7 +100,6 @@ public class Furniture extends Cal5e {
                 if (furnitureVar.filter(elemFrame, furnside1Rec) == false) {
                     return;
                 }
-                setVariant.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
             }
 
             //Цикл по детализации (уровень 1)        

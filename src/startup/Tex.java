@@ -112,7 +112,6 @@ public class Tex extends javax.swing.JFrame {
         btn51 = new javax.swing.JButton();
         btn53 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
-        btn1 = new javax.swing.JToggleButton();
         btn23 = new javax.swing.JButton();
         btn24 = new javax.swing.JButton();
         btn25 = new javax.swing.JButton();
@@ -346,18 +345,9 @@ public class Tex extends javax.swing.JFrame {
         getContentPane().add(td5);
 
         tb2.setRollover(true);
-        tb2.setMaximumSize(new java.awt.Dimension(176, 28));
-        tb2.setMinimumSize(new java.awt.Dimension(176, 28));
-        tb2.setPreferredSize(new java.awt.Dimension(198, 28));
-
-        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
-        btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        btn1.setFocusable(false);
-        btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tb2.add(btn1);
+        tb2.setMaximumSize(new java.awt.Dimension(172, 28));
+        tb2.setMinimumSize(new java.awt.Dimension(172, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(172, 28));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
@@ -901,7 +891,6 @@ public class Tex extends javax.swing.JFrame {
         ProgressBar.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Systree.createFrame(Tex.this);
-                //btn1.setSelected(true);
             }
         });
 }//GEN-LAST:event_mn42
@@ -923,7 +912,6 @@ private void mnSpecif(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSpeci
     ProgressBar.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Specification.createFrame(Tex.this);
-            //btn1.setSelected(true);
         }
     });
 }//GEN-LAST:event_mnSpecif
@@ -945,14 +933,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
         ProgressBar.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                if (btn1.isSelected() == false) {
-                    App.Element.createFrame(Tex.this);
-                } else {
-                    winc_build();
-                    winc.calcElements = new builder.making.Elements(winc);
-                    winc.calcElements.calc();
-                    App.Element.createFrame(Tex.this, winc.calcElements.setVariant);
-                }
+                App.Element.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnElement
@@ -961,14 +942,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
         ProgressBar.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                if (btn1.isSelected() == false) {
-                    App.Furniture.createFrame(Tex.this);
-                } else {
-                    winc_build();
-                    winc.calcFurniture = new builder.making.Furniture(winc); //фурнитура 
-                    winc.calcFurniture.calc();
-                    App.Furniture.createFrame(Tex.this, winc.calcFurniture.setVariant);
-                }
+                App.Furniture.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnFurnityra
@@ -986,15 +960,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
         ProgressBar.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                if (btn1.isSelected() == false) {
-                    App.Joining.createFrame(Tex.this); //все соединения
-                } else {
-                    winc_build();
-                    winc.calcJoining = new builder.making.Joining(winc);
-                    winc.calcJoining.calc();
-                    App.Joining.createFrame(Tex.this, winc.calcJoining.setVariant); //соединения конструкции
-
-                }
+                App.Joining.createFrame(Tex.this); //все соединения
             }
         });
     }//GEN-LAST:event_mnJoining
@@ -1003,14 +969,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
         ProgressBar.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                if (btn1.isSelected() == false) {
-                    App.Filling.createFrame(Tex.this);
-                } else {
-                    winc_build();
-                    winc.calcFilling = new builder.making.Filling(winc);
-                    winc.calcFilling.calc();
-                    App.Filling.createFrame(Tex.this, winc.calcFilling.setVariant);
-                }
+                App.Filling.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnGlass
@@ -1097,7 +1056,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             public void actionRequest(Object obj) {
                 App.PSCompare.createFrame(Tex.this);
             }
-        });  
+        });
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1147,7 +1106,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btn1;
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn14;
