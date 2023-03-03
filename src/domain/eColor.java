@@ -49,6 +49,15 @@ public enum eColor implements Field {
         return query;
     }
 
+    public static int rgb(int id) {
+        if (id == -3) {
+            return -1;
+        }
+        query();
+        Record rec = map.get(id);
+        return (rec == null) ? -1 : rec.getInt(rgb);
+    }
+
     public static Record get(int id) {
         if (id == -3) {
             return virtualRec();

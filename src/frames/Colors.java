@@ -59,7 +59,6 @@ public class Colors extends javax.swing.JFrame {
         List.of(qGroups, qColor).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-
             Record record = qGroups.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
             qColor.select(eColor.up, "where", eColor.groups_id, "=" + cgrup, "order by", eColor.code);
@@ -71,7 +70,20 @@ public class Colors extends javax.swing.JFrame {
     public void loadingModel() {
 
         new DefTableModel(tab1, qGroups, eGroups.name, eGroups.id, eGroups.val);
-        new DefTableModel(tab2, qColor, eColor.code, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
+        new DefTableModel(tab2, qColor, eColor.code, eColor.rgb, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                if (val != null && columns[col] == eColor.rgb) {
+                    String hex = Integer.toHexString(Integer.parseInt(val.toString())).toUpperCase();
+                    while (hex.length() < 6) {                        
+                        hex = "0" + hex;
+                    }
+                    return hex;
+                }
+                return val;
+            }
+        };
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -366,18 +378,18 @@ public class Colors extends javax.swing.JFrame {
         tab2.setFont(frames.UGui.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "111", null, null, null, null, null},
-                {null, "222", null, null, null, null, null}
+                {null, null, "111", null, null, null, null, null},
+                {null, null, "222", null, null, null, null, null}
             },
             new String [] {
-                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)", "Для изделий", "ID"
+                "Код текстуры", "RGB", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)", "Для изделий", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false
+                true, false, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -403,14 +415,14 @@ public class Colors extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(320);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan1.add(scr2);
@@ -488,7 +500,7 @@ public class Colors extends javax.swing.JFrame {
                                 .mapToInt(rec -> Integer.valueOf(rec.getStr(eColor.code)
                                 .substring(rec.getStr(eColor.code).length() - 3))).max().getAsInt() : 0;
                 int groupArr[] = qGroups.stream().mapToInt(rec -> rec.getInt(eGroups.id)).sorted().toArray();
-                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupRec.getInt(eGroups.id));                
+                int index = Arrays.stream(groupArr).boxed().collect(Collectors.toList()).indexOf(groupRec.getInt(eGroups.id));
                 record.setNo(eColor.groups_id, groupRec.getInt(eGroups.id));
                 record.setNo(eColor.code, ++index * 1000 + max + 1);
                 record.setDev(eColor.name, "Цвет");
