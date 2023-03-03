@@ -68,25 +68,25 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab2, qParams, eParams.text, eParams.kits, eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         new DefTableModel(tab3, qGroups2, eGroups.name);
-        new DefTableModel(tab4, qParmap, eParmap.color_id1, eParmap.color_id1, eParmap.color_id2, eParmap.color_id2,
+        new DefTableModel(tab4, qParmap, eParmap.color_id2, eParmap.color_id2, eParmap.color_id1, eParmap.color_id1,
                 eParmap.joint, eParmap.elem, eParmap.glas, eParmap.furn, eParmap.komp, eParmap.komp) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eParmap.color_id1) {
                     Record record = qColor.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
-                    if (col == 0) {
-                        Record record2 = qGroups3.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
-                        return record2.getStr(eGroups.name);
-                    } else if (col == 1) {
-                        return record.getStr(eColor.name);
-                    }
-                } else if (field == eParmap.color_id2) {
-                    Record record = qColor.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 2) {
                         Record record2 = qGroups3.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
                         return record2.getStr(eGroups.name);
                     } else if (col == 3) {
+                        return record.getStr(eColor.name);
+                    }
+                } else if (field == eParmap.color_id2) {
+                    Record record = qColor.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
+                    if (col == 0) {
+                        Record record2 = qGroups3.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.groups_id))).findFirst().orElse(eColor.up.newRecord());
+                        return record2.getStr(eGroups.name);
+                    } else if (col == 1) {
                         return record.getStr(eColor.name);
                     }
 
@@ -134,16 +134,16 @@ public class Param extends javax.swing.JFrame {
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            new DicColor(this, listenerColor1, false, false);
+            new DicColor(this, listenerColor2, false, false);
         });
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            new DicColor(this, listenerColor1, false, false);
+            new DicColor(this, listenerColor2, false, false);
         });
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            new DicColor(this, listenerColor2, false, false);
+            new DicColor(this, listenerColor1, false, false);
         });
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            new DicColor(this, listenerColor2, false, false);
+            new DicColor(this, listenerColor1, false, false);
         });
     }
 

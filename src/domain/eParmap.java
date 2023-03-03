@@ -22,8 +22,8 @@ public enum eParmap implements Field {
     otkos("16", "5", "1", "Параметр откосов", "otkos"),
     komp("16", "5", "1", "Параметр комплектов", "PKOMP"),
     groups_id("4", "10", "1", "Название параметра", "groups_id"),
-    color_id1("4", "10", "1", "Значение параметра", "color_id1"),
-    color_id2("4", "10", "1", "Текстура соответствия", "color_id2");
+    color_id1("4", "10", "1", "Текстура профиля", "color_id1"),
+    color_id2("4", "10", "1", "Текстура элемента", "color_id2");
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
@@ -77,8 +77,7 @@ public enum eParmap implements Field {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(groups_id) == groupsID).collect(toList());
         }
-        List<Record> list = new Query(values()).select(up, "where", groups_id, "=", groupsID);
-        return (list.size() == 0) ? up.newRecord() : list;        
+        return new Query(values()).select(up, "where", groups_id, "=", groupsID);     
     }
     
     public String toString() {
