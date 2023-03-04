@@ -102,9 +102,8 @@ public class Param extends javax.swing.JFrame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                int index = table.convertRowIndexToModel(row);
-                int rgb = qColor.getAs(index, eColor.rgb);
-                lab.setBackground(new java.awt.Color(rgb));
+                int colorID = qParmap.getAs(row, eParmap.color_id2);
+                lab.setBackground(new java.awt.Color(eColor.rgb(colorID)));
                 return lab;
             }
         });
@@ -112,9 +111,8 @@ public class Param extends javax.swing.JFrame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                int index = table.convertRowIndexToModel(row);
-                int rgb = qColor.getAs(index, eColor.rgb);
-                lab.setBackground(new java.awt.Color(rgb));
+                int colorID = qParmap.getAs(row, eParmap.color_id1);
+                lab.setBackground(new java.awt.Color(eColor.rgb(colorID)));
                 return lab;
             }
         });

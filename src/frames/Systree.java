@@ -3359,6 +3359,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         tab5.setRowHeight(68);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Systree.this.mousePressed(evt);
             }
