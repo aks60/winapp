@@ -173,6 +173,12 @@ public class UColor {
                 } else if (List.of(UseColor.COL1.id, UseColor.COL2.id, UseColor.COL3.id,
                         UseColor.C1SER.id, UseColor.C2SER.id, UseColor.C3SER.id).contains(elemColorUS)) {
                     resultColorID = scanFromParamSide(elemArtID, syspar1Rec, profSideColorID, side);
+
+                    //Подбор по текстурному параметру
+                } else if (List.of(UseColor.PARAM.id, UseColor.PARSER.id).contains(elemColorUS)) {
+                    Record parmapRec = eParmap.find3(syspar1Rec.getStr(eSyspar1.text), syspar1Rec.getInt(eSyspar1.groups_id));
+                    profSideColorID = parmapRec.getInt(eParmap.color_id1);
+                    resultColorID = scanFromProfSide(elemArtID, profSideColorID, side);
                 }
             }
             if (resultColorID != -1) {
@@ -274,7 +280,7 @@ public class UColor {
     private static int scanFromParams(int elemArtiklID, Record syspar1Rec, int profFullColorID, int side) {
 
         List<Record> artdetList = eArtdet.filter(elemArtiklID);
-        List<Record> parmapList = eParmap.filter(syspar1Rec.getInt(eSyspar1.groups_id));
+        List<Record> parmapList = eParmap.find2(syspar1Rec.getInt(eSyspar1.groups_id));
         Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
 
         //Цикл по параметрам соответствия текстур
@@ -318,32 +324,30 @@ public class UColor {
     private static int scanFromParamSide(int elemArtiklID, Record syspar1Rec, int profSideColorID, int side) {
         try {
             List<Record> artdetList = eArtdet.filter(elemArtiklID);
-            List<Record> parmapList = eParmap.filter(syspar1Rec.getInt(eSyspar1.groups_id));
+            Record parmapRec = eParmap.find3(syspar1Rec.getStr(eSyspar1.text), syspar1Rec.getInt(eSyspar1.groups_id));
+            
             Field field = (side == 2) ? eArtdet.mark_c2 : eArtdet.mark_c3;
-            //Цикл по параметрам соответствия текстур
-            for (Record parmapRec : parmapList) {
-                //Если текстура соответствия и текстура профиля совпали
-                if (parmapRec.getInt(eParmap.color_id2) == profSideColorID) {
-                    //Цикл по списку текстур элемента
-                    for (Record artdetRec : artdetList) {
-                        if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
-                            if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1))) //cторона подлежит рассмотрению?
-                                    || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
-                                    || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
+            //Если текстура соответствия и текстура профиля совпали
+            if (parmapRec.getInt(eParmap.color_id2) == profSideColorID) {
+                //Цикл по списку текстур элемента
+                for (Record artdetRec : artdetList) {
+                    if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
+                        if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1))) //cторона подлежит рассмотрению?
+                                || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                                || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
 
-                                if (side == 1) {
+                            if (side == 1) {
+                                if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
+                                    return parmapRec.getInt(eParmap.color_id1);
+                                }
+                            } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                                if (artdetRec.getInt(field) == 1) {
                                     if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
                                         return parmapRec.getInt(eParmap.color_id1);
                                     }
                                 } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                                    if (artdetRec.getInt(field) == 1) {
-                                        if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
-                                            return parmapRec.getInt(eParmap.color_id1);
-                                        }
-                                    } else if (artdetRec.getInt(eArtdet.mark_c1) == 1) {
-                                        if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
-                                            return parmapRec.getInt(eParmap.color_id1);
-                                        }
+                                    if (artdetRec.getInt(eArtdet.color_fk) == parmapRec.getInt(eParmap.color_id1)) {
+                                        return parmapRec.getInt(eParmap.color_id1);
                                     }
                                 }
                             }

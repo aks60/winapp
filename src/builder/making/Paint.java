@@ -266,7 +266,7 @@ public class Paint {
     //Поиск текстуры в артикуле по параметру.
     private static int colorFromArtiklParam(int artiklID, int side, int elemColorID, int paramFk) {
         try {
-            List<Record> parmapList = eParmap.find3(elemColorID, paramFk);
+            List<Record> parmapList = eParmap.filter2(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.filter(artiklID);
 
             //Цикл по ARTDET определённого артикула
@@ -282,7 +282,7 @@ public class Paint {
                         //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
-                            List<Record> parmapList2 = eParmap.find2(colorRec.getInt(eColor.id));
+                            List<Record> parmapList2 = eParmap.filter(colorRec.getInt(eColor.id));
 
                             for (Record parmapRec : parmapList) {
                                 for (Record parmapRec2 : parmapList2) {

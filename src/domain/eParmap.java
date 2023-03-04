@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 //TODO COMMENT ON COLUMN PARCOLS.PSSS IS 'ссылка на текстуру COLSLST.PNUMB'
 public enum eParmap implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
-    id("4", "10", "0", "Идентификатор", "id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
     joint("16", "5", "1", "Параметр соединений", "joint"),
     elem("16", "5", "1", "Параметр составов", "elem"),
     glas("16", "5", "1", "Параметр стеклопакетов", "glas"),
@@ -54,18 +54,35 @@ public enum eParmap implements Field {
             return query().stream().filter(rec -> rec.getInt(id) == parmapID).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", parmapID);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);        
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
-    public static List<Record> find2(int colorID) {
+    public static List<Record> find2(int groupsID) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(groups_id) == groupsID).collect(toList());
+        }
+        return new Query(values()).select(up, "where", groups_id, "=", groupsID);
+    }    
+
+    public static Record find3(String name, int groupsID) {
+
+        if (Query.conf.equals("calc")) {
+            List<Record> list = query().stream().filter(rec -> rec.getInt(groups_id) == groupsID).collect(toList());
+            return list.stream().filter(rec -> name.equals(eColor.get(rec.getInt(eParmap.color_id1)).getStr(eColor.name))).findFirst().orElse(up.newRecord());
+        }
+        List<Record> list = new Query(values()).select(up, "where", groups_id, "=", groupsID);
+        return list.stream().filter(rec -> name.equals(eColor.get(rec.getInt(eParmap.color_id1)).getStr(eColor.name))).findFirst().orElse(up.newRecord());
+    }
+    
+    public static List<Record> filter(int colorID) {
 
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(color_id1) == colorID).collect(toList());
         }
         return new Query(values()).select(up, "where", color_id1, "=", colorID);
     }
-    
-    public static List<Record> find3(int colorID, int groupsID) {
+
+    public static List<Record> filter2(int colorID, int groupsID) {
 
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(groups_id) == groupsID).collect(toList());
@@ -73,13 +90,6 @@ public enum eParmap implements Field {
         return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", groups_id, "=", groupsID);
     }
 
-    public static List<Record> filter(int groupsID) {
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(groups_id) == groupsID).collect(toList());
-        }
-        return new Query(values()).select(up, "where", groups_id, "=", groupsID);     
-    }
-    
     public String toString() {
         return meta.descr();
     }

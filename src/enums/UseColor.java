@@ -45,9 +45,9 @@ public enum UseColor implements Enam {
 
     public static boolean isSeries(int typesUS) {
         
-        if (List.of(C1SER.id, C2SER.id, C3SER.id).contains(typesUS & 0x0000000f)
-                || List.of(C1SER.id, C2SER.id, C3SER.id).contains((typesUS & 0x000000f0) >> 4)
-                || List.of(C1SER.id, C2SER.id, C3SER.id).contains((typesUS & 0x00000f00) >> 8)) {
+        if (List.of(C1SER.id, C2SER.id, C3SER.id, PARSER.id).contains(typesUS & 0x0000000f)
+                || List.of(C1SER.id, C2SER.id, C3SER.id, PARSER.id).contains((typesUS & 0x000000f0) >> 4)
+                || List.of(C1SER.id, C2SER.id, C3SER.id, PARSER.id).contains((typesUS & 0x00000f00) >> 8)) {
             return true;
         }
         return false;
