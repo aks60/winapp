@@ -991,7 +991,7 @@ public class Fillings extends javax.swing.JFrame {
                 record.set(eGlasprof.gsize, .0);
                 record.set(eGlasprof.inside, 1);
                 record.set(eGlasprof.outside, 1);
-                int index = UGui.getIndexKeyValue(tab2, record, eGlasprof.id);
+                int index = UGui.getIndexKeyValue(tab5, record, eGlasprof.id);
                 qGlasprof.table(eArtikl.up).add(index, eArtikl.up.newRecord());
             });
         }
