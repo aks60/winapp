@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -50,9 +51,10 @@ public class ParColor extends javax.swing.JDialog {
     public void loadingData(int artikl_id) {
         
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        qParmap.select(eParmap.up);
-        Set set = new HashSet();
-        qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
+        String subset = qParmap.select(eParmap.up, "where", filter, "= 1")
+                .stream().map(rec -> rec.getStr(eParmap.groups_id)).collect(Collectors.toSet())
+                .stream().collect(Collectors.joining(",", "(", ")"));
+        qGroupsMap.select(eGroups.up, "where", eGroups.id, "in", subset);
         qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id);
 
         Record color1 = eColor.up.newRecord();
