@@ -7,7 +7,6 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eColor;
 import java.awt.CardLayout;
-import java.util.stream.Collectors;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
@@ -15,11 +14,9 @@ import domain.eGroups;
 import enums.TypeGrup;
 import enums.UseColor;
 import common.listener.ListenerRecord;
+import frames.Fillings;
 import java.awt.Component;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -55,6 +52,9 @@ public class ParColor extends javax.swing.JDialog {
     }
 
     public void loadingData(int artikl_id) {
+        if (getParent() instanceof Fillings) {
+            System.out.println("frames.dialog.ParColor.loadingData()");
+        }
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
         qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
         qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id);
