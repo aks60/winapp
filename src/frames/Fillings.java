@@ -41,6 +41,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import domain.eArtdet;
+import domain.eParmap;
 import frames.dialog.DicArtikl2;
 import frames.swing.DefCellEditorBtn;
 import frames.swing.DefCellEditorNumb;
@@ -211,7 +212,7 @@ public class Fillings extends javax.swing.JFrame {
             Record record = qGlasdet.get(UGui.getIndexRec(tab2));
             int artiklID = record.getInt(eElemdet.artikl_id);
             int colorID = record.getInt(eGlasdet.color_fk, -1);
-            new ParColor(this, listenerColor, artiklID, colorID);
+            new ParColor(this, listenerColor, eParmap.glas, artiklID, colorID);
         });
 
         UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
@@ -237,10 +238,10 @@ public class Fillings extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 if (qGlaspar1.get(UGui.getIndexRec(tab3), eGlaspar1.groups_id) == null) {
-                    new ParName(this, listenerPar1, eParams.elem, 13000);
+                    new ParName(this, listenerPar1, eParams.glas, 13000);
                 } else {
                     int groupsID = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.groups_id);
-                    new ParName(this, groupsID, listenerPar1, eParams.elem, 13000);
+                    new ParName(this, groupsID, listenerPar1, eParams.glas, 13000);
                 }
             }
         });
@@ -252,7 +253,7 @@ public class Fillings extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int grup = qGlaspar1.getAs(UGui.getIndexRec(tab3), eGlaspar1.groups_id);
             if (grup < 0) {
-                ParUserVal frame = new ParUserVal(this, listenerPar1, grup);
+                ParUserVal frame = new ParUserVal(this, listenerPar1, eParams.glas, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, listenerPar1, list);
@@ -268,10 +269,10 @@ public class Fillings extends javax.swing.JFrame {
                 paramPart = (paramPart == 1 || paramPart == 4) ? 15000 : 14000;
 
                 if (qGlaspar2.get(UGui.getIndexRec(tab4), eGlaspar2.groups_id) == null) {
-                    new ParName(this, listenerPar2, eParams.elem, paramPart);
+                    new ParName(this, listenerPar2, eParams.glas, paramPart);
                 } else {
                     int groupsID = qGlaspar2.getAs(UGui.getIndexRec(tab4), eGlaspar2.groups_id);
-                    new ParName(this, groupsID, listenerPar2, eParams.elem, paramPart);
+                    new ParName(this, groupsID, listenerPar2, eParams.glas, paramPart);
                 }
             }
         });
@@ -284,7 +285,7 @@ public class Fillings extends javax.swing.JFrame {
             Record record = qGlaspar2.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eGlaspar1.groups_id);
             if (grup < 0) {
-                ParUserVal frame = new ParUserVal(this, listenerPar2, grup);
+                ParUserVal frame = new ParUserVal(this, listenerPar2, eParams.glas, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, listenerPar2, list);

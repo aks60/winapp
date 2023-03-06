@@ -14,9 +14,12 @@ import domain.eGroups;
 import enums.TypeGrup;
 import enums.UseColor;
 import common.listener.ListenerRecord;
-import frames.Fillings;
+import dataset.Field;
+import domain.eParmap;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,25 +29,18 @@ public class ParColor extends javax.swing.JDialog {
     private Query qArtdet = new Query(eArtdet.values());
     private Query qGroupsMap = new Query(eGroups.values());
     private Query qGroupsGrp = new Query(eGroups.values());
+    private Query qParmap = new Query(eParmap.values());    
     private Query qColor = new Query(eColor.values());
     private ListenerRecord listener;
+    private Field filter = null;
     private int colorID = -1;
 
-    public ParColor(java.awt.Frame parent, ListenerRecord listener, int artikl_id) {
+    public ParColor(java.awt.Frame parent, ListenerRecord listener, Field filter, int artiklID, int colorID) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
-        loadingData(artikl_id);
-        loadingModel();
-        setVisible(true);
-    }
-
-    public ParColor(java.awt.Frame parent, ListenerRecord listener, int artiklID, int colorID) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listener;
+        this.filter = filter;
         this.colorID = colorID;
         loadingData(artiklID);
         loadingModel();
@@ -52,10 +48,10 @@ public class ParColor extends javax.swing.JDialog {
     }
 
     public void loadingData(int artikl_id) {
-        if (getParent() instanceof Fillings) {
-            System.out.println("frames.dialog.ParColor.loadingData()");
-        }
+        
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
+        qParmap.select(eParmap.up);
+        Set set = new HashSet();
         qGroupsMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_MAP.id);
         qGroupsGrp.select(eGroups.up, "where", eGroups.grup, "=", TypeGrup.COLOR_GRP.id);
 

@@ -46,6 +46,7 @@ import common.listener.ListenerFrame;
 import dataset.Conn;
 import domain.eArtdet;
 import domain.eGlaspar2;
+import domain.eParmap;
 import domain.ePrjkit;
 import frames.dialog.DicArtikl2;
 import frames.swing.DefCellEditorBtn;
@@ -320,7 +321,7 @@ public class Joinings extends javax.swing.JFrame {
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab3, eJoinpar1.groups_id, eJoinpar1.text);
-                }, grup);
+                }, eParams.joint, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {
@@ -344,8 +345,8 @@ public class Joinings extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int artiklID = record.getInt(eJoindet.artikl_id);
-            int colorID = record.getInt(eJoindet.color_fk, -1);
-            new ParColor(this, listenerColor, artiklID, colorID);
+            int colorFK = record.getInt(eJoindet.color_fk, -1);
+            new ParColor(this, listenerColor, eParmap.joint, artiklID, colorFK);
         });
 
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
@@ -399,7 +400,7 @@ public class Joinings extends javax.swing.JFrame {
             if (grup < 0) {
                 new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eJoinpar2.groups_id, eJoinpar2.text);
-                }, grup);
+                }, eParams.joint, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParSysVal(this, (rec) -> {

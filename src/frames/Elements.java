@@ -44,6 +44,7 @@ import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import domain.eArtdet;
+import domain.eParmap;
 import domain.eSysprof;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
@@ -283,8 +284,8 @@ public class Elements extends javax.swing.JFrame {
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
             Record record = qElemdet.get(UGui.getIndexRec(tab3));
             int artikID = record.getInt(eElemdet.artikl_id);
-            int colorID = record.getInt(eElemdet.color_fk, -1);
-            new ParColor(this, listenerColor, artikID, colorID);
+            int colorFK = record.getInt(eElemdet.color_fk, -1);
+            new ParColor(this, listenerColor, eParmap.elem, artikID, colorFK);
         });
 
         UGui.buttonCellEditor(tab3, 3).addActionListener(event -> {
@@ -377,7 +378,7 @@ public class Elements extends javax.swing.JFrame {
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab5, eElempar2.groups_id, eElempar2.text);
-                }, grup);
+                }, eParams.elem, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, (rec) -> {

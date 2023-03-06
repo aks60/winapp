@@ -28,17 +28,6 @@ public class ParUserVal extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public ParUserVal(java.awt.Frame parent, ListenerRecord listener, int grup) {
-        super(parent, true);
-        initComponents();
-        this.grup = grup;
-        initElements();
-        this.listener = listener;
-        loadingData();
-        loadingModel();
-        setVisible(true);
-    }
-
     public void loadingData() {
         if (filter != null) {
             qParams.select(eParams.up, "where", eParams.groups_id, "=", grup, "and", filter, "!= 0", "order by", eParams.text);

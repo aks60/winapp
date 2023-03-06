@@ -236,7 +236,7 @@ public class Kits extends javax.swing.JFrame {
             if (grup < 0) {
                 ParUserVal frame = new ParUserVal(this, (rec) -> {
                     UGui.cellParamNameOrValue(rec, tab4, eKitpar2.groups_id, eKitpar2.text);
-                }, grup);
+                }, eParams.kits, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, (rec) -> {

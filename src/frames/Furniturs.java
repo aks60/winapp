@@ -49,6 +49,7 @@ import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import dataset.Conn;
 import domain.eArtdet;
+import domain.eParmap;
 import domain.eSysfurn;
 import domain.eSystree;
 import frames.dialog.DicArtikl2;
@@ -468,8 +469,8 @@ public class Furniturs extends javax.swing.JFrame {
             UGui.buttonCellEditor(tab2x, 2).addActionListener(event -> {
                 Record record = query.get(UGui.getIndexRec(tab2x));
                 int artiklID = record.getInt(eFurndet.artikl_id);
-                int colorID = record.getInt(eFurndet.color_fk, -1);
-                ParColor frame = new ParColor(this, listenerColor, artiklID, colorID);
+                int colorFK = record.getInt(eFurndet.color_fk, -1);
+                ParColor frame = new ParColor(this, listenerColor, eParmap.furn, artiklID, colorFK);
             });
         }
         for (JTable tab2x : List.of(tab2a, tab2b, tab2c)) {
@@ -500,7 +501,7 @@ public class Furniturs extends javax.swing.JFrame {
             Record record = qFurnpar1.get(UGui.getIndexRec(tab4));
             int grup = record.getInt(eFurnpar1.groups_id);
             if (grup < 0) {
-                ParUserVal frame = new ParUserVal(this, listenerPar1, grup);
+                ParUserVal frame = new ParUserVal(this, listenerPar1, eParams.furn, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, listenerPar1, list);
@@ -542,7 +543,7 @@ public class Furniturs extends javax.swing.JFrame {
             Record record = qFurnpar2.get(UGui.getIndexRec(tab6));
             int grup = record.getInt(eFurnpar2.groups_id);
             if (grup < 0) {
-                ParUserVal frame = new ParUserVal(this, listenerPar2, grup);
+                ParUserVal frame = new ParUserVal(this, listenerPar2, eParams.furn, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParSysVal frame = new ParSysVal(this, listenerPar2, list);
