@@ -733,7 +733,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 qSyspar1a.set(record.get(0), index, eSyspar1.text);
                 qSyspar1a.set(record.get(2), index, eSyspar1.groups_id);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab4, index);                
+                UGui.setSelectedIndex(tab4, index);
             }
         };
 
@@ -3545,15 +3545,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             } else if (tab5.getBorder() != null) {
                 if (sysNode != null && sysNode.isLeaf()) {
-                    //testBimax();
-
-                    ProgressBar.create(Systree.this, new ListenerFrame() {
-                        public void actionRequest(Object obj) {
-                            models = new Models(listenerModel);
-                            FrameToFile.setFrameSize(models);
-                            models.setVisible(true);
-                        }
-                    });
+                    if (evt.getSource() instanceof JButton && eProp.dev == true) {
+                        testBimax();
+                    } else {
+                        ProgressBar.create(Systree.this, new ListenerFrame() {
+                            public void actionRequest(Object obj) {
+                                models = new Models(listenerModel);
+                                FrameToFile.setFrameSize(models);
+                                models.setVisible(true);
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -3629,8 +3631,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab4, 5);   
+        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        UGui.setSelectedIndex(tab4, 5);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -4593,22 +4595,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree1());
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());       
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                  UGui.setSelectedIndex(tab7, UGui.getIndexRec(tab4));
+                    UGui.setSelectedIndex(tab7, UGui.getIndexRec(tab4));
                 }
             }
         });
         tab7.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                  UGui.setSelectedIndex(tab4, UGui.getIndexRec(tab7));
+                    UGui.setSelectedIndex(tab4, UGui.getIndexRec(tab7));
                 }
             }
         });
-        tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());         
+        tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
