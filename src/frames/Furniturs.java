@@ -796,15 +796,16 @@ public class Furniturs extends javax.swing.JFrame {
                 Furniturs.this.windowClosed(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
         north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hints/okno", common.eProp.locale); // NOI18N
         btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnIns.setFocusable(false);
         btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -820,7 +821,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
         btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
-        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnDel.setFocusable(false);
         btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -836,7 +837,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
-        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnClose.setFocusable(false);
         btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -851,7 +852,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
         btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnRef.setFocusable(false);
         btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -867,7 +868,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnReport.setFocusable(false);
         btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -883,7 +884,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c088.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
-        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnConstructiv.setFocusable(false);
         btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -898,7 +899,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
 
         btnTest.setText("Test");
-        btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
         btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
         btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -910,7 +911,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c089.gif"))); // NOI18N
         btnFindSystree.setToolTipText(bundle.getString("Поиск записи")); // NOI18N
-        btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnFindSystree.setFocusable(false);
         btnFindSystree.setMaximumSize(new java.awt.Dimension(25, 25));
         btnFindSystree.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -925,7 +926,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnClone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c065.gif"))); // NOI18N
         btnClone.setToolTipText(bundle.getString("Клонировать запись")); // NOI18N
-        btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClone.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnClone.setEnabled(false);
         btnClone.setFocusable(false);
         btnClone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1047,13 +1048,13 @@ public class Furniturs extends javax.swing.JFrame {
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
         pan12.setPreferredSize(new java.awt.Dimension(500, 26));
-        pan12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0));
+        pan12.setLayout(new java.awt.FlowLayout(0, 2, 0));
 
         group1.add(btnTab1);
         btnTab1.setFont(frames.UGui.getFont(0,0));
         btnTab1.setSelected(true);
         btnTab1.setText("Основная фурнитура");
-        btnTab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnTab1.setMaximumSize(new java.awt.Dimension(180, 26));
         btnTab1.setMinimumSize(new java.awt.Dimension(180, 26));
         btnTab1.setPreferredSize(new java.awt.Dimension(180, 26));
@@ -1067,7 +1068,7 @@ public class Furniturs extends javax.swing.JFrame {
         group1.add(btnTab2);
         btnTab2.setFont(frames.UGui.getFont(0,0));
         btnTab2.setText("Дополнительная фурнитура");
-        btnTab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnTab2.setMaximumSize(new java.awt.Dimension(180, 26));
         btnTab2.setMinimumSize(new java.awt.Dimension(180, 26));
         btnTab2.setPreferredSize(new java.awt.Dimension(180, 26));
@@ -1081,7 +1082,7 @@ public class Furniturs extends javax.swing.JFrame {
         group1.add(btnTab3);
         btnTab3.setFont(frames.UGui.getFont(0,0));
         btnTab3.setText("Список наборов");
-        btnTab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnTab3.setMaximumSize(new java.awt.Dimension(180, 26));
         btnTab3.setMinimumSize(new java.awt.Dimension(180, 26));
         btnTab3.setPreferredSize(new java.awt.Dimension(180, 26));
@@ -1094,7 +1095,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         btnSet.setToolTipText(bundle.getString("Выбрать список")); // NOI18N
-        btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         btnSet.setEnabled(false);
         btnSet.setPreferredSize(new java.awt.Dimension(25, 25));
         btnSet.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
@@ -1292,7 +1293,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         pan9.add(tabb1);
 
-        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Детализация (2 уровень)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0,0)));
+        scr2b.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), null, null, null, frames.UGui.getFont(0,0)));
         scr2b.setPreferredSize(new java.awt.Dimension(500, 120));
 
         tab2b.setFont(frames.UGui.getFont(0,0));
@@ -1431,7 +1432,7 @@ public class Furniturs extends javax.swing.JFrame {
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
