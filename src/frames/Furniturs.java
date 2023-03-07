@@ -1565,6 +1565,8 @@ public class Furniturs extends javax.swing.JFrame {
                 UGui.insertRecordCur(tab5, eFurnside2.up, (record) -> {
                     int id = query.getAs(UGui.getIndexRec(table), eFurndet.id);
                     record.set(eFurnside2.furndet_id, id);
+                    record.set(eFurnside2.ang_min, 0);
+                    record.set(eFurnside2.ang_max, 360);
                 });
             }
         } else if (tab6.getBorder() != null) {

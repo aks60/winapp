@@ -184,7 +184,7 @@ public class Furniture extends Cal5e {
                     float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 }
-                if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
+                if (width >= furnside2Rec.getFloat(eFurnside2.len_max) || (width < furnside2Rec.getFloat(eFurnside2.len_min))) {
                     return false;
                 }
             }
