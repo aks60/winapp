@@ -126,13 +126,13 @@ public class ElementDet extends Par5s {
                 case 33032:  //Периметр покраски по периметру 
                     message(grup);
                     break;
-                case 33033:  //Расход по профилю 
+                case 33033:  //Расход по профилю
                     message(grup);
                     break;
                 case 33034:  //Периметр покраски, мм 
                     message(grup);
                     break;
-                case 33035:  //Расход по поверхности на кв.м. 
+                case 33035:  //TODO Расход по поверхности на кв.м. 
                     message(grup);
                     break;
                 case 33040:  //Порог расчета, мм 
