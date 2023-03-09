@@ -198,7 +198,7 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
 
-            //Нерешённая проблема со штапиком
+            //TODO Нерешённая проблема со штапиком
         } else if (prj == 604004) {
             rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1700, 1050, null, null, null);

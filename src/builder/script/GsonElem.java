@@ -172,6 +172,7 @@ public class GsonElem {
     //Назначить родителей всем детям и поднять elem.form до Wincalc
     public void setOwnerAndForm(Wincalc winc) {
         if (this instanceof GsonRoot && this.form != null) {
+            winc.form = this.form;
             ((GsonRoot) this).form = this.form;
         }
         this.childs.forEach(el -> {
