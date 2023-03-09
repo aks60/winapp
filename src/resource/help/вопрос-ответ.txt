@@ -17,7 +17,7 @@
 14. Длина штапика см. windoc/doc3/ProWS прим. расч/katalog-prows-58.pdf d в самом конце.
 15. java --list-modules модули jdk
 16. Своя JRE jlink --add-modules java.base, java.datatransfer, java.desktop, java.naming, java.scripting, java.sql, jdk.aot --output custom-runtime
-
+17. Методика расчета расхода краски см. справку Конструктив->Составы->Важно 
    == ЗАМЕТКИ  ==
 1. Настройки->Расчётные данные <Коэфф. рентабельности>
 2. Констрктив->Системы <Коэф. рентабельности>
