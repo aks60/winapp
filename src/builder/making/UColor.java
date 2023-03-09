@@ -444,6 +444,66 @@ public class UColor {
         }
     }
 
+    //Текстура профиля или текстура заполнения изделия (неокрашенные)
+    public static int colorFromArtikl(int artiklId) {
+        try {
+            List<Record> artdetList = eArtdet.filter(artiklId);
+            //Цикл по ARTDET определённого артикула
+            for (Record artdetRec : artdetList) {
+                if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
+                    if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))
+                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) {
+
+                        return artdetRec.getInt(eArtdet.color_fk);
+                    }
+                }
+            }
+            return -1;
+
+        } catch (Exception e) {
+            System.err.println("Ошибна Paint.colorFromArtikl() " + e);
+            return -1;
+        }
+    }
+    
+    //Поиск текстуры в артикуле
+    public static int colorFromArtikl(int artiklID, int side, int elemColorID) {
+        try {
+            List<Record> artdetList = eArtdet.filter(artiklID);
+            //Цикл по ARTDET определённого артикула
+            for (Record artdetRec : artdetList) {
+                //Сторона подлежит рассмотрению?
+                if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                        || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                        || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
+
+                    //Группа текстур
+                    if (artdetRec.getInt(eArtdet.color_fk) < 0) {
+                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk)); //фильтр списка определённой группы
+                        //Цикл по COLOR определённой группы
+                        for (Record colorRec : colorList) {
+                            if (colorRec.getInt(eColor.id) == elemColorID) {
+                                return elemColorID;
+                            }
+                        }
+
+                        //Одна текстура
+                    } else {
+                        if (artdetRec.getInt(eArtdet.color_fk) == elemColorID) { //если есть такая текстура в ARTDET
+                            return elemColorID;
+                        }
+                    }
+                }
+            }
+            return -1;
+
+        } catch (Exception e) {
+            System.err.println("Ошибка Color.colorFromArtdet() " + e);
+            return -1;
+        }
+    }
+    
     //Иконка типа соединения
     public static ImageIcon iconFromTypeJoin(int typeJoin) {
         for (int i = 0; i < 6; i++) {

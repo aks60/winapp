@@ -39,9 +39,8 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(gson.param());
         setLocation();
 
-        //Определение gzazo и gsize. 
-        //Используются до выполнения конструктива
-        //в ElemGlass.setSpecific()
+        //Определение gzazo и gsize на раннем этапе построения. 
+        //Используются до выполнения конструктива в ElemGlass.setSpecific()
         Filling filling = new Filling(winc, true);
         filling.calc(this);
     }

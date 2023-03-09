@@ -170,7 +170,7 @@ public class GsonElem {
     }
 
     //Назначить родителей всем детям и поднять elem.form до Wincalc
-    public void setOwner(Wincalc winc) {
+    public void setOwnerAndForm(Wincalc winc) {
         if (this instanceof GsonRoot && this.form != null) {
             ((GsonRoot) this).form = this.form;
         }
@@ -180,7 +180,7 @@ public class GsonElem {
                 winc.form = el.form;
             }
             if (List.of(Type.STVORKA, Type.AREA, Type.RECTANGL, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                el.setOwner(winc); //рекурсия 
+                el.setOwnerAndForm(winc); //рекурсия 
             }
         });
     }

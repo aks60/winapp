@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import builder.making.Specific;
 import builder.making.Joining;
-import builder.making.Paint;
+import builder.making.UColor;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import com.google.gson.JsonSyntaxException;
@@ -78,24 +78,22 @@ public class Wincalc {
     }
 
     public IArea5e build(String script) {
+        this.script = script;
         try {
-            this.script = script;
-            //Обнуление
-            genId = 0;
-            width1 = 0;
-            width2 = 0;
-            height1 = 0;
-            height2 = 0;
-            syssizeRec = null;
-            List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
-            List.of(mapPardef, mapJoin).forEach(el -> el.clear());
+            //Инит свойств окна
+            initProperty();
 
             //Парсинг входного скрипта
             parsing(script);
 
             //Все соединения вычисляются в классах AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()
-            rootArea.joining(); //соединения ареа
-            listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining()); //соединения створок
+            
+            //Cоединения ареа
+            rootArea.joining(); 
+            
+            //Соединения створок
+            listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining()); 
+            
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
 
@@ -117,7 +115,7 @@ public class Wincalc {
 
             //Назначить родителей т.к. gson.fromJson() это делать не будет,
             //для быстрого доступа поднять elem.form до Wincalc.form
-            rootGson.setOwner(this);
+            rootGson.setOwnerAndForm(this);
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
@@ -126,9 +124,9 @@ public class Wincalc {
             this.height1 = rootGson.height1(); //высота слева всегда задана
             this.height2 = (rootGson.height2() == null) ? rootGson.height() : rootGson.height2();
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
-            this.colorID1 = (rootGson.color1() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color1();
-            this.colorID2 = (rootGson.color2() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color2();
-            this.colorID3 = (rootGson.color3() == -3) ? Paint.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color3();
+            this.colorID1 = (rootGson.color1() == -3) ? UColor.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color1();
+            this.colorID2 = (rootGson.color2() == -3) ? UColor.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color2();
+            this.colorID3 = (rootGson.color3() == -3) ? UColor.colorFromArtikl(sysprofRec.getInt(eSysprof.artikl_id)) : rootGson.color3();
             eSyspar1.find(nuni).forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.groups_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
@@ -178,7 +176,7 @@ public class Wincalc {
                     //Элементы окна ограничены этим ареа и формой контура.
                 } else if (Type.AREA == js.type() || Type.ARCH == js.type() || Type.TRAPEZE == js.type()) {
                     IArea5e area5e = null;
-                    if (js.form() == null) {
+                    if (js.form() == null) { //TODO Возможнонадо надо удалить блок кода
                         area5e = (eProp.old.read().equals("0"))
                                 ? new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
                                 : new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
@@ -286,6 +284,17 @@ public class Wincalc {
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET AND SET"> 
+    private void initProperty() {
+        genId = 0;
+        width1 = 0;
+        width2 = 0;
+        height1 = 0;
+        height2 = 0;
+        syssizeRec = null;
+        List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
+        List.of(mapPardef, mapJoin).forEach(el -> el.clear());
+    }
+
     public float genId() {
         return ++genId;
     }

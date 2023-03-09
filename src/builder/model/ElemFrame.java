@@ -3,7 +3,6 @@ package builder.model;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.IStvorka;
-import builder.making.Paint;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
@@ -11,6 +10,7 @@ import domain.eSysprof;
 import enums.Layout;
 import enums.TypeArtikl;
 import builder.making.Specific;
+import builder.making.UColor;
 import enums.PKjson;
 import common.UCom;
 import domain.eSetting;
@@ -22,6 +22,7 @@ import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.DrawStroke;
+import java.awt.Paint;
 import java.util.List;
 
 public class ElemFrame extends ElemSimple {
@@ -291,13 +292,13 @@ public class ElemFrame extends ElemSimple {
                     IStvorka elemStv = ((IStvorka) owner);
                     IArea5e areaStv = ((IArea5e) owner);
                     if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
-                        colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor());
+                        colorID = UColor.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor());
 
                     } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
                         for (Map.Entry<Layout, IElem5e> elem : areaStv.frames().entrySet()) {
                             for (Specific spc : elem.getValue().spcRec().spcList) {
                                 if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
-                                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
+                                    colorID = UColor.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
                                 }
                             }
                         }
@@ -306,7 +307,7 @@ public class ElemFrame extends ElemSimple {
                         for (Map.Entry<Layout, IElem5e> elem : areaStv.frames().entrySet()) {
                             for (Specific spc : elem.getValue().spcRec().spcList) {
                                 if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
-                                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
+                                    colorID = UColor.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
                                 }
                             }
                         }
