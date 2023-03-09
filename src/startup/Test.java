@@ -16,7 +16,6 @@ import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 public class Test {
 
@@ -66,8 +65,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            //PSConvert.exec();
-            wincalc();
+            frames.PSConvert.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -85,7 +84,7 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
             winc.build(GsonScript.testJson(486451));
@@ -93,8 +92,8 @@ public class Test {
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
-            //DBCompare.iwinXls(winc, true);
-            PSCompare.iwinPs4(winc, true);
+            //frames.PSCompare.iwinXls(winc, true);
+            frames.PSCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
@@ -104,8 +103,8 @@ public class Test {
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
-                    //DBCompare.iwinXls(winc, false);
-                    PSCompare.iwinPs4(winc, false);
+                    //frames.PSCompare.iwinXls(winc, false);
+                    frames.PSCompare.iwinPs4(winc, false);
                 }
             }
 
@@ -116,8 +115,8 @@ public class Test {
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
-                    //DBCompare.iwinXls(winc, false);
-                    PSCompare.iwinPs4(winc, false);
+                    //frames.PSCompare.iwinXls(winc, false);
+                    frames.PSCompare.iwinPs4(winc, false);
                 }
             }
         }

@@ -387,6 +387,15 @@ public class GsonScript {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.GLASS));
+            
+        } else if (prj == -486451) { //Трапеции без импоста
+            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\*Открывание внутрь",
+                    Layout.VERT, Type.TRAPEZE, Form.LEFT, 1300, 1200, 1500, null, null, null);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 506642) { // Трапеции без импоста
             rootGson = new GsonRoot("1.0", null, null, null, "KBE Эксперт\\ОКНА\\Открывание внутрь",
@@ -694,7 +703,7 @@ public class GsonScript {
                     508807, 508809, 508966, //москитки
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
-                    605001, 508916, 508945, 508841, 700009, 700014) //трапеции, двери
+                    605001, 508916, -508916, 508945, 508841, 486451, -486451, 700009, 700014) //трапеции, двери
                     : List.of(601001, 601002, 601003, 601004, 601005, 601006,
                             601007, 601008, 601009, 601010, 604005, 604006, 604007, 604008, 604009, 604010);
 
