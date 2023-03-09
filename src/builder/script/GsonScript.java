@@ -27,24 +27,24 @@ public class GsonScript {
     public static String modelJson(Integer prj) {
 
         if (prj == 601001) {
-            rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
-                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
-                    .addElem(new GsonElem(Type.GLASS));
-
-//            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-//                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009, "{ioknaParam: [-9504]}");
+//            rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
+//                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
 //            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-//                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
-//                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 1287}"))
-//                    .addElem(new GsonElem(Type.GLASS));   
+//                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
+//                    .addElem(new GsonElem(Type.GLASS));
+
+            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009, "{ioknaParam: [-9504]}");
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
+                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 1287}"))
+                    .addElem(new GsonElem(Type.GLASS));   
 
         } else if (prj == 601002) {
             rootGson = new GsonRoot("1.0", null, null, null, "Montblanc\\Nord\\ОКНА",
@@ -428,6 +428,19 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200))
                     .addElem(new GsonElem(Type.GLASS));
 
+        } else if (prj == -605001) { // Трапеции
+            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\ОКНА\\Открывание внутрь",
+                    Layout.VERT, Type.TRAPEZE, 1300, 1200, 1500, null, null, null);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 300, Form.LEFT))
+                    .addElem(new GsonElem(Type.GLASS));
+            rootGson.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200))
+                    .addElem(new GsonElem(Type.GLASS));
+
         } else if (prj == 508916) { //Трапеции
             rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\ОКНА\\Открывание внутрь",
                     Layout.VERT, Type.TRAPEZE, 900, 1400, 1000, null, null, null);
@@ -703,7 +716,8 @@ public class GsonScript {
                     508807, 508809, 508966, //москитки
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
-                    605001, 508916, -508916, 508945, 508841, 486451, -486451, 700009, 700014) //трапеции, двери
+                    605001, -605001, 508916, -508916, 486451, -486451, //трапеции
+                    508841, 700009, 700014) //двери
                     : List.of(601001, 601002, 601003, 601004, 601005, 601006,
                             601007, 601008, 601009, 601010, 604005, 604006, 604007, 604008, 604009, 604010);
 
