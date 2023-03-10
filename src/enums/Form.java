@@ -6,7 +6,8 @@ public enum Form {
     BOTT(1, "Нижняя"),
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),
-    LEFT(4, "Левая");
+    LEFT(4, "Левая"),
+    MIDL(5, "Середина");
 
     public int id;
     public String name;

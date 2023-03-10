@@ -27,24 +27,14 @@ public class GsonScript {
     public static String modelJson(Integer prj) {
 
         if (prj == 601001) {
-//            rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
-//                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
-//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-//                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
-//                    .addElem(new GsonElem(Type.GLASS));
-
-            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.RECTANGL, 900, 1300, 1009, 10009, 1009, "{ioknaParam: [-9504]}");
+            rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
+                    Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}")) 
-                    .addElem(new GsonElem(Type.MOSKITKA, "{artiklID: 2700, elementID: 1287}"))
-                    .addElem(new GsonElem(Type.GLASS));   
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1}"))
+                    .addElem(new GsonElem(Type.GLASS)); 
 
         } else if (prj == 601002) {
             rootGson = new GsonRoot("1.0", null, null, null, "Montblanc\\Nord\\ОКНА",
@@ -232,23 +222,23 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4}"))
                     .addElem(new GsonElem(Type.GLASS));
 
-        } else if (prj == 508634) {
-            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА(ФИГУРНАЯ СТВОРКА)",
-                    Layout.HORIZ, Type.RECTANGL, 900, 1400, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.GLASS));
-
-        } else if (prj == 508777) {
-            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА(ФИГУРНАЯ СТВОРКА)",
-                    Layout.HORIZ, Type.RECTANGL, 900, 1400, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.GLASS));
+//        } else if (prj == 508634) {
+//            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА(ФИГУРНАЯ СТВОРКА)",
+//                    Layout.HORIZ, Type.RECTANGL, 900, 1400, null, null, null);
+//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+//                    .addElem(new GsonElem(Type.GLASS));
+//
+//        } else if (prj == 508777) {
+//            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА(ФИГУРНАЯ СТВОРКА)",
+//                    Layout.HORIZ, Type.RECTANGL, 900, 1400, null, null, null);
+//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+//                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+//                    .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 604005) {
             rootGson = new GsonRoot("1.0", null, null, null, "Wintech\\Termotech 742\\ОКНА",
@@ -668,9 +658,43 @@ public class GsonScript {
         }
         return rootGson.toJson();
     }
+    
+    public static List<Integer> modelList(String scale) {
+        String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
+                : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
-// <editor-fold defaultstate="collapsed" desc="testJson(), models(), path()">     
-    public static String testJson(Integer prj) {
+        if (base_name.toLowerCase().contains("sial3")) {
+            return List.of(601001, 601002, 601003, 601004, 601007, 601008);
+
+        } else if (base_name.toLowerCase().contains("alutech3")) {
+            return List.of(601001, 601002, 601003, 601004);
+
+        } else if (base_name.toLowerCase().contains("alutex3")) {
+            return List.of(4);
+
+        } else if (base_name.toLowerCase().contains("bimax")) {
+            return ("max".equals(scale)) ? List.of(
+                    508807, 508809, 508966, //москитки
+                    601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
+                    700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
+                    508983, 486451, -486451, 506642, -506642, 605001, -605001, 508916, -508916, 508945, //трапеции  
+                    508841, 700009, 700014) //двери
+                    : List.of(601006 ,601001, 601002, 601003, 604009, 604005, 605001, -605001, 
+                            508916, -508916, 486451, -486451, 508841, 700009, 700014);
+
+        } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
+            return List.of(26);
+
+        } else if (base_name.toLowerCase().contains("krauss")) {
+            return null;
+
+        } else if (base_name.toLowerCase().contains("sokol")) {
+            return List.of(1);
+        }
+        return null;
+    }   
+    
+    public static String productJson(Integer prj) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
@@ -697,8 +721,8 @@ public class GsonScript {
         }
         return null;
     }
-
-    public static List<Integer> models(String p) {
+    
+    public static List<Integer> productList(String scale) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
@@ -712,12 +736,11 @@ public class GsonScript {
             return List.of(4);
 
         } else if (base_name.toLowerCase().contains("bimax")) {
-            return ("max".equals(p)) ? List.of(
+            return ("max".equals(scale)) ? List.of(
                     508807, 508809, 508966, //москитки
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
-                    605001, -605001, 508916, -508916, 486451, -486451, //трапеции
-                    508841, 700009, 700014) //двери
+                    605001, 508916, 508945, 508841, 700009, 700014) //трапеции, двери
                     : List.of(601001, 601002, 601003, 601004, 601005, 601006,
                             601007, 601008, 601009, 601010, 604005, 604006, 604007, 604008, 604009, 604010);
 
@@ -732,7 +755,7 @@ public class GsonScript {
         }
         return null;
     }
-
+    
     public static String path() {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
@@ -760,5 +783,4 @@ public class GsonScript {
         }
         return null;
     }
-// </editor-fold> 
 }

@@ -65,8 +65,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            frames.PSConvert.exec();
-            //wincalc();
+            //frames.PSConvert.exec();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -87,7 +87,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.testJson(486451));
+            winc.build(GsonScript.productJson(486451));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
@@ -97,9 +97,9 @@ public class Test {
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = GsonScript.models(_case);
+            List<Integer> prjList = GsonScript.productList(_case);
             for (int prj : prjList) {
-                String script = GsonScript.testJson(prj);
+                String script = GsonScript.productJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);
@@ -109,9 +109,9 @@ public class Test {
             }
 
         } else if (_case.equals("max")) {
-            List<Integer> prjList = GsonScript.models(_case);
+            List<Integer> prjList = GsonScript.productList(_case);
             for (int prj : prjList) {
-                String script = GsonScript.testJson(prj);
+                String script = GsonScript.productJson(prj);
                 if (script != null) {
                     winc.build(script);
                     winc.constructiv(true);

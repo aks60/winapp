@@ -203,7 +203,7 @@ public class PSConvert {
             executeSql("GRANT ALL ON " + eSetting.up.tname() + " TO MANAGER_RW");
             executeSql("GRANT SELECT ON " + eSetting.up.tname() + " TO TEXNOLOG_RO");
             executeSql("GRANT ALL ON " + eSetting.up.tname() + " TO TEXNOLOG_RW");
-            
+
             if (eProp.dev == true) { //при этом в firebird такие логины должны быть созданы
                 executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
                 executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
@@ -574,7 +574,7 @@ public class PSConvert {
             alterTable("params", "fk_params_1", "groups_id", "groups");
             alterTable("parmap", "fk_parmap_1", "groups_id", "groups");
             alterTable("parmap", "fk_parmap_2", "color_id1", "color");
-            alterTable("parmap", "fk_parmap_3", "color_id2", "color");             
+            alterTable("parmap", "fk_parmap_3", "color_id2", "color");
             alterTable("artikl", "fk_artikl1", "groups1_id", "groups");
             alterTable("artikl", "fk_artikl2", "groups2_id", "groups");
             alterTable("artikl", "fk_artikl3", "groups3_id", "groups");
@@ -582,7 +582,7 @@ public class PSConvert {
             alterTable("artikl", "fk_artikl6", "syssize_id", "syssize");
             alterTable("artikl", "fk_artikl7", "currenc1_id", "currenc");
             executeSql("alter table artikl add constraint unq1_artikl unique (code)");
-            alterTable("artikl", "fk_artikl8", "currenc2_id", "currenc");             
+            alterTable("artikl", "fk_artikl8", "currenc2_id", "currenc");
             alterTable("rulecalc", "fk_rulecalc1", "artikl_id", "artikl");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
@@ -696,10 +696,9 @@ public class PSConvert {
     public static void loadModels() {
         try {
             println(Color.GREEN, "Секция загрузки тестовых моделей");
-            List<Integer> prjList = GsonScript.models("max");
-
             cn2.commit();
             int index = 0;
+            List<Integer> prjList = GsonScript.modelList("min");
             for (int prj : prjList) {
 
                 //Загрузка моделей, таблица SYSMODEL.                 
@@ -718,9 +717,17 @@ public class PSConvert {
                     record.setNo(eSysmodel.form, gson.type().id);
                     q.insert(record);
                 }
-
+            }
+            cn2.commit();
+        } catch (Exception e) {
+            println(Color.RED, "Ошибка: modifyModels.  " + e);
+        }
+        try {
+            int index = 0;
+            List<Integer> prjList = GsonScript.productList("min");
+            for (int prj : prjList) {
                 //Загрузка тестовых конструкций в систему, таблица SYSPROD.
-                String script2 = GsonScript.testJson(prj);
+                String script2 = GsonScript.productJson(prj);
                 if (script2 != null) {
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "Проект:" + gson2.project() + "/Заказ:" + gson2.order() + " " + gson2.name();
@@ -737,7 +744,7 @@ public class PSConvert {
             cn2.commit();
 
         } catch (Exception e) {
-            println(Color.RED, "Ошибка: modifyModels.  " + e);
+            println(Color.RED, "Ошибка: modifyProducts.  " + e);
         }
     }
 
