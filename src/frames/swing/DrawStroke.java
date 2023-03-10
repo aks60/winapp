@@ -4,11 +4,13 @@ import builder.Wincalc;
 import frames.UGui;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.geom.Line2D;
 
 public class DrawStroke {
 
     public static void drawLine(Wincalc winc, float x1, float y1, float x2, float y2) {
-        winc.gc2d.drawLine((int) (x1), (int) (y1), (int) (x2), (int) (y2));
+        //winc.gc2d.drawLine((int) (x1), (int) (y1), (int) (x2), (int) (y2));
+        winc.gc2d.draw(new Line2D.Float(x1, y1, x2, y2));
     }
 
     public static void strokePolygon(Wincalc winc, float x1, float x2, float x3, float x4,
