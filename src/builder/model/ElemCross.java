@@ -53,7 +53,10 @@ public class ElemCross extends ElemSimple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
-    //Установка координат элементов окна
+    /**
+     * Установка координат поперечин с учётов типа конст. и формы контура
+     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     */
     @Override
     public void setLocation() {
 
@@ -74,7 +77,6 @@ public class ElemCross extends ElemSimple {
                 dy = (float) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             }
-
         }
         //Установка координат
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
