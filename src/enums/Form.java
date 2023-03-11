@@ -11,7 +11,7 @@ public enum Form {
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),
     LEFT(4, "Левая"),
-    MIDL(5, "Середина");
+    SYMM(5, "Симметрия");
 
     public int id;
     public String name;
