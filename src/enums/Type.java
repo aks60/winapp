@@ -1,6 +1,6 @@
 package enums;
 
-//Типы элементов
+//Типы конструкций и элементов
 public enum Type implements Enam {
 
     NONE(0, 0, "Не определено"),

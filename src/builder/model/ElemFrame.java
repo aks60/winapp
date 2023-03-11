@@ -78,7 +78,10 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
-    //Установка координат элементов окна
+    /**
+     * Установка координат фреймов с учётов типа конст. и формы контура
+     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     */
     @Override
     public void setLocation() {
 
@@ -128,6 +131,9 @@ public class ElemFrame extends ElemSimple {
                     anglHoriz = (float) (180 + Math.toDegrees(Math.atan(H / W)));
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
+                } else if (winc.form == Form.MIDL) {
+
+                    System.out.println("builder.model.ElemFrame.setLocation()");
                 }
 
             } else if (Layout.LEFT == layout) {
@@ -352,7 +358,7 @@ public class ElemFrame extends ElemSimple {
                     } else {
                         spcAdd.width += width() + winc.syssizeRec().getFloat(eSyssize.prip) * 2;
                     }
-                    
+
                 } else if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1)) && spcRec.id != spcAdd.id) {
                     spcAdd.width += spcRec.width;
                 }

@@ -29,6 +29,9 @@ import enums.Form;
 import enums.PKjson;
 import enums.Type;
 
+/**
+ * Базовый класс для всех ареа
+ */
 public class AreaSimple extends Com5t implements IArea5e {
 
     protected Form form = null; //форма контура (параметр в развитии)
@@ -88,12 +91,13 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     /**
      * Вычисление координат ареа в котором будут находится элементы окна
-     * ограниченные этим ареа и формой контура.
+     * ограниченные ареа и формой контура. Если ареа вложенный (owner != null)
+     * значить есть импост у которого центр по середине и надо смещать ареа на
+     * его ширину для центровки см. ElemCross.setLocation()
      */
     protected void setLocation(float width, float height) {
-        //Происходит при подкдадке дополнительной ареа в арке
-        //или сужении area створки при нахлёсте профилей
-        if (owner != null) {
+        
+        if (owner != null) {  //происходит для импостов у которы центр по середине
             if (owner.childs().isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
                 if (Layout.VERT.equals(owner.layout())) { //сверху вниз

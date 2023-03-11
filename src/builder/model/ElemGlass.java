@@ -39,7 +39,7 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(gson.param());
         setLocation();
 
-        //Определение gzazo и gsize на раннем этапе построения. 
+        //Фича определения gzazo и gsize на раннем этапе построения. 
         //Используются до выполнения конструктива в ElemGlass.setSpecific()
         Filling filling = new Filling(winc, true);
         filling.calc(this);
@@ -75,18 +75,21 @@ public class ElemGlass extends ElemSimple {
             } else {
                 rasclColor = eArtdet.find(rasclRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk); //цвет по умолчанию
             }
-            //Проёмы
+            //Проёмы гориз.
             if (isJson(param, PKjson.rasclHor)) {
                 rasclNumber[0] = param.get(PKjson.rasclHor).getAsInt();
             }
-            //Проёмы
+            //Проёмы вертик.
             if (isJson(param, PKjson.rasclVert)) {
                 rasclNumber[1] = param.get(PKjson.rasclVert).getAsInt();
             }
         }
     }
 
-    //Установка координат элементов окна
+    /**
+     * Установка координат заполнений с учётов типа конст.
+     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     */
     @Override
     public void setLocation() {
         if (Type.ARCH == owner.type()) {
@@ -135,6 +138,8 @@ public class ElemGlass extends ElemSimple {
                 y2 = insideTop.y2() + dy1 - dy2;
                 x2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
                 y1 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+            } else if (winc.form == Form.LEFT) {
+                System.out.println("builder.model.ElemGlass.setSpecific()");
             }
 
         } else {
@@ -277,7 +282,6 @@ public class ElemGlass extends ElemSimple {
         return rasclNumber[num];
     }
 
-    
     @Override
     public void paint() { //рисуём стёкла
 

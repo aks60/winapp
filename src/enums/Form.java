@@ -2,6 +2,10 @@ package enums;
 
 import static enums.Layout.values;
 
+/**
+ * Форма контура ограниченная ареа. Рассматривается в комбинации с типом
+ * конструкции.
+ */
 public enum Form {
     BOTT(1, "Нижняя"),
     RIGHT(2, "Правая"),

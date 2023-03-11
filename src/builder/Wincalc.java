@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 
 public class Wincalc {
 
+    private Gson gson = new GsonBuilder().create();
     private Integer nuni = 0;
     private Record syssizeRec = null; //системные константы    
     private float genId = 0; //для генерация ключа в спецификации
@@ -50,23 +51,22 @@ public class Wincalc {
     private float price = 0; //стоимость без скидки
     private float cost2 = 0; //стоимость с технологической скидкой
     private float weight = 0; //масса конструкции 
+    public Form form = null; //форма контура (параметр в развитии)
 
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
 
-    public IArea5e rootArea = null; //главное окно кострукции
-    public GsonRoot rootGson = null; //главное окно кострукции в формате gson
-    public Form form = null; //форма контура (параметр в развитии) 
+    public GsonRoot rootGson = null; //объектная модель конструкции 1-го уровня
+    public IArea5e rootArea = null; //объектная модель конструкции 2-го уровня
 
     private HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа
+    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
-    public ArrayList2<Specific> kitsSpec = new ArrayList2(); //не использую
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
     public Wincalc() {
@@ -87,13 +87,12 @@ public class Wincalc {
             parsing(script);
 
             //Все соединения вычисляются в классах AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()
-            
             //Cоединения ареа
-            rootArea.joining(); 
-            
+            rootArea.joining();
+
             //Соединения створок
-            listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining()); 
-            
+            listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining());
+
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
 
@@ -103,14 +102,16 @@ public class Wincalc {
         return rootArea;
     }
 
-    // Парсим входное json окно и строим объектную модель окна
+    /**
+     * Парсим входное json окно и строим объектную модель окна
+     */
     private void parsing(String script) {
+        //Для тестирования
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));         
         try {
-            //******************************************************************
-            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));  //для тестирования
-            //******************************************************************
 
-            Gson gson = new GsonBuilder().create();
+            //Конвертирование json скрипта конструкции 
+            //в объектную модель 1 уровн. java классов 
             rootGson = gson.fromJson(script, GsonRoot.class);
 
             //Назначить родителей т.к. gson.fromJson() это делать не будет,
@@ -152,7 +153,7 @@ public class Wincalc {
                         : new builder.model.AreaArch(this); //арка
             }
 
-            //Создадим элементы конструкции
+            //Создадим ареа областей и элементы конструкции
             elements(rootArea, rootGson);
 
         } catch (JsonSyntaxException e) {
@@ -160,6 +161,12 @@ public class Wincalc {
         }
     }
 
+    /**
+     * Создание ареа областей и элементов конструкции
+     *
+     * @param owner - родитель
+     * @param gson - объектная модель 1 уровня
+     */
     private void elements(IArea5e owner, GsonElem gson) {
         try {
             LinkedHashMap<IArea5e, GsonElem> hm = new LinkedHashMap();
@@ -169,14 +176,14 @@ public class Wincalc {
                     IArea5e area5e = (eProp.old.read().equals("0"))
                             ? new builder.model.AreaStvorka(Wincalc.this, owner, js)
                             : new builder.model.AreaStvorka(Wincalc.this, owner, js);
-                    owner.childs().add(area5e);
+                    owner.childs().add(area5e); //добавим ребёна родителю
                     hm.put(area5e, js);
 
                     //AreaSimple может принимать форму арки, трапеции. см. AreaSimple.type(). 
                     //Элементы окна ограничены этим ареа и формой контура.
                 } else if (Type.AREA == js.type() || Type.ARCH == js.type() || Type.TRAPEZE == js.type()) {
                     IArea5e area5e = null;
-                    if (js.form() == null) { //TODO Возможнонадо надо удалить блок кода
+                    if (js.form() == null) {
                         area5e = (eProp.old.read().equals("0"))
                                 ? new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
                                 : new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
@@ -185,7 +192,7 @@ public class Wincalc {
                                 ? new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
                                 : new builder.model.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
                     }
-                    owner.childs().add(area5e);
+                    owner.childs().add(area5e); //добавим ребёна родителю
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME_SIDE == js.type()) {
@@ -198,19 +205,19 @@ public class Wincalc {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemCross(owner, js)
                             : new builder.model.ElemCross(owner, js);
-                    owner.childs().add(elem5e);
+                    owner.childs().add(elem5e); //добавим ребёна родителю
 
                 } else if (Type.GLASS == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemGlass(owner, js)
                             : new builder.model.ElemGlass(owner, js);
-                    owner.childs().add(elem5e);
+                    owner.childs().add(elem5e); //добавим ребёна родителю
 
                 } else if (Type.MOSKITKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
                             ? new builder.model.ElemMosquit(owner, js)
                             : new builder.model.ElemMosquit(owner, js);
-                    owner.childs().add(elem5e);
+                    owner.childs().add(elem5e); //добавим ребёна родителю
 
                 }
             }
@@ -291,7 +298,7 @@ public class Wincalc {
         height1 = 0;
         height2 = 0;
         syssizeRec = null;
-        List.of((List) listArea, (List) listElem, (List) listSpec, (List) kitsSpec, (List) listAll).forEach(el -> el.clear());
+        List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
         List.of(mapPardef, mapJoin).forEach(el -> el.clear());
     }
 
