@@ -230,7 +230,7 @@ public class Com5t implements ICom5t {
     @Override
     public boolean inside(float x, float y) {       
         IElem5e el = ((ElemSimple) this);
-        float dh = el.artiklRec().getFloat(eArtikl.height);
+        float dh = el.artiklRec().getFloat(eArtikl.height) - el.artiklRec().getFloat(eArtikl.size_centr);
         int X = (int) x, Y = (int) y, X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2, DH = (int) dh;
 
         if (el.anglHoriz() == 0) {

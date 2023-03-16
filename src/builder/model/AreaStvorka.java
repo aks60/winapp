@@ -86,6 +86,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
      * Коррекция координат area створки с учётом нахлёста
      */
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
+        Object o1 = stvLef.joinFlat(Layout.LEFT);
         IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), 
                 joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), 
