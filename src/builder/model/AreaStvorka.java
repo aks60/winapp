@@ -86,21 +86,17 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
      * Коррекция координат area створки с учётом нахлёста
      */
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
-        Object o1 = stvLef.joinFlat(Layout.LEFT);
-        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), 
-                joinTop = stvTop.joinFlat(Layout.TOP),
-                joinBot = stvBot.joinFlat(Layout.BOTT), 
-                joinRig = stvRig.joinFlat(Layout.RIGHT);
+        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP), joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
             float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) - joinLef.artiklRec().getFloat(eArtikl.size_falz) - naxl;
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) - joinTop.artiklRec().getFloat(eArtikl.size_falz) - naxl;
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) + joinRig.artiklRec().getFloat(eArtikl.size_falz) + naxl;
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) + joinBot.artiklRec().getFloat(eArtikl.size_falz) + naxl;
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) - naxl;
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) - naxl;
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) + naxl;
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) + naxl;
 
         } else { //Вычисление смещения створки через параметр
-            try {
+            try { //TODO Требуется тестировани. Вычисление смещения створки через параметр
                 winc.mapJoin.clear();
                 winc.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
                 winc.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
@@ -113,7 +109,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
                 x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
                 y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
-                
+
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
             } finally {
@@ -204,7 +200,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }       
+        }
     }
 
     /**
