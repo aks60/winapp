@@ -228,11 +228,7 @@ public class Com5t implements ICom5t {
 // </editor-fold>      
     //Точка попадает в контур четырёхугольника
     @Override
-    public boolean inside(float x, float y) {
-        //System.out.println(this.type());
-        //System.out.println(((ElemSimple) this).anglHoriz);
-        //System.out.println(((ElemSimple) this).artiklRec.get(eArtikl.height));
-
+    public boolean inside(float x, float y) {       
         IElem5e el = ((ElemSimple) this);
         float dh = el.artiklRec().getFloat(eArtikl.height);
         int X = (int) x, Y = (int) y, X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2, DH = (int) dh;
@@ -247,37 +243,16 @@ public class Com5t implements ICom5t {
             return X >= X1 && X <= X2 + DH && Y >= Y1 && Y <= Y2;
         }
         return false;
-
-//        if ((X2 | Y2) < 0) {
-//            return false;
-//        }
-//
-//        if (x1 > x2) {
-//            X1 = (int) x2;
-//            X2 = (int) x1;
-//        }
-//
-//        if (y1 > y2) {
-//            Y1 = (int) y2;
-//            Y2 = (int) y1;
-//        }
-//
-//        if (X < X1 || Y < Y1) {
-//            return false;
-//        }
-//        return ((X2 >= X) && (Y2 >= Y));
     }
 
-//    public boolean inside(float x, float y) {
-//        return ((x1 <= x && x <= x2) && (y1 <= y && y <= y2));
-//    }
 //http://sbp-program.ru/java/sbp-graphics.htm
 //принадлежит многоугольнику    
 //Polygon poly = new Polygon(arrayX, arrayY, 8);
 //g.drawPolygon(poly);
 //Point aPoint = new Point(50, 190);
 //if(poly.contains(aPoint))
-//{g.drawString(«Yes», 50, 190);}    
+//{g.drawString(«Yes», 50, 190);}   
+//    
     @Override
     public void paint() {
     }
