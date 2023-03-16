@@ -228,19 +228,25 @@ public class Com5t implements ICom5t {
 // </editor-fold>      
     //Точка попадает в контур четырёхугольника
     @Override
-    public boolean inside(float x, float y) {       
+    public boolean inside(float x, float y) {
         IElem5e el = ((ElemSimple) this);
         float dh = el.artiklRec().getFloat(eArtikl.height) - el.artiklRec().getFloat(eArtikl.size_centr);
         int X = (int) x, Y = (int) y, X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2, DH = (int) dh;
 
-        if (el.anglHoriz() == 0) {
-            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2;
-        } else if (el.anglHoriz() == 90) {
-            return X >= X2 - DH && X <= X1 && Y >= Y2 && Y <= Y1;
-        } else if (el.anglHoriz() == 180) {
-            return X >= X2 && X <= X1 && Y >= Y2 && Y <= Y1 + dh;
-        } else if (el.anglHoriz() == 270) {
-            return X >= X1 && X <= X2 + DH && Y >= Y1 && Y <= Y2;
+        if (this.layout() == Layout.VERT) {
+            return X >= X2 - DH && X <= X1 + DH && Y >= Y2 && Y <= Y1;
+        } else if (this.layout() == Layout.HORIZ) {
+            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2 + DH;
+        } else {
+            if (el.anglHoriz() == 0) {
+                return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2;
+            } else if (el.anglHoriz() == 90) {
+                return X >= X2 - DH && X <= X1 && Y >= Y2 && Y <= Y1;
+            } else if (el.anglHoriz() == 180) {
+                return X >= X2 && X <= X1 && Y >= Y2 && Y <= Y1 + dh;
+            } else if (el.anglHoriz() == 270) {
+                return X >= X1 && X <= X2 + DH && Y >= Y1 && Y <= Y2;
+            }
         }
         return false;
     }
