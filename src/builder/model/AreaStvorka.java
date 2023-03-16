@@ -92,10 +92,11 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 joinRig = stvRig.joinFlat(Layout.RIGHT);
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) - joinLef.artiklRec().getFloat(eArtikl.size_falz) - naxl;
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) - joinTop.artiklRec().getFloat(eArtikl.size_falz) - naxl;
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) + joinRig.artiklRec().getFloat(eArtikl.size_falz) + naxl;
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) + joinBot.artiklRec().getFloat(eArtikl.size_falz) + naxl;
 
         } else { //Вычисление смещения створки через параметр
             try {
