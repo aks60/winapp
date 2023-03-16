@@ -441,15 +441,6 @@ public class ElemFrame extends ElemSimple {
                     DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1 + dh2, y2 - dh1, y2, rgb, borderColor);
                 }
             } else {
-//                if (Layout.BOTT == layout) {
-//                    DrawStroke.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
-//                } else if (Layout.RIGHT == layout) {
-//                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh1, y1, y2, y2 - dh0, rgb, borderColor);
-//                } else if (Layout.TOP == layout) {
-//                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh0, x1 + dh1, y1, y1, y2, y2, rgb, borderColor);
-//                } else if (Layout.LEFT == layout) {
-//                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1 + dh0, y2 - dh1, y2, rgb, borderColor);
-//                }
                 if (Layout.BOTT == layout) {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 + dh0, y1, y2, y2 - dh, y1 - dh, rgb, borderColor);
                 } else if (Layout.RIGHT == layout) {
