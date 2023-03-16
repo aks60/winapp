@@ -200,7 +200,7 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        float dh = this.artiklRec.getInt(eArtikl.size_centr);
+        float dh = this.artiklRec.getFloat(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
             DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh, y1 + dh, y2 - dh, y2 - dh, rgb, borderColor);
 
