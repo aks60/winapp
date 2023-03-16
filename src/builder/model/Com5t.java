@@ -234,9 +234,9 @@ public class Com5t implements ICom5t {
         int X = (int) x, Y = (int) y, X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2, DH = (int) dh;
 
         if (this.layout() == Layout.VERT) {
-            return X >= X2 - DH && X <= X1 + DH && Y >= Y2 && Y <= Y1;
+            return X >= X1 - DH && X <= X1 + DH && Y >= Y2 && Y <= Y1;
         } else if (this.layout() == Layout.HORIZ) {
-            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2 + DH;
+            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y1 + DH;
         } else {
             if (el.anglHoriz() == 0) {
                 return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2;

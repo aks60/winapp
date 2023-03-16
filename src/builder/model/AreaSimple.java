@@ -96,7 +96,7 @@ public class AreaSimple extends Com5t implements IArea5e {
      * его ширину для центровки см. ElemCross.setLocation()
      */
     protected void setLocation(float width, float height) {
-        
+
         if (owner != null) {  //происходит для импостов у которы центр по середине
             if (owner.childs().isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
@@ -424,5 +424,66 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     public EnumMap<Layout, IElem5e> frame() {
         return frames;
+    }
+
+    /**
+     * Получить примыкающий элемент (используется при нахождении элементов
+     * соединений)
+     */
+    public IElem5e adjoinedElem(Layout layout) {
+
+        LinkedList2<IElem5e> listElem = winc.listElem;
+        for (int index = 0; index < listElem.size(); ++index) {
+
+            IElem5e elem5e = listElem.get(index);
+            if (elem5e.id() != id()) {
+                continue; //пропускаем если другая ареа
+            }
+            EnumMap<Layout, IElem5e> mapJoin = root().frames();
+            if (index == 0 && owner.equals(root()) && layout == Layout.TOP && owner.layout() == Layout.VERT && root().type() == Type.ARCH) {
+                return mapJoin.get(Type.ARCH);
+            } else if (owner.equals(root()) && layout == Layout.TOP && owner.layout() == Layout.HORIZ && root().type() == Type.ARCH) {
+                return mapJoin.get(Type.ARCH);
+            }
+
+            if (owner.equals(root()) && owner.layout() == Layout.VERT) {
+                if (layout == Layout.TOP) {
+                    return (index == 0) ? mapJoin.get(layout) : listElem.get(index - 1);
+                } else if (layout == Layout.BOTT) {
+                    return (index == listElem.size() - 1) ? mapJoin.get(layout) : listElem.get(index + 1);
+                } else {
+                    return root().frames().get(layout);
+                }
+
+            } else if (owner.equals(root()) && owner.layout() == Layout.HORIZ) {
+                if (layout == Layout.LEFT) {
+                    return (index == 0) ? mapJoin.get(layout) : listElem.get(index - 1);
+                } else if (layout == Layout.RIGHT) {
+                    return (index == listElem.size() - 1) ? mapJoin.get(layout) : listElem.get(index + 1);
+                } else {
+                    return root().frames().get(layout);
+                }
+
+            } else {
+                if (owner.layout() == Layout.VERT) {
+                    if (layout == Layout.TOP) {
+                        return (index == 0) ? owner.adjoinedElem(layout) : listElem.get(index - 1);
+                    } else if (layout == Layout.BOTT) {
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layout) : listElem.get(index + 1);
+                    } else {
+                        return owner.adjoinedElem(layout);
+                    }
+                } else {
+                    if (layout == Layout.LEFT) {
+                        return (index == 0) ? owner.adjoinedElem(layout) : listElem.get(index - 1);
+                    } else if (layout == Layout.RIGHT) {
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layout) : listElem.get(index + 1);
+                    } else {
+                        return owner.adjoinedElem(layout);
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
