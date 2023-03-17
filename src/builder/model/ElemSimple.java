@@ -112,8 +112,13 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
      */
     @Override
     public IElem5e joinFlat(Layout layoutSide) {
-        if (this.owner.type() == Type.STVORKA) {
+
+         if (this.owner.equals(root())) {
+             return this.root().frames().get(layoutSide);
+             
+         } else if (this.owner.type() == Type.STVORKA) {
             return (IElem5e) this.owner.owner().getAdjoinedElem(layoutSide);
+            
         } else {
             return (IElem5e) this.owner.getAdjoinedElem(layoutSide);
         }
