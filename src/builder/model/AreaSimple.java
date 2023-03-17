@@ -432,13 +432,15 @@ public class AreaSimple extends Com5t implements IArea5e {
      */
     @Override
     public ICom5t getAdjoinedElem(Layout side) {
-        LinkedList2<ICom5t> listCom = winc.listAll;
         try {
+            EnumMap<Layout, IElem5e> mapJoin = root().frames();
+            if (this.equals(root())) {
+                return mapJoin.get(side);
+            }
+            LinkedList2<ICom5t> listCom = owner.childs();
             for (int index = 0; index < listCom.size(); ++index) {
-                if (listCom.get(index).id() != id()) {
-                    EnumMap<Layout, IElem5e> mapJoin = root().frames();
+                if (listCom.get(index).id() == id()) {
 
-                    
                     if (owner.equals(root()) && owner.layout() == Layout.VERT) {
                         if (side == Layout.TOP) {
                             return (index == 0) ? mapJoin.get(side) : listCom.get(index - 1);

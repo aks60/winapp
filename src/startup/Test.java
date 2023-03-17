@@ -1,5 +1,6 @@
 package startup;
 
+import builder.ICom5t;
 import common.*;
 import dataset.*;
 import builder.param.test.ElementTest;
@@ -87,13 +88,17 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(601002));
+            winc.build(GsonScript.productJson(601003));
             winc.constructiv(true);
+            ICom5t o1 = winc.listAll.find(5);
+            Object o2 = o1.getAdjoinedElem(Layout.BOTT);
+            System.out.println(o2);
+            
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
             //frames.PSCompare.iwinXls(winc, true);
-            frames.PSCompare.iwinPs4(winc, true);
+            //frames.PSCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
