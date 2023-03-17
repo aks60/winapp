@@ -94,10 +94,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
             float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) - naxl;
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) - naxl;
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) + naxl;
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) + naxl;
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_falz) - naxl;
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_falz) - naxl;
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_falz) + naxl;
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_falz) + naxl;
 
         } else { //Вычисление смещения створки через параметр
             try { //TODO Требуется тестировани. Вычисление смещения створки через параметр
@@ -109,10 +109,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
-                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
-                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
-                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
-                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
+                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_falz)) + offset[3];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_falz)) + offset[2];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_falz)) - offset[1];
+                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_falz)) - offset[0];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
