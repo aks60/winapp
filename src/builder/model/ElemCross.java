@@ -117,40 +117,44 @@ public class ElemCross extends ElemSimple {
 
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
                         IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
-                        spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        float dh1 = insideBott.artiklRec().getFloat(eArtikl.height), dh2 = insideTop.artiklRec().getFloat(eArtikl.height);
+                        float sf1 = insideBott.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideTop.artiklRec().getFloat(eArtikl.size_falz); 
+                        spcRec.width = (insideBott.y1() - dh1) - (insideTop.y1() + dh2) + zax * 2 + sf1 + sf2;
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
                         IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
-                        spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                        float dh1 = insideLeft.artiklRec().getFloat(eArtikl.height), dh2 = insideRight.artiklRec().getFloat(eArtikl.height);
+                        float sf1 = insideLeft.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideRight.artiklRec().getFloat(eArtikl.size_falz);                        
+                        spcRec.width = (insideRight.x1() - dh1) - (insideLeft.x1() + dh2) + zax * 2 + sf1 + sf1;
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        spcRec.width = y2 - y1;
+                        spcRec.width = length();
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
-                        spcRec.width = x2 - x1;
+                        spcRec.width = length();
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 }
             } else if (type() == Type.SHTULP) {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
-                    spcRec.width = y2 - y1;
+                    spcRec.width = length();
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //сверху вниз
-                    spcRec.width = x2 - x1;
+                    spcRec.width = length();
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             } else if (type() == Type.STOIKA) {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
-                    spcRec.width = y2 - y1;
+                    spcRec.width = length();
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //сверху вниз
-                    spcRec.width = x2 - x1;
+                    spcRec.width = length();
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             }
