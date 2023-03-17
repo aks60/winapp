@@ -53,16 +53,20 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        IElem5e stvBot = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
+        IElem5e stvBot = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        IElem5e stvRigh = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
+        IElem5e stvRigh = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        IElem5e stvTop = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
+        IElem5e stvTop = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        IElem5e stvLeft = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
+        IElem5e stvLeft = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
@@ -309,8 +313,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Ручка
     @Override
-    public void handleRec(Record handleRec
-    ) {
+    public void handleRec(Record handleRec) {
         this.handleRec = handleRec;
     }
 
@@ -334,8 +337,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Замок
     @Override
-    public void lockRec(Record lockRec
-    ) {
+    public void lockRec(Record lockRec) {
         this.lockRec = lockRec;
     }
 
@@ -347,8 +349,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет ручки
     @Override
-    public void handleColor(int handleColor
-    ) {
+    public void handleColor(int handleColor) {
         this.handleColor = handleColor;
     }
 
@@ -360,8 +361,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет подвеса
     @Override
-    public void loopColor(int loopColor
-    ) {
+    public void loopColor(int loopColor) {
         this.loopColor = loopColor;
     }
 
@@ -373,8 +373,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет замка
     @Override
-    public void lockColor(int lockColor
-    ) {
+    public void lockColor(int lockColor) {
         this.lockColor = lockColor;
     }
 
@@ -386,8 +385,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Высота ручки
     @Override
-    public void handleHeight(float handleHeight
-    ) {
+    public void handleHeight(float handleHeight) {
         this.handleHeight = handleHeight;
     }
 
@@ -399,8 +397,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Направление открывания
     @Override
-    public void typeOpen(TypeOpen1 typeOpen
-    ) {
+    public void typeOpen(TypeOpen1 typeOpen) {
         this.typeOpen = typeOpen;
     }
 
@@ -412,8 +409,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Положение ручки на створке
     @Override
-    public void handleLayout(LayoutHandle handleLayout
-    ) {
+    public void handleLayout(LayoutHandle handleLayout) {
         this.handleLayout = handleLayout;
     }
 
@@ -435,8 +431,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     }
 
     @Override
-    public void paramCheck(boolean[] paramCheck
-    ) {
+    public void paramCheck(boolean[] paramCheck) {
         this.paramCheck = paramCheck;
     }
 
