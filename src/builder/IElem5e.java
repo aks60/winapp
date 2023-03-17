@@ -83,6 +83,6 @@ public interface IElem5e extends ICom5t {
 
     default void rascladkaPaint() {
     }
-
+    
     String toString();
 }

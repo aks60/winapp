@@ -53,19 +53,19 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        IElem5e stvBot = (eProp.old.read().equals("0")) 
+        IElem5e stvBot = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        IElem5e stvRigh = (eProp.old.read().equals("0")) 
+        IElem5e stvRigh = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        IElem5e stvTop = (eProp.old.read().equals("0")) 
+        IElem5e stvTop = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        IElem5e stvLeft = (eProp.old.read().equals("0")) 
+        IElem5e stvLeft = (eProp.old.read().equals("0"))
                 ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
@@ -94,10 +94,15 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
             float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_falz) - naxl;
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_falz) - naxl;
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_falz) + naxl;
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_falz) + naxl;
+            float sc1 = joinLef.artiklRec().getFloat(eArtikl.size_centr), sc2 = joinTop.artiklRec().getFloat(eArtikl.size_centr),
+                    sc3 = joinRig.artiklRec().getFloat(eArtikl.size_centr), sc4 = joinBot.artiklRec().getFloat(eArtikl.size_centr);
+            float sf1 = joinLef.artiklRec().getFloat(eArtikl.size_falz), sf2 = joinTop.artiklRec().getFloat(eArtikl.size_falz),
+                    sf3 = joinRig.artiklRec().getFloat(eArtikl.size_falz), sf4 = joinBot.artiklRec().getFloat(eArtikl.size_falz);
+
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - sc1 - sf1 - naxl;
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - sc2 - sf2 - naxl;
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + sc3 + sf3 + naxl;
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + sc4 + sf4 + naxl;
 
         } else { //Вычисление смещения створки через параметр
             try { //TODO Требуется тестировани. Вычисление смещения створки через параметр
@@ -109,10 +114,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
-                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_falz)) + offset[3];
-                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_falz)) + offset[2];
-                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_falz)) - offset[1];
-                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_falz)) - offset[0];
+                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
+                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);

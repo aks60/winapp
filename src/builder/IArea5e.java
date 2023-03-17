@@ -39,6 +39,4 @@ public interface IArea5e extends ICom5t {
     void resizeY(float v);
 
     Type type();
-
-    IElem5e adjoinedElem(Layout layout);
 }

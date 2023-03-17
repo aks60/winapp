@@ -157,4 +157,7 @@ public interface ICom5t {
         return false;
     }
 
+    default ICom5t getAdjoinedElem(Layout side) {
+        return null;
+    }
 }
