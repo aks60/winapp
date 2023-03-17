@@ -54,8 +54,8 @@ public class ElemCross extends ElemSimple {
     }
 
     /**
-     * Установка координат поперечин с учётов типа конст. и формы контура
-     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     * Установка координат поперечин с учётов типа конст. и формы контура x1y1 -
+     * верхняя левая точка x2y2 - нижняя правая точка
      */
     @Override
     public void setLocation() {
@@ -82,14 +82,13 @@ public class ElemCross extends ElemSimple {
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
-                float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //сверху вниз
-                    setDimension(prevArea.x1(), prevArea.y2() - db, prevArea.x2(), prevArea.y2() + db);
+                    setDimension(prevArea.x2(), prevArea.y2(), prevArea.x1(), prevArea.y2());
                     anglHoriz = 0;
 
                 } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
-                    setDimension(prevArea.x2() - db, prevArea.y1(), prevArea.x2() + db, prevArea.y2());
+                    setDimension(prevArea.x2(), prevArea.y1(), prevArea.x2(), prevArea.y2());
                     anglHoriz = 90;
                 }
                 break;
@@ -205,11 +204,12 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+        float dh = this.artiklRec.getFloat(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
-            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh, y1 + dh, y2 - dh, y2 - dh, rgb, borderColor);
 
         } else if (Layout.HORIZ == owner.layout()) {
-            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1 - dh, x2 + dh, x2 + dh, x1 - dh, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 
