@@ -115,7 +115,7 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 90;
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), Math.abs(winc.height1() - winc.height2()));
-                    anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                   
+                    anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
@@ -144,7 +144,7 @@ public class ElemFrame extends ElemSimple {
                     setDimension(owner.x1(), Math.abs(winc.height1() - winc.height2()), owner.x1(), owner.y2());
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
-                }               
+                }
             }
 
             //Остальное
@@ -212,17 +212,17 @@ public class ElemFrame extends ElemSimple {
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             } else {
-                if (Layout.TOP == layout) {
-                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
-                } else if (Layout.BOTT == layout) {
-                    spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
-                } else if (Layout.LEFT == layout) {
-                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                if (Layout.BOTT == layout) {
+                    spcRec.width = length() + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = length() + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.TOP == layout) {
+                    spcRec.width = length() + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                } else if (Layout.LEFT == layout) {
+                    spcRec.width = length() + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getFloat(eArtikl.height);
                 }
             }
@@ -250,17 +250,17 @@ public class ElemFrame extends ElemSimple {
                         spcAdd.width += length();
 
                     } else if (Layout.BOTT == layout) {
-                        spcAdd.width += x2 - x1;
+                        spcAdd.width += length();
 
                     } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
-                        spcAdd.width += y2 - y1;
+                        spcAdd.width += length();
                     }
                 } else {
                     if (Layout.TOP == layout || Layout.BOTT == layout) {
-                        spcAdd.width += x2 - x1;
+                        spcAdd.width += length();
 
                     } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
-                        spcAdd.width += y2 - y1;
+                        spcAdd.width += length();
                     }
                 }
                 if ("ps3".equals(eSetting.val(2))) {
@@ -449,7 +449,7 @@ public class ElemFrame extends ElemSimple {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 - dh1, y1, y2, y2 + dh, y1 + dh, rgb, borderColor);
                 } else if (Layout.LEFT == layout) {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, y1 + dh, rgb, borderColor);
-                }                
+                }
             }
         } catch (Exception s) {
             System.err.println("ОШИБКА:model.IElem5e.paint()");
