@@ -205,28 +205,10 @@ public class Com5t implements ICom5t {
     public int colorID3() {
         return colorID3;
     }
-
-// <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
-//    public boolean inside2(float x, float y) {
-//        int X = (int) x, Y = (int) y;
-//        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
-//        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 
-//        //int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона 
-//        
-//        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
-//        int j = xp.length - 1;
-//        boolean result = false;
-//        for (int i = 0; i < 4; ++i) {
-//            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
-//                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
-//                result = !result;
-//            }
-//            j = i;
-//        }
-//        return result;
-//    } 
-// </editor-fold>      
-    //Точка попадает в контур четырёхугольника
+    
+    /**
+     * Точка попадает в контур четырёхугольника
+     */
     @Override
     public boolean inside(float x, float y) {
         IElem5e el = ((ElemSimple) this);
@@ -250,15 +232,7 @@ public class Com5t implements ICom5t {
         }
         return false;
     }
-
-//http://sbp-program.ru/java/sbp-graphics.htm
-//принадлежит многоугольнику    
-//Polygon poly = new Polygon(arrayX, arrayY, 8);
-//g.drawPolygon(poly);
-//Point aPoint = new Point(50, 190);
-//if(poly.contains(aPoint))
-//{g.drawString(«Yes», 50, 190);}   
-//    
+  
     @Override
     public void paint() {
     }
@@ -279,4 +253,33 @@ public class Com5t implements ICom5t {
     public boolean equals(Object obj) {
         return id == ((Com5t) obj).id;
     }
+    
+// <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
+//    public boolean inside2(float x, float y) {
+//        int X = (int) x, Y = (int) y;
+//        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
+//        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 
+//        //int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона 
+//        
+//        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
+//        int j = xp.length - 1;
+//        boolean result = false;
+//        for (int i = 0; i < 4; ++i) {
+//            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
+//                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
+//                result = !result;
+//            }
+//            j = i;
+//        }
+//        return result;
+//    }
+//http://sbp-program.ru/java/sbp-graphics.htm
+//принадлежит многоугольнику    
+//Polygon poly = new Polygon(arrayX, arrayY, 8);
+//g.drawPolygon(poly);
+//Point aPoint = new Point(50, 190);
+//if(poly.contains(aPoint))
+//{g.drawString(«Yes», 50, 190);}   
+//      
+// </editor-fold>      
 }
