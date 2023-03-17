@@ -84,11 +84,11 @@ public class ElemCross extends ElemSimple {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
 
                 if (Layout.VERT.equals(owner.layout())) { //сверху вниз
-                    setDimension(prevArea.x1(), prevArea.y2(), prevArea.x2(), prevArea.y2());
+                    setDimension(prevArea.x2(), prevArea.y2(), prevArea.x1(), prevArea.y2());
                     anglHoriz = 0;
 
                 } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
-                    setDimension(prevArea.x2(), prevArea.y2(), prevArea.x2(), prevArea.y1());
+                    setDimension(prevArea.x2(), prevArea.y1(), prevArea.x2(), prevArea.y2());
                     anglHoriz = 90;
                 }
                 break;
@@ -115,18 +115,18 @@ public class ElemCross extends ElemSimple {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
 
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        IElem5e insideTop = this.joinFlat(Layout.TOP); 
-                        IElem5e insideBott = this.joinFlat(Layout.BOTT);
+                        IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
                         float dh1 = insideBott.artiklRec().getFloat(eArtikl.height), dh2 = insideTop.artiklRec().getFloat(eArtikl.height);
-                        float sf1 = insideBott.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        float sf1 = insideBott.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideTop.artiklRec().getFloat(eArtikl.size_falz); 
                         spcRec.width = (insideBott.y1() - dh1) - (insideTop.y1() + dh2) + zax * 2 + sf1 + sf2;
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
                         IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
                         float dh1 = insideLeft.artiklRec().getFloat(eArtikl.height), dh2 = insideRight.artiklRec().getFloat(eArtikl.height);
-                        float sf1 = insideLeft.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideRight.artiklRec().getFloat(eArtikl.size_falz);
-                        spcRec.width = (insideRight.x1() - dh1) - (insideLeft.x1() + dh2) + zax * 2  + sf1 + sf2;;
+                        float sf1 = insideLeft.artiklRec().getFloat(eArtikl.size_falz), sf2 = insideRight.artiklRec().getFloat(eArtikl.size_falz);                        
+                        spcRec.width = (insideRight.x1() - dh1) - (insideLeft.x1() + dh2) + zax * 2 + sf1 + sf1;
+                        spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
