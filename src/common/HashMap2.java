@@ -19,9 +19,23 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
      * @param el - элемент соединения,
      * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
      * 2-прилег.артикл
-     * @return - элемент соединения
+     * @return - класс описатель соединения
      */
-    public IElem5e get(IElem5e el, int side) {
+    public ElemJoining get(IElem5e el, int side) {
+
+        String str = point(el, side);
+        return super.get(str);
+    }
+
+    /**
+     * Получить элемент соединения профилей.
+     *
+     * @param el - элемент соединения,
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * 2-прилег.артикл
+     * @return - элемент соединения
+     */    
+    public IElem5e elem(IElem5e el, int side) {
 
         String str = point(el, side);
         ElemJoining ej = (ElemJoining) super.get(str);
@@ -32,7 +46,7 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
         } else if (ej != null && side == 2) {
             return ej.elem2;
         }
-        System.err.println("Неудача:ElemSimple.joinElem() id=" + el.id() + " соединение не найдено");
+        System.err.println("Неудача:HashMap2.elem() id=" + el.id() + " соединение не найдено");
         return null;
     }
 

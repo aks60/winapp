@@ -73,11 +73,11 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.get(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == true) {
+                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == true) {
                         if (winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR41) {
                             return false;
                         }
-                    } else if (rec.getStr(TEXT).equals(winc.mapJoin.get(elem5e, 1).artiklRecAn().getStr(eArtikl.code))) {
+                    } else if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code))) {
                         if (winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR41) {
                             return false;
                         }
@@ -228,12 +228,12 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.get(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
                 case 31034:  //Если следующий артикул 
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.get(elem5e, 1).artiklRecAn().getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
