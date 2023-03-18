@@ -205,34 +205,64 @@ public class Com5t implements ICom5t {
     public int colorID3() {
         return colorID3;
     }
-    
-    /**
-     * Точка попадает в контур четырёхугольника
-     */
+
+// <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
+//    public boolean inside2(float x, float y) {
+//        int X = (int) x, Y = (int) y;
+//        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
+//        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 
+//        //int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона 
+//        
+//        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
+//        int j = xp.length - 1;
+//        boolean result = false;
+//        for (int i = 0; i < 4; ++i) {
+//            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
+//                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
+//                result = !result;
+//            }
+//            j = i;
+//        }
+//        return result;
+//    } 
+// </editor-fold>      
+    //Точка попадает в контур четырёхугольника
     @Override
     public boolean inside(float x, float y) {
-        IElem5e el = ((ElemSimple) this);
-        float dh = el.artiklRec().getFloat(eArtikl.height) - el.artiklRec().getFloat(eArtikl.size_centr);
-        int X = (int) x, Y = (int) y, X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2, DH = (int) dh;
+        int X = (int) x, Y = (int) y;
+        int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
 
-        if (this.layout() == Layout.VERT) {
-            return X >= X1 - DH && X <= X1 + DH && Y >= Y1 && Y <= Y2;
-        } else if (this.layout() == Layout.HORIZ) {
-            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y1 + DH;
-        } else {
-            if (el.anglHoriz() == 0) {
-                return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2;
-            } else if (el.anglHoriz() == 90) {
-                return X >= X2 - DH && X <= X1 && Y >= Y2 && Y <= Y1;
-            } else if (el.anglHoriz() == 180) {
-                return X >= X2 && X <= X1 && Y >= Y2 && Y <= Y1 + dh;
-            } else if (el.anglHoriz() == 270) {
-                return X >= X1 && X <= X2 + DH && Y >= Y1 && Y <= Y2;
-            }
+        if ((X2 | Y2) < 0) {
+            return false;
         }
-        return false;
+
+        if (x1 > x2) {
+            X1 = (int) x2;
+            X2 = (int) x1;
+        }
+
+        if (y1 > y2) {
+            Y1 = (int) y2;
+            Y2 = (int) y1;
+        }
+
+        if (X < X1 || Y < Y1) {
+            return false;
+        }
+        return ((X2 >= X) && (Y2 >= Y));
     }
-  
+    
+//    public boolean inside(float x, float y) {
+//        return ((x1 <= x && x <= x2) && (y1 <= y && y <= y2));
+//    }
+//http://sbp-program.ru/java/sbp-graphics.htm
+//принадлежит многоугольнику    
+//Polygon poly = new Polygon(arrayX, arrayY, 8);
+//g.drawPolygon(poly);
+//Point aPoint = new Point(50, 190);
+//if(poly.contains(aPoint))
+//{g.drawString(«Yes», 50, 190);}    
+    
     @Override
     public void paint() {
     }
@@ -253,33 +283,4 @@ public class Com5t implements ICom5t {
     public boolean equals(Object obj) {
         return id == ((Com5t) obj).id;
     }
-    
-// <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
-//    public boolean inside2(float x, float y) {
-//        int X = (int) x, Y = (int) y;
-//        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
-//        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 
-//        //int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона 
-//        
-//        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
-//        int j = xp.length - 1;
-//        boolean result = false;
-//        for (int i = 0; i < 4; ++i) {
-//            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
-//                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
-//                result = !result;
-//            }
-//            j = i;
-//        }
-//        return result;
-//    }
-//http://sbp-program.ru/java/sbp-graphics.htm
-//принадлежит многоугольнику    
-//Polygon poly = new Polygon(arrayX, arrayY, 8);
-//g.drawPolygon(poly);
-//Point aPoint = new Point(50, 190);
-//if(poly.contains(aPoint))
-//{g.drawString(«Yes», 50, 190);}   
-//      
-// </editor-fold>      
 }

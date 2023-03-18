@@ -132,9 +132,7 @@ public interface ICom5t {
         return 0f;
     }
 
-    /**
-     * Ширина в gson
-     */
+    //Ширина в gson
     default float lengthX() {
         return 0f;
     }
@@ -143,7 +141,7 @@ public interface ICom5t {
     default float lengthY() {
         return 0f;
     }
-
+    
     //Точка попадает в контур четырёхугольника
     default boolean inside(float x, float y) {
         return false;
@@ -156,4 +154,5 @@ public interface ICom5t {
     default boolean isJson(JsonObject jso) {
         return false;
     }
+    
 }

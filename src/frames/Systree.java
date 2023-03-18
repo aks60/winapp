@@ -4349,7 +4349,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void ppmActionItems(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmActionItems
         if (evt.getSource() == mInsert) {
-            btnInsert(new java.awt.event.ActionEvent(mInsert, -1, ""));
+            btnInsert(new java.awt.event.ActionEvent(btnIns, -1, ""));
         } else if (evt.getSource() == mDelit) {
             btnDelete(new java.awt.event.ActionEvent(btnDel, -1, ""));
         }

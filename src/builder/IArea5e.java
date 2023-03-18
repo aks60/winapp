@@ -13,10 +13,8 @@ public interface IArea5e extends ICom5t {
     void draw();
 
     void initСonstructiv(JsonObject param);
-
     /**
      * Добавление детализации в заполнение
-     *
      * @param glass - элемент заполнения
      * @param spcAdd - строка детализации
      */
@@ -31,7 +29,7 @@ public interface IArea5e extends ICom5t {
     void joining();
 
     EnumMap<Layout, IElem5e> frames();
-
+            
     LinkedList2<ICom5t> childs();
 
     void resizeX(float v);

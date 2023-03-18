@@ -1,6 +1,5 @@
 package startup;
 
-import builder.ICom5t;
 import common.*;
 import dataset.*;
 import builder.param.test.ElementTest;
@@ -12,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
-import enums.Layout;
+import frames.PSCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -85,17 +84,16 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(601003));
+            winc.build(GsonScript.productJson(605001));
             winc.constructiv(true);
-            
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
             //frames.PSCompare.iwinXls(winc, true);
-            //frames.PSCompare.iwinPs4(winc, true);
+            frames.PSCompare.iwinPs4(winc, true);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {

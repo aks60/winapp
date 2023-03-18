@@ -94,7 +94,7 @@ public class UCom {
             return Integer.valueOf(str);
 
         } catch (Exception e) {
-            System.err.println("Ошибка:UCom.getInt() параметр= " + str);
+            System.err.println("Ошибка:UCom.getInt()");
             return 0;
         }
     }

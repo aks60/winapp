@@ -24,16 +24,6 @@ public class LinkedList2<E extends ICom5t> extends LinkedList<E> {
         return null;
     }
 
-    public int indexKey(float id) {
-        for (int i = 0; i < this.size(); i++) {
-            ICom5t el = this.get(i);
-            if (el.id() == id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public <T extends ICom5t> LinkedList2<T> filter(Type... type) {
         List tp = List.of(type);
         LinkedList2<T> list2 = new LinkedList2();

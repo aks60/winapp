@@ -96,7 +96,7 @@ public class AreaSimple extends Com5t implements IArea5e {
      * его ширину для центровки см. ElemCross.setLocation()
      */
     protected void setLocation(float width, float height) {
-
+        
         if (owner != null) {  //происходит для импостов у которы центр по середине
             if (owner.childs().isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 

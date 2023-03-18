@@ -53,20 +53,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        IElem5e stvBot = (eProp.old.read().equals("0"))
-                ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
+        IElem5e stvBot = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        IElem5e stvRigh = (eProp.old.read().equals("0"))
-                ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
+        IElem5e stvRigh = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        IElem5e stvTop = (eProp.old.read().equals("0"))
-                ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
+        IElem5e stvTop = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        IElem5e stvLeft = (eProp.old.read().equals("0"))
-                ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
+        IElem5e stvLeft = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
@@ -90,22 +86,17 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
      * Коррекция координат area створки с учётом нахлёста
      */
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
-        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP), joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
+        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
+                joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-            float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
-            float sc1 = joinLef.artiklRec().getFloat(eArtikl.size_centr), sc2 = joinTop.artiklRec().getFloat(eArtikl.size_centr),
-                    sc3 = joinRig.artiklRec().getFloat(eArtikl.size_centr), sc4 = joinBot.artiklRec().getFloat(eArtikl.size_centr);
-            float sf1 = joinLef.artiklRec().getFloat(eArtikl.size_falz), sf2 = joinTop.artiklRec().getFloat(eArtikl.size_falz),
-                    sf3 = joinRig.artiklRec().getFloat(eArtikl.size_falz), sf4 = joinBot.artiklRec().getFloat(eArtikl.size_falz);
-
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - sc1 - sf1 - naxl;
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - sc2 - sf2 - naxl;
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + sc3 + sf3 + naxl;
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + sc4 + sf4 + naxl;
+            x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            x2 = joinRig.x1() + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            y2 = joinBot.y1() + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
-            try { //TODO Требуется тестировани. Вычисление смещения створки через параметр
+            try {
                 winc.mapJoin.clear();
                 winc.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
                 winc.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
@@ -114,10 +105,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
-                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
-                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
-                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
                 y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
+                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
@@ -209,7 +200,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }
+        }       
     }
 
     /**
@@ -318,7 +309,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Ручка
     @Override
-    public void handleRec(Record handleRec) {
+    public void handleRec(Record handleRec
+    ) {
         this.handleRec = handleRec;
     }
 
@@ -342,7 +334,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Замок
     @Override
-    public void lockRec(Record lockRec) {
+    public void lockRec(Record lockRec
+    ) {
         this.lockRec = lockRec;
     }
 
@@ -354,7 +347,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет ручки
     @Override
-    public void handleColor(int handleColor) {
+    public void handleColor(int handleColor
+    ) {
         this.handleColor = handleColor;
     }
 
@@ -366,7 +360,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет подвеса
     @Override
-    public void loopColor(int loopColor) {
+    public void loopColor(int loopColor
+    ) {
         this.loopColor = loopColor;
     }
 
@@ -378,7 +373,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Цвет замка
     @Override
-    public void lockColor(int lockColor) {
+    public void lockColor(int lockColor
+    ) {
         this.lockColor = lockColor;
     }
 
@@ -390,7 +386,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Высота ручки
     @Override
-    public void handleHeight(float handleHeight) {
+    public void handleHeight(float handleHeight
+    ) {
         this.handleHeight = handleHeight;
     }
 
@@ -402,7 +399,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Направление открывания
     @Override
-    public void typeOpen(TypeOpen1 typeOpen) {
+    public void typeOpen(TypeOpen1 typeOpen
+    ) {
         this.typeOpen = typeOpen;
     }
 
@@ -414,7 +412,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Положение ручки на створке
     @Override
-    public void handleLayout(LayoutHandle handleLayout) {
+    public void handleLayout(LayoutHandle handleLayout
+    ) {
         this.handleLayout = handleLayout;
     }
 
@@ -436,7 +435,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     }
 
     @Override
-    public void paramCheck(boolean[] paramCheck) {
+    public void paramCheck(boolean[] paramCheck
+    ) {
         this.paramCheck = paramCheck;
     }
 
