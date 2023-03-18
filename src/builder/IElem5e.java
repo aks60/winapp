@@ -26,15 +26,6 @@ public interface IElem5e extends ICom5t {
     IElem5e joinFlat(Layout layoutSide);
 
     /**
-     * Получить элемент соединения профилей.
-     *
-     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
-     * 2-прилег.артикл
-     * @return - элемент соединения
-     */
-    IElem5e joinElem(int side);
-
-    /**
      * Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка
      * прилегающего вектора) В этих точках лежат мапы соединений см.
      * Wincalc.mapJoin
@@ -78,7 +69,9 @@ public interface IElem5e extends ICom5t {
         return 2;
     }
 
-    //Попадание клика мышки в контур элемента
+    /**
+     * Попадание клика мышки в контур элемента
+     */
     boolean mouseClick(int X, int Y);
 
     default void rascladkaPaint() {

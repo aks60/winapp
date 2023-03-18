@@ -66,7 +66,7 @@ public class Wincalc {
     public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
-    public HashMap2<String, ElemJoining> mapJoin = new HashMap2(); //список соединений рам и створок 
+    public HashMap2 mapJoin = new HashMap2(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 

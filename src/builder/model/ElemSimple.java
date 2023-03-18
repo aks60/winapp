@@ -151,27 +151,6 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
         }
     }
 
-    /**
-     * Получить элемент соединения.
-     *
-     * @param side - сторона соединения 0-пред.артикул, 1-след.артикул,
-     * 2-прилег.артикул
-     * @return - элемент соединения
-     */
-    @Override
-    public IElem5e joinElem(int side) {
-        ElemJoining ej = winc.mapJoin.get(joinPoint(side));
-        if (ej != null && side == 0) {
-            return (this.type() == Type.IMPOST || this.type() == Type.SHTULP || this.type() == Type.STOIKA) ? ej.elem2 : ej.elem1;
-        } else if (ej != null && side == 1) {
-            return ej.elem2;
-        } else if (ej != null && side == 2) {
-            return ej.elem2;
-        }
-        System.err.println("Неудача:ElemSimple.joinElem() id=" + this.id() + " соединение не найдено");
-        return null;
-    }
-
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz + ", length=" + length();
