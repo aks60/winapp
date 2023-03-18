@@ -112,55 +112,44 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
      */
     @Override
     public IElem5e joinFlat(Layout layoutSide) {
+        boolean begin = false;
+        try {
+            //Цикл по элементам кострукции
+            for (int index = winc.listElem.size() - 1; index >= 0; --index) {
+                IElem5e el = (IElem5e) winc.listElem.get(index);
 
-         if (this.owner.equals(root())) {
-             return this.root().frames().get(layoutSide);
-             
-         } else if (this.owner.type() == Type.STVORKA) {
-            return (IElem5e) this.owner.owner().getAdjoinedElem(layoutSide);
-            
-        } else {
-            return (IElem5e) this.owner.getAdjoinedElem(layoutSide);
+                if (begin == true && el.type() != Type.GLASS) {
+                    //Проверка начинает выполняться после появления в обратном цикле 
+                    //самого элемента(this). Точки лежат во внутреннем контуре 
+                    if (Layout.BOTT == layoutSide && el.layout() != Layout.VERT) {
+                        if (el.inside(x1 + (x2 - x1) / 2, y2) == true) {
+                            return (IElem5e) el;
+                        }
+                    } else if (Layout.RIGHT == layoutSide && el.layout() != Layout.HORIZ) {
+                        if (el.inside(x1, y2 + (y1 - y2) / 2)) {
+                            return (IElem5e) el;
+                        }
+                    } else if (Layout.TOP == layoutSide && el.layout() != Layout.VERT) {
+                        if (el.inside(x1 + (x2 - x1) / 2, y1) == true && (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP) == false) {
+                            return (IElem5e) el;
+                        }
+                    } else if (Layout.LEFT == layoutSide && el.layout() != Layout.HORIZ) {
+                        if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                            return (IElem5e) el;
+                        }
+                    }
+                }
+                if (this == el) {
+                    begin = true;
+                }
+            }
+            System.err.println("Неудача:ElemSimple.joinFlat() id=" + this.id() + ", " + layoutSide + " соединение не найдено");
+            return null;
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:IElem5e.joinFlat() " + e);
+            return null;
         }
-
-//        boolean begin = false;
-//        try {
-//            //Цикл по элементам кострукции
-//            for (int index = winc.listElem.size() - 1; index >= 0; --index) {
-//                IElem5e el = (IElem5e) winc.listElem.get(index);
-//
-//                if (begin == true && el.type() != Type.GLASS) {
-//                    //Проверка начинает выполняться после появления в обратном цикле 
-//                    //самого элемента(this). Точки лежат во внутреннем контуре 
-//                    if (Layout.BOTT == layoutSide && el.layout() != Layout.VERT) {
-//                        if (el.inside(x1 + (x2 - x1) / 2, y2) == true) {
-//                            return (IElem5e) el;
-//                        }
-//                    } else if (Layout.RIGHT == layoutSide && el.layout() != Layout.HORIZ) {
-//                        if (el.inside(x1, y2 + (y1 - y2) / 2)) {
-//                            return (IElem5e) el;
-//                        }
-//                    } else if (Layout.TOP == layoutSide && el.layout() != Layout.VERT) {
-//                        if (el.inside(x1 + (x2 - x1) / 2, y1) == true && (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP) == false) {
-//                            return (IElem5e) el;
-//                        }
-//                    } else if (Layout.LEFT == layoutSide && el.layout() != Layout.HORIZ) {
-//                        if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-//                            return (IElem5e) el;
-//                        }
-//                    }
-//                }
-//                if (this == el) {
-//                    begin = true;
-//                }
-//            }
-//            System.err.println("Неудача:ElemSimple.joinFlat() id=" + this.id() + ", " + layoutSide + " соединение не найдено");
-//            return null;
-//
-//        } catch (Exception e) {
-//            System.err.println("Ошибка:IElem5e.joinFlat() " + e);
-//            return null;
-//        }
     }
 
     /**

@@ -156,8 +156,4 @@ public interface ICom5t {
     default boolean isJson(JsonObject jso) {
         return false;
     }
-
-    default ICom5t getAdjoinedElem(Layout side) {
-        return null;
-    }
 }

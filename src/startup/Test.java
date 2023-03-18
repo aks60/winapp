@@ -90,9 +90,6 @@ public class Test {
         if (_case.equals("one")) {
             winc.build(GsonScript.productJson(601003));
             winc.constructiv(true);
-            ICom5t o1 = winc.listAll.find(5);
-            Object o2 = o1.getAdjoinedElem(Layout.BOTT);
-            System.out.println(o2);
             
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
