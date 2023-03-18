@@ -84,11 +84,11 @@ public class ElemCross extends ElemSimple {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
-                if (Layout.VERT.equals(owner.layout())) { //сверху вниз
+                if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
                     setDimension(prevArea.x1(), prevArea.y2() - db, prevArea.x2(), prevArea.y2() + db);
                     anglHoriz = 0;
 
-                } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
+                } else if (Layout.HORIZ.equals(owner.layout())) { //ареа слева направо
                     setDimension(prevArea.x2() - db, prevArea.y1(), prevArea.x2() + db, prevArea.y2());
                     anglHoriz = 90;
                 }
