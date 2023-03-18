@@ -25,13 +25,6 @@ public interface IElem5e extends ICom5t {
      */
     IElem5e joinFlat(Layout layoutSide);
 
-    /**
-     * Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка
-     * прилегающего вектора) В этих точках лежат мапы соединений см.
-     * Wincalc.mapJoin
-     */
-    String joinPoint(int side);
-
     float[] anglFlat();
 
     float anglHoriz();
