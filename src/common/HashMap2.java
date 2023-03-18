@@ -36,11 +36,26 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
         return null;
     }
 
+    /**
+     * Записать элемент соединения профилей.
+     *
+     * @param el - элемент соединения,
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл, 2-прилег.артикл
+     * @param ej - класс описания соединения
+     * 
+     * @return - пред. класс описания соединения или null
+     */    
     public ElemJoining put(IElem5e el, int side, ElemJoining ej) {
         String str = point(el, side);
         return super.put(str, ej);
     }
 
+    /**
+     * Точки описания присоединённых элементов
+     * @param el - элемент соединения,
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * @return - x:y точка соединения
+     */
     private String point(IElem5e el, int side) {
 
         if (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP && el.winc().form == Form.TOP) {
