@@ -123,7 +123,7 @@ public class ElemGlass extends ElemSimple {
             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
             if (winc.form == Form.RIGHT) {
                 x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.mapJoin.get(insideTop.joinPoint(1));
+                ElemJoining ej = winc.mapJoin.get(insideTop, 1);
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - (insideTop.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
                 float dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - (insideLeft.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y1 = insideTop.y1() + dy1 + dy2;
@@ -132,7 +132,7 @@ public class ElemGlass extends ElemSimple {
 
             } else if (winc.form == Form.LEFT) {
                 x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.mapJoin.get(insideTop.joinPoint(1));
+                ElemJoining ej = winc.mapJoin.get(insideTop, 1);
                 float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - (insideTop.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
                 float dy2 = (insideRight.artiklRec().getFloat(eArtikl.height) - (insideRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y2 = insideTop.y2() + dy1 - dy2;

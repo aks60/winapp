@@ -74,11 +74,11 @@ public class ElementVar extends Par5s {
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
                     if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == true) {
-                        if (winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR41) {
+                        if (winc.mapJoin.get(elem5e, 0).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e, 0).type != TypeJoin.VAR41) {
                             return false;
                         }
                     } else if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code))) {
-                        if (winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR41) {
+                        if (winc.mapJoin.get(elem5e, 1).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e, 1).type != TypeJoin.VAR41) {
                             return false;
                         }
                     } else {
@@ -301,8 +301,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e.joinPoint(0)).angl) == true
-                            || UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e.joinPoint(1)).angl) == true) == false) {
+                    if ((UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e, 0).angl) == true
+                            || UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e, 1).angl) == true) == false) {
                         return false;
                     }
                     break;

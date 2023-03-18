@@ -526,9 +526,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                     DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                     IElem5e elem5e = (IElem5e) nodeParent.com5t();
-                    ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
-                    ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
-                    ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
+                    ElemJoining ej1 = winc.mapJoin.get(elem5e, 0);
+                    ElemJoining ej2 = winc.mapJoin.get(elem5e, 1);
+                    ElemJoining ej3 = winc.mapJoin.get(elem5e, 2);
                     List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
                     if (ej1 != null) {
                         setText(txt36, ej1.joiningRec.getStr(eJoining.name));
@@ -4006,7 +4006,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 IElem5e elem5e = (IElem5e) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int point = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = winc.mapJoin.get(elem5e.joinPoint(point));
+                ElemJoining elemJoin = winc.mapJoin.get(elem5e, point);
                 App.Joining.createFrame(Systree.this, elemJoin);
             }
         } catch (Exception e) {

@@ -486,9 +486,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     ((CardLayout) pan8.getLayout()).show(pan8, "card17");
                     DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                     IElem5e elem5e = (IElem5e) nodeParent.com5t();
-                    ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
-                    ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
-                    ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
+                    ElemJoining ej1 = winc.mapJoin.get(elem5e, 0);
+                    ElemJoining ej2 = winc.mapJoin.get(elem5e, 1);
+                    ElemJoining ej3 = winc.mapJoin.get(elem5e, 2);
 
                     if (ej1 != null) {
                         setText(txt36, ej1.joiningRec.getStr(eJoining.name));
