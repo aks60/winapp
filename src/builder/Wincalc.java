@@ -78,6 +78,12 @@ public class Wincalc {
         build(script);
     }
 
+    /**
+     * Построение окна из json скрипта
+     *
+     * @param script - json скрипт построения окна
+     * @return rootArea - главное окно
+     */
     public IArea5e build(String script) {
         this.script = script;
         try {
@@ -85,10 +91,12 @@ public class Wincalc {
             initProperty();
 
             //Парсинг входного скрипта
+            //Создание элементов конструкции
             parsing(script);
 
-            //Все соединения вычисляются в классах AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()
             //Cоединения ареа
+            //Все соединения вычисляются в классах 
+            //AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()            
             rootArea.joining();
 
             //Соединения створок
