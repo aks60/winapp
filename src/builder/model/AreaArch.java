@@ -82,20 +82,20 @@ public class AreaArch extends AreaSimple {
         ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elemJoin1.elem1.anglCut()[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut()[0] = (float) ang3;  //угол реза рамы
-        winc.mapJoin.put(elemLeft.joinPoint(0), elemJoin1);
+        winc.mapJoin.put(elemLeft, 0, elemJoin1);
 
         //Угловое соединение правое верхнее
         ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
         elemJoin2.elem2.anglCut()[0] = (float) ang4;  //угол реза арки
         elemJoin2.elem1.anglCut()[1] = (float) ang3;  //угол реза рамы                             
-        winc.mapJoin.put(elemRight.joinPoint(1), elemJoin2);
+        winc.mapJoin.put(elemRight, 1, elemJoin2);
 
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        winc.mapJoin.put(elemBott.joinPoint(0), elem3);
+        winc.mapJoin.put(elemBott, 0, elem3);
 
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        winc.mapJoin.put(elemBott.joinPoint(1), elem4);
+        winc.mapJoin.put(elemBott, 1, elem4);
     }    
 }

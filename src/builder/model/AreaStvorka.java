@@ -98,10 +98,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else { //Вычисление смещения створки через параметр
             try {
                 winc.mapJoin.clear();
-                winc.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
-                winc.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
-                winc.mapJoin.put(stvTop.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
-                winc.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
+                winc.mapJoin.put(stvBot, 2, new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
+                winc.mapJoin.put(stvRig, 2, new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
+                winc.mapJoin.put(stvTop, 2, new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
+                winc.mapJoin.put(stvLef, 2, new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
@@ -220,26 +220,26 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         });
 
         //Угловое соединение правое нижнее
-        winc.mapJoin.put(stvBott.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90));
+        winc.mapJoin.put(stvBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90));
         //Угловое соединение правое верхнее
-        winc.mapJoin.put(stvRight.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90));
+        winc.mapJoin.put(stvRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90));
         //Угловое соединение левое верхнее
-        winc.mapJoin.put(stvTop.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90));
+        winc.mapJoin.put(stvTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90));
         //Угловое соединение левое нижнее
-        winc.mapJoin.put(stvLeft.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90));
+        winc.mapJoin.put(stvLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90));
 
         //Прилегающее нижнее
         IElem5e frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames().get(Layout.BOTT);
-        winc.mapJoin.put(stvBott.joinPoint(2), ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0));
+        winc.mapJoin.put(stvBott, 2, ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0));
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
-        winc.mapJoin.put(stvLeft.joinPoint(2), ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
+        winc.mapJoin.put(stvLeft, 2, ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
         //Прилегающее верхнее 
         IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
-        winc.mapJoin.put(stvTop.joinPoint(2), ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));
+        winc.mapJoin.put(stvTop, 2, ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));
         //Прилегающее правое
         IElem5e frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames().get(Layout.RIGHT);
-        winc.mapJoin.put(stvRight.joinPoint(2), ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
+        winc.mapJoin.put(stvRight, 2, ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
     }
 
     /**

@@ -27,12 +27,12 @@ public class AreaRectangl extends AreaSimple {
                 elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
 
         //Угловое соединение правое нижнее
-        winc.mapJoin.put(elemBott.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90));
+        winc.mapJoin.put(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90));
         //Угловое соединение правое верхнее
-        winc.mapJoin.put(elemRight.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90));
+        winc.mapJoin.put(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90));
         //Угловое соединение левое верхнее    
-        winc.mapJoin.put(elemTop.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90));
+        winc.mapJoin.put(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90));
         //Угловое соединение левое нижнее
-        winc.mapJoin.put(elemLeft.joinPoint(1), ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90));
+        winc.mapJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90));
     }
 }
