@@ -89,7 +89,7 @@ public class ElemCross extends ElemSimple {
 
                 } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
                     setDimension(prevArea.x2(), prevArea.y1(), prevArea.x2(), prevArea.y2());
-                    anglHoriz = 90;
+                    anglHoriz = 270;
                 }
                 break;
             }
