@@ -1090,14 +1090,14 @@ public class PSCompare extends javax.swing.JFrame {
         lab20.setPreferredSize(new java.awt.Dimension(60, 20));
 
         txt19.setFont(frames.UGui.getFont(0,0));
-        txt19.setText("427595");
+        txt19.setText("425688");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt19.setPreferredSize(new java.awt.Dimension(50, 18));
+        txt19.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("2");
+        txt20.setText("1");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt20.setPreferredSize(new java.awt.Dimension(20, 18));
+        txt20.setPreferredSize(new java.awt.Dimension(40, 18));
 
         btn1.setText("Пересчитать");
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1114,9 +1114,9 @@ public class PSCompare extends javax.swing.JFrame {
         labFurn.setPreferredSize(new java.awt.Dimension(200, 19));
 
         txt21.setFont(frames.UGui.getFont(0,0));
-        txt21.setText("508807");
+        txt21.setText("506929");
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt21.setPreferredSize(new java.awt.Dimension(50, 18));
+        txt21.setPreferredSize(new java.awt.Dimension(80, 18));
 
         lab21.setFont(frames.UGui.getFont(0,0));
         lab21.setText("PNUMB");
@@ -1147,10 +1147,10 @@ public class PSCompare extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)))
+                        .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -42,23 +42,28 @@ public class GsonRoot extends GsonElem {
      * см. builder.script.GsonScript.java при создании моделей
      * При этом зап. констр. по умолч. GsonElem().
      */
-    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, float width, float height, Integer color1, Integer color2, Integer color3) {
-        init(version, prj, ord, nuni, name, layout, type, null, 0, width, height, 0, color1, color2, color3, null);
+    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, 
+            float width2, float height, Integer color1, Integer color2, Integer color3) {
+        init(version, prj, ord, nuni, name, layout, type, null, 0, width2, height, 0, color1, color2, color3, null);
     }
 
-    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, float width, float height, Integer color1, Integer color2, Integer color3, String paramJson) {
+    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, 
+            float width, float height, Integer color1, Integer color2, Integer color3, String paramJson) {
         init(version, prj, ord, nuni, name, layout, type, null, 0, width, height, 0, color1, color2, color3, paramJson);
     }
 
-    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, float width, float height1, float height2, Integer color1, Integer color2, Integer color3) {
+    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, 
+            float width, float height1, float height2, Integer color1, Integer color2, Integer color3) {
         init(version, prj, ord, nuni, name, layout, type, null, 0, width, height1, height2, color1, color2, color3, null);
     }
 
-    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, float width, float height1, float height2, Integer color1, Integer color2, Integer color3) {
+    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, 
+            float width, float height1, float height2, Integer color1, Integer color2, Integer color3) {       
         init(version, prj, ord, nuni, name, layout, type, form, 0, width, height1, height2, color1, color2, color3, null);
     }
 
-    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, float width1, float width2, float height1, float height2, Integer color1, Integer color2, Integer color3) {
+    public GsonRoot(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, 
+            float width1, float width2, float height1, float height2, Integer color1, Integer color2, Integer color3) {
         init(version, prj, ord, nuni, name, layout, type, form, width1, width2, height1, height2, color1, color2, color3, null);
     }
 
