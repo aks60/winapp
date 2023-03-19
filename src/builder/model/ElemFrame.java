@@ -154,12 +154,11 @@ public class ElemFrame extends ElemSimple {
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y2());
+                    setDimension(owner.x1(), owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getFloat(eArtikl.height));
                     anglHoriz = (float) Math.toDegrees(Math.asin(H / Dx)); 
                     anglCut[1] = 777;
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;                    
-                }
-                
+                }                
             }
 
             //Остальное

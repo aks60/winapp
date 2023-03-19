@@ -130,7 +130,10 @@ public class AreaTrapeze extends AreaSimple {
 
         super.joining();
 
-        IElem5e elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT), elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
+        IElem5e elemBott = frames.get(Layout.BOTT), 
+                elemRight = frames.get(Layout.RIGHT), 
+                elemTop = frames.get(Layout.TOP), 
+                elemLeft = frames.get(Layout.LEFT);
 
         if (winc.form == Form.RIGHT) {
             float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));

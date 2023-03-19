@@ -99,6 +99,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -3545,7 +3546,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             } else if (tab5.getBorder() != null) {
                 if (sysNode != null && sysNode.isLeaf()) {
-                    if (evt.getSource() instanceof JButton && eProp.dev == true) {
+                    if (evt.getSource() instanceof JMenuItem && eProp.dev == true) {
                         testBimax();
                     } else {
                         ProgressBar.create(Systree.this, new ListenerFrame() {
