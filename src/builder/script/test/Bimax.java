@@ -479,6 +479,7 @@ public final class Bimax {
 
             //425179   506436
             //426309   507550 
+            //790 = 175 + 175 + 440, 440 + 175 = 615,  h = 790,  w = 790
         } else if (prj == 506929) { //PUNIC = 425688 onumb=1
             rootGson = new GsonRoot("1.0", prj, 1, 202, "Montblanc/Eco/3-ТРАПЕЦИИ",
                     Layout.VERT, Type.TRAPEZE, Form.SYMM, 790, 440, 615, 615, 1009, 10009, 1009);
