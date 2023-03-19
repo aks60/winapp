@@ -194,16 +194,16 @@ public class AreaSimple extends Com5t implements IArea5e {
             if (id() == 0) {
                 float k = v / gson.width(); //коэффициент
                 if (k != 1) {
-                    if (UCom.getFloat(rootGson.width1(), 0f) > UCom.getFloat(rootGson.width2(), 0f)) {
-                        rootGson.width1(v);
-                        if (rootGson.width2() != null) {
-                            rootGson.width2(k * rootGson.width2());
-                        }
-                    }
                     if (UCom.getFloat(rootGson.width2(), 0f) > UCom.getFloat(rootGson.width1(), 0f)) {
                         rootGson.width2(v);
                         if (rootGson.width1() != null) {
                             rootGson.width1(k * rootGson.width1());
+                        }
+                    }
+                    if (UCom.getFloat(rootGson.width1(), 0f) > UCom.getFloat(rootGson.width2(), 0f)) {
+                        rootGson.width1(v);
+                        if (rootGson.width2() != null) {
+                            rootGson.width2(k * rootGson.width2());
                         }
                     }
                     for (IArea5e e : winc.listArea) { //перебор всех гориз. area
@@ -221,11 +221,11 @@ public class AreaSimple extends Com5t implements IArea5e {
                 if (k != 1) {
                     gson.length(v);
                     if (type() == Type.ARCH) {
-                        rootGson.width2(rootGson.width() - v);
-                    } else if (type() == Type.TRAPEZE && form == Form.RIGHT) {
-                        rootGson.width2(rootGson.width() - v);
-                    } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
                         rootGson.width1(rootGson.width() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.RIGHT) {
+                        rootGson.width1(rootGson.width() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
+                        rootGson.width2(rootGson.width() - v);
                     }
 
                     for (ICom5t e : childs) { //изменение детей по высоте

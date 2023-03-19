@@ -40,8 +40,8 @@ public class Wincalc {
     private float genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
-    private float width1 = 0; //ширина окна верхняя    
-    private float width2 = 0; //ширина окна нижняя
+    private float width1 = 0; //ширина окна нижняя
+    private float width2 = 0; //ширина окна верхняя    
     private float height1 = 0; //высота окна левая
     private float height2 = 0; //высота окна правая
     public int colorID1 = -1; //базовый цвет
@@ -129,8 +129,8 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
-            this.width1 = (rootGson.width1() == null) ? rootGson.width() : rootGson.width1();
-            this.width2 = rootGson.width2(); //ширина в основании всегда задана
+            this.width2 = (rootGson.width2() == null) ? rootGson.width() : rootGson.width2();
+            this.width1 = rootGson.width1(); //ширина в основании всегда задана
             this.height1 = rootGson.height1(); //высота слева всегда задана
             this.height2 = (rootGson.height2() == null) ? rootGson.height() : rootGson.height2();
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
@@ -302,8 +302,8 @@ public class Wincalc {
     // <editor-fold defaultstate="collapsed" desc="GET AND SET"> 
     private void initProperty() {
         genId = 0;
-        width1 = 0;
         width2 = 0;
+        width1 = 0;
         height1 = 0;
         height2 = 0;
         syssizeRec = null;
@@ -336,7 +336,7 @@ public class Wincalc {
     }
 
     public float width() {
-        return (width1 > width2) ? width1 : width2;
+        return (width2 > width1) ? width2 : width1;
     }
 
     public float height() {

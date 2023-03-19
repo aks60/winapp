@@ -326,7 +326,7 @@ public class HtmlOfSmeta {
                 winc.gc2d = winc.bufferImg.createGraphics();
                 winc.gc2d.fillRect(0, 0, length, length);
                 float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-                float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+                float width = (winc.width2() > winc.width1()) ? winc.width2() : winc.width1();
                 winc.scale = (length / width > length / height) ? length / (height + 80) : length / (width + 80);
                 winc.gc2d.scale(winc.scale, winc.scale);
                 winc.rootArea.draw(); //рисую конструкцию
