@@ -66,7 +66,7 @@ public class Test {
         eProp.dev = true;
         try {
             //frames.PSConvert.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -87,7 +87,7 @@ public class Test {
         String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(605001));
+            winc.build(GsonScript.productJson(506929));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();

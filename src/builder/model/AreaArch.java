@@ -78,24 +78,27 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
+
+        //Угловое соединение левое нижнее
+        ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
+        winc.mapJoin.put(elemBott, 0, elem3);
+        
+        //Угловое соединение правое нижнее
+        ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        winc.mapJoin.put(elemBott, 1, elem4);  
+        
+        //Угловое соединение правое верхнее
+        ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
+        elemJoin2.elem2.anglCut()[0] = (float) ang4;  //угол реза арки
+        elemJoin2.elem1.anglCut()[1] = (float) ang3;  //угол реза рамы                             
+        winc.mapJoin.put(elemRight, 1, elemJoin2);        
+        
         //Угловое соединение левое верхнее
         ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elemJoin1.elem1.anglCut()[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut()[0] = (float) ang3;  //угол реза рамы
         winc.mapJoin.put(elemLeft, 0, elemJoin1);
 
-        //Угловое соединение правое верхнее
-        ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
-        elemJoin2.elem2.anglCut()[0] = (float) ang4;  //угол реза арки
-        elemJoin2.elem1.anglCut()[1] = (float) ang3;  //угол реза рамы                             
-        winc.mapJoin.put(elemRight, 1, elemJoin2);
 
-        //Угловое соединение левое нижнее
-        ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        winc.mapJoin.put(elemBott, 0, elem3);
-
-        //Угловое соединение правое нижнее
-        ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        winc.mapJoin.put(elemBott, 1, elem4);
     }    
 }
