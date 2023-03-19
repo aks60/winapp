@@ -169,7 +169,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     @Override
-    public void addFilling(IElem5e glass, Specific spcAdd) {
+    public void addSpecific(Specific spcAdd, IElem5e elem5e) {
     }
 
     @Override

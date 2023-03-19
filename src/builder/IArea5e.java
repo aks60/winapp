@@ -15,10 +15,10 @@ public interface IArea5e extends ICom5t {
     void initСonstructiv(JsonObject param);
     /**
      * Добавление детализации в заполнение
-     * @param glass - элемент заполнения
+     * @param elem5e - элемент заполнения
      * @param spcAdd - строка детализации
      */
-    void addFilling(IElem5e glass, Specific spcAdd);
+    void addSpecific(Specific spcAdd, IElem5e elem5e);
 
     /**
      * T - соединения area. Все поперечены(cross) в area имеют Т-соединения.

@@ -13,7 +13,7 @@ public interface IElem5e extends ICom5t {
     void setSpecific();
 
     //Вложенная спецификация
-    void addSpecific(Specific specification);
+    void addSpecific(Specific spc);
 
     /**
      * Получить элемент прилегающего профиля. 

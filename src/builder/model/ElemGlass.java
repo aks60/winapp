@@ -179,7 +179,7 @@ public class ElemGlass extends ElemSimple {
 
                 //ARCH, TRAPEZE...
                 if (Type.ARCH == owner.type() || Type.TRAPEZE == owner.type()) {
-                    root().addFilling(this, spcAdd);
+                    root().addSpecific(spcAdd, this);
 
                     //AREA, STVORKA
                 } else {
