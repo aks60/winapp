@@ -24,7 +24,8 @@ public class GsonScript {
     public static GsonRoot rootGson;
 
     public static String modelJson(Integer prj) {
-
+        
+// <editor-fold defaultstate="collapsed" desc="RECTANGL">
         if (prj == 601001) {
             rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
                     Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
@@ -187,25 +188,6 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
 
-            //TODO Нерешённая проблема со штапиком
-        } else if (prj == 604004) {
-            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА",
-                    Layout.VERT, Type.ARCH, 1300, 1700, 1050, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 650, Form.TOP))
-                    .addElem(new GsonElem(Type.GLASS));
-            rootGson.addElem(new GsonElem(Type.IMPOST));
-            GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1050));
-            area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addElem(new GsonElem(Type.GLASS));
-            area.addElem(new GsonElem(Type.IMPOST));
-            area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
-                    .addElem(new GsonElem(Type.GLASS));
-
         } else if (prj == 700027) {
             rootGson = new GsonRoot("1.0", null, null, null, "Montblanc//Eco//ОКНА (штульп)",
                     Layout.HORIZ, Type.RECTANGL, 1300, 1400, null, null, null);
@@ -238,6 +220,27 @@ public class GsonScript {
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
 //                    .addElem(new GsonElem(Type.GLASS));
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="ARCH">
+            //TODO Нерешённая проблема со штапиком
+        } else if (prj == 604004) {
+            rootGson = new GsonRoot("1.0", null, null, null, "Rehau\\Delight\\ОКНА",
+                    Layout.VERT, Type.ARCH, 1300, 1700, 1050, null, null, null);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 650, Form.TOP))
+                    .addElem(new GsonElem(Type.GLASS));
+            rootGson.addElem(new GsonElem(Type.IMPOST));
+            GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1050));
+            area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
+                    .addElem(new GsonElem(Type.GLASS));
+            area.addElem(new GsonElem(Type.IMPOST));
+            area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
+                    .addElem(new GsonElem(Type.GLASS));
         } else if (prj == 604005) {
             rootGson = new GsonRoot("1.0", null, null, null, "Wintech\\Termotech 742\\ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1500, 1200, null, null, null);
@@ -366,7 +369,9 @@ public class GsonScript {
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4}"))
                     .addElem(new GsonElem(Type.GLASS));
+// </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="TRAPEZE">
         } else if (prj == 486451) { //Трапеции без импоста
             rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\*Открывание внутрь",
                     Layout.VERT, Type.TRAPEZE, Form.RIGHT, 1300, 1500, 1200, null, null, null);
@@ -470,7 +475,9 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4}"))
                     .addElem(new GsonElem(Type.GLASS));
-
+// </editor-fold>
+            
+// <editor-fold defaultstate="collapsed" desc="DOOR">
         } else if (prj == 508841) { //Двери
             rootGson = new GsonRoot("1.0", null, null, null, "KBE Эксперт\\ВХОДНЫЕ ДВЕРИ\\Дверь наружу",
                     Layout.VERT, Type.DOOR, 900, 2100, null, null, null);
@@ -512,6 +519,7 @@ public class GsonScript {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
+// </editor-fold>
 
         } // <editor-fold defaultstate="collapsed" desc="ХОЛОДНЫЙ  ТЕСТ, спецификации в базе нет">         
         else if (prj == 1043598818) { //Прямоугольное сложное
