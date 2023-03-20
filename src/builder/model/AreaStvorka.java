@@ -66,6 +66,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
+        //Соединения до нахлёста
+        joining();
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
         //Коррекция фреймов створок с учётом нахлёста
@@ -86,8 +88,8 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
      * Коррекция координат area створки с учётом нахлёста
      */
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
-        IElem5e joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
-                joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
+        IElem5e joinLef = winc.listJoin.elem(stvLef, 2), joinTop = winc.listJoin.elem(stvTop, 2),
+                joinBot = winc.listJoin.elem(stvBot, 2), joinRig = winc.listJoin.elem(stvRig, 2);
 
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
@@ -200,7 +202,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }       
+        }
     }
 
     /**
@@ -233,14 +235,13 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0));
         //Прилегающее правое
         IElem5e frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames().get(Layout.RIGHT);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));    
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
         //Прилегающее верхнее 
         IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));        
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
-
 
     }
 

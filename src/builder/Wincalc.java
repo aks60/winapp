@@ -100,7 +100,7 @@ public class Wincalc {
             rootArea.joining();
 
             //Соединения створок
-            listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining());
+            //listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining());
 
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
