@@ -5,12 +5,20 @@ import builder.model.ElemJoining;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HashMap2 extends HashMap<String, ElemJoining> {
 
+    private ArrayList<ElemJoining> joinList = new ArrayList();
+
     public HashMap2() {
         super();
+    }
+
+    public ElemJoining get(Object key) {
+        System.err.println("++++++++++++++Ошибка+++++++++++++++");
+        return super.get(key);
     }
 
     /**
@@ -22,22 +30,37 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
      * @return - класс описатель соединения
      */
     public ElemJoining get(IElem5e el, int side) {
-        String str = point(el, side);
-        return super.get(str);
+        //String str = point(el, side);
+        //ElemJoining ej = super.get(str);
+        //for (Entry<String, ElemJoining> entry : this.entrySet()) {
+        //    ElemJoining join = entry.getValue();
+        for (ElemJoining join : joinList) {
+            if (side == 0 && join.elem2.id() == el.id()) {
+                return join;
+            } else if (side == 1 && join.elem1.id() == el.id()) {
+                return join;
+            } else if (side == 2 && join.elem2.id() == el.id()) {
+                return join;
+            }
+        }
+        System.err.println("Неудача:" + point(el, side) + "   el=" + el);
+        return null;
     }
 
     /**
      * Записать элемент соединения профилей.
      *
      * @param el - элемент соединения,
-     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл, 2-прилег.артикл
+     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
+     * 2-прилег.артикл
      * @param ej - класс описания соединения
-     * 
+     *
      * @return - пред. класс описания соединения или null
-     */    
-    public ElemJoining put(IElem5e el, int side, ElemJoining ej) {
-        String str = point(el, side);
-        return super.put(str, ej);
+     */
+    public boolean put(IElem5e el, int side, ElemJoining ej) {
+        //String str = point(el, side);
+        //return super.put(str, ej);
+        return joinList.add(ej);
     }
 
     /**
@@ -47,7 +70,7 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
      * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
      * 2-прилег.артикл
      * @return - элемент соединения
-     */    
+     */
     public IElem5e elem(IElem5e el, int side) {
         String str = point(el, side);
         ElemJoining ej = (ElemJoining) super.get(str);
@@ -61,9 +84,10 @@ public class HashMap2 extends HashMap<String, ElemJoining> {
         System.err.println("Неудача:HashMap2.elem() id=" + el.id() + " соединение не найдено");
         return null;
     }
-    
+
     /**
      * Точки описания присоединённых элементов
+     *
      * @param el - элемент соединения,
      * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
      * @return - x:y точка соединения

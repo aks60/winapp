@@ -65,8 +65,8 @@ public class Test {
 
         eProp.dev = true;
         try {
-            frames.PSConvert.exec();
-            //wincalc();
+            //frames.PSConvert.exec();
+            wincalc();
             //param();
             //query();
             //frame();

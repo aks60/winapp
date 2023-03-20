@@ -140,14 +140,14 @@ public class AreaTrapeze extends AreaSimple {
             winc.mapJoin.put(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее 
             winc.mapJoin.put(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl)); //угловое соединение правое верхнее
             winc.mapJoin.put(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl));    //угловое соединение левое верхнее 
-            winc.mapJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90)); //угловое соединение левое нижнее
+            winc.mapJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее
 
         } else if (winc.form == Form.LEFT) {
             float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
             winc.mapJoin.put(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее
             winc.mapJoin.put(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl)); //угловое соединение правое верхнее
             winc.mapJoin.put(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl)); //угловое соединение левое верхнее  
-            winc.mapJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90)); //угловое соединение левое нижнее 
+            winc.mapJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее 
 
         } else if (winc.form == Form.SYMM) {
 
