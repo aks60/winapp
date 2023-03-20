@@ -72,6 +72,7 @@ public class Com5t implements ICom5t {
     }
 
     @Override
+    //TODO Важно!!! Тут необходимо внести поправку на наклон конструкции см. углы реза и угол к горизонту.
     public void setDimension(float x1, float y1, float x2, float y2) {
         this.x1 = x1;
         this.y1 = y1;
