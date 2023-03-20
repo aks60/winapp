@@ -36,7 +36,7 @@ public class AreaTrapeze extends AreaSimple {
                     spcAdd.anglHoriz = 0;
 
                 } else if (elem5e.anglHoriz() == 90) {
-                    IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = elem5e.joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
+                    IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(elem5e, 2), insideRight = root().frames().get(Layout.RIGHT);
                     ElemJoining ej = winc.listJoin.get(insideRight, 1);
                     float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
                     float dy2 = (insideRight.artiklRec().getFloat(eArtikl.height) - insideRight.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
@@ -60,7 +60,7 @@ public class AreaTrapeze extends AreaSimple {
                     spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
                 } else if (elem5e.anglHoriz() == 270) {
-                    IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = elem5e.joinFlat(Layout.BOTT);
+                    IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(elem5e, 2);
                     ElemJoining ej = winc.listJoin.get(insideLeft, 0);
                     float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
                     float dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - insideLeft.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
@@ -83,7 +83,7 @@ public class AreaTrapeze extends AreaSimple {
                     spcAdd.anglHoriz = 0;
 
                 } else if (elem5e.anglHoriz() == 90) {
-                    IElem5e insideRirht = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = elem5e.joinFlat(Layout.BOTT);
+                    IElem5e insideRirht = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(elem5e, 2);
                     ElemJoining ej = winc.listJoin.get(insideRirht, 1);
                     float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
                     float dy2 = (insideRirht.artiklRec().getFloat(eArtikl.height) - insideRirht.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
@@ -107,7 +107,7 @@ public class AreaTrapeze extends AreaSimple {
                     spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
                 } else if (elem5e.anglHoriz() == 270) {
-                    IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = elem5e.joinFlat(Layout.BOTT), insideLeft = root().frames().get(Layout.RIGHT);
+                    IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(elem5e, 2), insideLeft = root().frames().get(Layout.RIGHT);
                     ElemJoining ej = winc.listJoin.get(insideLeft, 0);
                     float dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
                     float dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - insideLeft.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
