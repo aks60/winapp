@@ -26,12 +26,12 @@ public class AreaDoor extends AreaSimple {
         IElem5e elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
                 elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
         //Угловое соединение правое нижнее
-        winc.listJoin.put(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90));
+        winc.listJoin.add(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90));
         //Угловое соединение правое верхнее
-        winc.listJoin.put(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90));
+        winc.listJoin.add(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90));
         //Угловое соединение левое верхнее    
-        winc.listJoin.put(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90));
+        winc.listJoin.add(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90));
         //Угловое соединение левое нижнее
-        winc.listJoin.put(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90));
+        winc.listJoin.add(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90));
     }
 }

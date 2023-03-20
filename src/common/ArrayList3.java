@@ -42,7 +42,7 @@ public class ArrayList3 extends ArrayList<ElemJoining> {
      *
      * @return - пред. класс описания соединения или null
      */
-    public boolean put(IElem5e el, int side, ElemJoining ej) {
+    public boolean add(IElem5e el, int side, ElemJoining ej) {
         return super.add(ej);
     }
 
