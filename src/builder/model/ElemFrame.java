@@ -400,11 +400,11 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void paint() {
         try {
-            ElemJoining ej1 = winc.mapJoin.get(this, 0);
-            ElemJoining ej2 = winc.mapJoin.get(this, 1);
+            ElemJoining ej1 = winc.listJoin.get(this, 0);
+            ElemJoining ej2 = winc.listJoin.get(this, 1);
             float dh = artiklRec().getFloat(eArtikl.height);
-            float dh0 = (winc.mapJoin.get(this, 0).type == TypeJoin.VAR30 || winc.mapJoin.get(this, 0).type == TypeJoin.VAR31) ? 0 : dh;
-            float dh1 = (winc.mapJoin.get(this, 1).type == TypeJoin.VAR30 || winc.mapJoin.get(this, 1).type == TypeJoin.VAR31) ? 0 : dh;
+            float dh0 = (winc.listJoin.get(this, 0).type == TypeJoin.VAR30 || winc.listJoin.get(this, 0).type == TypeJoin.VAR31) ? 0 : dh;
+            float dh1 = (winc.listJoin.get(this, 1).type == TypeJoin.VAR30 || winc.listJoin.get(this, 1).type == TypeJoin.VAR31) ? 0 : dh;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 
             //ARCH

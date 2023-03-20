@@ -22,7 +22,7 @@ public interface IArea5e extends ICom5t {
 
     /**
      * T - соединения area. Все поперечены(cross) в area имеют Т-соединения.
-     * Т-соед. записываются в map, см. winc.mapJoin.put(point, cross). За
+     * Т-соед. записываются в map, см. winc.listJoin.put(point, cross). За
      * угловые соединени отвечает конечнй наследник например
      * AreaRectangl.joining(). Прилегающие см. IElem5e.joinFlat()
      */

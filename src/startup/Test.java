@@ -94,7 +94,7 @@ public class Test {
 //            winc.rootArea.draw(); //рисую конструкцию
             //frames.PSCompare.iwinXls(winc, true);
             //frames.PSCompare.iwinPs4(winc, true);
-            //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type()));           
+            //winc.listJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type()));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = GsonScript.productList(_case);

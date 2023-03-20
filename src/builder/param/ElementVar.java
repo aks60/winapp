@@ -73,12 +73,12 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == true) {
-                        if (winc.mapJoin.get(elem5e, 0).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e, 0).type != TypeJoin.VAR41) {
+                    if (rec.getStr(TEXT).equals(winc.listJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == true) {
+                        if (winc.listJoin.get(elem5e, 0).type != TypeJoin.VAR40 && winc.listJoin.get(elem5e, 0).type != TypeJoin.VAR41) {
                             return false;
                         }
-                    } else if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code))) {
-                        if (winc.mapJoin.get(elem5e, 1).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e, 1).type != TypeJoin.VAR41) {
+                    } else if (rec.getStr(TEXT).equals(winc.listJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code))) {
+                        if (winc.listJoin.get(elem5e, 1).type != TypeJoin.VAR40 && winc.listJoin.get(elem5e, 1).type != TypeJoin.VAR41) {
                             return false;
                         }
                     } else {
@@ -88,7 +88,7 @@ public class ElementVar extends Par5s {
                 case 31004: //Если прилегающий артикул 
                 {
                     boolean ret = false;
-                    for (ElemJoining elemJoining : winc.mapJoin) {    
+                    for (ElemJoining elemJoining : winc.listJoin) {    
                         if (elemJoining.elem2.artiklRecAn().getInt(1) == elem5e.artiklRecAn().getInt(1)
                                 && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn().getStr(eArtikl.code))) {
                             ret = true;
@@ -227,12 +227,12 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(winc.listJoin.elem(elem5e, 0).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
                 case 31034:  //Если следующий артикул 
-                    if (rec.getStr(TEXT).equals(winc.mapJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(winc.listJoin.elem(elem5e, 1).artiklRecAn().getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
@@ -300,8 +300,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e, 0).angl) == true
-                            || UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e, 1).angl) == true) == false) {
+                    if ((UCom.containsNumbJust(rec.getStr(TEXT), winc.listJoin.get(elem5e, 0).angl) == true
+                            || UCom.containsNumbJust(rec.getStr(TEXT), winc.listJoin.get(elem5e, 1).angl) == true) == false) {
                         return false;
                     }
                     break;

@@ -94,10 +94,10 @@ public class JoiningVar extends Par5s {
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
 //                    if ("Да".equals(rec.getStr(TEXT))) {
-//                        if (winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
-//                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y2()) != elemJoin
-//                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
-//                                && winc.mapJoin.get(winc.rootArea.x1() + ":" + winc.rootArea.y1()) != elemJoin) {
+//                        if (winc.listJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+//                                && winc.listJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y2()) != elemJoin
+//                                && winc.listJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+//                                && winc.listJoin.get(winc.rootArea.x1() + ":" + winc.rootArea.y1()) != elemJoin) {
 //                            return false;
 //                        }
 //                    }

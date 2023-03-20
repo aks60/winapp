@@ -66,7 +66,7 @@ public class Wincalc {
     public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
-    public ArrayList3 mapJoin = new ArrayList3(); //список соединений рам и створок 
+    public ArrayList3 listJoin = new ArrayList3(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
@@ -308,7 +308,7 @@ public class Wincalc {
         height2 = 0;
         syssizeRec = null;
         mapPardef.clear();
-        List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll, (List) mapJoin).forEach(el -> el.clear());
+        List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll, (List) listJoin).forEach(el -> el.clear());
     }
 
     public float genId() {

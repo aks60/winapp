@@ -78,7 +78,7 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24004: //Если створка прилегает к артикулу 
-                    if (areaStv.frames().entrySet().stream().filter(el -> winc.mapJoin.elem(el.getValue(), 2).artiklRec().getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
+                    if (areaStv.frames().entrySet().stream().filter(el -> winc.listJoin.elem(el.getValue(), 2).artiklRec().getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;
@@ -176,7 +176,7 @@ public class FurnitureDet extends Par5s {
                     if (rec.getStr(TEXT).equals("Да")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, IElem5e> entry : areaStv.frames().entrySet()) {
-                            if (winc.mapJoin.elem(entry.getValue(), 2).type() == Type.SHTULP) {
+                            if (winc.listJoin.elem(entry.getValue(), 2).type() == Type.SHTULP) {
                                 ret = true;
                             }
                         }
@@ -186,7 +186,7 @@ public class FurnitureDet extends Par5s {
                     } else if (rec.getStr(TEXT).equals("Нет")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, IElem5e> entry : areaStv.frames().entrySet()) {
-                            if (winc.mapJoin.elem(entry.getValue(), 2).type() == Type.SHTULP) {
+                            if (winc.listJoin.elem(entry.getValue(), 2).type() == Type.SHTULP) {
                                 ret = true;
                             }
                         }
