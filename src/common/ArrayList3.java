@@ -33,20 +33,6 @@ public class ArrayList3 extends ArrayList<ElemJoining> {
     }
 
     /**
-     * Записать элемент соединения профилей.
-     *
-     * @param el - элемент соединения,
-     * @param side - сторона соединения 0-пред.артикул, 1-след.артикл,
-     * 2-прилег.артикл
-     * @param ej - класс описания соединения
-     *
-     * @return - пред. класс описания соединения или null
-     */
-    public boolean add(IElem5e el, int side, ElemJoining ej) {
-        return super.add(ej);
-    }
-
-    /**
      * Получить элемент соединения профилей.
      *
      * @param el - элемент соединения,
