@@ -137,17 +137,17 @@ public class AreaTrapeze extends AreaSimple {
 
         if (winc.form == Form.RIGHT) {
             float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
-            winc.listJoin.add(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее 
-            winc.listJoin.add(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl)); //угловое соединение правое верхнее
-            winc.listJoin.add(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl));    //угловое соединение левое верхнее 
-            winc.listJoin.add(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее 
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl)); //угловое соединение правое верхнее
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl));    //угловое соединение левое верхнее 
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее
 
         } else if (winc.form == Form.LEFT) {
             float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
-            winc.listJoin.add(elemBott, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее
-            winc.listJoin.add(elemRight, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl)); //угловое соединение правое верхнее
-            winc.listJoin.add(elemTop, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl)); //угловое соединение левое верхнее  
-            winc.listJoin.add(elemLeft, 1, ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее 
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl)); //угловое соединение правое верхнее
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl)); //угловое соединение левое верхнее  
+            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее 
 
         } else if (winc.form == Form.SYMM) {
 

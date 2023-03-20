@@ -84,23 +84,23 @@ public class AreaArch extends AreaSimple {
 
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        winc.listJoin.add(elemBott, 0, elem3);
+        winc.listJoin.add(elem3);
 
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        winc.listJoin.add(elemBott, 1, elem4);
+        winc.listJoin.add(elem4);
 
         //Угловое соединение правое верхнее
         ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
         elemJoin2.elem2.anglCut()[0] = (float) ang4;  //угол реза арки
         elemJoin2.elem1.anglCut()[1] = (float) ang3;  //угол реза рамы                             
-        winc.listJoin.add(elemRight, 1, elemJoin2);
+        winc.listJoin.add(elemJoin2);
 
         //Угловое соединение левое верхнее
         ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elemJoin1.elem1.anglCut()[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut()[0] = (float) ang3;  //угол реза рамы
-        winc.listJoin.add(elemLeft, 0, elemJoin1);
+        winc.listJoin.add(elemJoin1);
 
     }
 }
