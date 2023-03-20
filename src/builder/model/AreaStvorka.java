@@ -68,8 +68,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
         //Соединения до нахлёста
         joining();
+        
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
+        
         //Коррекция фреймов створок с учётом нахлёста
         stvBot.setLocation();
         stvRigh.setLocation();
@@ -90,7 +92,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     private void setNaxlest(IElem5e stvLef, IElem5e stvBot, IElem5e stvRig, IElem5e stvTop) {
         IElem5e joinLef = winc.listJoin.elem(stvLef, 2), joinTop = winc.listJoin.elem(stvTop, 2),
                 joinBot = winc.listJoin.elem(stvBot, 2), joinRig = winc.listJoin.elem(stvRig, 2);
-
+       
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
             y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
@@ -118,7 +120,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 winc.listJoin.clear();
             }
         }
-
     }
 
     /**
@@ -212,6 +213,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     public void joining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
+        
         stvBott.anglHoriz(0);
         stvRight.anglHoriz(90);
         stvTop.anglHoriz(180);
@@ -238,7 +240,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
         //Прилегающее верхнее 
         IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));      
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
