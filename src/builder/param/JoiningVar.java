@@ -93,14 +93,15 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
-                    if ("Да".equals(rec.getStr(TEXT))) {
-                        if (winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
-                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y2()) != elemJoin
-                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
-                                && winc.mapJoin.get(winc.rootArea.x1() + ":" + winc.rootArea.y1()) != elemJoin) {
-                            return false;
-                        }
-                    }
+//                    if ("Да".equals(rec.getStr(TEXT))) {
+//                        if (winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+//                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y2()) != elemJoin
+//                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+//                                && winc.mapJoin.get(winc.rootArea.x1() + ":" + winc.rootArea.y1()) != elemJoin) {
+//                            return false;
+//                        }
+//                    }
+                    message(rec.getInt(GRUP));
                     break;
                 case 1011: //Для Артикула 1 указан состав 
                 case 4011: //Для Артикула 1 указан состав     

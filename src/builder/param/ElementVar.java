@@ -88,8 +88,7 @@ public class ElementVar extends Par5s {
                 case 31004: //Если прилегающий артикул 
                 {
                     boolean ret = false;
-                    for (Map.Entry<String, ElemJoining> entry : winc.mapJoin.entrySet()) {
-                        ElemJoining elemJoining = entry.getValue();
+                    for (ElemJoining elemJoining : winc.mapJoin) {    
                         if (elemJoining.elem2.artiklRecAn().getInt(1) == elem5e.artiklRecAn().getInt(1)
                                 && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn().getStr(eArtikl.code))) {
                             ret = true;

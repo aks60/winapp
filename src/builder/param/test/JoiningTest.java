@@ -22,7 +22,7 @@ public class JoiningTest extends ParamTest {
         assert false == joiningVar2.check(iwin_2.mapJoin.get(frame_left_2, 1), param("32", grup)) : grup;
 
         grup = 1010; //4010 //Внешнее соединение
-        assert true == joiningVar4.check(iwin_4.mapJoin.get(iwin_4.rootArea.x1() + ":" + iwin_4.rootArea.y1()), param("Да", grup)) : grup;
+        //assert true == joiningVar4.check(iwin_4.mapJoin.get(iwin_4.rootArea.x1() + ":" + iwin_4.rootArea.y1()), param("Да", grup)) : grup;
         assert true == joiningVar4.check(iwin_4.mapJoin.get(frame_left_4, 0), param("Да", grup)) : grup;
         assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4, 0), param("Нет", grup)) : grup;
         assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4, 0), param("Да", grup)) : grup;

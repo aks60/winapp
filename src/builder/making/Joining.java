@@ -50,8 +50,8 @@ public class Joining extends Cal5e {
         super.calc();
         try {
             //Цикл по списку соединений
-            for (Map.Entry<String, ElemJoining> hmElemJoin : winc.mapJoin.entrySet()) {
-                ElemJoining elemJoin = hmElemJoin.getValue();
+            for (ElemJoining elemJoin : winc.mapJoin) {
+                
                 IElem5e joinElem1 = elemJoin.elem1;
                 IElem5e joinElem2 = elemJoin.elem2;
 

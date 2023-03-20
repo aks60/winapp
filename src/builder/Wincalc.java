@@ -18,7 +18,7 @@ import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import com.google.gson.JsonSyntaxException;
 import common.ArrayList2;
-import common.HashMap2;
+import common.ArrayList3;
 import common.LinkedList2;
 import common.eProp;
 import domain.eSysprof;
@@ -66,7 +66,7 @@ public class Wincalc {
     public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
     public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
     public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
-    public HashMap2 mapJoin = new HashMap2(); //список соединений рам и створок 
+    public ArrayList3 mapJoin = new ArrayList3(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
@@ -307,8 +307,8 @@ public class Wincalc {
         height1 = 0;
         height2 = 0;
         syssizeRec = null;
-        List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
-        List.of(mapPardef, mapJoin).forEach(el -> el.clear());
+        mapPardef.clear();
+        List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll, (List) mapJoin).forEach(el -> el.clear());
     }
 
     public float genId() {
