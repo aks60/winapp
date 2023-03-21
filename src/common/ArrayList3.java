@@ -25,9 +25,9 @@ public class ArrayList3 extends ArrayList<ElemJoining> {
         try {
             for (ElemJoining join : this) {
                 if (join.type == TypeJoin.VAR40 || join.type == TypeJoin.VAR41) { //Т - образное
-                    if (side == 0 && join.elem1.id() == el.id() && join.layout == LayoutJoin.TLEFT) {
+                    if (side == 0 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TLEFT || join.layout == LayoutJoin.TBOT)) {
                         return join;
-                    } else if (side == 1 && join.elem1.id() == el.id() && join.layout == LayoutJoin.TRIGH) {
+                    } else if (side == 1 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TRIGH || join.layout == LayoutJoin.TTOP)) {
                         return join;
                     }
                 } else if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
@@ -56,7 +56,7 @@ public class ArrayList3 extends ArrayList<ElemJoining> {
         ElemJoining join = get(el, side);
         try {
             if (join != null) {
-                
+
                 if (side == 0) {
                     return (el.type() == Type.IMPOST || el.type() == Type.SHTULP || el.type() == Type.STOIKA) ? join.elem2 : join.elem1;
                 } else if (side == 1) {

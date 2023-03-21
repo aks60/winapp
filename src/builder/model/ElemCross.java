@@ -116,8 +116,7 @@ public class ElemCross extends ElemSimple {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
 
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        IElem5e insideTop = winc.listJoin.elem(this, 1), 
-                                insideBott = winc.listJoin.elem(this, 0);
+                        IElem5e insideTop = winc.listJoin.elem(this, 1), insideBott = winc.listJoin.elem(this, 0);
                         spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
