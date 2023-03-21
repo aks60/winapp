@@ -106,6 +106,6 @@ public class ElemJoining {
     }
 
     public String toString() {
-        return "id=" + id + ", type=" + type + " (" + elem1.spcRec().artikl + ":" + elem2.spcRec().artikl + "), " + layout.name;
+        return "id=" + id + ",  layout= " + layout + ",  type=" + type + ",  elem1=" + elem1.layout() + ",  elem2=" + elem2.layout() + ",  " + layout.name;
     }
 }
