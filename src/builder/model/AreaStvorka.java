@@ -244,7 +244,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
-
     }
 
     /**
