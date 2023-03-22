@@ -24,18 +24,20 @@ public class ArrayList3 extends ArrayList<ElemJoining> {
     public ElemJoining get(IElem5e el, int side) {
         try {
             for (ElemJoining join : this) {
-                if (join.type == TypeJoin.VAR40 || join.type == TypeJoin.VAR41) { //Т - образное
+                if(el.type() == Type.IMPOST || el.type() == Type.STOIKA || el.type() == Type.ERKER) {
                     if (side == 0 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TLEFT || join.layout == LayoutJoin.TBOT)) {
                         return join;
                     } else if (side == 1 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TRIGH || join.layout == LayoutJoin.TTOP)) {
                         return join;
                     }
-                } else if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
-                    return join;
-                } else if (side == 1 && join.elem1.id() == el.id()) { //Угловое правое
-                    return join;
-                } else if (side == 2 && join.elem1.id() == el.id() && join.type == TypeJoin.VAR10) { //Прилегающее
-                    return join;
+                } else {
+                    if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
+                        return join;
+                    } else if (side == 1 && join.elem1.id() == el.id()) { //Угловое правое
+                        return join;
+                    } else if (side == 2 && join.elem1.id() == el.id() && join.type == TypeJoin.VAR10) { //Прилегающее
+                        return join;
+                    }
                 }
             }
         } catch (Exception e) {

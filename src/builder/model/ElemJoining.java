@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ElemJoining {
 
-    public float id = -1; //идентификатор соединения
+    private float id = -1; //идентификатор соединения
     private Wincalc winc;
     public Record joiningRec = eJoining.up.newRecord();
     public Record joinvarRec = eJoinvar.up.newRecord();
@@ -103,6 +103,10 @@ public class ElemJoining {
 
     public boolean equals(Object obj) {
         return id == ((ICom5t) obj).id();
+    }
+
+    public float id() {
+        return id;
     }
 
     public String toString() {

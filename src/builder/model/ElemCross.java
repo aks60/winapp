@@ -114,9 +114,8 @@ public class ElemCross extends ElemSimple {
                 //На эскизе заход импоста не показываю, сразу пишу в спецификацию
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
-
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        IElem5e insideTop = winc.listJoin.elem(this, 1), insideBott = winc.listJoin.elem(this, 0);
+                        IElem5e insideBott = winc.listJoin.elem(this, 0), insideTop = winc.listJoin.elem(this, 1);
                         spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 

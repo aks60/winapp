@@ -10,7 +10,7 @@ public enum Type implements Enam {
     IMPOST(3, 3, "Импост"),
     RIGEL_IMPOST(4, 777, "Ригель/импост"),
     STOIKA(5, 5, "Стойка"),
-    STOIKA_FRAME(6, 777, "Стойка/коробка"),
+    //STOIKA_FRAME(6, 777, "Стойка/коробка"),
     ERKER(7, 7, "Эркер"),
     EDGE(8, 8, "Грань"),
     SHTULP(9, 9, "Штульп"),
