@@ -82,7 +82,6 @@ public class ElemFrame extends ElemSimple {
      * Установка координат фреймов с учётов типа конст. и формы контура x1y1 -
      * верхняя левая точка x2y2 - нижняя правая точка
      */
-    @Override
     public void setLocation() {
 
         //Арка

@@ -17,8 +17,10 @@ import com.google.gson.JsonObject;
 import common.UCom;
 import common.listener.ListenerReload;
 import enums.Form;
+import enums.LayoutJoin;
 import enums.PKjson;
 import enums.Type;
+import enums.TypeJoin;
 import enums.UseUnit;
 import java.awt.Color;
 
@@ -38,6 +40,7 @@ public class ElemGlass extends ElemSimple {
 
         initСonstructiv(gson.param());
         setLocation();
+        setJoining();
 
         //Фича определения gzazo и gsize на раннем этапе построения. 
         //Используются до выполнения конструктива в ElemGlass.setSpecific()
@@ -87,10 +90,9 @@ public class ElemGlass extends ElemSimple {
     }
 
     /**
-     * Установка координат заполнений с учётов типа конст.
-     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     * Установка координат заполнений с учётов типа конст. x1y1 - верхняя левая
+     * точка x2y2 - нижняя правая точка
      */
-    @Override
     public void setLocation() {
         if (Type.ARCH == owner.type()) {
             setDimension(0, 0, owner.x2(), Math.abs(winc.height1() - winc.height2()));
@@ -98,9 +100,22 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y2());
         }
     }
-    
-    
-    
+
+    public void setJoining() {
+        //Прилегающее нижнее
+        IElem5e frmBott = this.joinFlat(Layout.BOTT);
+//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, this, frmBott, 0));
+//        //Прилегающее правое
+        IElem5e frmRight = this.joinFlat(Layout.RIGHT);
+//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, this, frmRight, 0));
+//        //Прилегающее верхнее 
+        //if (Type.ARCH == owner.type()) {
+        IElem5e frmTop = this.joinFlat(Layout.TOP);
+//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, this, frmTop, 0));
+//        //Прилегающее левое
+        IElem5e frmLeft = this.joinFlat(Layout.LEFT);
+//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, this, frmLeft, 0));
+    }
 
     //Главная спецификация    
     @Override
@@ -124,7 +139,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (owner.type() == Type.TRAPEZE) {
             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
-            
+
             if (winc.form == Form.RIGHT) {
                 x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = winc.listJoin.get(insideTop, 1);

@@ -6,9 +6,6 @@ import enums.Layout;
 
 public interface IElem5e extends ICom5t {
 
-    //Установка координат
-    void setLocation();
-
     //Главная спецификация
     void setSpecific();
 

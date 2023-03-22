@@ -53,16 +53,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        IElem5e stvBot = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
+        ElemFrame stvBot = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        IElem5e stvRigh = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
+        ElemFrame stvRigh = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        IElem5e stvTop = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
+        ElemFrame stvTop = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        IElem5e stvLeft = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
+        ElemFrame stvLeft = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
