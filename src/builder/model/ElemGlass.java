@@ -40,7 +40,6 @@ public class ElemGlass extends ElemSimple {
 
         initСonstructiv(gson.param());
         setLocation();
-        setJoining();
 
         //Фича определения gzazo и gsize на раннем этапе построения. 
         //Используются до выполнения конструктива в ElemGlass.setSpecific()
@@ -99,22 +98,6 @@ public class ElemGlass extends ElemSimple {
         } else {
             setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y2());
         }
-    }
-
-    public void setJoining() {
-        //Прилегающее нижнее
-        IElem5e frmBott = this.joinFlat(Layout.BOTT);
-//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, this, frmBott, 0));
-//        //Прилегающее правое
-        IElem5e frmRight = this.joinFlat(Layout.RIGHT);
-//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, this, frmRight, 0));
-//        //Прилегающее верхнее 
-        //if (Type.ARCH == owner.type()) {
-        IElem5e frmTop = this.joinFlat(Layout.TOP);
-//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, this, frmTop, 0));
-//        //Прилегающее левое
-        IElem5e frmLeft = this.joinFlat(Layout.LEFT);
-//        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, this, frmLeft, 0));
     }
 
     //Главная спецификация    
