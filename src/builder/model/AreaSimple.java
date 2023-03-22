@@ -96,7 +96,7 @@ public class AreaSimple extends Com5t implements IArea5e {
      * его ширину для центровки см. ElemCross.setLocation()
      */
     protected void setLocation(float width, float height) {
-        
+
         if (owner != null) {  //происходит для импостов у которы центр по середине
             if (owner.childs().isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
@@ -424,5 +424,63 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     public EnumMap<Layout, IElem5e> frame() {
         return frames;
+    }
+
+    @Override
+    public IElem5e joinSide(Layout side) {
+        try {
+            EnumMap<Layout, IElem5e> mapJoin = root().frames();
+            if (this.equals(root())) {
+                return mapJoin.get(side);
+            }
+            ICom5t ret = null;
+            LinkedList2<ICom5t> listCom = owner.childs();
+            for (int index = 0; index < listCom.size(); ++index) {
+                if (listCom.get(index).id() == id()) {
+
+                    if (owner.equals(root()) && owner.layout() == Layout.VERT) {
+                        if (side == Layout.TOP) {
+                            ret = (index == 0) ? mapJoin.get(side) : listCom.get(index - 1);
+                        } else if (side == Layout.BOTT) {
+                            ret = (index == listCom.size() - 1) ? mapJoin.get(side) : listCom.get(index + 1);
+                        } else {
+                            ret = root().frames().get(side);
+                        }
+
+                    } else if (owner.equals(root()) && owner.layout() == Layout.HORIZ) {
+                        if (side == Layout.LEFT) {
+                            ret = (index == 0) ? mapJoin.get(side) : listCom.get(index - 1);
+                        } else if (side == Layout.RIGHT) {
+                            ret = (index == listCom.size() - 1) ? mapJoin.get(side) : listCom.get(index + 1);
+                        } else {
+                            return root().frames().get(side);
+                        }
+
+                    } else {
+                        if (owner.layout() == Layout.VERT) {
+                            if (side == Layout.TOP) {
+                                ret = (index == 0) ? owner.joinSide(side) : listCom.get(index - 1);
+                            } else if (side == Layout.BOTT) {
+                                ret = (index == listCom.size() - 1) ? owner.joinSide(side) : listCom.get(index + 1);
+                            } else {
+                                ret = owner.joinSide(side);
+                            }
+                        } else {
+                            if (side == Layout.LEFT) {
+                                ret = (index == 0) ? owner.joinSide(side) : listCom.get(index - 1);
+                            } else if (side == Layout.RIGHT) {
+                                ret = (index == listCom.size() - 1) ? owner.joinSide(side) : listCom.get(index + 1);
+                            } else {
+                                ret = owner.joinSide(side);
+                            }
+                        }
+                    }
+                }
+            }
+            return (IElem5e) ret;
+        } catch (Exception e) {
+            System.err.println("Ошибка:AreaSimple.adjoinedElem() " + e);
+            return null;
+        }
     }
 }

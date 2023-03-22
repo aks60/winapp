@@ -64,11 +64,11 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     /**
      * Получить элемент прилегающих соединений. Прил. соед. используется для
      * определения координат примыкаемого элемента. (см. ElemXxx.setSpecific())
-     * @param layoutSide - сторона прилегания
+     * @param side - сторона прилегания
      * @return - элемент прилегания
      */
     @Override
-    public IElem5e joinFlat(Layout layoutSide) {
+    public IElem5e joinFlat(Layout side) {
         boolean begin = false;
         try {
             //Цикл по элементам кострукции
@@ -77,21 +77,21 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
 
                 if (begin == true && el.type() != Type.GLASS) {
                     //Проверка начинает выполняться после появления в обратном цикле самого элемента(this) 
-                    if (Layout.BOTT == layoutSide && el.layout() != Layout.VERT) {
+                    if (Layout.BOTT == side && el.layout() != Layout.VERT) {
                         float Y2 = (y2 > y1) ? y2 : y1;
                         if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
                             return (IElem5e) el;
                         }
-                    } else if (Layout.LEFT == layoutSide && el.layout() != Layout.HORIZ) {
+                    } else if (Layout.LEFT == side && el.layout() != Layout.HORIZ) {
                         if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
                             return (IElem5e) el;
                         }
-                    } else if (Layout.TOP == layoutSide && el.layout() != Layout.VERT) {
+                    } else if (Layout.TOP == side && el.layout() != Layout.VERT) {
                         float Y1 = (y2 > y1) ? y1 : y2;
                         if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP) == false) {
                             return (IElem5e) el;
                         }
-                    } else if (Layout.RIGHT == layoutSide && el.layout() != Layout.HORIZ) {
+                    } else if (Layout.RIGHT == side && el.layout() != Layout.HORIZ) {
                         if (el.inside(x2, y1 + (y2 - y1) / 2)) {
                             return (IElem5e) el;
                         }
@@ -101,7 +101,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
                     begin = true;
                 }
             }
-            System.err.println("Неудача:ElemSimple.joinFlat() id=" + this.id() + ", " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача:ElemSimple.joinFlat() id=" + this.id() + ", " + side + " соединение не найдено");
             return null;
 
         } catch (Exception e) {

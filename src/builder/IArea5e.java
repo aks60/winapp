@@ -35,6 +35,8 @@ public interface IArea5e extends ICom5t {
     void resizeX(float v);
 
     void resizeY(float v);
+    
+    IElem5e joinSide(Layout side);
 
     Type type();
 }
