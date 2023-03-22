@@ -98,6 +98,9 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y2());
         }
     }
+    
+    
+    
 
     //Главная спецификация    
     @Override
@@ -120,9 +123,6 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = (float) r;
 
         } else if (owner.type() == Type.TRAPEZE) {
-                       
-            //IElem5e insideLeft2 = joinFlat(Layout.LEFT), insideTop2 = joinFlat(Layout.TOP), insideBott2 = joinFlat(Layout.BOTT), insideRight2 = joinFlat(Layout.RIGHT);
-
             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
             
             if (winc.form == Form.RIGHT) {

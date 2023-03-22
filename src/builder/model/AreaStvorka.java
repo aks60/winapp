@@ -67,7 +67,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         frames.put(stvLeft.layout(), stvLeft);
 
         //Соединения до нахлёста
-        joining();
+        setJoining();
         
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
@@ -209,8 +209,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     /**
      * Угловые и прилегающие соединения
      */
-    @Override
-    public void joining() {
+    public void setJoining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
         
@@ -313,8 +312,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Ручка
     @Override
-    public void handleRec(Record handleRec
-    ) {
+    public void handleRec(Record handleRec) {
         this.handleRec = handleRec;
     }
 

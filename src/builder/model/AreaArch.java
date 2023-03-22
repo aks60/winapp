@@ -101,6 +101,5 @@ public class AreaArch extends AreaSimple {
         elemJoin1.elem1.anglCut()[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut()[0] = (float) ang3;  //угол реза рамы
         winc.listJoin.add(elemJoin1);
-
     }
 }

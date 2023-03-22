@@ -34,9 +34,6 @@ public interface IStvorka {
 
     void initFurniture(JsonObject param);
 
-    //Угловые и прилегающие соединения
-    void joining();
-
     //Цвет замка
     int lockColor();
 

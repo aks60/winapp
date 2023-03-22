@@ -54,22 +54,9 @@ public class Filling extends Cal5e {
     public void calc(IElem5e elemGlass) {
         super.calc();
         try {
-            Float depth = elemGlass.artiklRec().getFloat(eArtikl.depth); //толщина стекда
-            
+            Float depth = elemGlass.artiklRec().getFloat(eArtikl.depth); //толщина стекда           
             List<IElem5e> elemFrameList = new ArrayList<IElem5e>(rootArea().frames().values());  //список рам конструкции
-//            if (elemGlass.owner().type() == Type.ARCH) {
-//                elemFrameList =  List.of(
-//                        rootArea().frames().get(Layout.BOTT), 
-//                        rootArea().frames().get(Layout.RIGHT), 
-//                        rootArea().frames().get(Layout.TOP), 
-//                        rootArea().frames().get(Layout.LEFT));
-//            } else {
-//                elemFrameList =  List.of(
-//                        elemGlass.joinFlat(Layout.BOTT), 
-//                        elemGlass.joinFlat(Layout.RIGHT), 
-//                        elemGlass.joinFlat(Layout.TOP), 
-//                        elemGlass.joinFlat(Layout.LEFT));
-//            }
+            
             //Цикл по сторонам стеклопакета
             float sideHoriz[] = {0, 90, 180, 270};
             for (int side = 0; side < 4; ++side) {
