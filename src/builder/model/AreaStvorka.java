@@ -209,7 +209,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     /**
      * Угловые и прилегающие соединения
      */
-    public void setJoining() {
+    private void setJoining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
         
