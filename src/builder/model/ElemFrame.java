@@ -401,7 +401,7 @@ public class ElemFrame extends ElemSimple {
         try {
             ElemJoining ej1 = winc.listJoin.get(this, 0);
             ElemJoining ej2 = winc.listJoin.get(this, 1);
-            float dh = artiklRec().getFloat(eArtikl.height);
+            float dh = artiklRec.getFloat(eArtikl.height);
             float dh0 = (winc.listJoin.get(this, 0).type == TypeJoin.VAR30 || winc.listJoin.get(this, 0).type == TypeJoin.VAR31) ? 0 : dh;
             float dh1 = (winc.listJoin.get(this, 1).type == TypeJoin.VAR30 || winc.listJoin.get(this, 1).type == TypeJoin.VAR31) ? 0 : dh;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
@@ -468,7 +468,7 @@ public class ElemFrame extends ElemSimple {
                 } else if (Layout.TOP == layout) {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 - dh1, y1, y2, y2 + dh, y1 + dh, rgb, borderColor);
                 } else if (Layout.LEFT == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, y1 + dh, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x2, x2 + dh, x1 + dh, x1, y2, y2 - dh, y1 + dh, y1, rgb, borderColor);
                 }
             }
         } catch (Exception s) {
