@@ -53,16 +53,20 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        ElemFrame stvBot = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
+        ElemFrame stvBot = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
+        ElemFrame stvRigh = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
+        ElemFrame stvTop = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = (eProp.old.read().equals("0")) ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
+        ElemFrame stvLeft = (eProp.old.read().equals("0")) 
+                ? new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson)
                 : new builder.model.ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout(), stvLeft);
 
@@ -94,10 +98,16 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 joinBot = winc.listJoin.elem(stvBot, 2), joinRig = winc.listJoin.elem(stvRig, 2);
        
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2() - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            y1 = joinTop.y2() - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            x2 = joinRig.x1() + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
-            y2 = joinBot.y1() + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
+            float sc1 = joinLef.artiklRec().getFloat(eArtikl.size_centr), sc2 = joinTop.artiklRec().getFloat(eArtikl.size_centr),
+                    sc3 = joinRig.artiklRec().getFloat(eArtikl.size_centr), sc4 = joinBot.artiklRec().getFloat(eArtikl.size_centr);
+            float sf1 = joinLef.artiklRec().getFloat(eArtikl.size_falz), sf2 = joinTop.artiklRec().getFloat(eArtikl.size_falz),
+                    sf3 = joinRig.artiklRec().getFloat(eArtikl.size_falz), sf4 = joinBot.artiklRec().getFloat(eArtikl.size_falz);
+            
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - sc1 - sf1 - naxl;
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - sc2 - sf2 - naxl;
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + sc3 + sf3 + naxl;
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + sc4 + sf4 + naxl;
 
         } else { //Вычисление смещения створки через параметр
             try {
@@ -109,10 +119,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
-                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
-                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
-                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
                 x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
+                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
@@ -258,26 +268,26 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
         if (typeOpen != TypeOpen1.INVALID) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
-            IElem5e elemL = frames.get(Layout.LEFT);
-            IElem5e elemR = frames.get(Layout.RIGHT);
-            IElem5e elemT = frames.get(Layout.TOP);
-            IElem5e elemB = frames.get(Layout.BOTT);
+            IElem5e stvL = frames.get(Layout.LEFT);
+            IElem5e stvR = frames.get(Layout.RIGHT);
+            IElem5e stvT = frames.get(Layout.TOP);
+            IElem5e stvB = frames.get(Layout.BOTT);
 
             if (typeOpen.id == 1 || typeOpen.id == 3) {
-                X1 = elemR.x1() + (elemR.x2() - elemR.x1()) / 2;
-                Y1 = elemR.y1() + (elemR.y2() - elemR.y1()) / 2;
-                DrawStroke.drawLine(winc, elemL.x1(), elemL.y1(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
-                DrawStroke.drawLine(winc, elemL.x1(), elemL.y2(), elemR.x2(), elemR.y1() + (elemR.y2() - elemR.y1()) / 2);
+                X1 = stvR.x1() - stvR.artiklRec().getFloat(eArtikl.height) / 2;
+                Y1 = stvR.y1() + (stvR.y2() - stvR.y1()) / 2;
+                DrawStroke.drawLine(winc, stvL.x1(), stvL.y1(), stvR.x2(), stvR.y1() + (stvR.y2() - stvR.y1()) / 2);
+                DrawStroke.drawLine(winc, stvL.x1(), stvL.y2(), stvR.x2(), stvR.y1() + (stvR.y2() - stvR.y1()) / 2);
 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
-                X1 = elemL.x1() + (elemL.x2() - elemL.x1()) / 2;
-                Y1 = elemL.y1() + (elemL.y2() - elemL.y1()) / 2;
-                DrawStroke.drawLine(winc, elemR.x2(), elemR.y1(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
-                DrawStroke.drawLine(winc, elemR.x2(), elemR.y2(), elemL.x1(), elemL.y1() + (elemL.y2() - elemL.y1()) / 2);
+                X1 = stvL.x1() + stvL.artiklRec().getFloat(eArtikl.height) / 2;
+                Y1 = stvL.y1() + (stvL.y2() - stvL.y1()) / 2;
+                DrawStroke.drawLine(winc, stvR.x2(), stvR.y1(), stvL.x1(), stvL.y1() + (stvL.y2() - stvL.y1()) / 2);
+                DrawStroke.drawLine(winc, stvR.x2(), stvR.y2(), stvL.x1(), stvL.y1() + (stvL.y2() - stvL.y1()) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                DrawStroke.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x1(), elemB.y2());
-                DrawStroke.drawLine(winc, elemT.x1() + (elemT.x2() - elemT.x1()) / 2, elemT.y1(), elemB.x2(), elemB.y2());
+                DrawStroke.drawLine(winc, stvT.x1() + (stvT.x2() - stvT.x1()) / 2, stvT.y1(), stvB.x1(), stvB.y2());
+                DrawStroke.drawLine(winc, stvT.x1() + (stvT.x2() - stvT.x1()) / 2, stvT.y1(), stvB.x2(), stvB.y2());
             }
 
             if (root.type() == Type.DOOR) {

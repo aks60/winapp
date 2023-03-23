@@ -27,7 +27,7 @@ public class GsonScript {
         
 // <editor-fold defaultstate="collapsed" desc="RECTANGL">
         if (prj == 601001) {
-            rootGson = new GsonRoot("1.0", null, null, null, "TEST texmolog",
+            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 900, 1300, null, null, null);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
