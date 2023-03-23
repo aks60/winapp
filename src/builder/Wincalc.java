@@ -17,9 +17,9 @@ import builder.making.UColor;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import com.google.gson.JsonSyntaxException;
-import common.ArrayList2;
-import common.ArrayList3;
-import common.LinkedList2;
+import common.ArraySpc;
+import common.ArrayJoin;
+import common.LinkedC7t;
 import common.eProp;
 import domain.eSysprof;
 import enums.Form;
@@ -63,11 +63,11 @@ public class Wincalc {
     public IArea5e rootArea = null; //объектная модель конструкции 2-го уровня
 
     private HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<IArea5e> listArea = new LinkedList2(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
-    public LinkedList2<IElem5e> listElem = new LinkedList2(); //список элем.
-    public LinkedList2<ICom5t> listAll = new LinkedList2(); //список всех компонентов (area + elem)
-    public ArrayList3 listJoin = new ArrayList3(); //список соединений рам и створок 
-    public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
+    public LinkedC7t<IArea5e> listArea = new LinkedC7t(); //список ареа инит происх. в констр AreaSimple, ElemSimple 
+    public LinkedC7t<IElem5e> listElem = new LinkedC7t(); //список элем.
+    public LinkedC7t<ICom5t> listAll = new LinkedC7t(); //список всех компонентов (area + elem)
+    public ArrayJoin listJoin = new ArrayJoin(); //список соединений рам и створок 
+    public ArraySpc<Specific> listSpec = new ArraySpc(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
     public Wincalc() {

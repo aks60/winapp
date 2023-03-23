@@ -14,7 +14,7 @@ import enums.UseUnit;
 import java.util.LinkedList;
 import builder.Wincalc;
 import builder.IElem5e;
-import common.ArrayList2;
+import common.ArraySpc;
 import common.UCom;
 import dataset.Query;
 import domain.ePrjkit;
@@ -156,8 +156,8 @@ public class Tariffic extends Cal5e {
     }
 
     //Комплекты конструкции    
-    public static ArrayList2<Specific> kits(Record prjprodRec, Wincalc winc, boolean norm_otx) {
-        ArrayList2<Specific> kitList = new ArrayList2();
+    public static ArraySpc<Specific> kits(Record prjprodRec, Wincalc winc, boolean norm_otx) {
+        ArraySpc<Specific> kitList = new ArraySpc();
         try {
             Record systreeRec = eSystree.find(winc.nuni()); //для нахожд. коэф. рентабельности
             float percentMarkup = percentMarkup(winc); //процентная надбавка на изделия сложной формы

@@ -3,7 +3,7 @@ package report;
 import builder.Wincalc;
 import builder.making.Specific;
 import builder.making.Tariffic;
-import common.ArrayList2;
+import common.ArraySpc;
 import dataset.Record;
 import domain.eArtikl;
 import domain.ePrjprod;
@@ -59,7 +59,7 @@ public class HtmlOfSpecific {
             winc.build(script);
             winc.constructiv(true);
             spcList2.addAll(winc.listSpec); //добавим спецификацию
-            ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, winc, true); 
+            ArraySpc<Specific> kitList = Tariffic.kits(prjprodRec, winc, true); 
             spcList2.addAll(kitList); //добавим комплекты
         }
         

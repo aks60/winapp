@@ -2,7 +2,7 @@ package builder;
 
 import builder.making.Specific;
 import com.google.gson.JsonObject;
-import common.LinkedList2;
+import common.LinkedC7t;
 import enums.Layout;
 import enums.Type;
 import java.util.EnumMap;
@@ -30,7 +30,7 @@ public interface IArea5e extends ICom5t {
 
     EnumMap<Layout, IElem5e> frames();
             
-    LinkedList2<ICom5t> childs();
+    LinkedC7t<ICom5t> childs();
 
     void resizeX(float v);
 

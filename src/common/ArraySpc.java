@@ -3,9 +3,9 @@ package common;
 import builder.making.Specific;
 import java.util.ArrayList;
 
-public class ArrayList2<E extends Specific> extends ArrayList<E> {
+public class ArraySpc<E extends Specific> extends ArrayList<E> {
 
-    public ArrayList2() {
+    public ArraySpc() {
         super();
     }
 

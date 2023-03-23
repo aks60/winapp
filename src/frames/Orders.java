@@ -21,8 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.ArrayList2;
-import common.LinkedList2;
+import common.ArraySpc;
+import common.LinkedC7t;
 import common.UCom;
 import dataset.Field;
 import dataset.Query;
@@ -472,7 +472,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                     setIcon(btn24, stv.paramCheck()[6]);
                     //Москитка
-                    LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                    LinkedC7t<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
                     if (mosqList.isEmpty() == false) {
                         IElem5e mosq = (IElem5e) mosqList.get(0);
                         setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
@@ -3627,7 +3627,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                                 projectRec.set(eProject.cost2, projectRec.getDbl(eProject.cost2) + win.cost2()); //стоимость со скидками
 
                                 //Комплектация
-                                ArrayList2<Specific> kitList = Tariffic.kits(prjprodRec, win, true); //комплекты
+                                ArraySpc<Specific> kitList = Tariffic.kits(prjprodRec, win, true); //комплекты
                                 for (Specific spc : kitList) {
                                     projectRec.set(eProject.price3, projectRec.getDbl(eProject.price3) + spc.price * spc.count);
                                     projectRec.set(eProject.cost3, projectRec.getDbl(eProject.cost3) + spc.cost2 * spc.count);
@@ -3898,7 +3898,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem gsonElem = null;
-                LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+                LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
 
                 if (mosqList.isEmpty() == false) {
                     IElem5e mosqElem = (IElem5e) mosqList.get(0);
@@ -3927,7 +3927,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IStvorka stvElem = (IStvorka) winNode.com5t();
-            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 ElemMosquit mosqElem = (ElemMosquit) mosqList.get(0);
                 HashSet<Record> colorSet = UGui.artiklToColorSet(mosqElem.artiklRec().getInt(eArtikl.id));
@@ -3951,7 +3951,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IArea5e stvElem = (IArea5e) winNode.com5t();
-            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 IElem5e mosqElem = (IElem5e) mosqList.get(0);
                 Record artiklRec = mosqElem.artiklRec();

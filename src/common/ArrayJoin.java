@@ -7,9 +7,9 @@ import enums.Type;
 import enums.TypeJoin;
 import java.util.ArrayList;
 
-public class ArrayList3 extends ArrayList<ElemJoining> {
+public class ArrayJoin extends ArrayList<ElemJoining> {
 
-    public ArrayList3() {
+    public ArrayJoin() {
         super();
     }
 

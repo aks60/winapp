@@ -82,7 +82,7 @@ import builder.model.ElemMosquit;
 import builder.script.GsonRoot;
 import builder.script.GsonScript;
 import com.google.gson.Gson;
-import common.LinkedList2;
+import common.LinkedC7t;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
@@ -512,7 +512,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                     setIcon(btn24, stv.paramCheck()[6]);
                     //Москитка
-                    LinkedList2<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                    LinkedC7t<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
                     if (mosqList.isEmpty() == false) {
                         IElem5e mosq = (IElem5e) mosqList.get(0);
                         setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
@@ -4198,7 +4198,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem gsonElem = null;
-                LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+                LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
 
                 if (mosqList.isEmpty() == false) {
                     IElem5e mosqElem = (IElem5e) mosqList.get(0);
@@ -4227,7 +4227,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IArea5e stvElem = (IArea5e) winNode.com5t();
-            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 IElem5e mosqElem = (IElem5e) mosqList.get(0);
                 Record artiklRec = mosqElem.artiklRec();
@@ -4328,7 +4328,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IStvorka stvElem = (IStvorka) winNode.com5t();
-            LinkedList2<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 ElemMosquit mosqElem = (ElemMosquit) mosqList.get(0);
                 HashSet<Record> colorSet = UGui.artiklToColorSet(mosqElem.artiklRec().getInt(eArtikl.id));
