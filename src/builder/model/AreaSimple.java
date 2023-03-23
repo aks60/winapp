@@ -430,7 +430,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     public IElem5e joinSide(Layout side) {
         try {
             EnumMap<Layout, IElem5e> mapJoin = root().frames();
-            if (this.equals(root())) {
+            if (this.equals(root()) || this.type() == Type.STVORKA) {
                 return mapJoin.get(side);
             }
             ICom5t ret = null;

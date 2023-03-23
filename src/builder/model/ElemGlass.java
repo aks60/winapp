@@ -111,7 +111,7 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID3 = colorID3;
         if (owner.type() == Type.ARCH) { //если арка
             IElem5e elemArch = root().frames().get(Layout.TOP);
-            IElem5e elemImpost = joinFlat(Layout.BOTT);
+            IElem5e elemImpost = owner.joinSide(Layout.BOTT);
             y1 = y1 + elemArch.artiklRec().getFloat(eArtikl.height) - elemArch.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec().getFloat(eArtikl.height) + elemArch.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
@@ -121,7 +121,7 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = (float) r;
 
         } else if (owner.type() == Type.TRAPEZE) {
-            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
+            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
 
             if (winc.form == Form.RIGHT) {
                 x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
@@ -145,7 +145,7 @@ public class ElemGlass extends ElemSimple {
             }
 
         } else {
-            IElem5e insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
+            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideRight = owner.joinSide(Layout.RIGHT);
 
             if (winc.syssizeRec().getInt(eSyssize.id) == -1) {
                 y2 = insideBott.y2() - insideBott.artiklRec().getFloat(eArtikl.size_centr) - gsize[0];
@@ -302,7 +302,7 @@ public class ElemGlass extends ElemSimple {
         } else if (owner.type() == Type.TRAPEZE) {
             IElem5e insideLeft = root().frames().get(Layout.LEFT),
                     insideTop = root().frames().get(Layout.TOP),
-                    insideBott = joinFlat(Layout.BOTT),
+                    insideBott = owner.joinSide(Layout.BOTT),
                     insideRight = root().frames().get(Layout.RIGHT);
 
             if (insideBott.type() == Type.FRAME_SIDE && insideRight.type() == Type.FRAME_SIDE
@@ -336,7 +336,7 @@ public class ElemGlass extends ElemSimple {
     public void rascladkaPaint() {
 
         if (this.rasclRec.isVirtual() == false) {
-            IElem5e elemL = joinFlat(Layout.LEFT), elemT = joinFlat(Layout.TOP), elemB = joinFlat(Layout.BOTT), elemR = joinFlat(Layout.RIGHT);
+            IElem5e elemL = owner.joinSide(Layout.LEFT), elemT = owner.joinSide(Layout.TOP), elemB = owner.joinSide(Layout.BOTT), elemR = owner.joinSide(Layout.RIGHT);
             float artH = Math.round(this.rasclRec().getFloat(eArtikl.height));
             final int numX = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
             final int numY = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
