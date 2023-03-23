@@ -22,7 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.ArraySpc;
-import common.LinkedC7t;
+import common.LinkedCom;
 import common.UCom;
 import dataset.Field;
 import dataset.Query;
@@ -472,7 +472,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     setText(txt48, eColor.find(stv.lockColor()).getStr(eColor.name));
                     setIcon(btn24, stv.paramCheck()[6]);
                     //Москитка
-                    LinkedC7t<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
+                    LinkedCom<ICom5t> mosqList = ((IArea5e) stv).childs().filter(enums.Type.MOSKITKA);
                     if (mosqList.isEmpty() == false) {
                         IElem5e mosq = (IElem5e) mosqList.get(0);
                         setText(txt54, mosq.artiklRec().getStr(eArtikl.code));
@@ -3898,7 +3898,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem gsonElem = null;
-                LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+                LinkedCom<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
 
                 if (mosqList.isEmpty() == false) {
                     IElem5e mosqElem = (IElem5e) mosqList.get(0);
@@ -3927,7 +3927,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IStvorka stvElem = (IStvorka) winNode.com5t();
-            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedCom<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 ElemMosquit mosqElem = (ElemMosquit) mosqList.get(0);
                 HashSet<Record> colorSet = UGui.artiklToColorSet(mosqElem.artiklRec().getInt(eArtikl.id));
@@ -3951,7 +3951,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             IArea5e stvElem = (IArea5e) winNode.com5t();
-            LinkedC7t<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
+            LinkedCom<ICom5t> mosqList = ((IArea5e) stvElem).childs().filter(enums.Type.MOSKITKA);
             if (mosqList.isEmpty() == false) {
                 IElem5e mosqElem = (IElem5e) mosqList.get(0);
                 Record artiklRec = mosqElem.artiklRec();

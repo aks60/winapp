@@ -6,9 +6,9 @@ import enums.Type;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LinkedC7t<E extends ICom5t> extends LinkedList<E> {
+public class LinkedCom<E extends ICom5t> extends LinkedList<E> {
 
-    public LinkedC7t() {
+    public LinkedCom() {
         super();
     }
 
@@ -24,9 +24,9 @@ public class LinkedC7t<E extends ICom5t> extends LinkedList<E> {
         return null;
     }
 
-    public <T extends ICom5t> LinkedC7t<T> filter(Type... type) {
+    public <T extends ICom5t> LinkedCom<T> filter(Type... type) {
         List tp = List.of(type);
-        LinkedC7t<T> list2 = new LinkedC7t();
+        LinkedCom<T> list2 = new LinkedCom();
         for (E el : this) {
             if (tp.contains(el.type())) {
                 list2.add((T) el);

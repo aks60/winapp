@@ -17,7 +17,7 @@ import builder.making.Cal5e;
 import builder.making.Joining;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import common.LinkedC7t;
+import common.LinkedCom;
 import common.eProp;
 import domain.eArtdet;
 import domain.eColor;

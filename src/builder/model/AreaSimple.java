@@ -20,7 +20,7 @@ import builder.Wincalc;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
-import common.LinkedC7t;
+import common.LinkedCom;
 import common.UCom;
 import common.eProp;
 import domain.eColor;
@@ -36,7 +36,7 @@ public class AreaSimple extends Com5t implements IArea5e {
 
     protected Form form = null; //форма контура (параметр в развитии)
     protected EnumMap<Layout, IElem5e> frames = new EnumMap<>(Layout.class); //список рам в окне     
-    protected LinkedC7t<ICom5t> childs = new LinkedC7t(); //дети
+    protected LinkedCom<ICom5t> childs = new LinkedCom(); //дети
 
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);
@@ -178,7 +178,7 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     @Override
-    public LinkedC7t<ICom5t> childs() {
+    public LinkedCom<ICom5t> childs() {
         return childs;
     }
 
@@ -438,7 +438,7 @@ public class AreaSimple extends Com5t implements IArea5e {
             }
             EnumMap<Layout, IElem5e> mapJoin = root().frames();
             ICom5t ret = null;
-            LinkedC7t<ICom5t> listCom = owner.childs();
+            LinkedCom<ICom5t> listCom = owner.childs();
             for (int index = 0; index < listCom.size(); ++index) {
                 if (listCom.get(index).id() == id()) {
 
