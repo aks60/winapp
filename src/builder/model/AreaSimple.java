@@ -426,13 +426,17 @@ public class AreaSimple extends Com5t implements IArea5e {
         return frames;
     }
 
+    /**
+     * Определяет ближайшего соседа в указанном направлении
+     * @param side - сторона направления 
+     */
     @Override
     public IElem5e joinSide(Layout side) {
         try {
-            EnumMap<Layout, IElem5e> mapJoin = root().frames();
             if (this.equals(root()) || this.type() == Type.STVORKA) {
-                return mapJoin.get(side);
+                return frames().get(side);
             }
+            EnumMap<Layout, IElem5e> mapJoin = root().frames();
             ICom5t ret = null;
             LinkedList2<ICom5t> listCom = owner.childs();
             for (int index = 0; index < listCom.size(); ++index) {
