@@ -98,16 +98,14 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 joinBot = winc.listJoin.elem(stvBot, 2), joinRig = winc.listJoin.elem(stvRig, 2);
        
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-            float naxl = winc.syssizeRec().getFloat(eSyssize.naxl);
-            float sc1 = joinLef.artiklRec().getFloat(eArtikl.size_centr), sc2 = joinTop.artiklRec().getFloat(eArtikl.size_centr),
-                    sc3 = joinRig.artiklRec().getFloat(eArtikl.size_centr), sc4 = joinBot.artiklRec().getFloat(eArtikl.size_centr);
-            float sf1 = joinLef.artiklRec().getFloat(eArtikl.size_falz), sf2 = joinTop.artiklRec().getFloat(eArtikl.size_falz),
-                    sf3 = joinRig.artiklRec().getFloat(eArtikl.size_falz), sf4 = joinBot.artiklRec().getFloat(eArtikl.size_falz);
-            
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - sc1 - sf1 - naxl;
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - sc2 - sf2 - naxl;
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + sc3 + sf3 + naxl;
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + sc4 + sf4 + naxl;
+            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) 
+                    - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) 
+                    - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
+            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) 
+                    + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) 
+                    + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
             try {
