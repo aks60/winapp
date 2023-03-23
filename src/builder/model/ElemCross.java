@@ -84,11 +84,11 @@ public class ElemCross extends ElemSimple {
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
-                    setDimension(prevArea.x1(), prevArea.y2() - db, prevArea.x2(), prevArea.y2() + db);
+                    setDimension(prevArea.x2(), prevArea.y2(), prevArea.x1(), prevArea.y2());
                     anglHoriz = 0;
 
                 } else if (Layout.HORIZ.equals(owner.layout())) { //ареа слева направо
-                    setDimension(prevArea.x2() - db, prevArea.y1(), prevArea.x2() + db, prevArea.y2());
+                    setDimension(prevArea.x2(), prevArea.y1(), prevArea.x2(), prevArea.y2());
                     anglHoriz = 90;
                 }
                 break;
@@ -114,22 +114,26 @@ public class ElemCross extends ElemSimple {
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        IElem5e insideBott = winc.listJoin.elem(this, 0), insideTop = winc.listJoin.elem(this, 1);
-                        spcRec.width = insideBott.y1() - insideTop.y2() + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
+                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height)) 
+                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height)) + zax * 2 
+                                + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
-                        IElem5e insideLeft = winc.listJoin.elem(this, 0), insideRight = winc.listJoin.elem(this, 1);
-                        spcRec.width = insideRight.x1() - insideLeft.x2() + zax * 2 + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                        IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
+                        spcRec.width = (insideRight.x1() - insideLeft.artiklRec().getFloat(eArtikl.height)) 
+                                - (insideLeft.x1() + insideRight.artiklRec().getFloat(eArtikl.height)) + zax * 2 
+                                + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
-                        spcRec.width = y2 - y1;
+                        spcRec.width = length();
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
-                        spcRec.width = x2 - x1;
+                        spcRec.width = length();
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 }
@@ -197,13 +201,14 @@ public class ElemCross extends ElemSimple {
 
     @Override
     public void paint() {
-
+        
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+        float dh = this.artiklRec.getFloat(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
-            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh, y1 + dh, y2 - dh, y2 - dh, rgb, borderColor);
 
         } else if (Layout.HORIZ == owner.layout()) {
-            DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            DrawStroke.strokePolygon(winc, x1 - dh, x2 + dh, x2 + dh, x1 - dh, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 
