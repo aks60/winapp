@@ -153,10 +153,10 @@ public class ElemGlass extends ElemSimple {
                 x2 = x2 - inRight.artiklRec().getFloat(eArtikl.size_centr) - gsize[1];                
                 y2 = y2 - inBott.artiklRec().getFloat(eArtikl.size_centr) - gsize[0];
             } else {
-                x1 = x1 + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                y1 = y1 + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                x2 = x2 - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-                y2 = y2 - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+                x1 = x1 + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_centr) - inLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
+                y1 = y1 + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr) - inTop.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
+                x2 = x2 - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_centr) + inRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+                y2 = y2 - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr) + inBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
             }
         }
         spcRec.width = width();

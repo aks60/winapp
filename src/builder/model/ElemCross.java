@@ -81,7 +81,7 @@ public class ElemCross extends ElemSimple {
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
-                float db = artiklRecAn.getFloat(eArtikl.size_centr);
+                //float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
                     setDimension(prevArea.x1(), prevArea.y2(), prevArea.x2(), prevArea.y2());
@@ -114,26 +114,17 @@ public class ElemCross extends ElemSimple {
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
                     if (Layout.HORIZ == owner.layout()) { //ареа слева направо  
-                        IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
-                        
-                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height)) 
-                                - (insideTop.y2() + insideTop.artiklRec().getFloat(eArtikl.height)) 
-                                + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
-                        
-                        
-//                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height) + insideBott.artiklRec().getFloat(eArtikl.size_falz)) 
-//                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) + zax * 2;
-                        
-//                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height)) 
-//                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height)) + zax * 2 
-//                                + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        IElem5e inTop = joinFlat(Layout.TOP), inBott = joinFlat(Layout.BOTT);
+                        spcRec.width = (inBott.y1() - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr)) 
+                                - (inTop.y2() + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr)) 
+                                + zax * 2 + inBott.artiklRec().getFloat(eArtikl.size_falz) + inTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //ареа сверху вниз
-                        IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
-                        spcRec.width = (insideRight.x1() - insideLeft.artiklRec().getFloat(eArtikl.height)) 
-                                - (insideLeft.x1() + insideRight.artiklRec().getFloat(eArtikl.height)) + zax * 2 
-                                + insideLeft.artiklRec().getFloat(eArtikl.size_falz) + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                        IElem5e inLeft = joinFlat(Layout.LEFT), inRight = joinFlat(Layout.RIGHT);
+                        spcRec.width = (inRight.x1() - inLeft.artiklRec().getFloat(eArtikl.height) + inLeft.artiklRec().getFloat(eArtikl.size_centr)) 
+                                - (inLeft.x1() + inRight.artiklRec().getFloat(eArtikl.height) - inRight.artiklRec().getFloat(eArtikl.size_centr)) + zax * 2 
+                                + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {
