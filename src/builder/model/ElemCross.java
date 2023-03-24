@@ -113,14 +113,23 @@ public class ElemCross extends ElemSimple {
                 //На эскизе заход импоста не показываю, сразу пишу в спецификацию
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
-                    if (Layout.HORIZ == owner.layout()) { //слева направо  
+                    if (Layout.HORIZ == owner.layout()) { //ареа слева направо  
                         IElem5e insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
+                        
                         spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height)) 
-                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height)) + zax * 2 
-                                + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                                - (insideTop.y2() + insideTop.artiklRec().getFloat(eArtikl.height)) 
+                                + zax * 2 + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
+                        
+                        
+//                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height) + insideBott.artiklRec().getFloat(eArtikl.size_falz)) 
+//                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) + zax * 2;
+                        
+//                        spcRec.width = (insideBott.y1() - insideBott.artiklRec().getFloat(eArtikl.height)) 
+//                                - (insideTop.y1() + insideTop.artiklRec().getFloat(eArtikl.height)) + zax * 2 
+//                                + insideBott.artiklRec().getFloat(eArtikl.size_falz) + insideTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
-                    } else if (Layout.VERT == owner.layout()) { //снизу вверх
+                    } else if (Layout.VERT == owner.layout()) { //ареа сверху вниз
                         IElem5e insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
                         spcRec.width = (insideRight.x1() - insideLeft.artiklRec().getFloat(eArtikl.height)) 
                                 - (insideLeft.x1() + insideRight.artiklRec().getFloat(eArtikl.height)) + zax * 2 
