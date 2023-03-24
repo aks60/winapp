@@ -124,8 +124,7 @@ public class ElemCross extends ElemSimple {
                         IElem5e inLeft = joinFlat(Layout.LEFT), inRight = joinFlat(Layout.RIGHT);
                         spcRec.width = (inRight.x1() - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_centr))
                                 - (inLeft.x1() + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_centr))
-                                + zax * 2 + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz)
-                                + inLeft.artiklRec().getFloat(eArtikl.size_tech) + inRight.artiklRec().getFloat(eArtikl.size_tech);
+                                + zax * 2 + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {

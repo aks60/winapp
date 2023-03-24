@@ -87,16 +87,16 @@ public class ElemFrame extends ElemSimple {
         //Арка
         if (owner.type() == Type.ARCH) {
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1(), owner.y2() - artiklRec().getFloat(eArtikl.height), owner.x2(), owner.y2());
+                setDimension(owner.x1(), owner.y2(), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2() - artiklRec().getFloat(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
+                setDimension(owner.x2(), owner.y2() - winc.height2(), owner.x2(), owner.y2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1()); // + artiklRec.getFloat(eArtikl.height));
+                setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1());
                 anglHoriz = 180;
             } else if (Layout.LEFT == layout) {
-                setDimension(owner.x1(), owner.y2() - winc.height2(), owner.x1() + artiklRec().getFloat(eArtikl.height), owner.y2());
+                setDimension(owner.x1(), owner.y2() - winc.height2(), owner.x1(), owner.y2());
                 anglHoriz = 270;
             }
 
