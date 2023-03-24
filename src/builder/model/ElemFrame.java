@@ -410,13 +410,13 @@ public class ElemFrame extends ElemSimple {
             if (owner.type() == Type.ARCH) {
 
                 if (Layout.BOTT == layout) {
-                    DrawStroke.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 + dh0, y1, y2, y1 - dh1, y2 - dh0, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
-                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - dh0, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (float) (r - a), rgb, borderColor);
 
                 } else if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!                  
@@ -431,7 +431,7 @@ public class ElemFrame extends ElemSimple {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
-                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, (float) (r - a), y2 - dh1, y2, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 + dh1, x1 + dh0, y1, y2, y2 - dh1, (float) (r - a), rgb, borderColor);
                 }
                 //TRAPEZE
             } else if (owner.type() == Type.TRAPEZE) {
