@@ -1,7 +1,5 @@
 package startup;
 
-import common.*;
-import dataset.*;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
@@ -10,12 +8,13 @@ import builder.script.GsonScript;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import common.*;
+import dataset.*;
 import domain.eElement;
-import frames.PSCompare;
 import java.sql.Connection;
-import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
+import javax.swing.UIManager;
 
 public class Test {
 
@@ -87,7 +86,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(601002));
+            winc.build(GsonScript.productJson(601003));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
