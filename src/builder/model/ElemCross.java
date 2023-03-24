@@ -54,8 +54,8 @@ public class ElemCross extends ElemSimple {
     }
 
     /**
-     * Установка координат поперечин с учётов типа конст. и формы контура
-     * x1y1 - верхняя левая точка x2y2 - нижняя правая точка
+     * Установка координат поперечин с учётов типа конст. и формы контура x1y1 -
+     * верхняя левая точка x2y2 - нижняя правая точка
      */
     public void setLocation() {
 
@@ -115,16 +115,17 @@ public class ElemCross extends ElemSimple {
                     float zax = winc.syssizeRec().getFloat(eSyssize.zax);
                     if (Layout.HORIZ == owner.layout()) { //ареа слева направо  
                         IElem5e inTop = joinFlat(Layout.TOP), inBott = joinFlat(Layout.BOTT);
-                        spcRec.width = (inBott.y1() - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr)) 
-                                - (inTop.y2() + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr)) 
+                        spcRec.width = (inBott.y1() - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr))
+                                - (inTop.y2() + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr))
                                 + zax * 2 + inBott.artiklRec().getFloat(eArtikl.size_falz) + inTop.artiklRec().getFloat(eArtikl.size_falz);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //ареа сверху вниз
                         IElem5e inLeft = joinFlat(Layout.LEFT), inRight = joinFlat(Layout.RIGHT);
-                        spcRec.width = (inRight.x1() - inLeft.artiklRec().getFloat(eArtikl.height) + inLeft.artiklRec().getFloat(eArtikl.size_centr)) 
-                                - (inLeft.x1() + inRight.artiklRec().getFloat(eArtikl.height) - inRight.artiklRec().getFloat(eArtikl.size_centr)) + zax * 2 
-                                + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz);
+                        spcRec.width = (inRight.x1() - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_centr))
+                                - (inLeft.x1() + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_centr))
+                                + zax * 2 + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz)
+                                + inLeft.artiklRec().getFloat(eArtikl.size_tech) + inRight.artiklRec().getFloat(eArtikl.size_tech);
                         spcRec.height = artiklRec().getFloat(eArtikl.height);
                     }
                 } else {
@@ -201,7 +202,7 @@ public class ElemCross extends ElemSimple {
 
     @Override
     public void paint() {
-        
+
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         float dh = this.artiklRec.getFloat(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
