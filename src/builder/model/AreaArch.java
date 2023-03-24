@@ -24,7 +24,7 @@ public class AreaArch extends AreaSimple {
 
         if (elem5e.type() == Type.GLASS) {
             Float dw = spcAdd.width;
-            IElem5e imp = elem5e.joinFlat(Layout.BOTT);
+            IElem5e imp = elem5e.owner().joinSide(Layout.BOTT);
             IElem5e arch = frames.get(Layout.TOP);
 
             if (elem5e.anglHoriz() == 0) { //по основанию арки
