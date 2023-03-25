@@ -18,49 +18,6 @@ public class AreaArch extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
-    // см. IArea5e
-    @Override
-    public void addSpecific(Specific spcAdd, IElem5e elem5e) {
-
-        if (elem5e.type() == Type.GLASS) {
-            Float dw = spcAdd.width;
-            IElem5e imp = elem5e.owner().joinSide(Layout.BOTT);
-            IElem5e arch = frames.get(Layout.TOP);
-
-            if (elem5e.anglHoriz() == 0) { //по основанию арки
-                double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус
-                double h1 = imp.y1() + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
-                double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
-                double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
-                double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
-                double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
-                double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
-                spcAdd.width = (float) (2 * l1 + dw);
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang1;
-                spcAdd.anglCut1 = (float) ang1;
-                elem5e.spcRec().spcList.add(spcAdd); //добавим спецификацию
-
-            } else if (elem5e.anglHoriz() == 180) { //по дуге арки   
-                double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус
-                double h1 = imp.y1() + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
-                double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
-                double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
-                double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
-                double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика   
-                double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
-                double ang2 = Math.toDegrees(Math.asin(l1 / r1));
-                double l4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
-                double ang3 = 90 - (90 - ang2 + ang1);
-                spcAdd.width = (float) (dw + l4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang3;
-                spcAdd.anglCut1 = (float) ang3;
-                elem5e.spcRec().spcList.add(spcAdd); //добавим спецификацию
-            }
-        }
-    }
-
     //Угловые соединения
     @Override
     public void joining() {

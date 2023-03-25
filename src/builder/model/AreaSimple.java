@@ -169,10 +169,6 @@ public class AreaSimple extends Com5t implements IArea5e {
     }
 
     @Override
-    public void addSpecific(Specific spcAdd, IElem5e elem5e) {
-    }
-
-    @Override
     public EnumMap<Layout, IElem5e> frames() {
         return frames;
     }
