@@ -62,7 +62,7 @@ public class ElemCross extends ElemSimple {
         //Коррекция положения импоста (подкдадка ареа над импостом)
         if (Type.ARCH == owner.type()) {
             IArea5e prevArea = (IArea5e) owner.childs().get(0); //опустим ареа на половину шир. иппоста
-            prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.height) / 2);
+            prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.height) / 2);
 
         } else if (Type.TRAPEZE == owner.type()) {
             double dy = 0;
@@ -70,18 +70,18 @@ public class ElemCross extends ElemSimple {
             if (winc.form == Form.RIGHT) {
                 double angl = root.frames().get(Layout.RIGHT).anglCut()[1];
                 dy = (double) (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
             } else if (winc.form == Form.LEFT) {
                 double angl = root.frames().get(Layout.LEFT).anglCut()[0];
                 dy = (double) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
             }
         }
         //Установка координат
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
-                //double db = artiklRecAn.getFloat(eArtikl.size_centr);
+                //double db = artiklRecAn.getDbl(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
                     setDimension(prevArea.x1(), prevArea.y2(), prevArea.x2(), prevArea.y2());
@@ -112,48 +112,48 @@ public class ElemCross extends ElemSimple {
             if (type() == Type.IMPOST) {
                 //На эскизе заход импоста не показываю, сразу пишу в спецификацию
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-                    double zax = winc.syssizeRec().getFloat(eSyssize.zax);
+                    double zax = winc.syssizeRec().getDbl(eSyssize.zax);
                     if (Layout.HORIZ == owner.layout()) { //ареа слева направо  
                         IElem5e inTop = joinFlat(Layout.TOP), inBott = joinFlat(Layout.BOTT);
-                        spcRec.width = (inBott.y1() - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr))
-                                - (inTop.y2() + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr))
-                                + zax * 2 + inBott.artiklRec().getFloat(eArtikl.size_falz) + inTop.artiklRec().getFloat(eArtikl.size_falz);
-                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                        spcRec.width = (inBott.y1() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_centr))
+                                - (inTop.y2() + inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_centr))
+                                + zax * 2 + inBott.artiklRec().getDbl(eArtikl.size_falz) + inTop.artiklRec().getDbl(eArtikl.size_falz);
+                        spcRec.height = artiklRec().getDbl(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //ареа сверху вниз
                         IElem5e inLeft = joinFlat(Layout.LEFT), inRight = joinFlat(Layout.RIGHT);
-                        spcRec.width = (inRight.x1() - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_centr))
-                                - (inLeft.x1() + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_centr))
-                                + zax * 2 + inLeft.artiklRec().getFloat(eArtikl.size_falz) + inRight.artiklRec().getFloat(eArtikl.size_falz);
-                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                        spcRec.width = (inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_centr))
+                                - (inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_centr))
+                                + zax * 2 + inLeft.artiklRec().getDbl(eArtikl.size_falz) + inRight.artiklRec().getDbl(eArtikl.size_falz);
+                        spcRec.height = artiklRec().getDbl(eArtikl.height);
                     }
                 } else {
                     if (Layout.HORIZ == owner.layout()) { //слева направо  
                         spcRec.width = length();
-                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                        spcRec.height = artiklRec().getDbl(eArtikl.height);
 
                     } else if (Layout.VERT == owner.layout()) { //снизу вверх
                         spcRec.width = length();
-                        spcRec.height = artiklRec().getFloat(eArtikl.height);
+                        spcRec.height = artiklRec().getDbl(eArtikl.height);
                     }
                 }
             } else if (type() == Type.SHTULP) {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
                     spcRec.width = y2 - y1;
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getDbl(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //сверху вниз
                     spcRec.width = x2 - x1;
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else if (type() == Type.STOIKA) {
                 if (Layout.HORIZ == owner.layout()) { //слева направо  
                     spcRec.width = y2 - y1;
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getDbl(eArtikl.height);
 
                 } else if (Layout.VERT == owner.layout()) { //сверху вниз
                     spcRec.width = x2 - x1;
-                    spcRec.height = artiklRec().getFloat(eArtikl.height);
+                    spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             }
         } catch (Exception e) {
@@ -180,9 +180,9 @@ public class ElemCross extends ElemSimple {
             }
             UPar.to_12075_34075_39075(this, spcAdd); //углы реза
             UPar.to_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-            spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм
+            spcAdd.height = UCom.getDbl(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм
             spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcAdd); //длина мм
-            spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
+            spcAdd.width = UCom.getDbl(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
             spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcAdd);//"[ / коэф-т ]"
             UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные (ширины/высоты), мм
@@ -203,7 +203,7 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        double dh = this.artiklRec.getFloat(eArtikl.size_centr);
+        double dh = this.artiklRec.getDbl(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
             DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh, y1 + dh, y2 - dh, y2 - dh, rgb, borderColor);
 

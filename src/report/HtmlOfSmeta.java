@@ -245,8 +245,8 @@ public class HtmlOfSmeta {
                         td3List.get(1).text(artiklRec.getStr(eArtikl.code));
                         td3List.get(2).text(artiklRec.getStr(eArtikl.name));
                         td3List.get(3).text(eColor.find(winc.colorID1).getStr(eColor.name));
-                        td3List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-                                + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
+                        td3List.get(4).text(df1.format(prjkitRec.getDbl(ePrjkit.width))
+                                + "x" + df1.format(prjkitRec.getDbl(ePrjkit.height)));
                         td3List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
                         td3List.get(6).text(df1.format(0));
                         td3List.get(7).text(df1.format(0));
@@ -290,8 +290,8 @@ public class HtmlOfSmeta {
                 td5List.get(1).text(artiklRec.getStr(eArtikl.code));
                 td5List.get(2).text(artiklRec.getStr(eArtikl.name));
                 td5List.get(3).text(eColor.find(prjkitRec.getInt(ePrjkit.color1_id)).getStr(eColor.name));
-                td5List.get(4).text(df1.format(prjkitRec.getFloat(ePrjkit.width))
-                        + "x" + df1.format(prjkitRec.getFloat(ePrjkit.height)));
+                td5List.get(4).text(df1.format(prjkitRec.getDbl(ePrjkit.width))
+                        + "x" + df1.format(prjkitRec.getDbl(ePrjkit.height)));
                 td5List.get(5).text(prjkitRec.getStr(ePrjkit.numb));
                 td5List.get(6).text(df1.format(330));
                 td5List.get(7).text(df1.format(440));

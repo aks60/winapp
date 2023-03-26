@@ -146,7 +146,7 @@ class UPar {
         double depth = 0;
         for (IElem5e elem : winc.listElem) {
             if (elem.type() == Type.GLASS) {
-                depth = (elem.artiklRecAn().getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn().getFloat(eArtikl.depth) : depth;
+                depth = (elem.artiklRecAn().getDbl(eArtikl.depth) > depth) ? elem.artiklRecAn().getDbl(eArtikl.depth) : depth;
             }
         }
         if (UCom.containsNumbJust(txt, depth) == false) {

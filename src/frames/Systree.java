@@ -3606,7 +3606,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         DefMutableTreeNode selectNodeSys = (DefMutableTreeNode) sysTree.getLastSelectedPathComponent();
-        double id1 = selectNodeSys.rec().getFloat(eSystree.id);
+        double id1 = selectNodeSys.rec().getDbl(eSystree.id);
         DefMutableTreeNode selectNodeWin = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         double id2 = (selectNodeWin != null) ? selectNodeWin.com5t().id() : -1;
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);

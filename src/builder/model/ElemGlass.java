@@ -112,9 +112,9 @@ public class ElemGlass extends ElemSimple {
         if (owner.type() == Type.ARCH) { //если арка
             IElem5e elemArch = root().frames().get(Layout.TOP);
             IElem5e elemImpost = owner.joinSide(Layout.BOTT);
-            y1 = y1 + elemArch.artiklRec().getFloat(eArtikl.height) - elemArch.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-            y2 = y2 + elemImpost.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec().getFloat(eArtikl.height) + elemArch.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+            y1 = y1 + elemArch.artiklRec().getDbl(eArtikl.height) - elemArch.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+            y2 = y2 + elemImpost.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec().getDbl(eArtikl.height) + elemArch.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner.width() / 2) - (double) l;
             x2 = owner.width() - x1;
@@ -124,22 +124,22 @@ public class ElemGlass extends ElemSimple {
             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
 
             if (winc.form == Form.RIGHT) {
-                x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
+                x1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - (insideTop.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - (insideLeft.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
+                double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - (insideTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
+                double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - (insideLeft.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y1 = insideTop.y1() + dy1 + dy2;
-                x2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+                x2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
 
             } else if (winc.form == Form.LEFT) {
-                x1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
+                x1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - (insideTop.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (insideRight.artiklRec().getFloat(eArtikl.height) - (insideRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
+                double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - (insideTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
+                double dy2 = (insideRight.artiklRec().getDbl(eArtikl.height) - (insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y2 = insideTop.y2() + dy1 - dy2;
-                x2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-                y1 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+                x2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                y1 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             } else if (winc.form == Form.LEFT) {
                 System.out.println("builder.model.ElemGlass.setSpecific()");
             }
@@ -148,15 +148,15 @@ public class ElemGlass extends ElemSimple {
             IElem5e inLeft = owner.joinSide(Layout.LEFT), inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = owner.joinSide(Layout.RIGHT);
 
             if (winc.syssizeRec().getInt(eSyssize.id) == -1) {
-                x1 = x1 + inLeft.artiklRec().getFloat(eArtikl.size_centr) + gsize[3];
-                y1 = y1 + inTop.artiklRec().getFloat(eArtikl.size_centr) + gsize[2];
-                x2 = x2 - inRight.artiklRec().getFloat(eArtikl.size_centr) - gsize[1];
-                y2 = y2 - inBott.artiklRec().getFloat(eArtikl.size_centr) - gsize[0];
+                x1 = x1 + inLeft.artiklRec().getDbl(eArtikl.size_centr) + gsize[3];
+                y1 = y1 + inTop.artiklRec().getDbl(eArtikl.size_centr) + gsize[2];
+                x2 = x2 - inRight.artiklRec().getDbl(eArtikl.size_centr) - gsize[1];
+                y2 = y2 - inBott.artiklRec().getDbl(eArtikl.size_centr) - gsize[0];
             } else {
-                x1 = x1 + inLeft.artiklRec().getFloat(eArtikl.height) - inLeft.artiklRec().getFloat(eArtikl.size_centr) - inLeft.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                y1 = y1 + inTop.artiklRec().getFloat(eArtikl.height) - inTop.artiklRec().getFloat(eArtikl.size_centr) - inTop.artiklRec().getFloat(eArtikl.size_falz) + gzazo;
-                x2 = x2 - inRight.artiklRec().getFloat(eArtikl.height) + inRight.artiklRec().getFloat(eArtikl.size_centr) + inRight.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
-                y2 = y2 - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr) + inBott.artiklRec().getFloat(eArtikl.size_falz) - gzazo;
+                x1 = x1 + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_centr) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+                y1 = y1 + inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_centr) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+                x2 = x2 - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_centr) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                y2 = y2 - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_centr) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             }
         }
         spcRec.width = width();
@@ -181,13 +181,13 @@ public class ElemGlass extends ElemSimple {
 
                 //ARCH
                 if (Type.ARCH == owner.type()) {
-                    Float dw = spcAdd.width;
+                    Double dw = spcAdd.width;
                     IElem5e imp = owner().joinSide(Layout.BOTT);
                     IElem5e arch = root.frames().get(Layout.TOP);
                     double radiusArch = ((AreaArch) winc.rootArea).radiusArch;
 
                     if (anglHoriz() == 0) { //по основанию арки
-                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                        double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
                         double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
                                 + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
                         double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
@@ -196,13 +196,13 @@ public class ElemGlass extends ElemSimple {
                         double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
                         double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
                         spcAdd.width = (double) (2 * w1 + dw);
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                         spcAdd.anglCut2 = (double) ang1;
                         spcAdd.anglCut1 = (double) ang1;
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
 
                     } else if (anglHoriz() == 180) { //по дуге арки   
-                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                        double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
                         double h1 = imp.y1()  - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
                                 + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
                         double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
@@ -214,7 +214,7 @@ public class ElemGlass extends ElemSimple {
                         double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
                         double ang3 = 90 - (90 - ang2 + ang1);
                         spcAdd.width = (double) (dw + w4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                         spcAdd.anglCut2 = (double) ang3;
                         spcAdd.anglCut1 = (double) ang3;
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
@@ -226,7 +226,7 @@ public class ElemGlass extends ElemSimple {
                         if (anglHoriz() == 0) {
                             ElemJoining ej = winc.listJoin.get(root().frames().get(Layout.RIGHT), 1);
                             spcAdd.width += width() + 2 * gzazo();
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglHoriz = 0;
@@ -234,12 +234,12 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 90) {
                             IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2), insideRight = root().frames().get(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideRight, 1);
-                            double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
-                            double dy2 = (insideRight.artiklRec().getFloat(eArtikl.height) - insideRight.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
+                            double dy2 = (insideRight.artiklRec().getDbl(eArtikl.height) - insideRight.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double Y1 = insideRight.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz);
+                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = insideRight.anglCut()[1];
                             spcAdd.anglHoriz = insideRight.anglHoriz();
@@ -247,10 +247,10 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 180) {
                             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                            double dx1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz);
-                            double dx2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                            double dx1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz);
+                            double dx2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
                             spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
                             spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
@@ -258,12 +258,12 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 270) {
                             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2);
                             ElemJoining ej = winc.listJoin.get(insideLeft, 0);
-                            double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
-                            double dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - insideLeft.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
+                            double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double Y1 = insideLeft.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz);
+                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = insideLeft.anglCut()[0];
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglHoriz = insideLeft.anglHoriz();
@@ -273,7 +273,7 @@ public class ElemGlass extends ElemSimple {
                         if (anglHoriz() == 0) {
                             ElemJoining ej = winc.listJoin.get(root().frames().get(Layout.RIGHT), 1);
                             spcAdd.width += width() + 2 * gzazo();
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglHoriz = 0;
@@ -281,12 +281,12 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 90) {
                             IElem5e insideRirht = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2);
                             ElemJoining ej = winc.listJoin.get(insideRirht, 1);
-                            double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.sin(ej.angl);
-                            double dy2 = (insideRirht.artiklRec().getFloat(eArtikl.height) - insideRirht.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
+                            double dy2 = (insideRirht.artiklRec().getDbl(eArtikl.height) - insideRirht.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double Y1 = insideRirht.y1() + dy1 - dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz);
+                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut2 = insideRirht.anglCut()[0];
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglHoriz = insideRirht.anglHoriz();
@@ -294,10 +294,10 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 180) {
                             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                            double dx1 = insideLeft.x2() - insideLeft.artiklRec().getFloat(eArtikl.size_falz);
-                            double dx2 = insideRight.x1() + insideRight.artiklRec().getFloat(eArtikl.size_falz);
+                            double dx1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz);
+                            double dx2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
                             spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
                             spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
@@ -305,12 +305,12 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 270) {
                             IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2), insideLeft = root().frames().get(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideLeft, 0);
-                            double dy1 = (insideTop.artiklRec().getFloat(eArtikl.height) - insideTop.artiklRec().getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
-                            double dy2 = (insideLeft.artiklRec().getFloat(eArtikl.height) - insideLeft.artiklRec().getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
+                            double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double Y1 = insideLeft.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getFloat(eArtikl.size_falz);
+                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglCut1 = insideLeft.anglCut()[1];
                             spcAdd.anglHoriz = insideLeft.anglHoriz();
@@ -322,11 +322,11 @@ public class ElemGlass extends ElemSimple {
                 } else {
                     if (anglHoriz == 0 || anglHoriz == 180) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
 
                     } else if (anglHoriz == 90 || anglHoriz == 270) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
 
                     } else {
                         System.out.println("Промах:builder.model.IArea5e.addFilling()");
@@ -427,7 +427,7 @@ public class ElemGlass extends ElemSimple {
 
         if (owner.type() == Type.ARCH) {
             IElem5e ef = root().frames().get(Layout.TOP);
-            double dz = ef.artiklRec().getFloat(eArtikl.height);
+            double dz = ef.artiklRec().getDbl(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
@@ -472,7 +472,7 @@ public class ElemGlass extends ElemSimple {
 
         if (this.rasclRec.isVirtual() == false) {
             IElem5e elemL = owner.joinSide(Layout.LEFT), elemT = owner.joinSide(Layout.TOP), elemB = owner.joinSide(Layout.BOTT), elemR = owner.joinSide(Layout.RIGHT);
-            double artH = Math.round(this.rasclRec().getFloat(eArtikl.height));
+            double artH = Math.round(this.rasclRec().getDbl(eArtikl.height));
             final int numX = (gson.param().get(PKjson.rasclHor) == null) ? 2 : gson.param().get(PKjson.rasclHor).getAsInt();
             final int numY = (gson.param().get(PKjson.rasclVert) == null) ? 2 : gson.param().get(PKjson.rasclVert).getAsInt();
             final double dy = (elemB.y1() - elemT.y2()) / numY, dx = (elemR.x1() - elemL.x2()) / numX;
@@ -482,9 +482,9 @@ public class ElemGlass extends ElemSimple {
                 for (int i = 1; i < numY; i++) {
                     h = h + dy;
                     winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
-                    winc.gc2d.fillRect((int) elemL.x2(), Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
+                    winc.gc2d.fillRect((int) elemL.x2(), (int) Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
                     winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
-                    winc.gc2d.drawRect((int) elemL.x2(), Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
+                    winc.gc2d.drawRect((int) elemL.x2(), (int) Math.round(elemT.y2() + h - artH / 2), (int) (elemR.x1() - elemL.x2()), (int) artH);
                 }
             };
             ListenerReload reloadVer = () -> {
@@ -492,9 +492,9 @@ public class ElemGlass extends ElemSimple {
                 for (int i = 1; i < numX; i++) {
                     w = w + dx;
                     winc.gc2d.setColor((winc.scale < 0.1) ? Color.black : Color.white);
-                    winc.gc2d.fillRect(Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
+                    winc.gc2d.fillRect((int) Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
                     winc.gc2d.setColor((winc.scale < 0.1) ? Color.getHSBColor(242, 242, 242) : Color.black);
-                    winc.gc2d.drawRect(Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
+                    winc.gc2d.drawRect((int) Math.round(elemL.x2() + w - artH / 2), (int) elemT.y2(), (int) artH, (int) (elemB.y1() - elemT.y2()));
                 }
             };
             //reloadHor.reload(); //целые вертикальные

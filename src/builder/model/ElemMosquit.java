@@ -101,9 +101,9 @@ public class ElemMosquit extends ElemSimple {
             }
             UPar.to_12075_34075_39075(this, spcAdd); //углы реза
             UPar.to_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-            spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм 
+            spcAdd.height = UCom.getDbl(spcAdd.getParam(spcAdd.height, 40006)); //высота заполнения, мм 
             spcAdd.width = UPar.to_12065_15045_25040_34070_39070(spcAdd); //длина мм
-            spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
+            spcAdd.width = UCom.getDbl(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
             spcAdd.width = spcAdd.width * UPar.to_12030_15030_25035_34030_39030(spcAdd);//"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / UPar.to_12040_15031_25036_34040_39040(spcAdd);//"[ / коэф-т ]"
             UPar.to_40005_40010(spcAdd); //Поправка на стороны четные/нечетные (ширины/высоты), мм

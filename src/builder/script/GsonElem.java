@@ -25,7 +25,7 @@ public class GsonElem {
     protected Type type = null; //тип элемента
     protected Form form = null; //форма контура (параметр в развитии)
     protected JsonObject param = new JsonObject(); //параметры элемента
-    protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
+    protected Double length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     /**
      *  Срабатывает при  десериализации и при new GsonRoot()
@@ -141,15 +141,15 @@ public class GsonElem {
         this.param = param;
     }
 
-    public Float height() {
+    public Double height() {
         return (owner.layout == Layout.VERT) ? length : owner.height();
     }
 
-    public Float width() {
+    public Double width() {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
-    public Float length() {
+    public Double length() {
         return this.length;
     }
 

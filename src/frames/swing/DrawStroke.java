@@ -10,7 +10,7 @@ public class DrawStroke {
 
     public static void drawLine(Wincalc winc, double x1, double y1, double x2, double y2) {
         //winc.gc2d.drawLine((int) (x1), (int) (y1), (int) (x2), (int) (y2));
-        winc.gc2d.draw(new Line2D.Float(x1, y1, x2, y2));
+        winc.gc2d.draw(new Line2D.Double(x1, y1, x2, y2));
     }
 
     public static void strokePolygon(Wincalc winc, double x1, double x2, double x3, double x4,

@@ -31,7 +31,7 @@ public class DefCellRendererNumb extends DefaultTableCellRenderer {
             if (value instanceof java.util.Date) {
                 return super.getTableCellRendererComponent(table, UGui.simpleFormat.format(value), isSelected, hasFocus, row, column);
             }
-            if (value instanceof Float || value instanceof Double) {
+            if (value instanceof Double) {
                 String val = (df != null) ? df.format(value) : (pattern != null) ? UCom.format(value, pattern) : UCom.format(value, scale);
                 return super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
             }

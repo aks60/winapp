@@ -98,14 +98,14 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 joinBot = winc.listJoin.elem(stvBot, 2), joinRig = winc.listJoin.elem(stvRig, 2);
        
         if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-            x1 = x1 + joinLef.artiklRec().getFloat(eArtikl.height) - joinLef.artiklRec().getFloat(eArtikl.size_centr) 
-                    - joinLef.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            y1 = y1 + joinTop.artiklRec().getFloat(eArtikl.height) - joinTop.artiklRec().getFloat(eArtikl.size_centr) 
-                    - joinTop.artiklRec().getFloat(eArtikl.size_falz) - winc.syssizeRec().getFloat(eSyssize.naxl);
-            x2 = x2 - joinRig.artiklRec().getFloat(eArtikl.height) + joinRig.artiklRec().getFloat(eArtikl.size_centr) 
-                    + joinRig.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
-            y2 = y2 - joinBot.artiklRec().getFloat(eArtikl.height) + joinBot.artiklRec().getFloat(eArtikl.size_centr) 
-                    + joinBot.artiklRec().getFloat(eArtikl.size_falz) + winc.syssizeRec().getFloat(eSyssize.naxl);
+            x1 = x1 + joinLef.artiklRec().getDbl(eArtikl.height) - joinLef.artiklRec().getDbl(eArtikl.size_centr) 
+                    - joinLef.artiklRec().getDbl(eArtikl.size_falz) - winc.syssizeRec().getDbl(eSyssize.naxl);
+            y1 = y1 + joinTop.artiklRec().getDbl(eArtikl.height) - joinTop.artiklRec().getDbl(eArtikl.size_centr) 
+                    - joinTop.artiklRec().getDbl(eArtikl.size_falz) - winc.syssizeRec().getDbl(eSyssize.naxl);
+            x2 = x2 - joinRig.artiklRec().getDbl(eArtikl.height) + joinRig.artiklRec().getDbl(eArtikl.size_centr) 
+                    + joinRig.artiklRec().getDbl(eArtikl.size_falz) + winc.syssizeRec().getDbl(eSyssize.naxl);
+            y2 = y2 - joinBot.artiklRec().getDbl(eArtikl.height) + joinBot.artiklRec().getDbl(eArtikl.size_centr) 
+                    + joinBot.artiklRec().getDbl(eArtikl.size_falz) + winc.syssizeRec().getDbl(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
             try {
@@ -117,10 +117,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
-                x1 = (joinLef.x1() + joinLef.artiklRec().getFloat(eArtikl.size_centr)) + offset[3];
-                y1 = (joinTop.y1() + joinTop.artiklRec().getFloat(eArtikl.size_centr)) + offset[2];
-                x2 = (joinRig.x2() - joinRig.artiklRec().getFloat(eArtikl.size_centr)) - offset[1];
-                y2 = (joinBot.y2() - joinBot.artiklRec().getFloat(eArtikl.size_centr)) - offset[0];
+                x1 = (joinLef.x1() + joinLef.artiklRec().getDbl(eArtikl.size_centr)) + offset[3];
+                y1 = (joinTop.y1() + joinTop.artiklRec().getDbl(eArtikl.size_centr)) + offset[2];
+                x2 = (joinRig.x2() - joinRig.artiklRec().getDbl(eArtikl.size_centr)) - offset[1];
+                y2 = (joinBot.y2() - joinBot.artiklRec().getDbl(eArtikl.size_centr)) - offset[0];
 
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
@@ -272,13 +272,13 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
             IElem5e stvB = frames.get(Layout.BOTT);
 
             if (typeOpen.id == 1 || typeOpen.id == 3) {
-                X1 = stvR.x1() - stvR.artiklRec().getFloat(eArtikl.height) / 2;
+                X1 = stvR.x1() - stvR.artiklRec().getDbl(eArtikl.height) / 2;
                 Y1 = stvR.y1() + (stvR.y2() - stvR.y1()) / 2;
                 DrawStroke.drawLine(winc, stvL.x1(), stvL.y1(), stvR.x2(), stvR.y1() + (stvR.y2() - stvR.y1()) / 2);
                 DrawStroke.drawLine(winc, stvL.x1(), stvL.y2(), stvR.x2(), stvR.y1() + (stvR.y2() - stvR.y1()) / 2);
 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
-                X1 = stvL.x1() + stvL.artiklRec().getFloat(eArtikl.height) / 2;
+                X1 = stvL.x1() + stvL.artiklRec().getDbl(eArtikl.height) / 2;
                 Y1 = stvL.y1() + (stvL.y2() - stvL.y1()) / 2;
                 DrawStroke.drawLine(winc, stvR.x2(), stvR.y1(), stvL.x1(), stvL.y1() + (stvL.y2() - stvL.y1()) / 2);
                 DrawStroke.drawLine(winc, stvR.x2(), stvR.y2(), stvL.x1(), stvL.y1() + (stvL.y2() - stvL.y1()) / 2);

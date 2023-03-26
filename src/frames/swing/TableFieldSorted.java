@@ -50,8 +50,8 @@ public class TableFieldSorted { //implements Comparator<ArrayList> {
                                 ret = ((Integer) o1).compareTo((Integer) o2);
                             } else if (o1 instanceof Double) {
                                 ret = ((Double) o1).compareTo((Double) o2);
-                            } else if (o1 instanceof Float) {
-                                ret = ((Float) o1).compareTo((Float) o2);
+                            } else if (o1 instanceof Double) {
+                                ret = ((Double) o1).compareTo((Double) o2);
                             } else if (o1 instanceof String) {
                                 ret = ((String) o1).compareTo((String) o2);
                             } else {

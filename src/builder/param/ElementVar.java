@@ -56,8 +56,8 @@ public class ElementVar extends Par5s {
                     List<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
                     double depth = 0;
                     for (IElem5e glass : glassList) {
-                        if (glass.artiklRecAn().getFloat(eArtikl.depth) > depth) {
-                            depth = (glass.artiklRecAn().getFloat(eArtikl.depth));
+                        if (glass.artiklRecAn().getDbl(eArtikl.depth) > depth) {
+                            depth = (glass.artiklRecAn().getDbl(eArtikl.depth));
                         }
                     }
                     if (UCom.containsNumbJust(rec.getStr(TEXT), depth) == false) {
@@ -128,13 +128,13 @@ public class ElementVar extends Par5s {
                     if (glassList.get(0).type() == Type.GLASS && glassList.get(1).type() == Type.GLASS) {
                         if ("ps3".equals(eSetting.val(2))) { //Толщина заполнения, мм
                             if (UCom.containsNumbAny(rec.getStr(TEXT),
-                                    glassList.get(0).artiklRec().getFloat(eArtikl.depth),
-                                    glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
+                                    glassList.get(0).artiklRec().getDbl(eArtikl.depth),
+                                    glassList.get(1).artiklRec().getDbl(eArtikl.depth)) == false) {
                                 return false;
                             }
                         } else if (UCom.containsNumb(rec.getStr(TEXT),
-                                glassList.get(0).artiklRec().getFloat(eArtikl.depth),
-                                glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
+                                glassList.get(0).artiklRec().getDbl(eArtikl.depth),
+                                glassList.get(1).artiklRec().getDbl(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -145,7 +145,7 @@ public class ElementVar extends Par5s {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(1).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
-                                glassList.get(1).artiklRec().getFloat(eArtikl.depth)) == false) {
+                                glassList.get(1).artiklRec().getDbl(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -156,7 +156,7 @@ public class ElementVar extends Par5s {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0).type() == Type.GLASS) {
                         if (UCom.containsNumbJust(rec.getStr(TEXT),
-                                glassList.get(0).artiklRec().getFloat(eArtikl.depth)) == false) {
+                                glassList.get(0).artiklRec().getDbl(eArtikl.depth)) == false) {
                             return false;
                         }
                     }
@@ -166,11 +166,11 @@ public class ElementVar extends Par5s {
                 {
                     List<IElem5e> glassList = UPar.getGlassDepth(elem5e);
                     if ("Да".equals(rec.getStr(TEXT)) == true) {
-                        if (glassList.get(0).artiklRecAn().getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn().getFloat(eArtikl.depth)) {
+                        if (glassList.get(0).artiklRecAn().getDbl(eArtikl.depth) != glassList.get(1).artiklRecAn().getDbl(eArtikl.depth)) {
                             return false;
                         }
                     } else {
-                        if (glassList.get(0).artiklRecAn().getFloat(eArtikl.depth) == glassList.get(1).artiklRecAn().getFloat(eArtikl.depth)) {
+                        if (glassList.get(0).artiklRecAn().getDbl(eArtikl.depth) == glassList.get(1).artiklRecAn().getDbl(eArtikl.depth)) {
                             return false;
                         }
                     }
@@ -196,7 +196,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31020:  //Ограничение угла к горизонту, °
                     if ("ps3".equals(eSetting.val(2))) { //Угол к горизонту минимальный, °
-                        if (elem5e.anglHoriz() < rec.getFloat(TEXT)) {
+                        if (elem5e.anglHoriz() < rec.getDbl(TEXT)) {
                             return false;
                         }
                     } else {
@@ -207,21 +207,21 @@ public class ElementVar extends Par5s {
                     break;
                 case 31030:  //Угол к горизонту максимальный, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) < elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) < elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31031:  //Точный угол к горизонту
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 31032:  //Исключить угол к горизонту, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }
                     }
@@ -271,7 +271,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
                     listenerList.add(() -> {
-                        elem5e.spcRec().width = elem5e.spcRec().width + rec.getFloat(TEXT);
+                        elem5e.spcRec().width = elem5e.spcRec().width + rec.getDbl(TEXT);
                     });
                     break;
                 case 31054:  //Коды основной текстуры изделия
@@ -386,7 +386,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37030:  //Ограничение площади, кв.м.                                      
                     if ("ps3".equals(versionPs)) { //Минимальная площадь, кв.м.
-                        if (rec.getFloat(TEXT) > elem5e.root().width() / 1000 * elem5e.root().height() / 1000) {
+                        if (rec.getDbl(TEXT) > elem5e.root().width() / 1000 * elem5e.root().height() / 1000) {
                             return false;
                         }
                     } else {                     
@@ -397,7 +397,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37031:  //Максимальная площадь 
                     if ("ps3".equals(versionPs)) {
-                        if (rec.getFloat(TEXT) < elem5e.width() / 1000 * elem5e.height() / 1000) {
+                        if (rec.getDbl(TEXT) < elem5e.width() / 1000 * elem5e.height() / 1000) {
                             return false;
                         }
                     }
@@ -406,7 +406,7 @@ public class ElementVar extends Par5s {
                     if ("ps3".equals(versionPs)) { //Мин. соотношение габаритов (б/м)
                         double max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                         double min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
-                        if (rec.getFloat(TEXT) > max / min) {
+                        if (rec.getDbl(TEXT) > max / min) {
                             return false;
                         }
                     } else {
@@ -421,7 +421,7 @@ public class ElementVar extends Par5s {
                 {
                     double max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                     double min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
-                    if (rec.getFloat(TEXT) < max / min) {
+                    if (rec.getDbl(TEXT) < max / min) {
                         return false;
                     }
                 }

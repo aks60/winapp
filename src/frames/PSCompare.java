@@ -155,11 +155,11 @@ public class PSCompare extends javax.swing.JFrame {
             //Заполним на будушее hmSpc из SA
             for (String art_code : setSpcSa) {
                 Record artiklRec = eArtikl.find2(art_code);
-                hmSpc.put(art_code, new Vector(List.of(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
+                hmSpc.put(art_code, new Vector(List.of(art_code, artiklRec.get(eArtikl.name), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)));
             }
-            //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(List.of(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
+            //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(List.of(el + "*", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))));
             winc.listSpec.forEach(specRec -> {
-                List<Float> val = hmSpc.get(specRec.artikl);
+                List<Double> val = hmSpc.get(specRec.artikl);
                 val.set(2, val.get(2) + specRec.count); //колич. в SA
                 val.set(4, val.get(4) + specRec.quant1); //погонаж в SA
             });
@@ -185,8 +185,8 @@ public class PSCompare extends javax.swing.JFrame {
                     vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
                     String artikl = rs.getString("ANUMB"); //артикул
                     double leng = rs.getDouble("ALENG"); //длина
-                    double count = rs.getFloat("AQTYP"); //колич
-                    double pogonag = rs.getFloat("AQTYA"); //погонаж
+                    double count = rs.getDouble("AQTYP"); //колич
+                    double pogonag = rs.getDouble("AQTYA"); //погонаж
                     double perc = rs.getDouble("APERC"); //отход
                     double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                     double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
@@ -203,7 +203,7 @@ public class PSCompare extends javax.swing.JFrame {
 
                     //Заполним на будушее hmSpc из PS
                     setSpcPs.add(artikl);
-                    List<Float> val = hmSpc.getOrDefault(artikl, new Vector(List.of(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
+                    List<Double> val = hmSpc.getOrDefault(artikl, new Vector(List.of(artikl, "=*=", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)));
                     val.set(3, val.get(3) + count); //колич в PS
                     val.set(5, val.get(5) + pogonag); //погонаж в PS               
                 }
@@ -481,9 +481,9 @@ public class PSCompare extends javax.swing.JFrame {
     public static void iwinPs4(Wincalc winc, boolean detail) {
         System.out.println();
         System.out.println("Prj=" + winc.rootGson.project() + " Ord=" + winc.rootGson.order());
-        Float iwinTotal = 0f, jarTotal = 0f;
-        Map<String, Float> hmDbPs = new LinkedHashMap();
-        Map<String, Float> hmDbSa = new LinkedHashMap();
+        Double iwinTotal = 0.0, jarTotal = 0.0;
+        Map<String, Double> hmDbPs = new LinkedHashMap();
+        Map<String, Double> hmDbSa = new LinkedHashMap();
         try {
             Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -492,11 +492,11 @@ public class PSCompare extends javax.swing.JFrame {
             int punic = rs.getInt("PUNIC");
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + winc.rootGson.order() + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
-                //double leng = rs.getFloat("ALENG"); //длина
-                //double count = rs.getFloat("AQTYP"); //колич
-                double pogonag = rs.getFloat("AQTYA"); //погонаж
-                double perc = rs.getFloat("APERC"); //отход
-                double cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                //double leng = rs.getDbl("ALENG"); //длина
+                //double count = rs.getDbl("AQTYP"); //колич
+                double pogonag = rs.getDouble("AQTYA"); //погонаж
+                double perc = rs.getDouble("APERC"); //отход
+                double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                 double value1 = (perc * pogonag / 100 + pogonag) * cost;
                 double value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
                 String key = rs.getString("ANUMB");
@@ -506,17 +506,17 @@ public class PSCompare extends javax.swing.JFrame {
 
             for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
-                Float val = hmDbSa.getOrDefault(key, 0.f);
+                Double val = hmDbSa.getOrDefault(key, 0.0);
                 hmDbSa.put(key, val + spc.price); //стоимость без скидки
             }
 
             if (detail == true) {
                 System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS", "SA", "Delta"});
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    Double val1 = entry.getValue();
+                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
                     hmDbSa.remove(key);
                     Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                     System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
@@ -528,25 +528,25 @@ public class PSCompare extends javax.swing.JFrame {
                     System.out.printf("%-32s%-20s", new Object[]{"Artikl", "Value"});
                 }
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
-                    Float value3 = entry.getValue();
+                    Double value3 = entry.getValue();
                     System.out.printf("%-32s%-16.2f", "Лишние: " + key, value3);
                     System.out.println();
                     jarTotal = jarTotal + value3;
                 }
             } else {
-                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    Double val1 = entry.getValue();
+                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
                     hmDbSa.remove(key);
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
                 }
-                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
-                    Float value3 = entry.getValue();
+                    Double value3 = entry.getValue();
                     jarTotal = jarTotal + value3;
                 }
             }
@@ -562,9 +562,9 @@ public class PSCompare extends javax.swing.JFrame {
     public static void iwinRec2(Wincalc winc, boolean detail) {
         System.out.println();
         System.out.println("Prj=" + winc.rootGson.project() + " Ord=" + winc.rootGson.order());
-        Float iwinTotal = 0f, jarTotal = 0f;
-        Map<String, Float> hmDbPs = new LinkedHashMap();
-        Map<String, Float> hmDbSa = new LinkedHashMap();
+        Double iwinTotal = 0.0, jarTotal = 0.0;
+        Map<String, Double> hmDbPs = new LinkedHashMap();
+        Map<String, Double> hmDbSa = new LinkedHashMap();
         try {
             Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -573,9 +573,9 @@ public class PSCompare extends javax.swing.JFrame {
             int punic = rs.getInt("PUNIC");
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.order() + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
-                double pogonag = rs.getFloat("AQTYA"); //погонаж
-                double perc = rs.getFloat("APERC"); //отход
-                double cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                double pogonag = rs.getDouble("AQTYA"); //погонаж
+                double perc = rs.getDouble("APERC"); //отход
+                double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                 double value1 = (perc * pogonag / 100 + pogonag) * cost;
                 double value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
                 String key = rs.getString("ANUMB");
@@ -585,17 +585,17 @@ public class PSCompare extends javax.swing.JFrame {
 
             for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
-                Float val = hmDbSa.getOrDefault(key, 0.f);
+                Double val = hmDbSa.getOrDefault(key, 0.0);
                 hmDbSa.put(key, val + spc.price); //стоимость без скидки
             }
 
             if (detail == true) {
                 System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS ст.без.ск", "SA ст.без.ск", "Delta"});
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    Double val1 = entry.getValue();
+                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
                     hmDbSa.remove(key);
                     Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                     System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
@@ -607,25 +607,25 @@ public class PSCompare extends javax.swing.JFrame {
                     System.out.printf("%-32s%-20s", new Object[]{"Artikl", "Value"});
                 }
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
-                    Float value3 = entry.getValue();
+                    Double value3 = entry.getValue();
                     System.out.printf("%-32s%-16.2f", "Лишние: " + key, value3);
                     System.out.println();
                     jarTotal = jarTotal + value3;
                 }
             } else {
-                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    Double val1 = entry.getValue();
+                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
                     hmDbSa.remove(key);
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
                 }
-                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
-                    Float value3 = entry.getValue();
+                    Double value3 = entry.getValue();
                     jarTotal = jarTotal + value3;
                 }
             }
@@ -1183,7 +1183,7 @@ public class PSCompare extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (UCom.getFloat(value.toString()) > 0) ? df2.format(value) : null;
+                    value = (UCom.getDbl(value.toString()) > 0) ? df2.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;

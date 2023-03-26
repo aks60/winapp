@@ -68,8 +68,8 @@ public class Furniture extends Cal5e {
                     //Проверка на max высоту, ширину
                     double max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
                     double max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
-                    boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.max_p2) < (s.width() * 2 + s.height() * 2) / 2);
-                    if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
+                    boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getDbl(eFurniture.max_p2) < (s.width() * 2 + s.height() * 2) / 2);
+                    if (p2_max || furnityreRec.getDbl(eFurniture.max_height) < max_height || furnityreRec.getDbl(eFurniture.max_width) < max_width) {
                         if (max_size_message == true) {
                             JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
                         }
@@ -169,22 +169,22 @@ public class Furniture extends Cal5e {
                 }
                 if (side == 1) {// || side == -2) {
                     el = areaStv.frames().get(Layout.BOTT);
-                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getDbl(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getDbl(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 2) {// || side == -1) {
                     el = areaStv.frames().get(Layout.RIGHT);
-                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getDbl(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getDbl(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 3) {// || side == -2) {
                     el = areaStv.frames().get(Layout.TOP);
-                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getDbl(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getDbl(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 4) {// || side == -1) {
                     el = areaStv.frames().get(Layout.LEFT);
-                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getDbl(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getDbl(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 }
-                if (width >= furnside2Rec.getFloat(eFurnside2.len_max) || (width < furnside2Rec.getFloat(eFurnside2.len_min))) {
+                if (width >= furnside2Rec.getDbl(eFurnside2.len_max) || (width < furnside2Rec.getDbl(eFurnside2.len_min))) {
                     return false;
                 }
             }
@@ -201,7 +201,7 @@ public class Furniture extends Cal5e {
 
                             //Добавим спецификацию в элемент
                             if (shortPass == false) {
-                                spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
+                                spcAdd.count = UCom.getDbl(spcAdd.getParam(spcAdd.count, 24030));
                                 spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                                 sideStv.addSpecific(spcAdd);
                             }

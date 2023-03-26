@@ -181,7 +181,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1020:  //Ограничение угла к горизонту, °
                     if ("ps3".equals(eSetting.val(2))) { //Угол к горизонту минимальный
-                        if (elemJoin.elem1.anglHoriz() < rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() < rec.getDbl(TEXT)) {
                             return false;
                         }
                     } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.anglHoriz()) == true) {
@@ -190,21 +190,21 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1030:  //Угол к горизонту максимальный
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (elemJoin.elem1.anglHoriz() > rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() > rec.getDbl(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1031:  //Точный угол к горизонту
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() == rec.getDbl(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 1032:  //Исключить угол к горизонту, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (elemJoin.elem1.anglHoriz() == rec.getFloat(TEXT)) {
+                        if (elemJoin.elem1.anglHoriz() == rec.getDbl(TEXT)) {
                             return false;
                         }
                     }
@@ -224,13 +224,13 @@ public class JoiningVar extends Par5s {
                         listenerList.add(() -> {
                             IStvorka stv = (IStvorka) elemJoin.elem1.owner();
                             if (elemJoin.elem1.layout() == Layout.BOTT) {
-                                stv.offset()[0] = rec.getFloat(TEXT);
+                                stv.offset()[0] = rec.getDbl(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.RIGHT) {
-                                stv.offset()[1] = rec.getFloat(TEXT);
+                                stv.offset()[1] = rec.getDbl(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.TOP) {
-                                stv.offset()[2] = rec.getFloat(TEXT);
+                                stv.offset()[2] = rec.getDbl(TEXT);
                             } else if (elemJoin.elem1.layout() == Layout.LEFT) {
-                                stv.offset()[3] = rec.getFloat(TEXT);
+                                stv.offset()[3] = rec.getDbl(TEXT);
                             }
                         });
                     }
@@ -318,7 +318,7 @@ public class JoiningVar extends Par5s {
                 case 3010:  //Угол минимальный, °
                 case 4020:  //Ограничение угла, °
                     if ("ps3".equals(eSetting.val(2))) { //Угол минимальный, °
-                        if (rec.getFloat(TEXT) < elemJoin.angl) {
+                        if (rec.getDbl(TEXT) < elemJoin.angl) {
                             return false;
                         }
                     } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
@@ -387,7 +387,7 @@ public class JoiningVar extends Par5s {
                 case 3021: //Точный угол, °
                 case 4031: //Точный угол, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) != elemJoin.angl) {
+                        if (rec.getDbl(TEXT) != elemJoin.angl) {
                             return false;
                         }
                     }
@@ -396,7 +396,7 @@ public class JoiningVar extends Par5s {
                 case 3022: //Исключить угол, °
                 case 4032: //Исключить угол, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) == elemJoin.angl) {
+                        if (rec.getDbl(TEXT) == elemJoin.angl) {
                             return false;
                         }
                     }
@@ -406,7 +406,7 @@ public class JoiningVar extends Par5s {
                 case 4050:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.val(2))) { //Припуск Артикула 1, мм
-                            elemJoin.elem1.spcRec().width += rec.getFloat(TEXT);
+                            elemJoin.elem1.spcRec().width += rec.getDbl(TEXT);
                         } else {
                             String strTxt = rec.getStr(TEXT);
                             char normal = strTxt.charAt(strTxt.length() - 1);
@@ -414,8 +414,8 @@ public class JoiningVar extends Par5s {
                                 strTxt = strTxt.substring(0, strTxt.length() - 1);
                             }
                             String arr[] = strTxt.split("/");
-                            elemJoin.elem1.spcRec().width += UCom.getFloat(arr[0]);
-                            elemJoin.elem2.spcRec().width += UCom.getFloat(arr[1]);
+                            elemJoin.elem1.spcRec().width += UCom.getDbl(arr[0]);
+                            elemJoin.elem2.spcRec().width += UCom.getDbl(arr[1]);
                         }
                     });
                     break;
@@ -423,7 +423,7 @@ public class JoiningVar extends Par5s {
                 case 3060:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.val(2))) { //Припуск Артикула 2, мм
-                            elemJoin.elem2.spcRec().width += rec.getFloat(TEXT);
+                            elemJoin.elem2.spcRec().width += rec.getDbl(TEXT);
                         }
                     });
                     break;
@@ -437,8 +437,8 @@ public class JoiningVar extends Par5s {
                 case 3064: //Поправка для состава Арт.1/Арт.2 , мм 
                     listenerList.add(() -> {
                         String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                        elemJoin.elem1.spcRec().width += UCom.getFloat(arr[0]);
-                        elemJoin.elem2.spcRec().width += UCom.getFloat(arr[1]);
+                        elemJoin.elem1.spcRec().width += UCom.getDbl(arr[0]);
+                        elemJoin.elem2.spcRec().width += UCom.getDbl(arr[1]);
                     });
                     break;
                 case 2066:  //Расчет углов реза профилей 
@@ -468,19 +468,19 @@ public class JoiningVar extends Par5s {
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.val(2))) { //Усечение Артикула 1, мм
                             IElem5e el9 = winc.listElem.find(5.4f);
-                            elemJoin.elem1.spcRec().width -= rec.getFloat(TEXT);
+                            elemJoin.elem1.spcRec().width -= rec.getDbl(TEXT);
 
                         } else {
                             String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                            elemJoin.elem1.spcRec().width -= UCom.getFloat(arr[0]);
-                            elemJoin.elem2.spcRec().width -= UCom.getFloat(arr[1]);
+                            elemJoin.elem1.spcRec().width -= UCom.getDbl(arr[0]);
+                            elemJoin.elem2.spcRec().width -= UCom.getDbl(arr[1]);
                         }
                     });
                     break;
                 case 3040:
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.val(2))) { //Усечение Артикула 2, мм
-                            elemJoin.elem2.spcRec().width -= rec.getFloat(TEXT);
+                            elemJoin.elem2.spcRec().width -= rec.getDbl(TEXT);
                         }
                     });
                     break;
@@ -503,14 +503,14 @@ public class JoiningVar extends Par5s {
                 {
                     IStvorka stv = (IStvorka) elemJoin.elem1.owner();
                     IElem5e imp = elemJoin.elem1;
-                    if (Math.abs(imp.y2() - stv.handleHeight()) < rec.getFloat(TEXT)) {
+                    if (Math.abs(imp.y2() - stv.handleHeight()) < rec.getDbl(TEXT)) {
                         return false;
                     }
                 }
                 break;
                 case 4030:  //Угол максимальный, °                      
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (elemJoin.angl > rec.getFloat(TEXT)) {
+                        if (elemJoin.angl > rec.getDbl(TEXT)) {
                             return false;
                         }
                     }
@@ -518,12 +518,12 @@ public class JoiningVar extends Par5s {
                 case 4040:  //Размер от оси профиля, мм.
                 case 4044:  //Размер от края пакета, мм 
                     listenerList.add(() -> {
-                        elemJoin.elem1.spcRec().width -= rec.getFloat(TEXT);
+                        elemJoin.elem1.spcRec().width -= rec.getDbl(TEXT);
                     });
                     break;
                 case 4046:  //Длина Артикула 1, мм 
                     listenerList.add(() -> {
-                        elemJoin.elem1.spcRec().width += rec.getFloat(TEXT);
+                        elemJoin.elem1.spcRec().width += rec.getDbl(TEXT);
                     });
                     break;
                 case 4061:  //Максимальный размер шва, мм 

@@ -95,8 +95,8 @@ public class JoiningDet extends Par5s {
                     double weight = 0;
                     LinkedList<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
                     for (IElem5e glass : glassList) {
-                        if (glass.artiklRecAn().getFloat(eArtikl.density) > 0) {
-                            weight += glass.width() * glass.height() * glass.artiklRecAn().getFloat(eArtikl.density) / 1000000;
+                        if (glass.artiklRecAn().getDbl(eArtikl.density) > 0) {
+                            weight += glass.width() * glass.height() * glass.artiklRecAn().getDbl(eArtikl.density) / 1000000;
                         }
                     }
                     if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {

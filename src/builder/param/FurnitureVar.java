@@ -106,7 +106,7 @@ public class FurnitureVar extends Par5s {
                     if ("ps3".equals(versionPs)) { //Мин. соотношение габаритов (б/м)
                         double max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
                         double min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
-                        if (rec.getFloat(TEXT) > max / min) {
+                        if (rec.getDbl(TEXT) > max / min) {
                             return false;
                         }
                     } else {
@@ -130,14 +130,14 @@ public class FurnitureVar extends Par5s {
                 break;
                 case 21039:  //Минимальный угол, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (elem5e.anglHoriz() < rec.getFloat(TEXT)) {
+                        if (elem5e.anglHoriz() < rec.getDbl(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 21040:  //Ограничение угла, ° или Угол максимальный, ° для ps3 
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) > elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) > elem5e.anglHoriz()) {
                             return false;
                         }
                     } else if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz()) == false) {
@@ -146,14 +146,14 @@ public class FurnitureVar extends Par5s {
                     break;
                 case 21044:  //Точный угол 
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) != elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) != elem5e.anglHoriz()) {
                             return false;
                         }
                     }
                     break;
                 case 21045: //Исключить угол, °
                     if ("ps3".equals(eSetting.val(2))) {
-                        if (rec.getFloat(TEXT) == elem5e.anglHoriz()) {
+                        if (rec.getDbl(TEXT) == elem5e.anglHoriz()) {
                             return false;
                         }
                     }

@@ -117,10 +117,10 @@ public class Specifics extends javax.swing.JFrame {
             for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
                 Vector v = listSpec.get(i).getVector(i);
                 dtm.addRow(v);
-                sum1 = sum1 + (Float) v.get(indexLast - 1);
-                sum2 = sum2 + (Float) v.get(indexLast - 2);
-                sum9 = sum9 + (Float) v.get(indexLast - 9);
-                sum13 = sum13 + (Float) v.get(indexLast - 13); 
+                sum1 = sum1 + (Double) v.get(indexLast - 1);
+                sum2 = sum2 + (Double) v.get(indexLast - 2);
+                sum9 = sum9 + (Double) v.get(indexLast - 9);
+                sum13 = sum13 + (Double) v.get(indexLast - 13); 
             }
             Vector vectorLast = new Vector();
             vectorLast.add(listSpec.size());
@@ -444,7 +444,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-        double id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        double id = UCom.getDbl(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         Specific recordSpc = winc.listSpec.find(id);
         ProgressBar.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -454,7 +454,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        double id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        double id = UCom.getDbl(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
         Specific specificRec = winc.listSpec.find(id);
         Record detailRec = specificRec.detailRec;
@@ -489,7 +489,7 @@ public class Specifics extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
         filterTable.getTxt().setText(null);
-        double id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
+        double id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getDbl(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
             loadingTab1(winc.listSpec);
@@ -518,7 +518,7 @@ public class Specifics extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (tab1.getValueAt(i, 1) != null && UCom.getFloat(tab1.getValueAt(i, 1).toString()) == id) {
+            if (tab1.getValueAt(i, 1) != null && UCom.getDbl(tab1.getValueAt(i, 1).toString()) == id) {
                 UGui.setSelectedIndex(tab1, i);
                 return;
             }

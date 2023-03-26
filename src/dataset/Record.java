@@ -59,9 +59,9 @@ public class Record<E> extends ArrayList<E> {
 ////            String val = element + " #" + super.get(1);
 //            super.set(field.ordinal(), (E) val);
 //        } else {
-            super.set(field.ordinal(), (E) element);
+        super.set(field.ordinal(), (E) element);
 //        }
-        
+
     }
 
     public Object getDev(Field field, Object val) {
@@ -69,7 +69,7 @@ public class Record<E> extends ArrayList<E> {
 //            return val + " " + get(field.ordinal());
 //            //return val + " " + get(field.ordinal()) + " #" + val;
 //        } else {
-            return get(field.ordinal());
+        return get(field.ordinal());
 //        }
     }
 
@@ -79,9 +79,10 @@ public class Record<E> extends ArrayList<E> {
 //            //String v = (Integer.parseInt(num.toString()) < 0) ? num.toString() : " #" + num;
 //            //return val + " " + v;
 //        } else {
-            return val;
+        return val;
 //        }
     }
+
     public Object get(Field field) {
         return super.get(field.ordinal());
     }
@@ -94,15 +95,6 @@ public class Record<E> extends ArrayList<E> {
         try {
             Object obj = super.get(index);
             return (obj == null) ? -1 : Integer.parseInt(String.valueOf(obj));
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    public double getFloat(int index) {
-        try {
-            Object obj = super.get(index);
-            return (obj == null) ? -1 : UCom.getFloat(String.valueOf(obj));
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -138,14 +130,19 @@ public class Record<E> extends ArrayList<E> {
         }
     }
 
-    public double getFloat(Field field) {
+    public float getFloat(Field field) {
         Object obj = super.get(field.ordinal());
         return getFloat(field, -1);
     }
 
-    public double getFloat(Field field, double def) {
+    public float getFloat(Field field, float def) {
         Object obj = super.get(field.ordinal());
         return (obj == null) ? def : UCom.getFloat(String.valueOf(obj));
+    }
+
+    public double getDbl(Field field, double def) {
+        Object obj = super.get(field.ordinal());
+        return (obj == null) ? def : UCom.getDbl(String.valueOf(obj));
     }
 
     public double getDbl(Field field) {

@@ -195,7 +195,7 @@ public class Scene extends javax.swing.JPanel {
     //Изменить размер и перерисовать шкалу
     private void resizeLine() {
         try {
-            double val = Float.valueOf(spinner.getValue().toString()); //то что накликал клиент
+            double val = Double.valueOf(spinner.getValue().toString()); //то что накликал клиент
 
             //Если горизонтальное выделение красн.
             Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);

@@ -177,7 +177,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
                         value = Double.valueOf(str);
                     } else if (field.meta().type().equals(Field.TYPE.FLT)) {
                         String str = String.valueOf(value).replace(',', '.');
-                        value = Float.valueOf(str);
+                        value = Double.valueOf(str);
                     } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
                         value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
                     }

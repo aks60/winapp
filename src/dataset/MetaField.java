@@ -62,9 +62,9 @@ public class MetaField {
             } else if (type.type == Double.class) {
                 String str = String.valueOf(value).replace(',', '.');
                 Double.valueOf(str);
-            } else if (type.type == Float.class) {
+            } else if (type.type == Double.class) {
                 String str = String.valueOf(value).replace(',', '.');
-                Float.valueOf(str);
+                Double.valueOf(str);
             } else if (type.type == Date.class) {
                 if (value instanceof Date) {
                     return null;

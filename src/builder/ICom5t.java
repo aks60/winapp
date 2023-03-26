@@ -102,13 +102,13 @@ public interface ICom5t {
     }
 
     //Высота компонента
-    default Float height() {
-        return 0f;
+    default Double height() {
+        return 0.0;
     }
 
     //Ширина компонента
-    default Float width() {
-        return 0f;
+    default Double width() {
+        return 0.0;
     }
 
     //Длина компонента

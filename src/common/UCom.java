@@ -73,12 +73,6 @@ public class UCom {
     public static double round(double value, int places) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-
-    public static double round(double value, int places) {
-        BigDecimal bd = new BigDecimal(Float.toString(value));
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.floatValue();
     }
 
@@ -107,15 +101,15 @@ public class UCom {
                 return Float.valueOf(str);
 
             } catch (java.lang.NumberFormatException e) {
-                System.err.println("Ошибка:UCom.getFloat() " + e);
+                System.err.println("Ошибка:UCom.getDbl() " + e);
             }
         }
-        throw new NumberFormatException("Ошибка:UCom.getFloat(\"" + str + "\")");
+        throw new NumberFormatException("Ошибка:UCom.getDbl(\"" + str + "\")");
     }
 
-    public static Float getFloat(Object obj, Float def) {
+    public static Double getDbl(Object obj, Double def) {
         try {
-            return getFloat(obj.toString());
+            return getDbl(obj.toString());
 
         } catch (java.lang.NumberFormatException e) {
             return def;
@@ -128,7 +122,7 @@ public class UCom {
             try {
                 return Double.valueOf(str);
             } catch (java.lang.NumberFormatException e) {
-                System.err.println("Ошибка:UCom.getFloat() " + e);
+                System.err.println("Ошибка:UCom.getDbl() " + e);
             }
         }
         throw new NumberFormatException("Ошибка:UCom.getDbl(\"" + str + "\")");
@@ -179,9 +173,9 @@ public class UCom {
     }
 
     //0.55;79,01-10;0-10 => [0.55,0.55,79.01,10.0,0.0,10.0]
-    public static Float[] parserFloat(String str) {
+    public static Double[] parserFloat(String str) {
         if (str.isEmpty()) {
-            return new Float[]{};
+            return new Double[]{};
         }
         ArrayList<Object> arrList = new ArrayList();
         try {
@@ -190,21 +184,21 @@ public class UCom {
             if (arr.length == 1) {
                 arr = arr[0].split("-");
                 if (arr.length == 1) {
-                    arrList.add(Float.valueOf(arr[0]));
-                    arrList.add(Float.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[0]));
                 } else {
-                    arrList.add(Float.valueOf(arr[0]));
-                    arrList.add(Float.valueOf(arr[1]));
+                    arrList.add(Double.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[1]));
                 }
             } else {
                 for (int index = 0; index < arr.length; index++) {
                     String[] arr2 = arr[index].split("-");
                     if (arr2.length == 1) {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
                     } else {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[1]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[1]));
                     }
                 }
             }
@@ -212,7 +206,7 @@ public class UCom {
             System.out.println("Ошибка:UCom.parserFloat() " + e);
             arrList = new ArrayList(List.of(-1, -1));
         }
-        return arrList.stream().toArray(Float[]::new);
+        return arrList.stream().toArray(Double[]::new);
     }
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
@@ -267,34 +261,34 @@ public class UCom {
             if (txt == null || txt.isEmpty() || txt.equals("*")) {
                 return true;
             }
-            ArrayList<Float> arrList = new ArrayList();
+            ArrayList<Double> arrList = new ArrayList();
             txt = txt.replace(",", ".");
             String[] arr = txt.split(";");
             if (arr.length == 1) {
                 arr = arr[0].split("-");
                 if (arr.length == 1) { //если не диапазон, то точный поиск
-                    arrList.add(Float.valueOf(arr[0]));
-                    arrList.add(Float.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[0]));
                 } else {
-                    arrList.add(Float.valueOf(arr[0]));
-                    arrList.add(Float.valueOf(arr[1]));
+                    arrList.add(Double.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[1]));
                 }
             } else {
                 for (int index = 0; index < arr.length; index++) {
                     String[] arr2 = arr[index].split("-");
                     if (arr2.length == 1) {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
                     } else {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[1]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[1]));
                     }
                 }
             }
             for (int index = 0; index < arrList.size(); ++index) {
                 double v1 = arrList.get(index);
                 double v2 = arrList.get(++index);
-                double v3 = Float.valueOf(value.toString());
+                double v3 = Double.valueOf(value.toString());
                 if (v1 <= v3 && v3 <= v2) {
                     return true;
                 }
@@ -312,34 +306,34 @@ public class UCom {
             if (txt == null || txt.isEmpty() || txt.equals("*")) {
                 return true;
             }
-            ArrayList<Float> arrList = new ArrayList();
+            ArrayList<Double> arrList = new ArrayList();
             txt = txt.replace(",", ".");
             String[] arr = txt.split(";");
             if (arr.length == 1) {
                 arr = arr[0].split("-");
                 if (arr.length == 1) { //если не диапазон
-                    arrList.add(0f);   //то поиск с нуля
-                    arrList.add(Float.valueOf(arr[0]));
+                    arrList.add(0.0);   //то поиск с нуля
+                    arrList.add(Double.valueOf(arr[0]));
                 } else {
-                    arrList.add(Float.valueOf(arr[0]));
-                    arrList.add(Float.valueOf(arr[1]));
+                    arrList.add(Double.valueOf(arr[0]));
+                    arrList.add(Double.valueOf(arr[1]));
                 }
             } else {
                 for (int index = 0; index < arr.length; index++) {
                     String[] arr2 = arr[index].split("-");
                     if (arr2.length == 1) {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[0]));
                     } else {
-                        arrList.add(Float.valueOf(arr2[0]));
-                        arrList.add(Float.valueOf(arr2[1]));
+                        arrList.add(Double.valueOf(arr2[0]));
+                        arrList.add(Double.valueOf(arr2[1]));
                     }
                 }
             }
             for (int index = 0; index < arrList.size(); ++index) {
                 double v1 = arrList.get(index);
                 double v2 = arrList.get(++index);
-                double v3 = Float.valueOf(value.toString());
+                double v3 = Double.valueOf(value.toString());
                 if (v1 <= v3 && v3 <= v2) {
                     return true;
                 }
@@ -430,19 +424,11 @@ public class UCom {
     }
 
     public static double sin(double angl) {
-        return (double) Math.sin(Math.toRadians(angl));
-    }
-
-    public static double sin(double angl) {
-        return (double) Math.sin(Math.toRadians(angl));
+        return Math.sin(Math.toRadians(angl));
     }
 
     public static double cos(double angl) {
-        return (double) Math.cos(Math.toRadians(angl));
-    }
-
-    public static double cos(double angl) {
-        return (double) Math.cos(Math.toRadians(angl));
+        return Math.cos(Math.toRadians(angl));
     }
 
     public static double tan(double angl) {

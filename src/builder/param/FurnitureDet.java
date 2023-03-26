@@ -227,7 +227,7 @@ public class FurnitureDet extends Par5s {
                 {
                     ICom5t glass = areaStv.childs().stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
-                        double weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getFloat(eArtikl.density);
+                        double weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getDbl(eArtikl.density);
                         if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
@@ -239,14 +239,14 @@ public class FurnitureDet extends Par5s {
                 {
                     String handl[] = rec.getStr(TEXT).split("-");
                     if (handl.length > 1) {
-                        double handl_min = UCom.getFloat(handl[0]);
-                        double handl_max = UCom.getFloat(handl[1]);
+                        double handl_min = UCom.getDbl(handl[0]);
+                        double handl_max = UCom.getDbl(handl[1]);
                         if (handl_min > elemStv.handleHeight() || elemStv.handleHeight() > handl_max) {
                             return false;
                         }
                     }
                     if ("ps3".equals(versionPs)) { //Минимальная высота ручки, мм
-                        double handl_min = UCom.getFloat(rec.getStr(TEXT));
+                        double handl_min = UCom.getDbl(rec.getStr(TEXT));
                         if (handl_min > elemStv.handleHeight()) {
                             return false;
                         }
@@ -255,7 +255,7 @@ public class FurnitureDet extends Par5s {
                 break;
                 case 24065: //Максимальная высота ручки, мм 
                 {
-                    double handl_max = UCom.getFloat(rec.getStr(TEXT));
+                    double handl_max = UCom.getDbl(rec.getStr(TEXT));
                     if (handl_max < elemStv.handleHeight()) {
                         return false;
                     }

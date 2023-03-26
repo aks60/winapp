@@ -87,7 +87,7 @@ public class DefCellEditorNumb extends DefaultCellEditor {
         try {
             Field field = ((DefTableModel) table.getModel()).columns[column];
             Object val = value;
-            if (value instanceof Float || value instanceof Double) {
+            if (value instanceof Double || value instanceof Double) {
                  val = (df != null) ? df.format(value) : UCom.format(value, scale);
             } else if (field.meta().type() == Field.TYPE.DATE) {
                  val = UGui.DateToStr(value);

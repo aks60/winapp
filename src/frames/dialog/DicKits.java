@@ -682,9 +682,9 @@ public class DicKits extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        double H = UCom.getFloat(txt1.getText(), 0f);
-        double L = UCom.getFloat(txt2.getText(), 0f);
-        double Q = UCom.getFloat(txt3.getText(), 1f);
+        double H = UCom.getDbl(txt1.getText(), 0.0);
+        double L = UCom.getDbl(txt2.getText(), 0.0);
+        double Q = UCom.getDbl(txt3.getText(), 1.0);
 
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(Q, L, H);
@@ -705,13 +705,13 @@ public class DicKits extends javax.swing.JDialog {
                 prjkitRec.set(ePrjkit.numb, to_7030_7031_8060_8061_9060_9061(mapParam)); //количество    
 
                 //Длина, мм
-                Float width = to_8065_8066_9065_9066(mapParam);
+                Double width = to_8065_8066_9065_9066(mapParam);
                 width = (width == null) ? 0 : width;
                 prjkitRec.set(ePrjkit.width, width); //длина мм   
 
                 //Ширина, мм
-                Float height = to_8070_8071_9070_9071(mapParam);
-                height = (height == null) ? artkitRec.getFloat(eArtikl.height) : height;
+                Double height = to_8070_8071_9070_9071(mapParam);
+                height = (height == null) ? artkitRec.getDbl(eArtikl.height) : height;
                 prjkitRec.set(ePrjkit.height, height); //ширина  
 
                 //Поправка, мм
@@ -719,12 +719,12 @@ public class DicKits extends javax.swing.JDialog {
                 prjkitRec.set(ePrjkit.width, width + correct); //длина мм 
 
                 //Угол реза 1
-                Float angl1 = to_8075(mapParam, 0);
+                Double angl1 = to_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
                 prjkitRec.set(ePrjkit.angl1, angl1); //угол 1  
 
                 //Угол реза 2
-                Float angl2 = to_8075(mapParam, 1);
+                Double angl2 = to_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
                 prjkitRec.set(ePrjkit.angl2, angl2); //угол 2
 
@@ -984,7 +984,7 @@ public class DicKits extends javax.swing.JDialog {
     private double to_7030_7031_8060_8061_9060_9061(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 7030, 7031, 8060, 8061, 9060, 9061);
         if (numb != null) {
-            return Float.valueOf(numb);
+            return Double.valueOf(numb);
         }
         return 1;
     }
@@ -993,35 +993,35 @@ public class DicKits extends javax.swing.JDialog {
     private double to_8050(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8050);
         if (numb != null) {
-            return Float.valueOf(numb);
+            return Double.valueOf(numb);
         }
         return 0;
     }
 
     //Длина, мм
-    private Float to_8065_8066_9065_9066(HashMap<Integer, String> mapParam) {
+    private Double to_8065_8066_9065_9066(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8065, 8066, 9065, 9066);
         if (numb != null) {
-            return Float.valueOf(numb);
+            return Double.valueOf(numb);
         }
         return null;
     }
 
     //Ширина, мм
-    private Float to_8070_8071_9070_9071(HashMap<Integer, String> mapParam) {
+    private Double to_8070_8071_9070_9071(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8070, 8071, 9070, 9071);
         if (numb != null) {
-            return Float.valueOf(numb);
+            return Double.valueOf(numb);
         }
         return null;
     }
 
     //Углы реза "90х90", "90х45", "45х90", "45х45"
-    private Float to_8075(HashMap<Integer, String> mapParam, int m) {
+    private Double to_8075(HashMap<Integer, String> mapParam, int m) {
         String angl = getParam(mapParam, 8075);
         if (angl != null) {
             String s[] = angl.split("х");
-            return Float.valueOf(s[m]);
+            return Double.valueOf(s[m]);
         }
         return null;
     }

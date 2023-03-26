@@ -187,12 +187,12 @@ public class Com5t implements ICom5t {
     }
 
     @Override
-    public Float width() {
+    public Double width() {
         return (x2 > x1) ? x2 - x1 : x1 - x2;
     }
 
     @Override
-    public Float height() {
+    public Double height() {
         return (y2 > y1) ? y2 - y1 : y1 - y2;
     }
 

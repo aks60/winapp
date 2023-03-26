@@ -190,13 +190,13 @@ public class AreaSimple extends Com5t implements IArea5e {
             if (id() == 0) {
                 double k = v / gson.width(); //коэффициент
                 if (k != 1) {
-                    if (UCom.getFloat(rootGson.width2(), 0f) > UCom.getFloat(rootGson.width1(), 0f)) {
+                    if (UCom.getDbl(rootGson.width2(), 0.0) > UCom.getDbl(rootGson.width1(), 0.0)) {
                         rootGson.width2(v);
                         if (rootGson.width1() != null) {
                             rootGson.width1(k * rootGson.width1());
                         }
                     }
-                    if (UCom.getFloat(rootGson.width1(), 0f) > UCom.getFloat(rootGson.width2(), 0f)) {
+                    if (UCom.getDbl(rootGson.width1(), 0.0) > UCom.getDbl(rootGson.width2(), 0.0)) {
                         rootGson.width1(v);
                         if (rootGson.width2() != null) {
                             rootGson.width2(k * rootGson.width2());
@@ -257,13 +257,13 @@ public class AreaSimple extends Com5t implements IArea5e {
             if (id() == 0) {
                 double k = v / gson.height(); //коэффициент
                 if (k != 1) {
-                    if (UCom.getFloat(rootGson.height1(), 0f) > UCom.getFloat(rootGson.height2(), 0f)) {
+                    if (UCom.getDbl(rootGson.height1(), 0.0) > UCom.getDbl(rootGson.height2(), 0.0)) {
                         rootGson.height1(v);
                         if (rootGson.height2() != null) {
                             rootGson.height2(k * rootGson.height2());
                         }
                     }
-                    if (UCom.getFloat(rootGson.height2(), 0f) > UCom.getFloat(rootGson.height1(), 0f)) {
+                    if (UCom.getDbl(rootGson.height2(), 0.0) > UCom.getDbl(rootGson.height1(), 0.0)) {
                         rootGson.height2(v);
                         if (rootGson.height1() != null) {
                             rootGson.height1(k * rootGson.height1());

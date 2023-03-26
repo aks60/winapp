@@ -78,7 +78,7 @@ public class Specific {
     public void setArtikl(Record artiklRec) {
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
-        this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
+        this.wastePrc = artiklRec.getDbl(eArtikl.otx_norm);
         this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
         this.artiklRec = artiklRec;
         setAnglCut();

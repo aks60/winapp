@@ -22,7 +22,7 @@ public class UPar {
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         if (!"null".equals(ps)) {
             List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
-            double dx = UCom.getFloat(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
+            double dx = UCom.getDbl(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
 
             if (list.get(0).equals(ps)) {
                 return spcRec.width - dx;
@@ -47,7 +47,7 @@ public class UPar {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
-            double width_begin = UCom.getFloat(spcAdd.getParam(0, 14040, 24040, 33040, 38040)); //Порог расчета, мм
+            double width_begin = UCom.getDbl(spcAdd.getParam(0, 14040, 24040, 33040, 38040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 14060, 24060, 33060, 38060)); //"Количество на шаг"
             double width_next = 0;
             if ("null".equals(spcAdd.getParam("null", 38004, 39005))) {
@@ -93,7 +93,7 @@ public class UPar {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050)); //Шаг, мм
         if (step != -1) {
-            double width_begin = UCom.getFloat(spcAdd.getParam(0, 11040)); //Порог расчета, мм
+            double width_begin = UCom.getDbl(spcAdd.getParam(0, 11040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060)); //"Количество на шаг"
             IElem5e elem5e = null;
             double width_next = 0;
@@ -139,14 +139,14 @@ public class UPar {
 
     //Количество ед.
     public static double to_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam(spcAdd.count,
+        return UCom.getDbl(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Поправка, мм
     public static double to_12050_15050_34051_39020(Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            return UCom.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
+            return UCom.getDbl(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
         return spcAdd.width;
     }
@@ -154,24 +154,24 @@ public class UPar {
     //Длина, мм
     public static double to_12065_15045_25040_34070_39070(Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            return UCom.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
+            return UCom.getDbl(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
         return spcAdd.width;
     }
 
     //Коэффициент, [ * коэф-т ]
     public static double to_12030_15030_25035_34030_39030(Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
+        return UCom.getDbl(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Коэффициент, [ / коэф-т ]
     public static double to_12040_15031_25036_34040_39040(Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
+        return UCom.getDbl(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Othe
     public static double to_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam(spcAdd.quant1,
+        return UCom.getDbl(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
@@ -179,19 +179,19 @@ public class UPar {
     public static void to_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.val(2))) {
             if (spcAdd.getParam("-361", 34077).equals("-361") == false) {
-                spcAdd.anglCut1 = UCom.getFloat(spcAdd.getParam("-1", 34077));
+                spcAdd.anglCut1 = UCom.getDbl(spcAdd.getParam("-1", 34077));
             }
             if (spcAdd.getParam("-361", 34078).equals("-361") == false) {
-                spcAdd.anglCut2 = UCom.getFloat(spcAdd.getParam("-1", 34078));
+                spcAdd.anglCut2 = UCom.getDbl(spcAdd.getParam("-1", 34078));
             }
         } else {
             if (spcAdd.getParam("-361", 34077, 39077).equals("-361") == false) {
                 String[] arr = spcAdd.getParam("-1", 34077, 39077).split("/");
                 if (arr[0].equals("*") == false) {
-                    spcAdd.anglCut1 = UCom.getFloat(arr[0]);
+                    spcAdd.anglCut1 = UCom.getDbl(arr[0]);
                 }
                 if (arr[1].equals("*") == false) {
-                    spcAdd.anglCut2 = UCom.getFloat(arr[1]);
+                    spcAdd.anglCut2 = UCom.getDbl(arr[1]);
                 }
             }
         }
@@ -264,12 +264,12 @@ public class UPar {
     public static void to_40005_40010(Specific spcAdd) {
         if (!"null".equals(spcAdd.getParam("null", 40005))) {
             String[] arr = spcAdd.getParam("null", 40005).split("/");
-            spcAdd.width = spcAdd.width + UCom.getFloat(arr[0]);
-            spcAdd.height = spcAdd.height + UCom.getFloat(arr[1]);
+            spcAdd.width = spcAdd.width + UCom.getDbl(arr[0]);
+            spcAdd.height = spcAdd.height + UCom.getDbl(arr[1]);
         } else if (!"null".equals(spcAdd.getParam("null", 40010))) {
             String[] arr = spcAdd.getParam("null", 40010).split("/");
-            spcAdd.height = spcAdd.height + UCom.getFloat(arr[0]);
-            spcAdd.width = spcAdd.width + UCom.getFloat(arr[1]);
+            spcAdd.height = spcAdd.height + UCom.getDbl(arr[0]);
+            spcAdd.width = spcAdd.width + UCom.getDbl(arr[1]);
         }
     }
 }

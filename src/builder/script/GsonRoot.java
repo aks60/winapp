@@ -19,10 +19,10 @@ public class GsonRoot extends GsonElem {
     private Integer prj = null; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов при сравнении с PS4
     private Integer ord = null; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов при сравнении с PS4 
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
-    private Float width1 = null; //ширина area мм. нижняя
-    private Float width2 = null;  //ширина area мм. верхняя
-    private Float height1 = null; //высота area мм левая 
-    private Float height2 = null;  //высота area мм. правая
+    private Double width1 = null; //ширина area мм. нижняя
+    private Double width2 = null;  //ширина area мм. верхняя
+    private Double height1 = null; //высота area мм левая 
+    private Double height2 = null;  //высота area мм. правая
     private Integer color1 = -3;  //основная текстура
     private Integer color2 = -3;  //внутренняя текстура
     private Integer color3 = -3;  //внешняя текстура    
@@ -67,7 +67,7 @@ public class GsonRoot extends GsonElem {
         init(version, prj, ord, nuni, name, layout, type, form, width1, width2, height1, height2, color1, color2, color3, null);
     }
 
-    public void init(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, Float width1, Float width2, Float height1, Float height2, Integer color1, Integer color2, Integer color3, String paramJson) {
+    public void init(String version, Integer prj, Integer ord, Integer nuni, String name, Layout layout, Type type, Form form, Double width1, Double width2, Double height1, Double height2, Integer color1, Integer color2, Integer color3, String paramJson) {
         super.genId = 0;
         super.id = 0;
         this.version = version;
@@ -82,7 +82,7 @@ public class GsonRoot extends GsonElem {
         this.width2 = width2;
         this.height1 = height1;
         this.height2 = height2;
-        this.length = 0f;
+        this.length = 0.0;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
@@ -118,7 +118,7 @@ public class GsonRoot extends GsonElem {
         return name;
     }
 
-    public Float height() {
+    public Double height() {
         if (height1 == null) {
             return height2;
         } else if (height2 == null) {
@@ -130,7 +130,7 @@ public class GsonRoot extends GsonElem {
         }
     }
 
-    public Float width() {
+    public Double width() {
         if (width2 == null) {
             return width1;
         } else if (width1 == null) {
@@ -142,7 +142,7 @@ public class GsonRoot extends GsonElem {
         }
     }
 
-    public Float height1() {
+    public Double height1() {
         return height1;
     }
 
@@ -150,7 +150,7 @@ public class GsonRoot extends GsonElem {
         height1 = h;
     }
 
-    public Float height2() {
+    public Double height2() {
         return height2;
     }
 
@@ -158,7 +158,7 @@ public class GsonRoot extends GsonElem {
         height2 = h;
     }
 
-    public Float width1() {
+    public Double width1() {
         return width1;
     }
 
@@ -166,7 +166,7 @@ public class GsonRoot extends GsonElem {
         width1 = w;
     }
 
-    public Float width2() {
+    public Double width2() {
         return width2;
     }
 

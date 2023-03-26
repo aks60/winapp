@@ -289,7 +289,7 @@ public class UGui {
         if (id != -1) {
             DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
             do {
-                if (id == ((DefMutableTreeNode) curNode).rec().getFloat(eSystree.id)) {
+                if (id == ((DefMutableTreeNode) curNode).rec().getDbl(eSystree.id)) {
                     TreePath path = new TreePath(curNode.getPath());
                     tree.setSelectionPath(path);
                     tree.scrollPathToVisible(path);
