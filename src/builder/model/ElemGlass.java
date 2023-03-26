@@ -187,33 +187,34 @@ public class ElemGlass extends ElemSimple {
                     double radiusArch = ((AreaArch) winc.rootArea).radiusArch;
 
                     if (anglHoriz() == 0) { //по основанию арки
-                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус
-                        double h1 = imp.y1() + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
-                        double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
+                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                        double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
+                                + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
+                        double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
                         double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
                         double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
-                        double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
-                        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
-                        spcAdd.width = (float) (2 * l1 + dw);
+                        double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
+                        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
+                        spcAdd.width = (float) (2 * w1 + dw);
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                         spcAdd.anglCut2 = (float) ang1;
                         spcAdd.anglCut1 = (float) ang1;
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
 
                     } else if (anglHoriz() == 180) { //по дуге арки   
-                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус
-                        double h1 = imp.y1
-        () - imp.artiklRec().getDbl(eArtikl.size_centr) + imp.artiklRec().getDbl(eArtikl.size_falz) 
-                                - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
-                        double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
+                        double r1 = radiusArch - arch.artiklRec().getFloat(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                        double h1 = imp.y1()  - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
+                                + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
+                        double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
                         double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
                         double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
-                        double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика   
-                        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
-                        double ang2 = Math.toDegrees(Math.asin(l1 / r1));
-                        double l4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
+                        double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика   
+                        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
+                        double ang2 = Math.toDegrees(Math.asin(w1 / r1));
+                        double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
                         double ang3 = 90 - (90 - ang2 + ang1);
-                        spcAdd.width = (float) (dw + l4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
+                        //spcAdd.width = (float) (dw + l4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
+                        spcAdd.width = (float) dw;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                         spcAdd.anglCut2 = (float) ang3;
                         spcAdd.anglCut1 = (float) ang3;
