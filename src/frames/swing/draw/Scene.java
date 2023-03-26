@@ -58,14 +58,14 @@ public class Scene extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent evt) {
                 if (winc != null) {
                     //Если клик не на конструкции
-                    if (winc.rootArea.inside(evt.getX() / (double) winc.scale, evt.getY() / (double) winc.scale) == false) {
+                    if (winc.rootArea.inside(evt.getX() / winc.scale, evt.getY() / winc.scale) == false) {
                         lineHoriz = List.of(new Scale(winc.rootArea));
                         lineVert = List.of(new Scale(winc.rootArea));
 
                     } else { //На конструкции
                         for (IElem5e crs : winc.listElem) {
                             if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
-                                    && crs.inside(evt.getX() / (double) winc.scale, evt.getY() / (double) winc.scale)) {
+                                    && crs.inside(evt.getX() / winc.scale, evt.getY() / winc.scale)) {
                                 List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
                                 for (int i = 0; i < areaChilds.size(); ++i) {
                                     if (areaChilds.get(i).id() == crs.id()) {

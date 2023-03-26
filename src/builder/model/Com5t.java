@@ -148,7 +148,7 @@ public class Com5t implements ICom5t {
         } else if (elem5e.anglHoriz() == 90 || elem5e.anglHoriz() == 270) {
             return (y2 > y1) ? y2 - y1 : y1 - y2;
         } else {
-            return (double) Math.sqrt(x2 * x2 + y2 * y2);
+            return Math.sqrt(x2 * x2 + y2 * y2);
         }
     }
 

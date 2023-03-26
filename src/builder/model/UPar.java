@@ -244,16 +244,16 @@ public class UPar {
         if (!"null".equals(txt)) {
 
             if ("меньшего целого числа".equals(txt)) {
-                return (double) Math.floor(spcAdd.count);
+                return Math.floor(spcAdd.count);
 
             } else if ("большего целого числа".equals(txt)) {
-                return (double) Math.ceil(spcAdd.count);
+                return Math.ceil(spcAdd.count);
 
             } else if ("большего чётного числа".equals(txt)) {
-                return (double) Math.round(spcAdd.count);
+                return Math.round(spcAdd.count);
 
             } else if ("большего нечётного числа".equals(txt)) {
-                return (double) Math.round(spcAdd.count) + 1;
+                return Math.round(spcAdd.count) + 1;
             }
         }
         return spcAdd.count;

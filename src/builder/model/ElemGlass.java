@@ -116,9 +116,9 @@ public class ElemGlass extends ElemSimple {
             y2 = y2 + elemImpost.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec().getDbl(eArtikl.height) + elemArch.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
-            x1 = (owner.width() / 2) - (double) l;
+            x1 = (owner.width() / 2) - l;
             x2 = owner.width() - x1;
-            radiusGlass = (double) r;
+            radiusGlass = r;
 
         } else if (owner.type() == Type.TRAPEZE) {
             IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
@@ -195,10 +195,10 @@ public class ElemGlass extends ElemSimple {
                         double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
                         double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
                         double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
-                        spcAdd.width = (double) (2 * w1 + dw);
+                        spcAdd.width = (2 * w1 + dw);
                         spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                        spcAdd.anglCut2 = (double) ang1;
-                        spcAdd.anglCut1 = (double) ang1;
+                        spcAdd.anglCut2 = ang1;
+                        spcAdd.anglCut1 = ang1;
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
 
                     } else if (anglHoriz() == 180) { //по дуге арки   
@@ -213,10 +213,10 @@ public class ElemGlass extends ElemSimple {
                         double ang2 = Math.toDegrees(Math.asin(w1 / r1));
                         double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
                         double ang3 = 90 - (90 - ang2 + ang1);
-                        spcAdd.width = (double) (dw + w4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
+                        spcAdd.width = (dw + w4);  //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
                         spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                        spcAdd.anglCut2 = (double) ang3;
-                        spcAdd.anglCut1 = (double) ang3;
+                        spcAdd.anglCut2 = ang3;
+                        spcAdd.anglCut1 = ang3;
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
                     }
                     //TRAPEZE

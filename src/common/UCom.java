@@ -432,7 +432,7 @@ public class UCom {
     }
 
     public static double tan(double angl) {
-        return (double) Math.tan(Math.toRadians(angl));
+        return Math.tan(Math.toRadians(angl));
     }
 
     public static int max(Query query, Field field) {

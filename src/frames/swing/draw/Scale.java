@@ -29,11 +29,11 @@ public class Scale {
     }
 
     public double width() {
-        return (double) (X2 - X1);
+        return (X2 - X1);
     }
 
     public double height() {
-        return (double) (Y2 - Y1);
+        return (Y2 - Y1);
     }
     
     public double widthGson() {

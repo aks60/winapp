@@ -114,48 +114,48 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 90;
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2() - artiklRec().getDbl(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
-                    anglCut[1] = (double) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2() - artiklRec().getDbl(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
-                    anglCut[0] = (double) Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
                 } else if (winc.form == Form.SYMM) {
                     setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
-                    anglCut[1] = (double) (180 - Math.toDegrees(Math.atan(winc.width1() / winc.height()))) / 2;
-                    anglHoriz = (double) (90 - Math.toDegrees(Math.asin(H / Dx)));
+                    anglCut[1] = (180 - Math.toDegrees(Math.atan(winc.width1() / winc.height()))) / 2;
+                    anglHoriz = (90 - Math.toDegrees(Math.asin(H / Dx)));
                 }
 
             } else if (Layout.TOP == layout) {
                 anglHoriz = 0;
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x1(), owner.y1(), owner.x2(), winc.height1() - winc.height2());
-                    anglHoriz = (double) (180 - Math.toDegrees(Math.atan(H / W)));
-                    anglCut[0] = (double) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                    anglCut[1] = (double) Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglHoriz = (180 - Math.toDegrees(Math.atan(H / W)));
+                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[1] = Math.toDegrees(Math.atan(W / H)) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x2(), owner.y1());
-                    anglHoriz = (double) (180 + Math.toDegrees(Math.atan(H / W)));
-                    anglCut[1] = (double) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                    anglCut[0] = (double) Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglHoriz = (180 + Math.toDegrees(Math.atan(H / W)));
+                    anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
                 } else if (winc.form == Form.SYMM) {
                     setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
-                    anglCut[0] = (double) Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
                     anglCut[1] = anglCut[0];
                 }
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    anglCut[0] = (double) (Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), owner.y2() - winc.height1(), owner.x1() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    anglCut[0] = (double) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.SYMM) {
                     setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    anglHoriz = (double) Math.toDegrees(Math.asin(H / Dx));
+                    anglHoriz = Math.toDegrees(Math.asin(H / Dx));
                     anglCut[1] = 777;
-                    anglCut[0] = (double) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 }
             }
 
@@ -195,46 +195,46 @@ public class ElemFrame extends ElemSimple {
                 if (owner.type() == Type.ARCH && Layout.TOP == layout) {
                     AreaArch areaArch = (AreaArch) root();
                     double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
-                    lengthArch = (double) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-                    spcRec.width = lengthArch + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    lengthArch = ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
+                    spcRec.width = lengthArch + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.BOTT == layout) {
-                    spcRec.width = x2 - x1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = x2 - x1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.LEFT == layout) {
-                    spcRec.width = y2 - y1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y2 - y1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else if (owner.type() == Type.TRAPEZE) {
                 if (Layout.TOP == layout) {
                     double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
-                    spcRec.width = (double) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.BOTT == layout) {
-                    spcRec.width = x2 - x1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = x2 - x1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.LEFT == layout) {
-                    spcRec.width = y2 - y1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y2 - y1 + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else {
                 if (Layout.BOTT == layout) {
-                    spcRec.width = length() + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = length() + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = length() + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = length() + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.TOP == layout) {
-                    spcRec.width = length() + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = length() + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.LEFT == layout) {
-                    spcRec.width = length() + (double) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = length() + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             }
@@ -416,7 +416,7 @@ public class ElemFrame extends ElemSimple {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (double) (r - a), rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (r - a), rgb, borderColor);
 
                 } else if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!                  
@@ -431,7 +431,7 @@ public class ElemFrame extends ElemSimple {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 + dh1, x1 + dh0, y1, y2, y2 - dh1, (double) (r - a), rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 + dh1, x1 + dh0, y1, y2, y2 - dh1, (r - a), rgb, borderColor);
                 }
                 //TRAPEZE
             } else if (owner.type() == Type.TRAPEZE) {
@@ -441,23 +441,23 @@ public class ElemFrame extends ElemSimple {
                 } else if (Layout.RIGHT == layout) {
                     if (winc.form == Form.RIGHT) {
                         double angl = Math.toRadians(90 - anglCut[1]);
-                        double dh2 = (double) (dh * Math.tan(angl));
+                        double dh2 = (dh * Math.tan(angl));
                         DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);
                     } else if (winc.form == Form.LEFT) {
                         double angl = Math.toRadians(90 - anglCut[0]);
-                        double dh2 = (double) (dh * Math.tan(angl));
+                        double dh2 = (dh * Math.tan(angl));
                         DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);                        
                     } else if (winc.form == Form.SYMM) {
                         
                     }
 
                 } else if (Layout.TOP == layout) {
-                    double dy = (double) (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
+                    double dy = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
                     DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y2, y2 + dy, y1 + dy, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
                     double angl = Math.toRadians(90 - anglCut[0]);
-                    double dh2 = (double) (dh * Math.tan(angl));
+                    double dh2 = (dh * Math.tan(angl));
                     DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1 + dh2, y2 - dh1, y2, rgb, borderColor);
                 }
             } else {
