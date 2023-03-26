@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ElemCross extends ElemSimple {
 
-    protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
+    protected double truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
     public ElemCross(IArea5e owner, GsonElem gson) {
         super(gson.id(), owner.winc(), owner, gson);
@@ -65,15 +65,15 @@ public class ElemCross extends ElemSimple {
             prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.height) / 2);
 
         } else if (Type.TRAPEZE == owner.type()) {
-            float dy = 0;
+            double dy = 0;
             IArea5e prevArea = (IArea5e) owner.childs().get(0);
             if (winc.form == Form.RIGHT) {
-                float angl = root.frames().get(Layout.RIGHT).anglCut()[1];
-                dy = (float) (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                double angl = root.frames().get(Layout.RIGHT).anglCut()[1];
+                dy = (double) (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             } else if (winc.form == Form.LEFT) {
-                float angl = root.frames().get(Layout.LEFT).anglCut()[0];
-                dy = (float) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                double angl = root.frames().get(Layout.LEFT).anglCut()[0];
+                dy = (double) (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getFloat(eArtikl.size_centr) + dy);
             }
         }
@@ -81,7 +81,7 @@ public class ElemCross extends ElemSimple {
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
-                //float db = artiklRecAn.getFloat(eArtikl.size_centr);
+                //double db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
                     setDimension(prevArea.x1(), prevArea.y2(), prevArea.x2(), prevArea.y2());
@@ -112,7 +112,7 @@ public class ElemCross extends ElemSimple {
             if (type() == Type.IMPOST) {
                 //На эскизе заход импоста не показываю, сразу пишу в спецификацию
                 if (winc.syssizeRec().getInt(eSyssize.id) != -1) {
-                    float zax = winc.syssizeRec().getFloat(eSyssize.zax);
+                    double zax = winc.syssizeRec().getFloat(eSyssize.zax);
                     if (Layout.HORIZ == owner.layout()) { //ареа слева направо  
                         IElem5e inTop = joinFlat(Layout.TOP), inBott = joinFlat(Layout.BOTT);
                         spcRec.width = (inBott.y1() - inBott.artiklRec().getFloat(eArtikl.height) + inBott.artiklRec().getFloat(eArtikl.size_centr))
@@ -203,7 +203,7 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        float dh = this.artiklRec.getFloat(eArtikl.size_centr);
+        double dh = this.artiklRec.getFloat(eArtikl.size_centr);
         if (Layout.VERT == owner.layout()) {
             DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh, y1 + dh, y2 - dh, y2 - dh, rgb, borderColor);
 

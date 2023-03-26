@@ -22,28 +22,28 @@ public interface IElem5e extends ICom5t {
      */
     IElem5e joinFlat(Layout layoutSide);
 
-    float[] anglFlat();
+    double[] anglFlat();
 
-    float anglHoriz();
+    double anglHoriz();
 
     Specific spcRec();
 
-    void anglHoriz(float angl);
+    void anglHoriz(double angl);
 
-    float[] anglCut();
+    double[] anglCut();
 
-    default float[] gsize() {
+    default double[] gsize() {
         return null;
     }
 
-    default float gzazo() {
+    default double gzazo() {
         return 0;
     }
 
-    default void gzazo(float zazo) {
+    default void gzazo(double zazo) {
     }
 
-    default float radiusGlass() {
+    default double radiusGlass() {
         return 0;
     }
 

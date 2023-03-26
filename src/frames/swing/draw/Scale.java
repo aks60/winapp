@@ -28,19 +28,19 @@ public class Scale {
         return area.gson();
     }
 
-    public float width() {
-        return (float) (X2 - X1);
+    public double width() {
+        return (double) (X2 - X1);
     }
 
-    public float height() {
-        return (float) (Y2 - Y1);
+    public double height() {
+        return (double) (Y2 - Y1);
     }
     
-    public float widthGson() {
+    public double widthGson() {
         return area.gson().width();
     }
 
-    public float heightGson() {
+    public double heightGson() {
         return area.gson().height();
     }
 }

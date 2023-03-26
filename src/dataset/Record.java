@@ -99,7 +99,7 @@ public class Record<E> extends ArrayList<E> {
         }
     }
 
-    public float getFloat(int index) {
+    public double getFloat(int index) {
         try {
             Object obj = super.get(index);
             return (obj == null) ? -1 : UCom.getFloat(String.valueOf(obj));
@@ -138,12 +138,12 @@ public class Record<E> extends ArrayList<E> {
         }
     }
 
-    public float getFloat(Field field) {
+    public double getFloat(Field field) {
         Object obj = super.get(field.ordinal());
         return getFloat(field, -1);
     }
 
-    public float getFloat(Field field, float def) {
+    public double getFloat(Field field, double def) {
         Object obj = super.get(field.ordinal());
         return (obj == null) ? def : UCom.getFloat(String.valueOf(obj));
     }

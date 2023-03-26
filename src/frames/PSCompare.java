@@ -185,8 +185,8 @@ public class PSCompare extends javax.swing.JFrame {
                     vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
                     String artikl = rs.getString("ANUMB"); //артикул
                     double leng = rs.getDouble("ALENG"); //длина
-                    float count = rs.getFloat("AQTYP"); //колич
-                    float pogonag = rs.getFloat("AQTYA"); //погонаж
+                    double count = rs.getFloat("AQTYP"); //колич
+                    double pogonag = rs.getFloat("AQTYA"); //погонаж
                     double perc = rs.getDouble("APERC"); //отход
                     double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                     double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
@@ -236,7 +236,7 @@ public class PSCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()).getDataVector().clear();
             for (Map.Entry<String, Vector> entry : hmSpc.entrySet()) {
                 Vector vec = entry.getValue();
-                vec.set(5, (float) vec.get(3) - (float) vec.get(4));
+                vec.set(5, (double) vec.get(3) - (double) vec.get(4));
                 ((DefaultTableModel) tab3.getModel()).getDataVector().add(vec);
             }
 
@@ -492,13 +492,13 @@ public class PSCompare extends javax.swing.JFrame {
             int punic = rs.getInt("PUNIC");
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + winc.rootGson.order() + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
-                //float leng = rs.getFloat("ALENG"); //длина
-                //float count = rs.getFloat("AQTYP"); //колич
-                float pogonag = rs.getFloat("AQTYA"); //погонаж
-                float perc = rs.getFloat("APERC"); //отход
-                float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
-                float value1 = (perc * pogonag / 100 + pogonag) * cost;
-                float value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
+                //double leng = rs.getFloat("ALENG"); //длина
+                //double count = rs.getFloat("AQTYP"); //колич
+                double pogonag = rs.getFloat("AQTYA"); //погонаж
+                double perc = rs.getFloat("APERC"); //отход
+                double cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                double value1 = (perc * pogonag / 100 + pogonag) * cost;
+                double value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
                 String key = rs.getString("ANUMB");
                 hmDbPs.put(key, value2); //стоимость без скидки
             }
@@ -573,11 +573,11 @@ public class PSCompare extends javax.swing.JFrame {
             int punic = rs.getInt("PUNIC");
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.order() + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
-                float pogonag = rs.getFloat("AQTYA"); //погонаж
-                float perc = rs.getFloat("APERC"); //отход
-                float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
-                float value1 = (perc * pogonag / 100 + pogonag) * cost;
-                float value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
+                double pogonag = rs.getFloat("AQTYA"); //погонаж
+                double perc = rs.getFloat("APERC"); //отход
+                double cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                double value1 = (perc * pogonag / 100 + pogonag) * cost;
+                double value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
                 String key = rs.getString("ANUMB");
                 hmDbPs.put(key, value2);  //стоимость без скидки
             }

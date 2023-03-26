@@ -11,7 +11,7 @@ public interface ICom5t {
 
     int TRANSLATE_XY = 2; //сдвиг графика
 
-    default float id() {
+    default double id() {
         return 0f;
     }
 
@@ -72,7 +72,7 @@ public interface ICom5t {
     }
 
     // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику">
-    //    public boolean inside2(float x, float y) {
+    //    public boolean inside2(double x, double y) {
     //        int X = (int) x, Y = (int) y;
     //        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
     //        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона
@@ -94,7 +94,7 @@ public interface ICom5t {
     default void paint() {
     }
 
-    default void setDimension(float x1, float y1, float x2, float y2) {
+    default void setDimension(double x1, double y1, double x2, double y2) {
     }
 
     default Type type() {
@@ -112,38 +112,38 @@ public interface ICom5t {
     }
 
     //Длина компонента
-    default float length() {
+    default double length() {
         return 0f;
     }
 
-    default float x1() {
+    default double x1() {
         return 0f;
     }
 
-    default float x2() {
+    default double x2() {
         return 0f;
     }
 
-    default float y1() {
+    default double y1() {
         return 0f;
     }
 
-    default float y2() {
+    default double y2() {
         return 0f;
     }
 
     //Ширина в gson
-    default float lengthX() {
+    default double lengthX() {
         return 0f;
     }
 
     //Высота в gson
-    default float lengthY() {
+    default double lengthY() {
         return 0f;
     }
     
     //Точка попадает в контур четырёхугольника
-    default boolean inside(float x, float y) {
+    default boolean inside(double x, double y) {
         return false;
     }
 

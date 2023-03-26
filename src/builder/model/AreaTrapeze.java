@@ -33,14 +33,14 @@ public class AreaTrapeze extends AreaSimple {
                 elemLeft = frames.get(Layout.LEFT);
 
         if (winc.form == Form.RIGHT) {
-            float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
+            double angl = (double) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее 
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl)); //угловое соединение правое верхнее
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl));    //угловое соединение левое верхнее 
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90)); //угловое соединение левое нижнее
 
         } else if (winc.form == Form.LEFT) {
-            float angl = (float) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
+            double angl = (double) Math.toDegrees(Math.atan(Math.abs(winc.height1() - winc.height2()) / width()));
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90)); //угловое соединение правое нижнее
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl)); //угловое соединение правое верхнее
             winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl)); //угловое соединение левое верхнее  

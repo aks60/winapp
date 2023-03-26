@@ -155,7 +155,7 @@ public class ParamTest {
     }
 
     //Получить элемент по ключу
-    public IElem5e getElem(IArea5e rootArea, float id) {
+    public IElem5e getElem(IArea5e rootArea, double id) {
         for (IElem5e frm : rootArea.frames().values()) {
             if (frm.id() == id) {
                 return (IElem5e) frm;

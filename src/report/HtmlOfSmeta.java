@@ -88,8 +88,8 @@ public class HtmlOfSmeta {
 
     private static void load1(Record projectRec, Document doc) {
         int length = 400;
-        float total = 0f;
-        float square = 0f; //площадь
+        double total = 0f;
+        double square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -152,8 +152,8 @@ public class HtmlOfSmeta {
 
     private static void load2(Record projectRec, Document doc) {
         int length = 400;
-        float total = 0f;
-        float square = 0f; //площадь
+        double total = 0f;
+        double square = 0f; //площадь
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             Record sysuserRec = eSysuser.find2(prjpartRec.getStr(ePrjpart.login));
@@ -325,8 +325,8 @@ public class HtmlOfSmeta {
                 winc.bufferImg = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 winc.gc2d = winc.bufferImg.createGraphics();
                 winc.gc2d.fillRect(0, 0, length, length);
-                float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-                float width = (winc.width2() > winc.width1()) ? winc.width2() : winc.width1();
+                double height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+                double width = (winc.width2() > winc.width1()) ? winc.width2() : winc.width1();
                 winc.scale = (length / width > length / height) ? length / (height + 80) : length / (width + 80);
                 winc.gc2d.scale(winc.scale, winc.scale);
                 winc.rootArea.draw(); //рисую конструкцию

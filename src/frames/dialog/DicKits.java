@@ -682,9 +682,9 @@ public class DicKits extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        float H = UCom.getFloat(txt1.getText(), 0f);
-        float L = UCom.getFloat(txt2.getText(), 0f);
-        float Q = UCom.getFloat(txt3.getText(), 1f);
+        double H = UCom.getFloat(txt1.getText(), 0f);
+        double L = UCom.getFloat(txt2.getText(), 0f);
+        double Q = UCom.getFloat(txt3.getText(), 1f);
 
         HashMap<Integer, String> mapParam = new HashMap();
         KitDet kitDet = new KitDet(Q, L, H);
@@ -715,7 +715,7 @@ public class DicKits extends javax.swing.JDialog {
                 prjkitRec.set(ePrjkit.height, height); //ширина  
 
                 //Поправка, мм
-                float correct = to_8050(mapParam);
+                double correct = to_8050(mapParam);
                 prjkitRec.set(ePrjkit.width, width + correct); //длина мм 
 
                 //Угол реза 1
@@ -981,7 +981,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     //Количество ед.
-    private float to_7030_7031_8060_8061_9060_9061(HashMap<Integer, String> mapParam) {
+    private double to_7030_7031_8060_8061_9060_9061(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 7030, 7031, 8060, 8061, 9060, 9061);
         if (numb != null) {
             return Float.valueOf(numb);
@@ -990,7 +990,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     //Поправка, мм
-    private float to_8050(HashMap<Integer, String> mapParam) {
+    private double to_8050(HashMap<Integer, String> mapParam) {
         String numb = getParam(mapParam, 8050);
         if (numb != null) {
             return Float.valueOf(numb);

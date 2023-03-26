@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ElemJoining {
 
-    private float id = -1; //идентификатор соединения
+    private double id = -1; //идентификатор соединения
     private Wincalc winc;
     public Record joiningRec = eJoining.up.newRecord();
     public Record joinvarRec = eJoinvar.up.newRecord();
@@ -27,10 +27,10 @@ public class ElemJoining {
     public IElem5e elem1 = null;  //элемент соединения 1
     public IElem5e elem2 = null;  //элемент соединения 2
 
-    public float angl = 90;    //угол между профилями
+    public double angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
-    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, float angl) {
+    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, double angl) {
         if (elem1 != null && elem2 != null) {
             return new ElemJoining(winc, type, layout, elem1, elem2, angl);
         } else {
@@ -38,7 +38,7 @@ public class ElemJoining {
         }
     }
 
-    public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, float angl) {
+    public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, double angl) {
         this.id = winc.genId();
         this.winc = winc;
         this.type = type;
@@ -105,7 +105,7 @@ public class ElemJoining {
         return id == ((ICom5t) obj).id();
     }
 
-    public float id() {
+    public double id() {
         return id;
     }
 

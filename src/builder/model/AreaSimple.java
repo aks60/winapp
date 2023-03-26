@@ -50,7 +50,7 @@ public class AreaSimple extends Com5t implements IArea5e {
         initParametr(winc.rootGson.param());
     }
 
-    public AreaSimple(Wincalc winc, IArea5e owner, GsonElem gson, float width, float height) {
+    public AreaSimple(Wincalc winc, IArea5e owner, GsonElem gson, double width, double height) {
         super(gson.id(), winc, owner, gson);
         this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1();
@@ -62,7 +62,7 @@ public class AreaSimple extends Com5t implements IArea5e {
         initParametr(gson.param());
     }
 
-    public AreaSimple(Wincalc winc, IArea5e owner, GsonElem gson, float width, float height, Form form) {
+    public AreaSimple(Wincalc winc, IArea5e owner, GsonElem gson, double width, double height, Form form) {
         super(gson.id(), winc, owner, gson);
         this.form = form;
         this.layout = gson.layout();
@@ -95,17 +95,17 @@ public class AreaSimple extends Com5t implements IArea5e {
      * значить есть импост у которого центр по середине и надо смещать ареа на
      * его ширину для центровки см. ElemCross.setLocation()
      */
-    protected void setLocation(float width, float height) {
+    protected void setLocation(double width, double height) {
 
         if (owner != null) {  //происходит для импостов у которы центр по середине
             if (owner.childs().isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
                 if (Layout.VERT.equals(owner.layout())) { //сверху вниз
-                    float Y2 = (owner.y1() + height > owner.y2()) ? owner.y2() : owner.y1() + height;
+                    double Y2 = (owner.y1() + height > owner.y2()) ? owner.y2() : owner.y1() + height;
                     setDimension(owner.x1(), owner.y1(), owner.x2(), Y2);
 
                 } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
-                    float X2 = (owner.x1() + width > owner.x2()) ? owner.x2() : owner.x1() + width;
+                    double X2 = (owner.x1() + width > owner.x2()) ? owner.x2() : owner.x1() + width;
                     setDimension(owner.x1(), owner.y1(), X2, owner.y2());
                 }
 
@@ -115,11 +115,11 @@ public class AreaSimple extends Com5t implements IArea5e {
                         IArea5e prevArea = (IArea5e) owner.childs().get(index);
 
                         if (Layout.VERT.equals(owner.layout())) { //сверху вниз                            
-                            float Y2 = (prevArea.y2() + height > owner.y2()) ? owner.y2() : prevArea.y2() + height;
+                            double Y2 = (prevArea.y2() + height > owner.y2()) ? owner.y2() : prevArea.y2() + height;
                             setDimension(owner.x1(), prevArea.y2(), owner.x2(), Y2);
 
                         } else if (Layout.HORIZ.equals(owner.layout())) { //слева направо
-                            float X2 = (prevArea.x2() + width > owner.x2()) ? owner.x2() : prevArea.x2() + width;
+                            double X2 = (prevArea.x2() + width > owner.x2()) ? owner.x2() : prevArea.x2() + width;
                             setDimension(prevArea.x2(), owner.y1(), X2, owner.y2());
                         }
                         break;
@@ -184,11 +184,11 @@ public class AreaSimple extends Com5t implements IArea5e {
      * @param v - новый размер
      */
     @Override
-    public void resizeX(float v) {
+    public void resizeX(double v) {
         GsonRoot rootGson = winc.rootGson;
         try {
             if (id() == 0) {
-                float k = v / gson.width(); //коэффициент
+                double k = v / gson.width(); //коэффициент
                 if (k != 1) {
                     if (UCom.getFloat(rootGson.width2(), 0f) > UCom.getFloat(rootGson.width1(), 0f)) {
                         rootGson.width2(v);
@@ -213,7 +213,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                     }
                 }
             } else {
-                float k = v / lengthX(); //коэффициент 
+                double k = v / lengthX(); //коэффициент 
                 if (k != 1) {
                     gson.length(v);
                     if (type() == Type.ARCH) {
@@ -251,11 +251,11 @@ public class AreaSimple extends Com5t implements IArea5e {
      * @param v - новый размер
      */
     @Override
-    public void resizeY(float v) {
+    public void resizeY(double v) {
         GsonRoot rootGson = winc.rootGson;
         try {
             if (id() == 0) {
-                float k = v / gson.height(); //коэффициент
+                double k = v / gson.height(); //коэффициент
                 if (k != 1) {
                     if (UCom.getFloat(rootGson.height1(), 0f) > UCom.getFloat(rootGson.height2(), 0f)) {
                         rootGson.height1(v);
@@ -280,7 +280,7 @@ public class AreaSimple extends Com5t implements IArea5e {
                     }
                 }
             } else {
-                float k = v / lengthY(); //коэффициент 
+                double k = v / lengthY(); //коэффициент 
                 if (k != 1) {
                     gson.length(v);
                     if (type() == Type.ARCH) {

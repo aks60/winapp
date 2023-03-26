@@ -8,13 +8,13 @@ import java.awt.geom.Line2D;
 
 public class DrawStroke {
 
-    public static void drawLine(Wincalc winc, float x1, float y1, float x2, float y2) {
+    public static void drawLine(Wincalc winc, double x1, double y1, double x2, double y2) {
         //winc.gc2d.drawLine((int) (x1), (int) (y1), (int) (x2), (int) (y2));
         winc.gc2d.draw(new Line2D.Float(x1, y1, x2, y2));
     }
 
-    public static void strokePolygon(Wincalc winc, float x1, float x2, float x3, float x4,
-            float y1, float y2, float y3, float y4, int rgbFill, Color rgbStroke) {
+    public static void strokePolygon(Wincalc winc, double x1, double x2, double x3, double x4,
+            double y1, double y2, double y3, double y4, int rgbFill, Color rgbStroke) {
 
         if (rgbStroke == Color.RED) {
             winc.gc2d.setStroke(new BasicStroke(6)); //толщина линии 

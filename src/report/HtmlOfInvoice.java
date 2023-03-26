@@ -87,7 +87,7 @@ public class HtmlOfInvoice {
     }
 
     private static void load1(Record projectRec, Document doc) {
-        float total = 0f;
+        double total = 0f;
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));
@@ -140,7 +140,7 @@ public class HtmlOfInvoice {
     }
 
     private static void load2(Record projectRec, Document doc) {
-        float total = 0f;
+        double total = 0f;
         try {
             Record prjpartRec = ePrjpart.find(projectRec.getInt(eProject.prjpart_id));
             List<Record> prjprodList = ePrjprod.find2(projectRec.getInt(eProject.id));

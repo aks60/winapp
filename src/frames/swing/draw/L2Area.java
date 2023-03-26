@@ -68,7 +68,7 @@ public class L2Area {
 }
 /*
 //https://qastack.ru/programming/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
-int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy)
+int pnpoly(int nvert, double *vertx, double *verty, double testx, double testy)
 {
   int i, j, c = 0;
   for (i = 0, j = nvert-1; i < nvert; j = i++) {
@@ -80,7 +80,7 @@ int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy)
 }
 
 //https://ru.wikibooks.org/wiki/%D0%A0%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8_%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D0%BE_%D0%BF%D1%80%D0%B8%D0%BD%D0%B0%D0%B4%D0%BB%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%BE%D1%87%D0%BA%D0%B8_%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D1%83
-  int pnpoly(int npol, float * xp, float * yp, float x, float y)
+  int pnpoly(int npol, double * xp, double * yp, double x, double y)
   {
     int c = 0;
     for (int i = 0, j = npol - 1; i < npol; j = i++) 

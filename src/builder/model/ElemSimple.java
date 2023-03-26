@@ -13,14 +13,14 @@ import enums.Type;
 
 public abstract class ElemSimple extends Com5t implements IElem5e {
 
-    protected float anglCut[] = {45, 45}; //угол реза
-    protected float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
-    protected float anglHoriz = -1; //угол к горизонту    
+    protected double anglCut[] = {45, 45}; //угол реза
+    protected double[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
+    protected double anglHoriz = -1; //угол к горизонту    
 
     protected Specific spcRec = null; //спецификация элемента
     protected Color borderColor = Color.BLACK;
 
-    public ElemSimple(float id, Wincalc winc, IArea5e owner, GsonElem gson) {
+    public ElemSimple(double id, Wincalc winc, IArea5e owner, GsonElem gson) {
         super(id, winc, owner, gson);
         winc.listElem.add(this);
         winc.listAll.add(this);
@@ -33,21 +33,21 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
     
     @Override
-    public float anglHoriz() {
+    public double anglHoriz() {
         return anglHoriz;
     }
 
     @Override
-    public void anglHoriz(float angl) {
+    public void anglHoriz(double angl) {
         this.anglHoriz = angl;
     }
     @Override
-    public float[] anglFlat() {
+    public double[] anglFlat() {
         return anglFlat;
     }
 
     @Override
-    public float[] anglCut() {
+    public double[] anglCut() {
         return anglCut;
     }
 
@@ -78,7 +78,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
                 if (begin == true && el.type() != Type.GLASS) {
                     //Проверка начинает выполняться после появления в обратном цикле самого элемента(this) 
                     if (Layout.BOTT == side && el.layout() != Layout.VERT) {
-                        float Y2 = (y2 > y1) ? y2 : y1;
+                        double Y2 = (y2 > y1) ? y2 : y1;
                         if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
                             return (IElem5e) el;
                         }
@@ -87,7 +87,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
                             return (IElem5e) el;
                         }
                     } else if (Layout.TOP == side && el.layout() != Layout.VERT) {
-                        float Y1 = (y2 > y1) ? y1 : y2;
+                        double Y1 = (y2 > y1) ? y1 : y2;
                         if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner().type() == Type.ARCH && el.layout() == Layout.TOP) == false) {
                             return (IElem5e) el;
                         }

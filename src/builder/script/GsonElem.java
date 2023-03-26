@@ -17,8 +17,8 @@ import java.util.Map;
  */
 public class GsonElem {
 
-    protected static transient float genId = 0;  //идентификатор    
-    protected float id = -1;  //идентификатор
+    protected static transient double genId = 0;  //идентификатор    
+    protected double id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
     protected LinkedList<GsonElem> childs = null; //список детей
     protected Layout layout = null; //направление расположения
@@ -69,7 +69,7 @@ public class GsonElem {
     }
 
     //Конструктор Area
-    public GsonElem(Layout layout, Type type, float length) {
+    public GsonElem(Layout layout, Type type, double length) {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
@@ -77,7 +77,7 @@ public class GsonElem {
     }
 
     //Конструктор Area
-    public GsonElem(Layout layout, Type type, float length, Form form) {
+    public GsonElem(Layout layout, Type type, double length, Form form) {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
@@ -117,7 +117,7 @@ public class GsonElem {
         return this;
     }
 
-    public float id() {
+    public double id() {
         return id;
     }
 
@@ -153,7 +153,7 @@ public class GsonElem {
         return this.length;
     }
 
-    public void length(float length) {
+    public void length(double length) {
         this.length = length;
     }
 
@@ -161,7 +161,7 @@ public class GsonElem {
         return owner;
     }
     
-    public static float genId() {
+    public static double genId() {
         return ++genId;
     }
 

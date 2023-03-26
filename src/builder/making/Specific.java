@@ -24,34 +24,34 @@ public class Specific {
     public Record detailRec = null;  //детализация в конструктиве
     public Record artiklRec = null;  //артикул в детализации конструктива
 
-    public float id = -1; //ID
+    public double id = -1; //ID
     public String place = "---";  //Место размешения
     public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
     public int colorID1 = -3;  //Осн.текстура
     public int colorID2 = -3;  //Внутр.текстура
     public int colorID3 = -3;  //Внешн.текстура
-    public float width = 0;  //Длина
-    public float height = 0;  //Ширина
-    public float weight = 0;  //Масса
-    public float anglCut1 = 0;  //Угол1
-    public float anglCut2 = 0;  //Угол2
-    public float anglHoriz = 0; // Угол к горизонту    
-    public float count = 1;  //Кол. единиц
+    public double width = 0;  //Длина
+    public double height = 0;  //Ширина
+    public double weight = 0;  //Масса
+    public double anglCut1 = 0;  //Угол1
+    public double anglCut2 = 0;  //Угол2
+    public double anglHoriz = 0; // Угол к горизонту    
+    public double count = 1;  //Кол. единиц
 
     public int unit = 0;  //Ед.изм   
-    public float wastePrc = 0;  //Процент отхода см. eArtikl.otx_norm    
-    public float quant1 = 0;  //Количество без отхода
-    public float quant2 = 0;  //Количество с отходом
-    public float costpric1 = 0;  //Себест. за ед. без отхода     
-    public float costpric2 = 0;  //Себест. за ед. с отходом
-    public float price = 0;  //Стоимость без скидки
-    public float cost2 = 0;  //Стоимость с технологической скидкой
+    public double wastePrc = 0;  //Процент отхода см. eArtikl.otx_norm    
+    public double quant1 = 0;  //Количество без отхода
+    public double quant2 = 0;  //Количество с отходом
+    public double costpric1 = 0;  //Себест. за ед. без отхода     
+    public double costpric2 = 0;  //Себест. за ед. с отходом
+    public double price = 0;  //Стоимость без скидки
+    public double cost2 = 0;  //Стоимость с технологической скидкой
 
     public Specific() {        
     }
     
-    public Specific(float id, IElem5e elem5e) {
+    public Specific(double id, IElem5e elem5e) {
         elem5e.winc().genId();
         this.id = id;
         this.elem5e = elem5e;
@@ -67,7 +67,7 @@ public class Specific {
         setArtikl(artiklRec);
     }
 
-    public Specific(String place, float id, Record detailRec, Record artiklRec, HashMap<Integer, String> mapParam) {
+    public Specific(String place, double id, Record detailRec, Record artiklRec, HashMap<Integer, String> mapParam) {
         this.id = id;
         this.mapParam = mapParam;
         this.detailRec = detailRec;

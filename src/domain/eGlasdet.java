@@ -41,7 +41,7 @@ public enum eGlasdet implements Field {
         return query;
     }
 
-    public static List<Record> find(int _id, float _depth) {
+    public static List<Record> find(int _id, double _depth) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id && rec.getFloat(depth) == _depth).collect(Collectors.toList());
         }

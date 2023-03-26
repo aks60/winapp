@@ -12,7 +12,7 @@ public class Kits extends Cal5e {
         super(winc);
     }
 
-    public void calc(float Q, float L, float H, Query kitDet) {
+    public void calc(double Q, double L, double H, Query kitDet) {
         super.calc();
         try {
 

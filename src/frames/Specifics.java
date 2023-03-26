@@ -113,7 +113,7 @@ public class Specifics extends javax.swing.JFrame {
 
         if (listSpec != null && listSpec.isEmpty() == false) {
             int indexLast = listSpec.get(0).getVector(0).size();
-            float sum1 = 0, sum2 = 0, sum9 = 0, sum13 = 0;
+            double sum1 = 0, sum2 = 0, sum9 = 0, sum13 = 0;
             for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
                 Vector v = listSpec.get(i).getVector(i);
                 dtm.addRow(v);
@@ -444,7 +444,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-        float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        double id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         Specific recordSpc = winc.listSpec.find(id);
         ProgressBar.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -454,7 +454,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        double id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
         Specific specificRec = winc.listSpec.find(id);
         Record detailRec = specificRec.detailRec;
@@ -489,7 +489,7 @@ public class Specifics extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
         filterTable.getTxt().setText(null);
-        float id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
+        double id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
             loadingTab1(winc.listSpec);

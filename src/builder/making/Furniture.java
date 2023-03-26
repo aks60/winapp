@@ -66,8 +66,8 @@ public class Furniture extends Cal5e {
                     Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
                     //Проверка на max высоту, ширину
-                    float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
-                    float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
+                    double max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
+                    double max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
                     boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.max_p2) < (s.width() * 2 + s.height() * 2) / 2);
                     if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
                         if (max_size_message == true) {
@@ -154,7 +154,7 @@ public class Furniture extends Cal5e {
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
                 IElem5e el;
-                float width = 0;
+                double width = 0;
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
 
                 if (side < 0) {
@@ -169,19 +169,19 @@ public class Furniture extends Cal5e {
                 }
                 if (side == 1) {// || side == -2) {
                     el = areaStv.frames().get(Layout.BOTT);
-                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 2) {// || side == -1) {
                     el = areaStv.frames().get(Layout.RIGHT);
-                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 3) {// || side == -2) {
                     el = areaStv.frames().get(Layout.TOP);
-                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 } else if (side == 4) {// || side == -1) {
                     el = areaStv.frames().get(Layout.LEFT);
-                    float size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
+                    double size_falz = (el.artiklRec().getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec().getFloat(eArtikl.size_falz);
                     width = el.spcRec().width - 2 * size_falz;
                 }
                 if (width >= furnside2Rec.getFloat(eFurnside2.len_max) || (width < furnside2Rec.getFloat(eFurnside2.len_min))) {

@@ -104,14 +104,14 @@ public class FurnitureVar extends Par5s {
                 break;
                 case 21016:  //Допустимое соотношение габаритов б/м) 
                     if ("ps3".equals(versionPs)) { //Мин. соотношение габаритов (б/м)
-                        float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
-                        float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
+                        double max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
+                        double min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
                         if (rec.getFloat(TEXT) > max / min) {
                             return false;
                         }
                     } else {
-                        float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
-                        float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
+                        double max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
+                        double min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
                         if (UCom.containsNumbJust(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }

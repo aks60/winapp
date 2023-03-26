@@ -76,7 +76,7 @@ public class UCom {
         return bd.doubleValue();
     }
 
-    public static float round(float value, int places) {
+    public static double round(double value, int places) {
         BigDecimal bd = new BigDecimal(Float.toString(value));
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.floatValue();
@@ -292,9 +292,9 @@ public class UCom {
                 }
             }
             for (int index = 0; index < arrList.size(); ++index) {
-                float v1 = arrList.get(index);
-                float v2 = arrList.get(++index);
-                float v3 = Float.valueOf(value.toString());
+                double v1 = arrList.get(index);
+                double v2 = arrList.get(++index);
+                double v3 = Float.valueOf(value.toString());
                 if (v1 <= v3 && v3 <= v2) {
                     return true;
                 }
@@ -337,9 +337,9 @@ public class UCom {
                 }
             }
             for (int index = 0; index < arrList.size(); ++index) {
-                float v1 = arrList.get(index);
-                float v2 = arrList.get(++index);
-                float v3 = Float.valueOf(value.toString());
+                double v1 = arrList.get(index);
+                double v2 = arrList.get(++index);
+                double v3 = Float.valueOf(value.toString());
                 if (v1 <= v3 && v3 <= v2) {
                     return true;
                 }
@@ -429,24 +429,24 @@ public class UCom {
         return false;
     }
 
-    public static float sin(float angl) {
-        return (float) Math.sin(Math.toRadians(angl));
+    public static double sin(double angl) {
+        return (double) Math.sin(Math.toRadians(angl));
     }
 
-    public static float sin(double angl) {
-        return (float) Math.sin(Math.toRadians(angl));
+    public static double sin(double angl) {
+        return (double) Math.sin(Math.toRadians(angl));
     }
 
-    public static float cos(float angl) {
-        return (float) Math.cos(Math.toRadians(angl));
+    public static double cos(double angl) {
+        return (double) Math.cos(Math.toRadians(angl));
     }
 
-    public static float cos(double angl) {
-        return (float) Math.cos(Math.toRadians(angl));
+    public static double cos(double angl) {
+        return (double) Math.cos(Math.toRadians(angl));
     }
 
-    public static float tan(float angl) {
-        return (float) Math.tan(Math.toRadians(angl));
+    public static double tan(double angl) {
+        return (double) Math.tan(Math.toRadians(angl));
     }
 
     public static int max(Query query, Field field) {

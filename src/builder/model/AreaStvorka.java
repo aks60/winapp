@@ -43,11 +43,11 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     private int lockColor = -3; //цвет замка
     private int mosqColor = -3; //цвет москитки
 
-    private float handleHeight = 0; //высота ручки
+    private double handleHeight = 0; //высота ручки
     private TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     private LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке      
     private boolean paramCheck[] = {true, true, true, true, true, true, true, true};
-    private float offset[] = {0, 0, 0, 0};
+    private double offset[] = {0, 0, 0, 0};
 
     public AreaStvorka(Wincalc winc, IArea5e owner, GsonElem gson) {
         super(winc, owner, gson, (owner.x2() - owner.x1()), (owner.y2() - owner.y1()));
@@ -265,7 +265,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         frames.get(Layout.RIGHT).paint();
 
         if (typeOpen != TypeOpen1.INVALID) {
-            float DX = 20, DY = 60, X1 = 0, Y1 = 0;
+            double DX = 20, DY = 60, X1 = 0, Y1 = 0;
             IElem5e stvL = frames.get(Layout.LEFT);
             IElem5e stvR = frames.get(Layout.RIGHT);
             IElem5e stvT = frames.get(Layout.TOP);
@@ -390,13 +390,13 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
 
     //Высота ручки
     @Override
-    public float handleHeight() {
+    public double handleHeight() {
         return handleHeight;
     }
 
     //Высота ручки
     @Override
-    public void handleHeight(float handleHeight
+    public void handleHeight(double handleHeight
     ) {
         this.handleHeight = handleHeight;
     }
@@ -451,7 +451,7 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     }
 
     @Override
-    public float[] offset() {
+    public double[] offset() {
         return offset;
     }
 }

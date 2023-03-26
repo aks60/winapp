@@ -37,21 +37,21 @@ public class Wincalc {
     private Gson gson = new GsonBuilder().create();
     private Integer nuni = 0;
     private Record syssizeRec = null; //системные константы    
-    private float genId = 0; //для генерация ключа в спецификации
+    private double genId = 0; //для генерация ключа в спецификации
 
     private String script = null;
-    private float width1 = 0; //ширина окна нижняя
-    private float width2 = 0; //ширина окна верхняя    
-    private float height1 = 0; //высота окна левая
-    private float height2 = 0; //высота окна правая
+    private double width1 = 0; //ширина окна нижняя
+    private double width2 = 0; //ширина окна верхняя    
+    private double height1 = 0; //высота окна левая
+    private double height2 = 0; //высота окна правая
     public int colorID1 = -1; //базовый цвет
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет
-    private float costpric1 = 0; //себест. за ед. без отхода     
-    private float costpric2 = 0; //себест. за ед. с отходом
-    private float price = 0; //стоимость без скидки
-    private float cost2 = 0; //стоимость с технологической скидкой
-    private float weight = 0; //масса конструкции 
+    private double costpric1 = 0; //себест. за ед. без отхода     
+    private double costpric2 = 0; //себест. за ед. с отходом
+    private double price = 0; //стоимость без скидки
+    private double cost2 = 0; //стоимость с технологической скидкой
+    private double weight = 0; //масса конструкции 
     public Form form = null; //форма контура (параметр в развитии)
 
     public BufferedImage bufferImg = null;  //образ рисунка
@@ -311,7 +311,7 @@ public class Wincalc {
         List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll, (List) listJoin).forEach(el -> el.clear());
     }
 
-    public float genId() {
+    public double genId() {
         return ++genId;
     }
 
@@ -335,55 +335,55 @@ public class Wincalc {
         return mapPardef;
     }
 
-    public float width() {
+    public double width() {
         return (width2 > width1) ? width2 : width1;
     }
 
-    public float height() {
+    public double height() {
         return (height1 > height2) ? height1 : height2;
     }
 
-    public float width1() {
+    public double width1() {
         return width1;
     }
 
-    public float width2() {
+    public double width2() {
         return width2;
     }
 
-    public float height1() {
+    public double height1() {
         return height1;
     }
 
-    public float height2() {
+    public double height2() {
         return height2;
     }
 
-    public float weight() {
+    public double weight() {
         return weight;
     }
 
-    public void weight(float weight) {
+    public void weight(double weight) {
         this.weight = weight;
     }
 
-    public float price() {
+    public double price() {
         return this.price;
     }
 
-    public void price(float price) {
+    public void price(double price) {
         this.price = price;
     }
 
-    public float cost2() {
+    public double cost2() {
         return this.cost2;
     }
 
-    public void cost2(float cost2) {
+    public void cost2(double cost2) {
         this.cost2 = cost2;
     }
 
-    public float square() {
+    public double square() {
         return width() * height() / 1000000;
     }
     // </editor-fold>     

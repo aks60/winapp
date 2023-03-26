@@ -10,9 +10,9 @@ import domain.eKitpar2;
 //Заполнения
 public class KitDet extends Par5s {
 
-    private float Q, L, H;
+    private double Q, L, H;
 
-    public KitDet(float Q, float L, float H) {
+    public KitDet(double Q, double L, double H) {
         super(new Wincalc());
         this.Q = Q;
         this.L = L;

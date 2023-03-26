@@ -26,9 +26,9 @@ public interface IArea5e extends ICom5t {
             
     LinkedCom<ICom5t> childs();
 
-    void resizeX(float v);
+    void resizeX(double v);
 
-    void resizeY(float v);
+    void resizeY(double v);
     
     IElem5e joinSide(Layout side);
 

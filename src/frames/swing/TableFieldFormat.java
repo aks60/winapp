@@ -164,7 +164,7 @@ public class TableFieldFormat {
 
             } else if (field.meta().type().equals(Field.TYPE.FLT)) {
                 val = String.valueOf(val).replace(',', '.');
-                float v = Float.parseFloat(val.toString());
+                double v = Float.parseFloat(val.toString());
                 jtxt.setText(UCom.format(v, 3));
 
             } else {

@@ -285,7 +285,7 @@ public class UGui {
         }
     }
 
-    public static void selectionPathSys(float id, JTree tree) {
+    public static void selectionPathSys(double id, JTree tree) {
         if (id != -1) {
             DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
             do {
@@ -299,7 +299,7 @@ public class UGui {
         }
     }
 
-    public static void selectionPathWin(float id, JTree tree) {
+    public static void selectionPathWin(double id, JTree tree) {
         if (id != -1) {
             DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
             do {

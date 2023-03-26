@@ -9,7 +9,7 @@ public class ArraySpc<E extends Specific> extends ArrayList<E> {
         super();
     }
 
-    public Specific find(float id) {
+    public Specific find(double id) {
         return this.stream().filter(it -> it.id == id).findFirst().get();
     }
 }

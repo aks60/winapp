@@ -54,7 +54,7 @@ public class ElementVar extends Par5s {
                 case 31001: //Максимальное заполнение изделия, мм 
                 {
                     List<IElem5e> glassList = winc.listElem.filter(Type.GLASS);
-                    float depth = 0;
+                    double depth = 0;
                     for (IElem5e glass : glassList) {
                         if (glass.artiklRecAn().getFloat(eArtikl.depth) > depth) {
                             depth = (glass.artiklRecAn().getFloat(eArtikl.depth));
@@ -404,14 +404,14 @@ public class ElementVar extends Par5s {
                     break;
                 case 37042:  //Допустимое соотношение габаритов б/м
                     if ("ps3".equals(versionPs)) { //Мин. соотношение габаритов (б/м)
-                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
-                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                        double max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                        double min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
                         if (rec.getFloat(TEXT) > max / min) {
                             return false;
                         }
                     } else {
-                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
-                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                        double max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                        double min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
                         if (UCom.containsNumbJust(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }
@@ -419,8 +419,8 @@ public class ElementVar extends Par5s {
                     break;
                 case 37043: //Макс. соотношение габаритов (б/м)
                 {
-                    float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
-                    float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                    double max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                    double min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
                     if (rec.getFloat(TEXT) < max / min) {
                         return false;
                     }

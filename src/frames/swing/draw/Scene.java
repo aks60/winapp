@@ -58,14 +58,14 @@ public class Scene extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent evt) {
                 if (winc != null) {
                     //Если клик не на конструкции
-                    if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
+                    if (winc.rootArea.inside(evt.getX() / (double) winc.scale, evt.getY() / (double) winc.scale) == false) {
                         lineHoriz = List.of(new Scale(winc.rootArea));
                         lineVert = List.of(new Scale(winc.rootArea));
 
                     } else { //На конструкции
                         for (IElem5e crs : winc.listElem) {
                             if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
-                                    && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
+                                    && crs.inside(evt.getX() / (double) winc.scale, evt.getY() / (double) winc.scale)) {
                                 List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
                                 for (int i = 0; i < areaChilds.size(); ++i) {
                                     if (areaChilds.get(i).id() == crs.id()) {
@@ -195,12 +195,12 @@ public class Scene extends javax.swing.JPanel {
     //Изменить размер и перерисовать шкалу
     private void resizeLine() {
         try {
-            float val = Float.valueOf(spinner.getValue().toString()); //то что накликал клиент
+            double val = Float.valueOf(spinner.getValue().toString()); //то что накликал клиент
 
             //Если горизонтальное выделение красн.
             Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
             if (scaleHor != null) {
-                float dx = val - scaleHor.width();
+                double dx = val - scaleHor.width();
                 if (dx != 0) {
                     for (Scale scale : lineHoriz) {
                         if (scale.color == java.awt.Color.RED) {
@@ -214,7 +214,7 @@ public class Scene extends javax.swing.JPanel {
             //Если вертикальное выделение красн.
             Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
             if (scaleVer != null) {
-                float dy = val - scaleVer.height();
+                double dy = val - scaleVer.height();
                 if (dy != 0) {
                     for (Scale scale : lineVert) {
                         if (scale.color == java.awt.Color.RED) {
@@ -374,7 +374,7 @@ public class Scene extends javax.swing.JPanel {
         spinner.setValue(0);
         double x1 = lineVert.get(0).area().x1() * winc.scale;
         for (Scale scale : lineHoriz) {
-            float X = evt.getX() - 12;
+            double X = evt.getX() - 12;
             double x2 = scale.area().x2() * winc.scale;
             if (x1 < X && X < x2) {
                 scale.color = java.awt.Color.RED;

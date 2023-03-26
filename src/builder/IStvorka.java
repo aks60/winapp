@@ -15,10 +15,10 @@ public interface IStvorka {
     void handleColor(int handleColor);
 
     //Высота ручки
-    float handleHeight();
+    double handleHeight();
 
     //Высота ручки
-    void handleHeight(float handleHeight);
+    void handleHeight(double handleHeight);
 
     //Положение ручки на створке
     LayoutHandle handleLayout();
@@ -58,7 +58,7 @@ public interface IStvorka {
     //Подвес(петли)
     void loopRec(Record loopRec);
 
-    float[] offset();
+    double[] offset();
 
     //Прорисовка створки
     void paint();

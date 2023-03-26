@@ -156,7 +156,7 @@ public class ElementDet extends Par5s {
                 {
                     ICom5t glass = elem5e.owner().childs().stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
-                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getFloat(eArtikl.density);
+                        double weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn().getFloat(eArtikl.density);
                         if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }

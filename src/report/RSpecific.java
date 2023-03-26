@@ -120,11 +120,11 @@ public class RSpecific {
         return list;
     } 
     
-    public float getCost1() {
+    public double getCost1() {
         return spc.price;
     }
     
-    public float getCost2() {
+    public double getCost2() {
         return spc.cost2;
     }
 }

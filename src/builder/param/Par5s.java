@@ -79,7 +79,7 @@ public class Par5s {
         }
     }
 
-    protected Object calcScript(float Q, float L, float H, String script) {
+    protected Object calcScript(double Q, double L, double H, String script) {
         try {
             ScriptEngineManager factory = new ScriptEngineManager();
             ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Com5t implements ICom5t {
 
-    private float id = -1; //идентификатор 
+    private double id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или окна  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
 
@@ -28,14 +28,14 @@ public class Com5t implements ICom5t {
     protected IArea5e root = null; //главный класс конструкции
     protected GsonElem gson = null; //Gson object конструкции
 
-    protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
+    protected double x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
     protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(Type type) {
         this.type = type;
     }
 
-    public Com5t(float id, Wincalc winc, IArea5e owner, GsonElem gson) {
+    public Com5t(double id, Wincalc winc, IArea5e owner, GsonElem gson) {
         this.id = id;
         this.owner = owner;
         this.type = gson.type();
@@ -48,7 +48,7 @@ public class Com5t implements ICom5t {
     }
 
     @Override
-    public float id() {
+    public double id() {
         return id;
     }
 
@@ -73,7 +73,7 @@ public class Com5t implements ICom5t {
 
     @Override
     //TODO Важно!!! Тут необходимо внести поправку на наклон конструкции см. углы реза и угол к горизонту.
-    public void setDimension(float x1, float y1, float x2, float y2) {
+    public void setDimension(double x1, double y1, double x2, double y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -141,14 +141,14 @@ public class Com5t implements ICom5t {
      * Длина компонента
      */
     @Override
-    public float length() {
+    public double length() {
         IElem5e elem5e = (IElem5e) this;
         if (elem5e.anglHoriz() == 0 || elem5e.anglHoriz() == 180) {
             return (x2 > x1) ? x2 - x1 : x1 - x2;
         } else if (elem5e.anglHoriz() == 90 || elem5e.anglHoriz() == 270) {
             return (y2 > y1) ? y2 - y1 : y1 - y2;
         } else {
-            return (float) Math.sqrt(x2 * x2 + y2 * y2);
+            return (double) Math.sqrt(x2 * x2 + y2 * y2);
         }
     }
 
@@ -156,33 +156,33 @@ public class Com5t implements ICom5t {
      * Ширина в gson
      */
     @Override
-    public float lengthX() {
+    public double lengthX() {
         return (this == winc.rootArea) ? this.gson.width() : this.gson.length();
     }
 
     //Высота в gson
     @Override
-    public float lengthY() {
+    public double lengthY() {
         return (this == winc.rootArea) ? this.gson.height() : this.gson.length();
     }
 
     @Override
-    public float x1() {
+    public double x1() {
         return x1;
     }
 
     @Override
-    public float y1() {
+    public double y1() {
         return y1;
     }
 
     @Override
-    public float x2() {
+    public double x2() {
         return x2;
     }
 
     @Override
-    public float y2() {
+    public double y2() {
         return y2;
     }
 
@@ -215,7 +215,7 @@ public class Com5t implements ICom5t {
      * Точка попадает в контур четырёхугольника
      */
     @Override
-    public boolean inside(float x, float y) {
+    public boolean inside(double x, double y) {
         int X = (int) x, Y = (int) y;
         int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
 
@@ -250,7 +250,7 @@ public class Com5t implements ICom5t {
     @Override
     public String toString() {
         String art = (artiklRecAn == null) ? "null" : artiklRecAn.getStr(eArtikl.code);
-        float ownerID = (owner == null) ? -1 : owner.id();
+        double ownerID = (owner == null) ? -1 : owner.id();
         return "art=" + art + ", type=" + type + ", layout=" + layout + ", owner=" + ownerID + ", id=" + id
                 + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
@@ -261,7 +261,7 @@ public class Com5t implements ICom5t {
     }
 
 // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
-//    public boolean inside2(float x, float y) {
+//    public boolean inside2(double x, double y) {
 //        int X = (int) x, Y = (int) y;
 //        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
 //        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 

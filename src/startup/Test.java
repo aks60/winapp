@@ -258,9 +258,9 @@ public class Test {
 //        engine.eval("print(file.getAbsolutePath())");
         //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
         //Переменные сценария
-//        float B = 3;
-//        float L = 1200;
-//        float H = 56;
+//        double B = 3;
+//        double L = 1200;
+//        double H = 56;
 //        engine.put("B", B);
 //        engine.put("L", L);
 //        engine.put("H", H);
@@ -295,9 +295,9 @@ public class Test {
 //        Thread th = new Thread(r);
 //        th.start(); 
 //        
-//        float Q = 3;
-//        float L = 1200;
-//        float H = 56;
+//        double Q = 3;
+//        double L = 1200;
+//        double H = 56;
 //        engine.put("Q", Q);
 //        engine.put("L", L);
 //        engine.put("H", H);
