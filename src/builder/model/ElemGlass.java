@@ -188,7 +188,7 @@ public class ElemGlass extends ElemSimple {
 
                     if (anglHoriz() == 0) { //по основанию арки
                         double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
-                        double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
+                        double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr)
                                 + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz);
                         double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
                         double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
@@ -202,22 +202,41 @@ public class ElemGlass extends ElemSimple {
                         spcRec().spcList.add(spcAdd); //добавим спецификацию
 
                     } else if (anglHoriz() == 180) { //по дуге арки   
-                        double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
-                        double h1 = imp.y1()  - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr) 
-                                + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height); // + arch.artiklRec().getDbl(eArtikl.size_falz);
-                        double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны основания арки штапика
-                        double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
-                        double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
-                        double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны арки штапика   
-                        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
-                        double ang2 = Math.toDegrees(Math.asin(w1 / r1));
-                        double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
-                        double ang3 = 90 - (90 - ang2 + ang1);
-                        spcAdd.width = (dw + w4); 
-                        spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                        spcAdd.anglCut2 = ang3;
-                        spcAdd.anglCut1 = ang3;
-                        spcRec().spcList.add(spcAdd); //добавим спецификацию
+                        if (arch.artiklRec().getInt(eArtikl.level1) == 1 && arch.artiklRec().getInt(eArtikl.level2) == 8) {
+                            double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                            double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr)
+                                    + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height); // + arch.artiklRec().getDbl(eArtikl.size_falz);
+                            double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны основания арки штапика
+                            double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
+                            double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
+                            double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны основания арки штапика   
+                            double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
+                            double ang2 = Math.toDegrees(Math.asin(w1 / r1));
+                            double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
+                            double ang3 = 90 - (90 - ang2 + ang1);
+                            spcAdd.width = (dw + w4);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
+                            spcAdd.anglCut2 = ang3;
+                            spcAdd.anglCut1 = ang3;
+                            spcRec().spcList.add(spcAdd); //добавим спецификацию
+                        } else {
+                            double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + arch.artiklRec().getDbl(eArtikl.size_falz); //внешний радиус штапика
+                            double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) + imp.artiklRec().getDbl(eArtikl.size_centr)
+                                    + imp.artiklRec().getDbl(eArtikl.size_falz) - arch.artiklRec().getDbl(eArtikl.height); // + arch.artiklRec().getDbl(eArtikl.size_falz);
+                            double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны основания арки штапика
+                            double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
+                            double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
+                            double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны основания арки штапика   
+                            double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
+                            double ang2 = Math.toDegrees(Math.asin(w1 / r1));
+                            double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
+                            double ang3 = 90 - (90 - ang2 + ang1);
+                            spcAdd.width = (dw + w4);
+                            spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
+                            spcAdd.anglCut2 = ang3;
+                            spcAdd.anglCut1 = ang3;
+                            spcRec().spcList.add(spcAdd); //добавим спецификацию
+                        }
                     }
                     //TRAPEZE
                 } else if (Type.TRAPEZE == owner.type()) {
