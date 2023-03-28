@@ -212,7 +212,8 @@ public class ElemGlass extends ElemSimple {
                             double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
                             double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны основания арки штапика   
                             double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
-                            double ang2 = Math.toDegrees(Math.asin(w1 / r1));
+                            double ang2 = Math.toDegrees(Math.asin(w1 / r1)); //угол дуги арки
+                            //double ang2 = Math.toDegrees(Math.asin((owner.width() / 2) / radiusArch)); //угол дуги арки
                             double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
                             double ang3 = 90 - (90 - ang2 + ang1);
                             spcAdd.width = (dw + w4);
@@ -222,15 +223,15 @@ public class ElemGlass extends ElemSimple {
                             spcRec().spcList.add(spcAdd); //добавим спецификацию
                             
                         } else {
+                            //В PS4 длина уплотнения равна длине штапика, в SA нет.
                             double r1 = radiusArch - arch.artiklRec().getDbl(eArtikl.height) + spcAdd.artiklRec.getDbl(eArtikl.height); //внешний радиус уплотнения
-                            double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.height) 
-                                    + imp.artiklRec().getDbl(eArtikl.size_centr) - arch.artiklRec().getDbl(eArtikl.height);
-                            double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны основания арки штапика
+                            double h1 = imp.y1() - imp.artiklRec().getDbl(eArtikl.size_centr) - arch.artiklRec().getDbl(eArtikl.height);
+                            double w1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны основания арки уплотнения
                             double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
                             double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
                             double w2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны основания арки уплотнения   
                             double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (w1 - w2))); //угол реза
-                            double ang2 = Math.toDegrees(Math.asin(w1 / r1));
+                            double ang2 = Math.toDegrees(Math.asin(w1 / r1)); //угол дуги арки
                             double w4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки уплотнения
                             double ang3 = 90 - (90 - ang2 + ang1);
                             spcAdd.width = (dw + w4);
