@@ -105,7 +105,7 @@ public class PSCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTabGroup2();
+        loadingTabGroup1();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
         tab1.setColumnSelectionInterval(3, 3);
@@ -119,7 +119,7 @@ public class PSCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTabGroup1(winc);
+        loadingTabGroup2(winc);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -140,7 +140,119 @@ public class PSCompare extends javax.swing.JFrame {
         }
     }
 
-    public void loadingTabGroup1(Wincalc winc) {
+    //select distinct a.punic, a.onumb from saveelm a, specpau b where a.punic = b.punic and a.onumb = b.onumb
+    public void loadingTabGroup1() {
+        try {
+            cn = Test.connect1();
+            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            //=== Таблица 4 === 
+            if (txt19.getText().isEmpty() == false) {
+                int npp = 0;
+                ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
+                ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
+                if (rs.isLast() == false) {
+                    while (rs.next()) {
+                        Vector vectorRec = new Vector();
+                        vectorRec.add(++npp);
+                        vectorRec.add(rs.getObject("PUNIC"));
+                        vectorRec.add(rs.getObject("ONUMB"));
+                        vectorRec.add(rs.getObject("ANUMB"));
+                        vectorRec.add(rs.getObject("C1X"));
+                        vectorRec.add(rs.getObject("C1Y"));
+                        vectorRec.add(rs.getObject("C2X"));
+                        vectorRec.add(rs.getObject("C2Y"));
+                        vectorRec.add(rs.getObject("ALENG"));
+                        vectorRec.add(rs.getObject("ALEN1"));
+                        vectorRec.add(rs.getObject("ALEN2"));
+                        vectorRec.add(rs.getObject("RAD"));
+                        vectorRec.add(rs.getObject("TYPP"));
+                        ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+                    }
+                }
+                npp = 0;
+                rs.close();
+                rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
+                while (rs.next()) {
+                    ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
+                }
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                paintPanel.repaint();
+
+                //=== Таблица 1 ===
+                ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
+                rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "  and clke != -1 order by a.anumb");
+                if (rs.isLast() == false) {
+                    npp = 0;
+                    while (rs.next()) {
+                        Vector vectorRec = new Vector();
+                        vectorRec.add(++npp);
+                        for (int i = 0; i < Fld.values().length; i++) {
+                            vectorRec.add(rs.getObject(Fld.values()[i].name()));
+                        }
+                        vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
+                        vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
+                        vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
+                        String artikl = rs.getString("ANUMB"); //артикул                              
+                        Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                        vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
+                        vectorRec.add(null); //стоим. элемента без скидки
+                        vectorRec.add(null); //стоим. элемента со скидкой                
+                        ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+                    }
+                }
+                rs.close();
+            }
+            //=== Таблица 6 ===
+            Vector vectorData = new Vector();
+            Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
+//            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
+//                    //+ "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate");
+//                    + "where a.punic = b.punic order by b.pnumb");
+            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic in "
+                    + "(427595, 427597, 427761, 427817, 427818 ,427819, 427820, 427840, 427838, 427842, 427848, 427851, 427852, 427858, 427872, 427422, 427565, "
+                    + "427833, 427832, 427831, 427830, 427825, 427826, 427779, 425392, 425392, 427850, 427708, 427737, 427629, 427847, 427856,"
+                    + "425688) order by b.pnumb");          
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(rs.getObject("PUNIC"));
+                    vectorRec.add(rs.getObject("PNUMB"));
+                    vectorRec.add(rs.getObject("ONUMB"));
+                    vectorRec.add(rs.getObject("ONAME"));
+                    vectorRec.add(rs.getObject("PDATE"));
+                    try {
+                        Blob blob = rs.getBlob("BPICT");
+                        int blobLength = (int) blob.length();
+                        byte[] bytes = blob.getBytes(1, blobLength);
+                        blob.free();
+                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+                        ImageIcon icon = new ImageIcon(img);
+                        vectorRec.add(icon);
+                        //ImageIO.write(img, "jpg", new File("img.jpg"));
+
+                    } catch (Exception e) {
+                        vectorRec.add(null);
+                    }
+                    vectorData.add(vectorRec);
+                }
+            }
+            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
+                public Class getColumnClass(int column) {
+                    return (column == 5) ? ImageIcon.class : Object.class;
+                    //return Object.class;
+                }
+            };
+            tab6.setModel(model);
+            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
+            rs.close();
+        } catch (SQLException e) {
+            System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
+        }
+    }
+    
+    public void loadingTabGroup2(Wincalc winc) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpcSa = new HashSet();
@@ -362,118 +474,6 @@ public class PSCompare extends javax.swing.JFrame {
             rs.close();
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
-        }
-    }
-
-    //select distinct a.punic, a.onumb from saveelm a, specpau b where a.punic = b.punic and a.onumb = b.onumb
-    public void loadingTabGroup2() {
-        try {
-            cn = Test.connect1();
-            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            //=== Таблица 4 === 
-            if (txt19.getText().isEmpty() == false) {
-                int npp = 0;
-                ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
-                ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
-                if (rs.isLast() == false) {
-                    while (rs.next()) {
-                        Vector vectorRec = new Vector();
-                        vectorRec.add(++npp);
-                        vectorRec.add(rs.getObject("PUNIC"));
-                        vectorRec.add(rs.getObject("ONUMB"));
-                        vectorRec.add(rs.getObject("ANUMB"));
-                        vectorRec.add(rs.getObject("C1X"));
-                        vectorRec.add(rs.getObject("C1Y"));
-                        vectorRec.add(rs.getObject("C2X"));
-                        vectorRec.add(rs.getObject("C2Y"));
-                        vectorRec.add(rs.getObject("ALENG"));
-                        vectorRec.add(rs.getObject("ALEN1"));
-                        vectorRec.add(rs.getObject("ALEN2"));
-                        vectorRec.add(rs.getObject("RAD"));
-                        vectorRec.add(rs.getObject("TYPP"));
-                        ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
-                    }
-                }
-                npp = 0;
-                rs.close();
-                rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
-                while (rs.next()) {
-                    ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
-                }
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                paintPanel.repaint();
-
-                //=== Таблица 1 ===
-                ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-                rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "  and clke != -1 order by a.anumb");
-                if (rs.isLast() == false) {
-                    npp = 0;
-                    while (rs.next()) {
-                        Vector vectorRec = new Vector();
-                        vectorRec.add(++npp);
-                        for (int i = 0; i < Fld.values().length; i++) {
-                            vectorRec.add(rs.getObject(Fld.values()[i].name()));
-                        }
-                        vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
-                        vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
-                        vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
-                        String artikl = rs.getString("ANUMB"); //артикул                              
-                        Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
-                        vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
-                        vectorRec.add(null); //стоим. элемента без скидки
-                        vectorRec.add(null); //стоим. элемента со скидкой                
-                        ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
-                    }
-                }
-                rs.close();
-            }
-            //=== Таблица 6 ===
-            Vector vectorData = new Vector();
-            Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
-//            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-//                    //+ "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate");
-//                    + "where a.punic = b.punic order by b.pnumb");
-            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic in "
-                    + "(427595, 427597, 427761, 427817, 427818 ,427819, 427820, 427840, 427838, 427842, 427848, 427851, 427852, 427858, 427872, 427422, 427565, "
-                    + "427833, 427832, 427831, 427830, 427825, 427826, 427779, 426696, 425392, 425392, 427850, 427708, 427737, 427629, 427847, 427856,"
-                    + "425688) order by b.pnumb");          
-            if (rs.isLast() == false) {
-                while (rs.next()) {
-                    Vector vectorRec = new Vector();
-                    vectorRec.add(rs.getObject("PUNIC"));
-                    vectorRec.add(rs.getObject("PNUMB"));
-                    vectorRec.add(rs.getObject("ONUMB"));
-                    vectorRec.add(rs.getObject("ONAME"));
-                    vectorRec.add(rs.getObject("PDATE"));
-                    try {
-                        Blob blob = rs.getBlob("BPICT");
-                        int blobLength = (int) blob.length();
-                        byte[] bytes = blob.getBytes(1, blobLength);
-                        blob.free();
-                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
-                        ImageIcon icon = new ImageIcon(img);
-                        vectorRec.add(icon);
-                        //ImageIO.write(img, "jpg", new File("img.jpg"));
-
-                    } catch (Exception e) {
-                        vectorRec.add(null);
-                    }
-                    vectorData.add(vectorRec);
-                }
-            }
-            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
-                public Class getColumnClass(int column) {
-                    return (column == 5) ? ImageIcon.class : Object.class;
-                    //return Object.class;
-                }
-            };
-            tab6.setModel(model);
-            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
-            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
-            rs.close();
-        } catch (SQLException e) {
-            System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
     }
 
@@ -1121,7 +1121,7 @@ public class PSCompare extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
-        loadingTabGroup2();
+        loadingTabGroup1();
     }//GEN-LAST:event_btn1
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">   

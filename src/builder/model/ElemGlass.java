@@ -252,22 +252,23 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglHoriz = 0;
+                            
 
                         } else if (anglHoriz() == 90) {
-                            IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2), insideRight = root().frames().get(Layout.RIGHT);
-                            ElemJoining ej = winc.listJoin.get(insideRight, 1);
-                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
-                            double dy2 = (insideRight.artiklRec().getDbl(eArtikl.height) - insideRight.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = insideRight.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
+                            IElem5e inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRigh = owner.joinSide(Layout.RIGHT);
+                            ElemJoining ej = winc.listJoin.get(inRigh, 1);
+                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
+                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double Y1 = inRigh.y1() + dy1 + dy2;
+                            double Y2 = inBott.y2() + inBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
-                            spcAdd.anglCut2 = insideRight.anglCut()[1];
-                            spcAdd.anglHoriz = insideRight.anglHoriz();
+                            spcAdd.anglCut2 = inRigh.anglCut()[1];
+                            spcAdd.anglHoriz = inRigh.anglHoriz();
 
                         } else if (anglHoriz() == 180) {
-                            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
+                            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideRight = owner.joinSide(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideTop, 1);
                             double dx1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz);
                             double dx2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz);
@@ -278,7 +279,7 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
                         } else if (anglHoriz() == 270) {
-                            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2);
+                            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT);
                             ElemJoining ej = winc.listJoin.get(insideLeft, 0);
                             double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
                             double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
@@ -301,7 +302,7 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = 0;
 
                         } else if (anglHoriz() == 90) {
-                            IElem5e insideRirht = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2);
+                            IElem5e insideRirht = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT);
                             ElemJoining ej = winc.listJoin.get(insideRirht, 1);
                             double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
                             double dy2 = (insideRirht.artiklRec().getDbl(eArtikl.height) - insideRirht.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
@@ -314,7 +315,7 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = insideRirht.anglHoriz();
 
                         } else if (anglHoriz() == 180) {
-                            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideRight = root().frames().get(Layout.RIGHT);
+                            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideRight = owner.joinSide(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideTop, 1);
                             double dx1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz);
                             double dx2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz);
@@ -325,7 +326,7 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = root().frames().get(Layout.LEFT).anglHoriz();
 
                         } else if (anglHoriz() == 270) {
-                            IElem5e insideTop = root().frames().get(Layout.TOP), insideBott = winc.listJoin.elem(this, 2), insideLeft = root().frames().get(Layout.RIGHT);
+                            IElem5e insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideLeft = owner.joinSide(Layout.RIGHT);
                             ElemJoining ej = winc.listJoin.get(insideLeft, 0);
                             double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
                             double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);

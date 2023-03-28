@@ -406,7 +406,7 @@ public final class Bimax {
 
         } else if (prj == 506642) { //PUNIC = 425392 onumb=1  Трапеции без импоста
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE / KBE Эксперт / 1 ОКНА / Открывание внутрь (ств. Z 77)",
-                    Layout.VERT, Type.TRAPEZE, Form.RIGHT, 1000, 1300, 1000, 1009, 10009, 1009);
+                    Layout.VERT, Type.TRAPEZE, Form.RIGHT, 1000, 1300, 950, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -415,7 +415,7 @@ public final class Bimax {
 
         } else if (prj == -506642) { //PUNIC = 425392 onumb=1  Трапеции без импоста
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE / KBE Эксперт / 1 ОКНА / Открывание внутрь (ств. Z 77)",
-                    Layout.VERT, Type.TRAPEZE, Form.LEFT, 1000, 1000, 1300, 1009, 10009, 1009);
+                    Layout.VERT, Type.TRAPEZE, Form.LEFT, 1000, 950, 1300, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))

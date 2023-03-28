@@ -372,24 +372,6 @@ public class GsonScript {
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="TRAPEZE">
-        } else if (prj == 486451) { //Трапеции без импоста
-            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\*Открывание внутрь",
-                    Layout.VERT, Type.TRAPEZE, Form.RIGHT, 1300, 1500, 1200, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.GLASS));
-
-        } else if (prj == -486451) { //Трапеции без импоста
-            rootGson = new GsonRoot("1.0", null, null, null, "KBE 58\\1 ОКНА\\*Открывание внутрь",
-                    Layout.VERT, Type.TRAPEZE, Form.LEFT, 1300, 1200, 1500, null, null, null);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.GLASS));
-
         } else if (prj == 506642) { // Трапеции без импоста
             rootGson = new GsonRoot("1.0", null, null, null, "KBE Эксперт\\ОКНА\\Открывание внутрь",
                     Layout.VERT, Type.TRAPEZE, Form.RIGHT, 1000, 1300, 1000, null, null, null);
@@ -665,7 +647,7 @@ public class GsonScript {
         return rootGson.toJson();
     }
 
-    public static List<Integer> modelList(String scale) {
+    public static List<Integer> modelList(String scale)     {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
@@ -683,10 +665,10 @@ public class GsonScript {
                     508807, 508809, 508966, //москитки
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
-                    508983, 486451, -486451, 506642, -506642, 605001, -605001, 508916, -508916, 508945, //трапеции  
+                    508983, 506642, -506642, 605001, -605001, 508916, -508916, 508945, //трапеции  
                     508841, 700009, 700014) //двери
                     : List.of(601006, 601001, 601002, 601003, 604009, 604005, 605001, -605001,
-                            508916, -508916, 486451, -486451, 508841, 700009, 700014);
+                            506642, -506642, 508916, -508916, 508841, 700009, 700014);
 
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return List.of(26);
