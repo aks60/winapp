@@ -257,7 +257,7 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 90) {
                             ElemJoining ej = winc.listJoin.get(inRigh, 1);
                             //a = b * ctg(ang1)
-                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.c(ej.angl);
+                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
                             double Y1 = inRigh.y1() + dy1 + dy2;
                             double Y2 = inBott.y2() + inBott.artiklRec().getDbl(eArtikl.size_falz);
