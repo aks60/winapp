@@ -247,7 +247,6 @@ public class ElemGlass extends ElemSimple {
                     if (winc.form == Form.RIGHT) {
 
                         if (anglHoriz() == 0) {
-                            ElemJoining ej = winc.listJoin.get(root().frames().get(Layout.RIGHT), 1);
                             spcAdd.width += width() + 2 * gzazo();
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
@@ -256,12 +255,11 @@ public class ElemGlass extends ElemSimple {
 
                         } else if (anglHoriz() == 90) {
                             ElemJoining ej = winc.listJoin.get(inRigh, 1);
-                            //a = b * ctg(ang1)
-                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = inRigh.y1() + dy1 + dy2;
-                            double Y2 = inBott.y2() + inBott.artiklRec().getDbl(eArtikl.size_falz);
-                            spcAdd.width += Y2 - Y1;
+                            //a = b * ctg(ang1)  1063.55=976.5
+                            Object o1 = (inRigh.y1() - inRigh.y2());
+                            double dy1 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut()[1]);
+                            double dy2 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_falz)) / 2; // * UCom.tan(90 - ej.angl);
+                            spcAdd.width = spcAdd.width + (inRigh.y1() - inRigh.y2()) + dy1 + dy2;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = inRigh.anglCut()[1];

@@ -90,7 +90,7 @@ public class ElemFrame extends ElemSimple {
                 setDimension(owner.x1(), owner.y2(), owner.x2(), owner.y2());
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                setDimension(owner.x2(), owner.y2() - winc.height2(), owner.x2(), owner.y2());
+                setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y2() - winc.height2());
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
                 setDimension(owner.x1(), owner.y1(), owner.x2(), owner.y1());
@@ -107,27 +107,27 @@ public class ElemFrame extends ElemSimple {
             double Dx = (winc.width1() - winc.width2()) / 2;
 
             if (Layout.BOTT == layout) {
-                setDimension(owner.x1(), owner.y2() - artiklRec().getDbl(eArtikl.height), owner.x2(), owner.y2());
+                setDimension(owner.x1(), owner.y2(), owner.x2(), owner.y2());
                 anglHoriz = 0;
 
             } else if (Layout.RIGHT == layout) {
                 anglHoriz = 90;
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x2() - artiklRec().getDbl(eArtikl.height), owner.y2() - winc.height2(), owner.x2(), owner.y2());
+                    setDimension(owner.x2(), owner.y2(), owner.x2(), winc.height1() - winc.height2());
                     anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x2() - artiklRec().getDbl(eArtikl.height), owner.y1(), owner.x2(), owner.y2());
+                    setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
                     anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
-                    anglCut[1] = (180 - Math.toDegrees(Math.atan(winc.width1() / winc.height()))) / 2;
-                    anglHoriz = (90 - Math.toDegrees(Math.asin(H / Dx)));
+                    //setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
+                    //anglCut[1] = (180 - Math.toDegrees(Math.atan(winc.width1() / winc.height()))) / 2;
+                    //anglHoriz = (90 - Math.toDegrees(Math.asin(H / Dx)));
                 }
 
             } else if (Layout.TOP == layout) {
                 anglHoriz = 0;
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1(), owner.y1(), owner.x2(), winc.height1() - winc.height2());
+                    setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height1() - winc.height2());
                     anglHoriz = (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[1] = Math.toDegrees(Math.atan(W / H)) / 2;
@@ -137,25 +137,25 @@ public class ElemFrame extends ElemSimple {
                     anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
-                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
-                    anglCut[1] = anglCut[0];
+                    //setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
+                    //anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
+                    //anglCut[1] = anglCut[0];
                 }
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1(), owner.y1(), owner.x1() + artiklRec().getDbl(eArtikl.height), owner.y2());
+                    setDimension(owner.x1(), owner.y1(), owner.x1(), owner.y2());
                     anglCut[0] = (Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.LEFT) {
-                    setDimension(owner.x1(), owner.y2() - winc.height1(), owner.x1() + artiklRec().getDbl(eArtikl.height), owner.y2());
+                    setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x1(), owner.y2());
                     anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    anglHoriz = Math.toDegrees(Math.asin(H / Dx));
-                    anglCut[1] = 777;
-                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    //setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
+                    //anglHoriz = Math.toDegrees(Math.asin(H / Dx));
+                    //anglCut[1] = 777;
+                    //anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 }
             }
 
@@ -220,7 +220,7 @@ public class ElemFrame extends ElemSimple {
                     spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y2 - y1 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                    spcRec.width = y1 - y2 + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else {
