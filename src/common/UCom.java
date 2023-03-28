@@ -434,6 +434,10 @@ public class UCom {
     public static double tan(double angl) {
         return Math.tan(Math.toRadians(angl));
     }
+    
+    public static double ctn(double angl) {
+        return Math.t(Math.toRadians(angl));
+    }
 
     public static int max(Query query, Field field) {
         return query.stream().max((a, b) -> {
