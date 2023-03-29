@@ -446,18 +446,24 @@ public class ElemFrame extends ElemSimple {
                     } else if (winc.form == Form.LEFT) {
                         double angl = Math.toRadians(90 - anglCut[0]);
                         double dh2 = (dh * Math.tan(angl));
-                        DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);                        
-                    } else if (winc.form == Form.SYMM) {
                         
+                        DrawStroke.strokePolygon(winc, x1 - dh0, x1, x2, x2 - dh1, y1 - dh0, y1, y2, y2 + dh0, rgb, borderColor);
+                        
+                    } else if (winc.form == Form.SYMM) {
+
                     }
                 } else if (Layout.TOP == layout) {
                     double dy = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                    //DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
-                    double angl = Math.toRadians(90 - anglCut[0]);
-                    double dh2 = (dh * Math.tan(angl));
-                    DrawStroke.strokePolygon(winc, x2, x2 + dh1, x2 + dh0, x2, y2, y2 - dh1, y1 + dh2, y1, rgb, borderColor);
+                    if (winc.form == Form.RIGHT) {
+
+                    } else if (winc.form == Form.LEFT) {
+                        double angl = Math.toRadians(90 - anglCut[0]);
+                        double dh2 = (dh * Math.tan(angl));
+                        DrawStroke.strokePolygon(winc, x2, x2 + dh1, x2 + dh0, x2, y2, y2 - dh1, y1 + dh2, y1, rgb, borderColor);
+                    }
                 }
             } else {
                 if (Layout.BOTT == layout) {

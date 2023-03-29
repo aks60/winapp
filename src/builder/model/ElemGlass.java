@@ -126,8 +126,8 @@ public class ElemGlass extends ElemSimple {
             if (winc.form == Form.RIGHT) {
                 x1 = inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = winc.listJoin.get(inTop, 1);
-                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - (inTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - (inLeft.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
+                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
                 y1 = inTop.y2() + dy1 + dy2;
                 x2 = inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
                 y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
@@ -460,8 +460,10 @@ public class ElemGlass extends ElemSimple {
                     && inTop.type() == Type.FRAME_SIDE && inLeft.type() == Type.FRAME_SIDE) {
 
                 if (winc.form == Form.RIGHT) {
+                    ElemJoining ej = winc.listJoin.get(inTop, 1);
+                    double dy = (x2 - x1) / UCom.tan(ej.angl);
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                            new int[]{(int) y2, (int) y2, (int) (winc.height1() - winc.height2()), (int) y1}, 4);
+                            new int[]{(int) y2, (int) y2, (int) (y1 + dy), (int) y1}, 4);
                 } else if (winc.form == Form.LEFT) {
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) (winc.height2() - winc.height1()), (int) y2, (int) y1, (int) y1}, 4);
