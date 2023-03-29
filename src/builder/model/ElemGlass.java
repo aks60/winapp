@@ -121,25 +121,25 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = r;
 
         } else if (owner.type() == Type.TRAPEZE) {
-            IElem5e insideLeft = root().frames().get(Layout.LEFT), insideTop = root().frames().get(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideRight = root().frames().get(Layout.RIGHT);
+            IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
 
             if (winc.form == Form.RIGHT) {
-                x1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - (insideTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - (insideLeft.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
-                y1 = insideTop.y1() + dy1 + dy2;
-                x2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                x1 = inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+                ElemJoining ej = winc.listJoin.get(inTop, 1);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - (inTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
+                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - (inLeft.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
+                y1 = inTop.y2() + dy1 + dy2;
+                x2 = inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
 
             } else if (winc.form == Form.LEFT) {
-                x1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - (insideTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (insideRight.artiklRec().getDbl(eArtikl.height) - (insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
-                y2 = insideTop.y2() + dy1 - dy2;
-                x2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-                y1 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                x1 = inLeft.x2() - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+                ElemJoining ej = winc.listJoin.get(inTop, 1);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - (inTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
+                double dy2 = (inRight.artiklRec().getDbl(eArtikl.height) - (inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
+                y2 = inTop.y2() + dy1 - dy2;
+                x2 = inRight.x1() + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+                y1 = inBott.y1() + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
             } else if (winc.form == Form.LEFT) {
                 System.out.println("builder.model.ElemGlass.setSpecific()");
             }
@@ -461,7 +461,7 @@ public class ElemGlass extends ElemSimple {
 
                 if (winc.form == Form.RIGHT) {
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                            new int[]{(int) y1, (int) (winc.height1() - winc.height2()), (int) y2, (int) y2}, 4);
+                            new int[]{(int) y2, (int) y2, (int) (winc.height1() - winc.height2()), (int) y1}, 4);
                 } else if (winc.form == Form.LEFT) {
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) (winc.height2() - winc.height1()), (int) y2, (int) y1, (int) y1}, 4);
