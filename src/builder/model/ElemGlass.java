@@ -259,7 +259,7 @@ public class ElemGlass extends ElemSimple {
                             Object o1 = (inRigh.y1() - inRigh.y2());
                             double dy1 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut()[1]);
                             double dy2 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_falz)) / 2; // * UCom.tan(90 - ej.angl);
-                            spcAdd.width = spcAdd.width + (inRigh.y1() - inRigh.y2()) + dy1 + dy2;
+                            spcAdd.width = spcAdd.width + (inRigh.y1() - inRigh.y2()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = inRigh.anglCut()[1];
@@ -453,13 +453,11 @@ public class ElemGlass extends ElemSimple {
                     (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (owner.type() == Type.TRAPEZE) {
-            IElem5e insideLeft = root().frames().get(Layout.LEFT),
-                    insideTop = root().frames().get(Layout.TOP),
-                    insideBott = owner.joinSide(Layout.BOTT),
-                    insideRight = root().frames().get(Layout.RIGHT);
+            IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP),
+                    inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
 
-            if (insideBott.type() == Type.FRAME_SIDE && insideRight.type() == Type.FRAME_SIDE
-                    && insideTop.type() == Type.FRAME_SIDE && insideLeft.type() == Type.FRAME_SIDE) {
+            if (inBott.type() == Type.FRAME_SIDE && inRight.type() == Type.FRAME_SIDE
+                    && inTop.type() == Type.FRAME_SIDE && inLeft.type() == Type.FRAME_SIDE) {
 
                 if (winc.form == Form.RIGHT) {
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},

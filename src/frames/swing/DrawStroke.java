@@ -22,8 +22,8 @@ public class DrawStroke {
             winc.gc2d.setStroke(new BasicStroke(1)); //толщина линии 
         }
         winc.gc2d.setColor(new java.awt.Color(rgbFill));
-        winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
-                new int[]{(int) y1, (int) y2, (int) y3, (int) y4}, 4);
+        //winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+        //        new int[]{(int) y1, (int) y2, (int) y3, (int) y4}, 4);
         winc.gc2d.setColor(rgbStroke);
         winc.gc2d.drawPolygon(new int[]{(int) (x1), (int) (x2), (int) (x3), (int) (x4)},
                 new int[]{(int) y1, (int) y2, (int) y3, (int) y4}, 4);

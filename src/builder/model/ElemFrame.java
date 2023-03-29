@@ -127,7 +127,7 @@ public class ElemFrame extends ElemSimple {
             } else if (Layout.TOP == layout) {
                 anglHoriz = 0;
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height1() - winc.height2());
+                    setDimension(owner.x2(), winc.height1() - winc.height2(), owner.x1(), owner.y1());
                     anglHoriz = (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[1] = Math.toDegrees(Math.atan(W / H)) / 2;
@@ -436,29 +436,29 @@ public class ElemFrame extends ElemSimple {
                 //TRAPEZE
             } else if (owner.type() == Type.TRAPEZE) {
                 if (Layout.BOTT == layout) {
-                    DrawStroke.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 + dh0, y1, y2, y2 - dh1, y2 - dh1, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
                     if (winc.form == Form.RIGHT) {
                         double angl = Math.toRadians(90 - anglCut[1]);
                         double dh2 = (dh * Math.tan(angl));
-                        DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);
+                        //DrawStroke.strokePolygon(winc, x1 - dh0, x1, x2, x2 - dh1, y1 - dh0, y1, y2, y2 + dh1, rgb, borderColor);
                     } else if (winc.form == Form.LEFT) {
                         double angl = Math.toRadians(90 - anglCut[0]);
                         double dh2 = (dh * Math.tan(angl));
-                        DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);                        
+                        //DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);                        
                     } else if (winc.form == Form.SYMM) {
                         
                     }
-
                 } else if (Layout.TOP == layout) {
                     double dy = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y2, y2 + dy, y1 + dy, rgb, borderColor);
+                    //DrawStroke.strokePolygon(winc, x2 + dh1, x1 - dh0, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, 0 + 63, 1000 - 63, 1000, 0, 0 + 66, 350 + 66, 350, 0, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
                     double angl = Math.toRadians(90 - anglCut[0]);
                     double dh2 = (dh * Math.tan(angl));
-                    DrawStroke.strokePolygon(winc, x1, x2, x2, x1, y1, y1 + dh2, y2 - dh1, y2, rgb, borderColor);
+                    //DrawStroke.strokePolygon(winc, x2, x2 + dh1, x2 + dh0, x2, y2, y2 - dh1, y1 + dh2, y1, rgb, borderColor);
                 }
             } else {
                 if (Layout.BOTT == layout) {
