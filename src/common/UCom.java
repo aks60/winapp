@@ -426,6 +426,10 @@ public class UCom {
     public static double sin(double angl) {
         return Math.sin(Math.toRadians(angl));
     }
+    
+    public static double asin(double angl) {
+        return Math.toDegrees(Math.asin(angl));
+    }
 
     public static double cos(double angl) {
         return Math.cos(Math.toRadians(angl));
@@ -433,6 +437,10 @@ public class UCom {
 
     public static double tan(double angl) {
         return Math.tan(Math.toRadians(angl));
+    }
+    
+    public static double atan(double angl) {
+        return Math.toDegrees(Math.atan(angl));
     }
 
     public static int max(Query query, Field field) {
