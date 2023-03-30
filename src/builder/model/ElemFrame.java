@@ -114,48 +114,48 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 90;
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), winc.height1() - winc.height2());
-                    anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[1] = (180 - UCom.atan(W / H)) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
-                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglCut[0] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
-                    //anglCut[1] = (180 - Math.toDegrees(Math.atan(winc.width1() / winc.height()))) / 2;
-                    //anglHoriz = (90 - Math.toDegrees(Math.asin(H / Dx)));
+                    //anglCut[1] = (180 - UCom.atan(winc.width1() / winc.height())) / 2;
+                    //anglHoriz = (90 - UCom.asin(H / Dx));
                 }
 
             } else if (Layout.TOP == layout) {
                 anglHoriz = 0;
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), winc.height1() - winc.height2(), owner.x1(), owner.y1());
-                    anglHoriz = (180 - Math.toDegrees(Math.atan(H / W)));
-                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                    anglCut[1] = Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglHoriz = (180 - UCom.atan(H / W));
+                    anglCut[0] = (180 - UCom.atan(W / H)) / 2;
+                    anglCut[1] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height2() - winc.height1());
-                    anglHoriz = (180 + Math.toDegrees(Math.atan(H / W)));
-                    anglCut[1] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                    anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglHoriz = (180 + UCom.atan(H / W));
+                    anglCut[1] = (180 - UCom.atan(W / H)) / 2;
+                    anglCut[0] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
-                    //anglCut[0] = Math.toDegrees(Math.atan(W / H)) / 2;
+                    //anglCut[0] = UCom.atan(W / H) / 2;
                     //anglCut[1] = anglCut[0];
                 }
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x1(), owner.y1(), owner.x1(), owner.y2());
-                    anglCut[0] = (Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = UCom.atan(W / H) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x1(), owner.y2());
-                    anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (180 - UCom.atan(W / H)) / 2;
                     anglHoriz = 270;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    //anglHoriz = Math.toDegrees(Math.asin(H / Dx));
+                    //anglHoriz = UCom.asin(H / Dx);
                     //anglCut[1] = 777;
-                    //anglCut[0] = (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    //anglCut[0] = (180 - UCom.atan(W / H)) / 2;
                 }
             }
 
@@ -189,12 +189,12 @@ public class ElemFrame extends ElemSimple {
             spcRec.anglCut1 = anglCut[0];
             spcRec.anglCut2 = anglCut[1];
             spcRec.anglHoriz = anglHoriz;
-            double katet = winc.syssizeRec().getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
+            double katet = winc.syssizeRec().getDbl(eSyssize.prip) * UCom.cos(Math.PI / 4);
 
             if (owner.type() == Type.ARCH) {
                 if (owner.type() == Type.ARCH && Layout.TOP == layout) {
                     AreaArch areaArch = (AreaArch) root();
-                    double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
+                    double angl = UCom.asin((width() / 2) / areaArch.radiusArch);
                     lengthArch = ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                     spcRec.width = lengthArch + (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                     spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height);
@@ -436,7 +436,7 @@ public class ElemFrame extends ElemSimple {
                 //TRAPEZE
             } else if (owner.type() == Type.TRAPEZE) {
                 if (Layout.BOTT == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh, x1 + dh, y1, y2, y2 - dh, y2 - dh, rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 + dh0, y1, y2, y1 - dh1, y2 - dh0, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
                     if (winc.form == Form.RIGHT) {
@@ -460,10 +460,8 @@ public class ElemFrame extends ElemSimple {
                     if (winc.form == Form.RIGHT) {
                         double dy = dh * UCom.tan(90 - anglCut[0]);
                         DrawStroke.strokePolygon(winc, x2, x2 + dh, x2 + dh, x2, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
-                    } else if (winc.form == Form.LEFT) {                                               
-                        double dy1 = dh / UCom.sin(anglCut[0]);                        
-                        double dy2 = dh / UCom.sin(anglHoriz);                        
-                        double dy = dy1 + dy2;                        
+                    } else if (winc.form == Form.LEFT) {                          
+                        double dy = dh / UCom.tan(anglCut[0]);                        
                         DrawStroke.strokePolygon(winc, x2, x2 + dh, x1 + dh, x1, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
                     }
                 }

@@ -121,28 +121,15 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = r;
 
         } else if (owner.type() == Type.TRAPEZE) {
+            
             IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
-
-            if (winc.form == Form.RIGHT) {
-                x1 = inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.listJoin.get(inTop, 1);
-                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
-                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
-                y1 = inTop.y2() + dy1 + dy2;
-                x2 = inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-                y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-
-            } else if (winc.form == Form.LEFT) {
-                x1 = inLeft.x2() - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = winc.listJoin.get(inTop, 1);
-                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - (inTop.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
-                double dy2 = (inRight.artiklRec().getDbl(eArtikl.height) - (inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
-                y2 = inTop.y2() + dy1 - dy2;
-                x2 = inRight.x1() + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-                y1 = inBott.y1() + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-            } else if (winc.form == Form.LEFT) {
-                System.out.println("builder.model.ElemGlass.setSpecific()");
-            }
+            x1 = inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
+            ElemJoining ej = winc.listJoin.get(inTop, 1);
+            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
+            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
+            y1 = dy1 + dy2;
+            x2 = inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+            y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
 
         } else {
             IElem5e inLeft = owner.joinSide(Layout.LEFT), inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = owner.joinSide(Layout.RIGHT);
@@ -459,14 +446,16 @@ public class ElemGlass extends ElemSimple {
             if (inBott.type() == Type.FRAME_SIDE && inRight.type() == Type.FRAME_SIDE
                     && inTop.type() == Type.FRAME_SIDE && inLeft.type() == Type.FRAME_SIDE) {
 
+                ElemJoining ej = winc.listJoin.get(inTop, 1);
                 if (winc.form == Form.RIGHT) {
-                    ElemJoining ej = winc.listJoin.get(inTop, 1);
                     double dy = (x2 - x1) / UCom.tan(ej.angl);
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) y2, (int) y2, (int) (y1 + dy), (int) y1}, 4);
                 } else if (winc.form == Form.LEFT) {
+                    double dy = (x2 - x1) * UCom.tan(ej.angl - 90);
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                            new int[]{(int) (winc.height2() - winc.height1()), (int) y2, (int) y1, (int) y1}, 4);
+                            new int[]{(int) y2, (int) y2, (int) y1, (int) (y1 + dy)}, 4);
+                    Object o1 = 0 + 0;
                 }
             } else {
                 if (winc.form == Form.RIGHT) {
