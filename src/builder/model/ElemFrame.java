@@ -416,7 +416,8 @@ public class ElemFrame extends ElemSimple {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - UCom.asin((root().width() - 2 * dh) / ((r - dh) * 2));
                     double a = (r - dh) * UCom.sin(ang2);
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (r - a), rgb, borderColor);
+//                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (r - a), rgb, borderColor);
+                    DrawStroke.strokePolygon(winc, x1 - dh0, x2, x2, x1 - dh1, y1 - dh0, y1, y2, (r - a), rgb, borderColor);
 
                 } else if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!                  
