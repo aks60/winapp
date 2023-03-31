@@ -432,7 +432,7 @@ public class UCom {
     }
 
     public static double cos(double angl) {
-        return Math.toDegrees(Math.acos(angl));
+        return Math.cos(Math.toRadians(angl));
     }
 
     public static double tan(double angl) {
@@ -440,7 +440,7 @@ public class UCom {
     }
         
     public static double acos(double angl) {
-        return Math.cos(Math.toRadians(angl));
+        return Math.toDegrees(Math.acos(angl));
     }
 
     public static double atan(double angl) {

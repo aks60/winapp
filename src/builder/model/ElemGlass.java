@@ -261,26 +261,24 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = inRigh.anglCut()[1];
                             spcAdd.anglHoriz = inRigh.anglHoriz();
-                            spcAdd.width = 1111;
+                            spcAdd.width =  3333;
 
                         } else if (anglHoriz() == 180) {
                             ElemJoining ej = winc.listJoin.get(inTop, 1);
-                            double dx1 = inLeft.x2() - inLeft.artiklRec().getDbl(eArtikl.size_falz);
-                            double dx2 = inRigh.x1() + inRigh.artiklRec().getDbl(eArtikl.size_falz);
+                            double dx1 = inLeft.x2() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz);
+                            double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
                             spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
                             spcAdd.anglHoriz = inTop.anglHoriz();
-                            spcAdd.width = 1111;
 
                         } else if (anglHoriz() == 270) {
-                            ElemJoining e4j = winc.listJoin.get2(inLeft, 0);
                             ElemJoining ej = winc.listJoin.get(inLeft, 0);
-                            double dy1 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(ej.angl);
-                            double dy2 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
+                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) / UCom.tan(ej.angl);
                             double Y1 = inLeft.y1() + dy1 + dy2;
-                            double Y2 = inBott.y1() + inBott.artiklRec().getDbl(eArtikl.size_falz);
+                            double Y2 = inBott.y1() - inBott.artiklRec().getDbl(eArtikl.size_centr) + inBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = inLeft.anglCut()[0];

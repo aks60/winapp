@@ -6,6 +6,7 @@ import enums.LayoutJoin;
 import enums.Type;
 import enums.TypeJoin;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArrayJoin extends ArrayList<ElemJoining> {
 
@@ -24,7 +25,7 @@ public class ArrayJoin extends ArrayList<ElemJoining> {
     public ElemJoining get(IElem5e el, int side) {
         try {
             for (ElemJoining join : this) {
-                if(el.type() == Type.IMPOST || el.type() == Type.STOIKA || el.type() == Type.ERKER) {
+                if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(el.type())) {
                     if (side == 0 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TLEFT || join.layout == LayoutJoin.TBOT)) {
                         return join;
                     } else if (side == 1 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TRIGH || join.layout == LayoutJoin.TTOP)) {
@@ -32,11 +33,17 @@ public class ArrayJoin extends ArrayList<ElemJoining> {
                     }
                 } else {
                     if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
-                        return join;
+                        if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(join.elem1.type()) == false) {
+                            return join;
+                        }
                     } else if (side == 1 && join.elem1.id() == el.id()) { //Угловое правое
-                        return join;
+                        if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(join.elem2.type()) == false) {
+                            return join;
+                        }
                     } else if (side == 2 && join.elem1.id() == el.id() && join.type == TypeJoin.VAR10) { //Прилегающее
-                        return join;
+                        //if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(join.elem1.type()) == false) {
+                            return join;
+                        //}
                     }
                 }
             }
@@ -45,10 +52,11 @@ public class ArrayJoin extends ArrayList<ElemJoining> {
         }
         return null;
     }
+
     public ElemJoining get2(IElem5e el, int side) {
         try {
             for (ElemJoining join : this) {
-                if(el.type() == Type.IMPOST || el.type() == Type.STOIKA || el.type() == Type.ERKER) {
+                if (el.type() == Type.IMPOST || el.type() == Type.STOIKA || el.type() == Type.ERKER) {
                     if (side == 0 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TLEFT || join.layout == LayoutJoin.TBOT)) {
                         return join;
                     } else if (side == 1 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TRIGH || join.layout == LayoutJoin.TTOP)) {
