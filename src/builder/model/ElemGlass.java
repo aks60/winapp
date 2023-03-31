@@ -174,8 +174,8 @@ public class ElemGlass extends ElemSimple {
 
             if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
 
-                // <editor-fold defaultstate="collapsed" desc="ARCH"> 
                 if (Type.ARCH == owner.type()) {
+                    // <editor-fold defaultstate="collapsed" desc="ARCH"> 
                     Double dw = spcAdd.width;
                     IElem5e imp = owner().joinSide(Layout.BOTT);
                     IElem5e arch = root.frames().get(Layout.TOP);
@@ -236,15 +236,15 @@ public class ElemGlass extends ElemSimple {
                             spcRec().spcList.add(spcAdd); //добавим спецификацию
                         }
                     }
-                    // </editor-fold>
-                    // <editor-fold defaultstate="collapsed" desc="TRAPEZE"> 
+                    // </editor-fold> 
                 } else if (Type.TRAPEZE == owner.type()) {
+                    // <editor-fold defaultstate="collapsed" desc="TRAPEZE"> 
                     IElem5e inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRigh = owner.joinSide(Layout.RIGHT), inLeft = owner.joinSide(Layout.LEFT);
                     if (winc.form == Form.RIGHT) {
 
                         if (anglHoriz() == 0) {
                             spcAdd.width += width() + 2 * gzazo();
-                            
+
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = 45;
@@ -253,9 +253,9 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 90) {
                             ElemJoining ej = winc.listJoin.get(inRigh, 1);
                             //a = b * ctg(ang1)  1063.55=976.5
-                            Object o1 = (inRigh.y1() - inRigh.y2());
+                            //Object o1 = (inRigh.y1() - inRigh.y2());
                             double dy1 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut()[1]);
-                            double dy2 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_falz)) / 2; // * UCom.tan(90 - ej.angl);
+                            double dy2 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_falz)) / UCom.tan(90 - ej.angl);
                             spcAdd.width = spcAdd.width + (inRigh.y1() - inRigh.y2()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
@@ -275,18 +275,17 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.width = 1111;
 
                         } else if (anglHoriz() == 270) {
-                            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT);
-                            ElemJoining ej = winc.listJoin.get(insideLeft, 0);
-                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
-                            double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = insideLeft.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
+                            ElemJoining e4j = winc.listJoin.get2(inLeft, 0);
+                            ElemJoining ej = winc.listJoin.get(inLeft, 0);
+                            double dy1 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(ej.angl);
+                            double dy2 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            double Y1 = inLeft.y1() + dy1 + dy2;
+                            double Y2 = inBott.y1() + inBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut1 = insideLeft.anglCut()[0];
+                            spcAdd.anglCut1 = inLeft.anglCut()[0];
                             spcAdd.anglCut2 = 45;
-                            spcAdd.anglHoriz = insideLeft.anglHoriz();
-                            spcAdd.width = 1111;
+                            spcAdd.anglHoriz = inLeft.anglHoriz();
                         }
                     } else if (winc.form == Form.LEFT) {
                         if (anglHoriz() == 0) {
@@ -336,9 +335,8 @@ public class ElemGlass extends ElemSimple {
                     }
                     spcRec().spcList.add(spcAdd); //добавим спецификацию
                     // </editor-fold>
-
-                    //AREA, STVORKA
-                } else {
+                } else {                    
+                    // <editor-fold defaultstate="collapsed" desc="AREA and STVORKA"> 
                     if (anglHoriz == 0 || anglHoriz == 180) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
@@ -354,6 +352,7 @@ public class ElemGlass extends ElemSimple {
                     spcAdd.anglCut2 = 45;
                     spcAdd.anglHoriz = anglHoriz;
                     spcRec.spcList.add(spcAdd);
+                    // </editor-fold>
                 }
 
                 if (anglHoriz == 0 || anglHoriz == 180) { //по горизонтали
