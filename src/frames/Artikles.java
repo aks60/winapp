@@ -1164,7 +1164,6 @@ public class Artikles extends javax.swing.JFrame {
 
         txt1.setFont(frames.UGui.getFont(0,0));
         txt1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt1.setText("777");
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setName("{3}"); // NOI18N
         txt1.setPreferredSize(new java.awt.Dimension(44, 18));

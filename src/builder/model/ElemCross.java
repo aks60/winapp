@@ -14,6 +14,7 @@ import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import domain.eSyssize;
 import common.UCom;
+import common.eProp;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -65,20 +66,27 @@ public class ElemCross extends ElemSimple {
             prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.height) / 2);
 
         } else if (Type.TRAPEZE == owner.type()) {
-            double dy = 0;
+            double dy = 0;           
             IArea5e prevArea = (IArea5e) owner.childs().get(0);
-            if (winc.form == Form.RIGHT) {
-                double angl = root.frames().get(Layout.RIGHT).anglCut()[1];
-                dy = (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(90 - angl)));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
-            } else if (winc.form == Form.LEFT) {
-                double angl = root.frames().get(Layout.LEFT).anglCut()[0];
-                dy = (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(90 - angl)));
-                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
+            
+            if (eProp.dev == true && winc.rootGson.project() != null && (winc.rootGson.project() == 605001 || winc.rootGson.project() == -605001)) { //тест
+                prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), 400);
+                
+            } else {
+                if (winc.form == Form.RIGHT) {
+                    double angl = root.frames().get(Layout.RIGHT).anglCut()[1];
+                    dy = (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * UCom.tan(90 - angl));
+                    prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
+                } else if (winc.form == Form.LEFT) {
+                    double angl = root.frames().get(Layout.LEFT).anglCut()[0];
+                    dy = (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(90 - angl)));
+                    prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
+                }
             }
         }
         //Установка координат
-        for (int index = owner.childs().size() - 1; index >= 0; --index) {
+        for (int index = owner.childs().size() - 1;
+                index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
 

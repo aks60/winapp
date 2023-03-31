@@ -121,15 +121,23 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = r;
 
         } else if (owner.type() == Type.TRAPEZE) {
-            
+
             IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
             x1 = inLeft.x1() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo;
-            ElemJoining ej = winc.listJoin.get(inTop, 1);
-            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
-            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
-            y1 = dy1 + dy2;
             x2 = inRight.x1() - inRight.artiklRec().getDbl(eArtikl.height) + inRight.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
-            y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
+            
+            if (winc.form == Form.RIGHT) {
+                ElemJoining ej = winc.listJoin.get(inTop, 1);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
+                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
+                y1 = dy1 + dy2;
+            } else if(winc.form == Form.LEFT) {
+                ElemJoining ej = winc.listJoin.get(inTop, 0);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
+                double dy2 = (inRight.artiklRec().getDbl(eArtikl.height) - inRight.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
+                y1 = dy1 + dy2;                
+            }     
+            y2 = inBott.y2() - (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr)) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
 
         } else {
             IElem5e inLeft = owner.joinSide(Layout.LEFT), inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = owner.joinSide(Layout.RIGHT);
@@ -459,11 +467,13 @@ public class ElemGlass extends ElemSimple {
                 }
             } else {
                 if (winc.form == Form.RIGHT) {
+                    double dy = width() * UCom.tan(90 - (inTop.anglHoriz() - 90));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                            new int[]{(int) y1, (int) y2, (int) y2, (int) y2}, 4);
+                            new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
                 } else if (winc.form == Form.LEFT) {
+                    double dy = width() * UCom.tan((inTop.anglHoriz() - 180));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                            new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
+                            new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
                 }
             }
 
