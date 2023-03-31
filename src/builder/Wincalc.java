@@ -94,13 +94,8 @@ public class Wincalc {
             //Создание элементов конструкции
             parsing(script);
 
-            //Cоединения ареа
-            //Все соединения вычисляются в классах 
-            //AreaRoot.joining()=> AreaSimple.joining() и AreaStvorka.joining()            
+            //Cоединения ареа           
             rootArea.joining();
-
-            //Соединения створок
-            //listArea.stream().filter(area -> area.type() == Type.STVORKA).collect(toList()).forEach(elem -> elem.joining());
 
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             listElem.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
