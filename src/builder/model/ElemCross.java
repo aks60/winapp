@@ -81,7 +81,6 @@ public class ElemCross extends ElemSimple {
         for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
-                //double db = artiklRecAn.getDbl(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout())) { //ареа сверху вниз
                     setDimension(prevArea.x1(), prevArea.y2(), prevArea.x2(), prevArea.y2());

@@ -86,7 +86,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(-506642));
+            winc.build(GsonScript.productJson(-605001));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
