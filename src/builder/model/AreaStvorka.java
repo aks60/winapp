@@ -110,10 +110,10 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         } else { //Вычисление смещения створки через параметр
             try {
                 winc.listJoin.clear();
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot));
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig));
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop));
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef));
                 Cal5e joining = new Joining(winc, true);
                 joining.calc();
 
@@ -231,26 +231,26 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         });
 
         //Угловое соединение правое нижнее
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight));
         //Угловое соединение правое верхнее
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop));
         //Угловое соединение левое верхнее
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft));
         //Угловое соединение левое нижнее
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott));
 
         //Прилегающее нижнее
         IElem5e frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames().get(Layout.BOTT);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott));
         //Прилегающее правое
         IElem5e frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames().get(Layout.RIGHT);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight));
         //Прилегающее верхнее 
         IElem5e frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames().get(Layout.TOP);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0));      
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop));      
         //Прилегающее левое
         IElem5e frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames().get(Layout.LEFT);
-        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0));
+        winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft));
     }
 
     /**

@@ -30,22 +30,22 @@ public class ElemJoining {
     public double angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
-    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, double angl) {
+    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2) {
         if (elem1 != null && elem2 != null) {
-            return new ElemJoining(winc, type, layout, elem1, elem2, angl);
+            return new ElemJoining(winc, type, layout, elem1, elem2);
         } else {
            return null;
         }
     }
 
-    public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2, double angl) {
+    public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2) {
         this.id = winc.genId();
         this.winc = winc;
         this.type = type;
         this.layout = layout;
         this.elem1 = elem1;
         this.elem2 = elem2;
-        this.angl = angl;
+        this.angl = ElemFrame.betweenAngl(elem1, elem2);
     }
 
     public void init(TypeJoin type, LayoutJoin layoutJoin, IElem5e joinElement1, IElem5e joinElement2) {

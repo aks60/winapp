@@ -347,16 +347,16 @@ public class AreaSimple extends Com5t implements IArea5e {
 
                     if (crosEl.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...) расположены вертикально снизу вверх                    
                         if (elem5e.inside(crosEl.x2(), crosEl.y2()) == true && elem5e != crosEl) { //T - соединение нижнее                              
-                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TBOT, crosEl, elem5e, 90));
+                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TBOT, crosEl, elem5e));
                         } else if (elem5e.inside(crosEl.x1(), crosEl.y1()) == true && elem5e != crosEl) { //T - соединение верхнее                            
-                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TTOP, crosEl, elem5e, 90));
+                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TTOP, crosEl, elem5e));
                         }
 
                     } else { //Импосты(штульпы...)  расположены горизонтально слева на право 
                         if (elem5e.inside(crosEl.x1(), crosEl.y1()) == true && elem5e != crosEl) { //T - соединение левое                             
-                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TLEFT, crosEl, elem5e, 90));
+                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TLEFT, crosEl, elem5e));
                         } else if (elem5e.inside(crosEl.x2(), crosEl.y2()) == true && elem5e != crosEl) { //T - соединение правое                              
-                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TRIGH, crosEl, elem5e, 90));
+                            winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR40, LayoutJoin.TRIGH, crosEl, elem5e));
                         }
                     }
                 }

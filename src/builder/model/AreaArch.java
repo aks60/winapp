@@ -40,21 +40,21 @@ public class AreaArch extends AreaSimple {
         radiusArch = r;
 
         //Угловое соединение левое нижнее
-        ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
+        ElemJoining elem3 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
         winc.listJoin.add(elem3);
 
         //Угловое соединение правое нижнее
-        ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        ElemJoining elem4 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight);
         winc.listJoin.add(elem4);
 
         //Угловое соединение правое верхнее
-        ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, ang4);
+        ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch);
         elemJoin2.elem2.anglCut()[0] = ang4;  //угол реза арки
         elemJoin2.elem1.anglCut()[1] = ang3;  //угол реза рамы                             
         winc.listJoin.add(elemJoin2);
 
         //Угловое соединение левое верхнее
-        ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, ang4);
+        ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft);
         elemJoin1.elem1.anglCut()[1] = ang4;  //угол реза арки
         elemJoin1.elem2.anglCut()[0] = ang3;  //угол реза рамы
         winc.listJoin.add(elemJoin1);

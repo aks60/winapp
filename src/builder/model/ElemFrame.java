@@ -22,7 +22,6 @@ import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.DrawStroke;
-import java.awt.Paint;
 import java.util.List;
 
 public class ElemFrame extends ElemSimple {
@@ -460,8 +459,8 @@ public class ElemFrame extends ElemSimple {
                     if (winc.form == Form.RIGHT) {
                         double dy = dh * UCom.tan(90 - anglCut[0]);
                         DrawStroke.strokePolygon(winc, x2, x2 + dh, x2 + dh, x2, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
-                    } else if (winc.form == Form.LEFT) {                          
-                        double dy = dh / UCom.tan(anglCut[0]);                        
+                    } else if (winc.form == Form.LEFT) {
+                        double dy = dh / UCom.tan(anglCut[0]);
                         DrawStroke.strokePolygon(winc, x2, x2 + dh, x1 + dh, x1, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
                     }
                 }
@@ -484,5 +483,20 @@ public class ElemFrame extends ElemSimple {
     @Override
     public String toString() {
         return super.toString() + ", anglCut1=" + anglCut[0] + ", anglCut2=" + anglCut[1];
+    }
+
+    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
+    public static double betweenAngl(IElem5e e1, IElem5e e2) {
+        
+        double dx1 = e1.x2() - e1.x1(); 
+        double dy1 = e1.y2() - e1.y1(); 
+        double dx2 = e2.x2() - e2.x1(); 
+        double dy2 = e2.y2() - e2.y1(); 
+        
+        double s = dx1 * dx2 + dy1 * dy2;
+        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
+        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
+        double c = s / (a * b);
+        return 180 - UCom.acos(c);
     }
 }
