@@ -15,7 +15,7 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
 
     protected double anglCut[] = {45, 45}; //угол реза
     protected double[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
-    protected double anglHoriz = -1; //угол к горизонту    
+    protected double anglHoriz = 0; //угол к горизонту    
 
     protected Specific spcRec = null; //спецификация элемента
     protected Color borderColor = Color.BLACK;

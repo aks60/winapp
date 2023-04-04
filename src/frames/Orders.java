@@ -49,7 +49,6 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eElement;
 import domain.eFurniture;
-import domain.eGlasprof;
 import domain.eGroups;
 import domain.eJoining;
 import domain.eJoinvar;
@@ -91,7 +90,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -3320,7 +3318,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         } else if (layout == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
-                        JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                        JsonObject jso = UGui.getAsJsonObject(paramObj, stvKey);
                         if (sysprofRec.get(1) == null) {
                             jso.remove(PKjson.sysprofID);
                         } else {
@@ -3382,7 +3380,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         stvKey = PKjson.stvorkaLeft;
                     }
 
-                    JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                    JsonObject jso = UGui.getAsJsonObject(paramObj, stvKey);
                     if (colorRec.get(1) == null) {
                         jso.remove(colorID);
                     } else {

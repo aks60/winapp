@@ -221,10 +221,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
         
-        stvBott.anglHoriz(0);
-        stvRight.anglHoriz(90);
-        stvTop.anglHoriz(180);
-        stvLeft.anglHoriz(270);
         frames.entrySet().forEach(elem -> {
             elem.getValue().anglCut()[0] = 45;
             elem.getValue().anglCut()[1] = 45;

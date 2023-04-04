@@ -1002,4 +1002,11 @@ public class UGui {
         }
     }
 
+    public static JsonObject getAsJsonObject(JsonObject obj, String key) {
+
+        if (obj.getAsJsonObject(key) == null) {
+            obj.add(key, new JsonObject());
+        }
+        return obj.getAsJsonObject(key);
+    }    
 }

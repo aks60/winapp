@@ -3689,7 +3689,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         } else if (layout == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
-                        JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                        JsonObject jso = UGui.getAsJsonObject(paramObj, stvKey);
                         if (sysprofRec.get(1) == null) {
                             jso.remove(PKjson.sysprofID);
                         } else {
@@ -3754,7 +3754,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         stvKey = PKjson.stvorkaLeft;
                     }
 
-                    JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                    JsonObject jso = UGui.getAsJsonObject(paramObj, stvKey);
                     if (colorRec.get(1) == null) {
                         jso.remove(colorKey);
                     } else {
