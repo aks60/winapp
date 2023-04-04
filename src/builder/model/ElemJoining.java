@@ -31,7 +31,6 @@ public class ElemJoining {
     public double angl = 90;      //угол между профилями
     public String costs = "";     //трудозатраты, ч/ч.
 
-
     public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2) {
         this.id = winc.genId();
         this.winc = winc;
