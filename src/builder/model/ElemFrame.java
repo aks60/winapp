@@ -159,20 +159,20 @@ public class ElemFrame extends ElemSimple {
             spcRec.anglCut2 = anglCut[1];
 
             if (owner.type() == Type.ARCH) {
-                if (owner.type() == Type.ARCH && Layout.TOP == layout) {
+                if (Layout.TOP == layout) {
                     AreaArch areaArch = (AreaArch) root();
                     double angl = UCom.asin((width() / 2) / areaArch.radiusArch);
                     lengthArch = ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                     spcRec.width = lengthArch + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.BOTT == layout) {
-                    spcRec.width = x2 - x1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.LEFT == layout) {
-                    spcRec.width = y2 - y1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y1 - y2 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else if (owner.type() == Type.TRAPEZE) {
@@ -182,15 +182,15 @@ public class ElemFrame extends ElemSimple {
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                     System.out.println("TOP " + ElemFrame.horizontAngl(this));
                 } else if (Layout.BOTT == layout) {
-                    spcRec.width = x2 - x1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                     System.out.println("BOTT " + ElemFrame.horizontAngl(this));
                 } else if (Layout.LEFT == layout) {
-                    spcRec.width = y2 - y1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                     System.out.println("LEFT " + ElemFrame.horizontAngl(this));
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y1 - y2 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                     System.out.println("RIGHT " + ElemFrame.horizontAngl(this));
                 }
