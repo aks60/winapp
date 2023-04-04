@@ -13,9 +13,9 @@ import java.awt.geom.Point2D;
 /**
  * Makes a polygon defined by six corner points.
  */
-class PolygonMaker extends ShapeMaker {
+class Polygon extends TShape {
 
-    public PolygonMaker() {
+    public Polygon() {
         super(6);
     }
 

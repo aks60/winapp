@@ -5,19 +5,21 @@
 package builder.geom;
 
 import java.awt.Shape;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 //См. Java.2014-Том 2. Расш.средства прогр
 /**
- * Makes a line that joins two given points.
+ * Makes a rectangle that joins two given corner points.
  */
-class LineMaker extends ShapeMaker {
-    public LineMaker() {
+class Rectangle extends TShape {
+    public Rectangle() {
         super(2);
     }
 
     public Shape makeShape(Point2D[] p) {
-        return new Line2D.Double(p[0], p[1]);
+        Rectangle2D s = new Rectangle2D.Double();
+        s.setFrameFromDiagonal(p[0], p[1]);
+        return s;
     }
 }

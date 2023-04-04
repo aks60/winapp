@@ -15,31 +15,31 @@ import javax.swing.JFrame;
 /**
  * This frame contains a combo box to select a shape and a component to draw it.
  */
-class ShapeTestFrame extends JFrame {
-    public ShapeTestFrame() {
+class TFrame extends JFrame {
+    public TFrame() {
         setTitle("ShapeTest");
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        final ShapeComponent comp = new ShapeComponent();
+        final PaintComp comp = new PaintComp();
         add(comp, BorderLayout.CENTER);
         
         final JComboBox comboBox = new JComboBox();
-        comboBox.addItem(new LineMaker());
-        comboBox.addItem(new RectangleMaker());
-        comboBox.addItem(new RoundRectangleMaker());
-        comboBox.addItem(new EllipseMaker());
-        comboBox.addItem(new ArcMaker());
-        comboBox.addItem(new PolygonMaker());
-        comboBox.addItem(new QuadCurveMaker());
-        comboBox.addItem(new CubicCurveMaker());
+        comboBox.addItem(new Line());
+        comboBox.addItem(new Rectangle());
+        comboBox.addItem(new RectangleRound());
+        comboBox.addItem(new Ellipse());
+        comboBox.addItem(new Arc());
+        comboBox.addItem(new Polygon());
+        comboBox.addItem(new QuadCurve());
+        comboBox.addItem(new CubicCurve());
         comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                ShapeMaker shapeMaker = (ShapeMaker) comboBox.getSelectedItem();
+                TShape shapeMaker = (TShape) comboBox.getSelectedItem();
                 comp.setShapeMaker(shapeMaker);
             }
         });
         add(comboBox, BorderLayout.NORTH);
-        comp.setShapeMaker((ShapeMaker) comboBox.getItemAt(0));
+        comp.setShapeMaker((TShape) comboBox.getItemAt(0));
     }
 
     private static final int DEFAULT_WIDTH = 600;

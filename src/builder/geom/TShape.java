@@ -1,23 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package builder.geom;
 
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
-//См. Java.2014-Том 2. Расш.средства прогр
 /**
+ * См, Java,2014-Том 2, Расш.средства прогр
  * A shape maker can make a shape from a point set. Concrete subclasses must return a shape in the
  * makeShape method.
  */
-abstract class ShapeMaker {
+abstract class TShape {
+    
     /**
      * Constructs a shape maker.
      * @param aPointCount the number of points needed to define this shape.
      */
-    public ShapeMaker(int aPointCount) {
+    public TShape(int aPointCount) {
         pointCount = aPointCount;
     }
 

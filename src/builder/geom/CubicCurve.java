@@ -5,21 +5,20 @@
 package builder.geom;
 
 import java.awt.Shape;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.RoundRectangle2D;
 
 //См. Java.2014-Том 2. Расш.средства прогр
 /**
- * Makes a round rectangle that joins two given corner points.
+ * Makes a cubic curve defined by two end points and two control points.
  */
-class RoundRectangleMaker extends ShapeMaker {
-    public RoundRectangleMaker() {
-        super(2);
+class CubicCurve extends TShape {
+    public CubicCurve() {
+        super(4);
     }
 
     public Shape makeShape(Point2D[] p) {
-        RoundRectangle2D s = new RoundRectangle2D.Double(0, 0, 0, 0, 20, 20);
-        s.setFrameFromDiagonal(p[0], p[1]);
-        return s;
+        return new CubicCurve2D.Double(p[0].getX(), p[0].getY(), p[1].getX(), p[1].getY(), p[2].getX(), p[2].getY(),
+                p[3].getX(), p[3].getY());
     }
 }

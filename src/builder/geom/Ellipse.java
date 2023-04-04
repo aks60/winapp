@@ -5,20 +5,21 @@
 package builder.geom;
 
 import java.awt.Shape;
-import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 //См. Java.2014-Том 2. Расш.средства прогр
 /**
- * Makes a cubic curve defined by two end points and two control points.
+ * Makes an ellipse contained in a bounding box with two given corner points.
  */
-class CubicCurveMaker extends ShapeMaker {
-    public CubicCurveMaker() {
-        super(4);
+class Ellipse extends TShape {
+    public Ellipse() {
+        super(2);
     }
 
     public Shape makeShape(Point2D[] p) {
-        return new CubicCurve2D.Double(p[0].getX(), p[0].getY(), p[1].getX(), p[1].getY(), p[2].getX(), p[2].getY(),
-                p[3].getX(), p[3].getY());
+        Ellipse2D s = new Ellipse2D.Double();
+        s.setFrameFromDiagonal(p[0], p[1]);
+        return s;
     }
 }

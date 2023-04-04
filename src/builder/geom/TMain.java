@@ -22,18 +22,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 /**
+ * См, Java,2014-Том 2 Расш средства прогр
  * This program demonstrates the various 2D shapes.
  * @version 1.02 2007-08-16
  * @author Cay Horstmann
  */
-//
-//См. Java.2014-Том 2. Расш.средства прогр
-//
-public class ShapeTest {
+public class TMain {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrame frame = new ShapeTestFrame();
+                JFrame frame = new TFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
             }

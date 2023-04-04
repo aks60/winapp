@@ -6,20 +6,18 @@ package builder.geom;
 
 import java.awt.Shape;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.QuadCurve2D;
 
 //См. Java.2014-Том 2. Расш.средства прогр
 /**
- * Makes a rectangle that joins two given corner points.
+ * Makes a quad curve defined by two end points and a control point.
  */
-class RectangleMaker extends ShapeMaker {
-    public RectangleMaker() {
-        super(2);
+class QuadCurve extends TShape {
+    public QuadCurve() {
+        super(3);
     }
 
     public Shape makeShape(Point2D[] p) {
-        Rectangle2D s = new Rectangle2D.Double();
-        s.setFrameFromDiagonal(p[0], p[1]);
-        return s;
+        return new QuadCurve2D.Double(p[0].getX(), p[0].getY(), p[1].getX(), p[1].getY(), p[2].getX(), p[2].getY());
     }
 }

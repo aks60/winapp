@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package builder.geom;
 
 import java.awt.Shape;
@@ -18,8 +14,8 @@ import java.awt.geom.Rectangle2D;
  * given points. To show the correctness of the angle computation, the returned shape contains the
  * arc, the bounding box, and the lines.
  */
-class ArcMaker extends ShapeMaker {
-    public ArcMaker() {
+class Arc extends TShape {
+    public Arc() {
         super(4);
     }
 
