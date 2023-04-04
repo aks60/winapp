@@ -185,7 +185,7 @@ public class ElemFrame extends ElemSimple {
                     spcRec.width = y2 - y1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 } else if (Layout.RIGHT == layout) {
-                    spcRec.width = y2 - y1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
+                    spcRec.width = y1 - y2 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
                 }
             } else if (owner.type() == Type.TRAPEZE) {

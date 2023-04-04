@@ -254,8 +254,6 @@ public class ElemGlass extends ElemSimple {
                             IElem5e el = winc.listJoin.elem(inRigh, 1);
                             double dy1 = inBott.y2() - inRigh.y2() - (inBott.artiklRec().getDbl(eArtikl.height)
                                     - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-//                            double dy2 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) * UCom.sin(inTop.anglHoriz() - 90);
-//                            double dy3 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) / UCom.tan(inTop.anglHoriz() - 90);
                             double dy2 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(inTop.anglHoriz() - 90);
                             double dy3 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) / UCom.tan(inTop.anglHoriz() - 90);
                             spcAdd.width += dy1 - dy2 + dy3;
