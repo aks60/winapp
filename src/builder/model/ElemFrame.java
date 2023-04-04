@@ -107,41 +107,28 @@ public class ElemFrame extends ElemSimple {
             } else if (Layout.RIGHT == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), winc.height1() - winc.height2());
-                    anglCut[1] = (180 - UCom.atan(W / H)) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
-                    anglCut[0] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
-                    //anglCut[1] = (180 - UCom.atan(winc.width1() / winc.height())) / 2;
                 }
 
             } else if (Layout.TOP == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), winc.height1() - winc.height2(), owner.x1(), owner.y1());
-                    anglCut[0] = (180 - UCom.atan(W / H)) / 2;
-                    anglCut[1] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height2() - winc.height1());
-                    anglCut[1] = (180 - UCom.atan(W / H)) / 2;
-                    anglCut[0] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
-                    //anglCut[0] = UCom.atan(W / H) / 2;
-                    //anglCut[1] = anglCut[0];
                 }
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x1(), owner.y1(), owner.x1(), owner.y2());
-                    anglCut[0] = UCom.atan(W / H) / 2;
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x1(), owner.y2());
-                    anglCut[0] = (180 - UCom.atan(W / H)) / 2;
                 } else if (winc.form == Form.SYMM) {
                     //setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
-                    //anglCut[1] = 777;
-                    //anglCut[0] = (180 - UCom.atan(W / H)) / 2;
                 }
             }
 

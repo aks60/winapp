@@ -220,11 +220,6 @@ public class AreaStvorka extends AreaSimple implements IStvorka {
     private void setJoining() {
         IElem5e stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
-        
-        frames.entrySet().forEach(elem -> {
-            elem.getValue().anglCut()[0] = 45;
-            elem.getValue().anglCut()[1] = 45;
-        });
 
         //Угловое соединение правое нижнее
         winc.listJoin.add(ElemJoining.create(winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight));

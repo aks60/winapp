@@ -555,89 +555,9 @@ public class PSCompare extends javax.swing.JFrame {
             System.out.println();
 
         } catch (SQLException e) {
-            System.err.println("Ошибка: DBCompare.iwinRec().  " + e);
+            System.err.println("Ошибка: DBCompare.iwinPs4().  " + e);
         }
     }
-
-    public static void iwinRec2(Wincalc winc, boolean detail) {
-        System.out.println();
-        System.out.println("Prj=" + winc.rootGson.project() + " Ord=" + winc.rootGson.order());
-        Double iwinTotal = 0.0, jarTotal = 0.0;
-        Map<String, Double> hmDbPs = new LinkedHashMap();
-        Map<String, Double> hmDbSa = new LinkedHashMap();
-        try {
-            Connection conn = Test.connect1();
-            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.project());
-            rs.next();
-            int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.order() + "  and clke != -1 order by a.anumb");
-            while (rs.next()) {
-                double pogonag = rs.getDouble("AQTYA"); //погонаж
-                double perc = rs.getDouble("APERC"); //отход
-                double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
-                double value1 = (perc * pogonag / 100 + pogonag) * cost;
-                double value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
-                String key = rs.getString("ANUMB");
-                hmDbPs.put(key, value2);  //стоимость без скидки
-            }
-            conn.close();
-
-            for (Specific spc : winc.listSpec) {
-                String key = spc.artikl;
-                Double val = hmDbSa.getOrDefault(key, 0.0);
-                hmDbSa.put(key, val + spc.price); //стоимость без скидки
-            }
-
-            if (detail == true) {
-                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS ст.без.ск", "SA ст.без.ск", "Delta"});
-                System.out.println();
-                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
-                    String key = entry.getKey();
-                    Double val1 = entry.getValue();
-                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
-                    hmDbSa.remove(key);
-                    Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
-                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
-                    System.out.println();
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                if (hmDbSa.isEmpty() == false) {
-                    System.out.printf("%-32s%-20s", new Object[]{"Artikl", "Value"});
-                }
-                System.out.println();
-                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
-                    String key = entry.getKey();
-                    Double value3 = entry.getValue();
-                    System.out.printf("%-32s%-16.2f", "Лишние: " + key, value3);
-                    System.out.println();
-                    jarTotal = jarTotal + value3;
-                }
-            } else {
-                for (Map.Entry<String, Double> entry : hmDbPs.entrySet()) {
-                    String key = entry.getKey();
-                    Double val1 = entry.getValue();
-                    Double val2 = hmDbSa.getOrDefault(key, 0.0);
-                    hmDbSa.remove(key);
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                for (Map.Entry<String, Double> entry : hmDbSa.entrySet()) {
-                    String key = entry.getKey();
-                    Double value3 = entry.getValue();
-                    jarTotal = jarTotal + value3;
-                }
-            }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + winc.rootGson.project(), "PS=" + String.format("%.2f", iwinTotal), "SA="
-                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
-            System.out.println();
-
-        } catch (SQLException e) {
-            System.err.println("Ошибка: DBCompare.iwinRec().  " + e);
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

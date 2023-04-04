@@ -35,7 +35,7 @@ public class ElemJoining {
         if (elem1 != null && elem2 != null) {
             return new ElemJoining(winc, type, layout, elem1, elem2);
         } else {
-           return null;
+            return null;
         }
     }
 
@@ -49,11 +49,10 @@ public class ElemJoining {
         this.elem1 = elem1;
         this.elem2 = elem2;
         this.angl = ElemFrame.betweenAngl(elem1, elem2);
-//        if(elem1.owner().type() != Type.ARCH && elem2.owner().type() != Type.ARCH) {
-//            elem1.anglCut()[1] = angl / 2;
-//            elem2.anglCut()[0] = angl / 2;
-//        }
-            
+        if (elem1.owner().type() != Type.ARCH && elem2.owner().type() != Type.ARCH && TypeJoin.VAR10 != type) {
+            elem1.anglCut()[1] = angl / 2;
+            elem2.anglCut()[0] = angl / 2;
+        }
     }
 
     public void init(TypeJoin type, LayoutJoin layoutJoin, IElem5e joinElement1, IElem5e joinElement2) {

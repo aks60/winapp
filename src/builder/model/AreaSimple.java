@@ -342,8 +342,6 @@ public class AreaSimple extends Com5t implements IArea5e {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (IElem5e elem5e : elemList) {
                 if ((elem5e.owner().type() == Type.ARCH && elem5e.layout() == Layout.TOP) == false) { //для арки inside() не работает
-                    crosEl.anglCut()[0] = 90;
-                    crosEl.anglCut()[1] = 90;
 
                     if (crosEl.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...) расположены вертикально снизу вверх                    
                         if (elem5e.inside(crosEl.x2(), crosEl.y2()) == true && elem5e != crosEl) { //T - соединение нижнее                              

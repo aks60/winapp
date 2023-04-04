@@ -83,10 +83,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(605001));
+            winc.build(GsonScript.productJson(601002));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
