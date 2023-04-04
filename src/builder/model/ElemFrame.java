@@ -211,15 +211,19 @@ public class ElemFrame extends ElemSimple {
                     double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
                     spcRec.width = length + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
+                    System.out.println("TOP " + ElemFrame.horizontAngl(this));
                 } else if (Layout.BOTT == layout) {
                     spcRec.width = x2 - x1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
+                    System.out.println("BOTT " + ElemFrame.horizontAngl(this));
                 } else if (Layout.LEFT == layout) {
                     spcRec.width = y2 - y1 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
+                    System.out.println("LEFT " + ElemFrame.horizontAngl(this));
                 } else if (Layout.RIGHT == layout) {
                     spcRec.width = y1 - y2 + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
+                    System.out.println("RIGHT " + ElemFrame.horizontAngl(this));
                 }
             } else {
                 if (Layout.BOTT == layout) {
@@ -487,16 +491,41 @@ public class ElemFrame extends ElemSimple {
 
     //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
     public static double betweenAngl(IElem5e e1, IElem5e e2) {
-        
-        double dx1 = e1.x2() - e1.x1(); 
-        double dy1 = e1.y2() - e1.y1(); 
-        double dx2 = e2.x2() - e2.x1(); 
-        double dy2 = e2.y2() - e2.y1(); 
-        
+
+        double dx1 = e1.x2() - e1.x1();
+        double dy1 = e1.y2() - e1.y1();
+        double dx2 = e2.x2() - e2.x1();
+        double dy2 = e2.y2() - e2.y1();
+
         double s = dx1 * dx2 + dy1 * dy2;
         double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
         double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
         double c = s / (a * b);
         return 180 - UCom.acos(c);
+    }
+
+    public static double horizontAngl(IElem5e e) {
+        double x = e.x2() - e.x1();
+        double y = e.y1() - e.y2();
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return UCom.atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + UCom.atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + UCom.atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + UCom.atan(y / x);
+        } else {
+            return 0;
+        }
     }
 }
