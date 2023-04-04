@@ -7,6 +7,7 @@ import enums.LayoutJoin;
 import enums.TypeJoin;
 import builder.Wincalc;
 import builder.making.Specific;
+import common.UCom;
 import domain.eArtikl;
 import domain.eJoining;
 import domain.eJoinvar;
@@ -36,11 +37,11 @@ public class ElemJoining {
         this.winc = winc;
         this.type = type;
         this.layout = layout;
-        elem1.anglHoriz(ElemFrame.horizontAngl(elem1));
-        elem2.anglHoriz(ElemFrame.horizontAngl(elem2));
+        elem1.anglHoriz(UCom.horizontAngl(elem1));
+        elem2.anglHoriz(UCom.horizontAngl(elem2));
         this.elem1 = elem1;
         this.elem2 = elem2;
-        this.angl = ElemFrame.betweenAngl(elem1, elem2);
+        this.angl = UCom.betweenAngl(elem1, elem2);
         if (elem1.owner().type() != Type.ARCH && elem2.owner().type() != Type.ARCH && TypeJoin.VAR10 != type) {
             elem1.anglCut()[1] = angl / 2;
             elem2.anglCut()[0] = angl / 2;
