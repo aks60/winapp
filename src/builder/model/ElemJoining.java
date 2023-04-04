@@ -27,17 +27,9 @@ public class ElemJoining {
 
     public IElem5e elem1 = null;  //элемент соединения 1
     public IElem5e elem2 = null;  //элемент соединения 2
+    public double angl = 90;      //угол между профилями
+    public String costs = "";     //трудозатраты, ч/ч.
 
-    public double angl = 90;    //угол между профилями
-    public String costs = "";  //трудозатраты, ч/ч.
-
-    public static ElemJoining create(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2) {
-        if (elem1 != null && elem2 != null) {
-            return new ElemJoining(winc, type, layout, elem1, elem2);
-        } else {
-            return null;
-        }
-    }
 
     public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, IElem5e elem1, IElem5e elem2) {
         this.id = winc.genId();
@@ -53,13 +45,6 @@ public class ElemJoining {
             elem1.anglCut()[1] = angl / 2;
             elem2.anglCut()[0] = angl / 2;
         }
-    }
-
-    public void init(TypeJoin type, LayoutJoin layoutJoin, IElem5e joinElement1, IElem5e joinElement2) {
-        this.type = type;
-        this.layout = layoutJoin;
-        this.elem1 = joinElement1;
-        this.elem2 = joinElement2;
     }
 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
