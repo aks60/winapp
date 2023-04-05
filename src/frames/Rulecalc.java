@@ -107,7 +107,6 @@ public class Rulecalc extends javax.swing.JFrame {
     }
 
     public void listenerSet() {
-//TODO Не могу очистить поле
         listenerArtikl = (arttiklRec) -> {
             int index = UGui.getIndexRec(tab2);
             UGui.stopCellEditing(tab2);
