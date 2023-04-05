@@ -244,7 +244,6 @@ public class ElemGlass extends ElemSimple {
 
                         if (anglHoriz() == 0) {
                             spcAdd.width += width() + 2 * gzazo();
-
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
                             spcAdd.anglCut2 = 45;
@@ -286,7 +285,6 @@ public class ElemGlass extends ElemSimple {
                         }
                     } else if (winc.form == Form.LEFT) {
                         if (anglHoriz() == 0) {
-                            ElemJoining ej = winc.listJoin.get(root().frames().get(Layout.RIGHT), 1);
                             spcAdd.width += width() + 2 * gzazo();
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = 45;
@@ -294,40 +292,38 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = inBott.anglHoriz();
 
                         } else if (anglHoriz() == 90) {
-                            ElemJoining ej = winc.listJoin.get(inRigh, 1);
-                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(ej.angl);
+                            ElemJoining ej = winc.listJoin.get(inTop, 0);
+                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
                             double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = inRigh.y1() + dy1 - dy2;
-                            double Y2 = inBott.y1() + inBott.artiklRec().getDbl(eArtikl.size_falz);
+                            double Y1 = inRigh.y2() + dy1 + dy2;
+                            double Y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_centr) + inBott.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += Y2 - Y1;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut2 = inRigh.anglCut()[0];
+                            spcAdd.anglCut2 = inRigh.anglCut()[1];
                             spcAdd.anglCut1 = 45;
-                            spcAdd.anglHoriz = inRigh.anglHoriz();
+                            spcAdd.anglHoriz = inRigh.anglHoriz();                            
 
-                        } else if (anglHoriz() == 180) {
-                            IElem5e insideLeft = owner.joinSide(Layout.LEFT), insideTop = owner.joinSide(Layout.TOP), insideRight = owner.joinSide(Layout.RIGHT);
-                            ElemJoining ej = winc.listJoin.get(insideTop, 1);
-                            double dx1 = insideLeft.x2() - insideLeft.artiklRec().getDbl(eArtikl.size_falz);
-                            double dx2 = insideRight.x1() + insideRight.artiklRec().getDbl(eArtikl.size_falz);
+                        } else if (anglHoriz() == 180) {           
+                            ElemJoining ej = winc.listJoin.get(inTop, 1);
+                            double dx1 = inLeft.x2() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz);
+                            double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
                             spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
-                            spcAdd.anglHoriz = inTop.anglHoriz();
+                            spcAdd.anglHoriz = inTop.anglHoriz();                            
 
                         } else if (anglHoriz() == 270) {
-                            IElem5e insideTop = owner.joinSide(Layout.TOP), insideBott = owner.joinSide(Layout.BOTT), insideLeft = owner.joinSide(Layout.RIGHT);
-                            ElemJoining ej = winc.listJoin.get(insideLeft, 0);
-                            double dy1 = (insideTop.artiklRec().getDbl(eArtikl.height) - insideTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
-                            double dy2 = (insideLeft.artiklRec().getDbl(eArtikl.height) - insideLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = insideLeft.y1() + dy1 + dy2;
-                            double Y2 = insideBott.y1() + insideBott.artiklRec().getDbl(eArtikl.size_falz);
-                            spcAdd.width += Y2 - Y1;
+                            IElem5e el = winc.listJoin.elem(inLeft, 0);
+                            double dy1 = inBott.y1() - inLeft.y1() - (inBott.artiklRec().getDbl(eArtikl.height)
+                                    - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
+                            double dy2 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.sin(270 - inTop.anglHoriz());
+                            double dy3 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) / UCom.tan(270 - inTop.anglHoriz());
+                            spcAdd.width += dy1 - dy2 + dy3;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut2 = 45;
-                            spcAdd.anglCut1 = insideLeft.anglCut()[1];
-                            spcAdd.anglHoriz = insideLeft.anglHoriz();
+                            spcAdd.anglCut1 = inLeft.anglCut()[1];
+                            spcAdd.anglHoriz = inLeft.anglHoriz();                            
                         }
                     }
                     spcRec().spcList.add(spcAdd); //добавим спецификацию

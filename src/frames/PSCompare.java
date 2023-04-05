@@ -555,7 +555,7 @@ public class PSCompare extends javax.swing.JFrame {
             System.out.println();
 
         } catch (SQLException e) {
-            System.err.println("Ошибка: DBCompare.iwinPs4().  " + e);
+            System.err.println("Ошибка: DBCompare.iwinPs4()  " + e);
         }
     }
     @SuppressWarnings("unchecked")

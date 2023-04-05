@@ -118,8 +118,8 @@ public class Wincalc {
             //в объектную модель 1 уровн. java классов 
             rootGson = gson.fromJson(script, GsonRoot.class);
 
-            //Назначить родителей т.к. gson.fromJson() это делать не будет,
-            //для быстрого доступа поднять elem.form до Wincalc.form
+            //Назначить родителей т.к. Gson.fromJson() это не делает,
+            //для быстрого доступа elem.form вверх до Wincalc.form
             rootGson.setOwnerAndForm(this);
 
             //Инит конструктива

@@ -180,19 +180,19 @@ public class ElemFrame extends ElemSimple {
                     double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
                     spcRec.width = length + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    System.out.println("TOP " + UCom.horizontAngl(this));
+                    //System.out.println("TOP " + UCom.horizontAngl(this));
                 } else if (Layout.BOTT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    System.out.println("BOTT " + UCom.horizontAngl(this));
+                    //System.out.println("BOTT " + UCom.horizontAngl(this));
                 } else if (Layout.LEFT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    System.out.println("LEFT " + UCom.horizontAngl(this));
+                    //System.out.println("LEFT " + UCom.horizontAngl(this));
                 } else if (Layout.RIGHT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    System.out.println("RIGHT " + UCom.horizontAngl(this));
+                    //System.out.println("RIGHT " + UCom.horizontAngl(this));
                 }
             } else {
                 if (Layout.BOTT == layout) {
