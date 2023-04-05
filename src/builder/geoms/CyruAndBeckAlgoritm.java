@@ -1,5 +1,5 @@
 
-package builder.geom;
+package builder.geoms;
 
 //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
 public class CyruAndBeckAlgoritm {

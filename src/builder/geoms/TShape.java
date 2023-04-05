@@ -1,4 +1,4 @@
-package builder.geom;
+package builder.geoms;
 
 import java.awt.Shape;
 import java.awt.geom.Point2D;

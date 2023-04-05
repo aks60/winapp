@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package builder.geom;
+package builder.geoms;
 
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
