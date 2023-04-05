@@ -387,17 +387,16 @@ public class ElemFrame extends ElemSimple {
                     double r = ((AreaArch) root()).radiusArch;
                     double ang2 = 90 - UCom.asin((root().width() - 2 * dh) / ((r - dh) * 2));
                     double a = (r - dh) * UCom.sin(ang2);
-//                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 - dh0, y1, y2, y2 - dh1, (r - a), rgb, borderColor);
                     DrawStroke.strokePolygon(winc, x1 - dh0, x2, x2, x1 - dh1, y1 - dh0, y1, y2, (r - a), rgb, borderColor);
 
-                } else if (Layout.TOP == layout) { //прорисовка арки
-                    //TODO для прорисовки арки добавил один градус, а это не айс!                  
+                } else if (Layout.TOP == layout) { //прорисовка арки               
                     double r = ((AreaArch) root()).radiusArch;
+                    double dr = .5; //TODO для прорисовки арки добавил 0.5 градус, а это не айс! 
                     double ang1 = 90 - UCom.asin(owner.width() / (r * 2));
                     double ang2 = 90 - UCom.asin((owner.width() - 2 * dh) / ((r - dh) * 2));
-                    DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, dh);
-                    DrawStroke.strokeArc(winc, owner.width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
-                    DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
+                    DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + dr, rgb, dh);
+                    DrawStroke.strokeArc(winc, owner.width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + dr, 0, 4);
+                    DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + dr, 0, 4);
 
                 } else if (Layout.LEFT == layout) {
                     double r = ((AreaArch) root()).radiusArch;

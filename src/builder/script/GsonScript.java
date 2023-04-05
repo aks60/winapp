@@ -241,6 +241,7 @@ public class GsonScript {
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
+            
         } else if (prj == 604005) {
             rootGson = new GsonRoot("1.0", null, null, null, "Wintech\\Termotech 742\\ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1500, 1200, null, null, null);

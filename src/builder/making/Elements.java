@@ -36,7 +36,6 @@ public class Elements extends Cal5e {
     }
 
     //Идем по списку профилей смотрим, есть аналог, работаем с ним.
-    //TODO При проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     @Override
     public void calc() {
         super.calc();
