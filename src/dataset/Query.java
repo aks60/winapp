@@ -59,12 +59,11 @@ public class Query extends Table {
         return root.mapQuery.get(field.tname());
     }
 
-    //TODO См. класс Scanner.
     public Query select(Object... s) {
 
         String sql = String.valueOf(s[0]);
         if (String.valueOf(s[0]).substring(0, 6).equalsIgnoreCase("select") == false) {
-            sql = "";
+            sql = ""; //для улучшения см. класс Scanner
             for (Object p : s) {
                 if (p instanceof Field) {
                     Field f = (Field) p;
