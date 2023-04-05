@@ -15,7 +15,7 @@ using namespace std;
 using namespace sf;
   
 // Функция рисования линии в SFML
-void drawline(RenderWindow* window, pair<int, int> p0, pair<int, int> p1) {
+void drawline(RenderWindow* window, pair<int, int> p0, pair<int, int> p1`) {
     Vertex line[] = {
         Vertex(Vector2f(p0.first, p0.second)),
         Vertex(Vector2f(p1.first, p1.second))
@@ -25,8 +25,9 @@ void drawline(RenderWindow* window, pair<int, int> p0, pair<int, int> p1) {
   
 // Функция для рисования многоугольника с заданными вершинами
 void drawPolygon(RenderWindow* window, pair<int, int> vertices[], int n) {
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; i < n - 1; i++) {
         drawline(window, vertices[i], vertices[i + 1]);
+    }
     drawline(window, vertices[0], vertices[n - 1]);
 }
   
@@ -38,18 +39,22 @@ int dot(pair<int, int> p0, pair<int, int> p1) {
 // Функция для вычисления максимума из вектора с плавающей запятой
 float max(vector<float> t) {
     float maximum = INT_MIN;
-    for (int i = 0; i < t.size(); i++)
-        if (t[i] > maximum)
+    for (int i = 0; i < t.size(); i++) {
+        if (t[i] > maximum) {
             maximum = t[i];
+	    }		
+	}
     return maximum;
 }
   
 // Функция для вычисления минимума из вектора с плавающей запятой
 float min(vector<float> t) {
     float minimum = INT_MAX;
-    for (int i = 0; i < t.size(); i++)
-        if (t[i] < minimum)
+    for (int i = 0; i < t.size(); i++) {
+        if (t[i] < minimum) {
             minimum = t[i];
+	    }
+    }		
     return minimum;
 }
   
@@ -69,20 +74,17 @@ pair<int, int>* CyrusBeck(pair<int, int> vertices[], pair<int, int> line[], int 
     }
   
     // Расчет P1 - P0
-    pair<int, int> P1_P0
-        = make_pair(line[1].first - line[0].first,
-                    line[1].second - line[0].second);
+    pair<int, int> P1_P0 = make_pair(line[1].first - line[0].first, line[1].second - line[0].second);
   
     // Инициализация всех значений P0 - PEi
     pair<int, int>* P0_PEi = new pair<int, int>[n];
   
     // Вычисление значений P0 - PEi для всех ребер
     for (int i = 0; i < n; i++) {
-  
+		
         // Вычисление PEi - P0, чтобы знаменатель не умножался на -1
-        P0_PEi[i].first
-            = vertices[i].first - line[0].first;
-  
+        P0_PEi[i].first = vertices[i].first - line[0].first; 
+		
         // при расчете t
         P0_PEi[i].second = vertices[i].second - line[0].second;
     }
@@ -106,10 +108,8 @@ pair<int, int>* CyrusBeck(pair<int, int> vertices[], pair<int, int> line[], int 
   
         t[i] = (float)(numerator[i]) / (float)(denominator[i]);
   
-        if (denominator[i] > 0)
-            tE.push_back(t[i]);
-        else
-            tL.push_back(t[i]);
+        if (denominator[i] > 0)   tE.push_back(t[i]);
+        else                      tL.push_back(t[i]);
     }
   
     // Инициализация последних двух значений 't'
@@ -131,23 +131,12 @@ pair<int, int>* CyrusBeck(pair<int, int> vertices[], pair<int, int> line[], int 
     }
   
     // Вычисление координат по x и y
-    newPair[0].first
-        t
-        = (float)line[0].first
-          + (float)P1_P0.first * (float)temp[0];
-    newPair[0].second
-        = (float)line[0].second
-          + (float)P1_P0.second * (float)temp[0];
-    newPair[1].first
-        = (float)line[0].first
-          + (float)P1_P0.first * (float)temp[1];
-    newPair[1].second
-        = (float)line[0].second
-          + (float)P1_P0.second * (float)temp[1];
-    cout << '(' << newPair[0].first << ", "
-         << newPair[0].second << ") ("
-         << newPair[1].first << ", "
-         << newPair[1].second << ")";
+    newPair[0].first t  = (float)line[0].first + (float)P1_P0.first * (float)temp[0];
+    newPair[0].second = (float)line[0].second + (float)P1_P0.second * (float)temp[0];
+    newPair[1].first = (float)line[0].first + (float)P1_P0.first * (float)temp[1];
+    newPair[1].second = (float)line[0].second + (float)P1_P0.second * (float)temp[1];
+	
+    cout << '(' << newPair[0].first << ", " << newPair[0].second << ") (" << newPair[1].first << ", " << newPair[1].second << ")";
   
     return newPair;
 }
@@ -157,14 +146,11 @@ int main() {
   
     // Настройка окна и цикла и вершин полигона и линии
     RenderWindow window(VideoMode(500, 500), "Cyrus Beck");
-    pair<int, int> vertices[]
-        = { make_pair(200, 50),
-            make_pair(250, 100),
-            make_pair(200, 150),
-            make_pair(100, 150),
-            make_pair(50, 100),
-            make_pair(100, 50) };
-  
+    pair<int, int> vertices[]  = { 
+	           make_pair(200, 50),  make_pair(250, 100),
+               make_pair(200, 150), make_pair(100, 150),  
+			   make_pair(50, 100),  make_pair(100, 50) 
+		}; 
     // Убедитесь, что вершины расположены по часовой стрелке
     int n = sizeof(vertices) / sizeof(vertices[0]);
     pair<int, int> line[] = { make_pair(10, 10), make_pair(450, 200) };
