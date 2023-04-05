@@ -22,9 +22,9 @@ import javax.swing.JComponent;
  * This component draws a shape and allows
  * the user to move the points that define it.
  */
-class PaintComp extends JComponent {
+class TPaintComp extends JComponent {
 
-    public PaintComp() {
+    public TPaintComp() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
                 System.out.println(".mousePressed()");

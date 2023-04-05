@@ -20,7 +20,7 @@ class TFrame extends JFrame {
         setTitle("ShapeTest");
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        final PaintComp comp = new PaintComp();
+        final TPaintComp comp = new TPaintComp();
         add(comp, BorderLayout.CENTER);
         
         final JComboBox comboBox = new JComboBox();
