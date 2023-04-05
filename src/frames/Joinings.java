@@ -59,8 +59,7 @@ import javax.swing.JOptionPane;
 import report.ExecuteCmd;
 import report.HtmlOfTable;
 
-//варианты соединений
-//TODO Сделать аналог соединений.
+//Варианты соединений
 public class Joinings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());

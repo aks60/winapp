@@ -11,7 +11,6 @@ import static enums.PKjson.artiklID;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
-//TODO COMMENT ON COLUMN PARCOLS.PSSS IS 'ссылка на текстуру COLSLST.PNUMB'
 public enum eParmap implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
     id("4", "10", "0", "Идентификатор", "id"),

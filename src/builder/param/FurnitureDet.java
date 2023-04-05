@@ -206,7 +206,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
                 case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
-                    //TODO Тут полные непонятки. Возможно сторона проверки назначается для всего набора
+                    //TODO Параметры. Тут полные непонятки. Возможно сторона проверки назначается для всего набора
                     mapParamTmp.put(grup, rec.getStr(TEXT));
                     //message(rec.getInt(GRUP));
                     break;
