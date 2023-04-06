@@ -22,12 +22,8 @@ class TFrame extends JFrame {
         final JComboBox comboBox = new JComboBox();
         comboBox.addItem(new Line());
         comboBox.addItem(new Rectangle());
-        comboBox.addItem(new RectangleRound());
-        comboBox.addItem(new Ellipse());
         comboBox.addItem(new Arc());
         comboBox.addItem(new Polygon());
-        comboBox.addItem(new QuadCurve());
-        comboBox.addItem(new CubicCurve());
         comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 TShape shapeMaker = (TShape) comboBox.getSelectedItem();
