@@ -21,7 +21,7 @@ class Polygon extends TShape {
 
     public Shape makeShape(Point2D[] p) {
 
-        System.out.println("chapetest.PolygonMaker.makeShape()");
+        //System.out.println("chapetest.PolygonMaker.makeShape()");
         GeneralPath s = new GeneralPath();
 
         s.moveTo((float) p[0].getX(), (float) p[0].getY());

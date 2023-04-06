@@ -18,16 +18,15 @@ import java.util.Random;
 import javax.swing.JComponent;
 
 /**
- * См, Java,2014-Том 2, Расш средства прогр 
- * This component draws a shape and allows
- * the user to move the points that define it.
+ * См, Java,2014-Том 2, Расш средства прогр This component draws a shape and
+ * allows the user to move the points that define it.
  */
 class TPaintComp extends JComponent {
 
     public TPaintComp() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                System.out.println(".mousePressed()");
+                //System.out.println(".mousePressed()");
                 Point p = event.getPoint();
                 for (int i = 0; i < points.length; i++) {
                     double x = points[i].getX() - SIZE / 2;
@@ -41,14 +40,14 @@ class TPaintComp extends JComponent {
             }
 
             public void mouseReleased(MouseEvent event) {
-                System.out.println(".mouseReleased()");
+                //System.out.println(".mouseReleased()");
                 current = -1;
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
-                System.out.println(".mouseDragged()");
+                //System.out.println(".mouseDragged()");
                 if (current == -1) {
                     return;
                 }
@@ -65,17 +64,17 @@ class TPaintComp extends JComponent {
      * @param aShapeMaker a shape maker that defines a shape from a point set
      */
     public void setShapeMaker(TShape aShapeMaker) {
-        System.out.println("chapetest.ShapeComponent.setShapeMaker()");
+        //System.out.println("chapetest.ShapeComponent.setShapeMaker()");
         shapeMaker = aShapeMaker;
         int n = shapeMaker.getPointCount();
         points = new Point2D[n];
         if (aShapeMaker instanceof Polygon) {
-            points[0] = new Point2D.Double(100, 50);
-            points[1] = new Point2D.Double(400, 50);
-            points[2] = new Point2D.Double(450, 100);
-            points[3] = new Point2D.Double(450, 450);
-            points[4] = new Point2D.Double(50, 450);
-            points[5] = new Point2D.Double(50, 100);
+            points[0] = new Point2D.Double(200, 50);
+            points[1] = new Point2D.Double(250, 100);
+            points[2] = new Point2D.Double(200, 150);
+            points[3] = new Point2D.Double(100, 150);
+            points[4] = new Point2D.Double(50, 100);
+            points[5] = new Point2D.Double(100, 50);
         } else {
             for (int i = 0; i < n; i++) {
                 double x = generator.nextDouble() * getWidth();
@@ -97,17 +96,15 @@ class TPaintComp extends JComponent {
             double x = points[i].getX() - SIZE / 2;
             double y = points[i].getY() - SIZE / 2;
             g2.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
-            //g2.fill(new Rectangle2D.Double(x, y, SIZE, SIZE));
-            //Ellipse2D s = new Ellipse2D.Double();
-            //s.setFrameFromDiagonal(x, y, x + 18, y + 18);
-            //g2.draw(s);
         }
-        //g2.clip(new Line2D.Double(10.0, 10.0, 490.0, 490.0));
         Shape s = shapeMaker.makeShape(points);
         g2.draw(s);
-        g2.clip(s);
-
-        g2.draw(new Line2D.Double(10.0, 10.0, 500.0, 500.0));
+        
+        if (shapeMaker instanceof Polygon) {
+            Point2D lines[] = {new Point2D.Double(10.0, 10.0), new Point2D.Double(450, 280)};
+            lines = CyrusBeck.calc(points, lines, points.length);            
+            g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
+        }
     }
 
     private Point2D[] points;

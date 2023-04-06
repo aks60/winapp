@@ -1,17 +1,17 @@
 package builder.geoms;
 
-import java.awt.Point;
-import java.util.ArrayList;
+
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
 //
 //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
 //
-public class AlgCyruBeck {
+public class CyrusBeck {
 
-    //Скалярного произведения
-    public static int dot(Point p0, Point p1) {
+    //Скалярное произведение
+    public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());
     }
 
@@ -38,26 +38,28 @@ public class AlgCyruBeck {
     }
 
     //Функция Сайруса Бека возвращает пару значений, которые затем отображаются в виде строки
-    public static Point[] cyrusBeck(Point vertices[], Point line[], int n) {
-       
-        Point newPair[] = new Point[2]; //значение временного держателя, которое будет возвращено        
-        Point normal[] = new Point[n]; //нормали инициализируются динамически (можно и статически, не имеет значения)
+    public static Point2D[] calc(Point2D vertices[], Point2D line[], int n) {
+
+        Point2D newPair[] = {new Point2D.Double(), new Point2D.Double()}; //значение временного держателя, которое будет возвращено        
+        Point2D normal[] = new Point2D.Double[n]; //нормали инициализируются динамически (можно и статически, не имеет значения)
 
         //Расчет нормалей
         for (int i = 0; i < n; i++) {
             double y = vertices[(i + 1) % n].getX() - vertices[i].getX();
             double x = vertices[i].getY() - vertices[(i + 1) % n].getY();
-            normal[1].setLocation(x, y);
+            normal[i] = new Point2D.Double();
+            normal[i].setLocation(x, y);
         }
-       
-        Point P1_P0 = new Point((int) (line[1].getX() - line[0].getX()), (int) (line[1].getY() - line[0].getY())); //расчет P1 - P0       
-        Point[] P0_PEi = new Point[n];  //инициализация всех значений P0 - PEi
-        
+
+        Point2D P1_P0 = new Point2D.Double((int) (line[1].getX() - line[0].getX()), (int) (line[1].getY() - line[0].getY())); //расчет P1 - P0       
+        Point2D[] P0_PEi = new Point2D.Double[n];  //инициализация всех значений P0 - PEi
+
         //Вычисление значений P0 - PEi для всех ребер
         for (int i = 0; i < n; i++) {
             //Вычисление PEi - P0, чтобы знаменатель не умножался на -1
             double P0_PEx = vertices[i].getX() - line[0].getX();
             double P0_PEy = vertices[i].getY() - line[0].getY();
+            P0_PEi[i] = new Point2D.Double();
             P0_PEi[i].setLocation(P0_PEx, P0_PEy); //при расчете t 
         }
 
@@ -66,8 +68,8 @@ public class AlgCyruBeck {
         for (int i = 0; i < n; i++) {
             numerator[i] = dot(normal[i], P0_PEi[i]);
             denominator[i] = dot(normal[i], P1_P0);
-        } 
-        
+        }
+
         double t[] = new double[n]; //динамическая инициализация значений t
         //Создание двух векторов, называемых «не входящими» и 
         //«не выходящими», для группировки «t» в соответствии с их знаменателями
@@ -82,19 +84,17 @@ public class AlgCyruBeck {
                 tL.add(t[i]);
             }
         }
-
-       
         double temp[] = new double[2]; //инициализация последних двух значений 't'      
         tE.add(0.0);  //берем максимум всех «tE» и 0, поэтому нажимаем 0
-        temp[0] = max(tE);      
+        temp[0] = max(tE);
         tL.add(1.0); //принимая минимальное значение всех «tL» и 1, поэтому нажмите 1
         temp[1] = min(tL);
 
         //Ввод значения 't' не может быть больше, чем выход значения 't', 
         //следовательно, это тот случай, когда линия полностью выходит за пределы
         if (temp[0] > temp[1]) {
-            newPair[0] = new Point(-1, -1);
-            newPair[1] = new Point(-1, -1);
+            newPair[0] = new Point2D.Double(-1, -1);
+            newPair[1] = new Point2D.Double(-1, -1);
             return newPair;
         }
 
@@ -106,8 +106,18 @@ public class AlgCyruBeck {
         newPair[0].setLocation(newPair0x, newPair0y);
         newPair[1].setLocation(newPair1x, newPair1y);
 
-        System.out.println("(" + newPair[0].getX()+ ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY());
+        System.out.println("(" + newPair[0].getX() + ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY() + ")");
         return newPair;
+    }
+
+    public static void main(String[] args) {
+
+        Point2D vertices[] = {
+            new Point2D.Double(200, 50), new Point2D.Double(250, 100), new Point2D.Double(200, 150), 
+            new Point2D.Double(100, 150), new Point2D.Double(50, 100), new Point2D.Double(100, 50)
+        };
+        Point2D line[] = {new Point2D.Double(10, 10), new Point2D.Double(450, 200)};
+        Point2D temp[] = CyrusBeck.calc(vertices, line, 6);
     }
 }
 
