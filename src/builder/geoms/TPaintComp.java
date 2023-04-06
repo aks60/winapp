@@ -69,6 +69,12 @@ class TPaintComp extends JComponent {
         int n = shapeMaker.getPointCount();
         points = new Point2D[n];
         if (aShapeMaker instanceof Polygon) {
+//            points[5] = new Point2D.Double(200, 50);
+//            points[4] = new Point2D.Double(250, 100);
+//            points[3] = new Point2D.Double(200, 150);
+//            points[2] = new Point2D.Double(100, 150);
+//            points[1] = new Point2D.Double(50, 100);
+//            points[0] = new Point2D.Double(100, 50);
             points[0] = new Point2D.Double(200, 50);
             points[1] = new Point2D.Double(250, 100);
             points[2] = new Point2D.Double(200, 150);
@@ -101,7 +107,8 @@ class TPaintComp extends JComponent {
         g2.draw(s);
         
         if (shapeMaker instanceof Polygon) {
-            Point2D lines[] = {new Point2D.Double(10.0, 10.0), new Point2D.Double(450, 280)};
+            Point2D lines[] = {new Point2D.Double(180.0, 10.0), new Point2D.Double(180, 480)};      
+            //g2.draw(new Line2D.Double(lines[0].getX() + 5, lines[0].getY() + 5, lines[1].getX() + 5, lines[1].getY() + 5));
             lines = CyrusBeck.calc(points, lines, points.length);            
             g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
         }

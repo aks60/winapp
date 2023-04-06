@@ -106,7 +106,7 @@ public class CyrusBeck {
         newPair[0].setLocation(newPair0x, newPair0y);
         newPair[1].setLocation(newPair1x, newPair1y);
 
-        System.out.println("(" + newPair[0].getX() + ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY() + ")");
+        //System.out.println("(" + newPair[0].getX() + ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY() + ")");
         return newPair;
     }
 
