@@ -157,6 +157,7 @@ public class ElemFrame extends ElemSimple {
             spcRec.colorID3 = colorID3;
             spcRec.anglCut1 = anglCut[0];
             spcRec.anglCut2 = anglCut[1];
+            spcRec.anglHoriz = anglHoriz;
 
             if (owner.type() == Type.ARCH) {
                 if (Layout.TOP == layout) {

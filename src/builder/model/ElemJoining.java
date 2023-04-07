@@ -42,8 +42,8 @@ public class ElemJoining {
         this.elem2 = elem2;
         this.angl = UCom.betweenAngl(elem1, elem2);
         if (elem1.owner().type() != Type.ARCH && elem2.owner().type() != Type.ARCH && TypeJoin.VAR10 != type) {
-            elem1.anglCut(2,angl / 2);
-            elem2.anglCut(1,angl / 2);
+            elem1.anglCut(1,angl / 2);
+            elem2.anglCut(0,angl / 2);
         }
     }
 

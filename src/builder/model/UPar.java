@@ -211,8 +211,8 @@ public class UPar {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
         if (!"null".equals(txt)) {
             if ("по контейнерам".equals(txt)) {
-                spcAdd.anglCut1 = elem5e.anglCut(1);
-                spcAdd.anglCut2 = elem5e.anglCut(2);
+                spcAdd.anglCut1 = elem5e.anglCut(0);
+                spcAdd.anglCut2 = elem5e.anglCut(1);
 
             } else if ("установить (90° x 90°)".equals(txt)) {
                 spcAdd.anglCut1 = 90;
