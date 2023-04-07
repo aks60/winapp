@@ -1,6 +1,5 @@
 package builder.geoms;
 
-
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.List;
 //
 public class CyrusBeck {
 
+    //public static float dot[] = {0f, 0f};
     //Скалярное произведение
     public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());
@@ -110,10 +110,37 @@ public class CyrusBeck {
         return newPair;
     }
 
+    //
+    //https://habr.com/ru/articles/523440/ 
+    // 
+    public static double[] cross(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        double n;
+        double dot[] = {0f, 0f};
+        if (y2 - y1 != 0) {  // a(y)
+            double q = (x2 - x1) / (y1 - y2);
+            double sn = (x3 - x4) + (y3 - y4) * q;
+            if (sn == 0) {
+                return null;
+            }  // c(x) + c(y)*q
+
+            double fn = (x3 - x1) + (y3 - y1) * q;   // b(x) + b(y)*q
+            n = fn / sn;
+        } else {
+            if ((y3 - y4) == 0) {
+                return null;
+            }  // b(y)
+
+            n = (y3 - y1) / (y3 - y4);   // c(y)/b(y)
+        }
+        dot[0] = x3 + (x4 - x3) * n;  // x3 + (-b(x))*n
+        dot[1] = y3 + (y4 - y3) * n;  // y3 +(-b(y))*n
+        return dot;
+    }
+
     public static void main(String[] args) {
 
         Point2D vertices[] = {
-            new Point2D.Double(200, 50), new Point2D.Double(250, 100), new Point2D.Double(200, 150), 
+            new Point2D.Double(200, 50), new Point2D.Double(250, 100), new Point2D.Double(200, 150),
             new Point2D.Double(100, 150), new Point2D.Double(50, 100), new Point2D.Double(100, 50)
         };
         Point2D line[] = {new Point2D.Double(10, 10), new Point2D.Double(450, 200)};
@@ -302,3 +329,28 @@ public class CyrusBeck {
 //    }
 //    return 0;
 // } 
+//
+// https://habr.com/ru/articles/267037/
+//bool crossing(vector<T, 2> const &v11, vector<T, 2> const &v12, vector<T, 2> const &v21, vector<T, 2> const &v22, vector<T, 2> *crossing) {
+//   vector<T, 3> cut1(v12-v11), cut2(v22-v21);
+//   vector<T, 3> prod1, prod2;
+// 
+//   prod1 = cross(cut1 * (v21-v11));
+//   prod2 = cross(cut1 * (v22-v11));
+// 
+//   if(sign(prod1[Z]) == sign(prod2[Z]) || (prod1[Z] == 0) || (prod2[Z] == 0)) // Отсекаем также и пограничные случаи
+//     return false;
+// 
+//   prod1 = cross(cut2 * (v11-v21));
+//   prod2 = cross(cut2 * (v12-v21));
+// 
+//   if(sign(prod1[Z]) == sign(prod2[Z]) || (prod1[Z] == 0) || (prod2[Z] == 0)) // Отсекаем также и пограничные случаи
+//     return false;
+// 
+//   if(crossing) { // Проверяем, надо ли определять место пересечения
+//     (*crossing)[X] = v11[X] + cut1[X]*fabs(prod1[Z])/fabs(prod2[Z]-prod1[Z]);
+//     (*crossing)[Y] = v11[Y] + cut1[Y]*fabs(prod1[Z])/fabs(prod2[Z]-prod1[Z]);
+//   }
+// 
+//   return true;
+// }

@@ -419,7 +419,8 @@ public class ElemFrame extends ElemSimple {
                         DrawStroke.strokePolygon(winc, x1 - dh, x1, x2, x2 - dh, y1 - dh, y1, y2, y2 + dy, rgb, borderColor);
                     } else if (winc.form == Form.SYMM) {
                         double dy1 = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                        //DrawStroke.strokePolygon(winc, x2 - dh, x1, x1, x2, y2 + dy1, y1 + dy1, y1, y2, rgb, borderColor);
+                        double dy2 = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
+                        DrawStroke.strokePolygon(winc, x2 - dh, x2, x1, x1 - dh, y2 + dy1, y2, y1, y1 - dh, rgb, borderColor);
                     }
                 } else if (Layout.TOP == layout) {
                     if (winc.form == Form.RIGHT) {
