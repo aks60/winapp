@@ -179,19 +179,19 @@ public class UPar {
     public static void to_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.val(2))) {
             if (spcAdd.getParam("-361", 34077).equals("-361") == false) {
-                spcAdd.anglCut1 = UCom.getDbl(spcAdd.getParam("-1", 34077));
+                spcAdd.anglCut0 = UCom.getDbl(spcAdd.getParam("-1", 34077));
             }
             if (spcAdd.getParam("-361", 34078).equals("-361") == false) {
-                spcAdd.anglCut2 = UCom.getDbl(spcAdd.getParam("-1", 34078));
+                spcAdd.anglCut1 = UCom.getDbl(spcAdd.getParam("-1", 34078));
             }
         } else {
             if (spcAdd.getParam("-361", 34077, 39077).equals("-361") == false) {
                 String[] arr = spcAdd.getParam("-1", 34077, 39077).split("/");
                 if (arr[0].equals("*") == false) {
-                    spcAdd.anglCut1 = UCom.getDbl(arr[0]);
+                    spcAdd.anglCut0 = UCom.getDbl(arr[0]);
                 }
                 if (arr[1].equals("*") == false) {
-                    spcAdd.anglCut2 = UCom.getDbl(arr[1]);
+                    spcAdd.anglCut1 = UCom.getDbl(arr[1]);
                 }
             }
         }
@@ -211,20 +211,20 @@ public class UPar {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
         if (!"null".equals(txt)) {
             if ("по контейнерам".equals(txt)) {
-                spcAdd.anglCut1 = elem5e.anglCut(0);
-                spcAdd.anglCut2 = elem5e.anglCut(1);
+                spcAdd.anglCut0 = elem5e.anglCut(0);
+                spcAdd.anglCut1 = elem5e.anglCut(1);
 
             } else if ("установить (90° x 90°)".equals(txt)) {
+                spcAdd.anglCut0 = 90;
                 spcAdd.anglCut1 = 90;
-                spcAdd.anglCut2 = 90;
 
             } else if ("установить (90° x 45°)".equals(txt)) {
-                spcAdd.anglCut1 = 90;
-                spcAdd.anglCut2 = 45;
+                spcAdd.anglCut0 = 90;
+                spcAdd.anglCut1 = 45;
 
             } else if ("установить (45° x 45°)".equals(txt)) {
+                spcAdd.anglCut0 = 45;
                 spcAdd.anglCut1 = 45;
-                spcAdd.anglCut2 = 45;
             }
         }
     }

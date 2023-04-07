@@ -34,8 +34,8 @@ public class Specific {
     public double width = 0;  //Длина
     public double height = 0;  //Ширина
     public double weight = 0;  //Масса
-    public double anglCut1 = 0;  //Угол1
-    public double anglCut2 = 0;  //Угол2
+    public double anglCut0 = 0;  //Угол1
+    public double anglCut1 = 0;  //Угол2
     public double anglHoriz = 0; // Угол к горизонту    
     public double count = 1;  //Кол. единиц
 
@@ -97,8 +97,8 @@ public class Specific {
         this.width = spec.width;
         this.height = spec.height;
         this.weight = spec.weight;
+        this.anglCut0 = spec.anglCut0;
         this.anglCut1 = spec.anglCut1;
-        this.anglCut2 = spec.anglCut2;
         this.count = spec.count;
         this.unit = spec.unit;
         this.quant1 = spec.quant1;
@@ -116,7 +116,7 @@ public class Specific {
 
     public Vector getVector(int npp) {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
-                eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
+                eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut0, anglCut1, anglHoriz,
                 count, UseUnit.getName(unit), wastePrc, quant1, quant2, costpric1, costpric2, price, cost2));
     }
 
@@ -135,12 +135,12 @@ public class Specific {
                 || TypeArtikl.X135.isType(artiklRec)
                 || TypeArtikl.X117.isType(artiklRec)
                 || TypeArtikl.X136.isType(artiklRec)) {
-            anglCut2 = 90;
             anglCut1 = 90;
+            anglCut0 = 90;
 
         } else if (TypeArtikl.X109.isType(artiklRec)) {
-            anglCut2 = 0;
             anglCut1 = 0;
+            anglCut0 = 0;
         }
     }
 

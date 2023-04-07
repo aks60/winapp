@@ -175,8 +175,8 @@ public class Tariffic extends Cal5e {
                         spc.colorID1 = prjkitRec.getInt(ePrjkit.color1_id);
                         spc.colorID2 = prjkitRec.getInt(ePrjkit.color2_id);
                         spc.colorID3 = prjkitRec.getInt(ePrjkit.color3_id);
-                        spc.anglCut1 = prjkitRec.getDbl(ePrjkit.angl1);
-                        spc.anglCut2 = prjkitRec.getDbl(ePrjkit.angl2);
+                        spc.anglCut0 = prjkitRec.getDbl(ePrjkit.angl1);
+                        spc.anglCut1 = prjkitRec.getDbl(ePrjkit.angl2);
                         spc.quant1 = formatAmount(spc); //количество без отхода
                         spc.quant2 = spc.quant1; //базовое количество с отходом
                         if (norm_otx == true) {

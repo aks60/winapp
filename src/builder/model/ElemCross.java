@@ -110,8 +110,8 @@ public class ElemCross extends ElemSimple {
             spcRec.colorID1 = colorID1;
             spcRec.colorID2 = colorID2;
             spcRec.colorID3 = colorID3;
-            spcRec.anglCut2 = 90;
             spcRec.anglCut1 = 90;
+            spcRec.anglCut0 = 90;
             spcRec.anglHoriz = anglHoriz;
 
             if (type() == Type.IMPOST) {
@@ -177,8 +177,8 @@ public class ElemCross extends ElemSimple {
             //Армирование
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
                 spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
+                spcAdd.anglCut0 = 90;
                 spcAdd.anglCut1 = 90;
-                spcAdd.anglCut2 = 90;
             }
             if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1)) && spcRec.id != spcAdd.id) {
                 spcAdd.width += spcRec.width;

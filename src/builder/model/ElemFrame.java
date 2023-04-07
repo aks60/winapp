@@ -155,8 +155,8 @@ public class ElemFrame extends ElemSimple {
             spcRec.colorID1 = colorID1;
             spcRec.colorID2 = colorID2;
             spcRec.colorID3 = colorID3;
-            spcRec.anglCut1 = anglCut[0];
-            spcRec.anglCut2 = anglCut[1];
+            spcRec.anglCut0 = anglCut[0];
+            spcRec.anglCut1 = anglCut[1];
             spcRec.anglHoriz = anglHoriz;
 
             if (owner.type() == Type.ARCH) {
@@ -226,8 +226,8 @@ public class ElemFrame extends ElemSimple {
             //Армирование
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
                 spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
+                spcAdd.anglCut0 = 90;
                 spcAdd.anglCut1 = 90;
-                spcAdd.anglCut2 = 90;
 
                 if (Type.TRAPEZE == owner.type()) {
                     if (Layout.TOP == layout) {

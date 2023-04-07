@@ -63,10 +63,10 @@ public class RSpecific {
     }
 
     public String getAngl() {
-        if (spc.anglCut1 == 0 || spc.anglCut2 == 0) {
+        if (spc.anglCut0 == 0 || spc.anglCut1 == 0) {
             return "";
         }
-        return df1.format(spc.anglCut1) + " x " + df1.format(spc.anglCut2);
+        return df1.format(spc.anglCut0) + " x " + df1.format(spc.anglCut1);
     }
 
     public String getWeight() {
