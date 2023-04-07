@@ -74,11 +74,11 @@ public class ElemCross extends ElemSimple {
                 
             } else {
                 if (winc.form == Form.RIGHT) {
-                    double angl = root.frames().get(Layout.RIGHT).anglCut()[1];
+                    double angl = root.frames().get(Layout.RIGHT).anglCut(2);
                     dy = (root.frames().get(Layout.RIGHT).artiklRec().getDbl(eArtikl.height) * UCom.tan(90 - angl));
                     prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
                 } else if (winc.form == Form.LEFT) {
-                    double angl = root.frames().get(Layout.LEFT).anglCut()[0];
+                    double angl = root.frames().get(Layout.LEFT).anglCut(1);
                     dy = (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(90 - angl)));
                     prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
                 }

@@ -30,7 +30,9 @@ public interface IElem5e extends ICom5t {
 
     void anglHoriz(double angl);
 
-    double[] anglCut();
+    void anglCut(int num, double value);
+
+    double anglCut(int num);
 
     default double[] gsize() {
         return null;

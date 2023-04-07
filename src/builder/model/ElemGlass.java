@@ -252,12 +252,12 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 90) {
                             IElem5e el = winc.listJoin.elem(inRigh, 1);
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut()[1]);
+                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut(2));
                             spcAdd.width += Math.abs(inRigh.y2() - inRigh.y1()) - (dy1 + dy2);
 
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut1 = inRigh.anglCut()[0];;
-                            spcAdd.anglCut2 = inRigh.anglCut()[1];
+                            spcAdd.anglCut1 = inRigh.anglCut(1);;
+                            spcAdd.anglCut2 = inRigh.anglCut(2);
                             spcAdd.anglHoriz = inRigh.anglHoriz();
 
                         } else if (anglHoriz() == 180) {
@@ -266,18 +266,18 @@ public class ElemGlass extends ElemSimple {
                             double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
-                            spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
+                            spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut(1);
+                            spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut(2);
                             spcAdd.anglHoriz = inTop.anglHoriz();
 
                         } else if (anglHoriz() == 270) {
                             ElemJoining ej = winc.listJoin.get(inLeft, 0);
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inLeft.anglCut()[0]);      
+                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inLeft.anglCut(1));      
                             spcAdd.width += Math.abs(inLeft.y2() - inLeft.y1()) - (dy1 + dy2);                           
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut1 = inLeft.anglCut()[0];
-                            spcAdd.anglCut2 = inLeft.anglCut()[1];
+                            spcAdd.anglCut1 = inLeft.anglCut(1);
+                            spcAdd.anglCut2 = inLeft.anglCut(2);
                             spcAdd.anglHoriz = inLeft.anglHoriz();
                         }
                     } else if (winc.form == Form.LEFT) {
@@ -288,17 +288,14 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglCut2 = 45;
                             spcAdd.anglHoriz = inBott.anglHoriz();
 
-                        } else if (anglHoriz() == 90) {
-                            ElemJoining ej = winc.listJoin.get(inTop, 0);
-                            double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
-                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            double Y1 = inRigh.y2() + dy1 + dy2;
-                            double Y2 = inBott.y2() - inBott.artiklRec().getDbl(eArtikl.height) + inBott.artiklRec().getDbl(eArtikl.size_centr) + inBott.artiklRec().getDbl(eArtikl.size_falz);
-                            spcAdd.width += Y2 - Y1;
+                        } else if (anglHoriz() == 90) {   
+                            double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
+                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut(2));      
+                            spcAdd.width += Math.abs(inRigh.y2() - inRigh.y1()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut2 = inRigh.anglCut()[1];
-                            spcAdd.anglCut1 = 45;
-                            spcAdd.anglHoriz = inRigh.anglHoriz();                            
+                            spcAdd.anglCut1 = inRigh.anglCut(1);
+                            spcAdd.anglCut2 = inRigh.anglCut(2);                            
+                            spcAdd.anglHoriz = inRigh.anglHoriz(); 
 
                         } else if (anglHoriz() == 180) {           
                             ElemJoining ej = winc.listJoin.get(inTop, 1);
@@ -306,8 +303,8 @@ public class ElemGlass extends ElemSimple {
                             double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
                             spcAdd.width += (dx2 - dx1) / UCom.sin(ej.angl);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
-                            spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut()[0];
-                            spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut()[1];
+                            spcAdd.anglCut1 = root().frames().get(Layout.TOP).anglCut(1);
+                            spcAdd.anglCut2 = root().frames().get(Layout.TOP).anglCut(2);
                             spcAdd.anglHoriz = inTop.anglHoriz();                            
 
                         } else if (anglHoriz() == 270) {
@@ -319,7 +316,7 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.width += dy1 - dy2 + dy3;
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut2 = 45;
-                            spcAdd.anglCut1 = inLeft.anglCut()[1];
+                            spcAdd.anglCut1 = inLeft.anglCut(2);
                             spcAdd.anglHoriz = inLeft.anglHoriz();                            
                         }
                     }

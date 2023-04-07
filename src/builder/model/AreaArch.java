@@ -49,14 +49,14 @@ public class AreaArch extends AreaSimple {
 
         //Угловое соединение правое верхнее
         ElemJoining elemJoin2 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch);
-        elemJoin2.elem2.anglCut()[0] = ang4;  //угол реза арки
-        elemJoin2.elem1.anglCut()[1] = ang3;  //угол реза рамы                             
+        elemJoin2.elem2.anglCut(1, ang4);  //угол реза арки
+        elemJoin2.elem1.anglCut(2, ang3);  //угол реза рамы                             
         winc.listJoin.add(elemJoin2);
 
         //Угловое соединение левое верхнее
         ElemJoining elemJoin1 = new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft);
-        elemJoin1.elem1.anglCut()[1] = ang4;  //угол реза арки
-        elemJoin1.elem2.anglCut()[0] = ang3;  //угол реза рамы
+        elemJoin1.elem1.anglCut(2, ang4);  //угол реза арки
+        elemJoin1.elem2.anglCut(1, ang3);  //угол реза рамы
         winc.listJoin.add(elemJoin1);
     }
 }

@@ -47,8 +47,13 @@ public abstract class ElemSimple extends Com5t implements IElem5e {
     }
 
     @Override
-    public double[] anglCut() {
-        return anglCut;
+    public void anglCut(int num, double value) {
+        anglCut[num - 1] = value;
+    }
+    
+    @Override
+    public double anglCut(int num) {
+        return anglCut[num - 1];
     }
 
     /**
