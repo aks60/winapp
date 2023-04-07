@@ -110,7 +110,7 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
                 } else if (winc.form == Form.SYMM) {
-                    //setDimension(owner.x2() - Dx, owner.y1(), winc.width1(), owner.y2());
+                    setDimension(owner.x2(), owner.y2(), owner.x2() - Dx, owner.y1());
                 }
 
             } else if (Layout.TOP == layout) {
@@ -119,7 +119,7 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height2() - winc.height1());
                 } else if (winc.form == Form.SYMM) {
-                    //setDimension(Dx, owner.y1(), Dx + winc.width2(), owner.y1() + artiklRec().getDbl(eArtikl.height));
+                    setDimension(owner.x2() - Dx, owner.y1(), owner.x1() + Dx, owner.y1());
                 }
 
             } else if (Layout.LEFT == layout) {
@@ -128,7 +128,7 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x1(), owner.y2());
                 } else if (winc.form == Form.SYMM) {
-                    //setDimension(owner.x1(), owner.y2() - winc.height2(), Dx + winc.width2() + artiklRec().getDbl(eArtikl.height), owner.y2());
+                    setDimension(owner.x1() + Dx, owner.y1(), owner.x1(), owner.y2());
                 }
             }
 
@@ -417,7 +417,9 @@ public class ElemFrame extends ElemSimple {
                         double dy = (dh * UCom.tan(90 - anglCut[0]));
                         DrawStroke.strokePolygon(winc, x1 - dh, x1, x2, x2 - dh, y1 - dh, y1, y2, y2 + dy, rgb, borderColor);
                     } else if (winc.form == Form.SYMM) {
-
+                        double dy0 = (dh * UCom.tan(90 - anglCut[0]));
+                        double dy1 = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
+                        DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy1, y1 + dy1, y1, y2, rgb, borderColor);
                     }
                 } else if (Layout.TOP == layout) {
                     if (winc.form == Form.RIGHT) {
@@ -426,7 +428,9 @@ public class ElemFrame extends ElemSimple {
                     } else if (winc.form == Form.LEFT) {
                         double dy = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
                         DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
-                    }
+                    } else if (winc.form == Form.SYMM) {
+                           
+                    }                        
                 } else if (Layout.LEFT == layout) {
                     if (winc.form == Form.RIGHT) {
                         double dy = dh * UCom.tan(90 - anglCut[0]);
