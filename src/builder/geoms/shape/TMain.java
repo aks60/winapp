@@ -1,5 +1,5 @@
 
-package builder.geoms;
+package builder.geoms.shape;
 /*
    This program is a part of the companion code for Core Java 8th ed.
    (http://horstmann.com/corejava)

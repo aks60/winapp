@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.shape;
 
 import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;

@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.shape;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

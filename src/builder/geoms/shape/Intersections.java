@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.shape;
 
 import java.awt.Point;
 import static java.awt.SystemColor.info;
