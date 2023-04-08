@@ -23,6 +23,12 @@ import javax.swing.JComponent;
  */
 class TPaintComp extends JComponent {
 
+    private Point2D[] points;
+    private static Random generator = new Random();
+    private static int SIZE = 10;
+    private int current;
+    private TShape shapeMaker;
+    
     public TPaintComp() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
@@ -113,10 +119,4 @@ class TPaintComp extends JComponent {
             g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
         }
     }
-
-    private Point2D[] points;
-    private static Random generator = new Random();
-    private static int SIZE = 10;
-    private int current;
-    private TShape shapeMaker;
 }
