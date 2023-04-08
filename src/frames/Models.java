@@ -5,7 +5,6 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSysmodel;
 import java.awt.Component;
-import java.awt.Window;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -26,9 +25,10 @@ import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 import common.listener.ListenerReload;
 import dataset.Conn;
-import domain.eSysprod;
 import frames.swing.DefTableModel;
+import frames.swing.draw.Canvas2D;
 import frames.swing.draw.Scene;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Collections;
@@ -43,12 +43,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private ListenerRecord listenet = null;
     private Canvas canvas = new Canvas();
+    private Canvas2D canvas2D = new Canvas2D();
     private Scene scene = null;
     private Query qSysmodel = new Query(eSysmodel.values());
 
     public Models() {
         initComponents();
         scene = new Scene(canvas, spinner, this);
+        pan18.add(canvas2D, BorderLayout.CENTER);
         initElements();
         loadingModel();
         btnChoice.setVisible(false);
@@ -58,6 +60,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     public Models(ListenerRecord listener) {
         initComponents();
         scene = new Scene(canvas, spinner, this);
+        pan18.add(canvas2D, BorderLayout.CENTER);
         initElements();
         loadingModel();
         this.listenet = listener;
@@ -196,7 +199,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         pan18 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -604,10 +606,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         centr.add(pan17, "pan17");
 
         pan18.setLayout(new java.awt.BorderLayout());
-
-        jButton1.setText("jButton1");
-        pan18.add(jButton1, java.awt.BorderLayout.CENTER);
-
         centr.add(pan18, "pan18");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
@@ -756,6 +754,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         } else {
             loadingTab1(tab1, 1009);
             ((CardLayout) centr.getLayout()).show(centr, "pan18");
+            canvas2D.setShapeMaker(null);
         }
         UGui.updateBorderAndSql(tab1, List.of(tab1));
         UGui.setSelectedRow(tab1);
@@ -810,7 +809,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan13;
