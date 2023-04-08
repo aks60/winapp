@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package builder.geoms;
 
 import java.awt.Graphics;
@@ -19,14 +15,14 @@ import javax.swing.JComponent;
 
 /**
  * См, Java,2014-Том 2, Расш средства прогр This component draws a shape and
- * allows the user to move the points that define it.
+ * Позволяет пользователю перемещать точки вершин многоугольника
  */
 class TPaintComp extends JComponent {
 
-    private Point2D[] points;
+    private Point2D[] points; //вершины многоугольника
     private static Random generator = new Random();
     private static int SIZE = 10;
-    private int current;
+    private int current; //индекс текущей вершины
     private TShape shapeMaker;
     
     public TPaintComp() {
@@ -75,12 +71,6 @@ class TPaintComp extends JComponent {
         int n = shapeMaker.getPointCount();
         points = new Point2D[n];
         if (aShapeMaker instanceof Polygon) {
-//            points[5] = new Point2D.Double(200, 50);
-//            points[4] = new Point2D.Double(250, 100);
-//            points[3] = new Point2D.Double(200, 150);
-//            points[2] = new Point2D.Double(100, 150);
-//            points[1] = new Point2D.Double(50, 100);
-//            points[0] = new Point2D.Double(100, 50);
             points[0] = new Point2D.Double(200, 50);
             points[1] = new Point2D.Double(250, 100);
             points[2] = new Point2D.Double(200, 150);

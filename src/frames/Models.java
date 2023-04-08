@@ -195,6 +195,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         pan8 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
+        pan18 = new javax.swing.JPanel();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -531,7 +532,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
         centr.setPreferredSize(new java.awt.Dimension(600, 560));
-        centr.setLayout(new java.awt.BorderLayout());
+        centr.setLayout(new java.awt.CardLayout());
 
         pan17.setPreferredSize(new java.awt.Dimension(600, 500));
         pan17.setLayout(new java.awt.BorderLayout());
@@ -599,7 +600,20 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         pan17.add(pan10, java.awt.BorderLayout.WEST);
 
-        centr.add(pan17, java.awt.BorderLayout.CENTER);
+        centr.add(pan17, "card2");
+
+        javax.swing.GroupLayout pan18Layout = new javax.swing.GroupLayout(pan18);
+        pan18.setLayout(pan18Layout);
+        pan18Layout.setHorizontalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 426, Short.MAX_VALUE)
+        );
+        pan18Layout.setVerticalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 541, Short.MAX_VALUE)
+        );
+
+        centr.add(pan18, "card3");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -799,6 +813,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan13;
     private javax.swing.JPanel pan17;
+    private javax.swing.JPanel pan18;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
