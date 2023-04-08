@@ -101,7 +101,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
                     record.add(iwin2);
                 }
                 record.add(null);
-                
+
             } catch (Exception e) {
                 System.err.println("Ошибка:Models.loadingTab() " + e);
             }
@@ -196,6 +196,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         pan18 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -600,20 +601,14 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
         pan17.add(pan10, java.awt.BorderLayout.WEST);
 
-        centr.add(pan17, "card2");
+        centr.add(pan17, "pan17");
 
-        javax.swing.GroupLayout pan18Layout = new javax.swing.GroupLayout(pan18);
-        pan18.setLayout(pan18Layout);
-        pan18Layout.setHorizontalGroup(
-            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
-        );
-        pan18Layout.setVerticalGroup(
-            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
-        );
+        pan18.setLayout(new java.awt.BorderLayout());
 
-        centr.add(pan18, "card3");
+        jButton1.setText("jButton1");
+        pan18.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan18, "pan18");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -745,16 +740,22 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     }//GEN-LAST:event_windowClosed
 
     private void btnToggl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToggl
+
         if (btnT1.isSelected()) {
             loadingTab1(tab1, 1001);
+            ((CardLayout) centr.getLayout()).show(centr, "pan17");
         } else if (btnT2.isSelected()) {
             loadingTab1(tab1, 1004);
+            ((CardLayout) centr.getLayout()).show(centr, "pan17");
         } else if (btnT3.isSelected()) {
             loadingTab1(tab1, 1002);
+            ((CardLayout) centr.getLayout()).show(centr, "pan17");
         } else if (btnT4.isSelected()) {
             loadingTab1(tab1, 1007);
+            ((CardLayout) centr.getLayout()).show(centr, "pan17");
         } else {
             loadingTab1(tab1, 1009);
+            ((CardLayout) centr.getLayout()).show(centr, "pan18");
         }
         UGui.updateBorderAndSql(tab1, List.of(tab1));
         UGui.setSelectedRow(tab1);
@@ -809,6 +810,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan13;
