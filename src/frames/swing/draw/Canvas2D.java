@@ -22,10 +22,11 @@ import javax.swing.JComponent;
  */
 public class Canvas2D extends JComponent {
 
-    private Point2D[] points; //вершины многоугольника
     private static int SIZE = 10;
-    private int current; //индекс текущей вершины
-    private Shape shapeMaker = null;
+    
+    private int current; //текущей индекс вершины
+    private Shape shapeMaker = null; //форма могоугольника
+    private Point2D[] points; //вершины многоугольника
 
     public Canvas2D() {
         addMouseListener(new MouseAdapter() {
@@ -52,9 +53,6 @@ public class Canvas2D extends JComponent {
 
             public void mouseDragged(MouseEvent event) {
                 System.out.println(".mouseDragged()");
-                if (current == -1) {
-                    return;
-                }
                 points[current] = event.getPoint();
                 repaint();
             }
@@ -62,19 +60,18 @@ public class Canvas2D extends JComponent {
         current = -1;
     }
 
-
-    public void setShapeMaker(Shape aShapeMaker) {
+    public void setShapeMaker(Shape shapeMaker) {
         //System.out.println("chapetest.ShapeComponent.setShapeMaker()");
         points = new Point2D[6];
-        points[0] = new Point2D.Double(200, 50);
-        points[1] = new Point2D.Double(250, 100);
-        points[2] = new Point2D.Double(200, 150);
-        points[3] = new Point2D.Double(100, 150);
+        points[0] = new Point2D.Double(350, 50);
+        points[1] = new Point2D.Double(400, 100);
+        points[2] = new Point2D.Double(350, 350);
+        points[3] = new Point2D.Double(100, 350);
         points[4] = new Point2D.Double(50, 100);
         points[5] = new Point2D.Double(100, 50);
-        
+
         shapeMaker = makeShape(points);
-        
+
         repaint();
     }
 
@@ -90,16 +87,17 @@ public class Canvas2D extends JComponent {
             double y = points[i].getY() - SIZE / 2;
             g2.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
         }
-        
-        
+
+        //Многоугольник
         g2.draw(shapeMaker);
 
+        //Линия
         Point2D lines[] = {new Point2D.Double(180.0, 10.0), new Point2D.Double(180, 480)};
         //g2.draw(new Line2D.Double(lines[0].getX() + 5, lines[0].getY() + 5, lines[1].getX() + 5, lines[1].getY() + 5));
         lines = CyrusBeck.calc(points, lines, points.length);
         g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
     }
-    
+
     public Shape makeShape(Point2D[] p) {
 
         //System.out.println("chapetest.PolygonMaker.makeShape()");
@@ -108,8 +106,8 @@ public class Canvas2D extends JComponent {
         polygon.moveTo((float) p[0].getX(), (float) p[0].getY());
         for (int i = 1; i < p.length; i++) {
             polygon.lineTo((float) p[i].getX(), (float) p[i].getY());
-        }    
+        }
         polygon.closePath();
         return polygon;
-    }    
+    }
 }
