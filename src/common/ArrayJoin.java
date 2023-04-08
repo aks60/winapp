@@ -53,31 +53,6 @@ public class ArrayJoin extends ArrayList<ElemJoining> {
         return null;
     }
 
-    public ElemJoining get2(IElem5e el, int side) {
-        try {
-            for (ElemJoining join : this) {
-                if (el.type() == Type.IMPOST || el.type() == Type.STOIKA || el.type() == Type.ERKER) {
-                    if (side == 0 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TLEFT || join.layout == LayoutJoin.TBOT)) {
-                        return join;
-                    } else if (side == 1 && join.elem1.id() == el.id() && (join.layout == LayoutJoin.TRIGH || join.layout == LayoutJoin.TTOP)) {
-                        return join;
-                    }
-                } else {
-                    if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
-                        System.out.println(join);
-                    } else if (side == 1 && join.elem1.id() == el.id()) { //Угловое правое
-                        return join;
-                    } else if (side == 2 && join.elem1.id() == el.id() && join.type == TypeJoin.VAR10) { //Прилегающее
-                        return join;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Неудача:Соединение не найдено. " + e);
-        }
-        return null;
-    }
-
     /**
      * Получить элемент соединения профилей.
      *
