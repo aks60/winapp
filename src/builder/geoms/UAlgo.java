@@ -1,5 +1,7 @@
-package frames.swing.draw;
+package builder.geoms;
 
+import builder.IElem5e;
+import domain.eArtikl;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 //
 //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
 //
-public class CyrusBeck {
+public class UAlgo {
 
     //public static float dot[] = {0f, 0f};
     //Скалярное произведение
@@ -38,7 +40,7 @@ public class CyrusBeck {
     }
 
     //Функция Сайруса Бека возвращает пару значений, которые затем отображаются в виде строки
-    public static Point2D[] calc(Point2D vertices[], Point2D line[], int n) {
+    public static Point2D[] cut(Point2D vertices[], Point2D line[], int n) {
 
         Point2D newPair[] = {new Point2D.Double(), new Point2D.Double()}; //значение временного держателя, которое будет возвращено        
         Point2D normal[] = new Point2D.Double[n]; //нормали инициализируются динамически (можно и статически, не имеет значения)
@@ -137,15 +139,23 @@ public class CyrusBeck {
         return dot;
     }
 
-    public static void main(String[] args) {
-
-        Point2D vertices[] = {
-            new Point2D.Double(200, 50), new Point2D.Double(250, 100), new Point2D.Double(200, 150),
-            new Point2D.Double(100, 150), new Point2D.Double(50, 100), new Point2D.Double(100, 50)
-        };
-        Point2D line[] = {new Point2D.Double(10, 10), new Point2D.Double(450, 200)};
-        Point2D temp[] = CyrusBeck.calc(vertices, line, 6);
+    public static double[] cross(IElem5e e1, IElem5e e2) {
+        return cross(e1.x1(), e1.y1(), e1.x2(), e1.y2(), e2.x1(), e2.y1(), e2.x2(), e2.y2());
     }
+
+//    public static double[] dxy(IElem5e e) {
+//        double dh = e.artiklRec().getDbl(eArtikl.height);
+//        if (0 < e.anglHoriz() && e.anglHoriz() <= 90) {
+//            return new double[]{-dh, 0};
+//        } else if (90 < e.anglHoriz() && e.anglHoriz() <= 180) {
+//            return new double[]{0, dh};
+//        } else if (180 < e.anglHoriz() && e.anglHoriz() <= 270) {
+//            return new double[]{dh, 0};
+//        } else if (270 < e.anglHoriz() && e.anglHoriz() <= 360) {
+//            return new double[]{0, dh};
+//        }
+//        return new double[]{0,0};
+//    }
 }
 
 // C++ Program to implement Cyrus Beck  

@@ -1,5 +1,6 @@
 package frames.swing.draw;
 
+import builder.geoms.UAlgo;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -113,10 +114,10 @@ public class Canvas2D extends JComponent {
         Point2D lines[] = {new Point2D.Double(10.0, 310.0), new Point2D.Double(480, 400)};
         Point2D line2[] = {new Point2D.Double(200.0, 10.0), new Point2D.Double(480, 400)};
 
-        lines = CyrusBeck.calc(points, lines, points.length);
+        lines = UAlgo.cut(points, lines, points.length);
         g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
 
-        line2 = CyrusBeck.calc(points, line2, points.length);
+        line2 = UAlgo.cut(points, line2, points.length);
         g2.draw(new Line2D.Double(line2[0].getX(), line2[0].getY(), line2[1].getX(), line2[1].getY()));
     }
 }
