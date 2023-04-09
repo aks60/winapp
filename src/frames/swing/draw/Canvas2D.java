@@ -20,15 +20,14 @@ import javax.swing.JComponent;
  */
 public class Canvas2D extends JComponent {
 
-    private static int SIZE = 10;   
-    private int current; //текущей индекс вершины
+    private static int SIZE = 10;
+    private int current = -1; //текущей индекс вершины
     private Shape shapeMaker = null; //форма могоугольника
     private Point2D[] points; //вершины многоугольника
 
     public Canvas2D() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                //System.out.println(".mousePressed()");
                 Point p = event.getPoint();
                 for (int i = 0; i < points.length; i++) {
                     double x = points[i].getX() - SIZE / 2;
@@ -36,13 +35,17 @@ public class Canvas2D extends JComponent {
                     Rectangle2D r = new Rectangle2D.Double(x, y, SIZE, SIZE);
                     if (r.contains(p)) {
                         current = i;
+                        //System.out.println(".mousePressed()");
                         return;
                     }
                 }
+                System.out.println(".mousePressed() = -1");
+                current = -1;
+                repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
-                //System.out.println(".mouseReleased()");
+                //System.out.println(".mouseReleased() = -1");
                 current = -1;
             }
         });
@@ -51,7 +54,7 @@ public class Canvas2D extends JComponent {
             public void mouseDragged(MouseEvent event) {
                 if (current == -1) {
                     return;
-                }                
+                }
                 points[current] = event.getPoint();
                 //System.out.println(".mouseDragged() " + points[current] + ", current=" + current);
                 repaint();
@@ -89,29 +92,32 @@ public class Canvas2D extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         //System.out.println("frames.swing.draw.Canvas2D.paintComponent() " + points[2]);
 
-        
-        //Квадратик вокруг вершины.
-        for (int i = 0; i < points.length; i++) {
-            double x = points[i].getX() - SIZE / 2;
-            double y = points[i].getY() - SIZE / 2;
-            g2.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
-        }  
-        
-        
+        //Квадратик вокруг вершины
+        if (current != -1) {
+            for (int i = 0; i < points.length; i++) {
+                double x = points[i].getX() - SIZE / 2;
+                double y = points[i].getY() - SIZE / 2;
+                g2.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
+            }
+        }
+
         //Многоугольник
         GeneralPath poligon = new GeneralPath();
         poligon.moveTo(points[0].getX(), points[0].getY());
         for (int i = 1; i < points.length; i++) {
             poligon.lineTo(points[i].getX(), points[i].getY());
-        }    
-        poligon.closePath();        
+        }
+        poligon.closePath();
         g2.draw(poligon);
 
-        
         //Линия
         Point2D lines[] = {new Point2D.Double(10.0, 310.0), new Point2D.Double(480, 400)};
-        //g2.draw(new Line2D.Double(lines[0].getX() + 5, lines[0].getY() + 5, lines[1].getX() + 5, lines[1].getY() + 5));
+        Point2D line2[] = {new Point2D.Double(200.0, 10.0), new Point2D.Double(480, 400)};
+
         lines = CyrusBeck.calc(points, lines, points.length);
         g2.draw(new Line2D.Double(lines[0].getX(), lines[0].getY(), lines[1].getX(), lines[1].getY()));
+
+        line2 = CyrusBeck.calc(points, line2, points.length);
+        g2.draw(new Line2D.Double(line2[0].getX(), line2[0].getY(), line2[1].getX(), line2[1].getY()));
     }
 }
