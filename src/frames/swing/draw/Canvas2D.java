@@ -20,7 +20,7 @@ import javax.swing.JComponent;
  */
 public class Canvas2D extends JComponent {
 
-    private static int SIZE = 10;
+    private static int SIZE = 16;
     private int current = -1; //текущей индекс вершины
     private Shape shapeMaker = null; //форма могоугольника
     private Point2D[] points; //вершины многоугольника
