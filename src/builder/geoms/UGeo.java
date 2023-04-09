@@ -9,7 +9,7 @@ import java.util.List;
 //
 //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
 //
-public class UAlgo {
+public class UGeo {
 
     //public static float dot[] = {0f, 0f};
     //Скалярное произведение

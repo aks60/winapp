@@ -3,7 +3,7 @@ package builder.model;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.IStvorka;
-import builder.geoms.UAlgo;
+import builder.geoms.UGeo;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
@@ -379,8 +379,8 @@ public class ElemFrame extends ElemSimple {
             double dh1 = (winc.listJoin.get(this, 1).type == TypeJoin.VAR30 || winc.listJoin.get(this, 1).type == TypeJoin.VAR31) ? 0 : dh;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 
-            double d[] = UAlgo.cross(this, winc.listJoin.elem(this, 1));
-            System.out.println(this.layout + " = " + d[0] + ":" + d[1] + " dh = " + (dh / UCom.sin(this.anglHoriz)));
+            double d[] = UGeo.cross(this, winc.listJoin.elem(this, 1));
+            System.out.println(this.layout + " = " + d[0] + ":" + d[1] + " dh = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));
             
             //ARCH
             if (owner.type() == Type.ARCH) {
