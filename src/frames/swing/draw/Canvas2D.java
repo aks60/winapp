@@ -89,12 +89,15 @@ public class Canvas2D extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         //System.out.println("frames.swing.draw.Canvas2D.paintComponent() " + points[2]);
 
+        
         //Квадратик вокруг вершины.
         for (int i = 0; i < points.length; i++) {
             double x = points[i].getX() - SIZE / 2;
             double y = points[i].getY() - SIZE / 2;
             g2.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
         }  
+        
+        
         //Многоугольник
         GeneralPath poligon = new GeneralPath();
         poligon.moveTo(points[0].getX(), points[0].getY());
@@ -104,6 +107,7 @@ public class Canvas2D extends JComponent {
         poligon.closePath();        
         g2.draw(poligon);
 
+        
         //Линия
         Point2D lines[] = {new Point2D.Double(10.0, 310.0), new Point2D.Double(480, 400)};
         //g2.draw(new Line2D.Double(lines[0].getX() + 5, lines[0].getY() + 5, lines[1].getX() + 5, lines[1].getY() + 5));
