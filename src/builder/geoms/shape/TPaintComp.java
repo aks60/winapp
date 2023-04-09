@@ -1,5 +1,6 @@
 package builder.geoms.shape;
 
+import frames.swing.draw.CyrusBeck;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
