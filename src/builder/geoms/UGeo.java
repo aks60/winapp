@@ -1,6 +1,7 @@
 package builder.geoms;
 
 import builder.IElem5e;
+import common.UCom;
 import domain.eArtikl;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -11,14 +12,13 @@ import java.util.List;
 //
 public class UGeo {
 
-    //public static float dot[] = {0f, 0f};
     //Скалярное произведение
     public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());
     }
 
     //Вычисления максимума из вектора с плавающей запятой
-    public static double max(List<Double> t) {
+    private static double max(List<Double> t) {
         double maximum = 0;
         for (int i = 0; i < t.size(); i++) {
             if (t.get(i) > maximum) {
@@ -29,7 +29,7 @@ public class UGeo {
     }
 
     //Вычисления минимума из вектора с плавающей запятой
-    public static double min(List<Double> t) {
+    private static double min(List<Double> t) {
         double minimum = 500;
         for (int i = 0; i < t.size(); i++) {
             if (t.get(i) < minimum) {
@@ -112,12 +112,11 @@ public class UGeo {
         return newPair;
     }
 
-    //
+    //Точка пересечения двух векторов 
     //https://habr.com/ru/articles/523440/ 
-    // 
     public static double[] cross(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
         double n;
-        double dot[] = {0f, 0f};
+        double dot[] = {0, 0};
         if (y2 - y1 != 0) {  // a(y)
             double q = (x2 - x1) / (y1 - y2);
             double sn = (x3 - x4) + (y3 - y4) * q;
@@ -139,23 +138,33 @@ public class UGeo {
         return dot;
     }
 
+    //Точка пересечения двух векторов 
     public static double[] cross(IElem5e e1, IElem5e e2) {
         return cross(e1.x1(), e1.y1(), e1.x2(), e1.y2(), e2.x1(), e2.y1(), e2.x2(), e2.y2());
     }
 
-//    public static double[] dxy(IElem5e e) {
-//        double dh = e.artiklRec().getDbl(eArtikl.height);
-//        if (0 < e.anglHoriz() && e.anglHoriz() <= 90) {
-//            return new double[]{-dh, 0};
-//        } else if (90 < e.anglHoriz() && e.anglHoriz() <= 180) {
-//            return new double[]{0, dh};
-//        } else if (180 < e.anglHoriz() && e.anglHoriz() <= 270) {
-//            return new double[]{dh, 0};
-//        } else if (270 < e.anglHoriz() && e.anglHoriz() <= 360) {
-//            return new double[]{0, dh};
-//        }
-//        return new double[]{0,0};
-//    }
+    //Ширина рамки по оси x и y
+    public static double[] diff(IElem5e e) {
+        
+        double dh = e.artiklRec().getDbl(eArtikl.height);
+        double x = -1 * UCom.cos(e.anglHoriz());
+        double y = -1 * UCom.sin(e.anglHoriz());
+        
+        if (Math.abs(x) >= Math.abs(y)) {
+            return new double[]{0, dh / x};
+        } else {
+            return new double[]{dh / y, 0};
+        }
+    }
+
+    private static double min(double d) {
+        for (int i = 0; i < 4; i++) {
+            if (d > 90) {
+                d = d - 90;
+            }
+        }
+        return d;
+    }
 }
 
 // C++ Program to implement Cyrus Beck  

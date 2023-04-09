@@ -32,11 +32,11 @@ public class ArrayJoin extends ArrayList<ElemJoining> {
                         return join;
                     }
                 } else {
-                    if (side == 0 && join.elem2.id() == el.id()) { //Угловое левое
+                    if (side == 0 && join.elem2.id() == el.id() && join.type != TypeJoin.VAR10) {  //Угловое левое
                         if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(join.elem1.type()) == false) {
                             return join;
                         }
-                    } else if (side == 1 && join.elem1.id() == el.id()) { //Угловое правое
+                    } else if (side == 1 && join.elem1.id() == el.id() && join.type != TypeJoin.VAR10) { //Угловое правое
                         if (List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(join.elem2.type()) == false) {
                             return join;
                         }

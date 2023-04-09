@@ -182,19 +182,15 @@ public class ElemFrame extends ElemSimple {
                     double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(Math.abs(winc.height1() - winc.height2()), 2));
                     spcRec.width = length + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    //System.out.println("TOP " + UCom.horizontAngl(this));
                 } else if (Layout.BOTT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    //System.out.println("BOTT " + UCom.horizontAngl(this));
                 } else if (Layout.LEFT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    //System.out.println("LEFT " + UCom.horizontAngl(this));
                 } else if (Layout.RIGHT == layout) {
                     spcRec.width = length() + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = artiklRec().getDbl(eArtikl.height);
-                    //System.out.println("RIGHT " + UCom.horizontAngl(this));
                 }
             } else {
                 if (Layout.BOTT == layout) {
@@ -372,18 +368,11 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void paint() {
         try {
-            ElemJoining ej0 = winc.listJoin.get(this, 0);
-            ElemJoining ej1 = winc.listJoin.get(this, 1);
-            double dh = artiklRec.getDbl(eArtikl.height); //угловое на ус или угловое
-            double dh0 = (winc.listJoin.get(this, 0).type == TypeJoin.VAR30 || winc.listJoin.get(this, 0).type == TypeJoin.VAR31) ? 0 : dh;
-            double dh1 = (winc.listJoin.get(this, 1).type == TypeJoin.VAR30 || winc.listJoin.get(this, 1).type == TypeJoin.VAR31) ? 0 : dh;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 
-            double d[] = UGeo.cross(this, winc.listJoin.elem(this, 1));
-            System.out.println(this.layout + " = " + d[0] + ":" + d[1] + " dh = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));
-            
             //ARCH
             if (owner.type() == Type.ARCH) {
+                double dh = artiklRec.getDbl(eArtikl.height); //угловое на ус или угловое
 
                 if (Layout.BOTT == layout) {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 - dh, x1 + dh, y1, y2, y1 - dh, y2 - dh, rgb, borderColor);
@@ -409,54 +398,16 @@ public class ElemFrame extends ElemSimple {
                     double a = (r - dh) * UCom.sin(ang2);
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, (r - a), rgb, borderColor);
                 }
-                //TRAPEZE
-            } else if (owner.type() == Type.TRAPEZE) {
-                if (Layout.BOTT == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh, x1 + dh, y1, y2, y1 - dh, y2 - dh, rgb, borderColor);
-
-                } else if (Layout.RIGHT == layout) {
-                    if (winc.form == Form.RIGHT) {
-                        double dy = dh * UCom.tan(90 - anglCut[1]);
-                        DrawStroke.strokePolygon(winc, x1 - dh, x1, x2, x2 - dh, y1 - dh, y1, y2, y2 + dy, rgb, borderColor);
-                    } else if (winc.form == Form.LEFT) {
-                        double dy = (dh * UCom.tan(90 - anglCut[0]));
-                        DrawStroke.strokePolygon(winc, x1 - dh, x1, x2, x2 - dh, y1 - dh, y1, y2, y2 + dy, rgb, borderColor);
-                    } else if (winc.form == Form.SYMM) {
-                        double dy1 = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                        double dy2 = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                        DrawStroke.strokePolygon(winc, x2 - dh, x2, x1, x1 - dh, y2 + dy1, y2, y1, y1 - dh, rgb, borderColor);
-                    }
-                } else if (Layout.TOP == layout) {
-                    if (winc.form == Form.RIGHT) {
-                        double dy = artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90);
-                        DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
-                    } else if (winc.form == Form.LEFT) {
-                        double dy = (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
-                        DrawStroke.strokePolygon(winc, x2, x1, x1, x2, y2 + dy, y1 + dy, y1, y2, rgb, borderColor);
-                    } else if (winc.form == Form.SYMM) {
-                           
-                    }                        
-                } else if (Layout.LEFT == layout) {
-                    if (winc.form == Form.RIGHT) {
-                        double dy = dh * UCom.tan(90 - anglCut[0]);
-                        DrawStroke.strokePolygon(winc, x2, x2 + dh, x2 + dh, x2, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
-                    } else if (winc.form == Form.LEFT) {
-                        double dy = dh / UCom.tan(anglCut[0]);
-                        DrawStroke.strokePolygon(winc, x2, x2 + dh, x1 + dh, x1, y2, y2 - dh, y1 + dy, y1, rgb, borderColor);
-                    } else if (winc.form == Form.SYMM) {
-                           
-                    }  
-                }
             } else {
-                if (Layout.BOTT == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh1, x1 + dh0, y1, y2, y2 - dh, y1 - dh, rgb, borderColor);
-                } else if (Layout.RIGHT == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 - dh, x1 - dh, y1, y2, y2 + dh, y1 - dh, rgb, borderColor);
-                } else if (Layout.TOP == layout) {
-                    DrawStroke.strokePolygon(winc, x1, x2, x2 + dh0, x1 - dh1, y1, y2, y2 + dh, y1 + dh, rgb, borderColor);
-                } else if (Layout.LEFT == layout) {
-                    DrawStroke.strokePolygon(winc, x2, x2 + dh, x1 + dh, x1, y2, y2 - dh, y1 + dh, y1, rgb, borderColor);
-                }
+                IElem5e e1 = winc.listJoin.elem(this, 0);
+                IElem5e e2 = winc.listJoin.elem(this, 1);
+                double h[] = UGeo.diff(this);
+                double h1[] = UGeo.diff(e1);
+                double h2[] = UGeo.diff(e2);
+                double p1[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
+                double p2[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
+                DrawStroke.strokePolygon(winc, x1, x2, p2[0], p1[0], y1, y2, p2[1], p1[1], rgb, borderColor);
+                //System.out.println(this.layout + " = " + p1[0] + ":" + p2[1] + " angl = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));                
             }
         } catch (Exception s) {
             System.err.println("ОШИБКА:model.IElem5e.paint() " + s);
