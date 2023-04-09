@@ -754,7 +754,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         } else {
             loadingTab1(tab1, 1009);
             ((CardLayout) centr.getLayout()).show(centr, "pan18");
-            canvas2D.setShapeMaker(null);
+            canvas2D.setShape();
         }
         UGui.updateBorderAndSql(tab1, List.of(tab1));
         UGui.setSelectedRow(tab1);
