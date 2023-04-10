@@ -175,21 +175,20 @@ public class GsonElem {
             winc.form = this.form;
             ((GsonRoot) this).form = this.form;
         }
-        if (this.childs != null) {
-            this.childs.forEach(el -> {
-                try {
-                    el.owner = this;
-                    if (el.form != null) {
-                        winc.form = el.form;
-                    }
-                    if (List.of(Type.STVORKA, Type.AREA, Type.RECTANGL, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                        el.setOwnerAndForm(winc); //рекурсия 
-                    }
-                } catch (Exception e) {
-                    System.err.println("Ошибка:GsonElem.setOwnerAndForm() " + e);
+        this.childs.forEach(el -> {
+            try {
+                el.owner = this;
+                if (el.form != null) {
+                    winc.form = el.form;
                 }
-            });
-        }
+                //Если el.length != null - это Area
+                if (el.childs != null && el.length != null) {
+                    el.setOwnerAndForm(winc); //рекурсия 
+                }
+            } catch (Exception e) {
+                System.err.println("Ошибка:GsonElem.setOwnerAndForm() " + e);
+            }
+        });
     }
 
     public void notSerialize(GsonElem gsonElem) {
