@@ -181,8 +181,7 @@ public class GsonElem {
                 if (el.form != null) {
                     winc.form = el.form;
                 }
-                //Если el.length != null - это Area
-                if (el.childs != null && el.length != null) {
+                if (el.childs != null && el.length != null) { //это Area
                     el.setOwnerAndForm(winc); //рекурсия 
                 }
             } catch (Exception e) {
