@@ -111,11 +111,11 @@ public class Wincalc {
      */
     private void parsing(String script) {
         //Для тестирования
-        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));         
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));         
         try {
 
             //Конвертирование json скрипта конструкции 
-            //в объектную модель 1 уровн. java классов 
+            //в объектную модель 1 уров. java классов 
             rootGson = gson.fromJson(script, GsonRoot.class);
 
             //Назначить родителей т.к. Gson.fromJson() это не делает,

@@ -107,7 +107,7 @@ public class PSCompare extends javax.swing.JFrame {
         loadingData();
         loadingTabGroup1();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
-        tabb.setSelectedIndex(3);
+        tabb.setSelectedIndex(4);
         tab1.setColumnSelectionInterval(3, 3);
     }
     

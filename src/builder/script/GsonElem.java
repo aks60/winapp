@@ -28,11 +28,11 @@ public class GsonElem {
     protected Double length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     /**
-     *  Срабатывает при  десериализации и при new GsonRoot()
-     *  new GsonBuilder().create().fromJson(script, GsonRoot.class);
+     * Срабатывает при десериализации и при new GsonRoot() new
+     * GsonBuilder().create().fromJson(script, GsonRoot.class);
      */
     public GsonElem() {
-        ++genId;        
+        ++genId;
     }
 
     /**
@@ -160,7 +160,7 @@ public class GsonElem {
     public GsonElem owner() {
         return owner;
     }
-    
+
     public static double genId() {
         return ++genId;
     }
@@ -175,15 +175,21 @@ public class GsonElem {
             winc.form = this.form;
             ((GsonRoot) this).form = this.form;
         }
-        this.childs.forEach(el -> {
-            el.owner = this;
-            if (el.form != null) {
-                winc.form = el.form;
-            }
-            if (List.of(Type.STVORKA, Type.AREA, Type.RECTANGL, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                el.setOwnerAndForm(winc); //рекурсия 
-            }
-        });
+        if (this.childs != null) {
+            this.childs.forEach(el -> {
+                try {
+                    el.owner = this;
+                    if (el.form != null) {
+                        winc.form = el.form;
+                    }
+                    if (List.of(Type.STVORKA, Type.AREA, Type.RECTANGL, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
+                        el.setOwnerAndForm(winc); //рекурсия 
+                    }
+                } catch (Exception e) {
+                    System.err.println("Ошибка:GsonElem.setOwnerAndForm() " + e);
+                }
+            });
+        }
     }
 
     public void notSerialize(GsonElem gsonElem) {
