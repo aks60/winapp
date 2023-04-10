@@ -45,7 +45,6 @@ public enum eArtikl implements Field {
     currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
     currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT"),
     analog_id("4", "10", "1", "Аналог профиля", "analog_id");
-    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
@@ -116,7 +115,7 @@ public enum eArtikl implements Field {
     }
 
     public static List<Record> find3(int seriesID) {
-        if(seriesID == -1) {
+        if (seriesID == -1) {
             return List.of();
         }
         if (Query.conf.equals("calc")) {
@@ -141,5 +140,28 @@ public enum eArtikl implements Field {
 
     public String toString() {
         return meta.descr();
+    }
+
+    public Artikl create() {
+        return new Artikl();
+    }
+
+    public class Artikl {
+
+        public Artikl() {
+            query();
+        }
+
+        public int id(int i) {
+            return query.getAs(i, id);
+        }
+
+        public String code(int i) {
+            return query.getAs(i, code);
+        }
+
+        public String name(int i) {
+            return query.getAs(i, name);
+        }
     }
 }
