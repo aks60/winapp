@@ -458,6 +458,15 @@ public class GsonScript {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4}"))
                     .addElem(new GsonElem(Type.GLASS));
+            
+        } else if (prj == 506929) { //PUNIC = 425688
+            rootGson = new GsonRoot("1.0", null, null, null, "Montblanc/Eco/Непрямоугольные окна",
+                    Layout.VERT, Type.TRAPEZE, Form.SYMM, 790, 440, 615, 615, null, null, null);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.GLASS));            
 // </editor-fold>
             
 // <editor-fold defaultstate="collapsed" desc="DOOR">

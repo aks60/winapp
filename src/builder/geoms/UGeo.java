@@ -165,7 +165,7 @@ public class UGeo {
         return d;
     }
 }
-
+// <editor-fold defaultstate="collapsed" desc="Исходники"> 
 // C++ Program to implement Cyrus Beck  
 //#include <SFML/Graphics.hpp>
 //#include <iostream>
@@ -372,3 +372,4 @@ public class UGeo {
 // 
 //   return true;
 // }
+// </editor-fold> 
