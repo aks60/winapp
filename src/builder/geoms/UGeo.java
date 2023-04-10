@@ -144,9 +144,8 @@ public class UGeo {
     }
 
     //Ширина рамки по оси x и y
-    public static double[] diff(IElem5e e) {
-        
-        double dh = e.artiklRec().getDbl(eArtikl.height);
+    public static double[] diff(IElem5e e, double dh) {
+
         double x = -1 * UCom.cos(e.anglHoriz());
         double y = -1 * UCom.sin(e.anglHoriz());
         

@@ -401,9 +401,9 @@ public class ElemFrame extends ElemSimple {
             } else {
                 IElem5e e1 = winc.listJoin.elem(this, 0);
                 IElem5e e2 = winc.listJoin.elem(this, 1);
-                double h[] = UGeo.diff(this);
-                double h1[] = UGeo.diff(e1);
-                double h2[] = UGeo.diff(e2);
+                double h[] = UGeo.diff(this, this.artiklRec().getDbl(eArtikl.height));
+                double h1[] = UGeo.diff(e1, e1.artiklRec().getDbl(eArtikl.height));
+                double h2[] = UGeo.diff(e2, e2.artiklRec().getDbl(eArtikl.height));
                 double p1[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
                 double p2[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
                 DrawStroke.strokePolygon(winc, x1, x2, p2[0], p1[0], y1, y2, p2[1], p1[1], rgb, borderColor);
