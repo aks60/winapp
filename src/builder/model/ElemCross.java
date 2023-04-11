@@ -68,7 +68,7 @@ public class ElemCross extends ElemSimple {
         } else if (Type.TRAPEZE == owner.type()) {
             double dy = 0;           
             IArea5e prevArea = (IArea5e) owner.childs().get(0);
-            
+
             if (eProp.dev == true && winc.rootGson.project() != null && (winc.rootGson.project() == 605001 || winc.rootGson.project() == -605001)) { //тест
                 prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), 400);
                 
@@ -81,12 +81,34 @@ public class ElemCross extends ElemSimple {
                     double angl = root.frames().get(Layout.LEFT).anglCut(0);
                     dy = (root.frames().get(Layout.LEFT).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(90 - angl)));
                     prevArea.setDimension(prevArea.x1(), prevArea.y1(), prevArea.x2(), prevArea.y2() + artiklRec().getDbl(eArtikl.size_centr) + dy);
+                } else if (winc.form == Form.SYMM) {
+//                    double angl = root.frames().get(Layout.TOP).anglCut(0);
+//                    dy = (root.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(angl)));
+//                    for (ICom5t com5t :  owner.childs()) {
+//                        if(com5t instanceof AreaSimple) {
+//                           com5t.setDimension(com5t.x1() + dy, com5t.y2(), com5t.x2() + dy, com5t.y1()); 
+//                        }   
+//                    }
+                    
+                    
+//                    IArea5e oneArea = (IArea5e) owner.childs().get(0), twoArea = (IArea5e) owner.childs().get(1), threeArea = (IArea5e) owner.childs().get(2);
+//                    oneArea.setDimension(prevArea.x2() + dy, oneArea.y2(), oneArea.x2() + dy, oneArea.y1());  
+
+//                      if (prevArea.x1() == 0) {
+//                        double angl = root.frames().get(Layout.TOP).anglCut(0);
+//                        dy = (root.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(angl)));
+//                        prevArea.setDimension(prevArea.x2() + dy, prevArea.y2(), prevArea.x2() + dy, prevArea.y1());
+//                    } else {
+//                        IArea5e lastArea = (IArea5e) owner.childs().get(owner.childs().size() - 1);
+//                        double angl = root.frames().get(Layout.TOP).anglCut(0);
+//                        dy = (root.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height) * Math.tan(Math.toRadians(angl)));
+//                        setDimension(lastArea.x1() - dy, lastArea.y2(), lastArea.x1() - dy, lastArea.y1());
+//                    }
                 }
             }
         }
         //Установка координат
-        for (int index = owner.childs().size() - 1;
-                index >= 0; --index) {
+        for (int index = owner.childs().size() - 1; index >= 0; --index) {
             if (owner.childs().get(index) instanceof IArea5e) {
                 ICom5t prevArea = owner.childs().get(index); //index указывает на предыдущий элемент
 
