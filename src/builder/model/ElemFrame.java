@@ -101,7 +101,7 @@ public class ElemFrame extends ElemSimple {
             double H = Math.abs(winc.height1() - winc.height2());
             double W = root().width();
             double Dx = (winc.width1() - winc.width2()) / 2;
-            double De = (winc.height1() - winc.height2()) / 2;
+            double Dy = (winc.height1() - winc.height2()) / 2;
 
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1(), owner.y2(), owner.x2(), owner.y2());
@@ -112,10 +112,10 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1());
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(owner.x2(), owner.y2(), owner.x2() - Dx, owner.y1());
+                    setDimension(owner.x2(), owner.y2(), owner.x2(), owner.y1() + Dy);
                 }
             } else if (Layout.TOPR == layout && winc.form == Form.SYMM) {
-                setDimension(owner.x2(), owner.y2(), owner.x1() -  + Dx, owner.y1());
+                setDimension(owner.x2(), owner.y1() + Dy, owner.x2() - Dx, owner.y1());
                 
             } else if (Layout.TOP == layout) {
                 if (winc.form == Form.RIGHT) {
@@ -126,7 +126,7 @@ public class ElemFrame extends ElemSimple {
                     setDimension(owner.x2() - Dx, owner.y1(), owner.x1() + Dx, owner.y1());
                 }               
             } else if (Layout.TOPL == layout && winc.form == Form.SYMM) { 
-                setDimension(owner.x2() - Dx, owner.y1(), owner.x1() + Dx, owner.y1());
+                setDimension(owner.x1() + Dx, owner.y1(), owner.x1(), owner.y1() + Dy);
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
@@ -134,7 +134,7 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.LEFT) {
                     setDimension(owner.x1(), winc.height2() - winc.height1(), owner.x1(), owner.y2());
                 } else if (winc.form == Form.SYMM) {
-                    setDimension(owner.x1() + Dx, owner.y1(), owner.x1(), owner.y2());
+                    setDimension(owner.x1(), owner.y1() + Dy, owner.x1(), owner.y2());
                 }
             }
 
@@ -404,7 +404,6 @@ public class ElemFrame extends ElemSimple {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, (r - a), rgb, borderColor);
                 }
             } else {
-                System.out.println("frame = " + this.layout());
                 IElem5e e1 = winc.listJoin.elem(this, 0);
                 IElem5e e2 = winc.listJoin.elem(this, 1);
                 double h[] = UGeo.diff(this, this.artiklRec().getDbl(eArtikl.height));
@@ -413,6 +412,7 @@ public class ElemFrame extends ElemSimple {
                 double p1[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
                 double p2[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
                 DrawStroke.strokePolygon(winc, x1, x2, p2[0], p1[0], y1, y2, p2[1], p1[1], rgb, borderColor);
+               //DrawStroke.drawLine(winc, x1, y1, x2, y2);
                 //System.out.println(this.layout + " = " + p1[0] + ":" + p2[1] + " angl = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));                
             }
         } catch (Exception s) {

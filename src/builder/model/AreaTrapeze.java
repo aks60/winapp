@@ -33,16 +33,20 @@ public class AreaTrapeze extends AreaSimple {
 
         if (winc.form == Form.SYMM) {
             winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemBott, elemRight)); //угловое соединение правое нижнее
-            if (frames.get(Layout.TOPL) != null) {
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemLeft, elemBott)); //угловое соединение левое нижнее
+            if (frames.get(Layout.TOPR) != null) {
                 winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemRight, elemTopR)); //угловое соединение правое среднее
                 winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTopR, elemTop)); //угловое соединение правое верхнее
             }
+            if (frames.get(Layout.TOPL) != null) {
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTopL, elemLeft)); //угловое соединение левое среднее
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTop, elemTopL)); //угловое соединение левое верхнее
+            }           
         } else {
             winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemBott, elemRight)); //угловое соединение правое нижнее 
             winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemRight, elemTop)); //угловое соединение правое верхнее
             winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTop, elemLeft));    //угловое соединение левое верхнее
             winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemLeft, elemBott)); //угловое соединение левое нижнее 
         }
-
     }
 }
