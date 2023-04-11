@@ -32,16 +32,16 @@ public class AreaTrapeze extends AreaSimple {
                 elemTopL = frames.get(Layout.TOPL), elemLeft = frames.get(Layout.LEFT);
 
         if (winc.form == Form.SYMM) {
-            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight)); //угловое соединение правое нижнее
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemBott, elemRight)); //угловое соединение правое нижнее
             if (frames.get(Layout.TOPL) != null) {
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTopR)); //угловое соединение правое среднее
-                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemTopR, elemTop)); //угловое соединение правое верхнее
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemRight, elemTopR)); //угловое соединение правое среднее
+                winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTopR, elemTop)); //угловое соединение правое верхнее
             }
         } else {
-            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight)); //угловое соединение правое нижнее 
-            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop)); //угловое соединение правое верхнее
-            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft));    //угловое соединение левое верхнее
-            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott)); //угловое соединение левое нижнее 
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemBott, elemRight)); //угловое соединение правое нижнее 
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemRight, elemTop)); //угловое соединение правое верхнее
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemTop, elemLeft));    //угловое соединение левое верхнее
+            winc.listJoin.add(new ElemJoining(winc, TypeJoin.VAR20, LayoutJoin.ANGL, elemLeft, elemBott)); //угловое соединение левое нижнее 
         }
 
     }
