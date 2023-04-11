@@ -141,27 +141,4 @@ public enum eArtikl implements Field {
     public String toString() {
         return meta.descr();
     }
-
-    public Artikl create() {
-        return new Artikl();
-    }
-
-    public class Artikl {
-
-        public Artikl() {
-            query();
-        }
-
-        public int id(int i) {
-            return query.getAs(i, id);
-        }
-
-        public String code(int i) {
-            return query.getAs(i, code);
-        }
-
-        public String name(int i) {
-            return query.getAs(i, name);
-        }
-    }
 }

@@ -10,8 +10,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import common.*;
 import dataset.*;
-import domain.eArtikl;
-import domain.eArtikl.Artikl;
 import domain.eElement;
 import java.sql.Connection;
 import java.util.List;
@@ -169,10 +167,7 @@ public class Test {
             Conn.connection(Test.connect2());
             Object obj = eElement.find3(1386, 33);
             //System.out.println(obj);
-            
-            Artikl art = eArtikl.up.create();
-            System.out.println(art.name(33));            
-
+                   
         } catch (Exception e) {
             System.out.println("main.Test.query()");
         }
