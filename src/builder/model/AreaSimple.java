@@ -389,6 +389,13 @@ public class AreaSimple extends Com5t implements IArea5e {
             frames.get(Layout.BOTT).paint();
             frames.get(Layout.LEFT).paint();
             frames.get(Layout.RIGHT).paint();
+            if(frames.get(Layout.TOPR) != null) {
+               frames.get(Layout.TOPR).paint();
+            }
+            if(frames.get(Layout.TOPL) != null) {
+               frames.get(Layout.TOPL).paint();
+            }
+            
 
             //Прорисовка створок
             LinkedList<IArea5e> elemStvorkaList = winc.listArea.filter(Type.STVORKA);

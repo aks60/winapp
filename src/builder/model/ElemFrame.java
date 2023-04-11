@@ -63,7 +63,7 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
                 sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.RIGHT, UseSide.VERT);
-            } else if (Layout.TOP.equals(layout)) {
+            } else if (Layout.TOP.equals(layout) || Layout.TOPR.equals(layout) || Layout.TOPL.equals(layout)) {
                 sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.TOP, UseSide.HORIZ);
             } else if (Layout.LEFT.equals(layout)) {
                 sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.LEFT, UseSide.VERT);
@@ -101,6 +101,7 @@ public class ElemFrame extends ElemSimple {
             double H = Math.abs(winc.height1() - winc.height2());
             double W = root().width();
             double Dx = (winc.width1() - winc.width2()) / 2;
+            double De = (winc.height1() - winc.height2()) / 2;
 
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1(), owner.y2(), owner.x2(), owner.y2());
@@ -113,7 +114,9 @@ public class ElemFrame extends ElemSimple {
                 } else if (winc.form == Form.SYMM) {
                     setDimension(owner.x2(), owner.y2(), owner.x2() - Dx, owner.y1());
                 }
-
+            } else if (Layout.TOPR == layout && winc.form == Form.SYMM) {
+                setDimension(owner.x2(), owner.y2(), owner.x1() -  + Dx, owner.y1());
+                
             } else if (Layout.TOP == layout) {
                 if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2(), winc.height1() - winc.height2(), owner.x1(), owner.y1());
@@ -121,7 +124,9 @@ public class ElemFrame extends ElemSimple {
                     setDimension(owner.x2(), owner.y1(), owner.x1(), winc.height2() - winc.height1());
                 } else if (winc.form == Form.SYMM) {
                     setDimension(owner.x2() - Dx, owner.y1(), owner.x1() + Dx, owner.y1());
-                }
+                }               
+            } else if (Layout.TOPL == layout && winc.form == Form.SYMM) { 
+                setDimension(owner.x2() - Dx, owner.y1(), owner.x1() + Dx, owner.y1());
 
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.RIGHT) {
@@ -399,6 +404,7 @@ public class ElemFrame extends ElemSimple {
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, (r - a), rgb, borderColor);
                 }
             } else {
+                System.out.println("frame = " + this.layout());
                 IElem5e e1 = winc.listJoin.elem(this, 0);
                 IElem5e e2 = winc.listJoin.elem(this, 1);
                 double h[] = UGeo.diff(this, this.artiklRec().getDbl(eArtikl.height));

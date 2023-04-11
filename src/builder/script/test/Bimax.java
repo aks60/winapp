@@ -478,7 +478,7 @@ public final class Bimax {
 
 //        } else if (prj == 508945) { //PUNIC = 427737  Трапеции
 //            rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
-//                    Layout.VERT, Type.TRAPEZE, 600, 600, 1400, 1009, 10005, 1009);
+//                    Layout.VERT, Type.TRAPEZE, 600, 600, 1400, 1009, 1009, 1009);
 //            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
 //                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -495,7 +495,7 @@ public final class Bimax {
             //790 = 175 + 175 + 440, 440 + 175 = 615,  h = 790,  w = 790
         } else if (prj == 506929) { //PUNIC = 425688 onumb=1
             rootGson = new GsonRoot("1.0", prj, 1, 202, "Montblanc\\Eco\\НЕПРЯМОУГОЛЬНЫЕ ОКНА",
-                    Layout.VERT, Type.TRAPEZE, Form.SYMM, 790, 440, 615, 615, 1009, 10009, 1009);
+                    Layout.VERT, Type.TRAPEZE, Form.SYMM, 790, 440, 615, 615, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -504,18 +504,20 @@ public final class Bimax {
 
         } else if (prj == 508945) { //PUNIC = 427737 onumb=1
             rootGson = new GsonRoot("1.0", prj, 6, 8, "KBE\\KBE 58\\ОКНА\\Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.TRAPEZE, Form.SYMM, 790, 440, 615, 615, 1009, 10009, 1009);
+                    Layout.HORIZ, Type.TRAPEZE, Form.SYMM, 2000, 500, 1400, 1000, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOPR))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOPL))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 175));
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 413))
+                    .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 440));
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1174))
+                    .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 175))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 413))
                     .addElem(new GsonElem(Type.GLASS));
 // </editor-fold>
 

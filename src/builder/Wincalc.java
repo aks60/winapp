@@ -232,7 +232,7 @@ public class Wincalc {
             }
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.elements() " + e);
+            System.err.println("Ошибка:Wincalc.elements(*) " + e);
         }
     }
 
