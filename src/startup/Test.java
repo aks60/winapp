@@ -1,5 +1,6 @@
 package startup;
 
+import builder.geoms.UGeo;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
@@ -65,14 +66,15 @@ public class Test {
         eProp.dev = true;
         try {
             //frames.PSConvert.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
             //json();
             //uid();
             //script();
-            //lookAndFeel();          
+            //lookAndFeel();    
+            UGeo.testArea();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

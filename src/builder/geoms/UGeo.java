@@ -2,8 +2,11 @@ package builder.geoms;
 
 import builder.IElem5e;
 import common.UCom;
-import domain.eArtikl;
 import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -146,7 +149,7 @@ public class UGeo {
 
     //Точка пересечения двух векторов 
     static Point cross(Point A, Point B, Point C, Point D) {
-        
+
         // Line AB represented as a1x + b1y = c1
         double a1 = B.y - A.y;
         double b1 = A.x - B.x;
@@ -169,7 +172,7 @@ public class UGeo {
             return new Point((int) x, (int) y);
         }
     }
-    
+
     //Ширина рамки по оси x и y
     public static double[] diff(IElem5e e, double dh) {
 
@@ -191,7 +194,23 @@ public class UGeo {
         }
         return d;
     }
-    
+
+    public static void testArea() {
+        Area a = new Area(new Rectangle(1, 1, 5, 5));
+        PathIterator iterator = a.getPathIterator(null);
+        float[] floats = new float[6];
+        Polygon polygon = new Polygon();
+        while (!iterator.isDone()) {
+            int type = iterator.currentSegment(floats);
+            int x = (int) floats[0];
+            int y = (int) floats[1];
+            if (type != PathIterator.SEG_CLOSE) {
+                polygon.addPoint(x, y);
+                System.out.println("adding x = " + x + ", y = " + y);
+            }
+            iterator.next();
+        }
+    }
 }
 // <editor-fold defaultstate="collapsed" desc="Исходники"> 
 // C++ Program to implement Cyrus Beck  
