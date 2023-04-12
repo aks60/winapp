@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum LayoutJoin implements Enam {
 
     NONE(0, "Не определено"),
-    ANGL(1, "Угловое левое", 20, 31),
+    ANGL(1, "Угловое", 20, 31),
     TEE(5, "T - соединение", 40, 41),
     FLAT(9, "Прилегающее", 10);
 

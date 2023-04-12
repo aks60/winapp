@@ -195,6 +195,7 @@ public class UGeo {
         return d;
     }
 
+    //Пример PathIterator
     public static void testArea() {
         Area a = new Area(new Rectangle(1, 1, 5, 5));
         PathIterator iterator = a.getPathIterator(null);

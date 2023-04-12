@@ -17,12 +17,13 @@ import com.google.gson.JsonObject;
 import common.UCom;
 import common.listener.ListenerReload;
 import enums.Form;
-import enums.LayoutJoin;
 import enums.PKjson;
 import enums.Type;
-import enums.TypeJoin;
 import enums.UseUnit;
 import java.awt.Color;
+import java.awt.Shape;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 
 public class ElemGlass extends ElemSimple {
 
@@ -420,6 +421,18 @@ public class ElemGlass extends ElemSimple {
     @Override
     public void paint() { //рисуём стёкла
 
+        Shape shape = new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1());
+        Area area = new Area(shape);
+        System.out.println("**********" + this.id());
+        for (ElemJoining ejoin : winc.listJoin) {
+            if(area.contains(ejoin.elem1.x1(), ejoin.elem1.y1()) || 
+                    area.contains(ejoin.elem1.x2(), ejoin.elem1.y2()) ||
+                    area.contains(ejoin.elem2.x1(), ejoin.elem2.y1()) ||
+                    area.contains(ejoin.elem2.x2(), ejoin.elem2.y2())) {
+                System.out.println(this.id() + " ======= " + ejoin);
+            }
+        }
+        
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
