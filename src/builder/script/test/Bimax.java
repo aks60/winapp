@@ -511,13 +511,13 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOPL))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 500))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 800))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 500))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
 // </editor-fold>
 
