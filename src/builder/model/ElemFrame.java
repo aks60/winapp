@@ -174,7 +174,7 @@ public class ElemFrame extends ElemSimple {
             if (owner.type() == Type.ARCH) {
                 if (Layout.TOP == layout) {
                     AreaArch areaArch = (AreaArch) root();
-                    double angl = UCom.asin((width() / 2) / areaArch.radiusArch);
+                    double angl = UGeo.asin((width() / 2) / areaArch.radiusArch);
                     lengthArch = ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                     spcRec.width = lengthArch + 2 * winc.syssizeRec().getDbl(eSyssize.prip);
                     spcRec.height = owner.frames().get(Layout.TOP).artiklRec().getDbl(eArtikl.height);
@@ -390,23 +390,23 @@ public class ElemFrame extends ElemSimple {
 
                 } else if (Layout.RIGHT == layout) {
                     double r = ((AreaArch) root()).radiusArch;
-                    double ang2 = 90 - UCom.asin((root().width() - 2 * dh) / ((r - dh) * 2));
-                    double a = (r - dh) * UCom.sin(ang2);
+                    double ang2 = 90 - UGeo.asin((root().width() - 2 * dh) / ((r - dh) * 2));
+                    double a = (r - dh) * UGeo.sin(ang2);
                     DrawStroke.strokePolygon(winc, x1 - dh, x2, x2, x1 - dh, y1 - dh, y1, y2, (r - a), rgb, borderColor);
 
                 } else if (Layout.TOP == layout) { //прорисовка арки               
                     double r = ((AreaArch) root()).radiusArch;
                     double dr = .5; //TODO для прорисовки арки добавил 0.5 градус, а это не айс! 
-                    double ang1 = 90 - UCom.asin(owner.width() / (r * 2));
-                    double ang2 = 90 - UCom.asin((owner.width() - 2 * dh) / ((r - dh) * 2));
+                    double ang1 = 90 - UGeo.asin(owner.width() / (r * 2));
+                    double ang2 = 90 - UGeo.asin((owner.width() - 2 * dh) / ((r - dh) * 2));
                     DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + dr, rgb, dh);
                     DrawStroke.strokeArc(winc, owner.width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + dr, 0, 4);
                     DrawStroke.strokeArc(winc, owner.width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + dr, 0, 4);
 
                 } else if (Layout.LEFT == layout) {
                     double r = ((AreaArch) root()).radiusArch;
-                    double ang2 = 90 - UCom.asin((root().width() - 2 * dh) / ((r - dh) * 2));
-                    double a = (r - dh) * UCom.sin(ang2);
+                    double ang2 = 90 - UGeo.asin((root().width() - 2 * dh) / ((r - dh) * 2));
+                    double a = (r - dh) * UGeo.sin(ang2);
                     DrawStroke.strokePolygon(winc, x1, x2, x2 + dh, x1 + dh, y1, y2, y2 - dh, (r - a), rgb, borderColor);
                 }
             } else {

@@ -66,7 +66,7 @@ public class Test {
         eProp.dev = true;
         try {
             //frames.PSConvert.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -74,7 +74,6 @@ public class Test {
             //uid();
             //script();
             //lookAndFeel();    
-            UGeo.testArea();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

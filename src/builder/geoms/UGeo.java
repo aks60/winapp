@@ -176,8 +176,8 @@ public class UGeo {
     //Ширина рамки по оси x и y
     public static double[] diff(IElem5e e, double dh) {
 
-        double x = -1 * UCom.cos(e.anglHoriz());
-        double y = -1 * UCom.sin(e.anglHoriz());
+        double x = -1 * cos(e.anglHoriz());
+        double y = -1 * sin(e.anglHoriz());
 
         if (Math.abs(x) >= Math.abs(y)) {
             return new double[]{0, dh / x};
@@ -195,6 +195,71 @@ public class UGeo {
         return d;
     }
 
+    public static double sin(double angl) {
+        return Math.sin(Math.toRadians(angl));
+    }
+    
+    public static double asin(double angl) {
+        return Math.toDegrees(Math.asin(angl));
+    }
+
+    public static double cos(double angl) {
+        return Math.cos(Math.toRadians(angl));
+    }
+
+    public static double tan(double angl) {
+        return Math.tan(Math.toRadians(angl));
+    }
+        
+    public static double acos(double angl) {
+        return Math.toDegrees(Math.acos(angl));
+    }
+
+    public static double atan(double angl) {
+        return Math.toDegrees(Math.atan(angl));
+    }
+
+    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
+    public static double betweenAngl(IElem5e e1, IElem5e e2) {
+
+        double dx1 = e1.x2() - e1.x1();
+        double dy1 = e1.y2() - e1.y1();
+        double dx2 = e2.x2() - e2.x1();
+        double dy2 = e2.y2() - e2.y1();
+
+        double s = dx1 * dx2 + dy1 * dy2;
+        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
+        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
+        double c = s / (a * b);
+        return 180 - acos(c);
+    }
+
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(IElem5e e) {
+        double x = e.x2() - e.x1();
+        double y = e.y1() - e.y2();
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+        
     //Пример PathIterator
     public static void testArea() {
         Area a = new Area(new Rectangle(1, 1, 5, 5));

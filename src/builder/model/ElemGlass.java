@@ -2,6 +2,7 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
+import builder.geoms.UGeo;
 import builder.making.Filling;
 import dataset.Record;
 import domain.eArtdet;
@@ -24,6 +25,8 @@ import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class ElemGlass extends ElemSimple {
 
@@ -129,13 +132,13 @@ public class ElemGlass extends ElemSimple {
 
             if (winc.form == Form.RIGHT) {
                 ElemJoining ej = winc.listJoin.get(inTop, 1);
-                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
-                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UGeo.sin(ej.angl);
+                double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UGeo.tan(90 - ej.angl);
                 y1 = dy1 + dy2;
             } else if (winc.form == Form.LEFT) {
                 ElemJoining ej = winc.listJoin.get(inTop, 0);
-                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UCom.sin(ej.angl);
-                double dy2 = (inRight.artiklRec().getDbl(eArtikl.height) - inRight.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UCom.tan(90 - ej.angl);
+                double dy1 = (inTop.artiklRec().getDbl(eArtikl.height) - inTop.artiklRec().getDbl(eArtikl.size_falz) + gzazo) / UGeo.sin(ej.angl);
+                double dy2 = (inRight.artiklRec().getDbl(eArtikl.height) - inRight.artiklRec().getDbl(eArtikl.size_falz) + gzazo) * UGeo.tan(90 - ej.angl);
                 y1 = dy1 + dy2;
             }
             y2 = inBott.y2() - (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr)) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
@@ -252,7 +255,7 @@ public class ElemGlass extends ElemSimple {
 
                         } else if (anglHoriz() == 90) {
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut(1));
+                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UGeo.tan(90 - inRigh.anglCut(1));
                             spcAdd.width += Math.abs(inRigh.y2() - inRigh.y1()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inRigh.anglCut(0);
@@ -262,7 +265,7 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 180) {
                             double dx1 = inLeft.x2() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz);
                             double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
-                            spcAdd.width += (dx2 - dx1) / UCom.sin(2 * inTop.anglCut(1));
+                            spcAdd.width += (dx2 - dx1) / UGeo.sin(2 * inTop.anglCut(1));
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inTop.anglCut(0);
                             spcAdd.anglCut1 = inTop.anglCut(1);
@@ -270,7 +273,7 @@ public class ElemGlass extends ElemSimple {
 
                         } else if (anglHoriz() == 270) {
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inLeft.anglCut(0));
+                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UGeo.tan(90 - inLeft.anglCut(0));
                             spcAdd.width += Math.abs(inLeft.y2() - inLeft.y1()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inLeft.anglCut(0);
@@ -287,7 +290,7 @@ public class ElemGlass extends ElemSimple {
 
                         } else if (anglHoriz() == 90) {
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inRigh.anglCut(1));
+                            double dy2 = (inRigh.artiklRec().getDbl(eArtikl.height) - inRigh.artiklRec().getDbl(eArtikl.size_falz)) * UGeo.tan(90 - inRigh.anglCut(1));
                             spcAdd.width += Math.abs(inRigh.y2() - inRigh.y1()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inRigh.anglCut(0);
@@ -297,7 +300,7 @@ public class ElemGlass extends ElemSimple {
                         } else if (anglHoriz() == 180) {
                             double dx1 = inLeft.x2() + inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz);
                             double dx2 = inRigh.x2() - inRigh.artiklRec().getDbl(eArtikl.height) + inRigh.artiklRec().getDbl(eArtikl.size_falz);
-                            spcAdd.width += (dx2 - dx1) / UCom.sin(2 * inTop.anglCut(0));
+                            spcAdd.width += (dx2 - dx1) / UGeo.sin(2 * inTop.anglCut(0));
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inTop.anglCut(0);
                             spcAdd.anglCut1 = inTop.anglCut(1);
@@ -305,7 +308,7 @@ public class ElemGlass extends ElemSimple {
 
                         } else if (anglHoriz() == 270) {
                             double dy1 = (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr) - inBott.artiklRec().getDbl(eArtikl.size_falz));
-                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UCom.tan(90 - inLeft.anglCut(0));
+                            double dy2 = (inLeft.artiklRec().getDbl(eArtikl.height) - inLeft.artiklRec().getDbl(eArtikl.size_falz)) * UGeo.tan(90 - inLeft.anglCut(0));
                             spcAdd.width += Math.abs(inLeft.y2() - inLeft.y1()) - (dy1 + dy2);
                             spcAdd.height = spcAdd.artiklRec.getDbl(eArtikl.height);
                             spcAdd.anglCut0 = inLeft.anglCut(0);
@@ -420,19 +423,22 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() { //рисуём стёкла
-
-        Shape shape = new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1());
-        Area area = new Area(shape);
         System.out.println("**********" + this.id());
-        for (ElemJoining ejoin : winc.listJoin) {
-            if(area.contains(ejoin.elem1.x1(), ejoin.elem1.y1()) || 
-                    area.contains(ejoin.elem1.x2(), ejoin.elem1.y2()) ||
-                    area.contains(ejoin.elem2.x1(), ejoin.elem2.y1()) ||
-                    area.contains(ejoin.elem2.x2(), ejoin.elem2.y2())) {
-                System.out.println(this.id() + " ======= " + ejoin);
+
+        Set<ElemJoining> eSet = new LinkedHashSet();
+        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
+        for (ElemJoining ej : winc.listJoin) {
+            double h1[] = UGeo.diff(ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
+            double h2[] = UGeo.diff(ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
+            double p[] = UGeo.cross(
+                    ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
+                    ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
+            if (area.contains(p[0], p[1])) {
+                eSet.add(ej);
+                //System.out.println(ej);
             }
         }
-        
+
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
@@ -451,26 +457,26 @@ public class ElemGlass extends ElemSimple {
 
             if (owner.type() == Type.STVORKA) {
                 if (winc.form == Form.RIGHT) {
-                    double dy = width() * UCom.tan(90 - (inTop.anglHoriz() - 90));
+                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
                 } else if (winc.form == Form.LEFT) {
-                    double dy = width() * UCom.tan((inTop.anglHoriz() - 180));
+                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
                 }
             } else {
                 ElemJoining ej = winc.listJoin.get(inTop, 1);
                 if (winc.form == Form.RIGHT) {
-                    double dy = width() * UCom.tan(90 - (inTop.anglHoriz() - 90));
+                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
                 } else if (winc.form == Form.LEFT) {
-                    double dy = width() * UCom.tan((inTop.anglHoriz() - 180));
+                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
                     winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                             new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
                 } else if (winc.form == Form.SYMM) {
-                    double dx = (winc.width1() - winc.width2()) / 2 + width() * UCom.tan((inTop.anglHoriz() - 180));
+                    double dx = (winc.width1() - winc.width2()) / 2 + width() * UGeo.tan((inTop.anglHoriz() - 180));
                     winc.gc2d.fillPolygon(new int[]{(int) (x1 + dx), (int) (x2 - dx), (int) x2, (int) x1},
                             new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
                 }
