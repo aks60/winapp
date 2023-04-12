@@ -22,7 +22,6 @@ import enums.PKjson;
 import enums.Type;
 import enums.UseUnit;
 import java.awt.Color;
-import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedHashSet;
