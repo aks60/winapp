@@ -1,10 +1,12 @@
 package builder.geoms;
 
 import builder.IElem5e;
-import common.UCom;
+import enums.Layout;
+import enums.Type;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -186,6 +188,26 @@ public class UGeo {
         }
     }
 
+    public static double[] diff(Area shape, IElem5e e, double dh) {
+        boolean imp = false;
+        if (e.type() == Type.IMPOST || e.type() == Type.STOIKA || e.type() == Type.RIGEL_IMP) {
+            if (e.layout() == Layout.VERT && (shape.getBounds2D().getX() == e.x1() || shape.getBounds2D().getX() == e.x2())) {
+                imp = true;
+            }
+            if (e.layout() == Layout.HORIZ && (shape.getBounds2D().getY() == e.y1() || shape.getBounds2D().getY() == e.y2())) {
+                imp = true;
+            }
+        }
+        double x = -1 * cos(e.anglHoriz());
+        double y = -1 * sin(e.anglHoriz());
+
+        if (Math.abs(x) >= Math.abs(y)) {
+            return (imp) ? new double[]{0, -dh / x} : new double[]{0, dh / x};
+        } else {
+            return (imp) ? new double[]{-dh / y, 0} : new double[]{dh / y, 0};
+        }
+    }
+
     private static double min(double d) {
         for (int i = 0; i < 4; i++) {
             if (d > 90) {
@@ -198,7 +220,7 @@ public class UGeo {
     public static double sin(double angl) {
         return Math.sin(Math.toRadians(angl));
     }
-    
+
     public static double asin(double angl) {
         return Math.toDegrees(Math.asin(angl));
     }
@@ -210,7 +232,7 @@ public class UGeo {
     public static double tan(double angl) {
         return Math.tan(Math.toRadians(angl));
     }
-        
+
     public static double acos(double angl) {
         return Math.toDegrees(Math.acos(angl));
     }
@@ -259,7 +281,7 @@ public class UGeo {
             return 0;
         }
     }
-        
+
     //Пример PathIterator
     public static void testArea() {
         Area a = new Area(new Rectangle(1, 1, 5, 5));

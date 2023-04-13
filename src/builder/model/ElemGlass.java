@@ -20,8 +20,10 @@ import common.listener.ListenerReload;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
+import enums.TypeJoin;
 import enums.UseUnit;
 import java.awt.Color;
+import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedHashSet;
@@ -422,21 +424,8 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() { //рисуём стёкла
-        System.out.println("**********" + this.id());
 
-        Set<ElemJoining> eSet = new LinkedHashSet();
-        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
-        for (ElemJoining ej : winc.listJoin) {
-            double h1[] = UGeo.diff(ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
-            double h2[] = UGeo.diff(ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
-            double p[] = UGeo.cross(
-                    ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
-                    ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
-            if (area.contains(p[0], p[1])) {
-                eSet.add(ej);
-                //System.out.println(ej);
-            }
-        }
+        pset();
 
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
@@ -484,6 +473,39 @@ public class ElemGlass extends ElemSimple {
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+        }
+    }
+
+    private void pset() {
+        System.out.println("**********" + this.id());
+        Set<ElemJoining> eSet = new LinkedHashSet();
+        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
+        for (ElemJoining ej : winc.listJoin) {
+            if (ej.type != TypeJoin.VAR10) {
+                double h1[] = UGeo.diff(ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
+                double h2[] = UGeo.diff(ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
+                double p[] = UGeo.cross(
+                        ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
+                        ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
+                if (area.contains(p[0], p[1])) {
+                    eSet.add(ej);
+                    System.out.println(ej + " Point = " + p[0] + ":" + p[1]);
+                }
+            }
+        }
+    }
+
+    private void pset2() {
+        System.out.println("**********" + this.id());
+        Shape shape = new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1());
+        Area area = new Area(shape);
+        for (ElemJoining ejoin : winc.listJoin) {
+            if (area.contains(ejoin.elem1.x1(), ejoin.elem1.y1())
+                    || area.contains(ejoin.elem1.x2(), ejoin.elem1.y2())
+                    || area.contains(ejoin.elem2.x1(), ejoin.elem2.y1())
+                    || area.contains(ejoin.elem2.x2(), ejoin.elem2.y2())) {
+                System.out.println(this.id() + " ======= " + ejoin);
+            }
         }
     }
 

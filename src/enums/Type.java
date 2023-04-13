@@ -8,7 +8,7 @@ public enum Type implements Enam {
     FRAME_SIDE(1, 1, "Сторона коробки"),
     STVORKA_SIDE(2, 2, "Сторона створки"),
     IMPOST(3, 3, "Импост"),
-    RIGEL_IMPOST(4, 777, "Ригель/импост"),
+    RIGEL_IMP(4, 777, "Ригель/импост"),
     STOIKA(5, 5, "Стойка"),
     //STOIKA_FRAME(6, 777, "Стойка/коробка"),
     ERKER(7, 7, "Эркер"),
