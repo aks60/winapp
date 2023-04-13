@@ -437,6 +437,7 @@ public class ElemGlass extends ElemSimple {
         List<Point2D> list = pset();
         Collections.sort(list, new Comparator<Point2D>() {
             @Override
+            //http://rsdn.org/forum/alg/3461405.all
             public int compare(Point2D a, Point2D b) {
                 Double d = a.getX() * b.getY() - a.getY() * b.getX();
                 return -1 * d.compareTo(Double.valueOf(0));
