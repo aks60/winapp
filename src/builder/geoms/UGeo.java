@@ -299,6 +299,52 @@ public class UGeo {
             iterator.next();
         }
     }
+    
+    
+//    struct pt {
+//	double x, y;
+//};
+//
+//public static boolean cmp(Point2D a, Point2D b) {
+//	return a.x < b.x || a.x == b.x && a.y < b.y;
+//}
+//
+//public static boolean cw(Point2D a, Point2D b, Point2D c) {
+//	return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0;
+//}
+//
+//public static boolean ccw(Point2D a, Point2D b, Point2D c) {
+//	return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+//}
+//
+//public static void convex_hull(List<Point2D>  a) {
+//	if (a.size() == 1)  return;
+//        
+//	sort (a.begin(), a.end(), &cmp);
+//        
+//	Point2D p1 = a[0],  p2 = a.back();
+//        
+//	vector<Point2D> up, down;
+//	up.push_back (p1);
+//	down.push_back (p1);
+//	for (size_t i=1; i<a.size(); ++i) {
+//		if (i==a.size()-1 || cw (p1, a[i], p2)) {
+//			while (up.size()>=2 && !cw (up[up.size()-2], up[up.size()-1], a[i]))
+//				up.pop_back();
+//			up.push_back (a[i]);
+//		}
+//		if (i==a.size()-1 || ccw (p1, a[i], p2)) {
+//			while (down.size()>=2 && !ccw (down[down.size()-2], down[down.size()-1], a[i]))
+//				down.pop_back();
+//			down.push_back (a[i]);
+//		}
+//	}
+//	a.clear();
+//	for (size_t i=0; i<up.size(); ++i)
+//		a.push_back (up[i]);
+//	for (size_t i=down.size()-2; i>0; --i)
+//		a.push_back (down[i]);
+//}
 }
 // <editor-fold defaultstate="collapsed" desc="Исходники"> 
 // C++ Program to implement Cyrus Beck  
