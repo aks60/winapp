@@ -418,7 +418,6 @@ public class ElemFrame extends ElemSimple {
                 double p1[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
                 double p2[] = UGeo.cross(x1 + h[0], y1 + h[1], x2 + h[0], y2 + h[1], e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
                 DrawStroke.strokePolygon(winc, x1, x2, p2[0], p1[0], y1, y2, p2[1], p1[1], rgb, borderColor);
-               //DrawStroke.drawLine(winc, x1, y1, x2, y2);
                 //System.out.println(this.layout + " = " + p1[0] + ":" + p2[1] + " angl = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));                
             }
         } catch (Exception s) {

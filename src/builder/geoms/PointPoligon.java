@@ -1,35 +1,37 @@
 package builder.geoms;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.Arrays;
 
-public class PassPoligon {
+//Теория см. http://grafika.me/node/161
+public class PointPoligon {
 
     //Квадрат расстояния между двумя точками
-    public static long dist2(Point a1, Point a2) {
-        return (long) (a2.x - a1.x) * (a2.x - a1.x)
-                + (long) (a2.y - a1.y) * (a2.y - a1.y);
+    public static double dist2(Point2D a1, Point2D a2) {
+        return (a2.getX() - a1.getX()) * (a2.getX() - a1.getX())
+                + (a2.getY() - a1.getY()) * (a2.getY() - a1.getY());
     }
 
     //"Косое" произведение
-    public static long cross(Point a1, Point a2, Point b1, Point b2) {
-        return (long) (a2.x - a1.x) * (b2.y - b1.y) - (long) (b2.x - b1.x) * (a2.y - a1.y);
+    public static double cross(Point2D a1, Point2D a2, Point2D b1, Point2D b2) {
+        return (a2.getX() - a1.getX()) * (b2.getY() - b1.getY())
+                - (long) (b2.getX() - b1.getX()) * (a2.getY() - a1.getY());
     }
 
     //Алгоритм Джарвиса
     //https://informatics.msk.ru/mod/book/view.php?id=11835
-    public static Point[] passJarvis(Point a[]) {
+    public static Point2D[] passJarvis(Point2D a[]) {
 
         int m = 0;
         for (int i = 1; i < a.length; i++) {
-            if (a[i].x > a[m].x) {
+            if (a[i].getX() > a[m].getX()) {
                 m = i;
-            } else if (a[i].x == a[m].x && a[i].y < a[m].y) {
+            } else if (a[i].getX() == a[m].getX() && a[i].getY() < a[m].getY()) {
                 m = i;
             }
         }
 
-        Point p[] = new Point[a.length + 1];
+        Point2D p[] = new Point2D[a.length + 1];
 
         p[0] = a[m];
         a[m] = a[0];
@@ -49,25 +51,25 @@ public class PassPoligon {
             k++;
             p[k] = a[min];
             min = 0;
-        } while (!(p[k].x == p[0].x && p[k].y == p[0].y));
+        } while (!(p[k].getX() == p[0].getX() && p[k].getY() == p[0].getY()));
 
         return Arrays.copyOf(p, k);
     }
 
 //Алгоритм Грэхэма
 //https://informatics.msk.ru/mod/book/view.php?id=11835    
-    static Point[] passGraham(Point a[]) {
+    public static Point2D[] passGraham(Point2D a[]) {
 
         int m = 0;
         for (int i = 1; i < a.length; i++) {
-            if (a[i].x < a[m].x) {
+            if (a[i].getX() < a[m].getX()) {
                 m = i;
-            } else if (a[i].x == a[m].x && a[i].y < a[m].y) {
+            } else if (a[i].getX() == a[m].getX() && a[i].getY() < a[m].getY()) {
                 m = i;
             }
         }
 
-        Point p[] = new Point[a.length];
+        Point2D p[] = new Point2D[a.length];
 
         p[0] = a[m];
         a[m] = a[1];
@@ -79,7 +81,7 @@ public class PassPoligon {
                 if (cross(a[1], a[j], a[1], a[j + 1]) < 0
                         || cross(a[1], a[j], a[1], a[j + 1]) == 0
                         && dist2(a[1], a[j]) > dist2(a[1], a[j + 1])) {
-                    Point t = a[j];
+                    Point2D t = a[j];
                     a[j] = a[j + 1];
                     a[j + 1] = t;
                 }

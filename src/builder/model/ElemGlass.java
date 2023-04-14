@@ -2,6 +2,7 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
+import builder.geoms.PointPoligon3;
 import builder.geoms.UGeo;
 import builder.making.Filling;
 import dataset.Record;
@@ -24,13 +25,10 @@ import enums.TypeJoin;
 import enums.UseUnit;
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -427,32 +425,52 @@ public class ElemGlass extends ElemSimple {
         return rasclNumber[num];
     }
 
+    private List<Point2D> chaosPoint() {
+        List<Point2D> list = new LinkedList();
+        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
+        for (ElemJoining ej : winc.listJoin) {
+            if (ej.type != TypeJoin.VAR10) {
+                double h1[] = UGeo.diff(area, ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
+                double h2[] = UGeo.diff(area, ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
+                double p[] = UGeo.cross(
+                        ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
+                        ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
+                if (area.contains(p[0], p[1])) {
+                    list.add(new Point.Double(p[0], p[1]));
+                }
+            }
+        }
+        return list;
+    }
+    
     @Override
     public void paint() { //рисуём стёкла
+        
         System.out.println("**********" + this.id());
-
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
-
-        List<Point2D> list = pset();
-        Collections.sort(list, new Comparator<Point2D>() {
-            @Override
-            //http://rsdn.org/forum/alg/3461405.all
-            public int compare(Point2D a, Point2D b) {
-                Double d = a.getX() * b.getY() - a.getY() * b.getX();
-                return -1 * d.compareTo(Double.valueOf(0));
-            }
-        });
-
-        GeneralPath shape = new GeneralPath();
-        shape.moveTo(list.get(0).getX(), list.get(0).getY());
-        System.out.println(list.get(0).getX() + ":" + list.get(0).getY());
-        for (int i = 1; i < list.size(); i++) {
-            shape.lineTo(list.get(i).getX(), list.get(i).getY());
-            System.out.println(list.get(i).getX() + ":" + list.get(i).getY());
+        
+        Point[] arr = {new Point(0, 0), new Point(200, 0), new Point(300, 100), new Point(200, 200), new Point(0, 200)};
+        PointPoligon3.JarvisConvexHull(arr); //ранжирование вершин
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i].x + ":" + arr[i].y);
         }
-        shape.closePath();
-        winc.gc2d.fill(shape);
+
+        
+//        List<Point2D> list = chaosPoint(); //список вершин 
+//        Point2D[] arr = list.toArray(new Point2D[0]);
+//        PointPoligon.passJarvis(arr); //ранжирование вершин
+//
+//        GeneralPath shape = new GeneralPath();
+//        shape.moveTo(arr[0].getX(), arr[0].getY());
+//        System.out.println(arr[0].getX() + ":" + arr[0].getY());
+//        
+//        for (int i = 1; i < arr.length; i++) {
+//            shape.lineTo(arr[i].getX(), arr[i].getY());
+//            System.out.println(arr[i].getX() + ":" + arr[i].getY());
+//        }
+//        shape.closePath();
+//        winc.gc2d.fill(shape);
 
 //
 //        if (owner.type() == Type.ARCH) {
@@ -499,66 +517,6 @@ public class ElemGlass extends ElemSimple {
 //            winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
 //                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
 //        }
-    }
-
-    private List<Point2D> pset() {
-        //System.out.println("**********" + this.id());
-        List<Point2D> list = new LinkedList();
-        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
-        for (ElemJoining ej : winc.listJoin) {
-            if (ej.type != TypeJoin.VAR10) {
-                double h1[] = UGeo.diff(ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
-                double h2[] = UGeo.diff(ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
-                double p[] = UGeo.cross(
-                        ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
-                        ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
-                if (area.contains(p[0], p[1])) {
-                    list.add(new Point.Double(p[0], p[1]));
-                    //System.out.println(" Point = " + p[0] + ":" + p[1] + " " + ej);
-                }
-            }
-        }
-//        GeneralPath shape = new GeneralPath();
-//        shape.moveTo(list.get(0).getX(), list.get(0).getY());
-//        for (int i = 1; i < list.size(); i++) {
-//            shape.lineTo(list.get(i).getX(), list.get(i).getY());
-//        }
-//        shape.closePath();
-        return list;
-        //winc.gc2d.fill(shape);
-    }
-
-    private void pset2() {
-        System.out.println("**********" + this.id());
-        Shape shape = new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1());
-        Area area = new Area(shape);
-        for (ElemJoining ejoin : winc.listJoin) {
-            if (area.contains(ejoin.elem1.x1(), ejoin.elem1.y1())
-                    || area.contains(ejoin.elem1.x2(), ejoin.elem1.y2())
-                    || area.contains(ejoin.elem2.x1(), ejoin.elem2.y1())
-                    || area.contains(ejoin.elem2.x2(), ejoin.elem2.y2())) {
-                System.out.println(this.id() + " ======= " + ejoin);
-            }
-        }
-    }
-
-    private void pset3() {
-        System.out.println("**********" + this.id());
-        Rectangle2D shape = new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1());
-        Area area = new Area(shape);
-        for (IElem5e elem : winc.listElem) {
-
-            if (shape.intersectsLine(
-                    elem.x1(), elem.y1(), elem.x2(), elem.y2())
-                    && elem.type() != Type.GLASS) {
-
-                System.out.println(this.id() + " ======= " + elem);
-            }
-        }
-    }
-
-    private boolean comp(Point a, Point b) {
-        return ((a.x * b.y - a.y * b.x) < 0);
     }
 
     //Раскладка
