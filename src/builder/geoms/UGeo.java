@@ -45,7 +45,8 @@ public class UGeo {
         return minimum;
     }
 
-    //Функция Сайруса Бека возвращает пару значений, которые затем отображаются в виде строки
+    //Функция Сайруса Бека возвращает пару значений, которые затем 
+    //отображаются в виде вершины многоугольника
     public static Point2D[] cut(Point2D vertices[], Point2D line[], int n) {
 
         Point2D newPair[] = {new Point2D.Double(), new Point2D.Double()}; //значение временного держателя, которое будет возвращено        

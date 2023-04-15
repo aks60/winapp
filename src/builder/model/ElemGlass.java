@@ -2,7 +2,7 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
-import builder.geoms.PointPoligon3;
+import builder.geoms.PointPoligon;
 import builder.geoms.UGeo;
 import builder.making.Filling;
 import dataset.Record;
@@ -29,6 +29,9 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -425,9 +428,8 @@ public class ElemGlass extends ElemSimple {
         return rasclNumber[num];
     }
 
-    private List<Point2D> chaosPoint() {
+    private List<Point2D> chaosPoint(Area area) {
         List<Point2D> list = new LinkedList();
-        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
         for (ElemJoining ej : winc.listJoin) {
             if (ej.type != TypeJoin.VAR10) {
                 double h1[] = UGeo.diff(area, ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
@@ -442,36 +444,59 @@ public class ElemGlass extends ElemSimple {
         }
         return list;
     }
-    
+
     @Override
     public void paint() { //рисуём стёкла
-        
+
         System.out.println("**********" + this.id());
         Record colorRec = eColor.find3(colorID1);
-        winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
+        winc.gc2d.setColor(new java.awt.Color(15120));
+
+        Area area1 = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), (owner.x2() - owner.x1()) / 2, owner.y2() - owner.y1()));
+        List<Point2D> list1 = chaosPoint(area1); //список вершин
+        Collections.sort(list1, new Comparator<Point2D>() {
+            @Override
+            public int compare(Point2D a, Point2D b) {
+                if (a.getY() > b.getY()) {
+                    return 1;
+                } else if (a.getY() < b.getY()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
         
-        Point[] arr = {new Point(0, 0), new Point(200, 0), new Point(300, 100), new Point(200, 200), new Point(0, 200)};
-        PointPoligon3.JarvisConvexHull(arr); //ранжирование вершин
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i].x + ":" + arr[i].y);
+        Area area2 = new Area(new Rectangle2D.Double(owner.x1() + (owner.x2() - owner.x1()) / 2, owner.y1(), (owner.x2() - owner.x1()) / 2, owner.y2() - owner.y1()));
+        List<Point2D> list2 = chaosPoint(area2); //список вершин
+        Collections.sort(list2, new Comparator<Point2D>() {
+            @Override
+            public int compare(Point2D a, Point2D b) {
+                if (a.getY() < b.getY()) {
+                    return 1;
+                } else if (a.getY() < b.getY()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        
+        List<Point2D> list3 = new ArrayList();
+        list3.addAll(list1);
+        list3.addAll(list2);
+
+        Point2D[] arr = list3.toArray(new Point2D[0]);
+        GeneralPath shape = new GeneralPath();
+        shape.moveTo(arr[0].getX(), arr[0].getY());
+        System.out.println(arr[0].getX() + ":" + arr[0].getY());
+
+        for (int i = 1; i < arr.length; i++) {
+            shape.lineTo(arr[i].getX(), arr[i].getY());
+            System.out.println(arr[i].getX() + ":" + arr[i].getY());
         }
-
-        
-//        List<Point2D> list = chaosPoint(); //список вершин 
-//        Point2D[] arr = list.toArray(new Point2D[0]);
-//        PointPoligon.passJarvis(arr); //ранжирование вершин
-//
-//        GeneralPath shape = new GeneralPath();
-//        shape.moveTo(arr[0].getX(), arr[0].getY());
-//        System.out.println(arr[0].getX() + ":" + arr[0].getY());
-//        
-//        for (int i = 1; i < arr.length; i++) {
-//            shape.lineTo(arr[i].getX(), arr[i].getY());
-//            System.out.println(arr[i].getX() + ":" + arr[i].getY());
-//        }
-//        shape.closePath();
-//        winc.gc2d.fill(shape);
-
+        shape.closePath();
+        winc.gc2d.fill(shape);
 //
 //        if (owner.type() == Type.ARCH) {
 //            IElem5e ef = root().frames().get(Layout.TOP);
