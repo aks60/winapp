@@ -2,7 +2,6 @@ package builder.model;
 
 import builder.IArea5e;
 import builder.IElem5e;
-import builder.geoms.Pointsort;
 import builder.geoms.UGeo;
 import builder.making.Filling;
 import dataset.Record;
@@ -26,12 +25,11 @@ import enums.UseUnit;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ElemGlass extends ElemSimple {
 
@@ -443,6 +441,7 @@ public class ElemGlass extends ElemSimple {
         return list;
     }
 
+    //private static int = 
     @Override
     public void paint() { //рисуём стёкла
 
@@ -450,56 +449,37 @@ public class ElemGlass extends ElemSimple {
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(15120));
 
-        Area area1 = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));
-        List<Point2D> list = chaosPoint(area1); //список вершин
-        Collections.sort(list, new Pointsort());
-        
-//        Area area1 = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), (owner.x2() - owner.x1()) / 2, owner.y2() - owner.y1()));
-//        List<Point2D> list1 = chaosPoint(area1); //список вершин
-//        Collections.sort(list1, new Comparator<Point2D>() {
-//            @Override
-//            public int compare(Point2D a, Point2D b) {
-//                if (a.getY() > b.getY()) {
-//                    return 1;
-//                } else if (a.getY() < b.getY()) {
-//                    return -1;
-//                } else {
-//                    return 0;
-//                }
-//            }
-//        });
-//        
-//        Area area2 = new Area(new Rectangle2D.Double(owner.x1() + (owner.x2() - owner.x1()) / 2, owner.y1(), (owner.x2() - owner.x1()) / 2, owner.y2() - owner.y1()));
-//        List<Point2D> list2 = chaosPoint(area2); //список вершин
-//        Collections.sort(list2, new Comparator<Point2D>() {
-//            @Override
-//            public int compare(Point2D a, Point2D b) {
-//                if (a.getY() < b.getY()) {
-//                    return 1;
-//                } else if (a.getY() < b.getY()) {
-//                    return -1;
-//                } else {
-//                    return 0;
-//                }
-//            }
-//        });
-//        
-//        List<Point2D> list3 = new ArrayList();
-//        list3.addAll(list1);
-//        list3.addAll(list2);
-
-
-        Point2D[] arr = list.toArray(new Point2D[0]);
-        GeneralPath shape = new GeneralPath();
-        shape.moveTo(arr[0].getX(), arr[0].getY());
-        System.out.println(arr[0].getX() + ":" + arr[0].getY());
-
-        for (int i = 1; i < arr.length; i++) {
-            shape.lineTo(arr[i].getX(), arr[i].getY());
-            System.out.println(arr[i].getX() + ":" + arr[i].getY());
+        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1() + 1, owner.y2() - owner.y1() + 1));
+        IElem5e el = winc.listElem.stream().filter(e -> e.type() != Type.GLASS && area.contains(e.x1(), e.y1()) && area.contains(e.x2(), e.y2())).findFirst().get();       
+        if(List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(el)) {
+            IElem5e e1 = winc.listJoin.elem(el, 1);
+            if(owner.x1() == e1.x1() && owner.y1() == e1.y1() && owner.x2() == e1.x2() && owner.y1() == e1.y2()) {
+                ;
+            } else if(owner.x1() == e1.x1() && owner.y2() == e1.y1() && owner.x1() == e1.x2() && owner.y1() == e1.y2()) {
+                ;
+            }
+            
         }
-        shape.closePath();
-        winc.gc2d.fill(shape);
+        
+//        for (ElemJoining js4 : winc.listJoin) {
+//            if(js4.elem1.x1() == 0 && js4.elem1.x1() < js.elem1.x2())
+//        }
+        //for (ElemJoining js3 : winc.listJoin) {    
+        //ElemJoining js4 = winc.listJoin.stream().filter(j -> j.elem1.
+        //if(js.elem2.x1() == js3.elem1)
+        //}
+
+//        Point2D[] arr = list.toArray(new Point2D[0]);
+//        GeneralPath shape = new GeneralPath();
+//        shape.moveTo(arr[0].getX(), arr[0].getY());
+//        System.out.println(arr[0].getX() + ":" + arr[0].getY());
+//
+//        for (int i = 1; i < arr.length; i++) {
+//            shape.lineTo(arr[i].getX(), arr[i].getY());
+//            System.out.println(arr[i].getX() + ":" + arr[i].getY());
+//        }
+//        shape.closePath();
+//        winc.gc2d.fill(shape);
 //
 //        if (owner.type() == Type.ARCH) {
 //            IElem5e ef = root().frames().get(Layout.TOP);
