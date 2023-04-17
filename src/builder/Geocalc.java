@@ -35,14 +35,14 @@ public class Geocalc {
         pPoly.add(new Point2D.Double(50, 100));
         pPoly.add(new Point2D.Double(100, 50));
 
-        pLine.add(new Point2D.Double(200.0, 0));
-        pLine.add(new Point2D.Double(280, 400));
-        //pLine.add(new Point2D.Double(0.0, 280));
-        //pLine.add(new Point2D.Double(400, 280));        
+        pLine.add(new Point2D.Double(200, 0.0));
+        pLine.add(new Point2D.Double(280, 500));
+        pLine.add(new Point2D.Double(280, 10));
+        pLine.add(new Point2D.Double(280, 400));        
     }
 
     public void draw() {
-        
+
         //Многоугольник
         GeneralPath poly = new GeneralPath();
         poly.moveTo(pPoly.get(0).getX(), pPoly.get(0).getY());
@@ -52,19 +52,14 @@ public class Geocalc {
         poly.closePath();
 
         //Линия
-        GeneralPath line = new GeneralPath();
-        //line.moveTo(pLine.get(0).getX(), pLine.get(0).getY());
-        for (int j = 1; j < pLine.size() / 2; j += 1) {
-            //line.lineTo(pLine.get(j).getX(), pLine.get(j).getY());
-            //line.lineTo(pLine.get(j + 1).getX(), pLine.get(j + 1).getY());
-            gc2D.draw(new Line2D.Double()); 
+        for (int j = 0; j < pLine.size(); j += 2) {
+            gc2D.draw(new Line2D.Double(pLine.get(j), pLine.get(j + 1)));
         }
-        //line.closePath();
 
         Area area1 = new Area(poly);
-        Area area2 = new Area(line);
+        Area area2 = new Area(new Line2D.Double(pLine.get(0), pLine.get(1)));
         //area1.intersect(area2);
 
-        gc2D.draw(area1);      
+        gc2D.draw(area1);
     }
 }
