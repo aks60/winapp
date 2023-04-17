@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.xlam;
 
 import java.util.ArrayList;
 import java.util.Collections;

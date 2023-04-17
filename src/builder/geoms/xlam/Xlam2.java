@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.xlam;
 
 public class Xlam2 {
 //           Area area1 = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1(), owner.y2() - owner.y1()));

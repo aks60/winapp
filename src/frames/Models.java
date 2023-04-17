@@ -1,5 +1,6 @@
 package frames;
 
+import builder.Geocalc;
 import frames.swing.FrameToFile;
 import dataset.Query;
 import dataset.Record;
@@ -43,9 +44,10 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
 
     private ListenerRecord listenet = null;
     private Canvas canvas = new Canvas();
-    private Canvas2D canvas2D = new Canvas2D();
     private Scene scene = null;
     private Query qSysmodel = new Query(eSysmodel.values());
+    private Geocalc geo = Geocalc.create();
+    private Canvas2D canvas2D = new Canvas2D(geo);
 
     public Models() {
         initComponents();
@@ -754,7 +756,6 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
         } else {
             loadingTab1(tab1, 1009);
             ((CardLayout) centr.getLayout()).show(centr, "pan18");
-            canvas2D.setShape();
         }
         UGui.updateBorderAndSql(tab1, List.of(tab1));
         UGui.setSelectedRow(tab1);
@@ -829,6 +830,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        ((CardLayout) centr.getLayout()).show(centr, "pan18");
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
