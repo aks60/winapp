@@ -24,9 +24,6 @@ public class Geocalc {
     }
 
     public void shape() {
-        //System.out.println("chapetest.ShapeComponent.setShapeMaker()");
-
-        Area area = new Area(new Rectangle2D.Double(0, 0, 300, 300));
         pPoly.add(new Point2D.Double(350, 50));
         pPoly.add(new Point2D.Double(400, 100));
         pPoly.add(new Point2D.Double(400, 100));
@@ -55,11 +52,20 @@ public class Geocalc {
         for (int j = 0; j < pLine.size(); j += 2) {
             gc2D.draw(new Line2D.Double(pLine.get(j), pLine.get(j + 1)));
         }
+        
+        //Клип
+        GeneralPath clip = new GeneralPath();
+        clip.moveTo(pLine.get(0).getX(), pLine.get(0).getY());
+        clip.lineTo(pLine.get(1).getX(), pLine.get(1).getY());
+        clip.lineTo(400, pLine.get(1).getY());
+        clip.lineTo(400, pLine.get(0).getY());
+        clip.closePath();
+        
+        Area polyArea = new Area(poly);
+        Area lineArea = new Area(new Line2D.Double(pLine.get(0), pLine.get(1)));
+        Area clipArea = new Area(clip);
+        polyArea.intersect(clipArea);
 
-        Area area1 = new Area(poly);
-        Area area2 = new Area(new Line2D.Double(pLine.get(0), pLine.get(1)));
-        //area1.intersect(area2);
-
-        gc2D.draw(area1);
+        gc2D.draw(polyArea);
     }
 }
