@@ -445,86 +445,53 @@ public class ElemGlass extends ElemSimple {
     @Override
     public void paint() { //рисуём стёкла
 
-        System.out.println("**********" + this.id());
         Record colorRec = eColor.find3(colorID1);
-        winc.gc2d.setColor(new java.awt.Color(15120));
+        winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
-        Area area = new Area(new Rectangle2D.Double(owner.x1(), owner.y1(), owner.x2() - owner.x1() + 1, owner.y2() - owner.y1() + 1));
-        IElem5e el = winc.listElem.stream().filter(e -> e.type() != Type.GLASS && area.contains(e.x1(), e.y1()) && area.contains(e.x2(), e.y2())).findFirst().get();       
-        if(List.of(Type.IMPOST, Type.STOIKA, Type.ERKER).contains(el)) {
-            IElem5e e1 = winc.listJoin.elem(el, 1);
-            if(owner.x1() == e1.x1() && owner.y1() == e1.y1() && owner.x2() == e1.x2() && owner.y1() == e1.y2()) {
-                ;
-            } else if(owner.x1() == e1.x1() && owner.y2() == e1.y1() && owner.x1() == e1.x2() && owner.y1() == e1.y2()) {
-                ;
+        if (owner.type() == Type.ARCH) {
+            IElem5e ef = root().frames().get(Layout.TOP);
+            double dz = ef.artiklRec().getDbl(eArtikl.height);
+            double r = ((AreaArch) root()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
+            winc.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2),
+                    (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+
+        } else if (owner.type() == Type.TRAPEZE) {
+            IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP),
+                    inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
+
+            if (owner.type() == Type.STVORKA) {
+                if (winc.form == Form.RIGHT) {
+                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
+                } else if (winc.form == Form.LEFT) {
+                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
+                }
+            } else {
+                ElemJoining ej = winc.listJoin.get(inTop, 1);
+                if (winc.form == Form.RIGHT) {
+                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
+                } else if (winc.form == Form.LEFT) {
+                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
+                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                            new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
+                } else if (winc.form == Form.SYMM) {
+                    double dx = (winc.width1() - winc.width2()) / 2 + width() * UGeo.tan((inTop.anglHoriz() - 180));
+                    winc.gc2d.fillPolygon(new int[]{(int) (x1 + dx), (int) (x2 - dx), (int) x2, (int) x1},
+                            new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+                }
             }
-            
-        }
-        
-//        for (ElemJoining js4 : winc.listJoin) {
-//            if(js4.elem1.x1() == 0 && js4.elem1.x1() < js.elem1.x2())
-//        }
-        //for (ElemJoining js3 : winc.listJoin) {    
-        //ElemJoining js4 = winc.listJoin.stream().filter(j -> j.elem1.
-        //if(js.elem2.x1() == js3.elem1)
-        //}
 
-//        Point2D[] arr = list.toArray(new Point2D[0]);
-//        GeneralPath shape = new GeneralPath();
-//        shape.moveTo(arr[0].getX(), arr[0].getY());
-//        System.out.println(arr[0].getX() + ":" + arr[0].getY());
-//
-//        for (int i = 1; i < arr.length; i++) {
-//            shape.lineTo(arr[i].getX(), arr[i].getY());
-//            System.out.println(arr[i].getX() + ":" + arr[i].getY());
-//        }
-//        shape.closePath();
-//        winc.gc2d.fill(shape);
-//
-//        if (owner.type() == Type.ARCH) {
-//            IElem5e ef = root().frames().get(Layout.TOP);
-//            double dz = ef.artiklRec().getDbl(eArtikl.height);
-//            double r = ((AreaArch) root()).radiusArch;
-//            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-//            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-//            winc.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2),
-//                    (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
-//
-//        } else if (owner.type() == Type.TRAPEZE) {
-//            IElem5e inLeft = root().frames().get(Layout.LEFT), inTop = root().frames().get(Layout.TOP),
-//                    inBott = owner.joinSide(Layout.BOTT), inRight = root().frames().get(Layout.RIGHT);
-//
-//            if (owner.type() == Type.STVORKA) {
-//                if (winc.form == Form.RIGHT) {
-//                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
-//                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                            new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
-//                } else if (winc.form == Form.LEFT) {
-//                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
-//                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                            new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
-//                }
-//            } else {
-//                ElemJoining ej = winc.listJoin.get(inTop, 1);
-//                if (winc.form == Form.RIGHT) {
-//                    double dy = width() * UGeo.tan(90 - (inTop.anglHoriz() - 90));
-//                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                            new int[]{(int) y1, (int) (y1 + dy), (int) y2, (int) y2}, 4);
-//                } else if (winc.form == Form.LEFT) {
-//                    double dy = width() * UGeo.tan((inTop.anglHoriz() - 180));
-//                    winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                            new int[]{(int) (y1 + dy), (int) y1, (int) y2, (int) y2}, 4);
-//                } else if (winc.form == Form.SYMM) {
-//                    double dx = (winc.width1() - winc.width2()) / 2 + width() * UGeo.tan((inTop.anglHoriz() - 180));
-//                    winc.gc2d.fillPolygon(new int[]{(int) (x1 + dx), (int) (x2 - dx), (int) x2, (int) x1},
-//                            new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
-//                }
-//            }
-//
-//        } else {
-//            winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-//                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
-//        }
+        } else {
+            winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+        }
     }
 
     //Раскладка
