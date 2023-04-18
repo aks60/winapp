@@ -1,6 +1,5 @@
 package builder;
 
-import builder.Wincalc;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import dataset.Record;

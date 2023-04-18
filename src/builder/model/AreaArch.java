@@ -1,11 +1,11 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IElem5e;
 import domain.eArtikl;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import enums.Layout;
-import builder.Wincalc;
 import builder.making.Specific;
 import enums.Type;
 

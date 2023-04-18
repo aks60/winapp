@@ -1,4 +1,4 @@
-package builder.geoms;
+package builder.geoms.xlam;
 
 import java.awt.Polygon;
 import java.awt.geom.Line2D;

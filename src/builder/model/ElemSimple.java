@@ -1,11 +1,11 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.ICom5t;
 import builder.making.Specific;
 import java.awt.Color;
-import builder.Wincalc;
 import builder.script.GsonElem;
 import enums.Form;
 import enums.Layout;

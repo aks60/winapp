@@ -1,7 +1,7 @@
 package builder.model;
 
-import enums.Layout;
 import builder.Wincalc;
+import enums.Layout;
 import builder.script.GsonRoot;
 import enums.Type;
 

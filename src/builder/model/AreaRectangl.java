@@ -1,10 +1,10 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IElem5e;
 import enums.Layout;
 import enums.LayoutJoin;
 import enums.TypeJoin;
-import builder.Wincalc;
 import builder.script.GsonRoot;
 import domain.eArtikl;
 import domain.eSyssize;

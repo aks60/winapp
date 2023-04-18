@@ -1,12 +1,12 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.ICom5t;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.Layout;
-import builder.Wincalc;
 import builder.script.GsonElem;
 import domain.eArtikl;
 import enums.Type;

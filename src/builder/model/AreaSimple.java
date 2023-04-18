@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IArea5e;
 import builder.IElem5e;
 import builder.ICom5t;
@@ -16,7 +17,6 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
-import builder.Wincalc;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import builder.script.GsonRoot;

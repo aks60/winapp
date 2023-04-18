@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IStvorka;
 import builder.IArea5e;
 import builder.ICom5t;
@@ -12,7 +13,6 @@ import enums.LayoutJoin;
 import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
-import builder.Wincalc;
 import builder.making.Cal5e;
 import builder.making.Joining;
 import builder.script.GsonElem;

@@ -1,6 +1,11 @@
 package builder;
 
-import builder.script.GsonRoot;
+import builder.geoms.Elem2Cross;
+import builder.geoms.Elem2Frame;
+import builder.model.ElemFrame;
+import builder.script.GeoRoot;
+import builder.script.test.Bimax2;
+import com.google.gson.GsonBuilder;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
@@ -8,6 +13,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Geocalc {
@@ -17,22 +23,19 @@ public class Geocalc {
     public List<Point2D> pPoly = new ArrayList(); //вершины многоугольника
     public List<Point2D> pLine = new ArrayList(); //вершины многоугольника
     public List<Point2D> pClone = new ArrayList(); //вершины многоугольника
-    public GsonRoot rootGson = null; //объектная модель конструкции 1-го уровня
+    
+    public List<Elem2Frame> listFrame = new ArrayList(); 
+    public List<Elem2Cross> listCross = new ArrayList();     
+    public GeneralPath pathPoly = new GeneralPath(); 
+    
+    public GeoRoot rootGeo = null; //объектная модель конструкции 1-го уровня
     public IArea5e rootArea = null; //объектная модель конструкции 2-го уровня
 
     public Geocalc() {
-    }
-    
-    public Geocalc(String script) {
+        String script = Bimax2.script(501001);
         build(script);
     }
-        
-    public static Geocalc create() {
-        Geocalc geom = new Geocalc();
-        geom.shape();
-        return geom;
-    }
-    
+
     /**
      * Построение окна из json скрипта
      *
@@ -41,34 +44,57 @@ public class Geocalc {
      */
     public IArea5e build(String script) {
         try {
-            //Инит свойств окна
-            //initProperty();
-
+            
             //Парсинг входного скрипта
-            //Создание элементов конструкции
             parsing(script);
 
-
         } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.build() " + e);
+            System.err.println("Ошибка:Geocalc.build() " + e);
         }
         return rootArea;
     }
-    
-    public void shape() {
-        pPoly.add(new Point2D.Double(350, 50));
-        pPoly.add(new Point2D.Double(400, 100));
-        pPoly.add(new Point2D.Double(400, 100));
-        pPoly.add(new Point2D.Double(350, 350));
-        pPoly.add(new Point2D.Double(100, 350));
-        pPoly.add(new Point2D.Double(50, 100));
-        pPoly.add(new Point2D.Double(100, 50));
 
-        pLine.add(new Point2D.Double(200, 0.0));
-        pLine.add(new Point2D.Double(280, 500));
-        pLine.add(new Point2D.Double(280, 10));
-        pLine.add(new Point2D.Double(280, 400));
+    /**
+     * Парсим входное json окно и строим объектную модель окна
+     */
+    private void parsing(String script) {
+        //Для тестирования
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+
+        rootGeo = new GsonBuilder().create().fromJson(script, GeoRoot.class);
+
+        //rootGeo.poly.forEach(e -> );
+        
+        pathPoly.moveTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1)); 
+        pPoly.add(new Point2D.Double(rootGeo.poly.get(0), rootGeo.poly.get(1))); 
+        for (int i = 2; i < rootGeo.poly.size(); i += 2) {     
+            pathPoly.lineTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1));
+            listFrame.add(new Elem2Frame(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));    
+        }
+        pathPoly.closePath();
+        
+        
+        for (int i = 0; i < rootGeo.line.size(); i += 2) {
+            listCross.add(new Elem2Cross(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
+        }       
+        
+//        GeneralPath clon = new GeneralPath();
+//        final double[] coords = new double[6];
+//        PathIterator iterator = polyArea.getPathIterator(null);
+//        while (!iterator.isDone()) {
+//            final int segmentType = iterator.currentSegment(coords);
+//            if (segmentType == PathIterator.SEG_LINETO) {
+//                clon.lineTo(coords[0], coords[1]);
+//            } else if (segmentType == PathIterator.SEG_MOVETO) {
+//                clon.moveTo(coords[0], coords[1]);
+//            } else if (segmentType == PathIterator.SEG_CLOSE) {
+//                clon.closePath();
+//            }
+//            pClone.add(new Point2D.Double(coords[0], coords[1]));
+//            iterator.next();
+//        }        
     }
+    
 
     public void draw() {
 
@@ -98,7 +124,6 @@ public class Geocalc {
         Area clipArea = new Area(clip);
         //polyArea.intersect(clipArea);
 
-        
         GeneralPath clon = new GeneralPath();
         final double[] coords = new double[6];
         PathIterator iterator = polyArea.getPathIterator(null);
@@ -115,20 +140,12 @@ public class Geocalc {
             iterator.next();
         }
 
-        GeneralPath clo2 = new GeneralPath();
-        clo2.moveTo(pPoly.get(0).getX(), pPoly.get(0).getY());
-        for (int i = 1; i < pPoly.size(); i++) {
-            clo2.lineTo(pPoly.get(i).getX(), pPoly.get(i).getY());
-        }
-        clo2.closePath();
-        
+//        GeneralPath clo2 = new GeneralPath();
+//        clo2.moveTo(pPoly.get(0).getX(), pPoly.get(0).getY());
+//        for (int i = 1; i < pPoly.size(); i++) {
+//            clo2.lineTo(pPoly.get(i).getX(), pPoly.get(i).getY());
+//        }
+//        clo2.closePath();
         gc2D.draw(clon);
-    }
-    
-    /**
-     * Парсим входное json окно и строим объектную модель окна
-     */
-    private void parsing(String script) {
-        
     }    
 }

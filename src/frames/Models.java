@@ -46,7 +46,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private Query qSysmodel = new Query(eSysmodel.values());
-    private Geocalc geo = Geocalc.create();
+    private Geocalc geo = new Geocalc();
     private Canvas2D canvas2D = new Canvas2D(geo);
 
     public Models() {

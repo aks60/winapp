@@ -1,11 +1,11 @@
 package builder.model;
 
+import builder.Wincalc;
 import builder.IElem5e;
 import builder.ICom5t;
 import dataset.Record;
 import enums.LayoutJoin;
 import enums.TypeJoin;
-import builder.Wincalc;
 import builder.geoms.UGeo;
 import builder.making.Specific;
 import common.UCom;

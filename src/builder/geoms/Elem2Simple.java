@@ -1,6 +1,5 @@
-
 package builder.geoms;
 
-public class AreaPoligon {
+public class Elem2Simple {
     
 }

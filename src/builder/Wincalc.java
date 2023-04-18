@@ -1,5 +1,8 @@
 package builder;
 
+import builder.IArea5e;
+import builder.ICom5t;
+import builder.IElem5e;
 import builder.model.ElemJoining;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
