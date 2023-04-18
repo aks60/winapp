@@ -1,5 +1,6 @@
 package builder;
 
+import builder.script.GsonRoot;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
@@ -16,13 +17,44 @@ public class Geocalc {
     public List<Point2D> pPoly = new ArrayList(); //вершины многоугольника
     public List<Point2D> pLine = new ArrayList(); //вершины многоугольника
     public List<Point2D> pClone = new ArrayList(); //вершины многоугольника
+    public GsonRoot rootGson = null; //объектная модель конструкции 1-го уровня
+    public IArea5e rootArea = null; //объектная модель конструкции 2-го уровня
 
+    public Geocalc() {
+    }
+    
+    public Geocalc(String script) {
+        build(script);
+    }
+        
     public static Geocalc create() {
         Geocalc geom = new Geocalc();
         geom.shape();
         return geom;
     }
+    
+    /**
+     * Построение окна из json скрипта
+     *
+     * @param script - json скрипт построения окна
+     * @return rootArea - главное окно
+     */
+    public IArea5e build(String script) {
+        try {
+            //Инит свойств окна
+            //initProperty();
 
+            //Парсинг входного скрипта
+            //Создание элементов конструкции
+            parsing(script);
+
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.build() " + e);
+        }
+        return rootArea;
+    }
+    
     public void shape() {
         pPoly.add(new Point2D.Double(350, 50));
         pPoly.add(new Point2D.Double(400, 100));
@@ -64,7 +96,7 @@ public class Geocalc {
         Area polyArea = new Area(poly);
         Area lineArea = new Area(new Line2D.Double(pLine.get(0), pLine.get(1)));
         Area clipArea = new Area(clip);
-        polyArea.intersect(clipArea);
+        //polyArea.intersect(clipArea);
 
         
         GeneralPath clon = new GeneralPath();
@@ -92,4 +124,11 @@ public class Geocalc {
         
         gc2D.draw(clon);
     }
+    
+    /**
+     * Парсим входное json окно и строим объектную модель окна
+     */
+    private void parsing(String script) {
+        
+    }    
 }
