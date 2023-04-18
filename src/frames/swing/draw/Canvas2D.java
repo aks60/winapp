@@ -31,6 +31,7 @@ public class Canvas2D extends JComponent {
         this.geo = geo;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
+                geo.mousePressedList.forEach(e -> e.mouseEvent(event));
                 indexPoly = -1;
                 indexLine = -1;
                 Point p = event.getPoint();
@@ -51,17 +52,19 @@ public class Canvas2D extends JComponent {
                         indexLine = i;
                         return;
                     }
-                }                
+                } 
                 repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
+                geo.mouseReleasedList.forEach(e -> e.mouseEvent(event));
                 indexPoly = -1;
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
+                geo.mouseDraggedList.forEach(e -> e.mouseEvent(event));
                 if (indexPoly != -1) {
                     geo.pPoly.set(indexPoly, event.getPoint());
                 }

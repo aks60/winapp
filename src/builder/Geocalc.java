@@ -2,10 +2,10 @@ package builder;
 
 import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
-import builder.model.ElemFrame;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
 import com.google.gson.GsonBuilder;
+import common.listener.ListenerMouse;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
@@ -13,7 +13,6 @@ import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Geocalc {
@@ -24,10 +23,14 @@ public class Geocalc {
     public List<Point2D> pLine = new ArrayList(); //вершины многоугольника
     public List<Point2D> pClone = new ArrayList(); //вершины многоугольника
     
-    public List<Elem2Frame> listFrame = new ArrayList(); 
-    public List<Elem2Cross> listCross = new ArrayList();     
-    public GeneralPath pathPoly = new GeneralPath(); 
-    
+    public ArrayList<ListenerMouse> mousePressedList = new ArrayList();
+    public ArrayList<ListenerMouse> mouseReleasedList = new ArrayList();
+    public ArrayList<ListenerMouse> mouseDraggedList = new ArrayList();
+
+    public List<Elem2Frame> listFrame = new ArrayList();
+    public List<Elem2Cross> listCross = new ArrayList();
+    public GeneralPath pathPoly = new GeneralPath();
+
     public GeoRoot rootGeo = null; //объектная модель конструкции 1-го уровня
     public IArea5e rootArea = null; //объектная модель конструкции 2-го уровня
 
@@ -36,16 +39,10 @@ public class Geocalc {
         build(script);
     }
 
-    /**
-     * Построение окна из json скрипта
-     *
-     * @param script - json скрипт построения окна
-     * @return rootArea - главное окно
-     */
+
     public IArea5e build(String script) {
         try {
-            
-            //Парсинг входного скрипта
+
             parsing(script);
 
         } catch (Exception e) {
@@ -54,30 +51,28 @@ public class Geocalc {
         return rootArea;
     }
 
-    /**
-     * Парсим входное json окно и строим объектную модель окна
-     */
+
     private void parsing(String script) {
         //Для тестирования
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
         rootGeo = new GsonBuilder().create().fromJson(script, GeoRoot.class);
 
-        //rootGeo.poly.forEach(e -> );
-        
-        pathPoly.moveTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1)); 
-        pPoly.add(new Point2D.Double(rootGeo.poly.get(0), rootGeo.poly.get(1))); 
-        for (int i = 2; i < rootGeo.poly.size(); i += 2) {     
-            pathPoly.lineTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1));
-            listFrame.add(new Elem2Frame(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));    
+        pathPoly.moveTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1));
+        for (int i = 2; i < rootGeo.poly.size(); i += 2) {
+            pathPoly.lineTo(rootGeo.poly.get(0), rootGeo.poly.get(1 + 1));  
         }
         pathPoly.closePath();
-        
-        
+
+        for (int i = 0; i < rootGeo.poly.size(); i += 2) {
+            pPoly.add(new Point2D.Double(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
+            listFrame.add(new Elem2Frame(this, rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
+        }
         for (int i = 0; i < rootGeo.line.size(); i += 2) {
-            listCross.add(new Elem2Cross(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
-        }       
-        
+            pLine.add(new Point2D.Double(rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
+            listCross.add(new Elem2Cross(this, rootGeo.poly.get(i), rootGeo.poly.get(i + 1)));
+        }
+
 //        GeneralPath clon = new GeneralPath();
 //        final double[] coords = new double[6];
 //        PathIterator iterator = polyArea.getPathIterator(null);
@@ -94,7 +89,6 @@ public class Geocalc {
 //            iterator.next();
 //        }        
     }
-    
 
     public void draw() {
 
@@ -147,5 +141,5 @@ public class Geocalc {
 //        }
 //        clo2.closePath();
         gc2D.draw(clon);
-    }    
+    }
 }
