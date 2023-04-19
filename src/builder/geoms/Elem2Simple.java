@@ -10,7 +10,6 @@ public class Elem2Simple { //extends MouseAdapter, MouseMotionAdapter {
 
     public boolean f[] = {false, false};
     public double x1 = -1, y1 = -1, x2 = -1, y2 = -1;
-
     public Geocalc geo = null;
 
     public Elem2Simple(Geocalc geo, double x1, double y1, double x2, double y2) {
@@ -24,7 +23,7 @@ public class Elem2Simple { //extends MouseAdapter, MouseMotionAdapter {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-            System.out.println("mousePressed()+++");
+            //System.out.println("mousePressed()+++");
             Rectangle2D r1 = new Rectangle2D.Double(x1 - 8, y1 - 8, 16, 16);
             Rectangle2D r2 = new Rectangle2D.Double(x2 - 8, y2 - 8, 16, 16);
             if (r1.contains(event.getPoint())) {
@@ -34,17 +33,17 @@ public class Elem2Simple { //extends MouseAdapter, MouseMotionAdapter {
             }
         };
         ListenerMouse mouseReleased = (event) -> {
-            System.out.println("mouseReleased()---");
+            //System.out.println("mouseReleased()---");
             f[0] = false;
             f[1] = false;
         };
         ListenerMouse mouseDragge = (event) -> {
             if (f[0] == true) {
-                System.out.println("mouseDragge()===");
+                //System.out.println("mouseDragge()===");
                 x1 = event.getX();
                 y1 = event.getY();
             } else if (f[1] == true) {
-                System.out.println("mouseDragge()===");
+                //System.out.println("mouseDragge()===");
                 x2 = event.getX();
                 y2 = event.getY();
             }
@@ -54,7 +53,11 @@ public class Elem2Simple { //extends MouseAdapter, MouseMotionAdapter {
         this.geo.mouseDraggedList.add(mouseDragge);
     }
 
-//    public void paint() {
-//
-//    }
+    public void paint() {
+            if (f[0] == true) {
+
+            } else if (f[1] == true) {
+
+            }
+    }
 }
