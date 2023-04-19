@@ -1,4 +1,4 @@
-package frames.swing.draw;
+package builder.geoms.xlam;
 
 import java.util.ArrayList;
 

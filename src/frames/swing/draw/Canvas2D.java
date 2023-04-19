@@ -22,74 +22,64 @@ import javax.swing.JComponent;
  */
 public class Canvas2D extends JComponent {
 
-    private static int SIZE = 16;
+    //private static int SIZE = 16;
     private Geocalc geo;
-    private int indexPoly = -1; //текущей индекс вершины
-    private int indexLine = -1; //текущей индекс вершины
+    //private int indexPoly = -1; //текущей индекс вершины
+    //private int indexLine = -1; //текущей индекс вершины
 
     public Canvas2D(Geocalc geo) {
         this.geo = geo;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
                 geo.mousePressedList.forEach(e -> e.mouseEvent(event));
-                indexPoly = -1;
-                indexLine = -1;
-                Point p = event.getPoint();
-                for (int i = 0; i < geo.pPoly.size(); i++) {
-                    double x = geo.pPoly.get(i).getX() - SIZE / 2;
-                    double y = geo.pPoly.get(i).getY() - SIZE / 2;                    
-                    Rectangle2D r = new Rectangle2D.Double(x, y, SIZE, SIZE);
-                    if (r.contains(p)) {
-                        indexPoly = i;
-                        return;
-                    }
-                }                
-                for (int i = 0; i < geo.pLine.size(); i++) {
-                    double x = geo.pLine.get(i).getX() - SIZE / 2;
-                    double y = geo.pLine.get(i).getY() - SIZE / 2;                    
-                    Rectangle2D r = new Rectangle2D.Double(x, y, SIZE, SIZE);
-                    if (r.contains(p)) {
-                        indexLine = i;
-                        return;
-                    }
-                } 
-                repaint();
+//                indexPoly = -1;
+//                indexLine = -1;
+//                Point p = event.getPoint();
+//                for (int i = 0; i < geo.pPoly.size(); i++) {
+//                    double x = geo.pPoly.get(i).getX() - SIZE / 2;
+//                    double y = geo.pPoly.get(i).getY() - SIZE / 2;                    
+//                    Rectangle2D r = new Rectangle2D.Double(x, y, SIZE, SIZE);
+//                    if (r.contains(p)) {
+//                        indexPoly = i;
+//                        return;
+//                    }
+//                }                
+//                for (int i = 0; i < geo.pLine.size(); i++) {
+//                    double x = geo.pLine.get(i).getX() - SIZE / 2;
+//                    double y = geo.pLine.get(i).getY() - SIZE / 2;                    
+//                    Rectangle2D r = new Rectangle2D.Double(x, y, SIZE, SIZE);
+//                    if (r.contains(p)) {
+//                        indexLine = i;
+//                        return;
+//                    }
+//                } 
+//                repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
                 geo.mouseReleasedList.forEach(e -> e.mouseEvent(event));
-                indexPoly = -1;
+//                indexPoly = -1;
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
                 geo.mouseDraggedList.forEach(e -> e.mouseEvent(event));
-                if (indexPoly != -1) {
-                    geo.pPoly.set(indexPoly, event.getPoint());
-                }
-                if (indexLine != -1) {
-                    geo.pLine.set(indexLine, event.getPoint());
-                }
-                repaint();
+//                if (indexPoly != -1) {
+//                    geo.pPoly.set(indexPoly, event.getPoint());
+//                }
+//                if (indexLine != -1) {
+//                    geo.pLine.set(indexLine, event.getPoint());
+//                }
+                //repaint();
             }
         });
-        indexPoly = -1;
+        //indexPoly = -1;
     }
 
     public void paintComponent(Graphics g) {
-        if (geo.pPoly != null) {
+        System.out.println("frames.swing.draw.Canvas2D.paintComponent() 2D2D2D2D2D2D");
             geo.gc2D = (Graphics2D) g;
-
-            //Квадратик вокруг вершины
-            if (indexPoly != -1) {
-                for (int i = 0; i < geo.pPoly.size(); i++) {
-                    double x = geo.pPoly.get(i).getX() - SIZE / 2;
-                    double y = geo.pPoly.get(i).getY() - SIZE / 2;
-                    geo.gc2D.draw(new Rectangle2D.Double(x, y, SIZE, SIZE));
-                }
-            }
             geo.draw();
-        }
     }
 }
