@@ -32,7 +32,9 @@ public class Geocalc {
     public ArrayList<ListenerMouse> mouseDraggedList = new ArrayList();
 
     public List<Elem2Frame> listFrame = new ArrayList();
+    public List<Elem2Frame> listFrame2 = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
+    public List<Elem2Cross> listCross2 = new ArrayList();
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
@@ -60,20 +62,22 @@ public class Geocalc {
         root = new Area2Polygon(this, gson);
         
         for (int i = 0; i < gson.line.size(); ++i) {
-            listCross.add(new Elem2Cross(this, gson, null, gson.line.get(i), gson.line.get(++i), gson.line.get(++i), gson.line.get(++i)));
+            listCross2.add(new Elem2Cross(this, gson, null, gson.line.get(i), gson.line.get(++i), gson.line.get(++i), gson.line.get(++i)));
         }
         if (gson.poly.size() % 4 != 0) {
             gson.poly.addAll(List.of(gson.poly.get(0), gson.poly.get(1)));
         }
         for (int i = 0; i < gson.poly.size(); ++i) {
-            listFrame.add(new Elem2Frame(this, gson, null, gson.poly.get(i), gson.poly.get(++i), gson.poly.get(++i), gson.poly.get(++i)));
+            listFrame2.add(new Elem2Frame(this, gson, null, gson.poly.get(i), gson.poly.get(++i), gson.poly.get(++i), gson.poly.get(++i)));
         }
+        
+        elements(root, gson);
     }
 
     public void draw() {
 
         //Линия
-        listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        listCross2.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
 
 //        //Клип
 //        GeneralPath clip = new GeneralPath();
@@ -84,11 +88,11 @@ public class Geocalc {
 //        clip.closePath();
         //Многоугольник    
         GeneralPath pathPoly = new GeneralPath();
-        pathPoly.moveTo(listFrame.get(0).x1, listFrame.get(0).y1);
-        pathPoly.lineTo(listFrame.get(0).x2, listFrame.get(0).y2);
-        for (int i = 1; i < listFrame.size(); ++i) {
-            pathPoly.lineTo(listFrame.get(i).x1, listFrame.get(i).y1);
-            pathPoly.lineTo(listFrame.get(i).x2, listFrame.get(i).y2);
+        pathPoly.moveTo(listFrame2.get(0).x1, listFrame2.get(0).y1);
+        pathPoly.lineTo(listFrame2.get(0).x2, listFrame2.get(0).y2);
+        for (int i = 1; i < listFrame2.size(); ++i) {
+            pathPoly.lineTo(listFrame2.get(i).x1, listFrame2.get(i).y1);
+            pathPoly.lineTo(listFrame2.get(i).x2, listFrame2.get(i).y2);
         }
         pathPoly.closePath();
 
@@ -111,12 +115,13 @@ public class Geocalc {
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME == js.type) {
-                    Elem2Frame elem5e = new Elem2Frame(this, js, owner, js.x1, js.y1, js.x2, js.y2);
-                    //root.frames.put(js.layout(), elem5e);
+                    Elem2Frame elem5e = new Elem2Frame(this, js, owner, js.x1, js.y1, -1, -1);
+                    listFrame.add(elem5e);
 
                 } else if (Type.IMPOST == js.type || Type.SHTULP == js.type || Type.STOIKA == js.type) {
                     Elem2Cross elem5e = new Elem2Cross(this, js, owner, js.x1, js.y1, js.x2, js.y2);
                     owner.childs().add(elem5e); //добавим ребёна родителю
+                    listCross.add(elem5e);
 
                 } else if (Type.GLASS == js.type) {
                     Elem2Glass elem5e = new Elem2Glass(this, js, owner);
