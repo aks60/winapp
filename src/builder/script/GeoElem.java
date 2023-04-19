@@ -1,5 +1,6 @@
 package builder.script;
 
+import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
 
@@ -8,7 +9,7 @@ public class GeoElem {
     public transient GeoElem owner = null;  //владелец
     public LinkedList<GeoElem> childs = null; //список детей
     protected Type type = null; //тип элемента
-    public double x1, y1, x2, y2;
+    public Double x1, y1, x2, y2;
 
     public GeoElem() {
     }
@@ -31,6 +32,13 @@ public class GeoElem {
         this.y2 = y2;
     }
 
+    public GeoElem addArea(GeoElem area) {
+        area.owner = this;
+        childs = (childs == null) ? new LinkedList() : childs;
+        this.childs.add(area);
+        return area;
+    }
+    
     public GeoElem addElem(GeoElem elem) {
         elem.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;
