@@ -25,8 +25,7 @@ public final class Bimax2 {
                     .addElem(new GeoElem(Type.FRAME, 50, 100))
                     .addElem(new GeoElem(Type.FRAME, 40, 177));
 
-            rootGeo.addArea(new GeoElem(Type.AREA))
-                    .addElem(new GeoElem(Type.STVORKA))            
+            rootGeo.addArea(new GeoElem(Type.STVORKA))            
                     .addElem(new GeoElem(Type.GLASS));            
             rootGeo.addElem(new GeoElem(Type.IMPOST, 200, 10, 280, 500));
             rootGeo.addArea(new GeoElem(Type.AREA))               
