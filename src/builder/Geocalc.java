@@ -11,7 +11,6 @@ import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
 import com.google.gson.GsonBuilder;
-import common.eProp;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
@@ -32,9 +31,7 @@ public class Geocalc {
     public ArrayList<ListenerMouse> mouseDraggedList = new ArrayList();
 
     public List<Elem2Frame> listFrame = new ArrayList();
-    public List<Elem2Frame> listFrame2 = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
-    public List<Elem2Cross> listCross2 = new ArrayList();
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
@@ -58,47 +55,11 @@ public class Geocalc {
         //Для тестирования
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
-        gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);      
+        gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         root = new Area2Polygon(this, gson);
-        
-        for (int i = 0; i < gson.line.size(); ++i) {
-            listCross2.add(new Elem2Cross(this, gson, null, gson.line.get(i), gson.line.get(++i), gson.line.get(++i), gson.line.get(++i)));
-        }
-        if (gson.poly.size() % 4 != 0) {
-            gson.poly.addAll(List.of(gson.poly.get(0), gson.poly.get(1)));
-        }
-        for (int i = 0; i < gson.poly.size(); ++i) {
-            listFrame2.add(new Elem2Frame(this, gson, null, gson.poly.get(i), gson.poly.get(++i), gson.poly.get(++i), gson.poly.get(++i)));
-        }
-        
         elements(root, gson);
     }
 
-    public void draw() {
-
-        //Линия
-        listCross2.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-
-//        //Клип
-//        GeneralPath clip = new GeneralPath();
-//        clip.moveTo(pLine.get(0).getX(), pLine.get(0).getY());
-//        clip.lineTo(pLine.get(1).getX(), pLine.get(1).getY());
-//        clip.lineTo(400, pLine.get(1).getY());
-//        clip.lineTo(400, pLine.get(0).getY());
-//        clip.closePath();
-        //Многоугольник    
-        GeneralPath pathPoly = new GeneralPath();
-        pathPoly.moveTo(listFrame2.get(0).x1, listFrame2.get(0).y1);
-        pathPoly.lineTo(listFrame2.get(0).x2, listFrame2.get(0).y2);
-        for (int i = 1; i < listFrame2.size(); ++i) {
-            pathPoly.lineTo(listFrame2.get(i).x1, listFrame2.get(i).y1);
-            pathPoly.lineTo(listFrame2.get(i).x2, listFrame2.get(i).y2);
-        }
-        pathPoly.closePath();
-
-        gc2D.draw(pathPoly);
-    }
-    
     private void elements(Comp owner, GeoElem gson) {
         try {
             LinkedHashMap<Comp, GeoElem> hm = new LinkedHashMap();
@@ -142,5 +103,27 @@ public class Geocalc {
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.elements(*) " + e);
         }
+    }
+
+    public void draw() {
+
+        //Линия
+        listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+
+        //Многоугольник  
+        List<Double> arr = new ArrayList();   
+        for (Elem2Frame e : listFrame) {
+            arr.add(e.x1);
+            arr.add(e.y1);
+        }  
+        GeneralPath clip = new GeneralPath();
+        clip.moveTo(arr.get(0), arr.get(1));
+        for (int i = 2; i < arr.size(); i += 2) {
+           clip.lineTo(arr.get(i), arr.get(i+1));
+        }
+        clip.closePath();
+
+        //Прорисовка
+        gc2D.draw(clip);
     }
 }

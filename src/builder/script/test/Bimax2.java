@@ -14,9 +14,7 @@ public final class Bimax2 {
     public static String script(Integer prj) {
         
         if (prj == 501001) { //PUNIC = 427595
-            rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-                    List.of(100, 350, 350, 350, 400, 100, 350, 50, 100, 50, 50, 100, 40, 177),
-                    List.of(200, 10, 280, 500, 280, 10, 280, 400));
+            rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootGeo.addElem(new GeoElem(Type.FRAME, 100, 350))
                     .addElem(new GeoElem(Type.FRAME, 350, 350))
                     .addElem(new GeoElem(Type.FRAME, 400, 100))
