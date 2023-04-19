@@ -489,7 +489,6 @@ public final class Bimax {
 //                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
 //                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
 //                    .addElem(new GsonElem(Type.GLASS));
-
             //425179   506436
             //426309   507550 
             //790 = 175 + 175 + 440, 440 + 175 = 615,  h = 790,  w = 790

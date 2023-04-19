@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-public class GeoRoot {
+public class GeoRoot extends GeoElem {
 
     protected static transient double genId = 0;  //идентификатор   
     public String version = null; //версия
@@ -17,6 +17,14 @@ public class GeoRoot {
     public List<Double> line = null; //линии
     public JsonObject param = new JsonObject(); //параметры элемента
 
+    public GeoRoot(String version, Integer prj, Integer ord, Integer nuni, String name) {
+        
+        this.version = version;
+        this.prj = prj;
+        this.ord = ord;
+        this.nuni = nuni;
+        this.name = name;        
+    }
     public GeoRoot(String version, Integer prj, Integer ord, Integer nuni, String name, List poly, List line) {
 
         this.version = version;
