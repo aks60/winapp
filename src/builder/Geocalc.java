@@ -14,8 +14,10 @@ import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,12 +28,16 @@ public class Geocalc {
     public Graphics2D gc2D = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
 
-    public ArrayList<ListenerMouse> mousePressedList = new ArrayList();
-    public ArrayList<ListenerMouse> mouseReleasedList = new ArrayList();
-    public ArrayList<ListenerMouse> mouseDraggedList = new ArrayList();
+    public ArrayList<ListenerMouse> listMousePressed = new ArrayList();
+    public ArrayList<ListenerMouse> listMouseReleased = new ArrayList();
+    public ArrayList<ListenerMouse> listMouseDragged = new ArrayList();
 
     public List<Elem2Frame> listFrame = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
+    public transient List<Point2D> pointFrame = new ArrayList();
+    public transient List<Line2D> pointCross = new ArrayList();
+    
+    public transient List<Elem2Cross> testCross = new ArrayList();
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
@@ -53,7 +59,7 @@ public class Geocalc {
 
     private void parsing(String script) {
         //Для тестирования
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         root = new Area2Polygon(this, gson);
@@ -107,23 +113,39 @@ public class Geocalc {
 
     public void draw() {
 
-        //Линия
-        listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-
         //Многоугольник  
-        List<Double> arr = new ArrayList();   
-        for (Elem2Frame e : listFrame) {
-            arr.add(e.x1);
-            arr.add(e.y1);
-        }  
+        pointFrame.clear();
+        listFrame.forEach(e -> pointFrame.add(new Point2D.Double(e.x1, e.y1)));
+        
         GeneralPath clip = new GeneralPath();
-        clip.moveTo(arr.get(0), arr.get(1));
-        for (int i = 2; i < arr.size(); i += 2) {
-           clip.lineTo(arr.get(i), arr.get(i+1));
+        clip.moveTo(pointFrame.get(0).getX(), pointFrame.get(0).getY());
+        for (int i = 1; i < pointFrame.size(); ++i) {
+            clip.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
         }
         clip.closePath();
-
-        //Прорисовка
-        gc2D.draw(clip);
+        Area ar1 = new Area(clip); 
+        gc2D.draw(ar1);
+        
+        Line2D li = new Line2D.Double(10.0, 10, 280, 400);
+        Area ar2 = new Area(li);
+        gc2D.draw(ar2);
+        
+        //Линия
+//        List<Point2D> pLine = new ArrayList();
+//        pLine.add(new Point2D.Double(10.0, 0));
+//        pLine.add(new Point2D.Double(280, 400));
+//        Area area = new Area(clip); 
+//        Area line = new Area(new Line2D.Double(pLine.get(0), pLine.get(1))); 
+//        //line.intersect(area);          
+//        gc2D.draw(line); 
+        
+//        listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+//        Area poly = new Area(clip);
+//        Area line = new Area(pointCross.get(0)); 
+//        line.intersect(poly); 
+//        gc2D.draw(line);
+        
+        //listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        //testCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
     }
 }

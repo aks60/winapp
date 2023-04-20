@@ -16,18 +16,18 @@ public class Canvas2D extends JComponent {
         this.geo = geo;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                geo.mousePressedList.forEach(e -> e.mouseEvent(event));
+                geo.listMousePressed.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
-                geo.mouseReleasedList.forEach(e -> e.mouseEvent(event));
+                geo.listMouseReleased.forEach(e -> e.mouseEvent(event));
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
-                geo.mouseDraggedList.forEach(e -> e.mouseEvent(event));
+                geo.listMouseDragged.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
         });

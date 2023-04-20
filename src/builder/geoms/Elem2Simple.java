@@ -3,6 +3,7 @@ package builder.geoms;
 import builder.Geocalc;
 import builder.script.GeoElem;
 import common.listener.ListenerMouse;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 public class Elem2Simple extends Comp { //extends MouseAdapter, MouseMotionAdapter {
@@ -29,6 +30,7 @@ public class Elem2Simple extends Comp { //extends MouseAdapter, MouseMotionAdapt
             } else if (r2.contains(event.getPoint())) {
                 f[1] = true;
             }
+            //winc.testCross.add(new Elem2Cross(winc, event.getX(), event.getY(), vent.getX(), event.getY()));
         };
         ListenerMouse mouseReleased = (event) -> {
             //System.out.println("mouseReleased()---");
@@ -46,11 +48,15 @@ public class Elem2Simple extends Comp { //extends MouseAdapter, MouseMotionAdapt
                 y2 = event.getY();
             }
         };
-        this.winc.mousePressedList.add(mousePressed);
-        this.winc.mouseReleasedList.add(mouseReleased);
-        this.winc.mouseDraggedList.add(mouseDragge);
+        this.winc.listMousePressed.add(mousePressed);
+        this.winc.listMouseReleased.add(mouseReleased);
+        this.winc.listMouseDragged.add(mouseDragge);
     }
 
+    public void createShape() {
+        
+    }
+    
     public void paint() {
         if (f[0] == true) {
 

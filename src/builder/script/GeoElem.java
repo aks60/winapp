@@ -7,8 +7,8 @@ import java.util.LinkedList;
 
 public class GeoElem {
 
-    protected static transient double genId = 0;  //идентификатор    
-    public double id = -1;  //идентификатор
+    private static transient double genId = 0;  //идентификатор    
+    public double id = 0;  //идентификатор
     public transient GeoElem owner = null;  //владелец
     public LinkedList<GeoElem> childs = null; //список детей
     public Type type = null; //тип элемента
