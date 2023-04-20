@@ -14,12 +14,11 @@ import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
+    public double canvas[] = new double[2];
 
     public ArrayList<ListenerMouse> listMousePressed = new ArrayList();
     public ArrayList<ListenerMouse> listMouseReleased = new ArrayList();
@@ -38,7 +38,7 @@ public class Geocalc {
     public List<Elem2Cross> listCross = new ArrayList();
     public transient List<Point2D> pointFrame = new ArrayList();
     public transient List<Line2D> pointCross = new ArrayList();
-    
+
     public transient List<Elem2Cross> testCross = new ArrayList();
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
@@ -118,49 +118,62 @@ public class Geocalc {
         //Многоугольник  
         pointFrame.clear();
         listFrame.forEach(e -> pointFrame.add(new Point2D.Double(e.x1, e.y1)));
-        
-        GeneralPath clip = new GeneralPath();
-        clip.moveTo(pointFrame.get(0).getX(), pointFrame.get(0).getY());
+
+        GeneralPath polPath = new GeneralPath();
+        polPath.moveTo(pointFrame.get(0).getX(), pointFrame.get(0).getY());
         for (int i = 1; i < pointFrame.size(); ++i) {
-            clip.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
+            polPath.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
         }
-        clip.closePath();
-        Area ar1 = new Area(clip); 
-        //gc2D.draw(ar1);
-        
-        Line2D li = new Line2D.Double(10.0, 10, 280, 400);
-        Rectangle2D re = new Rectangle2D.Double(10, 10, 200, 200);
-        GeneralPath lp = new GeneralPath();
-        
-        lp.moveTo(0,0);
-        lp.lineTo(200, 0);
-        lp.lineTo(200, 400);
-        lp.lineTo(0, 400);
-        lp.closePath();
-        
-        Area ar2 = new Area(li);
-        Area ar3 = new Area(re);
-        Area ar4 = new Area(lp);
-        
-        ar1.intersect(ar4);
-        gc2D.draw(ar1);
-        
-        //Линия
-//        List<Point2D> pLine = new ArrayList();
-//        pLine.add(new Point2D.Double(10.0, 0));
-//        pLine.add(new Point2D.Double(280, 400));
-//        Area area = new Area(clip); 
-//        Area line = new Area(new Line2D.Double(pLine.get(0), pLine.get(1))); 
-//        //line.intersect(area);          
-//        gc2D.draw(line); 
-        
-//        listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-//        Area poly = new Area(clip);
-//        Area line = new Area(pointCross.get(0)); 
-//        //line.intersect(poly); 
-//        gc2D.draw(line);
-        
+        polPath.closePath();
+
+        //Линия  
         //listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-        //testCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        //testCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2))); 
+        GeneralPath recPath = new GeneralPath();
+        recPath.moveTo(0, 0);
+        recPath.lineTo(200, 0);
+        recPath.lineTo(200, canvas[1]);
+        recPath.lineTo(0, canvas[1]);
+        recPath.closePath();
+
+        //listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        Area polArea = new Area(polPath);
+        Area recArea = new Area(recPath);
+        polArea.intersect(recArea);
+
+        getPathIterator(polArea);
+//        gc2D.draw(polArea);
+    }
+
+    public void getPathIterator(Area area) {
+        final double[] dbl = new double[6];
+
+        pointFrame.clear();
+        PathIterator iterator = area.getPathIterator(null);
+        while (!iterator.isDone()) {
+            final int segmentType = iterator.currentSegment(dbl);
+            if (segmentType == PathIterator.SEG_LINETO) {
+                //pixelPath.lineTo(floats[0], floats[1]);
+                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
+                System.out.println(dbl[0] + " " + dbl[1]);
+            } else if (segmentType == PathIterator.SEG_MOVETO) {
+                //pixelPath.moveTo(floats[0], floats[1]);
+                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
+                System.out.println(dbl[0] + " " + dbl[1]);
+            } else if (segmentType == PathIterator.SEG_CLOSE) {
+                //pixelPath.closePath();
+                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
+                System.out.println(dbl[0] + " " + dbl[1]);
+            }
+            iterator.next();
+        }
+        GeneralPath polPath = new GeneralPath();
+        polPath.moveTo(pointFrame.get(0).getX(), pointFrame.get(0).getY());
+        for (int i = 1; i < pointFrame.size(); ++i) {
+            polPath.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
+        }
+        polPath.closePath();
+        Area polArea = new Area(polPath);
+        gc2D.draw(polArea);
     }
 }
