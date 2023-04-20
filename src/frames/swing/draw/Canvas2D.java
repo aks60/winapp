@@ -38,8 +38,8 @@ public class Canvas2D extends JComponent {
  
             public void componentResized(ComponentEvent event) {
                 Rectangle r = event.getComponent().getBounds();
-                winc.canvas[0] = r.width;
-                winc.canvas[1] = r.height;
+                winc.scene[0] = r.width;
+                winc.scene[1] = r.height;
             }
         });
     }

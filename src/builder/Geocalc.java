@@ -7,6 +7,8 @@ import builder.geoms.Comp;
 import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
+import builder.geoms.UGeo;
+import builder.geoms.xlam.CrossLineShape;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
@@ -15,7 +17,6 @@ import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
@@ -25,12 +26,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
-    public double canvas[] = new double[2];
+    public double[] scene = new double[2];
 
     public ArrayList<ListenerMouse> listMousePressed = new ArrayList();
     public ArrayList<ListenerMouse> listMouseReleased = new ArrayList();
@@ -127,55 +129,45 @@ public class Geocalc {
             polPath.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
         }
         polPath.closePath();
-        Area ar1 = new Area(polPath); 
-        //gc2D.draw(ar1);
-        
-        Line2D li = new Line2D.Double(10.0, 10, 280, 400);
-  
-        GeneralPath lp = new GeneralPath();
-        
-        lp.moveTo(0,0);
-        lp.lineTo(200, 0);
-        lp.lineTo(200, 400);
-        lp.lineTo(0, 400);
-        lp.closePath();
-        
-        Area ar2 = new Area(li);
-        Area ar4 = new Area(lp);
-        
-        //ar5.intersect(ar4);
-       // gc2D.draw(ar5);
-        
+        Area polArea = new Area(polPath);
+
         //Линия
-//        List<Point2D> pLine = new ArrayList();
-//        pLine.add(new Point2D.Double(10.0, 0));
-//        pLine.add(new Point2D.Double(280, 400));
-//        Area area = new Area(clip); 
-//        Area line = new Area(new Line2D.Double(pLine.get(0), pLine.get(1))); 
-//        //line.intersect(area);          
-//        gc2D.draw(line); 
+        List<Point2D> pLine = new ArrayList();
+        pLine.add(new Point2D.Double(0.0, 100));
+        pLine.add(new Point2D.Double(300, 400));
+
+        clipping(pLine.get(0).getX(), pLine.get(0).getY(), pLine.get(1).getX(), pLine.get(1).getY());
+        Line2D.Double line = new Line2D.Double(pLine.get(0), pLine.get(1));
         
+        int dx = (int) scene[0];
+        int dy = (int) scene[1];
+        Polygon ppp = new Polygon(new int[] {0, dx, dx, 0}, new int[] {0, 0, dy, dy}, 4);           
+        Set set = CrossLineShape.getIntersections(ppp, line);
+        System.out.println(set.toArray()[0] + "  " + set.toArray()[0]);
+        
+        //Area lineArea = new Area(line);
+        //lineArea.intersect(polArea);  
+        gc2D.draw(line);
+
 //        listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
 //        Area poly = new Area(clip);
 //        Area line = new Area(pointCross.get(0)); 
 //        //line.intersect(poly); 
 //        gc2D.draw(line);
-        
         //listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
         //testCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2))); 
-        GeneralPath recPath = new GeneralPath();
-        recPath.moveTo(0, 0);
-        recPath.lineTo(200, 0);
-        recPath.lineTo(200, canvas[1]);
-        recPath.lineTo(0, canvas[1]);
-        recPath.closePath();
-
-        //listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-        Area polArea = new Area(polPath);
-        Area recArea = new Area(recPath);
-        polArea.intersect(recArea);
-
-        getPathIterator(polArea);
+//        GeneralPath recPath = new GeneralPath();
+//        recPath.moveTo(0, 0);
+//        recPath.lineTo(200, 0);
+//        recPath.lineTo(200, canvas[1]);
+//        recPath.lineTo(0, canvas[1]);
+//        recPath.closePath();
+//
+//        //listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+//        Area polArea = new Area(polPath);
+//        Area recArea = new Area(recPath);
+//        polArea.intersect(recArea);
+//
 //        gc2D.draw(polArea);
     }
 
@@ -210,4 +202,35 @@ public class Geocalc {
         Area polArea = new Area(polPath);
         gc2D.draw(polArea);
     }
+
+    public void clipping(double x1, double y1, double x2, double y2) {
+        //double angl = UGeo.horizontAngl(x1, y1, x2, y2);
+
+            double[] crossX1 = UGeo.cross(x1, y1, x2, y2, 0, 0, scene[0], 0);
+            double[] crossX2 = UGeo.cross(x1, y1, x2, y2, 0, scene[1], scene[0], scene[1]);
+            double[] crossY1 = UGeo.cross(x1, y1, x2, y2, 0, 0, 0, scene[1]);
+            double[] crossY2 = UGeo.cross(x1, y1, x2, y2, scene[0], 0, scene[0], scene[1]);
+            
+            System.out.println(crossX1[0] + ":" + crossX1[1] + "   " + crossX2[0] + ":" + crossX2[1]);
+            System.out.println(crossY1[0] + ":" + crossY1[1] + "   " + crossY2[0] + ":" + crossY2[1]);
+            
+            
+//        } else {
+//            double[] cross1 = UGeo.cross(x1, y1, x2, y2, 0, 0, scene[0], 0);
+//            double[] cross2 = UGeo.cross(x1, y1, x2, y2, 0, 0, 0, scene[1]); 
+//            System.out.println(cross1[0] + ":" + cross1[1] + "   " + cross2[0] + ":" + cross2[1]);
+//        }    
+           //double[] cross1 = UGeo.cross2(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2), new Point2D.Double(0, 0), new Point2D.Double(scene[0], 0));
+           //double[] cross2 = UGeo.cross2(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2), new Point2D.Double(0, 0), new Point2D.Double(0, scene[1]));
+            
+
+//            GeneralPath recPath = new GeneralPath();
+//            recPath.moveTo(0, 0);
+//            recPath.lineTo(200, 0);
+//            recPath.lineTo(200, scene[1]);
+//            recPath.lineTo(0, scene[1]);
+//            recPath.closePath();
+        ///} 
+    }
+
 }

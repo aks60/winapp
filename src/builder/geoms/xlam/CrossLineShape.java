@@ -21,7 +21,7 @@ public class CrossLineShape {
         }
     }
 
-    public static Set getIntersections(final Polygon poly, final Line2D.Double line) throws Exception {
+    public static Set getIntersections(final Polygon poly, final Line2D.Double line) { //throws Exception {
         
         final PathIterator polyIt = poly.getPathIterator(null); //Getting an iterator along the polygon path 
         final double[] coords = new double[6]; //Double array with length 6 needed by iterator 
@@ -52,11 +52,12 @@ public class CrossLineShape {
                     break;
                 }
                 default: {
-                    throw new Exception("Unsupported PathIterator segment type.");
+                    return null;
+                    //throw new Exception("Unsupported PathIterator segment type.");
                 }
             }
             polyIt.next();
-        }
+        }       
         return intersections;
     }
 

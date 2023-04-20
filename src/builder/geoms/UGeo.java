@@ -6,8 +6,8 @@ import enums.Type;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.geom.Area;
+import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -151,7 +151,7 @@ public class UGeo {
     }
 
     //Точка пересечения двух векторов 
-    static Point cross(Point A, Point B, Point C, Point D) {
+    public static Point cross(Point A, Point B, Point C, Point D) {
 
         // Line AB represented as a1x + b1y = c1
         double a1 = B.y - A.y;
@@ -173,6 +173,32 @@ public class UGeo {
             double x = (b2 * c1 - b1 * c2) / determinant;
             double y = (a1 * c2 - a2 * c1) / determinant;
             return new Point((int) x, (int) y);
+        }
+    }
+
+    //Точка пересечения двух векторов 
+    public static double[] cross2(Point2D A, Point2D B, Point2D C, Point2D D) {
+
+        // Line AB represented as a1x + b1y = c1
+        double a1 = B.getY() - A.getY();
+        double b1 = A.getX() - B.getX();
+        double c1 = a1 * (A.getX()) + b1 * (A.getY());
+
+        // Line CD represented as a2x + b2y = c2
+        double a2 = D.getY() - C.getY();
+        double b2 = C.getX() - D.getX();
+        double c2 = a2 * (C.getX()) + b2 * (C.getY());
+
+        double determinant = a1 * b2 - a2 * b1;
+
+        if (determinant == 0) {
+            // The lines are parallel. This is simplified
+            // by returning a pair of FLT_MAX
+            return new double[]{Integer.MAX_VALUE, Integer.MAX_VALUE};
+        } else {
+            double x = (b2 * c1 - b1 * c2) / determinant;
+            double y = (a1 * c2 - a2 * c1) / determinant;
+            return new double[]{x, y};
         }
     }
 
@@ -283,6 +309,52 @@ public class UGeo {
         }
     }
 
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(double x1, double y1, double x2, double y2) {
+        double x = x2 - x1;
+        double y = y1 - y2;
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+
+    public static Point get_line_intersection(Line2D.Double pLine1, Line2D.Double pLine2) {
+        Point result = null;
+
+        double s1_x = pLine1.x2 - pLine1.x1,
+                s1_y = pLine1.y2 - pLine1.y1,
+                s2_x = pLine2.x2 - pLine2.x1,
+                s2_y = pLine2.y2 - pLine2.y1,
+                s = (-s1_y * (pLine1.x1 - pLine2.x1) + s1_x * (pLine1.y1 - pLine2.y1)) / (-s2_x * s1_y + s1_x * s2_y),
+                t = (s2_x * (pLine1.y1 - pLine2.y1) - s2_y * (pLine1.x1 - pLine2.x1)) / (-s2_x * s1_y + s1_x * s2_y);
+
+        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+            // Collision detected
+            result = new Point(
+                    (int) (pLine1.x1 + (t * s1_x)),
+                    (int) (pLine1.y1 + (t * s1_y)));
+        }   // end if
+
+        return result;
+    }
+
     //Пример PathIterator
     public static void testArea() {
         Area a = new Area(new Rectangle(1, 1, 5, 5));
@@ -300,7 +372,7 @@ public class UGeo {
             iterator.next();
         }
     }
-    
+
 //public static List<Point> jarvis(List<Point> points) {
 //    Point p0 = new Point(points.get(0));
 //    for (Point p : points)
