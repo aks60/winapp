@@ -15,6 +15,7 @@ import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
@@ -129,7 +130,7 @@ public class Geocalc {
         //gc2D.draw(ar1);
         
         Line2D li = new Line2D.Double(10.0, 10, 280, 400);
-        Rectangle2D re = new Rectangle2D.Double(10, 10, 200, 200);
+  
         GeneralPath lp = new GeneralPath();
         
         lp.moveTo(0,0);
@@ -139,11 +140,10 @@ public class Geocalc {
         lp.closePath();
         
         Area ar2 = new Area(li);
-        Area ar3 = new Area(re);
         Area ar4 = new Area(lp);
         
-        ar1.intersect(ar4);
-        gc2D.draw(ar1);
+        //ar5.intersect(ar4);
+       // gc2D.draw(ar5);
         
         //Линия
 //        List<Point2D> pLine = new ArrayList();
