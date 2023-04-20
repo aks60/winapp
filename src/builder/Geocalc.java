@@ -14,10 +14,12 @@ import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -124,11 +126,24 @@ public class Geocalc {
         }
         clip.closePath();
         Area ar1 = new Area(clip); 
-        gc2D.draw(ar1);
+        //gc2D.draw(ar1);
         
         Line2D li = new Line2D.Double(10.0, 10, 280, 400);
+        Rectangle2D re = new Rectangle2D.Double(10, 10, 200, 200);
+        GeneralPath lp = new GeneralPath();
+        
+        lp.moveTo(0,0);
+        lp.lineTo(200, 0);
+        lp.lineTo(200, 400);
+        lp.lineTo(0, 400);
+        lp.closePath();
+        
         Area ar2 = new Area(li);
-        gc2D.draw(ar2);
+        Area ar3 = new Area(re);
+        Area ar4 = new Area(lp);
+        
+        ar1.intersect(ar4);
+        gc2D.draw(ar1);
         
         //Линия
 //        List<Point2D> pLine = new ArrayList();
@@ -142,7 +157,7 @@ public class Geocalc {
 //        listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
 //        Area poly = new Area(clip);
 //        Area line = new Area(pointCross.get(0)); 
-//        line.intersect(poly); 
+//        //line.intersect(poly); 
 //        gc2D.draw(line);
         
         //listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
