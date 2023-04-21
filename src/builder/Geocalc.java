@@ -134,7 +134,7 @@ public class Geocalc {
         Area polArea = new Area(polPath);
 
         //Линия
-        pointCross.set(0, new Line2D.Double(200, 80, 260, 400));
+        pointCross.set(0, new Line2D.Double(-200, 80, 260, 300));
         
         //Преобразование
         GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), false);       
