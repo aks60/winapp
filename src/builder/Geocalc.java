@@ -117,7 +117,7 @@ public class Geocalc {
     }
 
     public void draw() {
-        
+
         //Инит
         pointFrame.clear();
         listFrame.forEach(e -> pointFrame.add(new Point2D.Double(e.x1, e.y1)));
@@ -134,7 +134,7 @@ public class Geocalc {
 
         //Линия
         pointCross.set(0, new Line2D.Double(-200, 80, 300, 400));
-        GeneralPath clip = clipping(pointCross.get(0).getP1(), pointCross.get(0).getP2());
+        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2());
         Area clipArea = new Area(clip);
         polArea.intersect(clipArea);
 
@@ -144,41 +144,7 @@ public class Geocalc {
 
     }
 
-    public GeneralPath clipping(Point2D p1, Point2D p2) {
-
-        Rectangle2D r = gc2D.getClipBounds().getBounds2D();
-        Point2D px1[] = {new Point2D.Double(r.getX(), r.getY()), new Point2D.Double(r.getWidth(), r.getY()), p1, p2};
-        Point2D px2[] = {new Point2D.Double(r.getX(), r.getHeight()), new Point2D.Double(r.getWidth(), r.getHeight()), p1, p2};
-        Point2D py1[] = {new Point2D.Double(r.getX(), r.getY()), new Point2D.Double(r.getX(), r.getHeight()), p1, p2};
-        Point2D py2[] = {new Point2D.Double(r.getWidth(), r.getY()), new Point2D.Double(r.getWidth(), r.getHeight()), p1, p2};
-
-        double cx1[] = UGeo.cross2(px1[0], px1[1], px1[2], px1[3]);
-        double cx2[] = UGeo.cross2(px2[0], px2[1], px2[3], px2[2]);
-        double cy1[] = UGeo.cross2(py1[0], py1[1], py1[2], py1[3]);
-        double cy2[] = UGeo.cross2(py2[0], py2[1], py2[3], py2[2]);
-
-        List<Point2D> pl = null;
-        if (cx1[0] > 0) {
-            pl = List.of(new Point2D.Double(cy1[0], cy1[1]), new Point2D.Double(cy2[0], cy2[1]), new Point2D.Double(0, cy2[1]));
-        } else {
-            pl = List.of(new Point2D.Double(cx1[0], cx1[1]), new Point2D.Double(cx2[0], cx2[1]), new Point2D.Double(cx1[0], cx2[1]));
-        }
-        GeneralPath clipPath = new GeneralPath();
-        clipPath.moveTo(pl.get(0).getX(), pl.get(0).getY());
-        for (int i = 1; i < pl.size(); i++) {
-            clipPath.lineTo(pl.get(i).getX(), pl.get(i).getY());
-        }
-        clipPath.closePath();
-
-//        gc2D.draw(new Line2D.Double(p1.getX(), p1.getY() + 18, p2.getX(), p2.getY() + 18));
-//        gc2D.draw(clipPath);        
-//        System.out.println("X1=" + cx1[0] + ":" + cx1[1]);
-//        System.out.println("X2=" + cx2[0] + ":" + cx2[1]);
-//        System.out.println("Y1=" + cy1[0] + ":" + cy1[1]);
-//        System.out.println("Y2=" + cy2[0] + ":" + cy2[1]);
-        return clipPath;
-    }
-
+    //Пнример
     public void getPathIterator(Area area) {
         final double[] dbl = new double[6];
 
@@ -210,32 +176,4 @@ public class Geocalc {
         Area polArea = new Area(polPath);
         gc2D.draw(polArea);
     }
-
-    public void clipping2(double x1, double y1, double x2, double y2) {
-        //double angl = UGeo.horizontAngl(x1, y1, x2, y2);
-
-        double[] crossX1 = UGeo.cross(x1, y1, x2, y2, 0, 0, scene[0], 0);
-        double[] crossX2 = UGeo.cross(x1, y1, x2, y2, 0, scene[1], scene[0], scene[1]);
-        double[] crossY1 = UGeo.cross(x1, y1, x2, y2, 0, 0, 0, scene[1]);
-        double[] crossY2 = UGeo.cross(x1, y1, x2, y2, scene[0], 0, scene[0], scene[1]);
-
-        System.out.println(crossX1[0] + ":" + crossX1[1] + "   " + crossX2[0] + ":" + crossX2[1]);
-        System.out.println(crossY1[0] + ":" + crossY1[1] + "   " + crossY2[0] + ":" + crossY2[1]);
-
-//        } else {
-//            double[] cross1 = UGeo.cross(x1, y1, x2, y2, 0, 0, scene[0], 0);
-//            double[] cross2 = UGeo.cross(x1, y1, x2, y2, 0, 0, 0, scene[1]); 
-//            System.out.println(cross1[0] + ":" + cross1[1] + "   " + cross2[0] + ":" + cross2[1]);
-//        }    
-        //double[] cross1 = UGeo.cross2(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2), new Point2D.Double(0, 0), new Point2D.Double(scene[0], 0));
-        //double[] cross2 = UGeo.cross2(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2), new Point2D.Double(0, 0), new Point2D.Double(0, scene[1]));
-//            GeneralPath recPath = new GeneralPath();
-//            recPath.moveTo(0, 0);
-//            recPath.lineTo(200, 0);
-//            recPath.lineTo(200, scene[1]);
-//            recPath.lineTo(0, scene[1]);
-//            recPath.closePath();
-        ///} 
-    }
-
 }
