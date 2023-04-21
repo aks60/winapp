@@ -133,47 +133,18 @@ public class Geocalc {
         Area polArea = new Area(polPath);
 
         //Линия
-        pointCross.set(0, new Line2D.Double(-200, 80, 300, 400));
-        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2());
+        pointCross.set(0, new Line2D.Double(200, 80, 200, 400));
+        
+        //Преобразование
+        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), false);       
         Area clipArea = new Area(clip);
         polArea.intersect(clipArea);
-
+        //Area polArea2 = new Area(polPath);
+        //polArea2.subtract(polArea);
+        
         //Рисую
         gc2D.draw(polArea);
         listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
 
-    }
-
-    //Пнример
-    public void getPathIterator(Area area) {
-        final double[] dbl = new double[6];
-
-        pointFrame.clear();
-        PathIterator iterator = area.getPathIterator(null);
-        while (!iterator.isDone()) {
-            final int segmentType = iterator.currentSegment(dbl);
-            if (segmentType == PathIterator.SEG_LINETO) {
-                //pixelPath.lineTo(floats[0], floats[1]);
-                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
-                System.out.println(dbl[0] + " " + dbl[1]);
-            } else if (segmentType == PathIterator.SEG_MOVETO) {
-                //pixelPath.moveTo(floats[0], floats[1]);
-                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
-                System.out.println(dbl[0] + " " + dbl[1]);
-            } else if (segmentType == PathIterator.SEG_CLOSE) {
-                //pixelPath.closePath();
-                pointFrame.add(new Point2D.Double(dbl[0], dbl[1]));
-                System.out.println(dbl[0] + " " + dbl[1]);
-            }
-            iterator.next();
-        }
-        GeneralPath polPath = new GeneralPath();
-        polPath.moveTo(pointFrame.get(0).getX(), pointFrame.get(0).getY());
-        for (int i = 1; i < pointFrame.size(); ++i) {
-            polPath.lineTo(pointFrame.get(i).getX(), pointFrame.get(i).getY());
-        }
-        polPath.closePath();
-        Area polArea = new Area(polPath);
-        gc2D.draw(polArea);
     }
 }
