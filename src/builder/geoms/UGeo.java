@@ -18,6 +18,124 @@ import java.util.List;
 //
 public class UGeo {
 
+    //Точка пересечения двух векторов 
+    public static double[] cross2(Point2D A, Point2D B, Point2D C, Point2D D) {
+
+        // Line AB represented as a1x + b1y = c1
+        double a1 = B.getY() - A.getY();
+        double b1 = A.getX() - B.getX();
+        double c1 = a1 * (A.getX()) + b1 * (A.getY());
+
+        // Line CD represented as a2x + b2y = c2
+        double a2 = D.getY() - C.getY();
+        double b2 = C.getX() - D.getX();
+        double c2 = a2 * (C.getX()) + b2 * (C.getY());
+
+        double determinant = a1 * b2 - a2 * b1;
+
+        if (determinant == 0) {
+            // The lines are parallel. This is simplified
+            // by returning a pair of FLT_MAX
+            return new double[]{Integer.MAX_VALUE, Integer.MAX_VALUE};
+        } else {
+            double x = (b2 * c1 - b1 * c2) / determinant;
+            double y = (a1 * c2 - a2 * c1) / determinant;
+            return new double[]{x, y};
+        }
+    }
+
+    public static double sin(double angl) {
+        return Math.sin(Math.toRadians(angl));
+    }
+
+    public static double asin(double angl) {
+        return Math.toDegrees(Math.asin(angl));
+    }
+
+    public static double cos(double angl) {
+        return Math.cos(Math.toRadians(angl));
+    }
+
+    public static double tan(double angl) {
+        return Math.tan(Math.toRadians(angl));
+    }
+
+    public static double acos(double angl) {
+        return Math.toDegrees(Math.acos(angl));
+    }
+
+    public static double atan(double angl) {
+        return Math.toDegrees(Math.atan(angl));
+    }
+
+    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
+    public static double betweenAngl(IElem5e e1, IElem5e e2) {
+
+        double dx1 = e1.x2() - e1.x1();
+        double dy1 = e1.y2() - e1.y1();
+        double dx2 = e2.x2() - e2.x1();
+        double dy2 = e2.y2() - e2.y1();
+
+        double s = dx1 * dx2 + dy1 * dy2;
+        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
+        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
+        double c = s / (a * b);
+        return 180 - acos(c);
+    }
+
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(IElem5e e) {
+        double x = e.x2() - e.x1();
+        double y = e.y1() - e.y2();
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(double x1, double y1, double x2, double y2) {
+        double x = x2 - x1;
+        double y = y1 - y2;
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="XLAM">
     //Скалярное произведение
     public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());
@@ -176,32 +294,6 @@ public class UGeo {
         }
     }
 
-    //Точка пересечения двух векторов 
-    public static double[] cross2(Point2D A, Point2D B, Point2D C, Point2D D) {
-
-        // Line AB represented as a1x + b1y = c1
-        double a1 = B.getY() - A.getY();
-        double b1 = A.getX() - B.getX();
-        double c1 = a1 * (A.getX()) + b1 * (A.getY());
-
-        // Line CD represented as a2x + b2y = c2
-        double a2 = D.getY() - C.getY();
-        double b2 = C.getX() - D.getX();
-        double c2 = a2 * (C.getX()) + b2 * (C.getY());
-
-        double determinant = a1 * b2 - a2 * b1;
-
-        if (determinant == 0) {
-            // The lines are parallel. This is simplified
-            // by returning a pair of FLT_MAX
-            return new double[]{Integer.MAX_VALUE, Integer.MAX_VALUE};
-        } else {
-            double x = (b2 * c1 - b1 * c2) / determinant;
-            double y = (a1 * c2 - a2 * c1) / determinant;
-            return new double[]{x, y};
-        }
-    }
-
     //Ширина рамки по оси x и y
     public static double[] diff(IElem5e e, double dh) {
 
@@ -232,106 +324,6 @@ public class UGeo {
             return (imp) ? new double[]{0, dh / x} : new double[]{0, -dh / x};
         } else {
             return (imp) ? new double[]{dh / y, 0} : new double[]{-dh / y, 0};
-        }
-    }
-
-    private static double min(double d) {
-        for (int i = 0; i < 4; i++) {
-            if (d > 90) {
-                d = d - 90;
-            }
-        }
-        return d;
-    }
-
-    public static double sin(double angl) {
-        return Math.sin(Math.toRadians(angl));
-    }
-
-    public static double asin(double angl) {
-        return Math.toDegrees(Math.asin(angl));
-    }
-
-    public static double cos(double angl) {
-        return Math.cos(Math.toRadians(angl));
-    }
-
-    public static double tan(double angl) {
-        return Math.tan(Math.toRadians(angl));
-    }
-
-    public static double acos(double angl) {
-        return Math.toDegrees(Math.acos(angl));
-    }
-
-    public static double atan(double angl) {
-        return Math.toDegrees(Math.atan(angl));
-    }
-
-    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
-    public static double betweenAngl(IElem5e e1, IElem5e e2) {
-
-        double dx1 = e1.x2() - e1.x1();
-        double dy1 = e1.y2() - e1.y1();
-        double dx2 = e2.x2() - e2.x1();
-        double dy2 = e2.y2() - e2.y1();
-
-        double s = dx1 * dx2 + dy1 * dy2;
-        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
-        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
-        double c = s / (a * b);
-        return 180 - acos(c);
-    }
-
-    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
-    public static double horizontAngl(IElem5e e) {
-        double x = e.x2() - e.x1();
-        double y = e.y1() - e.y2();
-
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
-        }
-    }
-
-    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
-    public static double horizontAngl(double x1, double y1, double x2, double y2) {
-        double x = x2 - x1;
-        double y = y1 - y2;
-
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
         }
     }
 
@@ -393,5 +385,6 @@ public class UGeo {
 //        }
 //    } while(t != p);
 //    return hull;
-//}    
+//}  
+// </editor-fold>    
 }

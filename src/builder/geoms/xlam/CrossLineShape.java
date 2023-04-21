@@ -1,33 +1,32 @@
 package builder.geoms.xlam;
 
-import java.awt.Polygon;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class CrossLineShape {
 
     public static void main(String[] args) throws Exception {
         
-        final Polygon poly = new Polygon(new int[]{1, 2, 2, 1}, new int[]{1, 1, 2, 2}, 4);
-        final Line2D.Double line = new Line2D.Double(2.5, 1.3, 1.3, 2.5);
-        final Set intersections = getIntersections(poly, line);
-        for (Iterator it = intersections.iterator(); it.hasNext();) {
-            final Point2D point = (Point2D) it.next();
-            System.out.println("Intersection: " + point.toString());
-        }
+//        final Polygon poly = new Polygon(new int[]{1, 2, 2, 1}, new int[]{1, 1, 2, 2}, 4);
+//        final Line2D.Double line = new Line2D.Double(2.5, 1.3, 1.3, 2.5);
+//        final Set intersections = getIntersections(poly, line);
+//        for (Iterator it = intersections.iterator(); it.hasNext();) {
+//            final Point2D point = (Point2D) it.next();
+//            System.out.println("Intersection: " + point.toString());
+//        }
     }
 
-    public static Set getIntersections(final Polygon poly, final Line2D.Double line) { //throws Exception {
+    public static Point2D[] getIntersections(final Shape poly, final Line2D.Double line) { //throws Exception {
         
         final PathIterator polyIt = poly.getPathIterator(null); //Getting an iterator along the polygon path 
         final double[] coords = new double[6]; //Double array with length 6 needed by iterator 
         final double[] firstCoords = new double[2]; //First point (needed for closing polygon path) 
         final double[] lastCoords = new double[2]; //Previously visited point 
-        final Set intersections = new HashSet(); //List to hold found intersections 
+        final Set<Point2D> intersections = new HashSet(); //List to hold found intersections 
         polyIt.currentSegment(firstCoords); //Getting the first coordinate pair 
         lastCoords[0] = firstCoords[0]; //Priming the previous coordinate pair 
         lastCoords[1] = firstCoords[1];
@@ -57,8 +56,9 @@ public class CrossLineShape {
                 }
             }
             polyIt.next();
-        }       
-        return intersections;
+        }
+        return intersections.toArray(new Point2D[0]);
+        //return intersections;
     }
 
     public static Point2D getIntersection(final Line2D.Double line1, final Line2D.Double line2) {
