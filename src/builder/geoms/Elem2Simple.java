@@ -42,10 +42,12 @@ public class Elem2Simple extends Comp { //extends MouseAdapter, MouseMotionAdapt
                 //System.out.println("mouseDragge()===");
                 x1 = event.getX();
                 y1 = event.getY();
+                winc.draw();
             } else if (f[1] == true) {
                 //System.out.println("mouseDragge()===");
                 x2 = event.getX();
                 y2 = event.getY();
+                winc.draw();
             }
         };
         this.winc.listMousePressed.add(mousePressed);

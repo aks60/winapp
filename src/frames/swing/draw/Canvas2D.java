@@ -15,31 +15,28 @@ public class Canvas2D extends JComponent {
 
     private Geocalc winc;
 
-    public Canvas2D(Geocalc geo) {
-        this.winc = geo;
+    public Canvas2D(Geocalc winc) {
+        this.winc = winc;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                geo.listMousePressed.forEach(e -> e.mouseEvent(event));
+                winc.listMousePressed.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
-                geo.listMouseReleased.forEach(e -> e.mouseEvent(event));
+                winc.listMouseReleased.forEach(e -> e.mouseEvent(event));
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
-                geo.listMouseDragged.forEach(e -> e.mouseEvent(event));
+                winc.listMouseDragged.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
         });
         addComponentListener(new ComponentAdapter() {
  
             public void componentResized(ComponentEvent event) {
-                Rectangle r = event.getComponent().getBounds();
-                winc.scene[0] = r.width;
-                winc.scene[1] = r.height;
             }
         });
     }

@@ -33,7 +33,6 @@ public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
-    public double[] scene = new double[2];
 
     public ArrayList<ListenerMouse> listMousePressed = new ArrayList();
     public ArrayList<ListenerMouse> listMouseReleased = new ArrayList();
@@ -121,8 +120,11 @@ public class Geocalc {
 
         //Инит
         pointFrame.clear();
+        pointCross.clear();
         listFrame.forEach(e -> pointFrame.add(new Point2D.Double(e.x1, e.y1)));
         listCross.forEach(e -> pointCross.add(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        //listCross.forEach(e -> System.out.println(e.y2));
+        //System.out.println(pointCross.get(1).getP2());
 
         //Многоугольник  
         GeneralPath polPath = new GeneralPath();
@@ -133,11 +135,11 @@ public class Geocalc {
         polPath.closePath();
         Area polArea = new Area(polPath);
 
-        //Линия
-        pointCross.set(0, new Line2D.Double(-200, 80, 260, 300));
+        //Test
+        //pointCross.set(0, new Line2D.Double(20, 300, 460, 300));
         
         //Преобразование
-        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), false);       
+        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), true);       
         Area clipArea = new Area(clip);
         polArea.intersect(clipArea);
 
