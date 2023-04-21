@@ -69,7 +69,7 @@ public class UGeo {
         return clipPath;
     }
 
-    public static GeneralPath generalPath(Shape shape) {
+    public static GeneralPath generalPath(Area shape) {
         final double[] dbl = new double[6];
         List<Point2D> p = new ArrayList();
         PathIterator iterator = shape.getPathIterator(null);
