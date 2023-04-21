@@ -60,16 +60,11 @@ public class UGeo {
         }
         clipPath.closePath();
 
-//        gc2D.draw(new Line2D.Double(p1.getX(), p1.getY() + 18, p2.getX(), p2.getY() + 18));
-//        gc2D.draw(clipPath);        
-//        System.out.println("X1=" + cx1[0] + ":" + cx1[1]);
-//        System.out.println("X2=" + cx2[0] + ":" + cx2[1]);
-//        System.out.println("Y1=" + cy1[0] + ":" + cy1[1]);
-//        System.out.println("Y2=" + cy2[0] + ":" + cy2[1]);
         if (side == false) {
-            Rectangle2D clon = (Rectangle2D) r.clone();
-            new Area(clon).subtract(new Area(clipPath));
-            return generalPath(clon);
+            Area sceneArea = new Area(r);
+            Area clipArea = new Area(clipPath);
+            sceneArea.subtract(clipArea);
+            return generalPath(sceneArea);  
         }
         return clipPath;
     }

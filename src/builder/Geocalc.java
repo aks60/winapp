@@ -8,6 +8,7 @@ import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
 import builder.geoms.UGeo;
+import static builder.geoms.UGeo.generalPath;
 import builder.geoms.xlam.CrossLineShape;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
@@ -133,15 +134,13 @@ public class Geocalc {
         Area polArea = new Area(polPath);
 
         //Линия
-        pointCross.set(0, new Line2D.Double(200, 80, 200, 400));
+        pointCross.set(0, new Line2D.Double(200, 80, 260, 400));
         
         //Преобразование
         GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), false);       
         Area clipArea = new Area(clip);
         polArea.intersect(clipArea);
-        //Area polArea2 = new Area(polPath);
-        //polArea2.subtract(polArea);
-        
+
         //Рисую
         gc2D.draw(polArea);
         listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
