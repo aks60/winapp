@@ -8,20 +8,19 @@ import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
 import builder.geoms.UGeo;
-import static builder.geoms.UGeo.generalPath;
-import builder.geoms.xlam.CrossLineShape;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
 import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -32,12 +31,8 @@ import java.util.Map;
 public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
-    public double scale = 1; //коэффициент сжатия
-
-    public ArrayList<ListenerMouse> listMousePressed = new ArrayList();
-    public ArrayList<ListenerMouse> listMouseReleased = new ArrayList();
-    public ArrayList<ListenerMouse> listMouseDragged = new ArrayList();
-
+    public ArrayList<ListenerMouse> mousePressed = new ArrayList(), 
+            mouseReleased = new ArrayList(), mouseDragged = new ArrayList();
     public List<Elem2Frame> listFrame = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
 
@@ -136,16 +131,13 @@ public class Geocalc {
         Area polArea = new Area(polPath);
 
         //Test
-        //pointCross.set(0, new Line2D.Double(20, 300, 460, 300));
+        //pointCross.set(0, new Line2D.Double(20, 300, 300, 300));
         
         //Преобразование
-        GeneralPath clip = UGeo.clipping(gc2D, pointCross.get(0).getP1(), pointCross.get(0).getP2(), true);       
-        Area clipArea = new Area(clip);
-        polArea.intersect(clipArea);
+        Area area[] = UGeo.split(polArea, pointCross.get(0).getP1(), pointCross.get(0).getP2());
 
         //Рисую
-        gc2D.draw(polArea);
+        gc2D.draw(area[1]);
         listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
-
     }
 }

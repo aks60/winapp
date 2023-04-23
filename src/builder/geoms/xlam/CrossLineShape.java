@@ -1,10 +1,12 @@
 package builder.geoms.xlam;
 
+import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class CrossLineShape {
@@ -13,7 +15,7 @@ public class CrossLineShape {
         
 //        final Polygon poly = new Polygon(new int[]{1, 2, 2, 1}, new int[]{1, 1, 2, 2}, 4);
 //        final Line2D.Double line = new Line2D.Double(2.5, 1.3, 1.3, 2.5);
-//        final Set intersections = getIntersections(poly, line);
+//        final Set intersections = getIntersections(poly., line);
 //        for (Iterator it = intersections.iterator(); it.hasNext();) {
 //            final Point2D point = (Point2D) it.next();
 //            System.out.println("Intersection: " + point.toString());

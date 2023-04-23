@@ -19,18 +19,18 @@ public class Canvas2D extends JComponent {
         this.winc = winc;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                winc.listMousePressed.forEach(e -> e.mouseEvent(event));
+                winc.mousePressed.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
-                winc.listMouseReleased.forEach(e -> e.mouseEvent(event));
+                winc.mouseReleased.forEach(e -> e.mouseEvent(event));
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
-                winc.listMouseDragged.forEach(e -> e.mouseEvent(event));
+                winc.mouseDragged.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
         });

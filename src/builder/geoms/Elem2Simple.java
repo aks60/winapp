@@ -50,9 +50,9 @@ public class Elem2Simple extends Comp { //extends MouseAdapter, MouseMotionAdapt
                 winc.draw();
             }
         };
-        this.winc.listMousePressed.add(mousePressed);
-        this.winc.listMouseReleased.add(mouseReleased);
-        this.winc.listMouseDragged.add(mouseDragge);
+        this.winc.mousePressed.add(mousePressed);
+        this.winc.mouseReleased.add(mouseReleased);
+        this.winc.mouseDragged.add(mouseDragge);
     }
 
     public void createShape() {
