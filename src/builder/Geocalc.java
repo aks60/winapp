@@ -37,7 +37,7 @@ public class Geocalc {
     public List<Elem2Cross> listCross = new ArrayList();
 
     public transient List<Point2D> pointFrame = new ArrayList();
-    public transient List<Line2D> pointCross = new ArrayList();
+    public transient List<Line2D.Double> pointCross = new ArrayList();
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
@@ -135,9 +135,12 @@ public class Geocalc {
         
         //Преобразование
         Area area[] = UGeo.split(polArea, pointCross.get(0).getP1(), pointCross.get(0).getP2());
-
+        Point2D[] point2D = UGeo.cross(polArea, pointCross.get(0));
+        pointCross.set(0, new Line2D.Double(point2D[0], point2D[1]));
         //Рисую
         gc2D.draw(area[1]);
-        listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
+        gc2D.draw(new Line2D.Double(point2D[0], point2D[1]));
+        
+        //listCross.forEach(e -> gc2D.draw(new Line2D.Double(e.x1, e.y1, e.x2, e.y2)));
     }
 }
