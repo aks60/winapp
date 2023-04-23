@@ -15,29 +15,18 @@ public class GeoRoot extends GeoElem {
     public String name = null;  //название пректа    
     //public List<Double> poly = null; //многоугольник
     //public List<Double> line = null; //линии
-    public JsonObject param = new JsonObject(); //параметры элемента
 
     public GeoRoot(String version, Integer prj, Integer ord, Integer nuni, String name) {
-        
+
         this.version = version;
         this.prj = prj;
         this.ord = ord;
         this.nuni = nuni;
-        this.name = name;        
+        this.name = name;
     }
-//    public GeoRoot(String version, Integer prj, Integer ord, Integer nuni, String name, List poly, List line) {
-//
-//        this.version = version;
-//        this.prj = prj;
-//        this.ord = ord;
-//        this.nuni = nuni;
-//        this.name = name;
-//        this.poly = poly;
-//        this.line = line;
-//    }
-
-
+    
     public String toJson() {
+        this.notSerialize(this);
         return new GsonBuilder().create().toJson(this);
     }
 }
