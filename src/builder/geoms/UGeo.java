@@ -31,14 +31,14 @@ public class UGeo {
     public static Area[] split(Area a, Elem2Cross e) {
 
         //Вычисление угла линии к оси x
-        double dx = e.x2 - e.x1;
-        double dy = e.y2 - e.y1;
+        double dx = e.x2() - e.x1();
+        double dy = e.y2() - e.y1();
         double angleRadToX = Math.atan2(dy, dx);
 
         //Выравниваем область так, чтобы линия совпадала с осью x
         AffineTransform at = new AffineTransform();
         at.rotate(-angleRadToX);
-        at.translate(-e.x1, -e.y1);
+        at.translate(-e.x1(), -e.y1());
         Area aa = a.createTransformedArea(at);
 
         //Вычисляем верхнюю и нижнюю половины площади должы пересекаться с...
@@ -77,7 +77,7 @@ public class UGeo {
     
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
-        final Line2D.Double line = new Line2D.Double(elem.x1, elem.y1, elem.x1, elem.y2);
+        final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x1(), elem.y2());
         final PathIterator polyIt = poly.getPathIterator(null); //Getting an iterator along the polygon path 
         final double[] coords = new double[6]; //Double array with length 6 needed by iterator 
         final double[] firstCoords = new double[2]; //First point (needed for closing polygon path) 
@@ -114,7 +114,6 @@ public class UGeo {
             polyIt.next();
         }
         return intersections.toArray(new Point2D[0]);
-        //return intersections;
     }
 
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html

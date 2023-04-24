@@ -29,11 +29,10 @@ public class Geocalc {
     public Graphics2D gc2D = null; //графический котекст рисунка  
     public ArrayList<ListenerMouse> mousePressed = new ArrayList(),
             mouseReleased = new ArrayList(), mouseDragged = new ArrayList();
+
     public List<Elem2Frame> listFrame = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
 
-    //public transient List<Point2D> pointFrame = new ArrayList();
-    //public transient List<Line2D.Double> pointCross = new ArrayList();
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
 
@@ -77,11 +76,11 @@ public class Geocalc {
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME == js.type) {
-                    Elem2Frame elem5e = new Elem2Frame(this, js, owner, js.x1, js.y1, -1, -1);
+                    Elem2Frame elem5e = new Elem2Frame(this, js, owner);
                     listFrame.add(elem5e);
 
                 } else if (Type.IMPOST == js.type || Type.SHTULP == js.type || Type.STOIKA == js.type) {
-                    Elem2Cross elem5e = new Elem2Cross(this, js, owner, js.x1, js.y1, js.x2, js.y2);
+                    Elem2Cross elem5e = new Elem2Cross(this, js, owner);
                     owner.childs().add(elem5e); //добавим ребёна родителю
                     listCross.add(elem5e);
 
@@ -107,23 +106,26 @@ public class Geocalc {
     }
 
     public void draw() {
-        //listCross.get(0).setLocation(20, 300, 300, 300); //test
 
         //Многоугольник  
         GeneralPath polPath = new GeneralPath();
-        polPath.moveTo(listFrame.get(0).x1, listFrame.get(0).y1);
+        polPath.moveTo(listFrame.get(0).x1(), listFrame.get(0).y1());
         for (int i = 1; i < listFrame.size(); ++i) {
-            polPath.lineTo(listFrame.get(i).x1, listFrame.get(i).y1);
+            polPath.lineTo(listFrame.get(i).x1(), listFrame.get(i).y1());
         }
         polPath.closePath();
 
         //Преобразование
         Area polArea = new Area(polPath);
         Area area[] = UGeo.split(polArea, listCross.get(0));
-        Point2D[] point2D = UGeo.cross(polArea, listCross.get(0));
-        
-        //Рисую
-        gc2D.draw(area[1]);
-        gc2D.draw(new Line2D.Double(point2D[0], point2D[1]));
+        //gc2D.draw(area[1]); //рисую
+        for (Elem2Cross cross : listCross) {
+            Point2D[] point2D = UGeo.cross(polArea, cross);
+            if (point2D != null && point2D.length > 1) {
+                System.out.println(point2D[0].getX() + " " + point2D[0].getY() + " " + point2D[1].getX() + " " + point2D[1].getY());
+                //listCross.get(0).setLocation(point2D[0].getX(), point2D[0].getY(), point2D[1].getX(), point2D[1].getY());
+                gc2D.draw(new Line2D.Double(point2D[0], point2D[1])); //рисую
+            }
+        }
     }
 }

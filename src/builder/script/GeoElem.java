@@ -12,7 +12,7 @@ public class GeoElem {
     public double id = 0;  //идентификатор
     public transient GeoElem owner = null;  //владелец
     public LinkedList<GeoElem> childs = null; //список детей
-    public JsonObject param = new JsonObject(); //параметры элемента
+    public JsonObject param = null; //параметры элемента
     public Type type = null; //тип элемента
     public Double x1, y1, x2, y2;
 
@@ -23,13 +23,6 @@ public class GeoElem {
     public GeoElem(Type type) {
         this.id = ++genId;
         this.type = type;
-    }
-    
-    public GeoElem(Type type, double x1, double y1) {
-        this.id = ++genId;
-        this.type = type;
-        this.x1 = x1;
-        this.y1 = y1;
     }
 
     public GeoElem(Type type, double x1, double y1, double x2, double y2) {
@@ -53,19 +46,5 @@ public class GeoElem {
         childs = (childs == null) ? new LinkedList() : childs;
         this.childs.add(elem);
         return this;
-    }
-    
-    public void notSerialize(GeoElem gsonElem) {
-        if (gsonElem == this && this.param != null && this.param.size() == 0) {
-            this.param = null;
-        }
-        if (this.childs != null) {
-            for (GeoElem el : this.childs) {
-                if (el.param != null && el.param.size() == 0) {
-                    el.param = null;
-                }
-                el.notSerialize(this); //рекурсия  
-            }
-        }
     }
 }
