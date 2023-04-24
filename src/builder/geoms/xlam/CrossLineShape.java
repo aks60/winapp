@@ -1,12 +1,10 @@
 package builder.geoms.xlam;
 
-import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class CrossLineShape {
