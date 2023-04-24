@@ -28,9 +28,11 @@ import java.util.Map;
 public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
-    public ArrayList<ListenerMouse> mousePressed = new ArrayList(),
-            mouseReleased = new ArrayList(), mouseDragged = new ArrayList();
+    public ArrayList<ListenerMouse> mousePressed = new ArrayList();
+    public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
+    public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
 
+    public List<Area2Simple> listArea = new ArrayList();
     public List<Elem2Frame> listFrame = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
 
@@ -44,8 +46,8 @@ public class Geocalc {
 
     public void build(String script) {
         try {
-
             parsing(script);
+            root.setPolygon(listFrame);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Geocalc.build() " + e);
@@ -58,7 +60,7 @@ public class Geocalc {
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         root = new Area2Polygon(this, gson);
-        elements(root, gson);
+        elements(root, gson);        
     }
 
     private void elements(Comp owner, GeoElem gson) {
@@ -74,6 +76,7 @@ public class Geocalc {
                 } else if (Type.AREA == js.type) {
                     Area2Simple area5e = new Area2Simple(this, js, owner);
                     owner.childs().add(area5e); //добавим ребёна родителю
+                    listArea.add(area5e);
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME == js.type) {
@@ -107,26 +110,9 @@ public class Geocalc {
     }
 
     public void draw() {
-
-        //Многоугольник  
-        GeneralPath polPath = new GeneralPath();
-        polPath.moveTo(listFrame.get(0).x1(), listFrame.get(0).y1());
-        for (int i = 1; i < listFrame.size(); ++i) {
-            polPath.lineTo(listFrame.get(i).x1(), listFrame.get(i).y1());
-        }
-        polPath.closePath();
-
-        //Преобразование
-        Area polArea = new Area(polPath);
-        //Area area[] = UGeo.split(polArea, listCross.get(0));
-        gc2D.draw(polArea); //рисую
-        Elem2Cross cross = listCross.get(0);
-        Point2D[] point2D = UGeo.cross(polArea, cross);
-        if (point2D != null && point2D.length > 1) {
-           System.out.println(point2D[0].getX() + " " + point2D[0].getY() + " " + point2D[1].getX() + " " + point2D[1].getY());
-           cross.setLocation(point2D[0].getX(), point2D[0].getY(), point2D[1].getX(), point2D[1].getY());
-           gc2D.draw(new Line2D.Double(point2D[0], point2D[1])); //рисую
-        } 
-        gc2D.draw(new Line2D.Double(80, 10, 280, 400)); //рисую
+        root.paint();
+        listArea.forEach(e -> e.paint());
+        listFrame.forEach(e -> e.paint());
+        listCross.forEach(e -> e.paint());
     }
 }

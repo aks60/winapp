@@ -3,6 +3,7 @@ package builder.geoms;
 import builder.Geocalc;
 import builder.script.GeoElem;
 import common.listener.ListenerMouse;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Comp {
     public Geocalc winc = null;
     public Comp owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
+    public GeneralPath polygon = new GeneralPath();
     public boolean ev[] = {false, false};
 
     public Comp(Geocalc winc, GeoElem gson, Comp owner) {
@@ -20,14 +22,13 @@ public class Comp {
         this.owner = owner;
         this.gson = gson;
     }
-    
+
     public List<Comp> childs() {
         return null;
     }
 
     public void mouseEvent() {
-        ListenerMouse mousePressed = (event) -> { 
-            if (x1() != -1 && y1() != -1 && x2() != -1 && y2() != -1) {
+        ListenerMouse mousePressed = (event) -> {
                 //System.out.println("mousePressed()+++");
                 Rectangle2D r1 = new Rectangle2D.Double(x1() - 8, y1() - 8, 16, 16);
                 Rectangle2D r2 = new Rectangle2D.Double(x2() - 8, y2() - 8, 16, 16);
@@ -36,7 +37,6 @@ public class Comp {
                 } else if (r2.contains(event.getPoint())) {
                     ev[1] = true;
                 }
-            }
         };
         ListenerMouse mouseReleased = (event) -> {
             //System.out.println("mouseReleased()---");
@@ -46,19 +46,23 @@ public class Comp {
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()===");
-                x1(event.getX());
-                y1(event.getY());
-                winc.draw();
+                    x1(event.getX());
+                    y1(event.getY());
+                    winc.draw();
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()===");
-                x2(event.getX());
-                y2(event.getY());
-                winc.draw();
+                    x2(event.getX());
+                    y2(event.getY());
+                    winc.draw();
             }
         };
         this.winc.mousePressed.add(mousePressed);
         this.winc.mouseReleased.add(mouseReleased);
         this.winc.mouseDragged.add(mouseDragge);
+    }
+    
+    public void paint() {
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
@@ -68,7 +72,7 @@ public class Comp {
         gson.x2 = x2;
         gson.y2 = y2;
     }
-    
+
     public double x1() {
         return (gson.x1 != null) ? gson.x1 : -1;
     }

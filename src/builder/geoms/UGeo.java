@@ -31,13 +31,9 @@ public class UGeo {
     public static Area[] split(Area a, Elem2Cross e) {
 
         //Вычисление угла линии к оси x
-        double dx = e.x2() - e.x1();
-        double dy = e.y2() - e.y1();
+        double dx = Math.abs(e.x2() - e.x1());
+        double dy = Math.abs(e.y2() - e.y1());
         double angleRadToX = Math.atan2(dy, dx);
-        
-        if(dx == 0 || dy == 0) {
-            System.out.println("builder.geoms.UGeo.split()");
-        }
 
         //Выравниваем область так, чтобы линия совпадала с осью x
         AffineTransform at = new AffineTransform();
@@ -76,9 +72,9 @@ public class UGeo {
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
 
-        return new Area[]{a0, a1};
+        return new Area[]{a1, a0};
     }
-    
+
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
         final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x2(), elem.y2());
@@ -135,7 +131,7 @@ public class UGeo {
         final double y = ((y3 - y4) * (x1 * y2 - x2 * y1) - (y1 - y2) * (x3 * y4 - x4 * y3)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
         return new Point2D.Double(x, y);
     }
-    
+
     public static double sin(double angl) {
         return Math.sin(Math.toRadians(angl));
     }
