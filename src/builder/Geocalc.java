@@ -8,6 +8,7 @@ import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
 import builder.geoms.UGeo;
+import builder.geoms.xlam.ShapeSplit;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
@@ -53,7 +54,7 @@ public class Geocalc {
 
     private void parsing(String script) {
         //Для тестирования
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         root = new Area2Polygon(this, gson);
@@ -117,15 +118,15 @@ public class Geocalc {
 
         //Преобразование
         Area polArea = new Area(polPath);
-        Area area[] = UGeo.split(polArea, listCross.get(0));
-        gc2D.draw(area[0]); //рисую
-        for (Elem2Cross cross : listCross) {
-            Point2D[] point2D = UGeo.cross(polArea, cross);
-            if (point2D != null && point2D.length > 1) {
-                //System.out.println(point2D[0].getX() + " " + point2D[0].getY() + " " + point2D[1].getX() + " " + point2D[1].getY());
-                listCross.get(0).setLocation(point2D[0].getX(), point2D[0].getY(), point2D[1].getX(), point2D[1].getY());
-                gc2D.draw(new Line2D.Double(point2D[0], point2D[1])); //рисую
-            }
-        }
+        //Area area[] = UGeo.split(polArea, listCross.get(0));
+        gc2D.draw(polArea); //рисую
+        Elem2Cross cross = listCross.get(0);
+        Point2D[] point2D = UGeo.cross(polArea, cross);
+        if (point2D != null && point2D.length > 1) {
+           System.out.println(point2D[0].getX() + " " + point2D[0].getY() + " " + point2D[1].getX() + " " + point2D[1].getY());
+           cross.setLocation(point2D[0].getX(), point2D[0].getY(), point2D[1].getX(), point2D[1].getY());
+           gc2D.draw(new Line2D.Double(point2D[0], point2D[1])); //рисую
+        } 
+        gc2D.draw(new Line2D.Double(80, 10, 280, 400)); //рисую
     }
 }

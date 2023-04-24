@@ -34,6 +34,10 @@ public class UGeo {
         double dx = e.x2() - e.x1();
         double dy = e.y2() - e.y1();
         double angleRadToX = Math.atan2(dy, dx);
+        
+        if(dx == 0 || dy == 0) {
+            System.out.println("builder.geoms.UGeo.split()");
+        }
 
         //Выравниваем область так, чтобы линия совпадала с осью x
         AffineTransform at = new AffineTransform();
