@@ -75,16 +75,42 @@ public class UGeo {
         return new Area[]{a1, a0};
     }
 
+    public static List<Double> cross(Area area[]) {
+        List<Double> p = new ArrayList();
+        Set hs = new HashSet();
+        double[] c1 = new double[6], c2 = new double[6];
+        PathIterator i1 = area[0].getPathIterator(null);
+
+        while (!i1.isDone()) {
+            i1.currentSegment(c1);
+            PathIterator i2 = area[1].getPathIterator(null);
+
+            while (!i2.isDone()) {
+                i2.currentSegment(c2);
+                if (c1[0] == c2[0] && c1[1] == c2[1]) {
+                    if (hs.add(c1[0] + "-" + c1[1])) {
+                        p.add(c1[0]);
+                        p.add(c1[1]);
+                    }
+                    break;
+                }
+                i2.next();
+            }
+            i1.next();
+        }
+        return p;
+    }
+
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
         final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x2(), elem.y2());
-        final PathIterator polyIt = poly.getPathIterator(null); //Getting an iterator along the polygon path 
-        final double[] coords = new double[6]; //Double array with length 6 needed by iterator 
-        final double[] firstCoords = new double[2]; //First point (needed for closing polygon path) 
-        final double[] lastCoords = new double[2]; //Previously visited point 
-        final Set<Point2D> intersections = new HashSet(); //List to hold found intersections 
-        polyIt.currentSegment(firstCoords); //Getting the first coordinate pair 
-        lastCoords[0] = firstCoords[0]; //Priming the previous coordinate pair 
+        final PathIterator polyIt = poly.getPathIterator(null);
+        final double[] coords = new double[6]; //двойной массив длиной 6, необходимый для итератора 
+        final double[] firstCoords = new double[2]; //первая точка (необходима для замыкания полигона)
+        final double[] lastCoords = new double[2]; //ранее посещенная точка
+        final Set<Point2D> intersections = new HashSet(); //список для хранения найденных пересечений 
+        polyIt.currentSegment(firstCoords); //Получение первой пары координат 
+        lastCoords[0] = firstCoords[0]; //заполнение предыдущей пары координат 
         lastCoords[1] = firstCoords[1];
         polyIt.next();
         while (!polyIt.isDone()) {
@@ -93,7 +119,7 @@ public class UGeo {
                 case PathIterator.SEG_LINETO: {
                     final Line2D.Double currentLine = new Line2D.Double(lastCoords[0], lastCoords[1], coords[0], coords[1]);
                     if (currentLine.intersectsLine(line)) {
-                        intersections.add(cross(currentLine, line));
+                        intersections.add(UGeo.cross(currentLine, line));
                     }
                     lastCoords[0] = coords[0];
                     lastCoords[1] = coords[1];
@@ -102,7 +128,7 @@ public class UGeo {
                 case PathIterator.SEG_CLOSE: {
                     final Line2D.Double currentLine = new Line2D.Double(coords[0], coords[1], firstCoords[0], firstCoords[1]);
                     if (currentLine.intersectsLine(line)) {
-                        intersections.add(cross(currentLine, line));
+                        intersections.add(UGeo.cross(currentLine, line));
                     }
                     break;
                 }

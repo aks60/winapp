@@ -2,44 +2,40 @@ package builder.geoms;
 
 import builder.Geocalc;
 import builder.script.GeoElem;
-import java.awt.Shape;
 import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Area2Polygon extends Area2Simple {
 
     public Area2Polygon(Geocalc winc, GeoElem gson) {
-        super(winc, gson, null);       
+        super(winc, gson, null);
     }
-    
+
     public void setPolygon(List<Elem2Frame> listFrame) {
         polygon.reset();
         polygon.moveTo(listFrame.get(0).x1(), listFrame.get(0).y1());
         for (int i = 1; i < listFrame.size(); ++i) {
             polygon.lineTo(listFrame.get(i).x1(), listFrame.get(i).y1());
         }
-        polygon.closePath();        
+        polygon.closePath();
     }
-    
+
     public void paint() {
         setPolygon(winc.listFrame);
-        Area polArea = new Area(polygon);
-       
-        Area area[] = UGeo.split(polArea, winc.listCross.get(0));
-        
-        winc.gc2D.draw(area[0]); //рисую
-        
-        Elem2Cross cross = winc.listCross.get(0);
-        Point2D[] point2D = UGeo.cross(polArea, cross);
-
-        if (point2D != null && point2D.length > 1) {
-            //System.out.println(point2D[0].getX() + " " + point2D[0].getY() + " " + point2D[1].getX() + " " + point2D[1].getY());
-            cross.setLocation(point2D[0].getX(), point2D[0].getY(), point2D[1].getX(), point2D[1].getY());
-            winc.gc2D.draw(new Line2D.Double(point2D[0], point2D[1])); //рисую
+        Area area1 = new Area(polygon);
+        Area area2[] = UGeo.split(area1, winc.listCross.get(0));
+        List<Double> pt = UGeo.cross(area2);
+        if (pt.size() == 4) {
+            winc.listCross.get(0).setLocation(pt.get(0), pt.get(1), pt.get(2), pt.get(3));
+            winc.gc2D.draw(new Line2D.Double(pt.get(0), pt.get(1), pt.get(2), pt.get(3))); //рисую 
         }
-        //gc2D.draw(new Line2D.Double(80, 10, 280, 400)); //рисую        
+        //System.out.println(pt);
+
+        winc.gc2D.draw(area2[0]); //рисую                
+        winc.gc2D.draw(area2[1]); //рисую                
     }
 }

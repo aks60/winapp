@@ -21,4 +21,8 @@ public class Area2Simple extends Comp {
     public List<Comp> childs() {
         return childs;
     }
+    
+    public void mouseEvent() {
+        
+    }
 }

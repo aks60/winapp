@@ -33,8 +33,18 @@ public final class Bimax2 {
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
 
-        } else if (prj == 501002) { //PUNIC = 427595
+        } else if (prj == 501001777) { //PUNIC = 427595
             rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
+            rootGeo.addElem(new GeoElem(Type.FRAME, 100, 100, 300, 100))
+                    .addElem(new GeoElem(Type.FRAME, 300, 100, 300, 400))
+                    .addElem(new GeoElem(Type.FRAME, 300, 400, 100, 400))
+                    .addElem(new GeoElem(Type.FRAME, 100, 400, 100, 100))
+                    .addElem(new GeoElem(Type.FRAME, 100, 50, 50, 100));
+            rootGeo.addArea(new GeoElem(Type.AREA))               
+                    .addElem(new GeoElem(Type.GLASS));            
+            rootGeo.addElem(new GeoElem(Type.IMPOST, 150, 10, 150, 400));  
+            rootGeo.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));
 
         } else {
             return null;
