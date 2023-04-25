@@ -76,9 +76,9 @@ public class UGeo {
     }
 
     public static double[] cross(Area area[], Elem2Cross line) {
-        List<Double> p = new ArrayList();
+        List<Float> p = new ArrayList();
         Set hs = new HashSet();
-        double[] c1 = new double[6], c2 = new double[6];
+        float[] c1 = new float[6], c2 = new float[6];
         PathIterator i1 = area[0].getPathIterator(null);
 
         while (!i1.isDone()) {
@@ -98,68 +98,22 @@ public class UGeo {
             }
             i1.next();
         }
-        if (p.size() == 4) {
-            return new double[] {p.get(0), p.get(1), p.get(2), p.get(3)};
-        } else {
-            return new double[] {line.x1(), line.y1(), line.x2(), line.y2()};
-        }
-    }
-
-    //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
-    public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
-        final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x2(), elem.y2());
-        final PathIterator polyIt = poly.getPathIterator(null);
-        final double[] coords = new double[6]; //двойной массив длиной 6, необходимый для итератора 
-        final double[] firstCoords = new double[2]; //первая точка (необходима для замыкания полигона)
-        final double[] lastCoords = new double[2]; //ранее посещенная точка
-        final Set<Point2D> intersections = new HashSet(); //список для хранения найденных пересечений 
-        polyIt.currentSegment(firstCoords); //Получение первой пары координат 
-        lastCoords[0] = firstCoords[0]; //заполнение предыдущей пары координат 
-        lastCoords[1] = firstCoords[1];
-        polyIt.next();
-        while (!polyIt.isDone()) {
-            final int type = polyIt.currentSegment(coords);
-            switch (type) {
-                case PathIterator.SEG_LINETO: {
-                    final Line2D.Double currentLine = new Line2D.Double(lastCoords[0], lastCoords[1], coords[0], coords[1]);
-                    if (currentLine.intersectsLine(line)) {
-                        intersections.add(UGeo.cross(currentLine, line));
-                    }
-                    lastCoords[0] = coords[0];
-                    lastCoords[1] = coords[1];
-                    break;
-                }
-                case PathIterator.SEG_CLOSE: {
-                    final Line2D.Double currentLine = new Line2D.Double(coords[0], coords[1], firstCoords[0], firstCoords[1]);
-                    if (currentLine.intersectsLine(line)) {
-                        intersections.add(UGeo.cross(currentLine, line));
-                    }
-                    break;
-                }
-                default: {
-                    return null;
-                    //throw new Exception("Unsupported PathIterator segment type.");
-                }
+        if (p.size() > 3) {
+            double angl = UGeo.horizontAngl(p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1));           
+            if ((angl > 0 && angl < 90) || (angl > 180 && angl < 270)) {
+                System.out.println("xxxxx " + angl);
+                return new double[]{p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
+            } else {
+                System.out.println("zzzzz " + angl);
+                return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
             }
-            polyIt.next();
+//            System.out.println("++++ " + p.get(0) + " : " + p.get(1) + " : " + p.get(p.size() - 2) + " : " + p.get(p.size() - 1));
+//            System.out.println("zzzzz " + line.x1() + " : " + line.y1() + " : " + line.x2() + " : " + line.y2());
+//            return new double[]{ p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
+        } else {
+            System.out.println("yyyyy " + line.x1() + " : " + line.y1() + " : " + line.x2() + " : " + line.y2());
+            return new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
         }
-        return intersections.toArray(new Point2D[0]);
-    }
-
-    //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
-    public static Point2D cross(final Line2D.Double line1, final Line2D.Double line2) {
-        final double x1, y1, x2, y2, x3, y3, x4, y4;
-        x1 = line1.x1;
-        y1 = line1.y1;
-        x2 = line1.x2;
-        y2 = line1.y2;
-        x3 = line2.x1;
-        y3 = line2.y1;
-        x4 = line2.x2;
-        y4 = line2.y2;
-        final double x = ((x2 - x1) * (x3 * y4 - x4 * y3) - (x4 - x3) * (x1 * y2 - x2 * y1)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
-        final double y = ((y3 - y4) * (x1 * y2 - x2 * y1) - (y1 - y2) * (x3 * y4 - x4 * y3)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
-        return new Point2D.Double(x, y);
     }
 
     public static double sin(double angl) {
@@ -254,6 +208,63 @@ public class UGeo {
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
+    //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
+    public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
+        final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x2(), elem.y2());
+        final PathIterator polyIt = poly.getPathIterator(null);
+        final double[] coords = new double[6]; //двойной массив длиной 6, необходимый для итератора 
+        final double[] firstCoords = new double[2]; //первая точка (необходима для замыкания полигона)
+        final double[] lastCoords = new double[2]; //ранее посещенная точка
+        final Set<Point2D> intersections = new HashSet(); //список для хранения найденных пересечений 
+        polyIt.currentSegment(firstCoords); //Получение первой пары координат 
+        lastCoords[0] = firstCoords[0]; //заполнение предыдущей пары координат 
+        lastCoords[1] = firstCoords[1];
+        polyIt.next();
+        while (!polyIt.isDone()) {
+            final int type = polyIt.currentSegment(coords);
+            switch (type) {
+                case PathIterator.SEG_LINETO: {
+                    final Line2D.Double currentLine = new Line2D.Double(lastCoords[0], lastCoords[1], coords[0], coords[1]);
+                    if (currentLine.intersectsLine(line)) {
+                        intersections.add(UGeo.cross(currentLine, line));
+                    }
+                    lastCoords[0] = coords[0];
+                    lastCoords[1] = coords[1];
+                    break;
+                }
+                case PathIterator.SEG_CLOSE: {
+                    final Line2D.Double currentLine = new Line2D.Double(coords[0], coords[1], firstCoords[0], firstCoords[1]);
+                    if (currentLine.intersectsLine(line)) {
+                        intersections.add(UGeo.cross(currentLine, line));
+                    }
+                    break;
+                }
+                default: {
+                    return null;
+                    //throw new Exception("Unsupported PathIterator segment type.");
+                }
+            }
+            polyIt.next();
+        }
+        return intersections.toArray(new Point2D[0]);
+    }
+
+    //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
+    public static Point2D cross(final Line2D.Double line1, final Line2D.Double line2) {
+        final double x1, y1, x2, y2, x3, y3, x4, y4;
+        x1 = line1.x1;
+        y1 = line1.y1;
+        x2 = line1.x2;
+        y2 = line1.y2;
+        x3 = line2.x1;
+        y3 = line2.y1;
+        x4 = line2.x2;
+        y4 = line2.y2;
+        final double x = ((x2 - x1) * (x3 * y4 - x4 * y3) - (x4 - x3) * (x1 * y2 - x2 * y1)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+        final double y = ((y3 - y4) * (x1 * y2 - x2 * y1) - (y1 - y2) * (x3 * y4 - x4 * y3)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+        return new Point2D.Double(x, y);
+    }
+
     //Скалярное произведение
     public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());

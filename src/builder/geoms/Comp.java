@@ -9,12 +9,14 @@ import java.util.List;
 
 public class Comp {
 
+    public int SIZE = 16;
     public double id;
     public Geocalc winc = null;
     public Comp owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
     public GeneralPath polygon = new GeneralPath();
     public boolean ev[] = {false, false};
+    //boolean flag = true;
 
     public Comp(Geocalc winc, GeoElem gson, Comp owner) {
         this.id = gson.id;
@@ -29,48 +31,52 @@ public class Comp {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-                //System.out.println("mousePressed()+++");
-                Rectangle2D r1 = new Rectangle2D.Double(x1() - 8, y1() - 8, 16, 16);
-                Rectangle2D r2 = new Rectangle2D.Double(x2() - 8, y2() - 8, 16, 16);
-                if (r1.contains(event.getPoint())) {
-                    ev[0] = true;
-                } else if (r2.contains(event.getPoint())) {
-                    ev[1] = true;
-                }
+            Rectangle2D r1 = new Rectangle2D.Double(x1() - SIZE / 2, y1() - SIZE / 2, SIZE, SIZE);
+            Rectangle2D r2 = new Rectangle2D.Double(x2() - SIZE / 2, y2() - SIZE / 2, SIZE, SIZE);
+            if (r1.contains(event.getPoint())) {
+                //System.out.println("mousePressed()+0");
+                ev[0] = true;
+            } else if (r2.contains(event.getPoint())) {
+                //System.out.println("mousePressed()+1");
+                ev[1] = true;
+            }
         };
         ListenerMouse mouseReleased = (event) -> {
-            //System.out.println("mouseReleased()---");
+            //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
-                System.out.println("mouseDragge()-0  " + event.getX() + " : " + event.getY());
-                    x1(event.getX());
-                    y1(event.getY());
-                    winc.draw();
+                //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
+                x1(event.getX());
+                y1(event.getY());
+                winc.draw();
             } else if (ev[1] == true) {
-                System.out.println("mouseDragge()-1 " + event.getX() + " : " + event.getY());
-                    x2(event.getX());
-                    y2(event.getY());
-                    winc.draw();
+                //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
+                x2(event.getX());
+                y2(event.getY());
+                winc.draw();
             }
         };
         this.winc.mousePressed.add(mousePressed);
         this.winc.mouseReleased.add(mouseReleased);
         this.winc.mouseDragged.add(mouseDragge);
     }
-    
+
     public void paint() {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
     public void setLocation(double x1, double y1, double x2, double y2) {
-        gson.x1 = x1;
-        gson.y1 = y1;
-        gson.x2 = x2;
-        gson.y2 = y2;
+        //if (flag == true) {
+            gson.x1 = x1;
+            gson.y1 = y1;
+            gson.x2 = x2;
+            gson.y2 = y2;
+            //flag = false;
+        //}
     }
 
     public double x1() {
