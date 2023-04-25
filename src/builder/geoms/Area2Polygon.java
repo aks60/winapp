@@ -28,14 +28,10 @@ public class Area2Polygon extends Area2Simple {
         setPolygon(winc.listFrame);
         Area area1 = new Area(polygon);
         Area area2[] = UGeo.split(area1, winc.listCross.get(0));
-        List<Double> pt = UGeo.cross(area2);
-        if (pt.size() == 4) {
-            winc.listCross.get(0).setLocation(pt.get(0), pt.get(1), pt.get(2), pt.get(3));
-            winc.gc2D.draw(new Line2D.Double(pt.get(0), pt.get(1), pt.get(2), pt.get(3))); //рисую 
-        }
-        //System.out.println(pt);
-
-        winc.gc2D.draw(area2[0]); //рисую                
-        winc.gc2D.draw(area2[1]); //рисую                
+        double line[] = UGeo.cross(area2, winc.listCross.get(0));
+        winc.listCross.get(0).setLocation(line[0], line[1], line[2], line[3]);
+        winc.gc2D.draw(new Line2D.Double(line[0], line[1], line[2], line[3]));
+        winc.gc2D.draw(area1);
+        //winc.gc2D.draw(area2[1]);
     }
 }

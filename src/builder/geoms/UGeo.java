@@ -75,7 +75,7 @@ public class UGeo {
         return new Area[]{a1, a0};
     }
 
-    public static List<Double> cross(Area area[]) {
+    public static double[] cross(Area area[], Elem2Cross line) {
         List<Double> p = new ArrayList();
         Set hs = new HashSet();
         double[] c1 = new double[6], c2 = new double[6];
@@ -98,7 +98,11 @@ public class UGeo {
             }
             i1.next();
         }
-        return p;
+        if (p.size() == 4) {
+            return new double[] {p.get(0), p.get(1), p.get(2), p.get(3)};
+        } else {
+            return new double[] {line.x1(), line.y1(), line.x2(), line.y2()};
+        }
     }
 
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
