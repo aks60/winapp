@@ -8,11 +8,12 @@ public class Elem2Cross extends Elem2Simple {
   
     public Elem2Cross(Geocalc winc, GeoElem gson, Comp owner) {
         super(winc, gson, owner);
+        mouseEvent();
         init();
     } 
    
     public void init() {
-        Area polArea = new Area(owner.polygon);
-        Area area[] = UGeo.split(polArea, this);               
+        //Area polArea = new Area(owner.polygon);
+        //Area area[] = UGeo.split(polArea, this);               
     }      
 }
