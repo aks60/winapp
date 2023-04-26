@@ -31,9 +31,9 @@ public class Area2Polygon extends Area2Simple {
         double line[] = UGeo.cross(area2, winc.listCross.get(0));
         winc.listCross.get(0).setLocation(line[0], line[1], line[2], line[3]);
         winc.gc2D.draw(new Line2D.Double(line[0], line[1], line[2], line[3]));
+        winc.gc2D.draw(area1);
+        
         //winc.gc2D.draw(new Line2D.Double(winc.listCross.get(0).x1(), winc.listCross.get(0).y1(), winc.listCross.get(0).x2(), winc.listCross.get(0).y2()));
-        winc.gc2D.draw(area2[0]);
-        winc.gc2D.draw(area2[1]);
         //System.out.println(UGeo.horizontAngl(winc.listCross.get(0).x1(), winc.listCross.get(0).y1(), winc.listCross.get(0).x2(), winc.listCross.get(0).y2()));
     }
 }

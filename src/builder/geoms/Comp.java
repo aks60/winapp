@@ -44,6 +44,7 @@ public class Comp {
             //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
+            winc.draw();
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
