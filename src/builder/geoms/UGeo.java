@@ -24,17 +24,115 @@ import java.util.Set;
 
 public class UGeo {
 
+    /**
+     * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
+     * многоугольнику с параметрическим заданием линий
+     *
+     * int V_CBclip (float *x0, float *y0, float *x1, float *y1)
+     *
+     * Отсекает отрезок, заданный значениями координат его точек (x0,y0),
+     * (x1,y1), по окну отсечения, заданному глобальными скалярами: int Windn -
+     * количество вершин в окне отсечения float *Windx, *Windy - массивы X,Y
+     * координат вершин float *Wnormx, *Wnormy - массивы координат нормалей к
+     * ребрам
+     *
+     * Возвращает: 0 - отрезок не видим 1 - отрезок видим
+     */
+    int V_CBclip(float x0, float y0, float x1, float y1, int Windn) {
+
+        //float x0, y0, x1, y1;
+        float[] Windx = null, Windy = null, Wnormx = null, Wnormy = null;
+
+        int ii, jj, visible, kw;
+        float xn, yn, dx, dy, r;
+        float CB_t0, CB_t1;
+        /* Параметры концов отрезка */
+        float Qx, Qy;
+        /* Положение относ ребра */
+        float Nx, Ny;
+        /* Перпендикуляр к ребру */
+        float Pn, Qn;
+        /**/
+
+        kw = Windn - 1;
+        /* Ребер в окне */
+        visible = 1;
+        CB_t0 = 0;
+        CB_t1 = 1;
+        dx = x1 - (xn = x0);
+        dy = y1 - (yn = y0);
+
+        for (ii = 0; ii <= kw; ++ii) {
+            /* Цикл по ребрам окна */
+            Qx = xn - Windx[ii];
+            /* Положения относ ребра */
+            Qy = yn - Windy[ii];
+            Nx = Wnormx[ii];
+            /* Перепендикуляр к ребру */
+            Ny = Wnormy[ii];
+            Pn = dx * Nx + dy * Ny;
+            /* Скалярные произведения */
+            Qn = Qx * Nx + Qy * Ny;
+
+            /* Анализ расположения */
+            if (Pn == 0) {
+                /* Паралл ребру или точка */
+                if (Qn < 0) {
+                    visible = 0;
+                    break;
+                }
+            } else {
+                r = -Qn / Pn;
+                if (Pn < 0) {
+                    /* Поиск верхнего предела t */
+                    if (r < CB_t0) {
+                        visible = 0;
+                        break;
+                    }
+                    if (r < CB_t1) {
+                        CB_t1 = r;
+                    }
+                } else {
+                    /* Поиск нижнего предела t */
+                    if (r > CB_t1) {
+                        visible = 0;
+                        break;
+                    }
+                    if (r > CB_t0) {
+                        CB_t0 = r;
+                    }
+                }
+            }
+        }
+        if (visible == 1) {
+            if (CB_t0 > CB_t1) {
+                visible = 0;
+            } else {
+                if (CB_t0 > 0) {
+                    x0 = xn + CB_t0 * dx;
+                    y0 = yn + CB_t0 * dy;
+                }
+                if (CB_t1 < 1) {
+                    x1 = xn + CB_t1 * dx;
+                    y1 = yn + CB_t1 * dy;
+                }
+            }
+        }
+        return (visible);
+    }
+
+    /* V_CBclip */
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
     public static Area[] split(Area a, Elem2Cross e) {
 
         //Вычисление угла линии к оси x
         double dx = e.x2() - e.x1();
         double dy = e.y2() - e.y1();
-        double angleRadToX = Math.atan2(dy, dx);
+        double angl = Math.atan2(dy, dx);
 
         //Выравниваем область так, чтобы линия совпадала с осью x
         AffineTransform at = new AffineTransform();
-        at.rotate(-angleRadToX);
+        at.rotate(-angl);
         at.translate(-e.x1(), -e.y1());
         Area aa = a.createTransformedArea(at);
 
@@ -44,14 +142,12 @@ public class UGeo {
         double half0minY = Math.min(0, bounds.getMinY());
         double half0maxY = Math.min(0, bounds.getMaxY());
         Rectangle2D half0 = new Rectangle2D.Double(
-                bounds.getX(), half0minY,
-                bounds.getWidth(), half0maxY - half0minY);
+                bounds.getX(), half0minY, bounds.getWidth(), half0maxY - half0minY);
 
         double half1minY = Math.max(0, bounds.getMinY());
         double half1maxY = Math.max(0, bounds.getMaxY());
         Rectangle2D half1 = new Rectangle2D.Double(
-                bounds.getX(), half1minY,
-                bounds.getWidth(), half1maxY - half1minY);
+                bounds.getX(), half1minY, bounds.getWidth(), half1maxY - half1minY);
 
         //Вычисляем получившиеся площади путем пересечения исходной области с 
         //обеими половинками, и возвращаем их в исходное положение
@@ -68,7 +164,6 @@ public class UGeo {
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
-
         return new Area[]{a1, a0};
     }
 
@@ -96,7 +191,7 @@ public class UGeo {
             i1.next();
         }
         if (p.size() > 3) {
-            return new double[]{ p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
+            return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
         } else {
             return new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
         }
@@ -194,7 +289,6 @@ public class UGeo {
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
-    
     //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {

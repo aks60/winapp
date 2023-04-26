@@ -110,7 +110,7 @@ public class Geocalc {
     }
 
     public void draw() {
-        root.paint();
+        root.paint();       
         //listArea.forEach(e -> e.paint());
         //listFrame.forEach(e -> e.paint());
         //listCross.forEach(e -> e.paint());
