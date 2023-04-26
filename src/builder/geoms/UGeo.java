@@ -190,8 +190,16 @@ public class UGeo {
             }
             i1.next();
         }
+        double dx = line.x2() - line.x1();
+        double dy = line.y2() - line.y1();
+        double angl = Math.atan2(dy, dx);
+        System.out.println(angl);
         if (p.size() > 3) {
-            return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
+            if (angl < 0) {
+                return new double[]{p.get(p.size() - 1), p.get(0), p.get(1), p.get(p.size() - 2)};
+            } else {
+                return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
+            }
         } else {
             return new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
         }
