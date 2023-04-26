@@ -24,19 +24,18 @@ import java.util.Set;
 
 public class UGeo {
 
-    /* V_CBclip */
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
-    public static Area[] split(Area a, Elem2Cross e) {
+    public static Area[] split(Area a, Elem2Cross line) {
 
         //Вычисление угла линии к оси x
-        double dx = e.x2() - e.x1();
-        double dy = e.y2() - e.y1();
+        double dx = line.x2() - line.x1();
+        double dy = line.y2() - line.y1();
         double angl = Math.atan2(dy, dx);
 
         //Выравниваем область так, чтобы линия совпадала с осью x
         AffineTransform at = new AffineTransform();
         at.rotate(-angl);
-        at.translate(-e.x1(), -e.y1());
+        at.translate(-line.x1(), -line.y1());
         Area aa = a.createTransformedArea(at);
 
         //Вычисляем верхнюю и нижнюю половины площади должы пересекаться с...
@@ -67,12 +66,8 @@ public class UGeo {
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
-        
-        //if (Math.atan2(e.y2() - e.y1(), e.x2() - e.x1()) > 0) {
-            return new Area[]{a1, a0};
-        //} else {
-        //    return new Area[]{a0, a1};
-        //}
+
+        return new Area[]{a1, a0};
     }
 
     public static double[] cross(Area area[], Elem2Cross line) {
@@ -98,11 +93,10 @@ public class UGeo {
             }
             i1.next();
         }
-        //System.out.println(Math.atan2(line.y2() - line.y1(), line.x2() - line.x1()));
         if (p.size() > 3) {
             return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
         } else {
-            return new double[]{line.x2(), line.y2(), line.x1(), line.y1()};
+            return null; //new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
         }
     }
 
@@ -198,6 +192,7 @@ public class UGeo {
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
+    
     /**
      * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
      * многоугольнику с параметрическим заданием линий
@@ -383,8 +378,26 @@ public class UGeo {
     //Функция Сайруса Бека возвращает пару значений, которые затем 
     //отображаются в виде вершины многоугольника
     public static double[] cut(Area area, Point2D line[], int n) {
-        
-        Point2D vertices[] = null;
+
+        List arr = new ArrayList();
+        final double[] dbl = new double[6];
+        PathIterator iterator = area.getPathIterator(null);
+        while (!iterator.isDone()) {
+            final int segmentType = iterator.currentSegment(dbl);
+            if (segmentType == PathIterator.SEG_LINETO) {
+                arr.add(new Point2D.Double(dbl[0], dbl[1]));
+            } else if (segmentType == PathIterator.SEG_MOVETO) {
+                arr.add(new Point2D.Double(dbl[0], dbl[1]));
+            } else if (segmentType == PathIterator.SEG_CLOSE) {
+                arr.add(new Point2D.Double(dbl[0], dbl[1]));
+            }
+            iterator.next();
+        }
+
+        Point2D vertices[] = new Point2D[n];
+        for (int i = 0; i < n; i++) {
+            vertices[i] = (Point2D) arr.get(i);
+        }
         Point2D newPair[] = {new Point2D.Double(), new Point2D.Double()}; //значение временного держателя, которое будет возвращено        
         Point2D normal[] = new Point2D.Double[n]; //нормали инициализируются динамически (можно и статически, не имеет значения)
 
@@ -440,7 +453,7 @@ public class UGeo {
         if (temp[0] > temp[1]) {
             newPair[0] = new Point2D.Double(-1, -1);
             newPair[1] = new Point2D.Double(-1, -1);
-            return new double[] {newPair[0].getX(), newPair[0].getY(), newPair[1].getX(), newPair[1].getY()};
+            return new double[]{newPair[0].getX(), newPair[0].getY(), newPair[1].getX(), newPair[1].getY()};
         }
 
         //Вычисление координат по x и y
@@ -452,7 +465,7 @@ public class UGeo {
         //newPair[1].setLocation(newPair1x, newPair1y);
 
         //System.out.println("(" + newPair[0].getX() + ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY() + ")");
-        return new double[] {newPair0x, newPair0y, newPair1x, newPair1y};
+        return new double[]{newPair0x, newPair0y, newPair1x, newPair1y};
     }
 
     //Точка пересечения двух векторов 
@@ -603,6 +616,7 @@ public class UGeo {
 //        }
 //    } while(t != p);
 //    return hull;
-//}  
+//} 
+    
 // </editor-fold>    
 }
