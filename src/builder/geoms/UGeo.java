@@ -31,8 +31,8 @@ public class UGeo {
     public static Area[] split(Area a, Elem2Cross e) {
 
         //Вычисление угла линии к оси x
-        double dx = Math.abs(e.x2() - e.x1());
-        double dy = Math.abs(e.y2() - e.y1());
+        double dx = e.x2() - e.x1();
+        double dy = e.y2() - e.y1();
         double angleRadToX = Math.atan2(dy, dx);
 
         //Выравниваем область так, чтобы линия совпадала с осью x
@@ -99,19 +99,8 @@ public class UGeo {
             i1.next();
         }
         if (p.size() > 3) {
-            double angl = UGeo.horizontAngl(p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1));           
-            if ((angl > 0 && angl < 90) || (angl > 180 && angl < 270)) {
-                System.out.println("xxxxx " + angl);
-                return new double[]{p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
-            } else {
-                System.out.println("zzzzz " + angl);
-                return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
-            }
-//            System.out.println("++++ " + p.get(0) + " : " + p.get(1) + " : " + p.get(p.size() - 2) + " : " + p.get(p.size() - 1));
-//            System.out.println("zzzzz " + line.x1() + " : " + line.y1() + " : " + line.x2() + " : " + line.y2());
-//            return new double[]{ p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
+            return new double[]{ p.get(0), p.get(1), p.get(p.size() - 2), p.get(p.size() - 1)};
         } else {
-            System.out.println("yyyyy " + line.x1() + " : " + line.y1() + " : " + line.x2() + " : " + line.y2());
             return new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
         }
     }

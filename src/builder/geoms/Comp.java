@@ -16,7 +16,6 @@ public class Comp {
     public GeoElem gson = null; //Gson object конструкции
     public GeneralPath polygon = new GeneralPath();
     public boolean ev[] = {false, false};
-    //boolean flag = true;
 
     public Comp(Geocalc winc, GeoElem gson, Comp owner) {
         this.id = gson.id;
@@ -70,13 +69,12 @@ public class Comp {
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
     public void setLocation(double x1, double y1, double x2, double y2) {
-        //if (flag == true) {
+        if (ev[0] == false && ev[1] == false) {
             gson.x1 = x1;
             gson.y1 = y1;
             gson.x2 = x2;
             gson.y2 = y2;
-            //flag = false;
-        //}
+        }
     }
 
     public double x1() {
