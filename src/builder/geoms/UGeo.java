@@ -24,6 +24,180 @@ import java.util.Set;
 
 public class UGeo {
 
+    /* V_CBclip */
+    //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
+    public static Area[] split(Area a, Elem2Cross e) {
+
+        //Вычисление угла линии к оси x
+        double dx = e.x2() - e.x1();
+        double dy = e.y2() - e.y1();
+        double angl = Math.atan2(dy, dx);
+
+        //Выравниваем область так, чтобы линия совпадала с осью x
+        AffineTransform at = new AffineTransform();
+        at.rotate(-angl);
+        at.translate(-e.x1(), -e.y1());
+        Area aa = a.createTransformedArea(at);
+
+        //Вычисляем верхнюю и нижнюю половины площади должы пересекаться с...
+        Rectangle2D bounds = aa.getBounds2D();
+
+        double half0minY = Math.min(0, bounds.getMinY());
+        double half0maxY = Math.min(0, bounds.getMaxY());
+        Rectangle2D half0 = new Rectangle2D.Double(
+                bounds.getX(), half0minY, bounds.getWidth(), half0maxY - half0minY);
+
+        double half1minY = Math.max(0, bounds.getMinY());
+        double half1maxY = Math.max(0, bounds.getMaxY());
+        Rectangle2D half1 = new Rectangle2D.Double(
+                bounds.getX(), half1minY, bounds.getWidth(), half1maxY - half1minY);
+
+        //Вычисляем получившиеся площади путем пересечения исходной области с 
+        //обеими половинками, и возвращаем их в исходное положение
+        Area a0 = new Area(aa);
+        a0.intersect(new Area(half0));
+
+        Area a1 = new Area(aa);
+        a1.intersect(new Area(half1));
+
+        try {
+            at.invert();
+        } catch (NoninvertibleTransformException event) {
+            System.out.println("Ошибка:Geocalc.split() " + event);
+        }
+        a0 = a0.createTransformedArea(at);
+        a1 = a1.createTransformedArea(at);
+        
+        //if (Math.atan2(e.y2() - e.y1(), e.x2() - e.x1()) > 0) {
+            return new Area[]{a1, a0};
+        //} else {
+        //    return new Area[]{a0, a1};
+        //}
+    }
+
+    public static double[] cross(Area area[], Elem2Cross line) {
+        List<Float> p = new ArrayList();
+        Set hs = new HashSet();
+        float[] c1 = new float[6], c2 = new float[6];
+        PathIterator i1 = area[0].getPathIterator(null);
+
+        while (!i1.isDone()) {
+            i1.currentSegment(c1);
+            PathIterator i2 = area[1].getPathIterator(null);
+
+            while (!i2.isDone()) {
+                i2.currentSegment(c2);
+                if (c1[0] == c2[0] && c1[1] == c2[1]) {
+                    if (hs.add(c1[0] + "-" + c1[1])) {
+                        p.add(c1[0]);
+                        p.add(c1[1]);
+                    }
+                    break;
+                }
+                i2.next();
+            }
+            i1.next();
+        }
+        //System.out.println(Math.atan2(line.y2() - line.y1(), line.x2() - line.x1()));
+        if (p.size() > 3) {
+            return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
+        } else {
+            return new double[]{line.x2(), line.y2(), line.x1(), line.y1()};
+        }
+    }
+
+    public static double sin(double angl) {
+        return Math.sin(Math.toRadians(angl));
+    }
+
+    public static double asin(double angl) {
+        return Math.toDegrees(Math.asin(angl));
+    }
+
+    public static double cos(double angl) {
+        return Math.cos(Math.toRadians(angl));
+    }
+
+    public static double tan(double angl) {
+        return Math.tan(Math.toRadians(angl));
+    }
+
+    public static double acos(double angl) {
+        return Math.toDegrees(Math.acos(angl));
+    }
+
+    public static double atan(double angl) {
+        return Math.toDegrees(Math.atan(angl));
+    }
+
+    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
+    public static double betweenAngl(IElem5e e1, IElem5e e2) {
+
+        double dx1 = e1.x2() - e1.x1();
+        double dy1 = e1.y2() - e1.y1();
+        double dx2 = e2.x2() - e2.x1();
+        double dy2 = e2.y2() - e2.y1();
+
+        double s = dx1 * dx2 + dy1 * dy2;
+        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
+        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
+        double c = s / (a * b);
+        return 180 - acos(c);
+    }
+
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(IElem5e e) {
+        double x = e.x2() - e.x1();
+        double y = e.y1() - e.y2();
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(double x1, double y1, double x2, double y2) {
+        double x = x2 - x1;
+        double y = y1 - y2;
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="XLAM">
     /**
      * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
      * многоугольнику с параметрическим заданием линий
@@ -121,185 +295,9 @@ public class UGeo {
         return (visible);
     }
 
-    /* V_CBclip */
-    //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
-    public static Area[] split(Area a, Elem2Cross e) {
-
-        //Вычисление угла линии к оси x
-        double dx = e.x2() - e.x1();
-        double dy = e.y2() - e.y1();
-        double angl = Math.atan2(dy, dx);
-
-        //Выравниваем область так, чтобы линия совпадала с осью x
-        AffineTransform at = new AffineTransform();
-        at.rotate(-angl);
-        at.translate(-e.x1(), -e.y1());
-        Area aa = a.createTransformedArea(at);
-
-        //Вычисляем верхнюю и нижнюю половины площади должы пересекаться с...
-        Rectangle2D bounds = aa.getBounds2D();
-
-        double half0minY = Math.min(0, bounds.getMinY());
-        double half0maxY = Math.min(0, bounds.getMaxY());
-        Rectangle2D half0 = new Rectangle2D.Double(
-                bounds.getX(), half0minY, bounds.getWidth(), half0maxY - half0minY);
-
-        double half1minY = Math.max(0, bounds.getMinY());
-        double half1maxY = Math.max(0, bounds.getMaxY());
-        Rectangle2D half1 = new Rectangle2D.Double(
-                bounds.getX(), half1minY, bounds.getWidth(), half1maxY - half1minY);
-
-        //Вычисляем получившиеся площади путем пересечения исходной области с 
-        //обеими половинками, и возвращаем их в исходное положение
-        Area a0 = new Area(aa);
-        a0.intersect(new Area(half0));
-
-        Area a1 = new Area(aa);
-        a1.intersect(new Area(half1));
-
-        try {
-            at.invert();
-        } catch (NoninvertibleTransformException event) {
-            System.out.println("Ошибка:Geocalc.split() " + event);
-        }
-        a0 = a0.createTransformedArea(at);
-        a1 = a1.createTransformedArea(at);
-        return new Area[]{a1, a0};
-    }
-
-    public static double[] cross(Area area[], Elem2Cross line) {
-        List<Float> p = new ArrayList();
-        Set hs = new HashSet();
-        float[] c1 = new float[6], c2 = new float[6];
-        PathIterator i1 = area[0].getPathIterator(null);
-
-        while (!i1.isDone()) {
-            i1.currentSegment(c1);
-            PathIterator i2 = area[1].getPathIterator(null);
-
-            while (!i2.isDone()) {
-                i2.currentSegment(c2);
-                if (c1[0] == c2[0] && c1[1] == c2[1]) {
-                    if (hs.add(c1[0] + "-" + c1[1])) {
-                        p.add(c1[0]);
-                        p.add(c1[1]);
-                    }
-                    break;
-                }
-                i2.next();
-            }
-            i1.next();
-        }
-        double dx = line.x2() - line.x1();
-        double dy = line.y2() - line.y1();
-        double angl = Math.atan2(dy, dx);
-        System.out.println(angl);
-        if (p.size() > 3) {
-            if (angl < 0) {
-                return new double[]{p.get(p.size() - 1), p.get(0), p.get(1), p.get(p.size() - 2)};
-            } else {
-                return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
-            }
-        } else {
-            return new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
-        }
-    }
-
-    public static double sin(double angl) {
-        return Math.sin(Math.toRadians(angl));
-    }
-
-    public static double asin(double angl) {
-        return Math.toDegrees(Math.asin(angl));
-    }
-
-    public static double cos(double angl) {
-        return Math.cos(Math.toRadians(angl));
-    }
-
-    public static double tan(double angl) {
-        return Math.tan(Math.toRadians(angl));
-    }
-
-    public static double acos(double angl) {
-        return Math.toDegrees(Math.acos(angl));
-    }
-
-    public static double atan(double angl) {
-        return Math.toDegrees(Math.atan(angl));
-    }
-
-    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
-    public static double betweenAngl(IElem5e e1, IElem5e e2) {
-
-        double dx1 = e1.x2() - e1.x1();
-        double dy1 = e1.y2() - e1.y1();
-        double dx2 = e2.x2() - e2.x1();
-        double dy2 = e2.y2() - e2.y1();
-
-        double s = dx1 * dx2 + dy1 * dy2;
-        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
-        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
-        double c = s / (a * b);
-        return 180 - acos(c);
-    }
-
-    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
-    public static double horizontAngl(IElem5e e) {
-        double x = e.x2() - e.x1();
-        double y = e.y1() - e.y2();
-
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
-        }
-    }
-
-    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
-    public static double horizontAngl(double x1, double y1, double x2, double y2) {
-        double x = x2 - x1;
-        double y = y1 - y2;
-
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
-        }
-    }
-
-// <editor-fold defaultstate="collapsed" desc="XLAM">
     //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
-    public static Point2D[] cross(final Shape poly, final Elem2Cross elem) { //throws Exception {
+    public static Point2D[] cross(final Area poly, final Elem2Cross elem) { //throws Exception {
         final Line2D.Double line = new Line2D.Double(elem.x1(), elem.y1(), elem.x2(), elem.y2());
         final PathIterator polyIt = poly.getPathIterator(null);
         final double[] coords = new double[6]; //двойной массив длиной 6, необходимый для итератора 
@@ -384,8 +382,9 @@ public class UGeo {
 
     //Функция Сайруса Бека возвращает пару значений, которые затем 
     //отображаются в виде вершины многоугольника
-    public static Point2D[] cut(Point2D vertices[], Point2D line[], int n) {
-
+    public static double[] cut(Area area, Point2D line[], int n) {
+        
+        Point2D vertices[] = null;
         Point2D newPair[] = {new Point2D.Double(), new Point2D.Double()}; //значение временного держателя, которое будет возвращено        
         Point2D normal[] = new Point2D.Double[n]; //нормали инициализируются динамически (можно и статически, не имеет значения)
 
@@ -441,7 +440,7 @@ public class UGeo {
         if (temp[0] > temp[1]) {
             newPair[0] = new Point2D.Double(-1, -1);
             newPair[1] = new Point2D.Double(-1, -1);
-            return newPair;
+            return new double[] {newPair[0].getX(), newPair[0].getY(), newPair[1].getX(), newPair[1].getY()};
         }
 
         //Вычисление координат по x и y
@@ -449,11 +448,11 @@ public class UGeo {
         double newPair0y = line[0].getY() + P1_P0.getY() * temp[0];
         double newPair1x = line[0].getX() + P1_P0.getX() * temp[1];
         double newPair1y = line[0].getY() + P1_P0.getY() * temp[1];
-        newPair[0].setLocation(newPair0x, newPair0y);
-        newPair[1].setLocation(newPair1x, newPair1y);
+        //newPair[0].setLocation(newPair0x, newPair0y);
+        //newPair[1].setLocation(newPair1x, newPair1y);
 
         //System.out.println("(" + newPair[0].getX() + ", " + newPair[0].getY() + ") (" + newPair[1].getX() + ", " + newPair[1].getY() + ")");
-        return newPair;
+        return new double[] {newPair0x, newPair0y, newPair1x, newPair1y};
     }
 
     //Точка пересечения двух векторов 

@@ -37,8 +37,8 @@ public class Area2Polygon extends Area2Simple {
         //split(area1, winc.listCross.get(0));
 
         //winc.gc2D.draw(new Line2D.Double(winc.listCross.get(0).x1(), winc.listCross.get(0).y1(), winc.listCross.get(0).x2(), winc.listCross.get(0).y2()));
-        System.out.println("ln2= " + ln2.x1() + ":" + ln2.y1() + ":" + ln2.x2() + ":" + ln2.y2());
-        System.out.println("ln1= " + ln1[0] + ":" + ln1[1] + ":" + ln1[2] + ":" + ln1[3]);
+        System.out.println("ln2= " + ln2.x1() + ":" + ln2.y1() + " = " + ln2.x2() + ":" + ln2.y2());
+        System.out.println("ln1= " + ln1[0] + ":" + ln1[1] + " = " + ln1[2] + ":" + ln1[3]);
     }
 
     public void split(Area a, Elem2Cross e) {

@@ -44,19 +44,19 @@ public class Comp {
             //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
-            winc.draw();
+            //winc.draw();
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
                 x1(event.getX());
                 y1(event.getY());
-                winc.draw();
+               // winc.draw();
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
                 x2(event.getX());
                 y2(event.getY());
-                winc.draw();
+                //winc.draw();
             }
         };
         this.winc.mousePressed.add(mousePressed);
