@@ -24,9 +24,12 @@ public abstract class Comp {
         this.gson = gson;
     }
 
-    public void rebild() {        
+    public void build() {
     }
-    
+
+    public void paint() {
+    }
+
     public List<Comp> childs() {
         return null;
     }
@@ -67,9 +70,10 @@ public abstract class Comp {
         this.winc.mouseDragged.add(mouseDragge);
     }
 
-    public void paint() {
+    public String toString() {
+        return " id=" + id + " ";
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
     public void setLocation(double x1, double y1, double x2, double y2) {
         if (ev[0] == false && ev[1] == false) {

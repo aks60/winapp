@@ -9,4 +9,11 @@ public class Elem2Glass extends Elem2Simple {
     public Elem2Glass(Geocalc winc, GeoElem gson, Comp owner) {
         super(winc, gson, owner);
     }
+    
+    public void build() {
+        super.build();
+    }
+
+    public void paint() {
+    }    
 }

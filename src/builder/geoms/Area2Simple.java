@@ -26,6 +26,16 @@ public class Area2Simple extends Comp {
         return childs;
     }
 
+    public void paint() {
+        try {
+            if (area != null) {
+                winc.gc2D.draw(area);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
+        }
+    }
+
     public void mouseEvent() {
 
     }

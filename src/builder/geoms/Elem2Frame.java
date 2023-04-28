@@ -9,4 +9,12 @@ public class Elem2Frame extends Elem2Simple {
         super(winc, gson, owner);
         mouseEvent();
     }
+
+    public void build() {
+        super.build();
+    }
+
+    public void paint() {
+
+    }
 }

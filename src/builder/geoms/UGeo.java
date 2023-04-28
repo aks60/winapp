@@ -91,7 +91,7 @@ public class UGeo {
             i1.next();
         }
         if (p.size() > 3) {
-            return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
+            return new double[]{p.get(0), p.get(1), p.get(2), p.get(3)};
         } else {
             return null;
         }

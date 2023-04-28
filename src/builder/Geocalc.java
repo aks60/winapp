@@ -7,8 +7,6 @@ import builder.geoms.Comp;
 import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
-import builder.geoms.UGeo;
-import builder.geoms.xlam.ShapeSplit;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
@@ -16,10 +14,6 @@ import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,14 +34,10 @@ public class Geocalc {
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
 
     public Geocalc() {
-        String script = Bimax2.script(501001);
-        build(script);
-    }
-
-    public void build(String script) {
         try {
+            String script = Bimax2.script(501001);
             parsing(script);
-            root.rebild();
+            root.build();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Geocalc.build() " + e);
@@ -57,12 +47,12 @@ public class Geocalc {
     private void parsing(String script) {
         //Для тестирования
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
-    
+
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         gson.setOwner(this);
         root = new Area2Polygon(this, gson);
-        
-        elements(root, gson);        
+
+        elements(root, gson);
     }
 
     private void elements(Comp owner, GeoElem gson) {
@@ -112,9 +102,16 @@ public class Geocalc {
     }
 
     public void draw() {
-        root.rebild();       
-        root.paint();       
-        listCross.forEach(e -> e.rebild());
-        listCross.forEach(e -> e.paint());
+        try {
+            root.build();
+            root.paint();
+            listArea.forEach(e -> e.build());
+            listArea.forEach(e -> e.paint());
+            listCross.forEach(e -> e.build());
+            listCross.forEach(e -> e.paint());
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:Area2Simple.draw() " + e);
+        }
     }
 }
