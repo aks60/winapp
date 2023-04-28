@@ -45,7 +45,6 @@ public class Canvas2D extends JComponent {
     public void paintComponent(Graphics g) {
         //System.out.println("Canvas2D.paintComponent()");
         winc.gc2D = (Graphics2D) g;
-        //winc.gc2D.scale(.5, .5);
         winc.draw();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class Comp {
 
-    public int SIZE = 16;
+    public int SIZE = 24;
     public double id;
     public Geocalc winc = null;
     public Comp owner = null; //владелец
@@ -36,6 +36,7 @@ public abstract class Comp {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
+            //int size = SIZE / winc.gc2D.get
             Rectangle2D r1 = new Rectangle2D.Double(x1() - SIZE / 2, y1() - SIZE / 2, SIZE, SIZE);
             Rectangle2D r2 = new Rectangle2D.Double(x2() - SIZE / 2, y2() - SIZE / 2, SIZE, SIZE);
             if (r1.contains(event.getPoint())) {
