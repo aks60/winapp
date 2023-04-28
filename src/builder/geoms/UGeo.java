@@ -3,14 +3,11 @@ package builder.geoms;
 import builder.IElem5e;
 import enums.Layout;
 import enums.Type;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.PathIterator;
@@ -25,7 +22,7 @@ import java.util.Set;
 public class UGeo {
 
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
-    public static Area[] split(Area a, Elem2Cross line) {
+    public static Area[] split(Area area, Comp line) {
 
         //Вычисление угла линии к оси x
         double dx = line.x2() - line.x1();
@@ -36,7 +33,7 @@ public class UGeo {
         AffineTransform at = new AffineTransform();
         at.rotate(-angl);
         at.translate(-line.x1(), -line.y1());
-        Area aa = a.createTransformedArea(at);
+        Area aa = area.createTransformedArea(at);
 
         //Вычисляем верхнюю и нижнюю половины площади должы пересекаться с...
         Rectangle2D bounds = aa.getBounds2D();
@@ -70,7 +67,7 @@ public class UGeo {
         return new Area[]{a1, a0};
     }
 
-    public static double[] cross(Area area[], Elem2Cross line) {
+    public static double[] cross(Area area[]) {
         List<Float> p = new ArrayList();
         Set hs = new HashSet();
         float[] c1 = new float[6], c2 = new float[6];
@@ -96,7 +93,7 @@ public class UGeo {
         if (p.size() > 3) {
             return new double[]{p.get(p.size() - 2), p.get(p.size() - 1), p.get(0), p.get(1)};
         } else {
-            return null; //new double[]{line.x1(), line.y1(), line.x2(), line.y2()};
+            return null;
         }
     }
 

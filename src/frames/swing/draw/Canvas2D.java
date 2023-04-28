@@ -25,6 +25,7 @@ public class Canvas2D extends JComponent {
 
             public void mouseReleased(MouseEvent event) {
                 winc.mouseReleased.forEach(e -> e.mouseEvent(event));
+                repaint();
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {

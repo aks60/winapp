@@ -47,7 +47,7 @@ public class Geocalc {
     public void build(String script) {
         try {
             parsing(script);
-            root.setPolygon(listFrame);
+            root.rebild();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Geocalc.build() " + e);
@@ -56,10 +56,12 @@ public class Geocalc {
 
     private void parsing(String script) {
         //Для тестирования
-        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
-
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+    
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
+        gson.setOwner(this);
         root = new Area2Polygon(this, gson);
+        
         elements(root, gson);        
     }
 
@@ -110,9 +112,9 @@ public class Geocalc {
     }
 
     public void draw() {
+        root.rebild();       
         root.paint();       
-        //listArea.forEach(e -> e.paint());
-        //listFrame.forEach(e -> e.paint());
-        //listCross.forEach(e -> e.paint());
+        listCross.forEach(e -> e.rebild());
+        listCross.forEach(e -> e.paint());
     }
 }

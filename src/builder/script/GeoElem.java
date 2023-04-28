@@ -1,8 +1,7 @@
 package builder.script;
 
-import static builder.script.GsonElem.genId;
+import builder.Geocalc;
 import com.google.gson.JsonObject;
-import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
 
@@ -19,7 +18,7 @@ public class GeoElem {
     public GeoElem() {
         ++genId;
     }
-    
+
     public GeoElem(Type type) {
         this.id = ++genId;
         this.type = type;
@@ -40,11 +39,27 @@ public class GeoElem {
         this.childs.add(area);
         return area;
     }
-    
+
     public GeoElem addElem(GeoElem elem) {
         elem.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;
         this.childs.add(elem);
         return this;
+    }
+
+    /**
+     * Назначить родителей всем детям
+     */
+    public void setOwner(Geocalc winc) {
+        try {
+            this.childs.forEach(el -> {
+                el.owner = this;
+                if (el.childs != null) {
+                    el.setOwner(winc);
+                }
+            });
+        } catch (Exception e) {
+            System.err.println("Ошибка:GeoElem.setOwnerAndForm() " + e);
+        }
     }
 }

@@ -3,18 +3,18 @@ package builder.geoms;
 import builder.Geocalc;
 import builder.script.GeoElem;
 import common.listener.ListenerMouse;
-import java.awt.geom.GeneralPath;
+import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-public class Comp {
+public abstract class Comp {
 
     public int SIZE = 16;
     public double id;
     public Geocalc winc = null;
     public Comp owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
-    public GeneralPath polygon = new GeneralPath();
+    public Area area = null;
     public boolean ev[] = {false, false};
 
     public Comp(Geocalc winc, GeoElem gson, Comp owner) {
@@ -24,6 +24,9 @@ public class Comp {
         this.gson = gson;
     }
 
+    public void rebild() {        
+    }
+    
     public List<Comp> childs() {
         return null;
     }
@@ -44,7 +47,7 @@ public class Comp {
             //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
-            winc.draw();
+            //winc.draw();
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
@@ -65,7 +68,6 @@ public class Comp {
     }
 
     public void paint() {
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
