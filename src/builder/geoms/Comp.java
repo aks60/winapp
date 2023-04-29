@@ -36,9 +36,9 @@ public abstract class Comp {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-            //int size = SIZE / winc.gc2D.get
-            Rectangle2D r1 = new Rectangle2D.Double(x1() - SIZE / 2, y1() - SIZE / 2, SIZE, SIZE);
-            Rectangle2D r2 = new Rectangle2D.Double(x2() - SIZE / 2, y2() - SIZE / 2, SIZE, SIZE);
+            int size = (int) (SIZE / 0.9);
+            Rectangle2D r1 = new Rectangle2D.Double(x1() - size / 2, y1() - size / 2, size, size);
+            Rectangle2D r2 = new Rectangle2D.Double(x2() - size / 2, y2() - size / 2, size, size);
             if (r1.contains(event.getPoint())) {
                 //System.out.println("mousePressed()+0");
                 ev[0] = true;
