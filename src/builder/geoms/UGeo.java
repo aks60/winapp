@@ -63,14 +63,37 @@ public class UGeo {
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
-
-        return new Area[]{a1, a0};
+        double[] c0 = new double[6], c1 = new double[6];
+        double s0 = 0, s1 = 0;
+        PathIterator it1 = a0.getPathIterator(null);
+        while (!it1.isDone()) {
+            it1.currentSegment(c0);
+            double s = c0[0] * c0[0] + c0[1] * c0[1];
+            if (s > s0) {
+                s0 = s;
+            }
+            it1.next();
+        }
+        PathIterator it2 = a1.getPathIterator(null);
+        while (!it2.isDone()) {
+            it2.currentSegment(c1);
+            double s = c1[0] * c1[0] + c1[1] * c1[1];
+            if (s > s1) {
+                s1 = s;
+            }
+            it2.next();
+        }
+        if (s0 < s1) {
+            return new Area[]{a0, a1};
+        } else {
+            return new Area[]{a1, a0};
+        }
     }
 
     public static double[] cross(Area area[]) {
-        List<Float> p = new ArrayList();
+        List<Double> p = new ArrayList();
         Set hs = new HashSet();
-        float[] c1 = new float[6], c2 = new float[6];
+        double[] c1 = new double[6], c2 = new double[6];
         PathIterator i1 = area[0].getPathIterator(null);
 
         while (!i1.isDone()) {
@@ -95,6 +118,21 @@ public class UGeo {
         } else {
             return null;
         }
+    }
+
+    public static double hypotenuseMax(Area area) {
+        double[] c0 = new double[6];
+        double s0 = 0;
+        PathIterator it1 = area.getPathIterator(null);
+        while (!it1.isDone()) {
+            it1.currentSegment(c0);
+            double s = c0[0] * c0[0] + c0[1] * c0[1];
+            if (s > s0) {
+                s0 = s;
+            }
+            it1.next();
+        }
+        return s0;
     }
 
     public static double sin(double angl) {
@@ -189,7 +227,6 @@ public class UGeo {
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
-    
     /**
      * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
      * многоугольнику с параметрическим заданием линий
@@ -593,27 +630,5 @@ public class UGeo {
         }
     }
 
-//public static List<Point> jarvis(List<Point> points) {
-//    Point p0 = new Point(points.get(0));
-//    for (Point p : points)
-//        if (p.x < p0.x || (p.x == p0.x && p.y < p0.y))
-//        p0 = p;
-//    List<Point> hull = List.of(p0);
-//    do () {
-//        Point t = new Point(p0); //кандидат на следующую точку
-//        for (Point p : points)
-//            // лучше никакие полярные углы не считать
-//            if ((p - p0) ^ (t - p0) > 0)
-//                t = p;
-//        if (t == p0)
-//            continue;
-//        else {
-//            p0 = t;
-//            hull.add(t);
-//        }
-//    } while(t != p);
-//    return hull;
-//} 
-    
 // </editor-fold>    
 }
