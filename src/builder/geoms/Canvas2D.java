@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.PathIterator;
 import javax.swing.JComponent;
 
 public class Canvas2D extends JComponent {
@@ -38,6 +39,7 @@ public class Canvas2D extends JComponent {
         addComponentListener(new ComponentAdapter() {
  
             public void componentResized(ComponentEvent event) {
+                winc.scale = scale(winc, 0, 24);
             }
         });
     }
@@ -48,4 +50,17 @@ public class Canvas2D extends JComponent {
         winc.gc2D.scale(winc.scale, winc.scale);
         winc.draw();
     }
+    
+    public double scale(Geocalc winc, double dx, double dy) {
+        double[] s = new double[8];
+        PathIterator it = winc.root.area.getPathIterator(null);
+        while (!it.isDone()) {
+            it.currentSegment(s);
+            s[6] = (s[0] > s[6]) ? s[0] : s[6];
+            s[7] = (s[1] > s[7]) ? s[1] : s[7];
+            it.next();
+        }        
+        return ((getWidth() + dx) / s[6] > (getHeight() + dx) / s[7])
+                ? (getHeight() + dx) / (s[7] + dy) : (getWidth() + dx) / (s[6] + dy);
+    }    
 }

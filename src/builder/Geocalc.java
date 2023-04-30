@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
 import enums.Type;
 import java.awt.Graphics2D;
+import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,7 +48,7 @@ public class Geocalc {
 
     private void parsing(String script) {
         //Для тестирования
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         gson.setOwner(this);
@@ -110,9 +111,33 @@ public class Geocalc {
             listArea.forEach(e -> e.paint());
             listCross.forEach(e -> e.build());
             listCross.forEach(e -> e.paint());
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.draw() " + e);
         }
+    }
+
+    public double width() {
+        double[] s = {0, 0, 0, 0, 0, 0, 5600, 0};
+        PathIterator it = root.area.getPathIterator(null);
+        while (!it.isDone()) {
+            it.currentSegment(s);
+            s[6] = (s[0] < s[6]) ? s[0] : s[6];
+            s[7] = (s[0] > s[7]) ? s[0] : s[7];
+            it.next();
+        }
+        return s[7] - s[6];
+    }
+
+    public double height() {
+        double[] s = {0, 0, 0, 0, 0, 0, 5600, 0};
+        PathIterator it = root.area.getPathIterator(null);
+        while (!it.isDone()) {
+            it.currentSegment(s);
+            s[6] = (s[1] < s[6]) ? s[1] : s[6];
+            s[7] = (s[1] > s[7]) ? s[1] : s[7];
+            it.next();
+        }
+        return s[7] - s[6];
     }
 }

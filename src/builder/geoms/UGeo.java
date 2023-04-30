@@ -63,30 +63,14 @@ public class UGeo {
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
-        double[] c0 = new double[6], c1 = new double[6];
-        double s0 = 0, s1 = 0;
-        PathIterator it1 = a0.getPathIterator(null);
-        while (!it1.isDone()) {
-            it1.currentSegment(c0);
-            double s = c0[0] * c0[0] + c0[1] * c0[1];
-            if (s > s0) {
-                s0 = s;
-            }
-            it1.next();
-        }
-        PathIterator it2 = a1.getPathIterator(null);
-        while (!it2.isDone()) {
-            it2.currentSegment(c1);
-            double s = c1[0] * c1[0] + c1[1] * c1[1];
-            if (s > s1) {
-                s1 = s;
-            }
-            it2.next();
-        }
+        
+        double s0 = hypotenuseMax(a0);
+        double s1 = hypotenuseMax(a1);
+        
         if (s0 < s1) {
-            return new Area[]{a0, a1};
-        } else {
             return new Area[]{a1, a0};
+        } else {
+            return new Area[]{a0, a1};
         }
     }
 
@@ -122,12 +106,12 @@ public class UGeo {
 
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
-        double s0 = 0;
+        double s0 = 6500;
         PathIterator it1 = area.getPathIterator(null);
         while (!it1.isDone()) {
             it1.currentSegment(c0);
             double s = c0[0] * c0[0] + c0[1] * c0[1];
-            if (s > s0) {
+            if (s < s0) {
                 s0 = s;
             }
             it1.next();
