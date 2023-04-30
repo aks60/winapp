@@ -59,14 +59,16 @@ public abstract class Comp {
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
-                x1(event.getX() / winc.scale);
-                y1(event.getY() / winc.scale);
-                // winc.draw();
+                if (event.getX() > 8 && event.getY() > 8) {
+                    x1(event.getX() / winc.scale);
+                    y1(event.getY() / winc.scale);
+                }
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
-                x2(event.getX() / winc.scale);
-                y2(event.getY() / winc.scale);
-                //winc.draw();
+                if (event.getX() > 8 && event.getY() > 8) {
+                    x2(event.getX() / winc.scale);
+                    y2(event.getY() / winc.scale);
+                }
             }
         };
         this.winc.mousePressed.add(mousePressed);
@@ -77,7 +79,7 @@ public abstract class Comp {
     public String toString() {
         return " id=" + id + " ";
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
     public void setLocation(double x1, double y1, double x2, double y2) {
         if (ev[0] == false && ev[1] == false) {
