@@ -22,7 +22,7 @@ import java.util.Map;
 public class Geocalc {
 
     public Graphics2D gc2D = null; //графический котекст рисунка  
-    public double scale = .9;
+    public double scale = .6;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
     public ArrayList<ListenerMouse> mouseDragged = new ArrayList();

@@ -3,6 +3,7 @@ package builder.geoms;
 import builder.Geocalc;
 import builder.script.GeoElem;
 import common.listener.ListenerMouse;
+import java.awt.Point;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -36,9 +37,11 @@ public abstract class Comp {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-            int size = (int) (SIZE / 0.9);
-            Rectangle2D r1 = new Rectangle2D.Double(x1() - size / 2, y1() - size / 2, size, size);
-            Rectangle2D r2 = new Rectangle2D.Double(x2() - size / 2, y2() - size / 2, size, size);
+            //SIZE = (int) (SIZE * winc.scale);
+            Rectangle2D r1 = new Rectangle2D.Double(x1() * winc.scale - SIZE / 2, y1() * winc.scale - SIZE / 2, SIZE, SIZE);
+            Rectangle2D r2 = new Rectangle2D.Double(x2() * winc.scale - SIZE / 2, y2() * winc.scale - SIZE / 2, SIZE, SIZE);
+            //Point point = new Point((int) (event.getX() * winc.scale) ,(int) (event.getY() * winc.scale));
+            //System.out.println(x1() + " " + y1() + "  :  " + );
             if (r1.contains(event.getPoint())) {
                 //System.out.println("mousePressed()+0");
                 ev[0] = true;
@@ -56,13 +59,13 @@ public abstract class Comp {
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
-                x1(event.getX());
-                y1(event.getY());
+                x1(event.getX() / winc.scale);
+                y1(event.getY() / winc.scale);
                 // winc.draw();
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
-                x2(event.getX());
-                y2(event.getY());
+                x2(event.getX() / winc.scale);
+                y2(event.getY() / winc.scale);
                 //winc.draw();
             }
         };
