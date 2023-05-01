@@ -22,7 +22,6 @@ import java.util.Set;
 public class UGeo {
 
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
-    //split convex an poligon into two areas using a line
     public static Area[] split(Area area, Comp line) {
 
         //Вычисление угла линии к оси x
@@ -65,14 +64,7 @@ public class UGeo {
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
         
-        double s0 = hypotenuseMax(a0);
-        double s1 = hypotenuseMax(a1);
-        System.out.println((int) s0 + " : " + (int) s1);
-        if (s0 < s1) {
-            return new Area[]{a0, a1};
-        } else {
-            return new Area[]{a1, a0};
-        }
+        return new Area[]{a0, a1};
     }
 
     public static double[] cross(Area area[]) {
@@ -103,21 +95,6 @@ public class UGeo {
         } else {
             return null;
         }
-    }
-
-    public static double hypotenuseMax(Area area) {
-        double[] c0 = new double[6];
-        double s0 = 0;
-        PathIterator it1 = area.getPathIterator(null);
-        while (!it1.isDone()) {
-            it1.currentSegment(c0);
-            double s = c0[0] * c0[0] + c0[1] * c0[1];
-            if (s > s0) {
-                s0 = s;
-            }
-            it1.next();
-        }
-        return s0;
     }
 
     public static double sin(double angl) {
@@ -212,6 +189,22 @@ public class UGeo {
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
+    
+    public static double hypotenuseMax(Area area) {
+        double[] c0 = new double[6];
+        double s0 = 0;
+        PathIterator it1 = area.getPathIterator(null);
+        while (!it1.isDone()) {
+            it1.currentSegment(c0);
+            double s = c0[0] * c0[0] + c0[1] * c0[1];
+            if (s > s0) {
+                s0 = s;
+            }
+            it1.next();
+        }
+        return s0;
+    }
+    
     /**
      * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
      * многоугольнику с параметрическим заданием линий
