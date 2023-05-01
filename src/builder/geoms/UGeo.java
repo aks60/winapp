@@ -161,6 +161,32 @@ public class UGeo {
             return 0;
         }
     }
+    
+    //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
+    public static double horizontAngl(Elem2Simple e) {
+        double x = e.x2() - e.x1();
+        double y = e.y1() - e.y2();
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }
 
     //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
     public static double horizontAngl(double x1, double y1, double x2, double y2) {

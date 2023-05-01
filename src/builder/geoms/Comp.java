@@ -2,7 +2,10 @@ package builder.geoms;
 
 import builder.Geocalc;
 import builder.script.GeoElem;
+import com.google.gson.JsonObject;
 import common.listener.ListenerMouse;
+import dataset.Record;
+import enums.Type;
 import java.awt.Point;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
@@ -15,14 +18,20 @@ public abstract class Comp {
     public Geocalc winc = null;
     public Comp owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
+    public Type type = Type.NONE; //Тип элемента или окна
     public Area area = null;
     public boolean ev[] = {false, false};
+    public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний 
+    public Record sysprofRec = null; //профиль в системе
+    public Record artiklRec = null;  //мат. средства
+    public Record artiklRecAn = null;  //аналог мат. средства     
 
     public Comp(Geocalc winc, GeoElem gson, Comp owner) {
         this.id = gson.id;
         this.winc = winc;
         this.owner = owner;
         this.gson = gson;
+        this.type = gson.type;
     }
 
     public void build() {
@@ -75,7 +84,20 @@ public abstract class Comp {
         this.winc.mouseReleased.add(mouseReleased);
         this.winc.mouseDragged.add(mouseDragge);
     }
-
+    
+    public boolean isJson(JsonObject jso, String key) {
+        if (jso == null) {
+            return false;
+        }
+        if (jso.isJsonNull()) {
+            return false;
+        }
+        if (jso.get(key) == null) {
+            return false;
+        }
+        return true;
+    }
+    
     public String toString() {
         return " id=" + id + " ";
     }

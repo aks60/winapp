@@ -12,6 +12,7 @@ import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
 import com.google.gson.GsonBuilder;
 import common.listener.ListenerMouse;
+import dataset.Record;
 import enums.Type;
 import java.awt.Graphics2D;
 import java.awt.geom.PathIterator;
@@ -22,8 +23,14 @@ import java.util.Map;
 
 public class Geocalc {
 
+    public Integer nuni = 0;
+    public Record syssizeRec = null; //системные константы      
+    public int colorID1 = -1; //базовый цвет
+    public int colorID2 = -1; //внутренний цвет
+    public int colorID3 = -1; //внещний цвет    
+    
     public Graphics2D gc2D = null; //графический котекст рисунка  
-    public double scale = .6;
+    public double scale = .6;    
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
     public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
