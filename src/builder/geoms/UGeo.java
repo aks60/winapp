@@ -22,6 +22,7 @@ import java.util.Set;
 public class UGeo {
 
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
+    //split convex an poligon into two areas using a line
     public static Area[] split(Area area, Comp line) {
 
         //Вычисление угла линии к оси x
@@ -66,11 +67,11 @@ public class UGeo {
         
         double s0 = hypotenuseMax(a0);
         double s1 = hypotenuseMax(a1);
-        
+        System.out.println((int) s0 + " : " + (int) s1);
         if (s0 < s1) {
-            return new Area[]{a1, a0};
-        } else {
             return new Area[]{a0, a1};
+        } else {
+            return new Area[]{a1, a0};
         }
     }
 
@@ -106,12 +107,12 @@ public class UGeo {
 
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
-        double s0 = 6500;
+        double s0 = 0;
         PathIterator it1 = area.getPathIterator(null);
         while (!it1.isDone()) {
             it1.currentSegment(c0);
             double s = c0[0] * c0[0] + c0[1] * c0[1];
-            if (s < s0) {
+            if (s > s0) {
                 s0 = s;
             }
             it1.next();
