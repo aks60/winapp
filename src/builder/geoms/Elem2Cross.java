@@ -24,21 +24,22 @@ public class Elem2Cross extends Elem2Simple {
         colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : winc.colorID2;
         colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : winc.colorID3;
 
+        double angl = UGeo.horizontAngl(this);
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
-            if (Layout.VERT.equals(owner.layout)) { //сверху вниз
+            if (angl == 270) { //сверху вниз
                 sysprofRec = eSysprof.find4(winc.nuni, type.id2, UseSide.HORIZ);
 
-            } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
+            } else if (angl == 0) { //слева направо
                 sysprofRec = eSysprof.find4(winc.nuni, type.id2, UseSide.VERT);
             }
         }
-        spcRec.place = (Layout.HORIZ == owner.layout) ? Layout.VERT.name : Layout.HORIZ.name;
-        artiklRec(eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false));
+        spcRec.place = (angl == 0) ? Layout.HORIZ.name : Layout.VERT.name;
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
-    
+
     public void build() {
         super.build();
     }
