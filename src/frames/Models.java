@@ -1,6 +1,6 @@
 package frames;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import frames.swing.FrameToFile;
 import dataset.Query;
 import dataset.Record;
@@ -47,7 +47,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private Query qSysmodel = new Query(eSysmodel.values());
-    private Geocalc geo = new Geocalc();
+    private Wingeo geo = new Wingeo();
     private Canvas2D canvas2D = new Canvas2D(geo);
 
     public Models() {

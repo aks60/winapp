@@ -1,6 +1,6 @@
 package builder.script;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import com.google.gson.JsonObject;
 import enums.Type;
 import java.util.LinkedList;
@@ -50,7 +50,7 @@ public class GeoElem {
     /**
      * Назначить родителей всем детям
      */
-    public void setOwner(Geocalc winc) {
+    public void setOwner(Wingeo winc) {
         try {
             this.childs.forEach(el -> {
                 el.owner = this;

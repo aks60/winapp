@@ -1,6 +1,6 @@
 package builder.geoms;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import common.listener.ListenerMouse;
@@ -15,7 +15,7 @@ public abstract class Comp {
 
     public int SIZE = 24;
     public double id;
-    public Geocalc winc = null;
+    public Wingeo wing = null;
     public Comp owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
     public Type type = Type.NONE; //Тип элемента или окна
@@ -26,9 +26,9 @@ public abstract class Comp {
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства     
 
-    public Comp(Geocalc winc, GeoElem gson, Comp owner) {
+    public Comp(Wingeo wing, GeoElem gson, Comp owner) {
         this.id = gson.id;
-        this.winc = winc;
+        this.wing = wing;
         this.owner = owner;
         this.gson = gson;
         this.type = gson.type;
@@ -46,10 +46,10 @@ public abstract class Comp {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-            //SIZE = (int) (SIZE * winc.scale);
-            Rectangle2D r1 = new Rectangle2D.Double(x1() * winc.scale - SIZE / 2, y1() * winc.scale - SIZE / 2, SIZE, SIZE);
-            Rectangle2D r2 = new Rectangle2D.Double(x2() * winc.scale - SIZE / 2, y2() * winc.scale - SIZE / 2, SIZE, SIZE);
-            //Point point = new Point((int) (event.getX() * winc.scale) ,(int) (event.getY() * winc.scale));
+            //SIZE = (int) (SIZE * wing.scale);
+            Rectangle2D r1 = new Rectangle2D.Double(x1() * wing.scale - SIZE / 2, y1() * wing.scale - SIZE / 2, SIZE, SIZE);
+            Rectangle2D r2 = new Rectangle2D.Double(x2() * wing.scale - SIZE / 2, y2() * wing.scale - SIZE / 2, SIZE, SIZE);
+            //Point point = new Point((int) (event.getX() * wing.scale) ,(int) (event.getY() * wing.scale));
             //System.out.println(x1() + " " + y1() + "  :  " + );
             if (r1.contains(event.getPoint())) {
                 //System.out.println("mousePressed()+0");
@@ -63,26 +63,26 @@ public abstract class Comp {
             //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
-            //winc.draw();
+            //wing.draw();
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
                 if (event.getX() > 8 && event.getY() > 8) {
-                    x1(event.getX() / winc.scale);
-                    y1(event.getY() / winc.scale);
+                    x1(event.getX() / wing.scale);
+                    y1(event.getY() / wing.scale);
                 }
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
                 if (event.getX() > 8 && event.getY() > 8) {
-                    x2(event.getX() / winc.scale);
-                    y2(event.getY() / winc.scale);
+                    x2(event.getX() / wing.scale);
+                    y2(event.getY() / wing.scale);
                 }
             }
         };
-        this.winc.mousePressed.add(mousePressed);
-        this.winc.mouseReleased.add(mouseReleased);
-        this.winc.mouseDragged.add(mouseDragge);
+        this.wing.mousePressed.add(mousePressed);
+        this.wing.mouseReleased.add(mouseReleased);
+        this.wing.mouseDragged.add(mouseDragge);
     }
     
     public boolean isJson(JsonObject jso, String key) {

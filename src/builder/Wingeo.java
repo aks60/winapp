@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Geocalc {
+public class Wingeo {
 
     public Integer nuni = 0;
     public Record syssizeRec = null; //системные константы      
@@ -42,7 +42,7 @@ public class Geocalc {
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
 
-    public Geocalc() {
+    public Wingeo() {
         try {
             String script = Bimax2.script(501001);
             parsing(script);

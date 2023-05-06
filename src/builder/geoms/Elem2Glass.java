@@ -1,6 +1,6 @@
 package builder.geoms;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import dataset.Record;
@@ -16,8 +16,8 @@ public class Elem2Glass extends Elem2Simple {
     private int rasclColor = -3; //цвет раскладки
     private int rasclNumber[] = {2, 2}; //количество проёмов раскладки     
     
-    public Elem2Glass(Geocalc winc, GeoElem gson, Comp owner) {
-        super(winc, gson, owner);
+    public Elem2Glass(Wingeo wing, GeoElem gson, Comp owner) {
+        super(wing, gson, owner);
     }
 
     public void initСonstructiv(JsonObject param) {
@@ -25,7 +25,7 @@ public class Elem2Glass extends Elem2Simple {
         if (isJson(param, PKjson.artglasID)) {
             artiklRec = eArtikl.find(param.get(PKjson.artglasID).getAsInt(), false);
         } else {
-            Record sysreeRec = eSystree.find(winc.nuni); //по умолчанию стеклопакет
+            Record sysreeRec = eSystree.find(wing.nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
         artiklRecAn = artiklRec;

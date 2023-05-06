@@ -1,6 +1,6 @@
 package builder.geoms;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import builder.model.ElemSimple;
 import builder.script.GeoElem;
 import java.awt.geom.Area;
@@ -13,12 +13,12 @@ public class Area2Simple extends Comp {
 
     public List<Comp> childs = new ArrayList(); //дети
 
-    public Area2Simple(Geocalc winc, GeoElem gson, Comp owner) {
-        super(winc, gson, owner);
+    public Area2Simple(Wingeo wing, GeoElem gson, Comp owner) {
+        super(wing, gson, owner);
     }
 
-    public Area2Simple(Geocalc winc, GeoElem gson, Comp owner, double x1, double y1, double x2, double y2) {
-        super(winc, gson, owner);
+    public Area2Simple(Wingeo wing, GeoElem gson, Comp owner, double x1, double y1, double x2, double y2) {
+        super(wing, gson, owner);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Area2Simple extends Comp {
     public void paint() {
         try {
             if (area != null) {
-                winc.gc2D.draw(area);
+                wing.gc2D.draw(area);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);

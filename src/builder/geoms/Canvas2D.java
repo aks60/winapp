@@ -1,6 +1,6 @@
 package builder.geoms;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -14,46 +14,46 @@ import javax.swing.JComponent;
 
 public class Canvas2D extends JComponent {
 
-    private Geocalc winc;
+    private Wingeo wing;
 
-    public Canvas2D(Geocalc winc) {
-        this.winc = winc;
+    public Canvas2D(Wingeo wing) {
+        this.wing = wing;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
-                winc.mousePressed.forEach(e -> e.mouseEvent(event));
+                wing.mousePressed.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
 
             public void mouseReleased(MouseEvent event) {
-                winc.mouseReleased.forEach(e -> e.mouseEvent(event));
+                wing.mouseReleased.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent event) {
-                winc.mouseDragged.forEach(e -> e.mouseEvent(event));
+                wing.mouseDragged.forEach(e -> e.mouseEvent(event));
                 repaint();
             }
         });
         addComponentListener(new ComponentAdapter() {
  
             public void componentResized(ComponentEvent event) {
-                winc.scale = scale(winc, 0, 24);
+                wing.scale = scale(wing, 0, 24);
             }
         });
     }
 
     public void paintComponent(Graphics g) {
         //System.out.println("Canvas2D.paintComponent()");
-        winc.gc2D = (Graphics2D) g;
-        winc.gc2D.scale(winc.scale, winc.scale);
-        winc.draw();
+        wing.gc2D = (Graphics2D) g;
+        wing.gc2D.scale(wing.scale, wing.scale);
+        wing.draw();
     }
     
-    public double scale(Geocalc winc, double dx, double dy) {
+    public double scale(Wingeo wing, double dx, double dy) {
         double[] s = new double[8];
-        PathIterator it = winc.root.area.getPathIterator(null);
+        PathIterator it = wing.root.area.getPathIterator(null);
         while (!it.isDone()) {
             it.currentSegment(s);
             s[6] = (s[0] > s[6]) ? s[0] : s[6];

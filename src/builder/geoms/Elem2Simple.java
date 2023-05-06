@@ -1,6 +1,6 @@
 package builder.geoms;
 
-import builder.Geocalc;
+import builder.Wingeo;
 import builder.making.Specific;
 import builder.script.GeoElem;
 import java.awt.Color;
@@ -12,8 +12,8 @@ public class Elem2Simple extends Comp {
     protected Specific spcRec = null; //спецификация элемента
     protected Color borderColor = Color.BLACK;    
 
-    public Elem2Simple(Geocalc winc, GeoElem gson, Comp owner) {
-        super(winc, gson, owner);
+    public Elem2Simple(Wingeo wing, GeoElem gson, Comp owner) {
+        super(wing, gson, owner);
     }
 
     public void build() {
