@@ -16,9 +16,9 @@ public class Elem2Simple extends Comp {
         super(wing, gson, owner);
     }
 
-    public void rebuild() {
+    public void build() {
         try {
-            super.rebuild();
+            super.build();
             if (owner.childs().size() == 3) {
                 Area area2[] = UGeo.split(owner.area, owner.childs().get(1));
                 owner.childs().get(0).area = area2[0];

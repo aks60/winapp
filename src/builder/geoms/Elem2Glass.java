@@ -61,8 +61,8 @@ public class Elem2Glass extends Elem2Simple {
         }
     }
     
-    public void rebuild() {
-        super.rebuild();
+    public void build() {
+        super.build();
     }
 
     public void paint() {

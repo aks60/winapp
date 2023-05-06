@@ -55,13 +55,7 @@ public class Wingeo {
     }
 
     public Wingeo(String script) {
-        try {
-            build(script);
-            root.rebuild();
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Geocalc.build() " + e);
-        }
+        build(script);
     }
 
     /**
@@ -79,10 +73,13 @@ public class Wingeo {
             //Создание элементов конструкции
             parsing(script);
 
+            //построение полигонов
+            root.build();
+
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             //listFrame.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
             //listCross.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
-
+            
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);
         }
@@ -153,11 +150,11 @@ public class Wingeo {
 
     public void draw() {
         try {
-            root.rebuild();
+            root.build();
             root.paint();
-            listArea.forEach(e -> e.rebuild());
+            listArea.forEach(e -> e.build());
             listArea.forEach(e -> e.paint());
-            listCross.forEach(e -> e.rebuild());
+            listCross.forEach(e -> e.build());
             listCross.forEach(e -> e.paint());
 
         } catch (Exception e) {
