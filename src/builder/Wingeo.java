@@ -52,14 +52,39 @@ public class Wingeo {
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
 
     public Wingeo() {
+    }
+
+    public Wingeo(String script) {
         try {
-            String script = Bimax2.script(501001);
-            init();
-            parsing(script);
-            root.build();
+            build(script);
+            root.rebuild();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Geocalc.build() " + e);
+        }
+    }
+
+    /**
+     * Построение окна из json скрипта
+     *
+     * @param script - json скрипт построения окна
+     * @return rootArea - главное окно
+     */
+    public void build(String script) {
+        try {
+            //Инит свойств окна
+            init();
+
+            //Парсинг входного скрипта
+            //Создание элементов конструкции
+            parsing(script);
+
+            //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
+            //listFrame.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
+            //listCross.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.build() " + e);
         }
     }
 
@@ -128,11 +153,11 @@ public class Wingeo {
 
     public void draw() {
         try {
-            root.build();
+            root.rebuild();
             root.paint();
-            listArea.forEach(e -> e.build());
+            listArea.forEach(e -> e.rebuild());
             listArea.forEach(e -> e.paint());
-            listCross.forEach(e -> e.build());
+            listCross.forEach(e -> e.rebuild());
             listCross.forEach(e -> e.paint());
 
         } catch (Exception e) {

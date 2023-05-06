@@ -29,6 +29,7 @@ import common.listener.ListenerReload;
 import dataset.Conn;
 import frames.swing.DefTableModel;
 import builder.geoms.Canvas2D;
+import builder.script.test.Bimax2;
 import frames.swing.draw.Scene;
 import java.awt.BorderLayout;
 import java.io.File;
@@ -47,7 +48,7 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private Query qSysmodel = new Query(eSysmodel.values());
-    private Wingeo geo = new Wingeo();
+    private Wingeo geo = new Wingeo(Bimax2.script(501001));
     private Canvas2D canvas2D = new Canvas2D(geo);
 
     public Models() {

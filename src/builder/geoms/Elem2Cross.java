@@ -40,8 +40,8 @@ public class Elem2Cross extends Elem2Simple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
-    public void build() {
-        super.build();
+    public void rebuild() {
+        super.rebuild();
     }
 
     public void paint() {

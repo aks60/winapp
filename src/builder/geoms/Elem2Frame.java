@@ -53,8 +53,8 @@ public class Elem2Frame extends Elem2Simple {
         }
     }
     
-    public void build() {
-        super.build();
+    public void rebuild() {
+        super.rebuild();
     }
 
     public void paint() {
