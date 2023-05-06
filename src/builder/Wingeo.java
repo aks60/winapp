@@ -7,16 +7,22 @@ import builder.geoms.Comp;
 import builder.geoms.Elem2Cross;
 import builder.geoms.Elem2Frame;
 import builder.geoms.Elem2Glass;
+import builder.making.Specific;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import builder.script.test.Bimax2;
 import com.google.gson.GsonBuilder;
+import common.ArraySpc;
 import common.listener.ListenerMouse;
 import dataset.Record;
+import domain.eSyspar1;
+import domain.eSysprof;
 import enums.Type;
+import enums.UseArtiklTo;
 import java.awt.Graphics2D;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,20 +30,23 @@ import java.util.Map;
 public class Wingeo {
 
     public Integer nuni = 0;
-    public Record syssizeRec = null; //системные константы      
+    public Record syssizeRec = null; //системные константы     
+    public double genId = 0; //для генерация ключа в спецификации
     public int colorID1 = -1; //базовый цвет
     public int colorID2 = -1; //внутренний цвет
-    public int colorID3 = -1; //внещний цвет    
-    
+    public int colorID3 = -1; //внещний цвет   
+
     public Graphics2D gc2D = null; //графический котекст рисунка  
-    public double scale = .6;    
+    public double scale = .6;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
     public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
 
+    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public List<Area2Simple> listArea = new ArrayList();
     public List<Elem2Frame> listFrame = new ArrayList();
     public List<Elem2Cross> listCross = new ArrayList();
+    public ArraySpc<Specific> listSpec = new ArraySpc(); //спецификация
 
     public GeoRoot gson = null; //объектная модель конструкции 1-го уровня
     public Area2Polygon root = null; //объектная модель конструкции 2-го уровня
@@ -45,6 +54,7 @@ public class Wingeo {
     public Wingeo() {
         try {
             String script = Bimax2.script(501001);
+            init();
             parsing(script);
             root.build();
 
@@ -59,6 +69,12 @@ public class Wingeo {
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         gson.setOwner(this);
+
+        //Инит конструктива
+        this.nuni = gson.nuni;
+        Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
+        eSyspar1.find(nuni).forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.groups_id), syspar1Rec)); //загрузим параметры по умолчанию
+
         root = new Area2Polygon(this, gson);
 
         elements(root, gson);
@@ -124,8 +140,16 @@ public class Wingeo {
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="GET AND SET"> 
+    private void init() {
+        genId = 0;
+        syssizeRec = null;
+        mapPardef.clear();
+        List.of((List) listArea, (List) listFrame, (List) listCross, (List) listSpec).forEach(el -> el.clear());
+    }
+
     public double width() {
-        double[] s = {0, 0, 0, 0, 0, 0, 5600, 0};
+        double[] s = {0, 0, 0, 0, 0, 0, 10000, 0};
         PathIterator it = root.area.getPathIterator(null);
         while (!it.isDone()) {
             it.currentSegment(s);
@@ -137,7 +161,7 @@ public class Wingeo {
     }
 
     public double height() {
-        double[] s = {0, 0, 0, 0, 0, 0, 5600, 0};
+        double[] s = {0, 0, 0, 0, 0, 0, 10000, 0};
         PathIterator it = root.area.getPathIterator(null);
         while (!it.isDone()) {
             it.currentSegment(s);
@@ -147,4 +171,5 @@ public class Wingeo {
         }
         return s[7] - s[6];
     }
+    // </editor-fold>  
 }
