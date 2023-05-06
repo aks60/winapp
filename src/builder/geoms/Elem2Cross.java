@@ -41,7 +41,19 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void build() {
-        super.build();
+        try {
+            if (owner.childs().size() == 3) {
+                Area area2[] = UGeo.split(owner.area, owner.childs().get(1));
+                owner.childs().get(0).area = area2[0];
+                owner.childs().get(2).area = area2[1];
+                double line[] = UGeo.cross(area2);
+                if (line != null) {
+                    this.setLocation(line[0], line[1], line[2], line[3]);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
+        }
     }
 
     public void paint() {

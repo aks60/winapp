@@ -9,27 +9,15 @@ import java.awt.geom.Line2D;
 
 public class Elem2Simple extends Comp {
     
-    protected Specific spcRec = null; //спецификация элемента
-    protected Color borderColor = Color.BLACK;    
+    public double anglCut[] = {45, 45}; //угол реза
+    public double[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
+    public double anglHoriz = 0; //угол к горизонту    
+    public double[] betweenHoriz = {0,0}; //угол между векторами    
+
+    public Specific spcRec = null; //спецификация элемента
+    public Color borderColor = Color.BLACK;  
 
     public Elem2Simple(Wingeo wing, GeoElem gson, Comp owner) {
         super(wing, gson, owner);
-    }
-
-    public void build() {
-        try {
-            super.build();
-            if (owner.childs().size() == 3) {
-                Area area2[] = UGeo.split(owner.area, owner.childs().get(1));
-                owner.childs().get(0).area = area2[0];
-                owner.childs().get(2).area = area2[1];
-                double line[] = UGeo.cross(area2);
-                if (line != null) {
-                    this.setLocation(line[0], line[1], line[2], line[3]);
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
-        }
     }
 }

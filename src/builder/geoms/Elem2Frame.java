@@ -9,6 +9,7 @@ import domain.eSyssize;
 import enums.Layout;
 import enums.PKjson;
 import enums.UseSide;
+import java.awt.geom.PathIterator;
 
 public class Elem2Frame extends Elem2Simple {
 
@@ -17,7 +18,7 @@ public class Elem2Frame extends Elem2Simple {
         mouseEvent();
     }
 
-        /**
+    /**
      * Профиль через параметр или первая запись в системе см. табл. sysprof Цвет
      * если нет параметра то берём wing.color.
      */
@@ -34,7 +35,7 @@ public class Elem2Frame extends Elem2Simple {
             sysprofRec = owner.sysprofRec;
         } else {
             double angl = UGeo.horizontAngl(this);
-            if(angl >= 0 && angl < 90) {
+            if (angl >= 0 && angl < 90) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
             } else if (angl >= 90 && angl < 180) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
@@ -52,9 +53,21 @@ public class Elem2Frame extends Elem2Simple {
             wing.syssizeRec = eSyssize.find(artiklRec);
         }
     }
-    
+
     public void build() {
-        super.build();
+        for (int i = 0; i < wing.listLine.size(); i++) {
+            Comp e = wing.listLine.get(i);
+            if (e.id == this.id) {
+                this.anglHoriz = UGeo.horizontAngl(this);
+                if (i == 0) {
+
+                } else {
+                    Comp e0 = wing.listLine.get(i - 1);
+                    Comp e1 = wing.listLine.get(i + 1);
+                }
+                return;
+            }
+        }
     }
 
     public void paint() {

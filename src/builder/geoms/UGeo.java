@@ -135,6 +135,21 @@ public class UGeo {
         double c = s / (a * b);
         return 180 - acos(c);
     }
+    
+    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
+    public static double betweenAngl(Comp e1, Comp e2) {
+
+        double dx1 = e1.x2() - e1.x1();
+        double dy1 = e1.y2() - e1.y1();
+        double dx2 = e2.x2() - e2.x1();
+        double dy2 = e2.y2() - e2.y1();
+
+        double s = dx1 * dx2 + dy1 * dy2;
+        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
+        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
+        double c = s / (a * b);
+        return 180 - acos(c);
+    }
 
     //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
     public static double horizontAngl(IElem5e e) {
