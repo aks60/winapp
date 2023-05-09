@@ -19,5 +19,6 @@ public class Elem2Simple extends Comp {
 
     public Elem2Simple(Wingeo wing, GeoElem gson, Comp owner) {
         super(wing, gson, owner);
+        //spcRec = new Specific(id, this);
     }
 }

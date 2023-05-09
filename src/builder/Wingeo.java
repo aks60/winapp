@@ -118,7 +118,7 @@ public class Wingeo {
                     listArea.add(area5e);
                     hm.put(area5e, js);
 
-                } else if (Type.FRAME == js.type) {
+                } else if (Type.FRAME_SIDE == js.type) {
                     Elem2Frame elem5e = new Elem2Frame(this, js, owner);
                     listLine.add(elem5e);
                     listFrame.add(elem5e);

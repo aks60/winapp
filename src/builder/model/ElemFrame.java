@@ -58,6 +58,7 @@ public class ElemFrame extends ElemSimple {
 
         } else if (owner.sysprofRec() != null) { //профили через параметр рамы, створки
             sysprofRec = owner.sysprofRec();
+            
         } else {
             if (Layout.BOTT.equals(layout)) {
                 sysprofRec = eSysprof.find5(winc.nuni(), type().id2, UseSide.BOT, UseSide.HORIZ);

@@ -15,6 +15,7 @@ public class Elem2Frame extends Elem2Simple {
 
     public Elem2Frame(Wingeo wing, GeoElem gson, Comp owner) {
         super(wing, gson, owner);
+        initСonstructiv(gson.param);
         mouseEvent();
     }
 
@@ -35,14 +36,16 @@ public class Elem2Frame extends Elem2Simple {
             sysprofRec = owner.sysprofRec;
         } else {
             double angl = UGeo.horizontAngl(this);
-            if (angl >= 0 && angl < 90) {
+            if (angl == 0) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
-            } else if (angl >= 90 && angl < 180) {
+            } else if (angl == 90) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
-            } else if (angl >= 180 && angl < 270) {
+            } else if (angl == 180) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.TOP, UseSide.HORIZ);
-            } else if (angl >= 270 && angl < 0) {
+            } else if (angl == 270) {
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.LEFT, UseSide.VERT);
+            } else {
+                sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
             }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
