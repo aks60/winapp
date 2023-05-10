@@ -34,9 +34,9 @@ public class Elem2Cross extends Elem2Simple {
 
             } else if (angl == 90 || angl == 270) { //слева направо
                 sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.VERT, UseSide.ANY);
-                
+
             } else {
-               sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY); 
+                sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
             }
         }
         //spcRec.place = (angl == 0) ? Layout.HORIZ.name : Layout.VERT.name;
@@ -44,7 +44,7 @@ public class Elem2Cross extends Elem2Simple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
-    public void build() {
+    public void setLocation() {
         try {
             if (owner.childs().size() == 3) {
                 Area area2[] = UGeo.split(owner.area, owner.childs().get(1));

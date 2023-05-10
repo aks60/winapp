@@ -34,7 +34,7 @@ public abstract class Comp {
         this.type = gson.type;
     }
 
-    public void build() {
+    public void setLocation() {
     }
 
     public void paint() {

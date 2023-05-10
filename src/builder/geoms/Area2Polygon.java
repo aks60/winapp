@@ -13,7 +13,7 @@ public class Area2Polygon extends Area2Simple {
         super(wing, gson, null);
     }
 
-    public void build() {
+    public void setLocation() {
         try {
             GeneralPath p = new GeneralPath();
             p.reset();

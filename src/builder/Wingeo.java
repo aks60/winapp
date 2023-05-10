@@ -75,7 +75,7 @@ public class Wingeo {
             parsing(script);
 
             //построение полигонов
-            root.build();
+            root.setLocation();
 
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             //listFrame.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
@@ -152,11 +152,11 @@ public class Wingeo {
 
     public void draw() {
         try {
-            root.build();
+            root.setLocation();
             root.paint();
-            listArea.forEach(e -> e.build());
+            listArea.forEach(e -> e.setLocation());
             listArea.forEach(e -> e.paint());
-            listCross.forEach(e -> e.build());
+            listCross.forEach(e -> e.setLocation());
             listCross.forEach(e -> e.paint());
 
         } catch (Exception e) {

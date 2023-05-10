@@ -63,7 +63,7 @@ public class UGeo {
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
-        
+
         return new Area[]{a0, a1};
     }
 
@@ -135,7 +135,7 @@ public class UGeo {
         double c = s / (a * b);
         return 180 - acos(c);
     }
-    
+
     //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
     public static double betweenAngl(Comp e1, Comp e2) {
 
@@ -176,7 +176,7 @@ public class UGeo {
             return 0;
         }
     }
-    
+
     //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
     public static double horizontAngl(Elem2Simple e) {
         double x = e.x2() - e.x1();
@@ -229,8 +229,21 @@ public class UGeo {
         }
     }
 
+    //Ширина рамки по оси x и y
+    public static double[] diff(Elem2Simple e, double dh) {
+
+        double anglHoriz = UGeo.horizontAngl(e);
+        double x = -1 * cos(anglHoriz);
+        double y = -1 * sin(anglHoriz);
+
+        if (Math.abs(x) >= Math.abs(y)) {
+            return new double[]{0, dh / x};
+        } else {
+            return new double[]{dh / y, 0};
+        }
+    }
+
 // <editor-fold defaultstate="collapsed" desc="XLAM">
-    
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
         double s0 = 0;
@@ -245,7 +258,7 @@ public class UGeo {
         }
         return s0;
     }
-    
+
     /**
      * Реализует алгоритм отсечения Кируса-Бека по произвольному выпуклому
      * многоугольнику с параметрическим заданием линий
