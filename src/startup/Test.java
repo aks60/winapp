@@ -1,6 +1,6 @@
 package startup;
 
-import builder.mode2.UGeo;
+import builder.model2.UGeo;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;

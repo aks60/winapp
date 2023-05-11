@@ -3,7 +3,7 @@ package builder;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.IElem5e;
-import builder.mode1.ElemJoining;
+import builder.model1.ElemJoining;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dataset.Record;
@@ -140,24 +140,24 @@ public class Wincalc {
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0"))
-                        ? new builder.mode1.AreaRectangl(this)
-                        : new builder.mode1.AreaRectangl(this); //простое
+                        ? new builder.model1.AreaRectangl(this)
+                        : new builder.model1.AreaRectangl(this); //простое
             } else if (Type.DOOR == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0"))
-                        ? new builder.mode1.AreaDoor(this)
-                        : new builder.mode1.AreaDoor(this); //дверь                
+                        ? new builder.model1.AreaDoor(this)
+                        : new builder.model1.AreaDoor(this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0"))
-                        ? new builder.mode1.AreaTrapeze(this)
-                        : new builder.mode1.AreaTrapeze(this); //трапеция
+                        ? new builder.model1.AreaTrapeze(this)
+                        : new builder.model1.AreaTrapeze(this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0"))
-                        ? new builder.mode1.AreaTriangl(this)
-                        : new builder.mode1.AreaTriangl(this); //треугольник
+                        ? new builder.model1.AreaTriangl(this)
+                        : new builder.model1.AreaTriangl(this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
                 rootArea = (eProp.old.read().equals("0"))
-                        ? new builder.mode1.AreaArch(this)
-                        : new builder.mode1.AreaArch(this); //арка
+                        ? new builder.model1.AreaArch(this)
+                        : new builder.model1.AreaArch(this); //арка
             }
 
             //Создадим ареа областей и элементы конструкции
@@ -181,8 +181,8 @@ public class Wincalc {
 
                 if (Type.STVORKA == js.type()) {
                     IArea5e area5e = (eProp.old.read().equals("0"))
-                            ? new builder.mode1.AreaStvorka(Wincalc.this, owner, js)
-                            : new builder.mode1.AreaStvorka(Wincalc.this, owner, js);
+                            ? new builder.model1.AreaStvorka(Wincalc.this, owner, js)
+                            : new builder.model1.AreaStvorka(Wincalc.this, owner, js);
                     owner.childs().add(area5e); //добавим ребёна родителю
                     hm.put(area5e, js);
 
@@ -192,38 +192,38 @@ public class Wincalc {
                     IArea5e area5e = null;
                     if (js.form() == null) {
                         area5e = (eProp.old.read().equals("0"))
-                                ? new builder.mode1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
-                                : new builder.mode1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
+                                ? new builder.model1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height())
+                                : new builder.model1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height());
                     } else {
                         area5e = (eProp.old.read().equals("0"))
-                                ? new builder.mode1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
-                                : new builder.mode1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
+                                ? new builder.model1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form())
+                                : new builder.model1.AreaSimple(Wincalc.this, owner, js, js.width(), js.height(), js.form());
                     }
                     owner.childs().add(area5e); //добавим ребёна родителю
                     hm.put(area5e, js);
 
                 } else if (Type.FRAME_SIDE == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new builder.mode1.ElemFrame(rootArea, js)
-                            : new builder.mode1.ElemFrame(rootArea, js);
+                            ? new builder.model1.ElemFrame(rootArea, js)
+                            : new builder.model1.ElemFrame(rootArea, js);
                     rootArea.frames().put(js.layout(), elem5e);
 
                 } else if (Type.IMPOST == js.type() || Type.SHTULP == js.type() || Type.STOIKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new builder.mode1.ElemCross(owner, js)
-                            : new builder.mode1.ElemCross(owner, js);
+                            ? new builder.model1.ElemCross(owner, js)
+                            : new builder.model1.ElemCross(owner, js);
                     owner.childs().add(elem5e); //добавим ребёна родителю
 
                 } else if (Type.GLASS == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new builder.mode1.ElemGlass(owner, js)
-                            : new builder.mode1.ElemGlass(owner, js);
+                            ? new builder.model1.ElemGlass(owner, js)
+                            : new builder.model1.ElemGlass(owner, js);
                     owner.childs().add(elem5e); //добавим ребёна родителю
 
                 } else if (Type.MOSKITKA == js.type()) {
                     IElem5e elem5e = (eProp.old.read().equals("0"))
-                            ? new builder.mode1.ElemMosquit(owner, js)
-                            : new builder.mode1.ElemMosquit(owner, js);
+                            ? new builder.model1.ElemMosquit(owner, js)
+                            : new builder.model1.ElemMosquit(owner, js);
                     owner.childs().add(elem5e); //добавим ребёна родителю
 
                 }

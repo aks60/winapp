@@ -1,6 +1,6 @@
 package frames.swing.draw;
 
-import builder.mode1.AreaSimple;
+import builder.model1.AreaSimple;
 import builder.IArea5e;
 import builder.script.GsonElem;
 import enums.Type;

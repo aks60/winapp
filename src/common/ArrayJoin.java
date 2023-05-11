@@ -1,7 +1,7 @@
 package common;
 
 import builder.IElem5e;
-import builder.mode1.ElemJoining;
+import builder.model1.ElemJoining;
 import enums.LayoutJoin;
 import enums.Type;
 import enums.TypeJoin;

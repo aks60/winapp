@@ -1,7 +1,7 @@
 package frames;
 
 import builder.Wincalc;
-import builder.mode1.Com5t;
+import builder.model1.Com5t;
 import builder.IArea5e;
 import builder.ICom5t;
 import builder.IElem5e;

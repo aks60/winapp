@@ -1,7 +1,7 @@
 package startup;
 
 import builder.Wincalc;
-import builder.mode1.ElemJoining;
+import builder.model1.ElemJoining;
 import frames.swing.FrameToFile;
 import common.eProfile;
 import common.listener.ListenerRecord;

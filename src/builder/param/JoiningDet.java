@@ -7,7 +7,7 @@ import domain.eJoinpar2;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.mode1.ElemJoining;
+import builder.model1.ElemJoining;
 import builder.IElem5e;
 import common.UCom;
 import enums.Type;

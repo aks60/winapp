@@ -8,7 +8,7 @@ import domain.eSetting;
 import enums.Layout;
 import java.util.List;
 import builder.Wincalc;
-import builder.mode1.ElemJoining;
+import builder.model1.ElemJoining;
 import builder.IElem5e;
 import builder.IStvorka;
 import common.UCom;
