@@ -1,13 +1,13 @@
 package builder;
 
-import builder.geoms.Area2Polygon;
-import builder.geoms.Area2Simple;
-import builder.geoms.Area2Stvorka;
-import builder.geoms.Comp;
-import builder.geoms.Elem2Cross;
-import builder.geoms.Elem2Frame;
-import builder.geoms.Elem2Glass;
-import builder.geoms.Elem2Simple;
+import builder.mode2.Area2Polygon;
+import builder.mode2.Area2Simple;
+import builder.mode2.Area2Stvorka;
+import builder.mode2.Comp;
+import builder.mode2.Elem2Cross;
+import builder.mode2.Elem2Frame;
+import builder.mode2.Elem2Glass;
+import builder.mode2.Elem2Simple;
 import builder.making.Specific;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;

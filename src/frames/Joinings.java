@@ -3,7 +3,7 @@ package frames;
 import frames.swing.ProgressBar;
 import frames.swing.FrameToFile;
 import builder.making.UColor;
-import builder.model.ElemJoining;
+import builder.mode1.ElemJoining;
 import frames.dialog.ParName;
 import frames.dialog.ParSysVal;
 import frames.dialog.ParColor;

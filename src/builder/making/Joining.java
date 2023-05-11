@@ -13,7 +13,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
-import builder.model.ElemJoining;
+import builder.mode1.ElemJoining;
 import builder.IElem5e;
 import dataset.Query;
 import domain.eSetting;

@@ -14,7 +14,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.IElem5e;
-import builder.model.UPar;
+import builder.mode1.UPar;
 import common.UCom;
 import dataset.Query;
 import domain.eSysprof;

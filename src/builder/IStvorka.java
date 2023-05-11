@@ -1,6 +1,6 @@
 package builder;
 
-import builder.model.ElemMosquit;
+import builder.mode1.ElemMosquit;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.LayoutHandle;

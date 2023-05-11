@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
-import builder.model.AreaArch;
+import builder.mode1.AreaArch;
 import builder.ICom5t;
 import builder.IElem5e;
 import builder.IStvorka;

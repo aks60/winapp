@@ -28,7 +28,7 @@ import common.listener.ListenerFrame;
 import common.listener.ListenerReload;
 import dataset.Conn;
 import frames.swing.DefTableModel;
-import builder.geoms.Canvas2D;
+import builder.mode2.Canvas2D;
 import builder.script.test.Bimax2;
 import frames.swing.draw.Scene;
 import java.awt.BorderLayout;

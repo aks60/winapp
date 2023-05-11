@@ -1,6 +1,6 @@
 package startup;
 
-import builder.geoms.UGeo;
+import builder.mode2.UGeo;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;

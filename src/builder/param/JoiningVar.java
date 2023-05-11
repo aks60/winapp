@@ -9,7 +9,7 @@ import domain.eSetting;
 import domain.eSystree;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.ElemJoining;
+import builder.mode1.ElemJoining;
 import builder.IElem5e;
 import builder.IStvorka;
 import common.UCom;
