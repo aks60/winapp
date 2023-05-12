@@ -11,6 +11,7 @@ import domain.eSyssize;
 import enums.PKjson;
 import enums.UseSide;
 import frames.swing.DrawStroke;
+import java.util.List;
 
 public class Elem2Frame extends Elem2Simple {
 
@@ -59,30 +60,31 @@ public class Elem2Frame extends Elem2Simple {
     }
 
     public void setLocation() {
-        for (int i = 0; i < wing.listLine.size(); i++) {
-            if (wing.listLine.get(i).id == this.id) {
-                this.anglHoriz = UGeo.horizontAngl(this);
+        this.anglHoriz = UGeo.horizontAngl(this);
+        Elem2Simple e0 = null, e1 = null;
+        for (int i = 0; i < wing.listFrame.size(); i++) {
+            if (wing.listFrame.get(i).id == this.id) {
                 if (i == 0) {
-
+                    e0 = wing.listFrame.get(wing.listFrame.size() - 1);
+                    e1 = wing.listFrame.get(i + 1);
                 } else {
-                    Elem2Simple e0 = wing.listLine.get(i - 1);
-                    Elem2Simple e1 = wing.listLine.get(i + 1);
-                    double h[] = UGeo.diff(this, this.artiklRec.getDbl(eArtikl.height));
-                    double h1[] = UGeo.diff(e0, e0.artiklRec.getDbl(eArtikl.height));
-                    double h2[] = UGeo.diff(e1, e1.artiklRec.getDbl(eArtikl.height));
-                    double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
-                    double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
-                    
-                    //DrawStroke.strokePolygon(wing, x1(), x2(), p2[0], p1[0], y1(), y2(), p2[1], p1[1], rgb, borderColor);
-                    //System.out.println(this.layout + " = " + p1[0] + ":" + p2[1] + " angl = " + this.anglHoriz); //(dh / UCom.sin(this.anglHoriz)));                     
+                    e0 = wing.listFrame.get(i - 1);
+                    e1 = wing.listFrame.get(i + 1);
                 }
-                return;
             }
         }
+        double h[] = UGeo.diff(this, this.artiklRec.getDbl(eArtikl.height));
+        double h1[] = UGeo.diff(e0, e0.artiklRec.getDbl(eArtikl.height));
+        double h2[] = UGeo.diff(e1, e1.artiklRec.getDbl(eArtikl.height));
+        double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
+        double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
+        polygon(x1(), y1(), x2(), y2(), p1[0], p1[1], p2[0], p2[1]);
+        paint();
     }
 
     public void paint() {
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+        wing.gc2D.draw(area);
         //DrawStroke.strokePolygon(wing, x1(), x2(), p2[0], p1[0], y1(), y2(), p2[1], p1[1], rgb, borderColor);
     }
 }

@@ -8,6 +8,7 @@ import dataset.Record;
 import enums.Type;
 import java.awt.Point;
 import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -98,6 +99,20 @@ public abstract class Comp {
         return true;
     }
     
+    public void polygon(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        try {
+            GeneralPath p = new GeneralPath();
+            p.moveTo(x1, y1);
+            p.lineTo(x2, y2);
+            p.lineTo(x3, y3);
+            p.lineTo(x4, y4);
+            p.closePath();
+            area = new Area(p);
+        } catch (Exception e) {
+            System.err.println("Ошибка:Comp.polygon()" + toString() + e);
+        }
+    }
+        
     public String toString() {
         return " id=" + id + " ";
     }
