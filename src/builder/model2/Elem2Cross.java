@@ -55,6 +55,32 @@ public class Elem2Cross extends Elem2Simple {
                     this.setLocation(line[0], line[1], line[2], line[3]);
                 }
             }
+            
+//        this.anglHoriz = UGeo.horizontAngl(this);
+//        Elem2Simple e0 = null, e1 = null;
+//        for (int i = 0; i < wing.listFrame.size(); i++) {
+//            if (wing.listFrame.get(i).id == this.id) {
+//                if (i == 0) {
+//                    e0 = wing.listFrame.get(wing.listFrame.size() - 1);
+//                    e1 = wing.listFrame.get(i + 1);
+//                    
+//                } else if(i == wing.listFrame.size() - 1) {
+//                    e0 = wing.listFrame.get(i - 1);
+//                    e1 = wing.listFrame.get(0);                   
+//                } else {
+//                    e0 = wing.listFrame.get(i - 1);
+//                    e1 = wing.listFrame.get(i + 1);
+//                }
+//            }
+//        }
+//        double h[] = UGeo.diff(this, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
+//        double h1[] = UGeo.diff(e0, e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
+//        double h2[] = UGeo.diff(e1, e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
+//        double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
+//        double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
+//        polygon(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
+//        //paint();
+        
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
         }
