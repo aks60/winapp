@@ -24,18 +24,18 @@ public class Elem2Simple extends Comp {
     }
     
     public void setLocation() {
-        try {
-            GeneralPath p = new GeneralPath();
-            p.reset();
-            p.moveTo(wing.listFrame.get(0).x1(), wing.listFrame.get(0).y1());
-            for (int i = 1; i < wing.listFrame.size(); ++i) {
-                p.lineTo(wing.listFrame.get(i).x1(), wing.listFrame.get(i).y1());
-            }
-            p.closePath();
-            area = new Area(p);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
-        }        
+//        try {
+//            GeneralPath p = new GeneralPath();
+//            p.reset();
+//            p.moveTo(wing.listFrame.get(0).x1(), wing.listFrame.get(0).y1());
+//            for (int i = 1; i < wing.listFrame.size(); ++i) {
+//                p.lineTo(wing.listFrame.get(i).x1(), wing.listFrame.get(i).y1());
+//            }
+//            p.closePath();
+//            area = new Area(p);
+//
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
+//        }        
     }
 }

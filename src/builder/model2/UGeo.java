@@ -242,6 +242,10 @@ public class UGeo {
             return new double[]{h / y, 0};
         }
     }
+    
+    public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {        
+        return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
+    }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
     public static double hypotenuseMax(Area area) {

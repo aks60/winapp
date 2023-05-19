@@ -5,7 +5,7 @@ import builder.script.GeoElem;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-import java.util.List;
+import java.awt.geom.PathIterator;
 
 public class Area2Polygon extends Area2Simple {
 
@@ -24,6 +24,17 @@ public class Area2Polygon extends Area2Simple {
             p.closePath();
             area = new Area(p);
 
+            PathIterator iterator = area.getPathIterator(null);
+            double[] floats = new double[6];
+            while (!iterator.isDone()) {
+                int type = iterator.currentSegment(floats);
+                int x = (int) floats[0];
+                int y = (int) floats[1];
+                if (type != PathIterator.SEG_CLOSE) {   
+                  System.out.println("adding x = " + x + ", y = " + y);  
+                }
+                iterator.next();
+            }            
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.build()" + toString() + e);
         }

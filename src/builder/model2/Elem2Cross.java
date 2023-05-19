@@ -4,12 +4,16 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eSysprof;
 import enums.Layout;
 import enums.PKjson;
 import enums.UseSide;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 
 public class Elem2Cross extends Elem2Simple {
 
@@ -46,6 +50,7 @@ public class Elem2Cross extends Elem2Simple {
 
     public void setLocation() {
         try {
+            //Делим полигон
             if (owner.childs().size() == 3) {
                 Area area2[] = UGeo.split(owner.area, owner.childs().get(1));
                 owner.childs().get(0).area = area2[0];
@@ -55,38 +60,27 @@ public class Elem2Cross extends Elem2Simple {
                     this.setLocation(line[0], line[1], line[2], line[3]);
                 }
             }
-            
-//        this.anglHoriz = UGeo.horizontAngl(this);
-//        Elem2Simple e0 = null, e1 = null;
-//        for (int i = 0; i < wing.listFrame.size(); i++) {
-//            if (wing.listFrame.get(i).id == this.id) {
-//                if (i == 0) {
-//                    e0 = wing.listFrame.get(wing.listFrame.size() - 1);
-//                    e1 = wing.listFrame.get(i + 1);
-//                    
-//                } else if(i == wing.listFrame.size() - 1) {
-//                    e0 = wing.listFrame.get(i - 1);
-//                    e1 = wing.listFrame.get(0);                   
-//                } else {
-//                    e0 = wing.listFrame.get(i - 1);
-//                    e1 = wing.listFrame.get(i + 1);
-//                }
-//            }
-//        }
-//        double h[] = UGeo.diff(this, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-//        double h1[] = UGeo.diff(e0, e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
-//        double h2[] = UGeo.diff(e1, e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
-//        double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
-//        double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
-//        polygon(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
-//        //paint();
-        
+            //Вычисляем полигон
+            Elem2Simple e0 = null, e1 = null;
+            PathIterator iterator = owner.childs().get(0).area.getPathIterator(null);
+            double[] floats = new double[6];
+            while (!iterator.isDone()) {
+                int type = iterator.currentSegment(floats);
+                int x = (int) floats[0];
+                int y = (int) floats[1];
+                if (type != PathIterator.SEG_CLOSE) {   
+                  //System.out.println("adding x = " + x + ", y = " + y);  
+                }
+                iterator.next();
+            }
         } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
+            System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
         }
     }
 
     public void paint() {
+//        int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+//        wing.gc2D.draw(area);        
         wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
     }
 }
