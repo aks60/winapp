@@ -230,16 +230,16 @@ public class UGeo {
     }
 
     //Ширина рамки по оси x и y
-    public static double[] diff(Elem2Simple e, double dh) {
+    public static double[] diff(Elem2Simple e, double h) {
 
         double anglHoriz = UGeo.horizontAngl(e);
-        double x = -1 * cos(anglHoriz);
-        double y = -1 * sin(anglHoriz);
+        double x = cos(anglHoriz);
+        double y = sin(anglHoriz);
 
         if (Math.abs(x) >= Math.abs(y)) {
-            return new double[]{0, dh / x};
+            return new double[]{0, h / x};
         } else {
-            return new double[]{dh / y, 0};
+            return new double[]{h / y, 0};
         }
     }
 

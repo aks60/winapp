@@ -162,7 +162,7 @@ public class Wingeo {
             listCross.forEach(e -> e.paint());
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Area2Simple.draw() " + e);
+            System.err.println("Ошибка:Wingeo.draw() " + e);
         }
     }
 

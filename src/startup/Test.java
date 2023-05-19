@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import common.*;
 import dataset.*;
 import domain.eElement;
+import static java.lang.Math.atan;
 import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
@@ -321,4 +322,42 @@ public class Test {
         int random_number3 = a + (int) (Math.random() * b); // Генерация 3-го числа
         System.out.println("3-е случайное число: " + random_number3);
     }
+    
+    public static double horizontAngl(double x1, double y1, double x2, double y2) {
+        double x = x2 - x1;
+        double y = y1 - y2;
+
+        if (x > 0 && y == 0) {
+            return 0;
+        } else if (x < 0 && y == 0) {
+            return 180;
+        } else if (x == 0 && y > 0) {
+            return 90;
+        } else if (x == 0 & y < 0) {
+            return 270;
+        } else if (x > 0 && y > 0) {
+            return atan(y / x);
+        } else if (x < 0 && y > 0) {
+            return 180 + atan(y / x);
+        } else if (x < 0 && y < 0) {
+            return 180 + atan(y / x);
+        } else if (x > 0 && y < 0) {
+            return 360 + atan(y / x);
+        } else {
+            return 0;
+        }
+    }  
+    
+    public static double[] diff(double x1, double y1, double x2, double y2) {
+
+        double anglHoriz = horizontAngl(x1, y1, x2, y2);
+        double x = -1 * UGeo.cos(anglHoriz);
+        double y = -1 * UGeo.sin(anglHoriz);
+
+        if (Math.abs(x) >= Math.abs(y)) {
+            return new double[]{0, 62 / x};
+        } else {
+            return new double[]{62 / y, 0};
+        }
+    }    
 }

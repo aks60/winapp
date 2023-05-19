@@ -67,6 +67,10 @@ public class Elem2Frame extends Elem2Simple {
                 if (i == 0) {
                     e0 = wing.listFrame.get(wing.listFrame.size() - 1);
                     e1 = wing.listFrame.get(i + 1);
+                    
+                } else if(i == wing.listFrame.size() - 1) {
+                    e0 = wing.listFrame.get(i - 1);
+                    e1 = wing.listFrame.get(0);                   
                 } else {
                     e0 = wing.listFrame.get(i - 1);
                     e1 = wing.listFrame.get(i + 1);
