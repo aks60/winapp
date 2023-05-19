@@ -43,16 +43,17 @@ public class Area2Polygon extends Area2Simple {
     public void paint() {
         try {
             wing.gc2D.draw(area);
-            if (wing.listCross.isEmpty() == false) {
-                Elem2Cross cros = wing.listCross.get(0);
-
-                Area area2[] = UGeo.split(area, cros);
-                double line[] = UGeo.cross(area2);
-                if (line != null) {
-                    cros.setLocation(line[0], line[1], line[2], line[3]);
-                }
-                wing.gc2D.draw(new Line2D.Double(cros.x1(), cros.y1(), cros.x2(), cros.y2()));
-            }
+            
+//            if (wing.listCross.isEmpty() == false) {
+//                Elem2Cross cros = wing.listCross.get(0);
+//
+//                Area area2[] = UGeo.split(area, cros);
+//                double line[] = UGeo.cross(area2);
+//                if (line != null) {
+//                    cros.setLocation(line[0], line[1], line[2], line[3]);
+//                }
+//                wing.gc2D.draw(new Line2D.Double(cros.x1(), cros.y1(), cros.x2(), cros.y2()));
+//            }
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
         }

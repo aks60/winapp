@@ -154,8 +154,8 @@ public class Wingeo {
         try {
             root.setLocation();
             root.paint();
-            listArea.forEach(e -> e.setLocation());
-            listArea.forEach(e -> e.paint());
+            //listArea.forEach(e -> e.setLocation());
+            //listArea.forEach(e -> e.paint());
             listFrame.forEach(e -> e.setLocation());
             listFrame.forEach(e -> e.paint());
             listCross.forEach(e -> e.setLocation());

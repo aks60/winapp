@@ -233,8 +233,8 @@ public class UGeo {
     public static double[] diff(Elem2Simple e, double h) {
 
         double anglHoriz = UGeo.horizontAngl(e);
-        double x = cos(anglHoriz);
-        double y = sin(anglHoriz);
+        double x = -1 * cos(anglHoriz);
+        double y = -1 * sin(anglHoriz);
 
         if (Math.abs(x) >= Math.abs(y)) {
             return new double[]{0, h / x};

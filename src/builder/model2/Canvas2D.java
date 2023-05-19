@@ -39,7 +39,7 @@ public class Canvas2D extends JComponent {
         addComponentListener(new ComponentAdapter() {
  
             public void componentResized(ComponentEvent event) {
-                wing.scale = scale(wing, 0, 0);
+                wing.scale = scale(wing, 8, 16);
             }
         });
     }
@@ -47,7 +47,7 @@ public class Canvas2D extends JComponent {
     public void paintComponent(Graphics g) {
         //System.out.println("Canvas2D.paintComponent()");
         wing.gc2D = (Graphics2D) g;
-        wing.gc2D.scale(.5, .5);
+        wing.gc2D.scale(wing.scale, wing.scale);
         wing.draw();
     }
     
