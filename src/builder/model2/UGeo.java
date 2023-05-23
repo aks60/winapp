@@ -244,11 +244,7 @@ public class UGeo {
     }
     
     public static boolean pointOnLine(double x, double y, Elem2Simple e) { 
-        boolean ret = (((Math.round(e.x2()) - Math.round(e.x1())) * (Math.round(y) - Math.round(e.y1()))) - 
-                ((Math.round(e.y2()) - Math.round(e.y1())) * (Math.round(x) - Math.round(e.x1()))) < 4);
-        //System.out.println(" x=" + x + " y=" + y + " x1=" + e.x1() + " y1=" + e.y1() + " x2=" + e.x2() + " y2=" + e.y2() + " = " + ret);
-        return ret;
-//        return (Math.round(((e.x2() - e.x1()) * (Math.round(y) - e.y1())) - ((e.y2() - e.y1()) * (Math.round(x) - e.x1()))) == 0);
+        return (Math.round(((e.x2() - e.x1()) * (y - e.y1())) - ((e.y2() - e.y1()) * (x - e.x1()))) == 0);
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">

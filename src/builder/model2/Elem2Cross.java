@@ -100,7 +100,7 @@ public class Elem2Cross extends Elem2Simple {
                     //Это Cross элемент
                     Point2D a = list.get(list.size() - 1);
                     if (a.getX() == this.x1() && a.getY() == this.y1() && v[0] == this.x2() && v[1] == this.y2()) {
-                        System.out.println("cross= " + this);
+                        //System.out.println("cross= " + this);
 
                         //Это Prev элемент
                         Point2D b = list.get(list.size() - 2);
@@ -117,18 +117,8 @@ public class Elem2Cross extends Elem2Simple {
                         break;
                     }
                 } else {
-                    Object o1 = list.get(list.size() - 1).getX();
-                    Object o2 = list.get(list.size() - 1).getY();
-                    Object o3 = list.get(list.size() - 2).getX();
-                    Object o4 = list.get(list.size() - 2).getY();                   
-                    Object o5 = UGeo.pointOnLine(list.get(list.size() - 1).getX(), list.get(list.size() - 1).getY(), wing.listFrame.get(2));
-                    
-//                    System.out.println("cros*= " + this);
-//                    System.out.println("prev*= " + wing.listLine.get(0));
-//                    System.out.println("next*= " + wing.listLine.get(2));  
-                    
                     ret[0] = wing.listLine.stream().filter(e -> UGeo.pointOnLine(list.get(2).getX(), list.get(2).getY(), e)
-                            && UGeo.pointOnLine(list.get(3).getX(), list.get(3).getY(), e)).findFirst().orElse(null);
+                            && UGeo.pointOnLine(list.get(3).getX(), list.get(3).getY(), e)).findFirst().orElse(null);                    
                     ret[1] = wing.listLine.stream().filter(e -> UGeo.pointOnLine(list.get(list.size() - 1).getX(), list.get(list.size() - 1).getY(), e)
                             && UGeo.pointOnLine(list.get(list.size() - 2).getX(), list.get(list.size() - 2).getY(), e)).findFirst().orElse(null);
                 }
