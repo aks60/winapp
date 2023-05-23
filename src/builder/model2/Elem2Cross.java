@@ -48,6 +48,7 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void setLocation() {
+        anglHoriz = UGeo.horizontAngl(this);
         try {
             //Делим полигон
             if (owner.childs().size() == 3) {
@@ -56,42 +57,26 @@ public class Elem2Cross extends Elem2Simple {
                 owner.childs().get(2).area = area2[1];
                 double line[] = UGeo.cross(area2);
                 if (line != null) {
-                    this.setLocation(line[0], line[1], line[2], line[3]);
+                    this.setDimension(line[0], line[1], line[2], line[3]);
                 }
             }
 
-            prevAndNext(2);
+            //UGeo.printPoligon(owner.area);
+            //UGeo.printPoligon(owner.childs().get(0).area);
+            prevAndNext(owner.childs().get(0).area);
 
-            //Вычисляем полигон
-//            double[] v = new double[6];
-//            ArrayList<Boolean> hit = new ArrayList(List.of(false));
-//            PathIterator i = owner.childs().get(0).area.getPathIterator(null);
-//            while (!i.isDone()) {
-//                if (i.currentSegment(v) != PathIterator.SEG_CLOSE) {
-//                    for (Elem2Simple e : wing.listLine) {
-//
-//                        hit.add(UGeo.pointOnLine(v[0], v[1], e));
-//                        if (hit.get(hit.size() - 1) && hit.get(hit.size() - 2)) {
-//
-//                            System.out.println("x = " + v[0] + ", y = " + v[1]);
-//                            System.out.println("el = " + e);
-//                        }
-//                    }
-//                }
-//                i.next();
-//            }
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
         }
     }
 
-    public Elem2Simple[] prevAndNext(int index) {
-        System.out.println("+++++++++++++++++++++");
+    public Elem2Simple[] prevAndNext(Area area) {
+        //UGeo.printPoligon(area);
         Elem2Simple[] ret = {null, null};
         try {
             double[] v = new double[6];
             List<Point2D> list = new ArrayList(List.of(new Point2D.Double(-1, -1)));
-            PathIterator iterator = owner.childs().get(index).area.getPathIterator(null);
+            PathIterator iterator = area.getPathIterator(null);
 
             while (!iterator.isDone()) {
                 if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
@@ -100,7 +85,6 @@ public class Elem2Cross extends Elem2Simple {
                     //Это Cross элемент
                     Point2D a = list.get(list.size() - 1);
                     if (a.getX() == this.x1() && a.getY() == this.y1() && v[0] == this.x2() && v[1] == this.y2()) {
-                        //System.out.println("cross= " + this);
 
                         //Это Prev элемент
                         Point2D b = list.get(list.size() - 2);
@@ -125,9 +109,10 @@ public class Elem2Cross extends Elem2Simple {
                 list.add(new Point2D.Double(v[0], v[1]));
                 iterator.next();
             }
+            System.out.println("cross= " + this);
             System.out.println("prev= " + ret[0]);
             System.out.println("next= " + ret[1]);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.prevAndNext()" + toString() + e);
         }

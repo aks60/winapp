@@ -59,7 +59,7 @@ public class UGeo {
         try {
             at.invert();
         } catch (NoninvertibleTransformException event) {
-            System.out.println("Ошибка:Geocalc.split() " + event);
+            System.out.println("Ошибка:UGeo.split() " + event);
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
@@ -665,6 +665,18 @@ public class UGeo {
             iterator.next();
         }
     }
+    
+    public static void printPoligon(Area area) {
+        double[] v = new double[6];
+        List<String> list = new ArrayList();
+        PathIterator i = area.getPathIterator(null);
+        while (!i.isDone()) {
+            i.currentSegment(v);
+            list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
+            i.next();
+        }
+        System.out.println("LINE=" + list);
+    }    
 
 // </editor-fold>    
 }

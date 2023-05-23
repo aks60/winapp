@@ -116,7 +116,7 @@ public abstract class Comp {
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
-    public void setLocation(double x1, double y1, double x2, double y2) {
+    public void setDimension(double x1, double y1, double x2, double y2) {
         if (ev[0] == false && ev[1] == false) {
             gson.x1 = x1;
             gson.y1 = y1;

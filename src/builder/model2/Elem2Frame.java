@@ -63,6 +63,7 @@ public class Elem2Frame extends Elem2Simple {
 
     public void setLocation() {
         try {
+            anglHoriz = UGeo.horizontAngl(this);
             Elem2Simple e0 = null, e1 = null;
             for (int i = 0; i < wing.listFrame.size(); i++) {
                 if (wing.listFrame.get(i).id == this.id) {
