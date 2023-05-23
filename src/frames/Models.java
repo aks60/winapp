@@ -29,6 +29,7 @@ import common.listener.ListenerReload;
 import dataset.Conn;
 import frames.swing.DefTableModel;
 import builder.model2.Canvas2D;
+import builder.model2.UGeo;
 import builder.script.test.Bimax2;
 import frames.swing.draw.Scene;
 import java.awt.BorderLayout;
@@ -869,7 +870,8 @@ public final class Models extends javax.swing.JFrame implements ListenerFrame<Ob
     }//GEN-LAST:event_btnMove
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-       System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(geo.gson));
+       //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(geo.gson));
+       geo.listCross.get(0).prevAndNext(2);
     }//GEN-LAST:event_btnTestActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
