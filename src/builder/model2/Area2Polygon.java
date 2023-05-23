@@ -31,7 +31,7 @@ public class Area2Polygon extends Area2Simple {
                 int x = (int) floats[0];
                 int y = (int) floats[1];
                 if (type != PathIterator.SEG_CLOSE) {   
-                  System.out.println("adding x = " + x + ", y = " + y);  
+                  //System.out.println("adding x = " + x + ", y = " + y);  
                 }
                 iterator.next();
             }            

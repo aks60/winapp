@@ -4,16 +4,14 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import domain.eArtikl;
-import domain.eColor;
 import domain.eSysprof;
-import enums.Layout;
 import enums.PKjson;
 import enums.UseSide;
-import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Elem2Cross extends Elem2Simple {
 
@@ -61,17 +59,22 @@ public class Elem2Cross extends Elem2Simple {
                 }
             }
             //Вычисляем полигон
-            Elem2Simple e0 = null, e1 = null;
-            PathIterator iterator = owner.childs().get(0).area.getPathIterator(null);
-            double[] floats = new double[6];
-            while (!iterator.isDone()) {
-                int type = iterator.currentSegment(floats);
-                int x = (int) floats[0];
-                int y = (int) floats[1];
-                if (type != PathIterator.SEG_CLOSE) {   
-                  //System.out.println("adding x = " + x + ", y = " + y);  
+            double[] v = new double[6];
+            ArrayList<Boolean> hit = new ArrayList(List.of(false));
+            PathIterator i = owner.childs().get(0).area.getPathIterator(null);
+            while (!i.isDone()) {
+                if (i.currentSegment(v) != PathIterator.SEG_CLOSE) {
+                    for (Elem2Simple e : wing.listLine) {
+                        
+                        hit.add(UGeo.pointOnLine(v[0], v[1], e.x1(), e.y1(), e.x2(), 1));
+                        if (hit.get(hit.size() - 1) && hit.get(hit.size() - 2)) {
+                            
+                            System.out.println("x = " + v[0] + ", y = " + v[1]);
+                            System.out.println("el = " + e);
+                        }
+                    }
                 }
-                iterator.next();
+                i.next();
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);

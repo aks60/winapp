@@ -45,13 +45,16 @@ public final class Bimax2 {
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
             rootGeo.addElem(new GeoElem(Type.IMPOST, 0, 600, 400, 600));
-            GeoElem area = rootGeo.addArea(new GeoElem(Type.AREA));
-
-            area.addArea(new GeoElem(Type.AREA))
-                    .addElem(new GeoElem(Type.GLASS));
-            area.addElem(new GeoElem(Type.IMPOST, 200, 600, 200, 900));
-            area.addArea(new GeoElem(Type.AREA))
-                    .addElem(new GeoElem(Type.GLASS));
+            rootGeo.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));   
+            
+//            GeoElem area = rootGeo.addArea(new GeoElem(Type.AREA));
+//
+//            area.addArea(new GeoElem(Type.AREA))
+//                    .addElem(new GeoElem(Type.GLASS));
+//            area.addElem(new GeoElem(Type.IMPOST, 200, 600, 200, 900));
+//            area.addArea(new GeoElem(Type.AREA))
+//                    .addElem(new GeoElem(Type.GLASS));
         } else {
             return null;
         }
