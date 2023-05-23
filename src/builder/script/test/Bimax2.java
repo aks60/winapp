@@ -44,7 +44,7 @@ public final class Bimax2 {
 
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
-            rootGeo.addElem(new GeoElem(Type.IMPOST, 0, 600, 400, 600));
+            rootGeo.addElem(new GeoElem(Type.IMPOST, 0, 600, 200, 300));
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));   
             

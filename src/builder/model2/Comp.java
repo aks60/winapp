@@ -5,6 +5,7 @@ import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import common.listener.ListenerMouse;
 import dataset.Record;
+import domain.eArtikl;
 import enums.Type;
 import java.awt.Point;
 import java.awt.geom.Area;
@@ -113,10 +114,6 @@ public abstract class Comp {
         }
         return null;
     }
-        
-    public String toString() {
-        return " id=" + id + " ";
-    }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">
     public void setLocation(double x1, double y1, double x2, double y2) {
@@ -159,5 +156,13 @@ public abstract class Comp {
     public void y2(double v) {
         gson.y2 = v;
     }
+    
+    @Override
+    public String toString() {
+        String art = (artiklRecAn == null) ? "null" : artiklRecAn.getStr(eArtikl.code);
+        double ownerID = (owner == null) ? -1 : owner.id;
+        return " art=" + art + ", type=" + type + ", owner=" + ownerID + ", id=" + id
+                + ", x1=" + x1() + ", y1=" + y1() + ", x2=" + x2() + ", y2=" + y2();
+    }    
     // </editor-fold>
 }

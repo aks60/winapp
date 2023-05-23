@@ -243,6 +243,11 @@ public class UGeo {
         }
     }
     
+    public static boolean pointOnLine(double x, double y, Elem2Simple e) { 
+        //return ((((int) e.x2() - (int) e.x1()) * ((int) y - (int) e.y1())) - (((int) e.y2() - (int) e.y1()) * ((int) x - (int) e.x1())) == 0);
+        return (((e.x2() - e.x1()) * (y - e.y1())) - ((e.y2() - e.y1()) * (x - e.x1())) == 0);
+    }
+    
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {        
         return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
     }

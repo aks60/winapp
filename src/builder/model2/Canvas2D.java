@@ -39,7 +39,7 @@ public class Canvas2D extends JComponent {
         addComponentListener(new ComponentAdapter() {
  
             public void componentResized(ComponentEvent event) {
-                wing.scale = scale(wing, 8, 16);
+                wing.scale = scale(wing, 4, 16);
             }
         });
     }

@@ -38,4 +38,9 @@ public class Elem2Simple extends Comp {
 //            System.err.println("Ошибка:Elem2Simple.build()" + toString() + e);
 //        }        
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + ", anglHoriz=" + anglHoriz;
+    }    
 }
