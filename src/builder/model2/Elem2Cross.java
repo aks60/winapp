@@ -10,6 +10,7 @@ import enums.UseSide;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,9 @@ public class Elem2Cross extends Elem2Simple {
                     this.setLocation(line[0], line[1], line[2], line[3]);
                 }
             }
+
+            prevAndNext(0);
+
             //Вычисляем полигон
             double[] v = new double[6];
             ArrayList<Boolean> hit = new ArrayList(List.of(false));
@@ -65,10 +69,10 @@ public class Elem2Cross extends Elem2Simple {
             while (!i.isDone()) {
                 if (i.currentSegment(v) != PathIterator.SEG_CLOSE) {
                     for (Elem2Simple e : wing.listLine) {
-                        
+
                         hit.add(UGeo.pointOnLine(v[0], v[1], e.x1(), e.y1(), e.x2(), 1));
                         if (hit.get(hit.size() - 1) && hit.get(hit.size() - 2)) {
-                            
+
                             System.out.println("x = " + v[0] + ", y = " + v[1]);
                             System.out.println("el = " + e);
                         }
@@ -79,6 +83,48 @@ public class Elem2Cross extends Elem2Simple {
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
         }
+    }
+
+    public Elem2Simple[] prevAndNext(int index) {
+        Elem2Simple[] ret = {null, null};
+        double[] v = new double[6];
+        List<Point2D> p = new ArrayList(List.of(new Point2D.Double(-1, -1)));
+        int ind = -1;
+        PathIterator iterator = owner.childs().get(index).area.getPathIterator(null);
+        while (!iterator.isDone()) {
+            Point2D k = p.get(p.size() - 1);
+            if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
+
+                //Это Cross элемент
+                if (k.getX() == this.x1() && k.getY() == this.y1() && v[0] == this.x2() && v[1] == this.y2()) {
+                    System.out.println(this);
+
+                    Point2D j = p.get(p.size() - 2);
+                    for (Elem2Simple el : wing.listLine) {
+
+                        //Это Prev элемент
+                        if (UGeo.pointOnLine(j.getX(), j.getY(), el.x1(), el.y1(), el.x2(), el.y2())
+                                && UGeo.pointOnLine(k.getX(), k.getY(), el.x1(), el.y1(), el.x2(), el.y2())) {
+                            ret[0] = el;
+                            System.out.println(el);
+                        }
+                    }
+                    iterator.next();
+                    p.add(new Point2D.Double(v[0], v[1]));
+
+                    Point2D z = p.get(p.size() - 1);
+                    for (Elem2Simple el : wing.listLine) {
+                        if (UGeo.pointOnLine(id, id, id, id, id, id)) {
+                            ret[1] = el;
+                            System.out.println(el);
+                        }
+                    }
+                }
+            }
+            p.add(new Point2D.Double(v[0], v[1]));
+            iterator.next();
+        }
+        return ret;
     }
 
     public void paint() {
