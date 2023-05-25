@@ -13,12 +13,12 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-public abstract class Comp {
+public abstract class Com6s {
 
     public int SIZE = 24;
     public double id;
     public Wingeo wing = null;
-    public Comp owner = null; //владелец
+    public Com6s owner = null; //владелец
     public GeoElem gson = null; //Gson object конструкции
     public Type type = Type.NONE; //Тип элемента или окна
     public Area area = null;
@@ -28,7 +28,7 @@ public abstract class Comp {
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства     
 
-    public Comp(Wingeo wing, GeoElem gson, Comp owner) {
+    public Com6s(Wingeo wing, GeoElem gson, Com6s owner) {
         this.id = gson.id;
         this.wing = wing;
         this.owner = owner;
@@ -42,7 +42,7 @@ public abstract class Comp {
     public void paint() {
     }
 
-    public List<Comp> childs() {
+    public List<Com6s> childs() {
         return null;
     }
 

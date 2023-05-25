@@ -3,7 +3,7 @@ package builder;
 import builder.model2.Area2Polygon;
 import builder.model2.Area2Simple;
 import builder.model2.Area2Stvorka;
-import builder.model2.Comp;
+import builder.model2.Com6s;
 import builder.model2.Elem2Cross;
 import builder.model2.Elem2Frame;
 import builder.model2.Elem2Glass;
@@ -102,9 +102,9 @@ public class Wingeo {
         elements(root, gson);
     }
 
-    private void elements(Comp owner, GeoElem gson) {
+    private void elements(Com6s owner, GeoElem gson) {
         try {
-            LinkedHashMap<Comp, GeoElem> hm = new LinkedHashMap();
+            LinkedHashMap<Com6s, GeoElem> hm = new LinkedHashMap();
             for (GeoElem js : gson.childs) {
 
                 if (Type.STVORKA == js.type) {
@@ -141,7 +141,7 @@ public class Wingeo {
             }
 
             //Теперь вложенные элементы
-            for (Map.Entry<Comp, GeoElem> entry : hm.entrySet()) {
+            for (Map.Entry<Com6s, GeoElem> entry : hm.entrySet()) {
                 elements(entry.getKey(), entry.getValue());
             }
 

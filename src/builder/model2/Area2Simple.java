@@ -9,20 +9,20 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Area2Simple extends Comp {
+public class Area2Simple extends Com6s {
 
-    public List<Comp> childs = new ArrayList(); //дети
+    public List<Com6s> childs = new ArrayList(); //дети
 
-    public Area2Simple(Wingeo wing, GeoElem gson, Comp owner) {
+    public Area2Simple(Wingeo wing, GeoElem gson, Com6s owner) {
         super(wing, gson, owner);
     }
 
-    public Area2Simple(Wingeo wing, GeoElem gson, Comp owner, double x1, double y1, double x2, double y2) {
+    public Area2Simple(Wingeo wing, GeoElem gson, Com6s owner, double x1, double y1, double x2, double y2) {
         super(wing, gson, owner);
     }
 
     @Override
-    public List<Comp> childs() {
+    public List<Com6s> childs() {
         return childs;
     }
 

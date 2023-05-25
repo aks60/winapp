@@ -22,7 +22,7 @@ import java.util.Set;
 public class UGeo {
 
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
-    public static Area[] split(Area area, Comp line) {
+    public static Area[] split(Area area, Com6s line) {
 
         //Вычисление угла линии к оси x
         double dx = line.x2() - line.x1();
@@ -137,7 +137,7 @@ public class UGeo {
     }
 
     //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
-    public static double betweenAngl(Comp e1, Comp e2) {
+    public static double betweenAngl(Com6s e1, Com6s e2) {
 
         double dx1 = e1.x2() - e1.x1();
         double dy1 = e1.y2() - e1.y1();
@@ -230,9 +230,8 @@ public class UGeo {
     }
 
     //Ширина рамки по оси x и y
-    public static double[] diff(Elem2Simple e, double h) {
+    public static double[] diff(double anglHoriz, double h) {
 
-        double anglHoriz = UGeo.horizontAngl(e);
         double x = -1 * cos(anglHoriz);
         double y = -1 * sin(anglHoriz);
 

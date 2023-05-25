@@ -13,7 +13,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Elem2Simple extends Comp {
+public class Elem2Simple extends Com6s {
 
     public double anglCut[] = {45, 45}; //угол реза
     public double[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
@@ -23,7 +23,7 @@ public class Elem2Simple extends Comp {
     public Specific spcRec = null; //спецификация элемента
     public Color borderColor = Color.BLACK;
 
-    public Elem2Simple(Wingeo wing, GeoElem gson, Comp owner) {
+    public Elem2Simple(Wingeo wing, GeoElem gson, Com6s owner) {
         super(wing, gson, owner);
         //spcRec = new Specific(id, this);
     }
@@ -91,16 +91,6 @@ public class Elem2Simple extends Comp {
             System.err.println("Ошибка:Elem2Cross.prevAndNext()" + toString() + e);
         }
         return ret;
-    }
-
-    public double[] diffAndCross(Elem2Simple e0, Elem2Simple e1) {
-        double h[] = UGeo.diff(this, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-        double h1[] = UGeo.diff(e0, e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
-        double h2[] = UGeo.diff(e1, e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
-        double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
-        double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
-        this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
-        return new double[]{p1[0], p1[1], p2[0], p2[1]};
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Elem2Glass extends Elem2Simple {
     private int rasclColor = -3; //цвет раскладки
     private int rasclNumber[] = {2, 2}; //количество проёмов раскладки     
     
-    public Elem2Glass(Wingeo wing, GeoElem gson, Comp owner) {
+    public Elem2Glass(Wingeo wing, GeoElem gson, Com6s owner) {
         super(wing, gson, owner);
     }
 
