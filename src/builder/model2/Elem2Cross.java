@@ -57,14 +57,13 @@ public class Elem2Cross extends Elem2Simple {
                     this.setDimension(line[0], line[1], line[2], line[3]);
                 }
             }
-
-            //UGeo.printPoligon(owner.area);
-            //UGeo.printPoligon(owner.childs().get(0).area);
+            //Строим полтгон
             Elem2Simple e[] = prevAndNext(owner.childs().get(0).area);
-            double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
-            double p1[] = pointCross(ang1, e[0], e[1]);
-            double ang2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
-            double p2[] = pointCross(ang2, e[1], e[0]);
+            double a1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
+            double p1[] = pointCross(a1, e[0], e[1]);
+            
+            double a2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
+            double p2[] = pointCross(a2, e[1], e[0]);
             this.area = rectangl(p1[2], p1[3], p1[0], p1[1], p2[2], p2[3], p2[0], p2[1]);
             
         } catch (Exception e) {

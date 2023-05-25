@@ -58,7 +58,8 @@ public class Elem2Simple extends Com6s {
 
                     //Это Cross элемент
                     Point2D a = list.get(list.size() - 1);
-                    if (a.getX() == this.x1() && a.getY() == this.y1() && v[0] == this.x2() && v[1] == this.y2()) {
+                    if ((a.getX() == this.x1() && a.getY() == this.y1() && v[0] == this.x2() && v[1] == this.y2())
+                            || (a.getX() == this.x2() && a.getY() == this.y2() && v[0] == this.x1() && v[1] == this.y1())) {
 
                         //Это Prev элемент
                         Point2D b = list.get(list.size() - 2);
