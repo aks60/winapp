@@ -23,6 +23,7 @@ public abstract class Com6s {
     public Type type = Type.NONE; //Тип элемента или окна
     public Area area = null;
     public boolean ev[] = {false, false};
+    public Double x3 = null, y3 = null, x4 = null, y4 = null;//внутренние координаты area
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний 
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
@@ -86,7 +87,7 @@ public abstract class Com6s {
         this.wing.mouseReleased.add(mouseReleased);
         this.wing.mouseDragged.add(mouseDragge);
     }
-    
+
     public boolean isJson(JsonObject jso, String key) {
         if (jso == null) {
             return false;
@@ -99,7 +100,7 @@ public abstract class Com6s {
         }
         return true;
     }
-    
+
     public Area rectangl(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
         try {
             GeneralPath p = new GeneralPath();
@@ -123,6 +124,13 @@ public abstract class Com6s {
             gson.x2 = x2;
             gson.y2 = y2;
         }
+    }
+
+    public void addDimension(double x3, double y3, double x4, double y4) {
+        this.x3 = x3;
+        this.y3 = y3;
+        this.x4 = x4;
+        this.y4 = y4;
     }
 
     public double x1() {
@@ -156,13 +164,13 @@ public abstract class Com6s {
     public void y2(double v) {
         gson.y2 = v;
     }
-    
+
     @Override
     public String toString() {
         String art = (artiklRecAn == null) ? "null" : artiklRecAn.getStr(eArtikl.code);
         double ownerID = (owner == null) ? -1 : owner.id;
         return " art=" + art + ", type=" + type + ", owner=" + ownerID + ", id=" + id
                 + ", x1=" + x1() + ", y1=" + y1() + ", x2=" + x2() + ", y2=" + y2();
-    }    
+    }
     // </editor-fold>
 }

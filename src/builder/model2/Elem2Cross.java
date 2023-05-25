@@ -66,11 +66,17 @@ public class Elem2Cross extends Elem2Simple {
             }
             //Строим полигон
             Elem2Simple elem[] = prevAndNext(owner.childs().get(0).area);
+            
+//            double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
+//            double h[] = UGeo.diff(ang1, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
+//            double point1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], elem[0].x3, elem[0].y3, elem[0].x4, elem[0].y4);
+//            double point2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], elem[1].x3, elem[1].y3, elem[1].x4, elem[1].y4);  
+            
             double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
-            double point1[] = pointCross(ang1, elem[0], elem[1]);
-
+            double point1[] = pointCross(ang1, elem[0], elem[1]);   
             double ang2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
             double point2[] = pointCross(ang2, elem[1], elem[0]);
+            
             this.area = rectangl(point1[2], point1[3], point1[0], point1[1], point2[2], point2[3], point2[0], point2[1]);
 
         } catch (Exception e) {
