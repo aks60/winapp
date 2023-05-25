@@ -84,12 +84,12 @@ public class Elem2Simple extends Com6s {
                 list.add(new Point2D.Double(v[0], v[1]));
                 iterator.next();
             }
-            System.out.println("cross= " + this);
-            System.out.println("prev= " + ret[0]);
-            System.out.println("next= " + ret[1]);
+            //System.out.println("cross= " + this);
+            //System.out.println("prev= " + ret[0]);
+            //System.out.println("next= " + ret[1]);
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Cross.prevAndNext()" + toString() + e);
+            System.err.println("Ошибка:Elem2Simple.prevAndNext() " + e);
         }
         return ret;
     }

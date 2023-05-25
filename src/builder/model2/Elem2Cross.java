@@ -46,6 +46,13 @@ public class Elem2Cross extends Elem2Simple {
 
     public void setLocation() {
         anglHoriz = UGeo.horizontAngl(this);
+//        if(this.x1() > this.x2()) {
+//            double x1 = this.x1(), y1 = this.y1();           
+//            this.x1(this.x2());
+//            this.y1(this.y2());
+//            this.x2(x1);
+//            this.y1(y1);
+//        }
         try {
             //Делим полигон
             if (owner.childs().size() == 3) {
@@ -57,33 +64,48 @@ public class Elem2Cross extends Elem2Simple {
                     this.setDimension(line[0], line[1], line[2], line[3]);
                 }
             }
-            //Строим полтгон
-            Elem2Simple e[] = prevAndNext(owner.childs().get(0).area);
-            double a1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
-            double p1[] = pointCross(a1, e[0], e[1]);
-            
-            double a2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
-            double p2[] = pointCross(a2, e[1], e[0]);
-            this.area = rectangl(p1[2], p1[3], p1[0], p1[1], p2[2], p2[3], p2[0], p2[1]);
-            
+            //Строим полигон
+            Elem2Simple elem[] = prevAndNext(owner.childs().get(0).area);
+            double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
+            double point1[] = pointCross(ang1, elem[0], elem[1]);
+
+            double ang2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
+            double point2[] = pointCross(ang2, elem[1], elem[0]);
+            this.area = rectangl(point1[2], point1[3], point1[0], point1[1], point2[2], point2[3], point2[0], point2[1]);
+
         } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
+            System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + " " + e);
         }
     }
 
     public double[] pointCross(double horizontAngl, Elem2Simple e0, Elem2Simple e1) {
-        double h[] = UGeo.diff(horizontAngl, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-        double h1[] = UGeo.diff(UGeo.horizontAngl(e0.x1(), e0.y1(), e0.x2(), e0.y2()), e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
-        double h2[] = UGeo.diff(UGeo.horizontAngl(e1.x1(), e1.y1(), e1.x2(), e1.y2()), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
-        double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
-        double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
-        this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
-        return new double[]{p1[0], p1[1], p2[0], p2[1]};
+        try {
+            System.out.println("-----------------");
+            System.out.println(e0);
+            System.out.println(e1);
+            double h[] = UGeo.diff(horizontAngl, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
+            double h1[] = UGeo.diff(UGeo.horizontAngl(e0.x1(), e0.y1(), e0.x2(), e0.y2()), e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
+            double h2[] = UGeo.diff(UGeo.horizontAngl(e1.x1(), e1.y1(), e1.x2(), e1.y2()), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
+            double p1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
+            double p2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
+            this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
+            //System.out.println(p1[0] + ":" + p1[1] + ":" + p2[0] + ":" + p2[1]);
+            return new double[]{p1[0], p1[1], p2[0], p2[1]};
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:Elem2Cross.pointCross() " + e);
+            return null;
+        }
     }
 
     public void paint() {
-        int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        wing.gc2D.draw(area);
-        wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
+        try {
+            int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+            wing.gc2D.draw(area);
+            wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
+            
+        } catch (Exception e) {
+            System.out.println("Ошибка:Elem2Cross.paint() " + e);
+        }
     }
 }
