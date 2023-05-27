@@ -625,36 +625,6 @@ public class UGeo {
 
         return result;
     }
-
-    //Пример PathIterator
-    public static void testArea() {
-        Area a = new Area(new Rectangle(1, 1, 5, 5));
-        PathIterator iterator = a.getPathIterator(null);
-        float[] floats = new float[6];
-        Polygon polygon = new Polygon();
-        while (!iterator.isDone()) {
-            int type = iterator.currentSegment(floats);
-            int x = (int) floats[0];
-            int y = (int) floats[1];
-            if (type != PathIterator.SEG_CLOSE) {
-                polygon.addPoint(x, y);
-                System.out.println("adding x = " + x + ", y = " + y);
-            }
-            iterator.next();
-        }
-    }
-    
-    public static void printPoligon(Area area) {
-        double[] v = new double[6];
-        List<String> list = new ArrayList();
-        PathIterator i = area.getPathIterator(null);
-        while (!i.isDone()) {
-            i.currentSegment(v);
-            list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
-            i.next();
-        }
-        System.out.println("LINE=" + list);
-    }    
-
+   
 // </editor-fold>    
 }

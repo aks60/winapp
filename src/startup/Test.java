@@ -12,8 +12,13 @@ import com.google.gson.JsonParser;
 import common.*;
 import dataset.*;
 import domain.eElement;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import static java.lang.Math.atan;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.swing.UIManager;
@@ -67,15 +72,14 @@ public class Test {
         eProp.dev = true;
         try {
             //frames.PSConvert.exec();
-            wincalc();
-            //param();
+            //wincalc();
             //query();
             //frame();
             //json();
             //uid();
-            //script();
-            //lookAndFeel();    
-            
+            //script(); 
+            PathIterator();
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -123,38 +127,6 @@ public class Test {
         }
     }
 
-    private static void param() {
-
-        Conn.connection(Test.connect2());
-
-        ElementTest et = new ElementTest();
-        et.elementVar();
-        et.elementDet();
-        JoiningTest jt = new JoiningTest();
-        jt.joiningVar();
-        jt.joiningDet();
-        FillingTest gt = new FillingTest();
-        gt.fillingVar();
-        gt.fillingDet();
-        FurnitureTest ft = new FurnitureTest();
-        ft.furnitureVar();
-        ft.furnitureDet();
-
-//        Query.connection = Test.connect2();
-//        Set set = new HashSet();
-//        Map<String, Set> map = new HashMap();
-//        for (Enam en : ParamList.values()) {
-//            Set set2 = map.getOrDefault(en.text(), new HashSet());
-//            set2.add(en.numb());
-//            map.put(en.text(), set2);
-//        }
-//        for (Map.Entry<String, Set> entry : map.entrySet()) {
-//            String key = entry.getKey();
-//            Set value = entry.getValue();
-//            System.out.println(key + " " + value);
-//        }
-    }
-
     private static void frame() throws Exception {
         Main.main(new String[]{"tex"});
 //        while (App.Top.frame == null) {
@@ -169,7 +141,7 @@ public class Test {
             Conn.connection(Test.connect2());
             Object obj = eElement.find3(1386, 33);
             //System.out.println(obj);
-                   
+
         } catch (Exception e) {
             System.out.println("main.Test.query()");
         }
@@ -223,20 +195,6 @@ public class Test {
 //        //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
 //        //builder.setPrettyPrinting();
 //        GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
-    }
-
-    private static void lookAndFeel() {
-        try {
-            Main.runRussifier();
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
-                    UIManager.setLookAndFeel(laf.getClassName());
-                }
-            }
-        } catch (Exception e) {
-            System.err.println(e);
-        }
     }
 
     private static void uid() {
@@ -322,42 +280,39 @@ public class Test {
         int random_number3 = a + (int) (Math.random() * b); // Генерация 3-го числа
         System.out.println("3-е случайное число: " + random_number3);
     }
-    
-    public static double horizontAngl(double x1, double y1, double x2, double y2) {
-        double x = x2 - x1;
-        double y = y1 - y2;
 
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
+    //Пример PathIterator
+    public static void PathIterator() {
+        Area area1 = new Area(new Rectangle(10, 10, 80, 80));
+        Area area2 = new Area(new Rectangle(40, 30, 20, 120));
+        area1.intersect(area2);
+        printPolygon(area2);
+//        PathIterator iterator = area1.getPathIterator(null);
+//        float[] floats = new float[6];
+//        Polygon polygon = new Polygon();
+//        while (!iterator.isDone()) {
+//            int type = iterator.currentSegment(floats);
+//            int x = (int) floats[0];
+//            int y = (int) floats[1];
+//            if (type != PathIterator.SEG_CLOSE) {
+//                polygon.addPoint(x, y);
+//                System.out.println("adding x = " + x + ", y = " + y);
+//            }
+//            iterator.next();
+//        }
+    }
+
+    public static void printPolygon(Area area) {
+        double[] v = new double[6];
+        List<String> list = new ArrayList();
+        PathIterator i = area.getPathIterator(null);
+        while (!i.isDone()) {
+            int type = i.currentSegment(v);
+            if (type != PathIterator.SEG_CLOSE) {
+                list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
+            }
+            i.next();
         }
-    }  
-    
-    public static double[] diff(double x1, double y1, double x2, double y2) {
-
-        double anglHoriz = horizontAngl(x1, y1, x2, y2);
-        double x = -1 * UGeo.cos(anglHoriz);
-        double y = -1 * UGeo.sin(anglHoriz);
-
-        if (Math.abs(x) >= Math.abs(y)) {
-            return new double[]{0, 62 / x};
-        } else {
-            return new double[]{62 / y, 0};
-        }
-    }    
+        System.out.println("LINE=" + list);
+    }
 }
