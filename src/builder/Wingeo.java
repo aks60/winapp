@@ -9,6 +9,7 @@ import builder.model2.Elem2Frame;
 import builder.model2.Elem2Glass;
 import builder.model2.Elem2Simple;
 import builder.making.Specific;
+import builder.model2.Canvas2D;
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
 import com.google.gson.GsonBuilder;
@@ -36,7 +37,8 @@ public class Wingeo {
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет   
 
-    public Graphics2D gc2D = null; //графический котекст рисунка  
+    public Graphics2D gc2D = null; //графический котекст рисунка 
+    public Canvas2D canvas = null;
     public double scale = .6;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();

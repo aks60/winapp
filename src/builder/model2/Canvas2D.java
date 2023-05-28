@@ -18,6 +18,7 @@ public class Canvas2D extends JComponent {
 
     public Canvas2D(Wingeo wing) {
         this.wing = wing;
+        wing.canvas = this;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent event) {
                 wing.mousePressed.forEach(e -> e.mouseEvent(event));
