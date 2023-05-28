@@ -78,7 +78,16 @@ public class Test {
             //json();
             //uid();
             //script(); 
-            PathIterator();
+            //PathIterator();
+            int x = 0, y = 0, x1 = 1, y1 = 2, x2 = 3, y2 = 7;
+            
+            y = 0;
+            x = (((y - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
+            System.out.println(x + ":" + y);
+            
+            x = 0;
+            y = (((x - x1) / (x2 - x1)) * (y2 - y1)) + y1;          
+            System.out.println(x + ":" + y);
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
