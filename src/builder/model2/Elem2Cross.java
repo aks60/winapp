@@ -53,23 +53,19 @@ public class Elem2Cross extends Elem2Simple {
         double w = owner.area.getBounds2D().getWidth();
         double h = owner.area.getBounds2D().getHeight();
         //Точки пересечение импостом Canvas2D
-        double X1 = (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double Y1 = (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+        double X1 = (this.y1() == this.x2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
+        double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
         double X2 = (this.y1() == this.x2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
         double Y2 = (this.x1() == this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
 
         Area area2 = (Area) owner.area.clone();
         Rectangle2D rectangl = new Rectangle2D.Double(0, 0, X2, Math.abs(Y2));
-
-        //UGeo.printPoligon(area2);
         area2.intersect(new Area(rectangl));
-        //UGeo.printPoligon(area2);
         double line[] = UGeo.segmentToCross(area2, X1, Y1, X2, Y2);
         if (line != null) {
             this.setDimension(line[0], line[1], line[2], line[3]);
+            System.out.println(line[0] + ":" + line[1] + ":" + line[2] + ":" + line[3]);
         }
-
-        //this.setDimension(X1, Y1, X2, Y2);
     }
 
     public void setLocation2() {
