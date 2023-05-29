@@ -22,6 +22,7 @@ import enums.Type;
 import enums.UseArtiklTo;
 import java.awt.Graphics2D;
 import java.awt.geom.PathIterator;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -176,28 +177,12 @@ public class Wingeo {
         List.of((List) listArea, (List) listFrame, (List) listCross, (List) listSpec).forEach(el -> el.clear());
     }
 
-    public double width() {
-        double[] s = {0, 0, 0, 0, 0, 0, 10000, 0};
-        PathIterator it = root.area.getPathIterator(null);
-        while (!it.isDone()) {
-            it.currentSegment(s);
-            s[6] = (s[0] < s[6]) ? s[0] : s[6];
-            s[7] = (s[0] > s[7]) ? s[0] : s[7];
-            it.next();
-        }
-        return s[7] - s[6];
+    public double width() {        
+        return root.area.getBounds2D().getWidth();
     }
 
     public double height() {
-        double[] s = {0, 0, 0, 0, 0, 0, 10000, 0};
-        PathIterator it = root.area.getPathIterator(null);
-        while (!it.isDone()) {
-            it.currentSegment(s);
-            s[6] = (s[1] < s[6]) ? s[1] : s[6];
-            s[7] = (s[1] > s[7]) ? s[1] : s[7];
-            it.next();
-        }
-        return s[7] - s[6];
+        return root.area.getBounds2D().getHeight();
     }
     // </editor-fold>  
 }

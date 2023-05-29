@@ -220,9 +220,32 @@ public class UGeo {
             return new double[]{h / y, 0};
         }
     }
-    
-    public static boolean pointOnLine(double x, double y, Elem2Simple e) { 
+
+    public static boolean pointOnLine(double x, double y, Elem2Simple e) {
         return (Math.round(((e.x2() - e.x1()) * (y - e.y1())) - ((e.y2() - e.y1()) * (x - e.x1()))) == 0);
+    }
+
+    public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
+        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
+    }
+
+    public static double[] segmentToCross(Area area, double x1, double y1, double x2, double y2) {
+
+        double[] v = new double[6];
+        List<Point2D> list = new ArrayList(List.of(new Point2D.Double(-1, -1)));
+        PathIterator iterator = area.getPathIterator(null);
+        while (!iterator.isDone()) {
+            if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
+                Point2D a = list.get(list.size() - 1);
+                if (UGeo.pointOnLine(a.getX(), a.getY(), x1, y1, x2, y2)
+                        && UGeo.pointOnLine(v[0], v[1], x1, y1, x2, y2)) {
+                    return new double[]{a.getX(), a.getY(), v[0], v[1]};
+                }
+            }
+            list.add(new Point2D.Double(v[0], v[1]));
+            iterator.next();
+        }
+        return null;
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
@@ -625,6 +648,20 @@ public class UGeo {
 
         return result;
     }
-   
+
+    public static void printPoligon(Area area) {
+        double[] v = new double[6];
+        List<String> list = new ArrayList();
+        PathIterator i = area.getPathIterator(null);
+        while (!i.isDone()) {
+            int type = i.currentSegment(v);
+            if (type != PathIterator.SEG_CLOSE) {
+                list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
+            }
+            i.next();
+        }
+        System.out.println("LINE=" + list);
+    }
+
 // </editor-fold>    
 }

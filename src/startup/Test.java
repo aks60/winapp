@@ -78,16 +78,14 @@ public class Test {
             //json();
             //uid();
             //script(); 
-            //PathIterator();
-            int x = 0, y = 0, x1 = 1, y1 = 2, x2 = 3, y2 = 7;
-            
-            y = 0;
-            x = (((y - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
-            System.out.println(x + ":" + y);
-            
-            x = 0;
-            y = (((x - x1) / (x2 - x1)) * (y2 - y1)) + y1;          
-            System.out.println(x + ":" + y);
+            PathIterator();
+//            int x = 0, y = 0, x1 = 1, y1 = 2, x2 = 3, y2 = 7;           
+//            y = 0;
+//            x = (((y - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
+//            System.out.println(x + ":" + y);            
+//            x = 0;
+//            y = (((x - x1) / (x2 - x1)) * (y2 - y1)) + y1;          
+//            System.out.println(x + ":" + y);
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -293,9 +291,12 @@ public class Test {
     //Пример PathIterator
     public static void PathIterator() {
         Area area1 = new Area(new Rectangle(10, 10, 80, 80));
+        printPolygon(area1);
+        
         Area area2 = new Area(new Rectangle(40, 30, 20, 120));
         area1.intersect(area2);
-        printPolygon(area2);
+        printPolygon(area1);
+        
 //        PathIterator iterator = area1.getPathIterator(null);
 //        float[] floats = new float[6];
 //        Polygon polygon = new Polygon();

@@ -4,12 +4,17 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import com.google.gson.JsonObject;
 import domain.eArtikl;
-import domain.eColor;
 import domain.eSysprof;
 import enums.PKjson;
 import enums.UseSide;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Elem2Cross extends Elem2Simple {
 
@@ -45,12 +50,26 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void setLocation() {
-        double w = wing.canvas.getWidth();
-        double h = wing.canvas.getHeight();
+        double w = owner.area.getBounds2D().getWidth();
+        double h = owner.area.getBounds2D().getHeight();
+        //Точки пересечение импостом Canvas2D
         double X1 = (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
         double Y1 = (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
-        double X2 = (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double Y2 = (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+        double X2 = (this.y1() == this.x2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
+        double Y2 = (this.x1() == this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+
+        Area area2 = (Area) owner.area.clone();
+        Rectangle2D rectangl = new Rectangle2D.Double(0, 0, X2, Math.abs(Y2));
+
+        //UGeo.printPoligon(area2);
+        area2.intersect(new Area(rectangl));
+        //UGeo.printPoligon(area2);
+        double line[] = UGeo.segmentToCross(area2, X1, Y1, X2, Y2);
+        if (line != null) {
+            this.setDimension(line[0], line[1], line[2], line[3]);
+        }
+
+        //this.setDimension(X1, Y1, X2, Y2);
     }
 
     public void setLocation2() {
@@ -114,8 +133,8 @@ public class Elem2Cross extends Elem2Simple {
 
     public void paint() {
         try {
-            int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-            wing.gc2D.draw(area);
+//            int rgb = eColor.find(colorID2).getInt(eColor.rgb);
+//            wing.gc2D.draw(area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {
