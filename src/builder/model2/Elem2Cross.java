@@ -50,21 +50,27 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void setLocation() {
+        System.out.println("------------------------------------");
         double w = owner.area.getBounds2D().getWidth();
         double h = owner.area.getBounds2D().getHeight();
         //Точки пересечение импостом Canvas2D
         double X1 = (this.y1() == this.x2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
         double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
         double X2 = (this.y1() == this.x2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double Y2 = (this.x1() == this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+        double Y2 = (this.x1() ==  this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
 
-        Area area2 = (Area) owner.area.clone();
-        Rectangle2D rectangl = new Rectangle2D.Double(0, 0, X2, Math.abs(Y2));
-        area2.intersect(new Area(rectangl));
-        double line[] = UGeo.segmentToCross(area2, X1, Y1, X2, Y2);
-        if (line != null) {
-            this.setDimension(line[0], line[1], line[2], line[3]);
-            System.out.println(line[0] + ":" + line[1] + ":" + line[2] + ":" + line[3]);
+        Area areaOwner = (Area) owner.area.clone();         
+        Rectangle2D rectanglLeft = new Rectangle2D.Double(0, 0, X2, Math.abs(Y2));
+        UGeo.PRINT("imp1", this.x1(), this.y1(), this.x2(), this.y2());
+        UGeo.PRINT("XY", X1, Y1, X2, Y2);
+        UGeo.PRINT("A1", areaOwner);
+        areaOwner.intersect(new Area(rectanglLeft));
+        UGeo.PRINT("A2", areaOwner);
+        
+        double lineCross[] = UGeo.segmentToCross(areaOwner, X2, Y2, X1, Y1);
+        if (lineCross != null) {
+            this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
+            UGeo.PRINT("imp2", lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
         }
     }
 
@@ -132,7 +138,8 @@ public class Elem2Cross extends Elem2Simple {
 //            int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 //            wing.gc2D.draw(area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
-
+            //System.out.println("Elem2Cross.paint()");
+            
         } catch (Exception e) {
             System.out.println("Ошибка:Elem2Cross.paint() " + e);
         }

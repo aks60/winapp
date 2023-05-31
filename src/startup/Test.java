@@ -1,27 +1,18 @@
 package startup;
 
 import builder.model2.UGeo;
-import builder.param.test.ElementTest;
-import builder.param.test.FillingTest;
-import builder.param.test.FurnitureTest;
-import builder.param.test.JoiningTest;
 import builder.script.GsonScript;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import common.*;
-import dataset.*;
+import common.eProp;
+import dataset.Conn;
 import domain.eElement;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
-import java.awt.geom.PathIterator;
-import static java.lang.Math.atan;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.swing.UIManager;
 
 public class Test {
 
@@ -78,7 +69,7 @@ public class Test {
             //json();
             //uid();
             //script(); 
-            PathIterator();
+            //PathIterator();
 //            int x = 0, y = 0, x1 = 1, y1 = 2, x2 = 3, y2 = 7;           
 //            y = 0;
 //            x = (((y - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
@@ -290,39 +281,11 @@ public class Test {
 
     //Пример PathIterator
     public static void PathIterator() {
-        Area area1 = new Area(new Rectangle(10, 10, 80, 80));
-        printPolygon(area1);
+        Area area1 = UGeo.area(0, 0, 0, 900, 598, 897, 0, 0);
+        UGeo.PRINT("", area1);
         
-        Area area2 = new Area(new Rectangle(40, 30, 20, 120));
+        Area area2 = new Area(new Rectangle(0, 0, 200, 900));
         area1.intersect(area2);
-        printPolygon(area1);
-        
-//        PathIterator iterator = area1.getPathIterator(null);
-//        float[] floats = new float[6];
-//        Polygon polygon = new Polygon();
-//        while (!iterator.isDone()) {
-//            int type = iterator.currentSegment(floats);
-//            int x = (int) floats[0];
-//            int y = (int) floats[1];
-//            if (type != PathIterator.SEG_CLOSE) {
-//                polygon.addPoint(x, y);
-//                System.out.println("adding x = " + x + ", y = " + y);
-//            }
-//            iterator.next();
-//        }
-    }
-
-    public static void printPolygon(Area area) {
-        double[] v = new double[6];
-        List<String> list = new ArrayList();
-        PathIterator i = area.getPathIterator(null);
-        while (!i.isDone()) {
-            int type = i.currentSegment(v);
-            if (type != PathIterator.SEG_CLOSE) {
-                list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
-            }
-            i.next();
-        }
-        System.out.println("LINE=" + list);
+         UGeo.PRINT("", area1);
     }
 }

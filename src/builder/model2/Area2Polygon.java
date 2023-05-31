@@ -4,8 +4,8 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Area2Polygon extends Area2Simple {
 
@@ -14,6 +14,7 @@ public class Area2Polygon extends Area2Simple {
     }
 
     public void setLocation() {
+        
         try {
             GeneralPath p = new GeneralPath();
             p.reset();
@@ -29,10 +30,10 @@ public class Area2Polygon extends Area2Simple {
         }
     }
 
-    public void paint() {
-        try {
-            wing.gc2D.draw(area);
-            
+//    public void paint() {
+//        try {
+//            wing.gc2D.draw(area);
+//            
 //            if (wing.listCross.isEmpty() == false) {
 //                Elem2Cross cros = wing.listCross.get(0);
 //
@@ -43,8 +44,8 @@ public class Area2Polygon extends Area2Simple {
 //                }
 //                wing.gc2D.draw(new Line2D.Double(cros.x1(), cros.y1(), cros.x2(), cros.y2()));
 //            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
-        }
-    }
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
+//        }
+//    }
 }

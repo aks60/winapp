@@ -8,6 +8,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.PathIterator;
@@ -649,7 +650,7 @@ public class UGeo {
         return result;
     }
 
-    public static void printPoligon(Area area) {
+    public static void PRINT(String s, Area area) {
         double[] v = new double[6];
         List<String> list = new ArrayList();
         PathIterator i = area.getPathIterator(null);
@@ -660,8 +661,26 @@ public class UGeo {
             }
             i.next();
         }
-        System.out.println("LINE=" + list);
+        System.out.println("POLY=" + s + " " + list);
     }
 
+    public static void PRINT(String s, double x1, double y1, double x2, double y2) {
+        System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+    }
+
+    public static Area area(double... m) {
+        GeneralPath p = new GeneralPath();
+        try {
+            p.reset();
+            p.moveTo(m[0], m[1]);
+            for (int i = 2; i < m.length; i = i + 2) {
+                p.lineTo(m[i - 1], m[i]);
+            }
+            p.closePath();
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGeo.area()");
+        }
+        return new Area(p);
+    }
 // </editor-fold>    
 }
