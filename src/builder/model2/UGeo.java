@@ -658,6 +658,7 @@ public class UGeo {
             int type = i.currentSegment(v);
             if (type != PathIterator.SEG_CLOSE) {
                 list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
+                //list.add(v[0] + ":" + v[1]);
             }
             i.next();
         }
@@ -665,15 +666,15 @@ public class UGeo {
     }
 
     public static void PRINT(String s, double x1, double y1, double x2, double y2) {
-        System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+        //System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+        System.out.println("LINE=" + s + " " + x1 + ":" + y1 + ":" + x2 + ":" + y2);
     }
 
     public static Area area(double... m) {
         GeneralPath p = new GeneralPath();
         try {
-            p.reset();
             p.moveTo(m[0], m[1]);
-            for (int i = 2; i < m.length; i = i + 2) {
+            for (int i = 3; i < m.length; i = i + 2) {
                 p.lineTo(m[i - 1], m[i]);
             }
             p.closePath();
@@ -682,5 +683,6 @@ public class UGeo {
         }
         return new Area(p);
     }
+
 // </editor-fold>    
 }

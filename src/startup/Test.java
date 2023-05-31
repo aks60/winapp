@@ -69,7 +69,7 @@ public class Test {
             //json();
             //uid();
             //script(); 
-            //PathIterator();
+            PathIterator();
 //            int x = 0, y = 0, x1 = 1, y1 = 2, x2 = 3, y2 = 7;           
 //            y = 0;
 //            x = (((y - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
@@ -281,11 +281,12 @@ public class Test {
 
     //Пример PathIterator
     public static void PathIterator() {
-        Area area1 = UGeo.area(0, 0, 0, 900, 598, 897, 0, 0);
-        UGeo.PRINT("", area1);
-        
+        Area area1 = UGeo.area(0, 0, 0, 900, 600, 899, 0, 0);
         Area area2 = new Area(new Rectangle(0, 0, 200, 900));
+        UGeo.PRINT("2", area2);
+
+        UGeo.PRINT("1", area1);
         area1.intersect(area2);
-         UGeo.PRINT("", area1);
+        UGeo.PRINT("1", area1);
     }
 }
