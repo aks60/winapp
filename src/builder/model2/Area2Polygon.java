@@ -2,6 +2,7 @@ package builder.model2;
 
 import builder.Wingeo;
 import builder.script.GeoElem;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Area2Polygon extends Area2Simple {
     }
 
     public void setLocation() {
-        
+
         try {
             GeneralPath p = new GeneralPath();
             p.reset();
@@ -24,13 +25,23 @@ public class Area2Polygon extends Area2Simple {
             }
             p.closePath();
             area = new Area(p);
-           
+
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.build()" + toString() + e);
         }
     }
 
-//    public void paint() {
+    public void paint() {
+//        Area area1 = UGeo.area(0, 0, 0, 900, 600, 800, 0, 0);
+//        UGeo.PRINT("", area1);
+//
+//        Area area2 = new Area(new Rectangle(0, 0, 200, 900));
+//        area1.intersect(area2);
+//        UGeo.PRINT("", area1);
+//        
+//        wing.gc2D.draw(area1);
+//        wing.gc2D.draw(area2);
+
 //        try {
 //            wing.gc2D.draw(area);
 //            
@@ -47,5 +58,5 @@ public class Area2Polygon extends Area2Simple {
 //        } catch (Exception e) {
 //            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
 //        }
-//    }
+    }
 }

@@ -227,7 +227,8 @@ public class UGeo {
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
-        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
+        //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
+        return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
     }
 
     public static double[] segmentToCross(Area area, double x1, double y1, double x2, double y2) {
@@ -657,8 +658,8 @@ public class UGeo {
         while (!i.isDone()) {
             int type = i.currentSegment(v);
             if (type != PathIterator.SEG_CLOSE) {
-                list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
-                //list.add(v[0] + ":" + v[1]);
+                //list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
+                list.add(v[0] + ":" + v[1]);
             }
             i.next();
         }
@@ -666,8 +667,8 @@ public class UGeo {
     }
 
     public static void PRINT(String s, double x1, double y1, double x2, double y2) {
-        //System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
-        System.out.println("LINE=" + s + " " + x1 + ":" + y1 + ":" + x2 + ":" + y2);
+        System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+        //System.out.println("LINE=" + s + " " + x1 + ":" + y1 + ":" + x2 + ":" + y2);
     }
 
     public static Area area(double... m) {
