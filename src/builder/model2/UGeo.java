@@ -229,25 +229,7 @@ public class UGeo {
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
         //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
         return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
-    }
-
-    //https://www.cyberforum.ru/java-j2se/thread1491409.html
-    public static float xORy() {
-        Point xy1 = new Point(4, -1);
-        Point xy2 = new Point(3, -6);
-
-        // y = mx+b
-        float m = (xy1.y - xy2.y) / (xy1.x - xy2.x);
-        float b = -(m * xy1.x) + xy1.y;
-        //assert -(m*xy2.x)+xy2.y == b;
-
-        if (b >= 0) {
-            System.out.println("y = " + m + "x+" + b);
-        } else {
-            System.out.println("y = " + m + "x" + b);
-        }
-        return b;
-    }
+    } 
 
     public static double[] segmentToCross(Area area, double x1, double y1, double x2, double y2) {
 
