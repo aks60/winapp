@@ -72,14 +72,14 @@ public abstract class Com6s {
             if (ev[0] == true) {
                 //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
                 if (event.getX() > 8 && event.getY() > 8) {
-                    x1(event.getX() / wing.scale);
-                    y1(event.getY() / wing.scale);
+                    x1((int) (event.getX() / wing.scale));
+                    y1((int) (event.getY() / wing.scale));
                 }
             } else if (ev[1] == true) {
                 //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
                 if (event.getX() > 8 && event.getY() > 8) {
-                    x2(event.getX() / wing.scale);
-                    y2(event.getY() / wing.scale);
+                    x2((int) (event.getX() / wing.scale));
+                    y2((int) (event.getY() / wing.scale));
                 }
             }
         };

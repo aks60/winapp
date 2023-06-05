@@ -19,9 +19,9 @@ public class Area2Polygon extends Area2Simple {
         try {
             GeneralPath p = new GeneralPath();
             p.reset();
-            p.moveTo(wing.listFrame.get(0).x1(), wing.listFrame.get(0).y1());
+            p.moveTo((float) wing.listFrame.get(0).x1(), (float) wing.listFrame.get(0).y1());
             for (int i = 1; i < wing.listFrame.size(); ++i) {
-                p.lineTo(wing.listFrame.get(i).x1(), wing.listFrame.get(i).y1());
+                p.lineTo((float) wing.listFrame.get(i).x1(), (float) wing.listFrame.get(i).y1());
             }
             p.closePath();
             area = new Area(p);

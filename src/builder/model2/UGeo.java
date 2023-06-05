@@ -227,9 +227,12 @@ public class UGeo {
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
-        //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
-        return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
-    } 
+
+        //double m3 = ((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1));
+        //double m4 = Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
+        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
+        //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
+    }
 
     public static double[] segmentToCross(Area area, double x1, double y1, double x2, double y2) {
 
@@ -239,9 +242,13 @@ public class UGeo {
         while (!iterator.isDone()) {
             if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
                 Point2D a = list.get(list.size() - 1);
+                
                 if (UGeo.pointOnLine(a.getX(), a.getY(), x1, y1, x2, y2)
                         && UGeo.pointOnLine(v[0], v[1], x1, y1, x2, y2)) {
-                    return new double[]{a.getX(), a.getY(), v[0], v[1]};
+                    
+                    if ((int) a.getX() != (int) v[0] && (int) a.getY() != (int) v[1]) {                       
+                        return new double[]{a.getX(), a.getY(), v[0], v[1]};
+                    }
                 }
             }
             list.add(new Point2D.Double(v[0], v[1]));

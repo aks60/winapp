@@ -50,67 +50,23 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void setLocation() {
-        //System.out.println("------------------------------------");
+
         double w = owner.area.getBounds2D().getWidth();
         double h = owner.area.getBounds2D().getHeight();
-        //Точки пересечение импостом Canvas2D       
+        
+        //Точки пересечение импостом Canvas2D    
+        double Y1 = 0, Y2 = h;
         double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double Y1 = 0; //(this.x1() == this.x2()) ? 0 : -1 * ((((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1());
         double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double Y2 = h; //(this.x1() == this.x2()) ? h : -1 * ((((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1());
+        
 
         Area areaOwner = (Area) owner.area.clone();
-        Area areaLeft = UGeo.area(0, 0, 0, h, X2, Y2, X1, Y1); //new Rectangle2D.Double(0, 0, X2, Math.abs(Y2));
-        //UGeo.PRINT("imp1", this.x1(), this.y1(), this.x2(), this.y2());
-        //UGeo.PRINT("XY", X1, Y1, X2, Y2);
-        UGeo.PRINT("A1", areaLeft);
-        //UGeo.PRINT("A1", areaOwner);
+        Area areaLeft = UGeo.area(0, 0, 0, h, X2, Y2, X1, Y1);
         areaOwner.intersect(areaLeft);
-        //UGeo.PRINT("A2", areaOwner);
 
         double lineCross[] = UGeo.segmentToCross(areaOwner, X1, Y1, X2, Y2);
         if (lineCross != null) {
             this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
-            //UGeo.PRINT("imp2", lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
-        }
-    }
-
-    public void setLocation2() {
-        anglHoriz = UGeo.horizontAngl(this);
-//        if(this.x1() > this.x2()) {
-//            double x1 = this.x1(), y1 = this.y1();           
-//            this.x1(this.x2());
-//            this.y1(this.y2());
-//            this.x2(x1);
-//            this.y1(y1);
-//        }
-        try {
-            //Делим полигон
-            if (owner.childs().size() == 3) {
-                Area area2[] = UGeo.split(owner.area, owner.childs().get(1));
-                owner.childs().get(0).area = area2[0];
-                owner.childs().get(2).area = area2[1];
-                double line[] = UGeo.cross(area2);
-                if (line != null) {
-                    this.setDimension(line[0], line[1], line[2], line[3]);
-                }
-            }
-            //Строим полигон
-            Elem2Simple elem[] = prevAndNext(owner.childs().get(0).area);
-
-//            double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
-//            double h[] = UGeo.diff(ang1, this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-//            double point1[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], elem[0].x3, elem[0].y3, elem[0].x4, elem[0].y4);
-//            double point2[] = UGeo.cross(x1() + h[0], y1() + h[1], x2() + h[0], y2() + h[1], elem[1].x3, elem[1].y3, elem[1].x4, elem[1].y4);  
-            double ang1 = UGeo.horizontAngl(this.x1(), this.y1(), this.x2(), this.y2());
-            double point1[] = pointCross(ang1, elem[0], elem[1]);
-            double ang2 = UGeo.horizontAngl(this.x2(), this.y2(), this.x1(), this.y1());
-            double point2[] = pointCross(ang2, elem[1], elem[0]);
-
-            this.area = rectangl(point1[2], point1[3], point1[0], point1[1], point2[2], point2[3], point2[0], point2[1]);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + " " + e);
         }
     }
 
