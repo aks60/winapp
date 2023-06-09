@@ -50,23 +50,32 @@ public class Elem2Cross extends Elem2Simple {
     }
 
     public void setLocation() {
+        try {
+            anglHoriz = UGeo.horizontAngl(this);
+            double w = owner.area.getBounds2D().getMaxX();
+            double h = owner.area.getBounds2D().getMaxY();
 
-        double w = owner.area.getBounds2D().getWidth();
-        double h = owner.area.getBounds2D().getHeight();
-        
-        //Точки пересечение импостом Canvas2D    
-        double Y1 = 0, Y2 = h;
-        double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-        
+            //Точки пересечение импостом Canvas2D    
+            double Y1 = 0, Y2 = h;
+            double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
+            double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
 
-        Area areaOwner = (Area) owner.area.clone();
-        Area areaLeft = UGeo.area(0, 0, 0, h, X2, Y2, X1, Y1);
-        areaOwner.intersect(areaLeft);
+            Area areaOwner = (Area) owner.area.clone();
+            Area areaLeft = UGeo.area(0, 0, 0, h, X2, Y2, X1, Y1);
+            areaOwner.intersect(areaLeft);
 
-        double lineCross[] = UGeo.segmentToCross(areaOwner, X1, Y1, X2, Y2);
-        if (lineCross != null) {
-            this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
+            //Размер импоста
+            double lineCross[] = UGeo.segmentToCross(areaOwner, X1, Y1, X2, Y2);
+            if (lineCross != null) {
+                this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
+            }
+            
+            //Полигон импоста
+            double h0[] = UGeo.diff(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
+             
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
         }
     }
 
