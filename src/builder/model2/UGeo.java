@@ -428,6 +428,63 @@ public class UGeo {
         return new Point2D.Double(x, y);
     }
 
+    //Точка пересечения двух векторов 
+    //https://habr.com/ru/articles/523440/ 
+    public static double[] cross(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        double n;
+        double dot[] = {0, 0};
+        if (y2 - y1 != 0) {  // a(y)
+            double q = (x2 - x1) / (y1 - y2);
+            double sn = (x3 - x4) + (y3 - y4) * q;
+            if (sn == 0) {
+                return null;
+            }  // c(x) + c(y)*q
+
+            double fn = (x3 - x1) + (y3 - y1) * q;   // b(x) + b(y)*q
+            n = fn / sn;
+        } else {
+            if ((y3 - y4) == 0) {
+                return null;
+            }  // b(y)
+
+            n = (y3 - y1) / (y3 - y4);   // c(y)/b(y)
+        }
+        dot[0] = x3 + (x4 - x3) * n;  // x3 + (-b(x))*n
+        dot[1] = y3 + (y4 - y3) * n;  // y3 +(-b(y))*n
+        return dot;
+    }
+
+    //Точка пересечения двух векторов 
+    public static double[] cross(IElem5e e1, IElem5e e2) {
+        return UGeo.cross(e1.x1(), e1.y1(), e1.x2(), e1.y2(), e2.x1(), e2.y1(), e2.x2(), e2.y2());
+    }
+
+    //Точка пересечения двух векторов 
+    public static Point cross(Point A, Point B, Point C, Point D) {
+
+        // Line AB represented as a1x + b1y = c1
+        double a1 = B.y - A.y;
+        double b1 = A.x - B.x;
+        double c1 = a1 * (A.x) + b1 * (A.y);
+
+        // Line CD represented as a2x + b2y = c2
+        double a2 = D.y - C.y;
+        double b2 = C.x - D.x;
+        double c2 = a2 * (C.x) + b2 * (C.y);
+
+        double determinant = a1 * b2 - a2 * b1;
+
+        if (determinant == 0) {
+            // The lines are parallel. This is simplified
+            // by returning a pair of FLT_MAX
+            return new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        } else {
+            double x = (b2 * c1 - b1 * c2) / determinant;
+            double y = (a1 * c2 - a2 * c1) / determinant;
+            return new Point((int) x, (int) y);
+        }
+    }
+
     //Скалярное произведение
     public static int dot(Point2D p0, Point2D p1) {
         return (int) (p0.getX() * p1.getX() + p0.getY() * p1.getY());
@@ -548,63 +605,6 @@ public class UGeo {
         return new double[]{newPair0x, newPair0y, newPair1x, newPair1y};
     }
 
-    //Точка пересечения двух векторов 
-    //https://habr.com/ru/articles/523440/ 
-    public static double[] cross(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
-        double n;
-        double dot[] = {0, 0};
-        if (y2 - y1 != 0) {  // a(y)
-            double q = (x2 - x1) / (y1 - y2);
-            double sn = (x3 - x4) + (y3 - y4) * q;
-            if (sn == 0) {
-                return null;
-            }  // c(x) + c(y)*q
-
-            double fn = (x3 - x1) + (y3 - y1) * q;   // b(x) + b(y)*q
-            n = fn / sn;
-        } else {
-            if ((y3 - y4) == 0) {
-                return null;
-            }  // b(y)
-
-            n = (y3 - y1) / (y3 - y4);   // c(y)/b(y)
-        }
-        dot[0] = x3 + (x4 - x3) * n;  // x3 + (-b(x))*n
-        dot[1] = y3 + (y4 - y3) * n;  // y3 +(-b(y))*n
-        return dot;
-    }
-
-    //Точка пересечения двух векторов 
-    public static double[] cross(IElem5e e1, IElem5e e2) {
-        return UGeo.cross(e1.x1(), e1.y1(), e1.x2(), e1.y2(), e2.x1(), e2.y1(), e2.x2(), e2.y2());
-    }
-
-    //Точка пересечения двух векторов 
-    public static Point cross(Point A, Point B, Point C, Point D) {
-
-        // Line AB represented as a1x + b1y = c1
-        double a1 = B.y - A.y;
-        double b1 = A.x - B.x;
-        double c1 = a1 * (A.x) + b1 * (A.y);
-
-        // Line CD represented as a2x + b2y = c2
-        double a2 = D.y - C.y;
-        double b2 = C.x - D.x;
-        double c2 = a2 * (C.x) + b2 * (C.y);
-
-        double determinant = a1 * b2 - a2 * b1;
-
-        if (determinant == 0) {
-            // The lines are parallel. This is simplified
-            // by returning a pair of FLT_MAX
-            return new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        } else {
-            double x = (b2 * c1 - b1 * c2) / determinant;
-            double y = (a1 * c2 - a2 * c1) / determinant;
-            return new Point((int) x, (int) y);
-        }
-    }
-
     //Ширина рамки по оси x и y
     public static double[] diff(IElem5e e, double dh) {
 
@@ -658,7 +658,7 @@ public class UGeo {
         return result;
     }
 
-    public static void PRINT(String s, Area area) {
+    public static void PRINT(Area area) {
         double[] v = new double[6];
         List<String> list = new ArrayList();
         PathIterator i = area.getPathIterator(null);
@@ -670,11 +670,11 @@ public class UGeo {
             }
             i.next();
         }
-        System.out.println("POLY=" + s + " " + list);
+        System.out.println(list);
     }
 
-    public static void PRINT(String s, double x1, double y1, double x2, double y2) {
-        System.out.println("LINE=" + s + " " + (int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+    public static void PRINT(double x1, double y1, double x2, double y2) {
+        System.out.println((int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
         //System.out.println("LINE=" + s + " " + x1 + ":" + y1 + ":" + x2 + ":" + y2);
     }
 

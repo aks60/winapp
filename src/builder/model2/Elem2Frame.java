@@ -68,6 +68,7 @@ public class Elem2Frame extends Elem2Simple {
                 if (wing.listFrame.get(i).id == this.id) {
                     int k = (i == 0) ? wing.listFrame.size() - 1 : i - 1;
                     int j = (i == (wing.listFrame.size() - 1)) ? 0 : i + 1;
+                                        
                     Elem2Simple e0 = wing.listFrame.get(k);
                     Elem2Simple e1 = wing.listFrame.get(j);
                     
@@ -86,7 +87,7 @@ public class Elem2Frame extends Elem2Simple {
             System.err.println("Ошибка:Elem2Frame.setLocation()" + toString() + e);
         }
     }
-
+    
     public void paint() {
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         wing.gc2D.draw(area);

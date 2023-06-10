@@ -45,7 +45,7 @@ public class Elem2Simple extends Com6s {
     }
 
     public Elem2Simple[] prevAndNext(Area area) {
-        //UGeo.printPoligon(area);
+        //UGeo.PRINT(area);
         Elem2Simple[] ret = {null, null};
         try {
             double[] v = new double[6];
