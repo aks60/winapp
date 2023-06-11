@@ -63,8 +63,9 @@ public class Elem2Simple extends Com6s {
 
                         //Это Prev элемент
                         Point2D b = list.get(list.size() - 2);
+                        
                         ret[0] = wing.listLine.stream().filter(e -> UGeo.pointOnLine(b.getX(), b.getY(), e)
-                                && UGeo.pointOnLine(a.getX(), a.getY(), e)).findFirst().get();
+                                && UGeo.pointOnLine(a.getX(), a.getY(), e)).findFirst().orElse(null);
 
                         //Это Next элемент
                         list.add(new Point2D.Double(v[0], v[1]));

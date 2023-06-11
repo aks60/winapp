@@ -67,6 +67,9 @@ public class Elem2Cross extends Elem2Simple {
             Area areaRigh = UGeo.area(X1, Y1, X2, Y2, w, h, w, 0);
             areaOwnerLeft.intersect(areaLeft);
             areaOwnerRigh.intersect(areaRigh);
+            
+           //UGeo.PRINT(areaRigh);
+           //UGeo.PRINT(areaOwnerRigh);
 
             //Вектор импоста
             double lineCross[] = UGeo.segmentToCross(areaOwnerLeft, X1, Y1, X2, Y2);
@@ -77,20 +80,22 @@ public class Elem2Cross extends Elem2Simple {
             //Полигон импоста
             Elem2Simple e[] = prevAndNext(areaOwnerLeft);
             double h0[] = UGeo.diff(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-            
+
             double h1[] = UGeo.diff(UGeo.horizontAngl(e[0]), e[0].artiklRec.getDbl(eArtikl.height) - e[0].artiklRec.getDbl(eArtikl.size_centr));
             double h2[] = UGeo.diff(UGeo.horizontAngl(e[1]), e[1].artiklRec.getDbl(eArtikl.height) - e[1].artiklRec.getDbl(eArtikl.size_centr));
             double p1[] = UGeo.cross(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[0].x1() + h1[0], e[0].y1() + h1[1], e[0].x2() + h1[0], e[0].y2() + h1[1]);
             double p2[] = UGeo.cross(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[1].x1() + h2[0], e[1].y1() + h2[1], e[1].x2() + h2[0], e[1].y2() + h2[1]);
+
+            UGeo.PRINT(areaOwnerRigh);
             
             //Elem2Simple k[] = prevAndNext(areaOwnerRigh);           
 //            double h3[] = UGeo.diff(UGeo.horizontAngl(k[0]), k[0].artiklRec.getDbl(eArtikl.height) - k[0].artiklRec.getDbl(eArtikl.size_centr));
 //            double h4[] = UGeo.diff(UGeo.horizontAngl(k[1]), k[1].artiklRec.getDbl(eArtikl.height) - k[1].artiklRec.getDbl(eArtikl.size_centr));
 //            double p3[] = UGeo.cross(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], k[0].x1() + h3[0], k[0].y1() + h3[1], k[0].x2() + h3[0], k[0].y2() + h3[1]);
 //            double p4[] = UGeo.cross(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], k[1].x1() + h4[0], k[1].y1() + h4[1], k[1].x2() + h4[0], k[1].y2() + h4[1]);
-
             this.addDimension(p2[0], p2[1], p1[0], p1[1]);
             //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], p4[0], p4[1], p3[0], p3[1]);
+            this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.setLocation()" + toString() + e);
@@ -144,7 +149,7 @@ public class Elem2Cross extends Elem2Simple {
 
     public void paint() {
         try {
-            //wing.gc2D.draw(area);
+            wing.gc2D.draw(area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {

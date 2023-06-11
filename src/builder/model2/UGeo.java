@@ -242,11 +242,11 @@ public class UGeo {
         while (!iterator.isDone()) {
             if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
                 Point2D a = list.get(list.size() - 1);
-                
+
                 if (UGeo.pointOnLine(a.getX(), a.getY(), x1, y1, x2, y2)
                         && UGeo.pointOnLine(v[0], v[1], x1, y1, x2, y2)) {
-                    
-                    if ((int) a.getX() != (int) v[0] && (int) a.getY() != (int) v[1]) {                       
+
+                    if ((int) a.getX() != (int) v[0] && (int) a.getY() != (int) v[1]) {
                         return new double[]{a.getX(), a.getY(), v[0], v[1]};
                     }
                 }
@@ -255,6 +255,58 @@ public class UGeo {
             iterator.next();
         }
         return null;
+    }
+
+    //https://stackoverflow.com/questions/8144156/using-pathiterator-to-return-all-line-segments-that-constrain-an-area
+    public static ArrayList<Line2D.Double> areaAllSegment(Area area) {
+
+        ArrayList<double[]> areaPoints = new ArrayList<double[]>();
+        ArrayList<Line2D.Double> areaSegments = new ArrayList<Line2D.Double>();
+        double[] coords = new double[6];
+
+        for (PathIterator pi = area.getPathIterator(null); !pi.isDone(); pi.next()) {
+            //Тип будет SEG_LINETO, SEG_MOVETO или SEG_CLOSE
+            //Поскольку площадь состоит из прямых линий
+            int type = pi.currentSegment(coords);
+            //Записываем двойной массив {тип сегмента, координата x, координата y}
+            double[] pathIteratorCoords = {type, coords[0], coords[1]};
+            areaPoints.add(pathIteratorCoords);
+        }
+
+        double[] start = new double[3]; //чтобы записать, где начинается каждый многоугольник
+
+        for (int i = 0; i < areaPoints.size(); i++) {
+            //Если мы не на последней точке, возвращаем линию от этой точки к следующей
+            double[] currentElement = areaPoints.get(i);
+
+            //Нам нужно значение по умолчанию, если мы достигли конца ArrayList
+            double[] nextElement = {-1, -1, -1};
+            if (i < areaPoints.size() - 1) {
+                nextElement = areaPoints.get(i + 1);
+            }
+
+            // Делаем линии
+            if (currentElement[0] == PathIterator.SEG_MOVETO) {
+                start = currentElement; //запись, где полигон начал закрывать его позже
+            }
+
+            if (nextElement[0] == PathIterator.SEG_LINETO) {
+                areaSegments.add(
+                        new Line2D.Double(
+                                currentElement[1], currentElement[2],
+                                nextElement[1], nextElement[2]
+                        )
+                );
+            } else if (nextElement[0] == PathIterator.SEG_CLOSE) {
+                areaSegments.add(
+                        new Line2D.Double(
+                                currentElement[1], currentElement[2],
+                                start[1], start[2]
+                        )
+                );
+            }
+        }
+        return areaSegments;
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
@@ -659,23 +711,16 @@ public class UGeo {
     }
 
     public static void PRINT(Area area) {
-        double[] v = new double[6];
-        List<String> list = new ArrayList();
-        PathIterator i = area.getPathIterator(null);
-        while (!i.isDone()) {
-            int type = i.currentSegment(v);
-            if (type != PathIterator.SEG_CLOSE) {
-                //list.add(Math.round(v[0]) + ":" + Math.round(v[1]));
-                list.add(v[0] + ":" + v[1]);
-            }
-            i.next();
+        ArrayList<Line2D.Double> listLine = UGeo.areaAllSegment(area);
+        ArrayList<String> listStr = new ArrayList();
+        for (Line2D.Double line : listLine) {
+           listStr.add(Math.round(line.x1) + ":" + Math.round(line.y1) + "-" + Math.round(line.x2) + ":" + Math.round(line.y2));
         }
-        System.out.println(list);
+        System.out.println(listStr);    
     }
 
     public static void PRINT(double x1, double y1, double x2, double y2) {
         System.out.println((int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
-        //System.out.println("LINE=" + s + " " + x1 + ":" + y1 + ":" + x2 + ":" + y2);
     }
 
     public static Area area(double... m) {
@@ -691,6 +736,5 @@ public class UGeo {
         }
         return new Area(p);
     }
-
 // </editor-fold>    
 }
