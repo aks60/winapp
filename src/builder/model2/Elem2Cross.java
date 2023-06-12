@@ -72,7 +72,7 @@ public class Elem2Cross extends Elem2Simple {
            //UGeo.PRINT(areaOwnerRigh);
 
             //Вектор импоста
-            double lineCross[] = UGeo.segmentToCross(areaOwnerLeft, X1, Y1, X2, Y2);
+            double lineCross[] = UGeo.segmentFromLine(areaOwnerLeft, X1, Y1, X2, Y2);
             if (lineCross != null) {
                 this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
             }

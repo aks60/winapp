@@ -1,11 +1,11 @@
 package builder.model2;
 
 import builder.IElem5e;
+import builder.Wingeo;
+import domain.eArtikl;
 import enums.Layout;
 import enums.Type;
 import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
@@ -233,8 +233,17 @@ public class UGeo {
         return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
         //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
     }
-
-    public static double[] segmentToCross(Area area, double x1, double y1, double x2, double y2) {
+    
+    public static Elem2Simple elementFromSegment(Wingeo wing, double x1, double y1, double x2, double y2) {
+        for (Elem2Simple elem2Simple : wing.listLine) {
+            if(UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
+                return elem2Simple;
+            }
+        }
+        return null;
+    }
+    
+    public static double[] segmentFromLine(Area area, double x1, double y1, double x2, double y2) {
 
         double[] v = new double[6];
         List<Point2D> list = new ArrayList(List.of(new Point2D.Double(-1, -1)));
@@ -293,15 +302,13 @@ public class UGeo {
             if (nextElement[0] == PathIterator.SEG_LINETO) {
                 areaSegments.add(
                         new Line2D.Double(
-                                currentElement[1], currentElement[2],
-                                nextElement[1], nextElement[2]
+                                currentElement[1], currentElement[2], nextElement[1], nextElement[2]
                         )
                 );
             } else if (nextElement[0] == PathIterator.SEG_CLOSE) {
                 areaSegments.add(
                         new Line2D.Double(
-                                currentElement[1], currentElement[2],
-                                start[1], start[2]
+                                currentElement[1], currentElement[2], start[1], start[2]
                         )
                 );
             }
@@ -309,7 +316,23 @@ public class UGeo {
         return areaSegments;
     }
 
+    public static Line2D.Double[] prevAndNextSegment(Area area, Elem2Simple elem) {
+        ArrayList<Line2D.Double> list = UGeo.areaAllSegment(area);
+        for (int i = 0; i < list.size(); i++) {
+            Line2D.Double line = list.get(i);
+            if (UGeo.pointOnLine(line.x1, line.y1, elem)
+                    && UGeo.pointOnLine(line.x2, line.y2, elem)) {
+                
+                    int k = (i == 0) ? list.size() - 1 : i - 1;
+                    int j = (i == (list.size() - 1)) ? 0 : i + 1;
+                    return new Line2D.Double[] {list.get(k), list.get(j)};
+            }
+        }
+        return null;
+    }
+    
 // <editor-fold defaultstate="collapsed" desc="XLAM">
+
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
         double s0 = 0;
@@ -714,9 +737,9 @@ public class UGeo {
         ArrayList<Line2D.Double> listLine = UGeo.areaAllSegment(area);
         ArrayList<String> listStr = new ArrayList();
         for (Line2D.Double line : listLine) {
-           listStr.add(Math.round(line.x1) + ":" + Math.round(line.y1) + "-" + Math.round(line.x2) + ":" + Math.round(line.y2));
+            listStr.add(Math.round(line.x1) + ":" + Math.round(line.y1) + "-" + Math.round(line.x2) + ":" + Math.round(line.y2));
         }
-        System.out.println(listStr);    
+        System.out.println(listStr);
     }
 
     public static void PRINT(double x1, double y1, double x2, double y2) {
