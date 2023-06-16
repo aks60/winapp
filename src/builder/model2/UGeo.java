@@ -233,16 +233,16 @@ public class UGeo {
         return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
         //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
     }
-    
-    public static Elem2Simple elementFromSegment(Wingeo wing, double x1, double y1, double x2, double y2) {
-        for (Elem2Simple elem2Simple : wing.listLine) {
-            if(UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
+
+    public static Elem2Simple elementFromSegment(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
+        for (Elem2Simple elem2Simple : listLine) {
+            if (UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
                 return elem2Simple;
             }
         }
         return null;
     }
-    
+
     public static double[] segmentFromLine(Area area, double x1, double y1, double x2, double y2) {
 
         double[] v = new double[6];
@@ -278,8 +278,15 @@ public class UGeo {
             //Поскольку площадь состоит из прямых линий
             int type = pi.currentSegment(coords);
             //Записываем двойной массив {тип сегмента, координата x, координата y}
-            double[] pathIteratorCoords = {type, coords[0], coords[1]};
-            areaPoints.add(pathIteratorCoords);
+            if (areaPoints.size() > 1 && Math.round(coords[0]) != Math.round(areaPoints.get(areaPoints.size() - 1)[1])
+                    && Math.round(coords[0]) != Math.round(areaPoints.get(areaPoints.size() - 1)[1])) {
+
+                double[] pathIteratorCoords = {type, coords[0], coords[1]};
+                areaPoints.add(pathIteratorCoords);
+            } else {
+                double[] pathIteratorCoords = {type, coords[0], coords[1]};
+                areaPoints.add(pathIteratorCoords);
+            }
         }
 
         double[] start = new double[3]; //чтобы записать, где начинается каждый многоугольник
@@ -322,17 +329,78 @@ public class UGeo {
             Line2D.Double line = list.get(i);
             if (UGeo.pointOnLine(line.x1, line.y1, elem)
                     && UGeo.pointOnLine(line.x2, line.y2, elem)) {
-                
-                    int k = (i == 0) ? list.size() - 1 : i - 1;
-                    int j = (i == (list.size() - 1)) ? 0 : i + 1;
-                    return new Line2D.Double[] {list.get(k), list.get(j)};
+
+                int k = (i == 0) ? list.size() - 1 : i - 1;
+                int j = (i == (list.size() - 1)) ? 0 : i + 1;
+                return new Line2D.Double[]{list.get(k), list.get(j)};
             }
         }
         return null;
     }
-    
-// <editor-fold defaultstate="collapsed" desc="XLAM">
 
+    public static Area reduceArea(Area area) {
+        GeneralPath p = new GeneralPath();
+        double[] v = new double[6];
+        List<Point2D> list = new ArrayList(List.of(new Point2D.Double(-1, -1)));
+        try {
+            PathIterator iterator = area.getPathIterator(null);
+            while (!iterator.isDone()) {
+                if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
+                    Point2D a = list.get(list.size() - 1);
+                    if (Math.round(a.getX()) != Math.round(v[0]) || Math.round(a.getY()) != Math.round(v[1])) {
+                        list.add(new Point2D.Double(v[0], v[1]));
+                    }
+                }
+                iterator.next();
+            }
+
+            p.moveTo(list.get(0).getX(), list.get(0).getY());
+            for (int i = 1; i < list.size(); ++i) {
+                p.lineTo(list.get(i).getX(), list.get(i).getY());
+            }
+            p.closePath();
+
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGeo.reduceArea()");
+        }
+        return new Area(p);
+    }
+
+    public static Area reduceArea2(Area area) {
+        ArrayList<Line2D.Double> list = new ArrayList();
+        for (Line2D.Double line : UGeo.areaAllSegment(area)) {
+            if (line.x1 != line.x2 && line.y1 != line.y2) {
+                list.add(line);
+            }
+        }
+        GeneralPath p = new GeneralPath();
+        try {
+            p.moveTo(list.get(0).x1, list.get(0).y1);
+            for (int i = 1; i < list.size(); ++i) {
+                p.lineTo(list.get(i).x1, list.get(i).y1);
+            }
+            p.closePath();
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGeo.reduceArea()");
+        }
+        return new Area(p);
+    }
+
+    public static Area area(double... m) {
+        GeneralPath p = new GeneralPath();
+        try {
+            p.moveTo(Math.round(m[0]), Math.round(m[1]));
+            for (int i = 3; i < m.length; i = i + 2) {
+                p.lineTo(Math.round(m[i - 1]), Math.round(m[i]));
+            }
+            p.closePath();
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGeo.area()");
+        }
+        return new Area(p);
+    }
+
+// <editor-fold defaultstate="collapsed" desc="XLAM">
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
         double s0 = 0;
@@ -737,7 +805,8 @@ public class UGeo {
         ArrayList<Line2D.Double> listLine = UGeo.areaAllSegment(area);
         ArrayList<String> listStr = new ArrayList();
         for (Line2D.Double line : listLine) {
-            listStr.add(Math.round(line.x1) + ":" + Math.round(line.y1) + "-" + Math.round(line.x2) + ":" + Math.round(line.y2));
+            listStr.add("(" + Math.round(line.x1) + ":" + Math.round(line.y1) + "-" + Math.round(line.x2) + ":" + Math.round(line.y2) + ")");
+            //listStr.add(line.x1 + ":" + line.y1 + "=" + line.x2 + ":" + line.y2);
         }
         System.out.println(listStr);
     }
@@ -746,18 +815,5 @@ public class UGeo {
         System.out.println((int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
     }
 
-    public static Area area(double... m) {
-        GeneralPath p = new GeneralPath();
-        try {
-            p.moveTo(m[0], m[1]);
-            for (int i = 3; i < m.length; i = i + 2) {
-                p.lineTo(m[i - 1], m[i]);
-            }
-            p.closePath();
-        } catch (Exception e) {
-            System.out.println("Ошибка:UGeo.area()");
-        }
-        return new Area(p);
-    }
 // </editor-fold>    
 }
