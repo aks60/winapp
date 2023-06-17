@@ -25,6 +25,7 @@ public class Area2Polygon extends Area2Simple {
             }
             p.closePath();
             area = new Area(p);
+            //UGeo.PRINT(area);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Simple.build()" + toString() + e);

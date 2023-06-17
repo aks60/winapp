@@ -313,11 +313,11 @@ public class UGeo {
                         )
                 );
             } else if (nextElement[0] == PathIterator.SEG_CLOSE) {
-                areaSegments.add(
-                        new Line2D.Double(
-                                currentElement[1], currentElement[2], start[1], start[2]
-                        )
-                );
+//                areaSegments.add(
+//                        new Line2D.Double(
+//                                currentElement[1], currentElement[2], start[1], start[2]
+//                        )
+//                );
             }
         }
         return areaSegments;
