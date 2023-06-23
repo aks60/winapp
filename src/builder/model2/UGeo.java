@@ -225,28 +225,34 @@ public class UGeo {
     public static boolean pointOnLine(double x, double y, Elem2Simple e) {
         return (Math.round(((e.x2() - e.x1()) * (y - e.y1())) - ((e.y2() - e.y1()) * (x - e.x1()))) == 0);
     }
-
-    public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
-        double m3 = ((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1));
-        double m4 = Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
-       // if(m4 > )
-        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) < 1);
-        //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
-    }
-
-    public static double[] segmentOnLine(Area area, double x1, double y1, double x2, double y2) {
-        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
-            //if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
-                if (UGeo.pointOnLine(d.x1, d.y1, x1, y1, x2, y2)
-                        && UGeo.pointOnLine(d.x2, d.y2, x1, y1, x2, y2)) {
-                    
-                    return new double[]{d.x1, d.y1, d.x2, d.y2};
-                }
-            //}
+    
+    public static Elem2Simple elementOnSegment(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
+        for (Elem2Simple elem2Simple : listLine) {
+            if (UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
+                return elem2Simple;
+            }
         }
         return null;
     }
-
+    
+    public static double[] generalSegment(Area area1, Area area2) {
+        ArrayList<Line2D.Double> list1 = UGeo.areaAllSegment(area1);
+        ArrayList<Line2D.Double> list2 = UGeo.areaAllSegment(area2);
+        for (Line2D.Double line1 : list1) {
+            if (Math.round(line1.x1) != Math.round(line1.x2) && Math.round(line1.y1) != Math.round(line1.y2)) {
+                for (Line2D.Double line2 : list2) {
+                    if (Math.round(line2.x1) != Math.round(line2.x2) && Math.round(line2.y1) != Math.round(line2.y2)) {
+                        if (Math.round(line1.x1) == Math.round(line2.x2) && Math.round(line1.y1) == Math.round(line2.y2)
+                                && Math.round(line1.x2) == Math.round(line2.x1) && Math.round(line1.y2) == Math.round(line2.y1)) {
+                            return new double[]{line1.x1, line1.y1, line1.x2, line1.y2};
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
     //https://stackoverflow.com/questions/8144156/using-pathiterator-to-return-all-line-segments-that-constrain-an-area
     public static ArrayList<Line2D.Double> areaAllSegment(Area area) {
 
@@ -767,6 +773,29 @@ public class UGeo {
             System.out.println("Ошибка:UGeo.reduceArea()");
         }
         return new Area(p);
+    }
+
+    public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
+        //double m3 = ((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1));
+        //double m4 = Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
+        //boolean b = (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1); 
+        //System.out.println(m3 + "..." + b);
+        //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) <= 1);
+        return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
+        //return (Math.abs(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) < 8);
+    }
+
+    public static double[] segmentOnLine(Area area, double x1, double y1, double x2, double y2) {
+        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
+            //if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
+            if (UGeo.pointOnLine(d.x1, d.y1, x1, y1, x2, y2)
+                    && UGeo.pointOnLine(d.x2, d.y2, x1, y1, x2, y2)) {
+
+                return new double[]{d.x1, d.y1, d.x2, d.y2};
+            }
+            //}
+        }
+        return null;
     }
 
     public static void PRINT(Area area) {
