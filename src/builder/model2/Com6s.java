@@ -22,7 +22,7 @@ public abstract class Com6s {
     public GeoElem gson = null; //Gson object конструкции
     public Type type = Type.NONE; //Тип элемента или окна
     public Area area = null;
-    public boolean ev[] = {false, false};
+    private boolean ev[] = {false, false};
     public Double x3 = null, y3 = null, x4 = null, y4 = null;//внутренние координаты area
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний 
     public Record sysprofRec = null; //профиль в системе
@@ -52,7 +52,6 @@ public abstract class Com6s {
             //SIZE = (int) (SIZE * wing.scale);
             Rectangle2D r1 = new Rectangle2D.Double(x1() * wing.scale - SIZE / 2, y1() * wing.scale - SIZE / 2, SIZE, SIZE);
             Rectangle2D r2 = new Rectangle2D.Double(x2() * wing.scale - SIZE / 2, y2() * wing.scale - SIZE / 2, SIZE, SIZE);
-            //Point point = new Point((int) (event.getX() * wing.scale) ,(int) (event.getY() * wing.scale));
             //System.out.println(x1() + " " + y1() + "  :  " + );
             if (r1.contains(event.getPoint())) {
                 //System.out.println("mousePressed()+0");
@@ -66,7 +65,6 @@ public abstract class Com6s {
             //System.out.println("mouseReleased()-1");
             ev[0] = false;
             ev[1] = false;
-            //wing.draw();
         };
         ListenerMouse mouseDragge = (event) -> {
             if (ev[0] == true) {

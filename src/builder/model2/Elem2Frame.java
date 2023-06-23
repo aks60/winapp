@@ -89,8 +89,6 @@ public class Elem2Frame extends Elem2Simple {
     }
     
     public void paint() {
-        int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        wing.gc2D.draw(area);
-        //DrawStroke.strokePolygon(wing, x1(), x2(), p2[0], p1[0], y1(), y2(), p2[1], p1[1], rgb, borderColor);
+        //wing.gc2D.draw(area);
     }
 }

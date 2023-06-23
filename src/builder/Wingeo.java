@@ -43,7 +43,7 @@ public class Wingeo {
     public double scale = .6;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
-    public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
+    public ArrayList<ListenerMouse> mouseDragged = new ArrayList(); 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public List<Area2Simple> listArea = new ArrayList(); //список ареа.

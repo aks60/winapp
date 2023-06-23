@@ -56,9 +56,9 @@ public class Elem2Cross extends Elem2Simple {
             double w = owner.area.getBounds2D().getMaxX();
             double h = owner.area.getBounds2D().getMaxY();
 
-            //Точки пересечение импостом Canvas2D 
-            //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod
+            //Точки пересечение импостом Canvas2D
             //x = (y - y1)/(y2 -y1)*(x2 - x1) + x1  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
+            //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod            
             double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
             //double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
             double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
@@ -70,19 +70,19 @@ public class Elem2Cross extends Elem2Simple {
             Area clipRigh = UGeo.area(X1, 0, X2, h, w, h, w, 0);
             areaLeft.intersect(clipLeft);
             areaRigh.intersect(clipRigh);
-            UGeo.PRINT(areaLeft);            
 
             //Вектор импоста
             double lineCross[] = UGeo.segmentOnLine(areaLeft, X1, 0, X2, h);
             if (lineCross != null) {
                 this.setDimension(lineCross[0], lineCross[1], lineCross[2], lineCross[3]);
+            } else {
+                UGeo.PRINT(areaLeft);
             }
 
 //            Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, this);
 //            Elem2Simple e0 = UGeo.elementFromSegment(wing.listLine, d[0].x1, d[0].y1, d[0].x2, d[0].y2);
 //            Elem2Simple e1 = UGeo.elementFromSegment(wing.listLine, d[1].x1, d[1].y1, d[1].x2, d[1].y2);
 //            Elem2Simple e[] = {e0, e1};
-
             //Полигон импоста
 //            double h0[] = UGeo.diff(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
 //
@@ -99,7 +99,7 @@ public class Elem2Cross extends Elem2Simple {
             //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], p4[0], p4[1], p3[0], p3[1]);
             //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
             //this.area =  rectangl(x1(), y1(), x2(), y2(), p4[0], p4[1], p3[0], p3[1]);
-            this.area = areaLeft; 
+            this.area = areaLeft;
 
         } catch (Exception e) {
             this.area = null;
@@ -154,7 +154,7 @@ public class Elem2Cross extends Elem2Simple {
 
     public void paint() {
         try {
-            //wing.gc2D.draw(area);
+            wing.gc2D.draw(this.area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {

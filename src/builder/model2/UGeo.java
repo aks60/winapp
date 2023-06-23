@@ -227,39 +227,22 @@ public class UGeo {
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
+        double m3 = ((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1));
+        double m4 = Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
+       // if(m4 > )
         return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) < 1);
         //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
     }
 
-    public static Elem2Simple segmentOnElement(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
-        for (Elem2Simple elem2Simple : listLine) {
-            if (UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
-                return elem2Simple;
-            }
-        }
-        return null;
-    }
-
     public static double[] segmentOnLine(Area area, double x1, double y1, double x2, double y2) {
-
-        double[] v = new double[6];
-        List<Point2D> list = new ArrayList(List.of(new Point2D.Double(-1, -1)));
-        PathIterator iterator = area.getPathIterator(null);
-        while (!iterator.isDone()) {
-            if (iterator.currentSegment(v) != PathIterator.SEG_CLOSE) {
-                Point2D a = list.get(list.size() - 1);
-
-                if (UGeo.pointOnLine(a.getX(), a.getY(), x1, y1, x2, y2)
-                        && UGeo.pointOnLine(v[0], v[1], x1, y1, x2, y2)) {
-
-                    if (Math.round(a.getX()) != Math.round(v[0]) 
-                            && Math.round(a.getY()) != Math.round(v[1])) {
-                        return new double[]{a.getX(), a.getY(), v[0], v[1]};
-                    }
+        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
+            //if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
+                if (UGeo.pointOnLine(d.x1, d.y1, x1, y1, x2, y2)
+                        && UGeo.pointOnLine(d.x2, d.y2, x1, y1, x2, y2)) {
+                    
+                    return new double[]{d.x1, d.y1, d.x2, d.y2};
                 }
-            }
-            list.add(new Point2D.Double(v[0], v[1]));
-            iterator.next();
+            //}
         }
         return null;
     }
@@ -311,11 +294,11 @@ public class UGeo {
                         )
                 );
             } else if (nextElement[0] == PathIterator.SEG_CLOSE) {
-//                areaSegments.add(
-//                        new Line2D.Double(
-//                                currentElement[1], currentElement[2], start[1], start[2]
-//                        )
-//                );
+                areaSegments.add(
+                        new Line2D.Double(
+                                currentElement[1], currentElement[2], start[1], start[2]
+                        )
+                );
             }
         }
         return areaSegments;
