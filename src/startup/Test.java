@@ -68,7 +68,8 @@ public class Test {
             //frame();
             //json();
             //uid();
-            //script();         
+            //script();
+            //intersect();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -280,5 +281,16 @@ public class Test {
         UGeo.PRINT(area1);
         area1.intersect(area2);
         UGeo.PRINT(area1);
+    }
+
+    public static void intersect() {
+        double a[] = {200.03367570298246, 898.989728910591, 200.0336757029803, 898.989728910591};
+        double b[] = {200.16848754883262, 894.9452514648436, 594.0, 885.0};
+        if (Math.round(a[0]) != Math.round(a[2]) || Math.round(a[1]) != Math.round(a[3])) {
+            System.out.println("a");
+        }
+        if (Math.round(b[0]) != Math.round(b[2]) || Math.round(b[1]) != Math.round(b[3])) {
+            System.out.println("a");
+        }
     }
 }

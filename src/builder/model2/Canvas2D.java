@@ -8,7 +8,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JComponent;
 
