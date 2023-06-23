@@ -155,7 +155,6 @@ public class Elem2Cross extends Elem2Simple {
     public void paint() {
         try {
             //wing.gc2D.draw(area);
-            wing.gc2D.draw(this.area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {

@@ -227,14 +227,11 @@ public class UGeo {
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
-
-        //double m3 = ((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1));
-        //double m4 = Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
-        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
-        //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
+        return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) < 1);
+        //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
     }
 
-    public static Elem2Simple elementOnSegment(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
+    public static Elem2Simple segmentOnElement(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
         for (Elem2Simple elem2Simple : listLine) {
             if (UGeo.pointOnLine(x1, y1, elem2Simple) && UGeo.pointOnLine(x2, y2, elem2Simple)) {
                 return elem2Simple;
@@ -255,10 +252,10 @@ public class UGeo {
                 if (UGeo.pointOnLine(a.getX(), a.getY(), x1, y1, x2, y2)
                         && UGeo.pointOnLine(v[0], v[1], x1, y1, x2, y2)) {
 
-                    //if (Math.round(a.getX()) != Math.round(v[0]) 
-                    //        && Math.round(a.getY()) != Math.round(v[1])) {
+                    if (Math.round(a.getX()) != Math.round(v[0]) 
+                            && Math.round(a.getY()) != Math.round(v[1])) {
                         return new double[]{a.getX(), a.getY(), v[0], v[1]};
-                    //}
+                    }
                 }
             }
             list.add(new Point2D.Double(v[0], v[1]));
