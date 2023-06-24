@@ -430,7 +430,7 @@ public class ElemGlass extends ElemSimple {
             if (ej.type != TypeJoin.VAR10) {
                 double h1[] = UGeo.diff(area, ej.elem1, ej.elem1.artiklRec().getDbl(eArtikl.height) - ej.elem1.artiklRec().getDbl(eArtikl.size_centr));
                 double h2[] = UGeo.diff(area, ej.elem2, ej.elem2.artiklRec().getDbl(eArtikl.height) - ej.elem2.artiklRec().getDbl(eArtikl.size_centr));
-                double p[] = UGeo.cross(
+                double p[] = UGeo.crossOnLine(
                         ej.elem1.x1() + h1[0], ej.elem1.y1() + h1[1], ej.elem1.x2() + h1[0], ej.elem1.y2() + h1[1],
                         ej.elem2.x1() + h2[0], ej.elem2.y1() + h2[1], ej.elem2.x2() + h2[0], ej.elem2.y2() + h2[1]);
                 if (area.contains(p[0], p[1])) {
