@@ -145,7 +145,7 @@ public class UGeo {
             return new double[]{h / y, 0};
         }
     }
-    
+
     //Точка пересечения двух линий 
     //https://habr.com/ru/articles/523440/ 
     public static double[] crossOnLine(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
@@ -171,40 +171,22 @@ public class UGeo {
         dot[1] = y3 + (y4 - y3) * n;  // y3 +(-b(y))*n
         return dot;
     }
-   
+
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
         //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) <= 1);
         return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
-    }    
-    
+    }
+
     public static Elem2Simple elementOnSegment(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
         for (Elem2Simple elem : listLine) {
-            if (UGeo.pointOnLine(x1, y1, elem.x1(), elem.y1(), elem.x2(), elem.y2()) 
+            if (UGeo.pointOnLine(x1, y1, elem.x1(), elem.y1(), elem.x2(), elem.y2())
                     && UGeo.pointOnLine(x2, y2, elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
                 return elem;
             }
         }
         return null;
     }
-    
-    public static double[] generalSegment(Area area1, Area area2) {
-        ArrayList<Line2D.Double> list1 = UGeo.areaAllSegment(area1);
-        ArrayList<Line2D.Double> list2 = UGeo.areaAllSegment(area2);
-        for (Line2D.Double line1 : list1) {
-            if (Math.round(line1.x1) != Math.round(line1.x2) && Math.round(line1.y1) != Math.round(line1.y2)) {
-                for (Line2D.Double line2 : list2) {
-                    if (Math.round(line2.x1) != Math.round(line2.x2) && Math.round(line2.y1) != Math.round(line2.y2)) {
-                        if (Math.round(line1.x1) == Math.round(line2.x2) && Math.round(line1.y1) == Math.round(line2.y2)
-                                && Math.round(line1.x2) == Math.round(line2.x1) && Math.round(line1.y2) == Math.round(line2.y1)) {
-                            return new double[]{line1.x1, line1.y1, line1.x2, line1.y2};
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    
+
     //https://stackoverflow.com/questions/8144156/using-pathiterator-to-return-all-line-segments-that-constrain-an-area
     public static ArrayList<Line2D.Double> areaAllSegment(Area area) {
 
@@ -263,26 +245,42 @@ public class UGeo {
     }
 
     public static Line2D.Double[] prevAndNextSegment(Area area1, Area area2) {
-       
-        return null;
-    }
-    
-    public static Line2D.Double[] prevAndNextSegment(Area area, Elem2Simple elem) {
+
+        ArrayList<Line2D.Double> list1a = UGeo.areaAllSegment(area1);
+        ArrayList<Line2D.Double> list2a = UGeo.areaAllSegment(area2);
+        ArrayList<Line2D.Double> list1 = new ArrayList();
+        ArrayList<Line2D.Double> list2 = new ArrayList();
         
-        ArrayList<Line2D.Double> list = new ArrayList();
-        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
-            if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
-                list.add(d);
+        for (Line2D.Double l : list1a) {
+            if (Math.round(l.x1) != Math.round(l.x2) && Math.round(l.y1) != Math.round(l.y2)) {
+                list1.add(l);
             }
         }
-        for (int i = 0; i < list.size(); i++) {
-            Line2D.Double line = list.get(i);
-            if (UGeo.pointOnLine(line.x1, line.y1, elem.x1(), elem.y1(), elem.x2(), elem.y2())
-                    && UGeo.pointOnLine(line.x2, line.y2, elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
+        for (Line2D.Double l : list2a) {
+            if (Math.round(l.x1) != Math.round(l.x2) && Math.round(l.y1) != Math.round(l.y2)) {
+                list2.add(l);
+            }
+        }
 
-                int k = (i == 0) ? list.size() - 1 : i - 1;
-                int j = (i == (list.size() - 1)) ? 0 : i + 1;
-                return new Line2D.Double[]{list.get(k), list.get(j)};
+        for (int i1 = 0; i1 < list1.size(); i1++) {
+            Line2D.Double line1 = list1.get(i1);
+            
+            for (int i2 = 0; i2 < list2.size(); i2++) {
+                Line2D.Double line2 = list2.get(i2);
+
+                if (Math.round(line1.x1) == Math.round(line2.x2) && Math.round(line1.y1) == Math.round(line2.y2)
+                        && Math.round(line1.x2) == Math.round(line2.x1) && Math.round(line1.y2) == Math.round(line2.y1)) {
+
+                    int k1 = (i1 == 0) ? list1.size() - 1 : i1 - 1;
+                    int j1 = (i1 == (list1.size() - 1)) ? 0 : i1 + 1;
+                    Line2D.Double[] l1 = new Line2D.Double[]{list1.get(k1), list1.get(j1)};
+
+                    int k2 = (i2 == 0) ? list2.size() - 1 : i2 - 1;
+                    int j2 = (i2 == (list2.size() - 1)) ? 0 : i2 + 1;
+                    Line2D.Double[] l2 = new Line2D.Double[]{list2.get(k2), list2.get(j2)};
+
+                    return new Line2D.Double[]{l1[0], l1[1], line1, l2[0], l2[1]};
+                }
             }
         }
         return null;
@@ -347,8 +345,8 @@ public class UGeo {
         a1 = a1.createTransformedArea(at);
 
         return new Area[]{a0, a1};
-    }    
-    
+    }
+
     public static double hypotenuseMax(Area area) {
         double[] c0 = new double[6];
         double s0 = 0;
@@ -461,7 +459,6 @@ public class UGeo {
         return (visible);
     }
 
-    
     //https://www.geeksforgeeks.org/line-clipping-set-2-cyrus-beck-algorithm/
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D[] cross(final Area poly, final Elem2Cross elem) { //throws Exception {
@@ -533,7 +530,7 @@ public class UGeo {
             return null;
         }
     }
-    
+
     //https://www.bilee.com/java-%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0-%D0%B8.html
     public static Point2D cross(final Line2D.Double line1, final Line2D.Double line2) {
         final double x1, y1, x2, y2, x3, y3, x4, y4;
@@ -792,6 +789,48 @@ public class UGeo {
                 return new double[]{d.x1, d.y1, d.x2, d.y2};
             }
             //}
+        }
+        return null;
+    }
+
+    public static double[] generalSegment(Area area1, Area area2) {
+        ArrayList<Line2D.Double> list1 = UGeo.areaAllSegment(area1);
+        ArrayList<Line2D.Double> list2 = UGeo.areaAllSegment(area2);
+
+        for (Line2D.Double line1 : list1) {
+            if (Math.round(line1.x1) != Math.round(line1.x2) && Math.round(line1.y1) != Math.round(line1.y2)) {
+
+                for (Line2D.Double line2 : list2) {
+                    if (Math.round(line2.x1) != Math.round(line2.x2) && Math.round(line2.y1) != Math.round(line2.y2)) {
+
+                        if (Math.round(line1.x1) == Math.round(line2.x2) && Math.round(line1.y1) == Math.round(line2.y2)
+                                && Math.round(line1.x2) == Math.round(line2.x1) && Math.round(line1.y2) == Math.round(line2.y1)) {
+                            return new double[]{line1.x1, line1.y1, line1.x2, line1.y2};
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Line2D.Double[] prevAndNextSegment(Area area, Elem2Simple elem) {
+
+        ArrayList<Line2D.Double> list = new ArrayList();
+        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
+            if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
+                list.add(d);
+            }
+        }
+        for (int i = 0; i < list.size(); i++) {
+            Line2D.Double line = list.get(i);
+            if (UGeo.pointOnLine(line.x1, line.y1, elem.x1(), elem.y1(), elem.x2(), elem.y2())
+                    && UGeo.pointOnLine(line.x2, line.y2, elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
+
+                int k = (i == 0) ? list.size() - 1 : i - 1;
+                int j = (i == (list.size() - 1)) ? 0 : i + 1;
+                return new Line2D.Double[]{list.get(k), list.get(j)};
+            }
         }
         return null;
     }
