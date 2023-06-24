@@ -7,15 +7,10 @@ import domain.eArtikl;
 import domain.eSysprof;
 import enums.PKjson;
 import enums.UseSide;
-import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public class Elem2Cross extends Elem2Simple {
 
@@ -72,34 +67,30 @@ public class Elem2Cross extends Elem2Simple {
             areaRigh.intersect(clipRigh);
 
             //Вектор импоста
-            Line2D.Double prevAndNext[] = UGeo.prevAndNextSegment(areaLeft, areaRigh);
-            if (prevAndNext != null) {
-                
-                this.setDimension(prevAndNext[2].x1, prevAndNext[2].y1, prevAndNext[2].x2, prevAndNext[2].y2);
+            Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, areaRigh);
+            if (d != null) {
 
-//                Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, this);
-//                
-//                Elem2Simple e0 = UGeo.elementOnSegment(wing.listLine, d[0].x1, d[0].y1, d[0].x2, d[0].y2);
-//                Elem2Simple e1 = UGeo.elementOnSegment(wing.listLine, d[1].x1, d[1].y1, d[1].x2, d[1].y2);
-//                Elem2Simple e[] = {e0, e1};
-//
-//                //Полигон импоста
-//                double h0[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-//
-//                double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e[0]), e[0].artiklRec.getDbl(eArtikl.height) - e[0].artiklRec.getDbl(eArtikl.size_centr));
-//                double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e[1]), e[1].artiklRec.getDbl(eArtikl.height) - e[1].artiklRec.getDbl(eArtikl.size_centr));
-//                double p1[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[0].x1() + h1[0], e[0].y1() + h1[1], e[0].x2() + h1[0], e[0].y2() + h1[1]);
-//                double p2[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[1].x1() + h2[0], e[1].y1() + h2[1], e[1].x2() + h2[0], e[1].y2() + h2[1]);
+                this.setDimension(d[2].x1, d[2].y1, d[2].x2, d[2].y2);
+                double h0[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));     
 
-//            double h3[] = UGeo.diffOnLine(UGeo.horizontAngl(e0), e0.artiklRec.getDbl(eArtikl.size_centr) - e0.artiklRec.getDbl(eArtikl.height));
-//            double h4[] = UGeo.diffOnLine(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.size_centr) - e1.artiklRec.getDbl(eArtikl.height));
-//            double p3[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[0].x1() + h3[0], e[0].y1() + h3[1], e[0].x2() + h3[0], e[0].y2() + h3[1]);
-//            double p4[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e[1].x1() + h4[0], e[1].y1() + h4[1], e[1].x2() + h4[0], e[1].y2() + h4[1]);
+                Elem2Simple e0 = UGeo.elemFromSegment(wing.listLine, d[0].x1, d[0].y1, d[0].x2, d[0].y2);
+                Elem2Simple e1 = UGeo.elemFromSegment(wing.listLine, d[1].x1, d[1].y1, d[1].x2, d[1].y2);
+                double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e0), e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
+                double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
+                double p1[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
+                double p2[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
+
+                Elem2Simple e3 = UGeo.elemFromSegment(wing.listLine, d[0].x1, d[0].y1, d[0].x2, d[0].y2);
+                Elem2Simple e4 = UGeo.elemFromSegment(wing.listLine, d[1].x1, d[1].y1, d[1].x2, d[1].y2);
+                double h3[] = UGeo.diffOnAngl(UGeo.horizontAngl(e3), e3.artiklRec.getDbl(eArtikl.size_centr) - e3.artiklRec.getDbl(eArtikl.height));
+                double h4[] = UGeo.diffOnAngl(UGeo.horizontAngl(e4), e4.artiklRec.getDbl(eArtikl.size_centr) - e4.artiklRec.getDbl(eArtikl.height));
+                double p3[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e3.x1() + h3[0], e3.y1() + h3[1], e3.x2() + h3[0], e3.y2() + h3[1]);
+                double p4[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e4.x1() + h4[0], e4.y1() + h4[1], e4.x2() + h4[0], e4.y2() + h4[1]);
+
                 //this.addDimension(p2[0], p2[1], p1[0], p1[1]);
                 //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], p4[0], p4[1], p3[0], p3[1]);
-//                this.area = rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
+                this.area = rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
                 //this.area =  rectangl(x1(), y1(), x2(), y2(), p4[0], p4[1], p3[0], p3[1]);
-                //this.area = areaLeft;
             }
 
         } catch (Exception e) {
@@ -110,7 +101,7 @@ public class Elem2Cross extends Elem2Simple {
 
     public void paint() {
         try {
-            //wing.gc2D.draw(this.area);
+            wing.gc2D.draw(this.area);
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {
