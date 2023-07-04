@@ -90,7 +90,12 @@ public class Elem2Cross extends Elem2Simple {
                 //this.addDimension(p2[0], p2[1], p1[0], p1[1]);
                 //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], p4[0], p4[1], p3[0], p3[1]);
                 this.area = rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
-                //this.area =  rectangl(x1(), y1(), x2(), y2(), p4[0], p4[1], p3[0], p3[1]);
+                //this.area =  rectangl(x2(), y2(), x1(), y1(), p3[0], p3[1], p4[0], p4[1]);
+                
+                System.out.println(UGeo.horizontAngl(e0));
+                System.out.println(UGeo.horizontAngl(e1));
+                System.out.println(UGeo.horizontAngl(e3));
+                System.out.println(UGeo.horizontAngl(e4));
             }
 
         } catch (Exception e) {
