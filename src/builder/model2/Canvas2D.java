@@ -39,7 +39,7 @@ public class Canvas2D extends JComponent {
         addComponentListener(new ComponentAdapter() {
 
             public void componentResized(ComponentEvent event) {
-                wing.scale = scale(wing, 4, 16);
+                wing.scale = scale(wing, 0, 0);
             }
         });
     }
@@ -53,7 +53,7 @@ public class Canvas2D extends JComponent {
 
     public double scale(Wingeo wing, double dx, double dy) {
         Rectangle2D rec = wing.root.area.getBounds2D();
-        return ((getWidth() + dx) / rec.getWidth() > (getHeight() + dx) / rec.getHeight())
-                ? (getHeight() + dx) / (rec.getHeight() + dy) : (getWidth() + dx) / (rec.getWidth() + dy);
+        return ((getWidth() + dx) / rec.getMaxX() > (getHeight() + dx) / rec.getMaxY())
+                ? (getHeight() + dx) / (rec.getMaxY() + dy) : (getWidth() + dx) / (rec.getMaxX() + dy);
     }
 }
