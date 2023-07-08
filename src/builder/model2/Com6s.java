@@ -67,15 +67,16 @@ public abstract class Com6s {
             ev[1] = false;
         };
         ListenerMouse mouseDragge = (event) -> {
+            int m = 4;
+            int dx = wing.canvas.getWidth() - event.getX();
+            int dy = wing.canvas.getHeight()- event.getY();
             if (ev[0] == true) {
-                //System.out.println("mouseDragge()=0  " + event.getX() + " : " + event.getY());
-                if (event.getX() > 8 && event.getY() > 8) {
+                if (event.getX() > m && dx > m && event.getY() > m && dy > m) { //контроль выхода за канву
                     x1(Math.round(event.getX() / wing.scale));
                     y1(Math.round(event.getY() / wing.scale));
                 }
             } else if (ev[1] == true) {
-                //System.out.println("mouseDragge()=1 " + event.getX() + " : " + event.getY());
-                if (event.getX() > 8 && event.getY() > 8) {
+                if (event.getX() > m && dx > m && event.getY() > m && dy > m) { //контроль выхода за канву
                     x2(Math.round(event.getX() / wing.scale));
                     y2(Math.round(event.getY() / wing.scale));
                 }
