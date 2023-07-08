@@ -69,7 +69,7 @@ public abstract class Com6s {
         ListenerMouse mouseDragge = (event) -> {
             int m = 4;
             int dx = wing.canvas.getWidth() - event.getX();
-            int dy = wing.canvas.getHeight()- event.getY();
+            int dy = wing.canvas.getHeight() - event.getY();
             if (ev[0] == true) {
                 if (event.getX() > m && dx > m && event.getY() > m && dy > m) { //контроль выхода за канву
                     x1(Math.round(event.getX() / wing.scale));
@@ -109,7 +109,7 @@ public abstract class Com6s {
             p.lineTo(x4, y4);
             p.closePath();
             return new Area(p);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Comp.polygon()" + toString() + e);
             return null;
