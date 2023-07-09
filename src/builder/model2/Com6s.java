@@ -7,9 +7,9 @@ import common.listener.ListenerMouse;
 import dataset.Record;
 import domain.eArtikl;
 import enums.Type;
-import java.awt.Point;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -51,16 +51,25 @@ public abstract class Com6s {
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
 
-            Rectangle2D r1 = new Rectangle2D.Double(x1() * wing.scale - SIZE / 2, y1() * wing.scale - SIZE / 2, SIZE, SIZE);
-            Rectangle2D r2 = new Rectangle2D.Double(x2() * wing.scale - SIZE / 2, y2() * wing.scale - SIZE / 2, SIZE, SIZE);
+//            Rectangle2D r1 = new Rectangle2D.Double(x1() * wing.scale - SIZE / 2, y1() * wing.scale - SIZE / 2, SIZE, SIZE);
+//            Rectangle2D r2 = new Rectangle2D.Double(x2() * wing.scale - SIZE / 2, y2() * wing.scale - SIZE / 2, SIZE, SIZE);
+//
+//            if (r1.contains(event.getPoint())) {
+//                ev[0] = true;
+//            } else if (r2.contains(event.getPoint())) {
+//                ev[1] = true;
+//            }
 
-            if (r1.contains(event.getPoint())) {
-                ev[0] = true;
-            } else if (r2.contains(event.getPoint())) {
-                ev[1] = true;
-            }
             if(this.area.contains(event.getX() / wing.scale, event.getY() / wing.scale)) {
-                System.out.println("builder.model2.Com6s.mouseEvent()++");
+                double d1 = Point2D.distance(x1(), y1(), event.getX() / wing.scale, event.getY() / wing.scale);
+                double d2 = Point2D.distance(x2(), y2(), event.getX() / wing.scale, event.getY() / wing.scale);
+                double d3 = (d1 + d2) / 3;
+                
+                if(d1 < d3) {
+                   ev[0] = true; 
+                } else if(d2 < d3) {
+                   ev[1] = true; 
+                }
             }
         };
         ListenerMouse mouseReleased = (event) -> {
