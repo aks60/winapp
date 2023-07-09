@@ -52,7 +52,7 @@ public class Elem2Cross extends Elem2Simple {
             double h = owner.area.getBounds2D().getMaxY();
 
             //Точки пересечение импостом Canvas2D
-            //x = (y - y1)/(y2 -y1)*(x2 - x1) + x1  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
+            //x = (y - y1)/(y2 -y1)*(x2 - x1) + x1,  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
             //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod            
             double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
             //double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
@@ -105,7 +105,7 @@ public class Elem2Cross extends Elem2Simple {
             wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {
-            System.out.println("Ошибка:Elem2Cross.paint() " + e);
+            System.err.println("Ошибка:Elem2Cross.paint() " + e);
         }
     }
 }
