@@ -40,7 +40,7 @@ public class Wingeo {
 
     public Graphics2D gc2D = null; //графический котекст рисунка 
     public Canvas2D canvas = null;
-    public double scale = .6;
+    public double scale = 1;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
     public ArrayList<ListenerMouse> mouseDragged = new ArrayList(); 
