@@ -19,14 +19,14 @@ public abstract class Com6s {
     public double id;
     public Wingeo wing = null;
     public Com6s owner = null; //владелец
-    public GeoElem gson = null; //Gson object конструкции
-    public Type type = Type.NONE; //Тип элемента или окна
+    public Com6s next = null; //сдедующий элемент
+    public GeoElem gson = null; //gson object конструкции
+    public Type type = Type.NONE; //тип элемента или окна
     public Area area = null;
     private boolean ev[] = {false, false};
     private int margin = 4;  //отступы вокруг канвы
-    public Double x3 = null, y3 = null, x4 = null, y4 = null;//внутренние координаты area
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний 
-    public Record sysprofRec = null; //профиль в системе
+    public Record sysprofRec = null; //рофиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства     
 
@@ -133,13 +133,6 @@ public abstract class Com6s {
             gson.x2 = x2;
             gson.y2 = y2;
         }
-    }
-
-    public void addDimension(double x3, double y3, double x4, double y4) {
-        this.x3 = x3;
-        this.y3 = y3;
-        this.x4 = x4;
-        this.y4 = y4;
     }
 
     public double x1() {

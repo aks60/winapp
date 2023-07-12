@@ -30,17 +30,8 @@ public class Elem2Cross extends Elem2Simple {
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
-            if (angl == 0 || angl == 180) { //сверху вниз
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.HORIZ, UseSide.ANY);
-
-            } else if (angl == 90 || angl == 270) { //слева направо
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.VERT, UseSide.ANY);
-
-            } else {
-                sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
-            }
+            sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
         }
-        //spcRec.place = (angl == 0) ? Layout.HORIZ.name : Layout.VERT.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }

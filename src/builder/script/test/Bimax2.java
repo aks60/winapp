@@ -15,7 +15,7 @@ public final class Bimax2 {
 
     public static String script(Integer prj) {
 
-        if (prj == 50100145) { //PUNIC = 427595
+        if (prj == 501001) { //PUNIC = 427595
             rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootGeo.addElem(new GeoElem(Type.FRAME_SIDE, 1000, 3500, 3500, 3500))
                     .addElem(new GeoElem(Type.FRAME_SIDE, 3500, 3500, 4000, 1000))
@@ -37,7 +37,7 @@ public final class Bimax2 {
 //            area.addArea(new GeoElem(Type.AREA))
 //                    .addElem(new GeoElem(Type.GLASS));
 
-        } else if (prj == 501001) { //PUNIC = 427595
+        } else if (prj == 501002) { //PUNIC = 427595
             rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootGeo.addElem(new GeoElem(Type.FRAME_SIDE, 0, 0, 0, 900))
                     .addElem(new GeoElem(Type.FRAME_SIDE, 0, 900, 600, 900))
@@ -51,7 +51,7 @@ public final class Bimax2 {
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
 
-        } else if (prj == 50100134) { //PUNIC = 427595
+        } else if (prj == 501003) { //PUNIC = 427595
             rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootGeo.addElem(new GeoElem(Type.FRAME_SIDE, 0, 0, 0, 900))
                     .addElem(new GeoElem(Type.FRAME_SIDE, 0, 900, 600, 900))

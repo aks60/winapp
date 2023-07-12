@@ -26,7 +26,7 @@ public class Com5t implements ICom5t {
     protected IArea5e owner = null; //владелец
     protected Wincalc winc = null; //главный класс калькуляции
     protected IArea5e root = null; //главный класс конструкции
-    protected GsonElem gson = null; //Gson object конструкции
+    public GsonElem gson = null; //Gson object конструкции
 
     protected double x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
     protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     

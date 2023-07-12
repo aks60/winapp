@@ -39,18 +39,7 @@ public class Elem2Frame extends Elem2Simple {
         } else if (owner.sysprofRec != null) { //профили через параметр рамы, створки
             sysprofRec = owner.sysprofRec;
         } else {
-            double angl = UGeo.horizontAngl(this);
-            if (angl == 0) {
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
-            } else if (angl == 90) {
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
-            } else if (angl == 180) {
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.TOP, UseSide.HORIZ);
-            } else if (angl == 270) {
-                sysprofRec = eSysprof.find5(wing.nuni, type.id2, UseSide.LEFT, UseSide.VERT);
-            } else {
-                sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
-            }
+            sysprofRec = eSysprof.find4(wing.nuni, type.id2, UseSide.ANY);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
@@ -68,17 +57,16 @@ public class Elem2Frame extends Elem2Simple {
                 if (wing.listFrame.get(i).id == this.id) {
                     int k = (i == 0) ? wing.listFrame.size() - 1 : i - 1;
                     int j = (i == (wing.listFrame.size() - 1)) ? 0 : i + 1;
-                                        
+
                     Elem2Simple e0 = wing.listFrame.get(k);
                     Elem2Simple e1 = wing.listFrame.get(j);
-                    
+
                     double h0[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
                     double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e0), e0.artiklRec.getDbl(eArtikl.height) - e0.artiklRec.getDbl(eArtikl.size_centr));
                     double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
                     double p1[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
                     double p2[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
-                    
-                    this.addDimension(p2[0], p2[1], p1[0], p1[1]);      
+
                     this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
                 }
             }
@@ -87,7 +75,27 @@ public class Elem2Frame extends Elem2Simple {
             System.err.println("Ошибка:Elem2Frame.setLocation()" + toString() + e);
         }
     }
+
+    @Override
+    public double x2() {
+        return (next.gson.x1 != null) ? next.gson.x1 : -1;
+    }
+
+    @Override
+    public double y2() {
+        return (next.gson.y1 != null) ? next.gson.y1 : -1;
+    }
     
+    @Override
+    public void x2(double v) {
+        next.gson.x1 = v;
+    }
+
+    @Override
+    public void y2(double v) {
+        next.gson.y1 = v;
+    }    
+
     public void paint() {
         wing.gc2D.draw(area);
     }
