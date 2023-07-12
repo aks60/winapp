@@ -51,15 +51,15 @@ public abstract class Com6s {
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
             pointPress = event.getPoint();
-            if(this.area.contains(event.getX() / wing.scale, event.getY() / wing.scale)) {
+            if (this.area.contains(event.getX() / wing.scale, event.getY() / wing.scale)) {
                 double d1 = Point2D.distance(x1(), y1(), event.getX() / wing.scale, event.getY() / wing.scale);
                 double d2 = Point2D.distance(x2(), y2(), event.getX() / wing.scale, event.getY() / wing.scale);
                 double d3 = (d1 + d2) / 3;
-                
-                if(d1 < d3) {
-                   ev[0] = true; 
-                } else if(d2 < d3) {
-                   ev[1] = true; 
+
+                if (d1 < d3) {
+                    ev[0] = true;
+                } else if (d2 < d3) {
+                    ev[1] = true;
                 }
             }
         };
@@ -68,19 +68,23 @@ public abstract class Com6s {
             ev[1] = false;
         };
         ListenerMouse mouseDragge = (event) -> {
+            //double db = pointPress.distance(event.getPoint());
+            double mx = event.getX() - pointPress.getX();
+            double my = event.getY() - pointPress.getY();
             int dx = wing.canvas.getWidth() - event.getX();
             int dy = wing.canvas.getHeight() - event.getY();
             if (ev[0] == true) {
                 if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x1(event.getX() / wing.scale);
-                    y1(event.getY() / wing.scale);
+                    x1(mx / wing.scale + x1());
+                    y1(my / wing.scale + y1());                    
                 }
             } else if (ev[1] == true) {
                 if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x2(event.getX() / wing.scale);
-                    y2(event.getY() / wing.scale);
+                    x2(mx / wing.scale + x2());
+                    y2(my / wing.scale + y2());
                 }
             }
+            pointPress = event.getPoint();
         };
         this.wing.mousePressed.add(mousePressed);
         this.wing.mouseReleased.add(mouseReleased);
