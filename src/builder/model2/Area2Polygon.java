@@ -20,10 +20,10 @@ public class Area2Polygon extends Area2Simple {
             GeneralPath p = new GeneralPath();
             p.reset();
             p.moveTo((float) wing.listFrame.get(0).x1(), (float) wing.listFrame.get(0).y1());
-            wing.listFrame.get(0).next = wing.listFrame.get(1);
+            wing.listFrame.get(0).enext = wing.listFrame.get(1);
             for (int i = 1; i < wing.listFrame.size(); ++i) {
                 p.lineTo((float) wing.listFrame.get(i).x1(), (float) wing.listFrame.get(i).y1());
-                wing.listFrame.get(i).next = (i + 1 == wing.listFrame.size()) ? wing.listFrame.get(0) : wing.listFrame.get(i + 1);
+                wing.listFrame.get(i).enext = (i + 1 == wing.listFrame.size()) ? wing.listFrame.get(0) : wing.listFrame.get(i + 1);
             }
             p.closePath();
             area = new Area(p);

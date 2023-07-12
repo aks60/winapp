@@ -33,17 +33,15 @@ public class Wingeo {
 
     public Integer nuni = 0;
     public Record syssizeRec = null; //системные константы     
-    public double genId = 0; //для генерация ключа в спецификации
-    public int colorID1 = -1; //базовый цвет
-    public int colorID2 = -1; //внутренний цвет
-    public int colorID3 = -1; //внещний цвет   
+    public double genId = 0; //для генерации ключа в спецификации
+    public int colorID1 = -1, colorID2 = 1, colorID3 = -1; //базовый,внутр,внещний 
 
     public Graphics2D gc2D = null; //графический котекст рисунка 
     public Canvas2D canvas = null;
     public double scale = 1;
     public ArrayList<ListenerMouse> mousePressed = new ArrayList();
     public ArrayList<ListenerMouse> mouseReleased = new ArrayList();
-    public ArrayList<ListenerMouse> mouseDragged = new ArrayList(); 
+    public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public List<Area2Simple> listArea = new ArrayList(); //список ареа.
@@ -82,7 +80,6 @@ public class Wingeo {
 
             //Каждый элемент конструкции попадает в спецификацию через функцию setSpecific()            
             //listLine.forEach(elem -> elem.setSpecific()); //спецификация ведущих элементов конструкции
-
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);
         }
@@ -175,7 +172,7 @@ public class Wingeo {
         List.of((List) listArea, (List) listFrame, (List) listCross, (List) listSpec).forEach(el -> el.clear());
     }
 
-    public double width() {        
+    public double width() {
         return root.area.getBounds2D().getWidth();
     }
 

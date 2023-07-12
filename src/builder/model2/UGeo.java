@@ -1,8 +1,6 @@
 package builder.model2;
 
 import builder.IElem5e;
-import builder.Wingeo;
-import domain.eArtikl;
 import enums.Layout;
 import enums.Type;
 import java.awt.Point;
@@ -133,6 +131,21 @@ public class UGeo {
         }
     }
 
+    public static Area rectangl(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        try {
+            GeneralPath p = new GeneralPath();
+            p.moveTo(x1, y1);
+            p.lineTo(x2, y2);
+            p.lineTo(x3, y3);
+            p.lineTo(x4, y4);
+            p.closePath();
+            return new Area(p);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:UGeo.polygon()" + e);
+            return null;
+        }
+    }    
     //Ширина рамки по оси x и y
     public static double[] diffOnAngl(double anglHoriz, double h) {
 

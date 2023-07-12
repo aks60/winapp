@@ -67,7 +67,7 @@ public class Elem2Frame extends Elem2Simple {
                     double p1[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e0.x1() + h1[0], e0.y1() + h1[1], e0.x2() + h1[0], e0.y2() + h1[1]);
                     double p2[] = UGeo.crossOnLine(x1() + h0[0], y1() + h0[1], x2() + h0[0], y2() + h0[1], e1.x1() + h2[0], e1.y1() + h2[1], e1.x2() + h2[0], e1.y2() + h2[1]);
 
-                    this.area = rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
+                    this.area = UGeo.rectangl(x1(), y1(), x2(), y2(), p2[0], p2[1], p1[0], p1[1]);
                 }
             }
 
@@ -76,27 +76,29 @@ public class Elem2Frame extends Elem2Simple {
         }
     }
 
+    public void paint() {
+        wing.gc2D.draw(area);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="GET-SET">
     @Override
     public double x2() {
-        return (next.gson.x1 != null) ? next.gson.x1 : -1;
+        return (enext.gson.x1 != null) ? enext.gson.x1 : -1;
     }
 
     @Override
     public double y2() {
-        return (next.gson.y1 != null) ? next.gson.y1 : -1;
+        return (enext.gson.y1 != null) ? enext.gson.y1 : -1;
     }
-    
+
     @Override
     public void x2(double v) {
-        next.gson.x1 = v;
+        enext.gson.x1 = v;
     }
 
     @Override
     public void y2(double v) {
-        next.gson.y1 = v;
-    }    
-
-    public void paint() {
-        wing.gc2D.draw(area);
+        enext.gson.y1 = v;
     }
+    // </editor-fold>     
 }

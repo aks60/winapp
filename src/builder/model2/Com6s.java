@@ -7,10 +7,9 @@ import common.listener.ListenerMouse;
 import dataset.Record;
 import domain.eArtikl;
 import enums.Type;
+import java.awt.Point;
 import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 public abstract class Com6s {
@@ -19,11 +18,12 @@ public abstract class Com6s {
     public double id;
     public Wingeo wing = null;
     public Com6s owner = null; //владелец
-    public Com6s next = null; //сдедующий элемент
+    public Com6s enext = null; //сдедующий элемент
     public GeoElem gson = null; //gson object конструкции
     public Type type = Type.NONE; //тип элемента или окна
     public Area area = null;
     private boolean ev[] = {false, false};
+    private Point pointPress = null;
     private int margin = 4;  //отступы вокруг канвы
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний 
     public Record sysprofRec = null; //рофиль в системе
@@ -50,16 +50,7 @@ public abstract class Com6s {
 
     public void mouseEvent() {
         ListenerMouse mousePressed = (event) -> {
-
-//            Rectangle2D r1 = new Rectangle2D.Double(x1() * wing.scale - SIZE / 2, y1() * wing.scale - SIZE / 2, SIZE, SIZE);
-//            Rectangle2D r2 = new Rectangle2D.Double(x2() * wing.scale - SIZE / 2, y2() * wing.scale - SIZE / 2, SIZE, SIZE);
-//
-//            if (r1.contains(event.getPoint())) {
-//                ev[0] = true;
-//            } else if (r2.contains(event.getPoint())) {
-//                ev[1] = true;
-//            }
-
+            pointPress = event.getPoint();
             if(this.area.contains(event.getX() / wing.scale, event.getY() / wing.scale)) {
                 double d1 = Point2D.distance(x1(), y1(), event.getX() / wing.scale, event.getY() / wing.scale);
                 double d2 = Point2D.distance(x2(), y2(), event.getX() / wing.scale, event.getY() / wing.scale);
@@ -81,13 +72,13 @@ public abstract class Com6s {
             int dy = wing.canvas.getHeight() - event.getY();
             if (ev[0] == true) {
                 if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x1(Math.round(event.getX() / wing.scale));
-                    y1(Math.round(event.getY() / wing.scale));
+                    x1(event.getX() / wing.scale);
+                    y1(event.getY() / wing.scale);
                 }
             } else if (ev[1] == true) {
                 if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x2(Math.round(event.getX() / wing.scale));
-                    y2(Math.round(event.getY() / wing.scale));
+                    x2(event.getX() / wing.scale);
+                    y2(event.getY() / wing.scale);
                 }
             }
         };
@@ -107,22 +98,6 @@ public abstract class Com6s {
             return false;
         }
         return true;
-    }
-
-    public Area rectangl(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
-        try {
-            GeneralPath p = new GeneralPath();
-            p.moveTo(x1, y1);
-            p.lineTo(x2, y2);
-            p.lineTo(x3, y3);
-            p.lineTo(x4, y4);
-            p.closePath();
-            return new Area(p);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Comp.polygon()" + toString() + e);
-            return null;
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="GET-SET">

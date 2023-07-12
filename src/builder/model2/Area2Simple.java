@@ -17,10 +17,6 @@ public class Area2Simple extends Com6s {
         super(wing, gson, owner);
     }
 
-    public Area2Simple(Wingeo wing, GeoElem gson, Com6s owner, double x1, double y1, double x2, double y2) {
-        super(wing, gson, owner);
-    }
-
     @Override
     public List<Com6s> childs() {
         return childs;

@@ -79,9 +79,9 @@ public class Elem2Cross extends Elem2Simple {
                 double p4[] = UGeo.crossOnLine(x1() - h0[0], y1() - h0[1], x2() - h0[0], y2() - h0[1], e4.x1() - h4[0], e4.y1() - h4[1], e4.x2() - h4[0], e4.y2() - h4[1]);
 
                 //this.addDimension(p2[0], p2[1], p1[0], p1[1]);
-                this.area = rectangl(p1[0], p1[1], p2[0], p2[1], p4[0], p4[1], p3[0], p3[1]);
-                //this.area = rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
-                //this.area = rectangl(x2(), y2(), x1(), y1(), p3[0], p3[1], p4[0], p4[1]);
+                this.area = UGeo.rectangl(p1[0], p1[1], p2[0], p2[1], p4[0], p4[1], p3[0], p3[1]);
+                //this.area = UGeo.rectangl(p2[0], p2[1], p1[0], p1[1], x1(), y1(), x2(), y2());
+                //this.area = UGeo.rectangl(x2(), y2(), x1(), y1(), p3[0], p3[1], p4[0], p4[1]);
             }
 
         } catch (Exception e) {
