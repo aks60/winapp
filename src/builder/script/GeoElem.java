@@ -24,7 +24,11 @@ public class GeoElem {
         this.type = type;
     }
 
-    public GeoElem(Type type, double x1, double y1, double x2, double y2) {
+    public GeoElem(Type type, Double x1, Double y1) {
+        this(type, x1, y1, null, null);
+    }
+
+    public GeoElem(Type type, Double x1, Double y1, Double x2, Double y2) {
         this.id = ++genId;
         this.type = type;
         this.x1 = x1;

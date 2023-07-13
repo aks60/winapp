@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class Wingeo {
 
-    public Integer nuni = 0;
+    public Integer nuni = 0; //код системы
     public Record syssizeRec = null; //системные константы     
     public double genId = 0; //для генерации ключа в спецификации
     public int colorID1 = -1, colorID2 = 1, colorID3 = -1; //базовый,внутр,внещний 
@@ -87,7 +87,7 @@ public class Wingeo {
 
     private void parsing(String script) {
         //Для тестирования
-        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
 
         gson = new GsonBuilder().create().fromJson(script, GeoRoot.class);
         gson.setOwner(this);
