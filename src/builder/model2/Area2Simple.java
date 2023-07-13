@@ -22,17 +22,17 @@ public class Area2Simple extends Com6s {
         return childs;
     }
 
-    public void paint() {
-        try {
-            if (area != null) {
-                wing.gc2D.draw(area);
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
-        }
-    }
+//    public void paint() {
+//        try {
+//            if (area != null) {
+//                wing.gc2D.draw(area);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Area2Simple.paint()" + toString() + e);
+//        }
+//    }
 
-    public void mouseEvent() {
-
-    }
+//    public void mouseEvent() {
+//
+//    }
 }

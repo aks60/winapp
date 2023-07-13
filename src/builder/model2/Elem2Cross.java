@@ -49,14 +49,19 @@ public class Elem2Cross extends Elem2Simple {
             //double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
             double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
             //double Y2 = (this.x1() ==  this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+            
+            double M[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
 
             Area areaLeft = (Area) owner.area.clone();
             Area areaRigh = (Area) owner.area.clone();
             Area clipLeft = UGeo.area(0, 0, 0, h, X2, h, X1, 0);
+            Area clipMidl = UGeo.area(x1() - M[0], y1() - M[1], x2() - M[0], y2() - M[1], x2() + M[0], y2() + M[1], x1() + M[0], y1() + M[1]);
             Area clipRigh = UGeo.area(X1, 0, X2, h, w, h, w, 0);
             areaLeft.intersect(clipLeft);
             areaRigh.intersect(clipRigh);
 
+            UGeo.PRINT(clipMidl);
+            
             //Вектор импоста
             Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, areaRigh);
             if (d != null) {
