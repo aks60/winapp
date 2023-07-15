@@ -40,21 +40,17 @@ public class Elem2Cross extends Elem2Simple {
             anglHoriz = UGeo.horizontAngl(this);
             double w = owner.area.getBounds2D().getMaxX();
             double h = owner.area.getBounds2D().getMaxY();
+            double M[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
 
-            //Точки пересечение импостом Canvas2D
-            //x = (y - y1)/(y2 -y1)*(x2 - x1) + x1,  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
-            //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod            
-            double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-            double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
-            double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-            double Y2 = (this.x1() == this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
-
-            System.out.println(X1 + "  " + Y1 + "  =  " + X2 + "  " + Y2);
+            //Точки пересечение импостом Canvas2D x = (y - y1)/(y2 -y1)*(x2 - x1) + x1,  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
+            //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod   
+            double L0[] = crossLine(this.x1(), this.y1(), this.x2(), this.y2(), w, h);
+            System.out.println(L0[0] + " ? " + L0[1] + "  =  " + L0[2] + "  " + L0[3]);
 
             Area areaLeft = (Area) owner.area.clone();
             Area areaRigh = (Area) owner.area.clone();
-            Area clipLeft = UGeo.area(0, 0, 0, h, X2, h, X1, 0);
-            Area clipRigh = UGeo.area(X1, 0, X2, h, w, h, w, 0);
+            Area clipLeft = UGeo.area(0, 0, 0, h, L0[2], h, L0[0], 0);
+            Area clipRigh = UGeo.area(L0[0], 0, L0[2], h, w, h, w, 0);
             areaLeft.intersect(clipLeft);
             areaRigh.intersect(clipRigh);
 
@@ -63,13 +59,15 @@ public class Elem2Cross extends Elem2Simple {
             if (d != null) {
 
                 this.setDimension(d[2].x1, d[2].y1, d[2].x2, d[2].y2);
+                double L1[] = crossLine(this.x1() - 40, this.y1(), this.x2() - 40, this.y2(), w, h);
+                double L2[] = crossLine(this.x1() + 40, this.y1(), this.x2() + 40, this.y2(), w, h);
+//            double L1[] = crossLine(this.x1() + M[0], this.y1() + M[1], this.x2() + M[0], this.y2() + M[1], w, h);
+//            double L2[] = crossLine(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
 
-                double M[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-                double L1[] = pXY(this.x1() + M[0], this.y1() + M[1], this.x2() + M[0], this.y2() + M[1], w, h);
-                double L2[] = pXY(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
                 Area areaImp = (Area) owner.area.clone();
-                Area areaClip = UGeo.area(L2[0], L2[1], L2[2], L2[3], L1[2], L1[3], L1[0], L1[1]);
+                Area areaClip = UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]);
                 areaImp.intersect(areaClip);
+                UGeo.PRINT(areaImp);
                 this.area = areaImp;
             }
 
@@ -96,8 +94,8 @@ public class Elem2Cross extends Elem2Simple {
             System.out.println(X1 + "  " + Y1 + "  =  " + X2 + "  " + Y2);
 
             double M[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
-            double L1[] = pXY(this.x1() + M[0], this.y1() + M[1], this.x2() + M[0], this.y2() + M[1], w, h);
-            double L2[] = pXY(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
+            double L1[] = crossLine(this.x1() + M[0], this.y1() + M[1], this.x2() + M[0], this.y2() + M[1], w, h);
+            double L2[] = crossLine(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
             Area areaImp = (Area) owner.area.clone();
             Area areaClip = UGeo.area(L2[0], L2[1], L2[2], L2[3], L1[2], L1[3], L1[0], L1[1]);
             areaImp.intersect(areaClip);
@@ -147,12 +145,12 @@ public class Elem2Cross extends Elem2Simple {
         }
     }
 
-    public double[] pXY(double x1, double y1, double x2, double y2, double w, double h) {
+    public double[] crossLine(double x1, double y1, double x2, double y2, double w, double h) {
         double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;
         double Y1 = (x1 == x2) ? 0 : (((0 - x1) / (x2 - x1)) * (y2 - y1)) + y1;
         double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1;
         double Y2 = (x1 == x2) ? h : (((w - x1) / (x2 - x1)) * (y2 - y1)) + y1;
-        System.out.println(X1 + "  " + Y1 + "  =  " + X2 + "  " + Y2);
+        //System.out.println(X1 + "  " + Y1 + "  =  " + X2 + "  " + Y2);
         return new double[]{X1, Y1, X2, Y2};
     }
 
