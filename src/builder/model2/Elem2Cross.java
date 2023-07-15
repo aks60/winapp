@@ -46,9 +46,9 @@ public class Elem2Cross extends Elem2Simple {
             //x = (y - y1)/(y2 -y1)*(x2 - x1) + x1,  y = (x - x1)/(x2 - x1)*(y2 - y1) + y1
             //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod            
             double X1 = (this.y1() == this.y2()) ? 0 : (((0 - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-            //double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+            double Y1 = (this.x1() == this.x2()) ? 0 : (((0 - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
             double X2 = (this.y1() == this.y2()) ? w : (((h - this.y1()) / (this.y2() - this.y1())) * (this.x2() - this.x1())) + this.x1();
-            //double Y2 = (this.x1() ==  this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
+            double Y2 = (this.x1() ==  this.x2()) ? h : (((w - this.x1()) / (this.x2() - this.x1())) * (this.y2() - this.y1())) + this.y1();
             
             double M[] = UGeo.diffOnAngl(UGeo.horizontAngl(this), this.artiklRec.getDbl(eArtikl.height) - this.artiklRec.getDbl(eArtikl.size_centr));
 
@@ -57,10 +57,14 @@ public class Elem2Cross extends Elem2Simple {
             Area clipLeft = UGeo.area(0, 0, 0, h, X2, h, X1, 0);
             Area clipMidl = UGeo.area(x1() - M[0], y1() - M[1], x2() - M[0], y2() - M[1], x2() + M[0], y2() + M[1], x1() + M[0], y1() + M[1]);
             Area clipRigh = UGeo.area(X1, 0, X2, h, w, h, w, 0);
+            
             areaLeft.intersect(clipLeft);
             areaRigh.intersect(clipRigh);
-
-            UGeo.PRINT(clipMidl);
+            owner.childs().get(0).area = areaLeft;
+            owner.childs().get(2).area = areaRigh;
+            
+            System.out.println(X1 + "  " + Y1 + "  =  " + X2 + "  " + Y2);
+            //System.out.println(M[0] + "   " + M[1]);
             
             //Вектор импоста
             Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, areaRigh);
