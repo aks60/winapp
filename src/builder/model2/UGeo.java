@@ -185,6 +185,15 @@ public class UGeo {
         return dot;
     }
 
+    //Точки пересечение импостом Canvas2D. x = (y - y1)/(y2 -y1)*(x2 - x1) + x1
+    //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod      
+    public static double[] crossCanvas(double x1, double y1, double x2, double y2, double w, double h) {
+        double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;  
+        double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
+        //System.out.println(X1 + "  " + 0 + "  =  " + X2 + "  " + h);
+        return new double[]{X1, 0, X2, h};
+    }
+    
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
         //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
         //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
@@ -795,22 +804,6 @@ public class UGeo {
         return new Area(p);
     }
 
-//    public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
-//        //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) <= 1);
-//        return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) < 1);
-//    }
-//    public static double[] segmentOnLine(Area area, double x1, double y1, double x2, double y2) {
-//        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
-//            //if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
-//            if (UGeo.pointOnLine(d.x1, d.y1, x1, y1, x2, y2)
-//                    && UGeo.pointOnLine(d.x2, d.y2, x1, y1, x2, y2)) {
-//
-//                return new double[]{d.x1, d.y1, d.x2, d.y2};
-//            }
-//            //}
-//        }
-//        return null;
-//    }
     public static double[] generalSegment(Area area1, Area area2) {
         ArrayList<Line2D.Double> list1 = UGeo.areaAllSegment(area1);
         ArrayList<Line2D.Double> list2 = UGeo.areaAllSegment(area2);
@@ -832,26 +825,6 @@ public class UGeo {
         return null;
     }
 
-//    public static Line2D.Double[] prevAndNextSegment(Area area, Elem2Simple elem) {
-//
-//        ArrayList<Line2D.Double> list = new ArrayList();
-//        for (Line2D.Double d : UGeo.areaAllSegment(area)) {
-//            if (Math.round(d.x1) != Math.round(d.x2) && Math.round(d.y1) != Math.round(d.y2)) {
-//                list.add(d);
-//            }
-//        }
-//        for (int i = 0; i < list.size(); i++) {
-//            Line2D.Double line = list.get(i);
-//            if (UGeo.pointOnLine(line.x1, line.y1, elem.x1(), elem.y1(), elem.x2(), elem.y2())
-//                    && UGeo.pointOnLine(line.x2, line.y2, elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
-//
-//                int k = (i == 0) ? list.size() - 1 : i - 1;
-//                int j = (i == (list.size() - 1)) ? 0 : i + 1;
-//                return new Line2D.Double[]{list.get(k), list.get(j)};
-//            }
-//        }
-//        return null;
-//    }
     public static void PRINT(Area area) {
         int i = 0;
         ArrayList<Line2D.Double> listLine = UGeo.areaAllSegment(area);

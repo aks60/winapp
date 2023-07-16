@@ -68,35 +68,22 @@ public abstract class Com6s {
             ev[1] = false;
         };
         ListenerMouse mouseDragge = (event) -> {
-//            int mx = wing.canvas.getWidth() - event.getX();
-//            int my = wing.canvas.getHeight() - event.getY();
-//            double dx = event.getX() - pointPress.getX();
-//            double dy = event.getY() - pointPress.getY();
-//            if (ev[0] == true) {
-//                if (event.getX() > margin && mx > margin && event.getY() > margin && my > margin) { //контроль выхода за канву
-//                    x1(dx / wing.scale + x1());
-//                    y1(dy / wing.scale + y1());
-//                }
-//            } else if (ev[1] == true) {
-//                if (event.getX() > margin && mx > margin && event.getY() > margin && my > margin) { //контроль выхода за канву
-//                    x2(dx / wing.scale + x2());
-//                    y2(dy / wing.scale + y2());
-//                }
-//            }
-//            pointPress = event.getPoint();
-            int dx = wing.canvas.getWidth() - event.getX();
-            int dy = wing.canvas.getHeight() - event.getY();
+            int mx = wing.canvas.getWidth() - event.getX();
+            int my = wing.canvas.getHeight() - event.getY();
+            double dx = event.getX() - pointPress.getX();
+            double dy = event.getY() - pointPress.getY();
             if (ev[0] == true) {
-                if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x1(event.getX() / wing.scale);
-                    y1(event.getY() / wing.scale);
+                if (event.getX() > margin && mx > margin && event.getY() > margin && my > margin) { //контроль выхода за канву
+                    x1(dx / wing.scale + x1());
+                    y1(dy / wing.scale + y1());
                 }
             } else if (ev[1] == true) {
-                if (event.getX() > margin && dx > margin && event.getY() > margin && dy > margin) { //контроль выхода за канву
-                    x2(event.getX() / wing.scale);
-                    y2(event.getY() / wing.scale);
+                if (event.getX() > margin && mx > margin && event.getY() > margin && my > margin) { //контроль выхода за канву
+                    x2(dx / wing.scale + x2());
+                    y2(dy / wing.scale + y2());
                 }
             }
+            pointPress = event.getPoint();
         };
         this.wing.mousePressed.add(mousePressed);
         this.wing.mouseReleased.add(mouseReleased);
