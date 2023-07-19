@@ -122,7 +122,12 @@ public abstract class Com6s {
     }
 
     public double x2() {
-        return (gson.x2 != null) ? gson.x2 : -1;
+        if (gson.x2 != null) {
+            return gson.x2;
+        } else {
+            //Com6s e = wing.
+            return (gson.x2 != null) ? gson.x2 : -1;
+        }
     }
 
     public double y2() {

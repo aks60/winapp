@@ -1,6 +1,7 @@
 package builder.model2;
 
 import builder.IElem5e;
+import domain.eArtikl;
 import enums.Layout;
 import enums.Type;
 import java.awt.Point;
@@ -146,11 +147,38 @@ public class UGeo {
             return null;
         }
     }    
+    
+    public static Area area(double... m) {
+        GeneralPath p = new GeneralPath();
+        try {
+            p.moveTo(Math.round(m[0]), Math.round(m[1]));
+            for (int i = 3; i < m.length; i = i + 2) {
+                p.lineTo(Math.round(m[i - 1]), Math.round(m[i]));
+            }
+            p.closePath();
+        } catch (Exception e) {
+            System.out.println("Ошибка:UGeo.area()");
+        }
+        return new Area(p);
+    }
+    
     //Ширина рамки по оси x и y
     public static double[] diffOnAngl(double anglHoriz, double h) {
 
         double x = -1 * cos(anglHoriz);
         double y = -1 * sin(anglHoriz);
+
+        if (Math.abs(x) >= Math.abs(y)) {
+            return new double[]{0, h / x};
+        } else {
+            return new double[]{h / y, 0};
+        }
+    }
+    //Ширина рамки по оси x и y
+    public static double[] diffOnAng2(double anglHoriz, double h) {
+
+        double x = cos(anglHoriz);
+        double y = sin(anglHoriz);
 
         if (Math.abs(x) >= Math.abs(y)) {
             return new double[]{0, h / x};
@@ -201,10 +229,10 @@ public class UGeo {
         return (d > -.1 && d < .1);
     }
 
-    public static Elem2Simple elemFromSegment(List<Elem2Simple> listLine, double x1, double y1, double x2, double y2) {
+    public static Elem2Simple elemFromSegment(List<Elem2Simple> listLine, Line2D.Double segment) {
         for (Elem2Simple elem : listLine) {
-            if (UGeo.pointOnLine(x1, y1, elem.x1(), elem.y1(), elem.x2(), elem.y2())
-                    && UGeo.pointOnLine(x2, y2, elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
+            if (UGeo.pointOnLine(segment.getX1(), segment.getY1(), elem.x1(), elem.y1(), elem.x2(), elem.y2())
+                    && UGeo.pointOnLine(segment.getX2(), segment.getY2(), elem.x1(), elem.y1(), elem.x2(), elem.y2())) {
                 return elem;
             }
         }
@@ -268,6 +296,7 @@ public class UGeo {
         return areaSegments;
     }
 
+    //Находим предыднщую и последующую линию от совместной между area1 и area2
     public static Line2D.Double[] prevAndNextSegment(Area area1, Area area2) {
 
         ArrayList<Line2D.Double> list1a = UGeo.areaAllSegment(area1);
@@ -285,16 +314,19 @@ public class UGeo {
                 list2.add(l);
             }
         }
-
+        //Цикл по сегментам area1
         for (int i1 = 0; i1 < list1.size(); i1++) {
             Line2D.Double line1 = list1.get(i1);
 
+            //Цикл по сегментам area2
             for (int i2 = 0; i2 < list2.size(); i2++) {
                 Line2D.Double line2 = list2.get(i2);
 
+                //Если сегменты area1 и area2 общие
                 if (Math.round(line1.x1) == Math.round(line2.x2) && Math.round(line1.y1) == Math.round(line2.y2)
                         && Math.round(line1.x2) == Math.round(line2.x1) && Math.round(line1.y2) == Math.round(line2.y1)) {
 
+                    //Находим предыдущий и последующий сегмент
                     int k1 = (i1 == 0) ? list1.size() - 1 : i1 - 1;
                     int j1 = (i1 == (list1.size() - 1)) ? 0 : i1 + 1;
                     Line2D.Double[] l1 = new Line2D.Double[]{list1.get(k1), list1.get(j1)};
@@ -309,20 +341,20 @@ public class UGeo {
         }
         return null;
     }
-
-    public static Area area(double... m) {
-        GeneralPath p = new GeneralPath();
-        try {
-            p.moveTo(Math.round(m[0]), Math.round(m[1]));
-            for (int i = 3; i < m.length; i = i + 2) {
-                p.lineTo(Math.round(m[i - 1]), Math.round(m[i]));
-            }
-            p.closePath();
-        } catch (Exception e) {
-            System.out.println("Ошибка:UGeo.area()");
+    
+    //Внутренняя обводка ареа
+    public static Area areaPadding(List<Elem2Simple> listLine, Elem2Simple elem, Area area) {
+        List<Double> listPoint = new ArrayList();
+        for (Line2D.Double segm : UGeo.areaAllSegment(area)) {
+            Elem2Simple e = UGeo.elemFromSegment(listLine, segm);
+            double h[] = UGeo.diffOnAng2(UGeo.horizontAngl(e), e.artiklRec.getDbl(eArtikl.height) - e.artiklRec.getDbl(eArtikl.size_centr));
+            double p[] = UGeo.crossOnLine(elem.x1() + h[0], elem.y1() + h[1], elem.x2() + h[0], elem.y2() + h[1], e.x1() + h[0], e.y1() + h[1], e.x2() + h[0], e.y2() + h[1]);
+            listPoint.add(p[0]);
+            listPoint.add(p[1]);
         }
-        return new Area(p);
-    }
+        double[] arr = listPoint.stream().mapToDouble(i -> i).toArray();
+        return UGeo.area(arr);
+    }    
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
