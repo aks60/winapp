@@ -9,6 +9,7 @@ import domain.eArtikl;
 import enums.Type;
 import java.awt.Point;
 import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.List;
 
@@ -125,12 +126,35 @@ public abstract class Com6s {
         if (gson.x2 != null) {
             return gson.x2;
         } else {
-            //Com6s e = wing.
+            double[] d = new double[6];
+            PathIterator it1 = owner.area.getPathIterator(null);
+            while (!it1.isDone()) {
+                it1.currentSegment(d);
+                if (d[0] == x1()) {
+                    it1.next();
+                    return d[0];
+                }
+                it1.next();
+            }
             return (gson.x2 != null) ? gson.x2 : -1;
         }
     }
 
     public double y2() {
+        if (gson.y2 != null) {
+            return gson.y2;
+        } else {
+            double[] d = new double[6];
+            PathIterator it1 = owner.area.getPathIterator(null);
+            while (!it1.isDone()) {
+                it1.currentSegment(d);
+                if (d[0] == x1()) {
+                    it1.next();
+                    return d[1];
+                }
+                it1.next();
+            }
+        }
         return (gson.y2 != null) ? gson.y2 : -1;
     }
 

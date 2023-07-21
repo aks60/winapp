@@ -69,8 +69,8 @@ public class Elem2Cross extends Elem2Simple {
             Area areaElem = UGeo.areaPadding(wing.listLine, this, owner.area);
             //areaElem = (Area) owner.area.clone();
             
-            UGeo.PRINT(owner.area);
-            UGeo.PRINT(areaElem);
+            //UGeo.PRINT(owner.area);
+            //UGeo.PRINT(areaElem);
 
             areaElem.intersect(UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]));
             this.area = areaElem;
