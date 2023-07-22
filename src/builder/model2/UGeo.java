@@ -343,12 +343,20 @@ public class UGeo {
     }
     
     //Внутренняя обводка ареа
-    public static Area areaPadding(List<Elem2Simple> listLine, Elem2Simple elem, Area area) {
+    public static Area areaPadding(List<Elem2Simple> listLine, Elem2Simple elem1, Area area) {
         List<Double> listPoint = new ArrayList();
+        double b[] = UGeo.diffOnAngl(UGeo.horizontAngl(elem1), elem1.artiklRec.getDbl(eArtikl.height) - elem1.artiklRec.getDbl(eArtikl.size_centr)); 
         for (Line2D.Double segm : UGeo.areaAllSegment(area)) {
-            Elem2Simple e = UGeo.elemFromSegment(listLine, segm);
-            double h[] = UGeo.diffOnAng2(UGeo.horizontAngl(e), e.artiklRec.getDbl(eArtikl.height) - e.artiklRec.getDbl(eArtikl.size_centr));
-            double p[] = UGeo.crossOnLine(elem.x1() + h[0], elem.y1() + h[1], elem.x2() + h[0], elem.y2() + h[1], e.x1() + h[0], e.y1() + h[1], e.x2() + h[0], e.y2() + h[1]);
+            
+            Elem2Simple elem2 = UGeo.elemFromSegment(listLine, segm);
+            
+            double h[] = UGeo.diffOnAngl(UGeo.horizontAngl(elem2), elem2.artiklRec.getDbl(eArtikl.height) - elem2.artiklRec.getDbl(eArtikl.size_centr));    
+            double p[] = UGeo.crossOnLine(
+                    elem1.x1() + b[0], elem1.y1() + b[1], elem1.x2() + b[0], elem1.y2() + b[1],  //1-линия
+                    elem2.x1() + h[0], elem2.y1() + h[1], elem2.x2() + h[0], elem2.y2() + h[1]); //2-линия
+            
+            System.out.println(h[0] + "   " + h[1]);
+            System.out.println(p[0] + "   " + p[1]);
             listPoint.add(p[0]);
             listPoint.add(p[1]);
         }

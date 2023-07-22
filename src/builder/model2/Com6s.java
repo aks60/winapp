@@ -136,7 +136,7 @@ public abstract class Com6s {
                 }
                 it1.next();
             }
-            return (gson.x2 != null) ? gson.x2 : -1;
+            return -1;
         }
     }
 
@@ -154,8 +154,8 @@ public abstract class Com6s {
                 }
                 it1.next();
             }
+            return -1;
         }
-        return (gson.y2 != null) ? gson.y2 : -1;
     }
 
     public void x1(double v) {
