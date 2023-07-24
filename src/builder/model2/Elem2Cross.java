@@ -86,4 +86,7 @@ public class Elem2Cross extends Elem2Simple {
             System.err.println("Ошибка:Elem2Cross.paint() " + e);
         }
     }
+    
+    // <editor-fold defaultstate="collapsed" desc="GET-SET">
+    // </editor-fold>       
 }

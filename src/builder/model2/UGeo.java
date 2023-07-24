@@ -60,45 +60,9 @@ public class UGeo {
         return 180 - acos(c);
     }
 
-    //http://ru.solverbook.com/spravochnik/vektory/ugol-mezhdu-vektorami/
-    public static double betweenAngl(Com6s e1, Com6s e2) {
-
-        double dx1 = e1.x2() - e1.x1();
-        double dy1 = e1.y2() - e1.y1();
-        double dx2 = e2.x2() - e2.x1();
-        double dy2 = e2.y2() - e2.y1();
-
-        double s = dx1 * dx2 + dy1 * dy2;
-        double a = Math.sqrt(Math.pow(dx1, 2) + Math.pow(dy1, 2));
-        double b = Math.sqrt(Math.pow(dx2, 2) + Math.pow(dy2, 2));
-        double c = s / (a * b);
-        return 180 - acos(c);
-    }
-
     //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
     public static double horizontAngl(IElem5e e) {
-        double x = e.x2() - e.x1();
-        double y = e.y1() - e.y2();
-
-        if (x > 0 && y == 0) {
-            return 0;
-        } else if (x < 0 && y == 0) {
-            return 180;
-        } else if (x == 0 && y > 0) {
-            return 90;
-        } else if (x == 0 & y < 0) {
-            return 270;
-        } else if (x > 0 && y > 0) {
-            return atan(y / x);
-        } else if (x < 0 && y > 0) {
-            return 180 + atan(y / x);
-        } else if (x < 0 && y < 0) {
-            return 180 + atan(y / x);
-        } else if (x > 0 && y < 0) {
-            return 360 + atan(y / x);
-        } else {
-            return 0;
-        }
+        return horizontAngl(e.x1(), e.y1(), e.x2(), e.y2());
     }
 
     //https://www.onemathematicalcat.org/Math/Precalculus_obj/horizVertToDirMag.htm
@@ -167,19 +131,6 @@ public class UGeo {
 
         double x = -1 * cos(anglHoriz);
         double y = -1 * sin(anglHoriz);
-
-        if (Math.abs(x) >= Math.abs(y)) {
-            return new double[]{0, h / x};
-        } else {
-            return new double[]{h / y, 0};
-        }
-    }
-
-    //Ширина рамки по оси x и y
-    public static double[] diffOnAng2(double anglHoriz, double h) {
-
-        double x = cos(anglHoriz);
-        double y = sin(anglHoriz);
 
         if (Math.abs(x) >= Math.abs(y)) {
             return new double[]{0, h / x};
