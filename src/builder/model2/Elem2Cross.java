@@ -66,24 +66,10 @@ public class Elem2Cross extends Elem2Simple {
             double L2[] = UGeo.crossCanvas(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
 
             //Area импоста внутренняя
-            Area areaElem = UGeo.areaPadding(wing.listLine, this, owner.area);
-            //areaElem = (Area) owner.area.clone();
-            //UGeo.PRINT(owner.area);
-            //UGeo.PRINT(areaElem);
-            
-//            UGeo.PRINT(UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]));
-//            System.out.println(L1[0] + "    " + L1[1] + "  :  " + L1[2] + "   " + L1[3]);
-//            System.out.println(x1() + "    " + y1() + "  :  " + x2() + "   " + y2());
-//            System.out.println(L2[0] + "    " + L2[1] + "  :  " + L2[2] + "   " + L2[3]);
-            
-//            for (Elem2Frame e : wing.listFrame) {
-//                System.out.println(e.x2() + "   " + e.y2());
-//            }            
+            Area areaPadding = UGeo.areaPadding(wing.listFrame);        
 
-            areaElem.intersect(UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]));
-            this.area = areaElem;
-            
-            //UGeo.PRINT(areaElem);
+            areaPadding.intersect(UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]));
+            this.area = areaPadding;
 
         } catch (Exception e) {
             this.area = null;

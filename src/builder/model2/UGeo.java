@@ -146,8 +146,8 @@ public class UGeo {
             System.err.println("Ошибка:UGeo.polygon()" + e);
             return null;
         }
-    }    
-    
+    }
+
     public static Area area(double... m) {
         GeneralPath p = new GeneralPath();
         try {
@@ -157,11 +157,11 @@ public class UGeo {
             }
             p.closePath();
         } catch (Exception e) {
-            System.out.println("Ошибка:UGeo.area()");
+            System.err.println("Ошибка:UGeo.area()");
         }
         return new Area(p);
     }
-    
+
     //Ширина рамки по оси x и y
     public static double[] diffOnAngl(double anglHoriz, double h) {
 
@@ -174,6 +174,7 @@ public class UGeo {
             return new double[]{h / y, 0};
         }
     }
+
     //Ширина рамки по оси x и y
     public static double[] diffOnAng2(double anglHoriz, double h) {
 
@@ -216,12 +217,12 @@ public class UGeo {
     //Точки пересечение импостом Canvas2D. x = (y - y1)/(y2 -y1)*(x2 - x1) + x1
     //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod      
     public static double[] crossCanvas(double x1, double y1, double x2, double y2, double w, double h) {
-        double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;  
-        double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1; 
+        double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;
+        double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1;
         //System.out.println(X1 + "  " + 0 + "  =  " + X2 + "  " + h);
         return new double[]{X1, 0, X2, h};
     }
-    
+
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
         //return (Math.round(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1))) == 0);
         //return (((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)) == 0);
@@ -341,28 +342,32 @@ public class UGeo {
         }
         return null;
     }
-    
-    //Внутренняя обводка ареа
-    public static Area areaPadding(List<Elem2Simple> listLine, Elem2Simple elem1, Area area) {
+
+    //Внутренняя обводка ареа  
+    public static Area areaPadding(List<Elem2Frame> listFrame) {
         List<Double> listPoint = new ArrayList();
-        double b[] = UGeo.diffOnAngl(UGeo.horizontAngl(elem1), elem1.artiklRec.getDbl(eArtikl.height) - elem1.artiklRec.getDbl(eArtikl.size_centr)); 
-        for (Line2D.Double segm : UGeo.areaAllSegment(area)) {
-            
-            Elem2Simple elem2 = UGeo.elemFromSegment(listLine, segm);
-            
-            double h[] = UGeo.diffOnAngl(UGeo.horizontAngl(elem2), elem2.artiklRec.getDbl(eArtikl.height) - elem2.artiklRec.getDbl(eArtikl.size_centr));    
-            double p[] = UGeo.crossOnLine(
-                    elem1.x1() + b[0], elem1.y1() + b[1], elem1.x2() + b[0], elem1.y2() + b[1],  //1-линия
-                    elem2.x1() + h[0], elem2.y1() + h[1], elem2.x2() + h[0], elem2.y2() + h[1]); //2-линия
-            
-            System.out.println(h[0] + "   " + h[1]);
-            System.out.println(p[0] + "   " + p[1]);
-            listPoint.add(p[0]);
-            listPoint.add(p[1]);
+        try {
+            for (int i = 0; i < listFrame.size(); i++) {
+                
+                int k1 = (i == 0) ? listFrame.size() - 1 : i - 1;
+                int k2 = (i == (listFrame.size() - 1)) ? 0 : i + 1;
+                Elem2Simple e1 = listFrame.get(k1);
+                Elem2Simple e2 = listFrame.get(k2);
+
+                double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
+                double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e2), e2.artiklRec.getDbl(eArtikl.height) - e2.artiklRec.getDbl(eArtikl.size_centr));
+                double p[] = UGeo.crossOnLine(
+                        e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
+                        e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
+                listPoint.add(p[0]);
+                listPoint.add(p[1]);               
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:UGeo.areaPadding()" + e);
         }
         double[] arr = listPoint.stream().mapToDouble(i -> i).toArray();
         return UGeo.area(arr);
-    }    
+    }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
     //https://stackoverflow.com/questions/21941156/shapes-and-segments-in-java
@@ -403,7 +408,7 @@ public class UGeo {
         try {
             at.invert();
         } catch (NoninvertibleTransformException event) {
-            System.out.println("Ошибка:UGeo.split() " + event);
+            System.err.println("Ошибка:UGeo.split() " + event);
         }
         a0 = a0.createTransformedArea(at);
         a1 = a1.createTransformedArea(at);
