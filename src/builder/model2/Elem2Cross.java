@@ -65,6 +65,8 @@ public class Elem2Cross extends Elem2Simple {
             double L1[] = UGeo.crossCanvas(this.x1() + M[0], this.y1() + M[1], this.x2() + M[0], this.y2() + M[1], w, h);
             double L2[] = UGeo.crossCanvas(this.x1() - M[0], this.y1() - M[1], this.x2() - M[0], this.y2() - M[1], w, h);
 
+            UGeo.PRINT(owner.area);
+            
             //Area импоста внутренняя
             Area areaPadding = UGeo.areaPadding(wing.listFrame);        
 
