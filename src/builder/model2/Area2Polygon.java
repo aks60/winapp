@@ -14,7 +14,7 @@ public class Area2Polygon extends Area2Simple {
         super(wing, gson, null);
     }
 
-    public void Area2Polygon() {
+    public void setLocation() {
 
         try {
             GeneralPath p = new GeneralPath();
@@ -29,7 +29,7 @@ public class Area2Polygon extends Area2Simple {
             area = new Area(p);
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Area2Polygon()" + toString() + e);
+            System.err.println("Ошибка:Area2Polygon.setLocation()" + toString() + e);
         }
     }
 
