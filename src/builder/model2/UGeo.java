@@ -310,10 +310,11 @@ public class UGeo {
                 double p[] = UGeo.crossOnLine(
                         e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
                         e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
-                //System.out.println(e1.x1() + h1[0] + " * " +  e1.y1() + h1[1] + " - " +  e1.x2() + h1[0] + " * " +  e1.y2() + h1[1]);
-                //System.out.println(e2.x1() + h2[0] + " * " +  e2.y1() + h2[1] + " - " +  e2.x2() + h2[0] + " * " +  e2.y2() + h2[1]);
+                UGeo.PRINT(e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
+                UGeo.PRINT(e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
                 //System.out.println(e1.x2() + h1[0]);
-                //System.out.println(p[0] + " - " + p[1]);
+                UGeo.PRINT(h1[0], h2[1]);
+                System.out.println(p[0] + " - " + p[1]);
                 listPoint.add(p[0]);
                 listPoint.add(p[1]);
             }
@@ -868,8 +869,12 @@ public class UGeo {
         System.out.println(listStr);
     }
 
-    public static void PRINT(double x1, double y1, double x2, double y2) {
-        System.out.println((int) x1 + ":" + (int) y1 + ":" + (int) x2 + ":" + (int) y2);
+    public static void PRINT(double... p) {
+        if (p.length == 2) {
+            System.out.println((int) p[0] + ":" + (int) p[1]);
+        } else {
+            System.out.println((int) p[0] + ":" + (int) p[1] + ":" + (int) p[2] + ":" + (int) p[3]);
+        }
     }
 
 // </editor-fold>    
