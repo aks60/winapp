@@ -2,11 +2,10 @@ package builder.model2;
 
 import builder.Wingeo;
 import builder.script.GeoElem;
-import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import java.util.ArrayList;
-import java.util.List;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Polygon;
 
 public class Area2Polygon extends Area2Simple {
 
@@ -31,6 +30,18 @@ public class Area2Polygon extends Area2Simple {
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Polygon.setLocation()" + toString() + e);
         }
+    }
+
+    public void setLocation2() {
+
+       Coordinate[] coordinates = new Coordinate[wing.listFrame.size()];
+        Polygon polygon = wing.geomFact.createPolygon();
+        //for (int i = 1; i < wing.listFrame.size(); ++i) {
+            for (Elem2Frame frame : wing.listFrame) {
+            
+           //coordinates[i] = new Coordinate(frame.x1(), frame.y1(), frame.x2(), frame.y2());
+        }
+        
     }
 
     public void paint() {

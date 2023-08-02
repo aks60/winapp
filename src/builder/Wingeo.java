@@ -21,13 +21,12 @@ import domain.eSysprof;
 import enums.Type;
 import enums.UseArtiklTo;
 import java.awt.Graphics2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.locationtech.jts.geom.GeometryFactory;
 
 public class Wingeo {
 
@@ -44,6 +43,7 @@ public class Wingeo {
     public ArrayList<ListenerMouse> mouseDragged = new ArrayList();
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public GeometryFactory geomFact = new GeometryFactory();
     public List<Area2Simple> listArea = new ArrayList(); //список ареа.
     public List<Elem2Simple> listLine = new ArrayList(); //список элем.
     public List<Elem2Frame> listFrame = new ArrayList(); //список рам
