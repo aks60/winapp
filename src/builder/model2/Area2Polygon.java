@@ -4,9 +4,6 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Polygon;
-
 public class Area2Polygon extends Area2Simple {
 
     public Area2Polygon(Wingeo wing, GeoElem gson) {

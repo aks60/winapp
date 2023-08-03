@@ -300,21 +300,16 @@ public class UGeo {
         try {
             for (int i = 0; i < listFrame.size(); i++) {
 
-                int k1 = (i == 0) ? listFrame.size() - 1 : i - 1;
-                int k2 = (i == (listFrame.size() - 1)) ? 0 : i + 1;
-                Elem2Simple e1 = listFrame.get(k1);
-                Elem2Simple e2 = listFrame.get(k2);
+                int j = (i == (listFrame.size() - 1)) ? 0 : i + 1;
+                Elem2Simple e1 = listFrame.get(i);
+                Elem2Simple e2 = listFrame.get(j);
 
                 double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
                 double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e2), e2.artiklRec.getDbl(eArtikl.height) - e2.artiklRec.getDbl(eArtikl.size_centr));
                 double p[] = UGeo.crossOnLine(
                         e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
                         e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
-                UGeo.PRINT(e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1]);
-                UGeo.PRINT(e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
-                //System.out.println(e1.x2() + h1[0]);
-                UGeo.PRINT(h1[0], h2[1]);
-                System.out.println(p[0] + " - " + p[1]);
+
                 listPoint.add(p[0]);
                 listPoint.add(p[1]);
             }
@@ -326,15 +321,16 @@ public class UGeo {
     }
 
     public static Area areaPadding(Area area, List<Elem2Simple> listFrame) {
+        UGeo.PRINT(area);
         ArrayList<Line2D.Double> listLine = areaAllSegment(area);
         List<Double> listPoint = new ArrayList();
         try {
             for (int i = 0; i < listLine.size(); i++) {
 
-                int k1 = (i == 0) ? listLine.size() - 1 : i - 1;
-                int k2 = (i == (listLine.size() - 1)) ? 0 : i + 1;
-                Line2D.Double segment1 = listLine.get(k1);
-                Line2D.Double segment2 = listLine.get(k2);
+                int j = (i == (listLine.size() - 1)) ? 0 : i + 1;
+                Line2D.Double segment1 = listLine.get(i);
+                Line2D.Double segment2 = listLine.get(j);
+
                 Elem2Simple e1 = UGeo.elemFromSegment(listFrame, segment1);
                 Elem2Simple e2 = UGeo.elemFromSegment(listFrame, segment2);
 
@@ -343,10 +339,7 @@ public class UGeo {
                 double p[] = UGeo.crossOnLine(
                         e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
                         e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
-                //System.out.println(e1.x1() + h1[0] + " * " +  e1.y1() + h1[1] + " - " +  e1.x2() + h1[0] + " * " +  e1.y2() + h1[1]);
-                //System.out.println(e2.x1() + h2[0] + " * " +  e2.y1() + h2[1] + " - " +  e2.x2() + h2[0] + " * " +  e2.y2() + h2[1]);
-                //System.out.println(e1.x2() + h1[0]);
-                //System.out.println(p[0] + " - " + p[1]);
+
                 listPoint.add(p[0]);
                 listPoint.add(p[1]);
             }
@@ -355,6 +348,17 @@ public class UGeo {
         }
         double[] arr = listPoint.stream().mapToDouble(i -> i).toArray();
         return UGeo.area(arr);
+    }
+
+    public static Area areaReduc(Area area) {
+        ArrayList<Double> listLine = new ArrayList();
+        for (Line2D.Double line : UGeo.areaAllSegment(area)) {
+            if (line.x1 == line.x2 && line.y1 == line.y2) {
+                listLine.add(line.x1);
+                listLine.add(line.y1);
+            }
+        }
+        return area;
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">
