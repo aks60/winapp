@@ -32,19 +32,8 @@ public class Area2Polygon extends Area2Simple {
         }
     }
 
-    public void setLocation2() {
-
-       Coordinate[] coordinates = new Coordinate[wing.listFrame.size()];
-        Polygon polygon = wing.geomFact.createPolygon();
-        //for (int i = 1; i < wing.listFrame.size(); ++i) {
-            for (Elem2Frame frame : wing.listFrame) {
-            
-           //coordinates[i] = new Coordinate(frame.x1(), frame.y1(), frame.x2(), frame.y2());
-        }
-        
-    }
-
     public void paint() {
+        wing.gc2D.draw(area);
 //        Area area1 = UGeo.area(0, 0, 0, 900, 600, 800, 0, 0);
 //        UGeo.PRINT("", area1);
 //
