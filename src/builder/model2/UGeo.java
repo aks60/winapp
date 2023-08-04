@@ -296,7 +296,7 @@ public class UGeo {
 
     //Внутренняя обводка ареа  
     public static Area areaPadding(Area area, List<Elem2Simple> listFrame) {
-        UGeo.PRINT(area);
+        //UGeo.PRINT(area);
         ArrayList<Line2D.Double> listLine = areaAllSegment(area);
         List<Double> listPoint = new ArrayList();
         try {
