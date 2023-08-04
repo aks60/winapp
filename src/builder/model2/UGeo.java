@@ -295,31 +295,6 @@ public class UGeo {
     }
 
     //Внутренняя обводка ареа  
-    public static Area areaPadding(List<Elem2Frame> listFrame) {
-        List<Double> listPoint = new ArrayList();
-        try {
-            for (int i = 0; i < listFrame.size(); i++) {
-
-                int j = (i == (listFrame.size() - 1)) ? 0 : i + 1;
-                Elem2Simple e1 = listFrame.get(i);
-                Elem2Simple e2 = listFrame.get(j);
-
-                double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
-                double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e2), e2.artiklRec.getDbl(eArtikl.height) - e2.artiklRec.getDbl(eArtikl.size_centr));
-                double p[] = UGeo.crossOnLine(
-                        e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
-                        e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
-
-                listPoint.add(p[0]);
-                listPoint.add(p[1]);
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:UGeo.areaPadding()" + e);
-        }
-        double[] arr = listPoint.stream().mapToDouble(i -> i).toArray();
-        return UGeo.area(arr);
-    }
-
     public static Area areaPadding(Area area, List<Elem2Simple> listFrame) {
         UGeo.PRINT(area);
         ArrayList<Line2D.Double> listLine = areaAllSegment(area);
@@ -334,14 +309,16 @@ public class UGeo {
                 Elem2Simple e1 = UGeo.elemFromSegment(listFrame, segment1);
                 Elem2Simple e2 = UGeo.elemFromSegment(listFrame, segment2);
 
-                double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
-                double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e2), e2.artiklRec.getDbl(eArtikl.height) - e2.artiklRec.getDbl(eArtikl.size_centr));
-                double p[] = UGeo.crossOnLine(
-                        e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
-                        e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
+                if (e1 != null && e2 != null && e1 != e2) {
+                    double h1[] = UGeo.diffOnAngl(UGeo.horizontAngl(e1), e1.artiklRec.getDbl(eArtikl.height) - e1.artiklRec.getDbl(eArtikl.size_centr));
+                    double h2[] = UGeo.diffOnAngl(UGeo.horizontAngl(e2), e2.artiklRec.getDbl(eArtikl.height) - e2.artiklRec.getDbl(eArtikl.size_centr));
+                    double p[] = UGeo.crossOnLine(
+                            e1.x1() + h1[0], e1.y1() + h1[1], e1.x2() + h1[0], e1.y2() + h1[1],
+                            e2.x1() + h2[0], e2.y1() + h2[1], e2.x2() + h2[0], e2.y2() + h2[1]);
 
-                listPoint.add(p[0]);
-                listPoint.add(p[1]);
+                    listPoint.add(p[0]);
+                    listPoint.add(p[1]);
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка:UGeo.areaPadding()" + e);
