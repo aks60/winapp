@@ -4,6 +4,11 @@ import builder.Wingeo;
 import builder.script.GeoElem;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
+import java.util.List;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Polygon;
+
 public class Area2Polygon extends Area2Simple {
 
     public Area2Polygon(Wingeo wing, GeoElem gson) {
@@ -27,6 +32,17 @@ public class Area2Polygon extends Area2Simple {
         } catch (Exception e) {
             System.err.println("Ошибка:Area2Polygon.setLocation()" + toString() + e);
         }
+    }
+
+    public void setLocation2() {
+
+        List<Coordinate> listCoord = new ArrayList();
+        for (Elem2Frame frame : wing.listFrame) {
+            listCoord.add(new Coordinate(frame.x1(), frame.y1()));
+        }
+        Coordinate[] coordinates = new Coordinate[listCoord.size()];
+        listCoord.toArray(coordinates);
+        AREA = wing.geomFact.createPolygon(coordinates);
     }
 
     public void paint() {

@@ -328,14 +328,21 @@ public class UGeo {
     }
 
     public static Area areaReduc(Area area) {
-        ArrayList<Double> listLine = new ArrayList();
-        for (Line2D.Double line : UGeo.areaAllSegment(area)) {
-            if (line.x1 == line.x2 && line.y1 == line.y2) {
-                listLine.add(line.x1);
-                listLine.add(line.y1);
+        UGeo.PRINT(area);
+        ArrayList<Double> listPoint = new ArrayList();
+        try {
+            for (Line2D.Double line : UGeo.areaAllSegment(area)) {
+                if (Math.abs(line.x1 - line.x2) > 2 && Math.abs(line.y1 - line.y2) > 2) {
+                    listPoint.add(line.x1);
+                    listPoint.add(line.y1);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка:UGeo.areaReduc()" + e);
         }
-        return area;
+        double[] arr = listPoint.stream().mapToDouble(i -> i).toArray();
+        UGeo.PRINT(UGeo.area(arr));
+        return UGeo.area(arr);
     }
 
 // <editor-fold defaultstate="collapsed" desc="XLAM">

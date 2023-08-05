@@ -12,6 +12,7 @@ import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.List;
+import org.locationtech.jts.geom.Polygon;
 
 public abstract class Com6s {
 
@@ -23,6 +24,7 @@ public abstract class Com6s {
     public GeoElem gson = null; //gson object конструкции
     public Type type = Type.NONE; //тип элемента или окна
     public Area area = null;
+    public Polygon AREA = null;
     private boolean ev[] = {false, false};
     private Point pointPress = null;
     private int margin = 4;  //отступы вокруг канвы
