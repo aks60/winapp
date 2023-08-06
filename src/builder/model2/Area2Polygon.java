@@ -2,12 +2,13 @@ package builder.model2;
 
 import builder.Wingeo;
 import builder.script.GeoElem;
+import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.List;
+import org.locationtech.jts.awt.ShapeWriter;
 import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Polygon;
 
 public class Area2Polygon extends Area2Simple {
 
@@ -15,8 +16,7 @@ public class Area2Polygon extends Area2Simple {
         super(wing, gson, null);
     }
 
-    public void setLocation() {
-
+    public void setLocation2() {
         try {
             GeneralPath p = new GeneralPath();
             p.reset();
@@ -34,15 +34,21 @@ public class Area2Polygon extends Area2Simple {
         }
     }
 
-    public void setLocation2() {
+    public void setLocation() {
 
         List<Coordinate> listCoord = new ArrayList();
         for (Elem2Frame frame : wing.listFrame) {
             listCoord.add(new Coordinate(frame.x1(), frame.y1()));
         }
+        listCoord.add(new Coordinate(wing.listFrame.get(0).x1(), wing.listFrame.get(0).y1()));
+        
         Coordinate[] coordinates = new Coordinate[listCoord.size()];
         listCoord.toArray(coordinates);
         AREA = wing.geomFact.createPolygon(coordinates);
+        ShapeWriter sw = new ShapeWriter();
+        Shape polyShape = sw.toShape(AREA);
+        area = new Area(polyShape);
+        
     }
 
     public void paint() {
