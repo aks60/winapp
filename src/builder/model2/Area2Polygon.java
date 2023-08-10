@@ -16,7 +16,7 @@ public class Area2Polygon extends Area2Simple {
         super(wing, gson, null);
     }
 
-    public void setLocation2() {
+    public void setLocation() {
         try {
             GeneralPath p = new GeneralPath();
             p.reset();
@@ -34,7 +34,7 @@ public class Area2Polygon extends Area2Simple {
         }
     }
 
-    public void setLocation() {
+    public void setLocation2() {
 
         List<Coordinate> listCoord = new ArrayList();
         for (Elem2Frame frame : wing.listFrame) {
@@ -52,7 +52,7 @@ public class Area2Polygon extends Area2Simple {
     }
 
     public void paint() {
-        wing.gc2D.draw(area);
+     //   wing.gc2D.draw(area);
 //        Area area1 = UGeo.area(0, 0, 0, 900, 600, 800, 0, 0);
 //        UGeo.PRINT("", area1);
 //

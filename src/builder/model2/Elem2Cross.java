@@ -72,7 +72,8 @@ public class Elem2Cross extends Elem2Simple {
             Area areaPadding = UGeo.areaPadding(owner.area, wing.listLine);        
 
             areaPadding.intersect(UGeo.area(L1[0], L1[1], L1[2], L1[3], L2[2], L2[3], L2[0], L2[1]));
-            this.area = UGeo.areaReduc(areaPadding);
+            //this.area = UGeo.areaReduc(areaPadding);
+            this.area = areaPadding;
             
 
         } catch (Exception e) {
@@ -83,8 +84,8 @@ public class Elem2Cross extends Elem2Simple {
 
     public void paint() {
         try {
-            //wing.gc2D.draw(this.area);
-            //wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
+            wing.gc2D.draw(this.area);
+            wing.gc2D.draw(new Line2D.Double(this.x1(), this.y1(), this.x2(), this.y2()));
 
         } catch (Exception e) {
             System.err.println("Ошибка:Elem2Cross.paint() " + e);
