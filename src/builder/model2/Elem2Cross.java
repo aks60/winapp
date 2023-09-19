@@ -56,6 +56,9 @@ public class Elem2Cross extends Elem2Simple {
             areaRigh.intersect(UGeo.area(L0[0], 0, L0[2], h, w, h, w, 0));
             owner.childs().get(0).area = areaLeft;
             owner.childs().get(2).area = areaRigh;
+            
+            //UGeo.PRINT(UGeo.area(L0[0], 0, L0[2], h, w, h, w, 0));
+           // UGeo.PRINT(areaRigh);
 
             //Предыднщая и последующая линия от совместной между area1 и area2
             Line2D.Double d[] = UGeo.prevAndNextSegment(areaLeft, areaRigh);

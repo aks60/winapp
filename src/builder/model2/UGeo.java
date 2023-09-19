@@ -168,10 +168,17 @@ public class UGeo {
     //Точки пересечение импостом Canvas2D. x = (y - y1)/(y2 -y1)*(x2 - x1) + x1
     //https://www.interestprograms.ru/source-codes-tochka-peresecheniya-dvuh-pryamyh-na-ploskosti#uravnenie-v-programmnyj-kod      
     public static double[] crossCanvas(double x1, double y1, double x2, double y2, double w, double h) {
-        double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;
-        double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1;
-        //System.out.println(X1 + "  " + 0 + "  =  " + X2 + "  " + h);
+//        double X1 = (y1 == y2) ? 0 : (((0 - y1) / (y2 - y1)) * (x2 - x1)) + x1;
+//        double X2 = (y1 == y2) ? w : (((h - y1) / (y2 - y1)) * (x2 - x1)) + x1;
+//        //System.out.println(X1 + "  " + 0 + "  =  " + X2 + "  " + h);
+//        return new double[]{X1, 0, X2, h};
+
+        double Y1 = (y1 == y2) ? y1 + 0.001 : y1;
+        double Y2 = (y1 == y2) ? y2 - 0.001 : y2;
+        double X1 = (((0 - Y1) / (Y2 - Y1)) * (x2 - x1)) + x1;
+        double X2 = (((h - Y1) / (Y2 - Y1)) * (x2 - x1)) + x1;
         return new double[]{X1, 0, X2, h};
+
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {

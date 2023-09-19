@@ -46,8 +46,6 @@ public final class Bimax2 {
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
             rootGeo.addElem(new GeoElem(Type.IMPOST, 200.0, 900.0, 201.0, 300.0));
-            //rootGeo.addElem(new GeoElem(Type.IMPOST, 200, 900, 219.04762268066406, 328.5714416503906));
-            //rootGeo.addElem(new GeoElem(Type.IMPOST, 0, 600, 400, 600));
             rootGeo.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
 
@@ -63,27 +61,30 @@ public final class Bimax2 {
             GeoElem area = rootGeo.addArea(new GeoElem(Type.AREA));
             area.addElem(new GeoElem(Type.GLASS));
 
-//            area.addArea(new GeoElem(Type.AREA))
-//                    .addElem(new GeoElem(Type.GLASS));
-//            area.addElem(new GeoElem(Type.IMPOST, 200.0, 600.0, 600.0, 600.0));
-//            area.addArea(new GeoElem(Type.AREA))
-//                    .addElem(new GeoElem(Type.GLASS));
+            area.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));
+            area.addElem(new GeoElem(Type.IMPOST, 200.0, 600.0, 600.0, 600.0));
+            area.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));
 
-//        } else if (prj == 501003) { //PUNIC = 427595
-//            rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
-//            rootGeo.addElem(new GeoElem(Type.FRAME_SIDE, .0, .0))
-//                    .addElem(new GeoElem(Type.FRAME_SIDE, .0, 900.0))
-//                    .addElem(new GeoElem(Type.FRAME_SIDE, 600.0, 900.0));
-//
-//            rootGeo.addArea(new GeoElem(Type.AREA))
-//                    .addElem(new GeoElem(Type.GLASS));
-//            rootGeo.addElem(new GeoElem(Type.IMPOST, .0, 600.0));
-//            GeoElem area = rootGeo.addArea(new GeoElem(Type.AREA));
-//            area.addArea(new GeoElem(Type.AREA))
-//                    .addElem(new GeoElem(Type.GLASS));
-//            area.addElem(new GeoElem(Type.IMPOST, 200.0, 900.0, 200.0, 600.0));
-//            area.addArea(new GeoElem(Type.AREA))
-//                    .addElem(new GeoElem(Type.GLASS));
+        } else if (prj == 501004) {
+            rootGeo = new GeoRoot("2.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
+            rootGeo.addElem(new GeoElem(Type.FRAME_SIDE, .0, .0))
+                    .addElem(new GeoElem(Type.FRAME_SIDE, .0, 1000.0))
+                    .addElem(new GeoElem(Type.FRAME_SIDE, 1000.0, 1000.0))
+                    .addElem(new GeoElem(Type.FRAME_SIDE, 1000.0, 0.0));
+
+            GeoElem area1 = rootGeo.addArea(new GeoElem(Type.AREA));
+            area1.addElem(new GeoElem(Type.GLASS));
+            rootGeo.addElem(new GeoElem(Type.IMPOST, .0, 500.0, 1000.0, 500.0));
+            GeoElem area2 = rootGeo.addArea(new GeoElem(Type.AREA));
+            area2.addElem(new GeoElem(Type.GLASS));
+            
+            area1.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));
+            area1.addElem(new GeoElem(Type.IMPOST, 500.0, 1000.0, 500.0, 500.0));
+            area1.addArea(new GeoElem(Type.AREA))
+                    .addElem(new GeoElem(Type.GLASS));            
         } else {
             return null;
         }
