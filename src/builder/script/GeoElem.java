@@ -2,6 +2,7 @@ package builder.script;
 
 import builder.Wingeo;
 import com.google.gson.JsonObject;
+import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
 
@@ -37,6 +38,10 @@ public class GeoElem {
         this.y2 = y2;
     }
 
+    public GeoElem(Layout layout, Type type, String paramJson) {
+        
+    }
+    
     public GeoElem addArea(GeoElem area) {
         area.owner = this;
         childs = (childs == null) ? new LinkedList() : childs;

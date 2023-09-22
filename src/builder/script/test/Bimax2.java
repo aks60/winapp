@@ -2,12 +2,9 @@ package builder.script.test;
 
 import builder.script.GeoElem;
 import builder.script.GeoRoot;
-import static builder.script.GeoScript.rootGeo;
-import builder.script.GsonElem;
-import static builder.script.GsonScript.rootGson;
 import com.google.gson.GsonBuilder;
+import enums.Layout;
 import enums.Type;
-import java.util.List;
 
 public final class Bimax2 {
 
@@ -74,11 +71,12 @@ public final class Bimax2 {
                     .addElem(new GeoElem(Type.FRAME_SIDE, 1000.0, 1000.0))
                     .addElem(new GeoElem(Type.FRAME_SIDE, 1000.0, 0.0));
 
-            GeoElem area1 = rootGeo.addArea(new GeoElem(Type.AREA));
+            GeoElem area1 = rootGeo.addArea(new GeoElem(Type.AREA));            
             area1.addElem(new GeoElem(Type.GLASS));
             rootGeo.addElem(new GeoElem(Type.IMPOST, .0, 500.0, 1000.0, 500.0));
             GeoElem area2 = rootGeo.addArea(new GeoElem(Type.AREA));
-            area2.addElem(new GeoElem(Type.GLASS));
+            area2.addArea(new GeoElem(Layout.HORIZ, Type.STVORKA, "{typeOpen:1, sysfurnID:389}"))
+            .addElem(new GeoElem(Type.GLASS));
             
             area1.addArea(new GeoElem(Type.AREA))
                     .addElem(new GeoElem(Type.GLASS));
