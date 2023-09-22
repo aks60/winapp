@@ -173,12 +173,11 @@ public class UGeo {
 //        //System.out.println(X1 + "  " + 0 + "  =  " + X2 + "  " + h);
 //        return new double[]{X1, 0, X2, h};
 
-        double Y1 = (y1 == y2) ? y1 + 0.0001 : y1;
-        double Y2 = (y1 == y2) ? y2 - 0.0001 : y2;
+        double Y1 = (y1 == y2) ? y1 + 0.0000000001 : y1;
+        double Y2 = (y1 == y2) ? y2 - 0.0000000001 : y2;
         double X1 = (((0 - Y1) / (Y2 - Y1)) * (x2 - x1)) + x1;
         double X2 = (((h - Y1) / (Y2 - Y1)) * (x2 - x1)) + x1;
         return new double[]{X1, 0, X2, h};
-
     }
 
     public static boolean pointOnLine(double x, double y, double x1, double y1, double x2, double y2) {
