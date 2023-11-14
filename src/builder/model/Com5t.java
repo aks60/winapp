@@ -10,11 +10,11 @@ import builder.Wincalc;
 import builder.script.GsonElem;
 import domain.eArtikl;
 import enums.Type;
-import java.util.Arrays;
-import java.util.List;
+import org.locationtech.jts.geom.GeometryFactory;
 
 public class Com5t implements ICom5t {
 
+    public static GeometryFactory gf = new GeometryFactory();
     private double id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или окна  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
