@@ -68,7 +68,7 @@ public class Test {
         eProp.dev = true;
         try {
             //frames.PSConvert.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -76,7 +76,7 @@ public class Test {
             //uid();
             //script();
             //lookAndFeel();
-            geom();
+            //geom();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -87,15 +87,14 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(GsonScript.productJson(506642));
+            winc.build(GsonScript.productJson(601006));
             winc.constructiv(true);
 //            winc.bufferImg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 //            winc.gc2d = winc.bufferImg.createGraphics();
 //            winc.rootArea.draw(); //рисую конструкцию
-            //frames.PSCompare.iwinXls(winc, true);
             frames.PSCompare.iwinPs4(winc, true);
             //winc.listJoin.forEach(it -> System.out.println(it));           
 
