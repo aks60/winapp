@@ -140,6 +140,7 @@ public class ElemGlass extends ElemSimple {
             y2 = inBott.y2() - (inBott.artiklRec().getDbl(eArtikl.height) - inBott.artiklRec().getDbl(eArtikl.size_centr)) + inBott.artiklRec().getDbl(eArtikl.size_falz) - gzazo;
 
         } else {
+            IElem5e inLeft2 = owner.joinSide(Layout.LEFT);
             IElem5e inLeft = owner.joinSide(Layout.LEFT), inTop = owner.joinSide(Layout.TOP), inBott = owner.joinSide(Layout.BOTT), inRight = owner.joinSide(Layout.RIGHT);
 
             if (winc.syssizeRec().getInt(eSyssize.id) == -1) {
