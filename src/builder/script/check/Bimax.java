@@ -1,4 +1,4 @@
-package builder.script.test;
+package builder.script.check;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
@@ -13,7 +13,7 @@ import enums.Type;
 
 public final class Bimax {
 
-    public static String script(Integer prj) {
+    public static String systemScript(Integer prj) {
 // <editor-fold defaultstate="collapsed" desc="RECTANGL">
         if (prj == 508807) { //PUNIC = 427595
             rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",

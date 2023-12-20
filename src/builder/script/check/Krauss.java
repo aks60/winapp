@@ -1,4 +1,4 @@
-package builder.script.test;
+package builder.script.check;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
@@ -7,13 +7,13 @@ import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
 
-public final class Vidnal {
+public final class Krauss {
 
-    public static String script(Integer prj) {
+    public static String systemScript(Integer prj) {
 
-        if (prj == 26) {
+        if (prj == 4) {
 
-            rootGson = new GsonRoot("1.0", prj, 2, 5, "VIDNAL V60/V60 окна-витражи",
+            rootGson = new GsonRoot("1.0", prj, 1, 0, "VIDNAL V60/V60 окна-витражи",
                     Layout.VERT, Type.RECTANGL, 1090, 2470, 1000, 1000, 1000);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))

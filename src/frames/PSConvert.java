@@ -702,7 +702,7 @@ public class PSConvert {
             for (int prj : prjList) {
 
                 //Загрузка моделей, таблица SYSMODEL.                 
-                String script = GsonScript.modelJson(prj);
+                String script = GsonScript.modelScript(prj);
                 if (script != null) {
                     //При этом nuni, prj, ord в скрипте json отсутствуют.
                     GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
@@ -724,10 +724,10 @@ public class PSConvert {
         }
         try {
             int index = 0;
-            List<Integer> prjList = GsonScript.productList("min");
+            List<Integer> prjList = GsonScript.scriptPath("min");
             for (int prj : prjList) {
                 //Загрузка тестовых конструкций в систему, таблица SYSPROD.
-                String script2 = GsonScript.productJson(prj);
+                String script2 = GsonScript.systemJson(prj);
                 if (script2 != null) {
                     GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
                     String name2 = "Проект:" + gson2.project() + "/Заказ:" + gson2.order() + " " + gson2.name();

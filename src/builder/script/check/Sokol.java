@@ -1,4 +1,4 @@
-package builder.script.test;
+package builder.script.check;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Sokol {
 
-    public static String script(Integer prj) {
+    public static String systemScript(Integer prj) {
 
         if (prj == 1) {
             rootGson = new GsonRoot("1.0", prj, 1, 13, "SOKOL\\МП-40",

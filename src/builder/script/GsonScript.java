@@ -1,12 +1,12 @@
 package builder.script;
 
-import builder.script.test.Alutech3;
-import builder.script.test.Alutex3;
-import builder.script.test.Vidnal;
-import builder.script.test.Sial3;
-import builder.script.test.Krauss;
-import builder.script.test.Bimax;
-import builder.script.test.Sokol;
+import builder.script.check.Alutech3;
+import builder.script.check.Alutex3;
+import builder.script.check.Vidnal;
+import builder.script.check.Sial3;
+import builder.script.check.Krauss;
+import builder.script.check.Bimax;
+import builder.script.check.Sokol;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.GsonBuilder;
@@ -23,7 +23,7 @@ public class GsonScript {
 
     public static GsonRoot rootGson;
 
-    public static String modelJson(Integer prj) {
+    public static String modelScript(Integer prj) {
         
 // <editor-fold defaultstate="collapsed" desc="RECTANGL">
         if (prj == 601001) {
@@ -682,35 +682,35 @@ public class GsonScript {
         return null;
     }
 
-    public static String productJson(Integer prj) {
+    public static String systemJson(Integer prj) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
         if (base_name.toLowerCase().contains("sial3")) {
-            return Sial3.script(prj);
+            return Sial3.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("alutex3")) {
-            return Alutex3.script(prj);
+            return Alutex3.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("alutech3")) {
-            return Alutech3.script(prj);
+            return Alutech3.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("bimax")) {
-            return Bimax.script(prj);
+            return Bimax.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("vidnal")) {
-            return Vidnal.script(prj);
+            return Vidnal.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("krauss")) {
-            return Krauss.script(prj);
+            return Krauss.systemScript(prj);
 
         } else if (base_name.toLowerCase().contains("sokol")) {
-            return Sokol.script(prj);
+            return Sokol.systemScript(prj);
         }
         return null;
     }
 
-    public static List<Integer> productList(String scale) {
+    public static List<Integer> scriptPath(String scale) {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
@@ -746,7 +746,7 @@ public class GsonScript {
         return null;
     }
 
-    public static String path() {
+    public static String filePath() {
         String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
                 : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 

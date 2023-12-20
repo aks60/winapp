@@ -1,4 +1,4 @@
-package builder.script.test;
+package builder.script.check;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
@@ -9,7 +9,7 @@ import enums.Type;
 
 public final class Alutech3 {
 
-    public static String script(Integer prj) {
+    public static String systemScript(Integer prj) {
 
         if (prj == 3) { //PUNIC = 427856  Двери
             rootGson = new GsonRoot("1.0", prj, 3, 66, "ALUTECH\\ALT.43\\Двери\\Наружу(2)",
