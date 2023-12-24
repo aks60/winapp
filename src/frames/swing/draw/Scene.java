@@ -7,6 +7,7 @@ import builder.IElem5e;
 import enums.Layout;
 import enums.Type;
 import common.listener.ListenerReload;
+import domain.eArtikl;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -65,7 +66,7 @@ public class Scene extends javax.swing.JPanel {
                     } else { //На конструкции
                         for (IElem5e crs : winc.listElem) {
                             if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
-                                    && crs.inside(evt.getX() / winc.scale, evt.getY() / winc.scale)) {
+                                    && contain(crs, evt.getX() / winc.scale, evt.getY() / winc.scale)) {
                                 List<ICom5t> areaChilds = ((IElem5e) crs).owner().childs(); //дети импоста на котором был клик
                                 for (int i = 0; i < areaChilds.size(); ++i) {
                                     if (areaChilds.get(i).id() == crs.id()) {
@@ -307,6 +308,23 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
+    public boolean contain(IElem5e el, double x, double y) {
+       // IElem5e el = ((ElemSimple) elem);
+        float dh = el.artiklRec().getFloat(eArtikl.height) - el.artiklRec().getFloat(eArtikl.size_centr);
+        int X = (int) x, Y = (int) y, X1 = (int) el.x1(), Y1 = (int) el.y1(), X2 = (int) el.x2(), Y2 = (int) el.y2(), DH = (int) dh;
+
+        if (el.anglHoriz() == 0) {
+            return X >= X1 && X <= X2 && Y >= Y1 - DH && Y <= Y2;
+        } else if (el.anglHoriz() == 90) {
+            return X <= X2 + DH && X >= X1 - DH && Y >= Y2 && Y <= Y1;
+        } else if (el.anglHoriz() == 180) {
+            return X >= X2 + DH && X <= X1 - DH && Y >= Y2 && Y <= Y1;
+        } else if (el.anglHoriz() == 270) {
+            return X >= X1 && X <= X2 + DH && Y >= Y1 && Y <= Y2;
+        }
+        return false;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
